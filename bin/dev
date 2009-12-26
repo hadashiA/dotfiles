@@ -1,0 +1,38 @@
+#!/bin/sh
+
+while getopts "vs" flag; do
+  case $flag in
+    \?) OPT_ERROR=1; break;;
+    v) vim_open=1;;
+    s) rspec_server_start=1;;
+  esac
+done
+
+shift `expr $OPTIND - 1`
+
+if test -z $1; then
+  echo "error: please spcify the project name or project directory"
+  exit 0
+fi
+
+if test -d ~/dev/$1; then 
+  proj_dir=~/dev/$1
+else
+  if test -d $1; then
+    proj_dir=$1
+  fi
+fi
+
+if test -z $proj_dir; then
+  echo "error: project directory not found. search pattern is '~/dev/$1', '$1'"
+  exit 0
+fi
+
+cd $proj_dir
+pwd
+if [ $vim_open ]; then
+  open -a /Applications/MacVim.app spec/spec_helper.rb .
+fi
+if [ $rspec_server_start ]; then
+  spork
+fi

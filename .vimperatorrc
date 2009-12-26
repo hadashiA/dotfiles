@@ -1,0 +1,147 @@
+" 1.2pre (created: 2008/07/11 21:30:06)
+
+" Options
+"メニュー/ツール/ブックマークバーを表示
+"set guioptions=mTb
+"ブラウザタイトルの設定
+set titlestring=Mozilla Firefox 3
+"エラー時のビープ音をビジュアルベルに
+set visualbell
+"ビジュアルベルを無効化
+"set visualbellstyle=display:none;
+"詳細表示を7行に(最大値=9)
+set verbose=7
+":[tab]open時の補完設定(s=検索エンジン+キーワードURL,l=ロケーションバーの補完機能を利用)
+set complete=sl
+"コマンド入力時にコマンド名を自動補完
+set wildoptions=auto
+"デフォルト検索エンジン(検索バーの管理→キーワード,うちではg=google)
+set defsearch=google
+"サジェストエンジンの設定
+set suggestengines=google
+"検索語のハイライト
+set hlsearch
+"開いているページが1つならタブ非表示
+set showtabline=1
+"履歴を保存
+set history=100
+"以下のとき新しいタブで開く
+set activate=homepage,quickmark,tabopen,paste
+"ヒント機能(f,F押下時)の見た目設定(効いてない？)
+set hintstyle+= font-family: Verdana , monospace; font-size:20px; color:white; background-color:blue; border-color:ButtonShadow;
+
+" Mappings
+"j/kの移動量を5倍に
+noremap j 5<C-e>
+noremap k 5<C-y>
+"J/KにPageDown,PageUpを割り当て(LDRizeが効いている場合でも指のポジションを動かさずに済む
+noremap J <PageDown>
+noremap K <PageUp>
+"h/lで戻る/進む
+noremap h <A-Left>
+noremap l <A-Right>
+"H/Lでタブ移動
+noremap H gT
+noremap L gt
+"←/→でタブ移動
+map <Left> <C-p>
+map <Right> <C-n>
+"Shift+←/Shift+→でタブ位置変更
+map <S-Right> :tabmove! +1<CR>
+map <S-Left> :tabmove! -1<CR>
+
+"コピー&ペーストなどOSのショートカットが効くように
+inoremap <C-a> <C-v><C-a>
+inoremap <C-z> <C-v><C-z>
+inoremap <C-x> <C-v><C-x>
+inoremap <C-c> <C-v><C-c>
+inoremap <C-v> <C-v><C-v>
+cnoremap <C-a> <C-v><C-a>
+cnoremap <C-z> <C-v><C-z>
+cnoremap <C-x> <C-v><C-x>
+cnoremap <C-c> <C-v><C-c>
+cnoremap <C-v> <C-v><C-v>
+
+"ロケーションバーにフォーカス
+map <C-l> <A-d>
+
+"各種バー表示をトグル
+noremap <C-1> :set guioptions=<cr>
+noremap <C-2> :set guioptions=b<cr>
+noremap <C-3> :set guioptions=bmT<cr>
+
+"LDRize_Cooperationをトグル
+map q <esc>:toggleldrc<cr>
+
+"はてブ追加
+noremap a <esc>:hb<space>[
+
+"ダイアログ表示してブックマーク追加
+map ,a <esc>:dialog addbookmark<cr>
+
+"はてブ情報表示
+map b <esc>:hbinfo<cr>
+
+"はてブタグ読み込み
+map ,b <esc>:hbtags<cr>
+
+"タブを閉じる(browser_object.js)
+map x dd
+
+"Vimperatorからminibufferコマンド
+map <C-:> :m<Space>
+
+"Ctrl+rで再起動,Ctrl+hでヘルプ
+map <C-r> :restart<CR>
+"map <C-h> :help<CR>
+
+"niconicoplaylist.js関連
+map ,nn <esc>:nnpplaynext<cr>
+map ,na <esc>:nnppushallvideos<cr>
+map ,nt <esc>:nnppushthisvideo<cr>
+map ,nc <esc>:nnpclear<cr>
+map ,nl <esc>:nnpgetlist<cr>
+map ,nr <esc>:nnpremove<Space>
+map ,ni <esc>:nicoinfo<cr>
+map ,np <esc>:nicopause<cr>
+map ,nm <esc>:nicomute<cr>
+map ,nv <esc>:nicommentvisible<cr>
+map ,nz <esc>:nicosize<cr>
+map ,ns <esc>:nicoseek<cr>
+
+" C-cでテキスト選択してたらコピー、 してなかったらロードを中止する
+"js <<EOM</pp>
+"mappings.addUserMap([modes.NORMAL,modes.VISUAL],['<C-c>'], 'Copy selected text or stop loading',
+"    function(){
+"        var sel = window.content.window.getSelection().toString();
+"        if (sel){
+"            copyToClipboard(sel,true);
+"        } else {
+"            BrowserStop();
+"            echo('Stopped loading !');
+"        }
+"    }
+");
+"EOM
+
+" Plugins
+" ===================================================
+" ime_controller.js
+let g:ex_ime_mode = "inactive"
+let g:textarea_ime_mode = "inactive"
+
+" googlesuggest.js
+map s :google<Space>
+
+" migemo_hint.js
+"set hintmatching=custom
+
+"Appearance Change with StyleChanger.js
+let g:styles = "vimperator"
+
+" Abbreviations
+" ======================================================================
+"読み込み終了のお知らせ
+echo "done."
+source! ~/_vimperatorrc.local
+" vim: set ft=vimperator:
