@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="TerminalControl Terminology">
+	<suite name="TerminalControl Suite" code="TTpl" description="Control Terminal.app">
+		<command name="apply title" code="TTplaplT" description="Apply title to a terminal specified with TTY">
+			<direct-parameter description="title of terminal" type="text"/>
+			<parameter name="for tty" code="fTTY" description="device name" type="text"/>
+			<result description="true if successed to activate specified process." type="boolean"/>
+		</command>
+		<command name="title for tty" code="TTplgetT" description="get current custom for a terminal specifeid with TTY">
+			<direct-parameter description="TTY name" type="text"/>
+			<result description="custom title of a terminal" type="text"/>
+		</command>
+		<command name="background color for tty" code="TTplgBGc" description="get current custom for a terminal specifeid with TTY">
+			<direct-parameter description="TTY name" type="text"/>
+			<result description="List of {Red, Green, Blue, Alpha}">
+				<type type="number" list="yes"/>
+			</result>
+		</command>
+		<command name="apply background color" code="TTplapBG" description="Apply background color to a terminal specified with TTY">
+			<direct-parameter description="List of {Red, Green, Blue, Alpha}">
+				<type type="number" list="yes"/>
+			</direct-parameter>
+			<parameter name="for tty" code="fTTY" description="device name" type="text"/>
+		</command>
+	</suite>
+</dictionary>
