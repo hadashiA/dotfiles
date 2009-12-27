@@ -17,6 +17,9 @@ set BROWSER "open -a /Application/Firefox.app"
 # $DEVDIR
 set DEVDIR "~/dev/"
 
+# autotest
+set RSPEC true
+
 # 
 # set ARCHFLAGS '-arch x86'
 
