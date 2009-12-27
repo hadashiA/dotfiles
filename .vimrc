@@ -140,6 +140,9 @@ autocmd FileType ruby imap #{ #{}<LEFT>
 autocmd FileType eruby inoremap << <%<Space><Space>%><LEFT><LEFT><LEFT>
 autocmd FileType eruby inoremap <<< <%=<Space><Space>%><LEFT><LEFT><LEFT>
 
+autocmd BufRead,BufNewFile *.rash set filetype=ruby
+autocmd BufRead,BufNewFile .autotest set filetype=ruby
+
 "---------------------------------------------------------------
 " perl
 "
