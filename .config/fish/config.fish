@@ -26,3 +26,8 @@ set RSPEC true
 # PostgreSQL
 set POSTGRES_INCLUDE /opt/local/include/postgresql84/
 set POSTGRES_LIB /opt/local/lib/postgresql84/
+
+# alias
+function lhome -d "cd ~/lib/home (git managiment home under files)"
+  cd ~/lib/home
+end
