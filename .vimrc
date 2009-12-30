@@ -197,6 +197,7 @@ nmap <F8> :VST<CR>
 " rails.vim
 "
 let g:rails_some_option=1
+nmap <leader> :call RspecExec()<CR>
 
 "---------------------------------------------------------------
 " surround.vim

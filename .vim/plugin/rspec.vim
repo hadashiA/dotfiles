@@ -29,11 +29,11 @@
 "
 "function! Rspec ()
 function! RspecExec ()
-	let rails_spec_pat = '\<spec/\(models\|controllers\|views\|helpers\)/.*_spec\.rb$'
-	if expand('%:p') =~ rails_spec_pat
-		"rakeの方は、基本,私=Seasonsは、使わないので、未サポート
-		exe '!rake spec SPEC="'.expand('%:p').'" RSPECOPTS="-fs -c -l '.line('.').'"'
-	else
+"	let rails_spec_pat = '\<spec/\(models\|controllers\|views\|helpers\)/.*_spec\.rb$'
+"	if expand('%:p') =~ rails_spec_pat
+"		"rakeの方は、基本,私=Seasonsは、使わないので、未サポート
+"		exe '!rake spec SPEC="'.expand('%:p').'" RSPECOPTS="-fs -c -l '.line('.').'"'
+"	else
 		let tmp=tempname()
 		"カラーオプションをつけるとリダイレクトされないので、-cオプションは、カット"
 		if has('win32')
@@ -47,7 +47,7 @@ function! RspecExec ()
 			:copen
 			call delete(tmp)
 		endif
-	endif
+"	endif
 endfunction
 
 "au BufRead,BufNewFile *_spec.rb :command! Rspec :call Rspec()
