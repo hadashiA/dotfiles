@@ -111,7 +111,7 @@ let mapleader = ","
 noremap <Leader>ww :w<CR>
 
 "---------------------------------------------------------------
-" php
+" PHP
 "
 autocmd FileType php set tabstop=2
 autocmd FileType php set shiftwidth=2
@@ -129,7 +129,7 @@ augroup drupalmodule
 augroup END
 
 "---------------------------------------------------------------
-" ruby
+" Ruby
 "
 autocmd FileType ruby set tabstop=2
 autocmd FileType ruby set shiftwidth=2
@@ -140,13 +140,17 @@ autocmd FileType ruby imap #{ #{}<LEFT>
 autocmd FileType eruby inoremap << <%<Space><Space>%><LEFT><LEFT><LEFT>
 autocmd FileType eruby inoremap <<< <%=<Space><Space>%><LEFT><LEFT><LEFT>
 
+autocmd FileType ruby nmap <leader>x :!ruby %<CR>
+autocmd FileType ruby nmap <leader>c :!ruby -c %<CR>
+
 autocmd BufRead,BufNewFile *.rash set filetype=ruby
 autocmd BufRead,BufNewFile .autotest set filetype=ruby
 
 "---------------------------------------------------------------
-" perl
+" Perl
 "
-autocmd FileType perl nmap <DOWN> :!perl -c %<CR>
+autocmd FileType perl nmap <leader>x :!perl %<CR>
+autocmd FileType perl nmap <leader>c :!perl -c %<CR>
 
 "---------------------------------------------------------------
 " plugins
