@@ -1,3 +1,5 @@
+# http://www.dna.bio.keio.ac.jp/~yuji/zsh/zshrc.txt
+#
 # ------------------------------------------------------------------
 # set env
 # ------------------------------------------------------------------
@@ -95,7 +97,7 @@ bindkey "^N" history-beginning-search-forward-end
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
 
-history incremental search
+# history incremental search
 bindkey "^R" history-incremental-search-backward
 bindkey "^S" history-incremental-search-forward
 
@@ -109,11 +111,19 @@ setopt correct
 setopt nolistbeep
 
 autoload predict-on; predict-on
-zstyle ':completion:*:default' menu select=1
 
 # sudo の後ろでコマンド名を補完する
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
                  /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+
+# 補完の時に大文字小文字を区別しない (但し、大文字を打った場合は小文字に変換しない)
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# 一部のコマンドライン定義は、展開時に時間のかかる処理を行う -- apt-get, dpkg (Debian), rpm (Redhat), urpmi (Mandrake), perlの-Mオプション, bogofilter (zsh 4.2.1以降), fink, mac_apps (MacOS X)(zsh 4.2.2以降)
+zstyle ':completion:*' use-cache true
+# 補完候補を ←↓↑→ で選択 (補完候補が色分け表示される)
+zstyle ':completion:*:default' menu select=1
+# カレントディレクトリに候補がない場合のみ cdpath 上のディレクトリを候補
+zstyle ':completion:*:cd:*' tag-order local-directories path-directories
 
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
@@ -126,15 +136,29 @@ setopt auto_cd # ディレクトリ名だけでcdする
 
 setopt complete_aliases
 
-alias -g L='| less'
-alias -g G='| grep'
-alias -g H='| head'
-alias -g T='| tail'
-alias -g ls='ls -G -w'
-alias -g la='ls -al'
-alias -g du='du -h'
-alias -g df='df -h'
+alias del='rm -rf'
+alias cp='cp -irf'
+alias mv='mv -i'
+alias pd="pushd"
+alias po="popd"
+alias eng='LANG=C LANGUAGE=C LC_ALL=C'
+alias zcompile='zcompile ~/.zshrc'
+alias sc='screen'
 
+alias q='exit';
+alias e='exit';
+alias quit='exit';
+
+alias mvim='open -a MacVim'
+alias grep='grep -i -r -H -n -I' # grep 行数, 再帰的, ファイル名表示, 行数表示, バイナリファイルは処理しない
+
+alias G='| grep '  # e.x. dmesg lG CPU
+alias L='| $PAGER '
+alias W='| wc'
+alias H='| head'
+alias T='| tail'
+
+# ファイル名を叩くだけで実行されるコマンド
 alias -s txt=cat
 alias -s zip=zipinfo
 alias -s tgz=gzcat
@@ -168,4 +192,166 @@ alias -s mpg=svlc
 alias -s mpeg=svlc
 alias -s avi=svlc
 alias -s mp4v=svlc
+
+# ------------------------------------------------------------------
+# functions
+# ------------------------------------------------------------------
+# cd && ls
+#function cd() {builtin cd $@ && ls -aF --show-control-char --color=auto}
+function cd () {               # ファイルを探して、そのファイルのある場所にcd
+    if [ $# = 0 ]; then        #    % locate something.c
+        builtin cd             #        /usr/local/.../something.c
+    elif [ -f $1 ]; then       #    % cd `!!`
+        builtin cd $1:h
+    else
+        builtin cd $*
+    fi
+    ls -aF --show-control-char --color=auto
+}
+
+function history-all { history -E 1 } # 全履歴の一覧を出力する
+
+#-------------------------------------------------------
+# accept-line-with-url
+# http://sugi.nemui.org/doc/zsh/#doc2_14
+#      プロンプトにそのまま URL を打ちこんで Enter を押せば、
+#      ブラウザで表示したり、ダウンロードが可能。
+# 変数 WWW_BROWSER, DOWNLOADER, browse_or_download_method
+browse_or_download_method="auto" # ask, auto, dwonload, browse
+fpath=(~/.zsh $fpath)            # zsh function ディレクトリの設定
+if autoload +X -U _accept_line_with_url > /dev/null 2>&1; then
+  zle -N accept-line-with-url _accept_line_with_url
+  bindkey '^M' accept-line-with-url
+  #bindkey '^J' accept-line-with-url
+fi
+
+# accept-line-with-url.simple
+# http://hiki.ex-machina.jp/zsh/?StartCommandWidgetized
+# start() {
+#     set -- ${(z)BUFFER}
+#     local handler
+#     if ! is_executable $1; then
+#         if [[ $1 == *:* ]]; then
+#             handler=$scheme_handler[${1%%:*}]
+#         else
+#             handler=$suffix_handler[${1##*.}]
+#         fi
+#         if [[ -n "$handler" ]]; then
+#             BUFFER=${handler/\$1/$1}
+#             zle end-of-line
+#             zle set-mark-command
+#             zle beginning-of-line
+#             zle forward-word
+#             zle quote-region
+#         fi
+#     fi
+#     zle accept-line
+# }
+# autoload start
+# zle -N start start
+# bindkey '^M' start
+# #bindkey '^J' start
+
+
+#-------------------------------------------------------
+## ターミナルのウィンドウ・タイトルを動的に変更.1
+#  precmd() {   # zshシェルのプロンプトが表示される前に毎回実行
+#      print -Pn "\e]0;[$HOST] %~\a"
+#  }
+#  preexec () { # コマンドが実行される直前に実行
+#      print -Pn "\e]0;[$1]: %~\a"
+#  }
+
+## ターミナルのウィンドウ・タイトルを動的に変更.2
+# hostname=`hostname -s`
+# function _setcaption() { echo -ne  "\e]1;${hostname}\a\e]2;${hostname}$1\a" > /dev/tty }
+# function chpwd() {  print -Pn "\e]2; [%m] : %~\a" }
+# chpwd
+# function _cmdcaption() { _setcaption " ($1)"; "$@"; chpwd }
+# for cmd in telnet slogin ssh rlogin rsh su sudo
+# do
+#     alias $cmd="_cmdcaption $cmd"
+# done
+
+## ターミナルのウィンドウ・タイトルを動的に変更.3 -- screen 対応版
+precmd() {
+    [[ -t 1 ]] || return
+    case $TERM in
+        *xterm*|rxvt|(dt|k|E)term)
+            #print -Pn "\e]2;%n%%${ZSH_NAME}@%m:%~ [%l]\a"
+            #print -Pn "\e]2;[%n@%m %~] [%l]\a"
+            print -Pn "\e]2;[%n@%m %~]\a"      # %l ← pts/1 等の表示を削除
+            ;;
+        # screen)
+        #      #print -Pn "\e]0;[%n@%m %~] [%l]\a"
+        #      print -Pn "\e]0;[%n@%m %~]\a"
+        #      ;;
+    esac
+}
+
+#-------------------------------------------------------
+# CPU 使用率の高い方から8つ
+function pst() {
+  psa | head -n 1
+  psa | sort -r -n +2 | grep -v "ps -auxww" | grep -v grep | head -n 8
+}
+# メモリ占有率の高い方から8つ
+function psm() {
+  psa | head -n 1
+  psa | sort -r -n +3 | grep -v "ps -auxww" | grep -v grep | head -n 8
+}
+# 全プロセスから引数の文字列を含むものを grep
+function psg() {
+  psa | head -n 1                                    # ラベルを表示
+  psa | grep $* | grep -v "ps -auxww" | grep -v grep # grep プロセスを除外
+}
+
+#-------------------------------------------------------
+# 引数のファイルを euc-LF や sjis-CR+LF に変換
+function euc() {
+    for i in $@; do;
+        nkf -e -Lu $i >! /tmp/euc.$$ # -Lu :改行を LF にする
+        mv -f /tmp/euc.$$ $i
+    done;
+}
+function sjis() {
+    for i in $@; do;
+        nkf -s -Lw $i >! /tmp/euc.$$ # -Lu :改行を CR+LF にする
+        mv -f /tmp/euc.$$ $i
+    done;
+}
+
+#-------------------------------------------------------
+# 引数の検索ワードで google 検索 (日本語可)
+function google() {
+  local str opt
+  if [ $# != 0 ]; then # 引数が存在すれば
+    for i in $*; do
+      str="$str+$i"
+    done
+    str=`echo $str | sed 's/^\+//'` # 先頭の「+」を削除
+    opt='search?num=50&hl=ja&ie=euc-jp&oe=euc-jp&lr=lang_ja'
+    opt="${opt}&q=${str}"
+  fi
+  w3m http://www.google.co.jp/$opt # 引数がなければ $opt は空
+}
+alias goo=google
+
+#-------------------------------------------------------
+# function rm() {
+#   if [ -d ~/.trash ]; then
+#     local DATE=`date "+%y%m%d-%H%M%S"`
+#     mkdir ~/.trash/$DATE
+#     for i in $@; do
+#       # 対象が ~/.trash/ 以下なファイルならば /bin/rm を呼び出したいな
+#       if [ -e $i ]; then
+#         mv $i ~/.trash/$DATE/
+#       else
+#         echo "$i : not found"
+#       fi
+#     done
+#   else
+#     /bin/rm $@
+#   fi
+# }
 
