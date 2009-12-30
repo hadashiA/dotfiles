@@ -1,6 +1,33 @@
 # http://www.dna.bio.keio.ac.jp/~yuji/zsh/zshrc.txt
 #
 # ------------------------------------------------------------------
+# callbacks
+# ------------------------------------------------------------------
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats '(%s)-[%b]'
+zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+precmd() {
+    # ターミナルのウィンドウ・タイトルを動的に変更.3 -- screen 対応版
+    [[ -t 1 ]] || return
+    case $TERM in
+        *xterm*|rxvt|(dt|k|E)term)
+            #print -Pn "\e]2;%n%%${ZSH_NAME}@%m:%~ [%l]\a"
+            #print -Pn "\e]2;[%n@%m %~] [%l]\a"
+            print -Pn "\e]2;[%n@%m %~]\a"      # %l ← pts/1 等の表示を削除
+            ;;
+        # screen)
+        #      #print -Pn "\e]0;[%n@%m %~] [%l]\a"
+        #      print -Pn "\e]0;[%n@%m %~]\a"
+        #      ;;
+    esac
+
+    # バージョン管理システムの情報取得 (%1)
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+
+# ------------------------------------------------------------------
 # set env
 # ------------------------------------------------------------------
 export LANG=ja_JP.UTF-8
@@ -63,16 +90,7 @@ setopt prompt_subst
 #SPROMPT="${red}Correct ${default}> '%r' [%BY%bes %BN%bo %BA%bbort %BE%bdit] ? "
 
 PROMPT="%n@%m %{$fg[green]%}%~%(?.%{$reset_color%}.%{$fg[red]%})%{$reset_color%}> "
-
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '(%s)-[%b]'
-zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
-precmd () {
-    psvar=()
-    LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-}
-RPROMPT="%1(v|%1v|)"
+RPROMPT="%1(v|%F%1v%f|)" # %1 はvcs_info
 
 # ------------------------------------------------------------------
 # history
@@ -139,15 +157,6 @@ setopt complete_aliases
 alias del='rm -rf'
 alias cp='cp -irf'
 alias mv='mv -i'
-alias pd="pushd"
-alias po="popd"
-alias eng='LANG=C LANGUAGE=C LC_ALL=C'
-alias zcompile='zcompile ~/.zshrc'
-alias sc='screen'
-
-alias q='exit';
-alias e='exit';
-alias quit='exit';
 
 alias mvim='open -a MacVim'
 alias grep='grep -i -r -H -n -I' # grep 行数, 再帰的, ファイル名表示, 行数表示, バイナリファイルは処理しない
@@ -252,42 +261,6 @@ fi
 # bindkey '^M' start
 # #bindkey '^J' start
 
-
-#-------------------------------------------------------
-## ターミナルのウィンドウ・タイトルを動的に変更.1
-#  precmd() {   # zshシェルのプロンプトが表示される前に毎回実行
-#      print -Pn "\e]0;[$HOST] %~\a"
-#  }
-#  preexec () { # コマンドが実行される直前に実行
-#      print -Pn "\e]0;[$1]: %~\a"
-#  }
-
-## ターミナルのウィンドウ・タイトルを動的に変更.2
-# hostname=`hostname -s`
-# function _setcaption() { echo -ne  "\e]1;${hostname}\a\e]2;${hostname}$1\a" > /dev/tty }
-# function chpwd() {  print -Pn "\e]2; [%m] : %~\a" }
-# chpwd
-# function _cmdcaption() { _setcaption " ($1)"; "$@"; chpwd }
-# for cmd in telnet slogin ssh rlogin rsh su sudo
-# do
-#     alias $cmd="_cmdcaption $cmd"
-# done
-
-## ターミナルのウィンドウ・タイトルを動的に変更.3 -- screen 対応版
-precmd() {
-    [[ -t 1 ]] || return
-    case $TERM in
-        *xterm*|rxvt|(dt|k|E)term)
-            #print -Pn "\e]2;%n%%${ZSH_NAME}@%m:%~ [%l]\a"
-            #print -Pn "\e]2;[%n@%m %~] [%l]\a"
-            print -Pn "\e]2;[%n@%m %~]\a"      # %l ← pts/1 等の表示を削除
-            ;;
-        # screen)
-        #      #print -Pn "\e]0;[%n@%m %~] [%l]\a"
-        #      print -Pn "\e]0;[%n@%m %~]\a"
-        #      ;;
-    esac
-}
 
 #-------------------------------------------------------
 # CPU 使用率の高い方から8つ
