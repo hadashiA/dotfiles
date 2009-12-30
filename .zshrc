@@ -10,16 +10,13 @@ export PATH=$PATH:~/bin:/opt/local/bin:/opt/local/sbin:/opt/local/lib/mysql5/bin
 autoload colors; colors
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補をカラー表示する
 
-#local GREEN=$'%{\e[1;32m%}'
-#local BLUE=$'%{\e[1;34m%}'
-#local DEFAULT=$'%{\e[1;m%}'
-
 # ------------------------------------------------------------------
 # prompt
 # ------------------------------------------------------------------
 setopt prompt_subst
 
-PROMPT="%n@%m ${fg[green]}%~%(?.${reset_color}.${fg[red]})> ${reset_color}"
+#PROMPT="%n@%m ${fg[green]}%~%(?.${reset_color}.${fg[red]})> ${reset_color}"
+PROMPT="%n@%m %{$fg[green]%}%~%(?.%{$reset_color%}.%{$fg[red]%})%{$reset_color%}> "
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
@@ -29,7 +26,7 @@ precmd () {
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
-RPROMPT="%1(v|${fg[blue]}%1v|)${reset_color}"
+RPROMPT="%1(v|%1v|)"
 
 # ------------------------------------------------------------------
 # completion
