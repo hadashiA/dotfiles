@@ -65,6 +65,33 @@ precmd () {
 RPROMPT="%1(v|%1v|)"
 
 # ------------------------------------------------------------------
+# history
+# ------------------------------------------------------------------
+HISTFILE=~/.zsh_history
+HISTSIZE=200000
+SAVEHIST=200000
+setopt share_history # 同時に起動したzshの間でヒストリを共有する
+setopt hist_ignore_all_dups # 同じコマンドをヒストリに残さない
+setopt hist_save_nodups # ヒストリファイルに保存するとき、すでに重複したコマンドがあったら古い方を削除する
+setopt hist_ignore_space # スペースから始まるコマンド行はヒストリに残さない
+setopt hist_reduce_blanks # ヒストリに保存するときに余分なスペースを削除する
+setopt auto_pushd
+setopt pushd_ignore_dups
+
+# 履歴検索 = C-p,n で検索・補完
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
+
+history incremental search
+bindkey "^R" history-incremental-search-backward
+bindkey "^S" history-incremental-search-forward
+
+# ------------------------------------------------------------------
 # completion
 # ------------------------------------------------------------------
 autoload -U compinit; compinit
@@ -80,28 +107,7 @@ zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
                  /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 
-# 今入力している内容から始まるヒストリを探す
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
-
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
-
-# ------------------------------------------------------------------
-# history
-# ------------------------------------------------------------------
-HISTFILE=~/.zsh_history
-HISTSIZE=200000
-SAVEHIST=200000
-setopt share_history # 同時に起動したzshの間でヒストリを共有する
-setopt hist_ignore_all_dups # 同じコマンドをヒストリに残さない
-setopt hist_save_nodups # ヒストリファイルに保存するとき、すでに重複したコマンドがあったら古い方を削除する
-setopt hist_ignore_space # スペースから始まるコマンド行はヒストリに残さない
-setopt hist_reduce_blanks # ヒストリに保存するときに余分なスペースを削除する
-setopt auto_pushd
-setopt pushd_ignore_dups
 
 # ------------------------------------------------------------------
 # key bind & alias
