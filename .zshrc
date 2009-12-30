@@ -1,16 +1,29 @@
 # ------------------------------------------------------------------
+# colors
+# ------------------------------------------------------------------
+autoload colors
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補をカラー表示する
+
+local GREEN=$'%{\e[1;32m%}'
+local BLUE=$'%{\e[1;34m%}'
+local DEFAULT=$'%{\e[1;m%}'
+
+# ------------------------------------------------------------------
 # prompt
 # ------------------------------------------------------------------
 setopt prompt_subst
 
-PROMPTTTY=`tty | sed -e 's/^\/dev\///'` 
-PROMPT="[%B${cyan}%~${default}%b] <%B${PROMPTTTY}%b> %E %b%# " 
-if [ `whoami` = root ]; then
-  RPROMPT="${red}%B%n${default}%b@${logreen}%m${default}%b" 
-else 
-  RPROMPT="${loyellow}%n${default}%b@${logreen}%m${default}%b" 
-fi 
-SPROMPT="${red}Correct ${default}> '%r' [%BY%bes %BN%bo %BA%bbort %BE%bdit] ? " 
+PROMPT="[%B%n%b] %B${GREEN}%~${DEFAULT}%b ~> "
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats '(%s)-[%b]'
+zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+precmd () {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+RPROMPT="%1(v|%1v%f|)"
 
 # ------------------------------------------------------------------
 # completion
@@ -22,13 +35,7 @@ setopt correct
 setopt nolistbeep
 
 autoload predict-on; predict-on
-
-# ------------------------------------------------------------------
-# colors
-# ------------------------------------------------------------------
-autoload colors
-#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補をカラー表示する
-zstyle ':completion:*' list-colors ''
+zstyle ':completion:*:default' menu select=1
 
 # ------------------------------------------------------------------
 # history
