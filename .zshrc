@@ -43,6 +43,19 @@ setopt nolistbeep
 autoload predict-on; predict-on
 zstyle ':completion:*:default' menu select=1
 
+# sudo の後ろでコマンド名を補完する
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
+                 /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+
+# 今入力している内容から始まるヒストリを探す
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
 # ------------------------------------------------------------------
 # history
 # ------------------------------------------------------------------
