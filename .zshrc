@@ -78,6 +78,7 @@ bindkey -e
 setopt auto_cd # ディレクトリ名だけでcdする
 
 setopt complete_aliases
+
 alias -g L='| less'
 alias -g G='| grep'
 alias -g H='| head'
@@ -87,15 +88,37 @@ alias -g la='ls -al'
 alias -g du='du -h'
 alias -g df='df -h'
 
-# sudo の後ろでコマンド名を補完する
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
-                 /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+alias -s txt=cat
+alias -s zip=zipinfo
+alias -s tgz=gzcat
+alias -s gz=gzcat
+alias -s tbz=bzcat
+alias -s bz2=bzcat
 
-# 今入力している内容から始まるヒストリを探す
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
+alias -s java=lv
+alias -s c=lv
+alias -s h=lv
+alias -s C=lv
+alias -s cpp=lv
+alias -s sh=lv
+alias -s txt=lv
+alias -s xml=lv
 
-WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+alias -s html="open -a FireFox"
+alias -s xhtml="open -a FireFox"
+
+alias -s gif=display
+alias -s jpg=display
+alias -s jpeg=display
+alias -s png=display
+alias -s bmp=display
+
+alias -s mp3=amarok
+alias -s m4a=amarok
+alias -s ogg=amarok
+
+alias -s mpg=svlc
+alias -s mpeg=svlc
+alias -s avi=svlc
+alias -s mp4v=svlc
+
