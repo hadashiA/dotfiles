@@ -146,6 +146,12 @@ autocmd FileType ruby nmap <leader>c :!ruby -c %<CR>
 autocmd BufRead,BufNewFile *.rash set filetype=ruby
 autocmd BufRead,BufNewFile .autotest set filetype=ruby
 
+function! RspecExec ()
+  let cmd=':!spec -fs -l '.line('.').' "%" '
+  execute cmd
+endfunction
+autocm FileType ruby nmap <leader>r :call RspecExec()<CR>
+
 "---------------------------------------------------------------
 " Perl
 "
@@ -197,7 +203,6 @@ nmap <F8> :VST<CR>
 " rails.vim
 "
 let g:rails_some_option=1
-nmap <leader> :call RspecExec()<CR>
 
 "---------------------------------------------------------------
 " surround.vim
