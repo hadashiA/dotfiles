@@ -51,7 +51,15 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補をカラー
 
 setopt prompt_subst
 
-#PROMPT="%n@%m ${fg[green]}%~%(?.${reset_color}.${fg[red]})> ${reset_color}"
+#PROMPTTTY=`tty | sed -e 's/^\/dev\///'` 
+#PROMPT="[%B${cyan}%~${default}%b] <%B${PROMPTTTY}%b> %E %b%# " 
+#if [ `whoami` = root ]; then
+#  RPROMPT="${red}%B%n${default}%b@${logreen}%m${default}%b" 
+#else 
+#  RPROMPT="${loyellow}%n${default}%b@${logreen}%m${default}%b" 
+#fi 
+#SPROMPT="${red}Correct ${default}> '%r' [%BY%bes %BN%bo %BA%bbort %BE%bdit] ? "
+
 PROMPT="%n@%m %{$fg[green]%}%~%(?.%{$reset_color%}.%{$fg[red]%})%{$reset_color%}> "
 
 autoload -Uz vcs_info
