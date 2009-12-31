@@ -80,12 +80,11 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補をカラー
 
 setopt prompt_subst
 
-#PROMPTTTY=`tty | sed -e 's/^\/dev\///'` 
-#PROMPT="[%B${cyan}%~${default}%b] <%B${PROMPTTTY}%b> %E %b%# " 
+#PROMPT="[%B%~%b] <%B%v%b> %# " 
 #if [ `whoami` = root ]; then
-#  RPROMPT="${red}%B%n${default}%b@${logreen}%m${default}%b" 
+#  RPROMPT="%B%n%b@%m%b" 
 #else 
-#  RPROMPT="${loyellow}%n${default}%b@${logreen}%m${default}%b" 
+#  RPROMPT="%n@%m" 
 #fi 
 #SPROMPT="${red}Correct ${default}> '%r' [%BY%bes %BN%bo %BA%bbort %BE%bdit] ? "
 
