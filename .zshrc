@@ -156,7 +156,8 @@ alias cp='cp -irf'
 alias mv='mv -i'
 
 alias mvim='open -a MacVim'
-alias grep='grep -i -r -H -n -I' # grep 行数, 再帰的, ファイル名表示, 行数表示, バイナリファイルは処理しない
+# grep 行数, 再帰的, ファイル名表示, 行数表示, バイナリファイルは処理しない
+alias grep='grep -i -r -H -n -I --color=auto'
 
 alias G='| grep '  # e.x. dmesg lG CPU
 alias L='| $PAGER '
