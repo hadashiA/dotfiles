@@ -8,3 +8,12 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="/opt/local/lib/mysql5/bin:$PATH"
 export PATH="/opt/local/lib/postgresql84/bin:$PATH"
 export PATH="$PATH:/usr/local/jruby/bin"
+
+export ARCHFLAGS='-arch x86'
+
+# autotest
+export RSPEC=true
+
+# PostgreSQL
+#exports POSTGRES_INCLUDE=/opt/local/include/postgresql84/
+#exports POSTGRES_LIB=/opt/local/lib/postgresql84/
