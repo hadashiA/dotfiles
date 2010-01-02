@@ -268,22 +268,13 @@ function pgrep() {
   ps aux | grep $* | grep -v "ps aux" | grep -v grep # grep プロセスを除外
 }
 
-# 引数の検索ワードで google 検索 (日本語可)
-function google() {
-  local str opt
-  if [ $# != 0 ]; then # 引数が存在すれば
-    for i in $*; do
-      str="$str+$i"
-    done
-    str=`echo $str | sed 's/^\+//'` # 先頭の「+」を削除
-    opt='search?num=50&hl=ja&ie=euc-jp&oe=euc-jp&lr=lang_ja'
-    opt="${opt}&q=${str}"
-  fi
-  w3m http://www.google.co.jp/$opt # 引数がなければ $opt は空
+# gemのlibディレクトリひらく
+function readgem() {
+    path=`gem which $1`
+    echo $path:h
+    open -a MacVim $path:h
 }
-alias goo=google
 
-#-------------------------------------------------------
 # function rm() {
 #   if [ -d ~/.trash ]; then
 #     local DATE=`date "+%y%m%d-%H%M%S"`
