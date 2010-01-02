@@ -265,7 +265,7 @@ function psm() {
 # 全プロセスから引数の文字列を含むものを grep
 function pgrep() {
   ps aux | head -n 1
-  ps aux | grep $* | grep -v "ps aug" | grep -v grep # grep プロセスを除外
+  ps aux | grep $* | grep -v "ps aux" | grep -v grep # grep プロセスを除外
 }
 
 # 引数の検索ワードで google 検索 (日本語可)
