@@ -1,4 +1,5 @@
 function cdgem --description 'cd to a gems directory'
-	cd (dirname (gem which $argv)[2])
-
+    set -l path (dirname (gem which $argv))
+    echo $path
+    cd $path
 end
