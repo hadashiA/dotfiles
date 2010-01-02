@@ -1,5 +1,6 @@
 # basic commands
-alias la='ls -alGwc'
+alias ls='ls -pG'
+alias la='ls -palGwc'
 alias del='rm -rf'
 alias cp='cp -irf'
 alias mv='mv -i'
