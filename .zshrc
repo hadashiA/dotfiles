@@ -80,16 +80,13 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補をカラー
 
 setopt prompt_subst
 
-#PROMPT="[%B%~%b] <%B%v%b> %# " 
-#if [ `whoami` = root ]; then
-#  RPROMPT="%B%n%b@%m%b" 
-#else 
-#  RPROMPT="%n@%m" 
-#fi 
-#SPROMPT="${red}Correct ${default}> '%r' [%BY%bes %BN%bo %BA%bbort %BE%bdit] ? "
+# fish like prompt
+#PROMPT="%n@%m %{$fg[green]%}%~%(?.%{$reset_color%}.%{$fg[red]%})%{$reset_color%}> "
+#RPROMPT="%1(v|%F%1v%f|)" # %1 はvcs_info
 
-PROMPT="%n@%m %{$fg[green]%}%~%(?.%{$reset_color%}.%{$fg[red]%})%{$reset_color%}> "
-RPROMPT="%1(v|%F%1v%f|)" # %1 はvcs_info
+PROMPT="[%B%~%b] <%B%y%b> %# "
+RPROMPT="%(!.%{$fg[red]%}.)%n%{$reset_color%}@%m"
+SPROMPT="%{$fg[red]%}Correct %{$reset_color%}> '%r' [%BY%bes %BN%bo %BA%bbort %BE%bdit] ? "
 
 # ------------------------------------------------------------------
 # history
