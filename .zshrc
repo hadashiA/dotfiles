@@ -85,8 +85,8 @@ setopt prompt_subst
 #PROMPT="%n@%m %{$fg[green]%}%~%(?.%{$reset_color%}.%{$fg[red]%})%{$reset_color%}> "
 #RPROMPT="%1(v|%F%1v%f|)" # %1 はvcs_info
 
-PROMPT="[%B%~%b] <%B%y%b> %# "
-RPROMPT="%1(v|%F%1v%f|) %(!.%{$fg[red]%}.)%n%{$reset_color%}@%m"
+PROMPT="[%{$fg[blue]%}%B%~%b%{$reset_color%}] <%B%y%b> %# "
+RPROMPT="%1(v|%F{blue}%1v%f|) %(!.%{$fg[red]%}.)%n%{$reset_color%}@%m"
 SPROMPT="%{$fg[red]%}Correct %{$reset_color%}> '%r' [%BY%bes %BN%bo %BA%bbort %BE%bdit] ? "
 
 # ------------------------------------------------------------------
