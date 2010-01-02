@@ -12,7 +12,7 @@ end
 set EDITOR /usr/bin/vim
 
 # $BROWSER
-set BROWSER "open -a /Application/Firefox.app"
+set BROWSER "open -a Firefox"
 
 # $DEVDIR
 set DEVDIR "~/dev/"
