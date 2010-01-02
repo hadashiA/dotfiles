@@ -1,0 +1,56 @@
+# basic commands
+alias la='ls -alGwc'
+alias del='rm -rf'
+alias cp='cp -irf'
+alias mv='mv -i'
+alias grep='grep -i -r -H -n -I --color=auto'
+
+function cd() {builtin cd $@ && la}
+
+alias G='| grep '  # e.x. dmesg lG CPU
+alias L='| $PAGER '
+alias W='| wc'
+alias H='| head'
+alias T='| tail'
+
+alias b='cd -'
+alias c='clear' # shortcut to clear your terminal
+function f() { find * -name $1; }
+
+alias ducks='du -cks * | sort -rn|head -11' # Lists the size of all the folders
+alias top='top -o cpu'
+alias o='open .'
+
+# log
+alias systemlog='tail -f -n0 /var/log/system.log'
+alias apachelog='tail -f -n0 /var/log/apache*/*log'
+
+# rails stuff
+alias log='tail -f -0 ./log/*.log'
+alias ss='ruby ./script/server'
+alias sc='ruby ./script/console'
+
+# Only MacOSX
+#if [ $system_name  == 'Darwin' ]; then
+  function manpdf() { man -t $@ | open -f -a Preview; }
+  function osinfo() { 
+     x1="$(/usr/bin/sw_vers -productName)"
+     x2="$(/usr/bin/sw_vers -productVersion)"
+     x3="$(/usr/bin/sw_vers -buildVersion)"
+     x4="$(/usr/bin/arch)"
+     echo "${x1} - ${x2} - ${x3} - ${x4}"
+  }
+
+  alias P="| open -f -a Preview"
+  
+  alias o='open .'
+  alias mvim="open -a MacVim"
+  alias eprof="mvim ~/dotfiles"
+  alias readrails="mvim `ruby -rubygems -e "puts( ['rails', 'activerecord', 'activeresource', 'actionpack', 'activesupport'].collect { |gem| gems = Gem.source_index.find_name(gem); gems.last.full_gem_path; }.join(' '))"`"
+  alias hidefile='/usr/bin/SetFile -a "V"'
+  alias showfile='/usr/bin/SetFile -a "v"'
+
+# Except MacOSX
+#else
+#  alias ls='ls --color=auto'
+#fi

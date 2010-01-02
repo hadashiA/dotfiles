@@ -1,6 +1,13 @@
 # http://www.dna.bio.keio.ac.jp/~yuji/zsh/zshrc.txt
 #
 # ------------------------------------------------------------------
+# includes
+# ------------------------------------------------------------------
+source ~/.exports
+source ~/.aliases
+source ~/.gitrc
+
+# ------------------------------------------------------------------
 # callbacks
 # ------------------------------------------------------------------
 autoload -Uz vcs_info
@@ -26,12 +33,6 @@ precmd() {
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
-
-# ------------------------------------------------------------------
-# set env
-# ------------------------------------------------------------------
-export LANG=ja_JP.UTF-8
-export PATH=$PATH:~/bin:/opt/local/bin:/opt/local/sbin:/opt/local/lib/mysql5/bin:/opt/local/lib/postgresql84:bin:/usr/local/git/bin:/usr/local/mysql/bin
 
 # ------------------------------------------------------------------
 # colors
@@ -85,7 +86,7 @@ setopt prompt_subst
 #RPROMPT="%1(v|%F%1v%f|)" # %1 はvcs_info
 
 PROMPT="[%B%~%b] <%B%y%b> %# "
-RPROMPT="%(!.%{$fg[red]%}.)%n%{$reset_color%}@%m"
+RPROMPT="%1(v|%F%1v%f|) %(!.%{$fg[red]%}.)%n%{$reset_color%}@%m"
 SPROMPT="%{$fg[red]%}Correct %{$reset_color%}> '%r' [%BY%bes %BN%bo %BA%bbort %BE%bdit] ? "
 
 # ------------------------------------------------------------------
@@ -148,20 +149,6 @@ setopt auto_cd # ディレクトリ名だけでcdする
 
 setopt complete_aliases
 
-alias del='rm -rf'
-alias cp='cp -irf'
-alias mv='mv -i'
-
-alias mvim='open -a MacVim'
-# grep 行数, 再帰的, ファイル名表示, 行数表示, バイナリファイルは処理しない
-alias grep='grep -i -r -H -n -I --color=auto'
-
-alias G='| grep '  # e.x. dmesg lG CPU
-alias L='| $PAGER '
-alias W='| wc'
-alias H='| head'
-alias T='| tail'
-
 # ファイル名を叩くだけで実行されるコマンド
 alias -s txt=cat
 alias -s zip=zipinfo
@@ -200,22 +187,29 @@ alias -s mp4v=svlc
 # ------------------------------------------------------------------
 # functions
 # ------------------------------------------------------------------
-# cd && ls
-#function cd() {builtin cd $@ && ls -aF --show-control-char --color=auto}
-function cd () {               # ファイルを探して、そのファイルのある場所にcd
-    if [ $# = 0 ]; then        #    % locate something.c
-        builtin cd             #        /usr/local/.../something.c
-    elif [ -f $1 ]; then       #    % cd `!!`
-        builtin cd $1:h
+
+# 圧縮ファイル解凍
+function extract() {
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xvjf $1        ;;
+            *.tar.gz)    tar xvzf $1     ;;
+            *.bz2)       bunzip2 $1       ;;
+            *.rar)       unrar x $1     ;;
+            *.gz)        gunzip $1     ;;
+            *.tar)       tar xvf $1        ;;
+            *.tbz2)      tar xvjf $1      ;;
+            *.tgz)       tar xvzf $1       ;;
+            *.zip)       unzip $1     ;;
+            *.Z)         uncompress $1  ;;
+            *.7z)        7z x $1    ;;
+            *)           echo "'$1' cannot be extracted via >extract<" ;;
+        esac
     else
-        builtin cd $*
+        echo "'$1' is not a valid file"
     fi
-    ls -aF --show-control-char --color=auto
 }
 
-function history-all { history -E 1 } # 全履歴の一覧を出力する
-
-#-------------------------------------------------------
 # accept-line-with-url
 # http://sugi.nemui.org/doc/zsh/#doc2_14
 #      プロンプトにそのまま URL を打ちこんで Enter を押せば、
@@ -256,40 +250,24 @@ fi
 # bindkey '^M' start
 # #bindkey '^J' start
 
-
-#-------------------------------------------------------
-# CPU 使用率の高い方から8つ
+# CPU 使用率の高い方から5つ
 function pst() {
-  psa | head -n 1
-  psa | sort -r -n +2 | grep -v "ps -auxww" | grep -v grep | head -n 8
+  ps aux | head -n 1
+  ps aux | sort -r -n -k 3 | grep -v "ps aux" | grep -v 'grep' | head -n 5
 }
+
 # メモリ占有率の高い方から8つ
 function psm() {
-  psa | head -n 1
-  psa | sort -r -n +3 | grep -v "ps -auxww" | grep -v grep | head -n 8
+  ps aux | head -n 1
+  ps aux | sort -r -n -k 4 | grep -v "ps aux" | grep -v grep | head -n 5
 }
+
 # 全プロセスから引数の文字列を含むものを grep
-function psg() {
-  psa | head -n 1                                    # ラベルを表示
-  psa | grep $* | grep -v "ps -auxww" | grep -v grep # grep プロセスを除外
+function pgrep() {
+  ps aux | head -n 1
+  ps aux | grep $* | grep -v "ps aug" | grep -v grep # grep プロセスを除外
 }
 
-#-------------------------------------------------------
-# 引数のファイルを euc-LF や sjis-CR+LF に変換
-function euc() {
-    for i in $@; do;
-        nkf -e -Lu $i >! /tmp/euc.$$ # -Lu :改行を LF にする
-        mv -f /tmp/euc.$$ $i
-    done;
-}
-function sjis() {
-    for i in $@; do;
-        nkf -s -Lw $i >! /tmp/euc.$$ # -Lu :改行を CR+LF にする
-        mv -f /tmp/euc.$$ $i
-    done;
-}
-
-#-------------------------------------------------------
 # 引数の検索ワードで google 検索 (日本語可)
 function google() {
   local str opt
