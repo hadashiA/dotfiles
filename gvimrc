@@ -5,7 +5,7 @@ set autochdir
 " An example for a Japanese version gvimrc file.
 " 日本語版のデフォルトGUI設定ファイル(gvimrc) - Vim7用試作
 "
-" Last Change: 26-Dec-2009.
+" Last Change: 04-Jan-2010.
 " Maintainer:  MURAOKA Taro <koron@tka.att.ne.jp>
 "
 " 解説:
@@ -86,9 +86,9 @@ endif
 " ウインドウに関する設定:
 "
 " ウインドウの幅
-set columns=120
+set columns=140
 " ウインドウの高さ
-set lines=60
+set lines=70
 " コマンドラインの高さ(GUI使用時)
 set cmdheight=2
 " カラースキーマ
