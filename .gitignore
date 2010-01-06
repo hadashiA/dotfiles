@@ -3,5 +3,7 @@
 *.swp
 history-*
 fish_history
+fish_read_history
 fishd.*.local
-.vimperator/info/*
+vimperator/info
+vimperator/info/**/*
