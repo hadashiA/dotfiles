@@ -84,11 +84,20 @@ set cindent
 "---------------------------------------------------------------
 " Key Map
 "
+
+" Leader
+let mapleader = ","
+
 imap < <><LEFT>
 imap ( ()<LEFT>
 imap [ []<LEFT>
 inoremap " ""<LEFT>
 inoremap ' ''<LEFT>
+
+noremap <Leader>ww :w<CR>
+noremap <leader>dev :e ~/dev<CR>
+noremap <leader>fish :e ~/dev/fish<CR>
+noremap <leader>ddu :e ~/dev/danceunit<CR>
 
 " emacs keybind
 imap <C-a> <ESC>I
@@ -104,11 +113,6 @@ imap <C-b> <LEFT>
 imap <C-k> <ESC><RIGHT>DA
 nnoremap <SPACE> i<SPACE><ESC><RIGHT>
 nmap { A<SPACE>{}<LEFT><CR><ESC>O
-
-" Leader
-let mapleader = ","
-
-noremap <Leader>ww :w<CR>
 
 "---------------------------------------------------------------
 " PHP
@@ -147,7 +151,7 @@ autocmd BufRead,BufNewFile *.rash set filetype=ruby
 autocmd BufRead,BufNewFile .autotest set filetype=ruby
 
 function! RspecExec ()
-  let cmd=':!spec -fs -l '.line('.').' "%" '
+  let cmd=':!spec -fs --drb -l '.line('.').' "%" '
   execute cmd
 endfunction
 autocm FileType ruby nmap <leader>r :call RspecExec()<CR>
