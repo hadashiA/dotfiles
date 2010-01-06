@@ -1,4 +1,5 @@
 function mv
-	mv -i
+	mv -i $argv
+
 
 end
