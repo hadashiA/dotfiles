@@ -95,6 +95,7 @@ inoremap " ""<LEFT>
 inoremap ' ''<LEFT>
 
 noremap <Leader>ww :w<CR>
+noremap <Leader>ffunc :e ~/.config/fish/functions<CR>
 noremap <leader>dev :e ~/dev<CR>
 noremap <leader>fish :e ~/dev/fish<CR>
 noremap <leader>ddu :e ~/dev/danceunit<CR>
