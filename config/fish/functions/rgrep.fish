@@ -1,4 +1,4 @@
 function rgrep
-	grep -rin $argv
+	grep -irHnI --color=auto $argv
 
 end
