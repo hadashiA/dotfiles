@@ -18,6 +18,6 @@ set POSTGRES_INCLUDE /opt/local/include/postgresql84/
 set POSTGRES_LIB /opt/local/lib/postgresql84/
 
 # set function sub directory
-set fish_function_path $fish_function_path ~/.config/fish/functions/override
-set fish_function_path $fish_function_path ~/.config/fish/functions/git
-set fish_function_path $fish_function_path ~/.config/fish/functions/rails
+#set fish_function_path $fish_function_path ~/.config/fish/functions/override
+#set fish_function_path $fish_function_path ~/.config/fish/functions/git
+#set fish_function_path $fish_function_path ~/.config/fish/functions/rails
