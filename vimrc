@@ -371,5 +371,5 @@ inoremap <expr><C-p> pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
 inoremap <expr><CR> pumvisible() ? "\<C-y>\<CR>X\<BS>" : "\<CR>X\<BS>"
 
 let g:NeoComplCache_SnippetsDir = $HOME . '/.vim/snippets'
-imap <silent> <C-,> <Plug>(neocomplcache_snippets_expand)
-smap <silent> <C-,> <Plug>(neocomplcache_snippets_expand)
+imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
+smap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
