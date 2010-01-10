@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/hannya39/work/seorr2'
-let g:netrw_dirhist_2='/Users/hadashi/dev/enpra'
-let g:netrw_dirhist_3='/Users/hadashi/lib/home'
-let g:netrw_dirhist_4='/Users/hadashi/dev/enpra'
-let g:netrw_dirhist_5='/Users/hadashi/dev/enpra/spec'
-let g:netrw_dirhist_6='/Users/hadashi/dev/enpra/spec/models'
