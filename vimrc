@@ -89,14 +89,20 @@ set cindent
 let mapleader = ","
 
 imap < <><LEFT>
-imap ( ()<LEFT>
+imap ( ()<LEFT>:
 imap [ []<LEFT>
 inoremap " ""<LEFT>
 inoremap ' ''<LEFT>
 
 noremap <Leader>ww :w<CR>
 noremap <Leader>ffunc :e ~/.config/fish/functions<CR>
+
+let dirlist = split(glob("~/dev/*"), "\n")
+for dir in dirlist
+endfor
+
 noremap <leader>dev :e ~/dev<CR>
+noremap <leader>enpra :e ~/dev/enpra<CR>
 noremap <leader>fish :e ~/dev/fish<CR>
 noremap <leader>ddu :e ~/dev/danceunit<CR>
 
