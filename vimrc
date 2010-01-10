@@ -276,7 +276,7 @@ let g:fuf_keyPreview = '<C-]>'
 let g:fuf_previewHeight = 0
 
 nmap <leader>fr :FufBookmark<CR>
-nmap <leader>fb :FufBuffer<CR>
+nmap <leader>b :FufBuffer<CR>
 nmap <leader>fd :FufDir<CR>
 nmap <leader>fdb :FufDirWithCurrentBufferDir<CR>
 nmap <leader>fdf :FufDirWithFullCwd<BR>
