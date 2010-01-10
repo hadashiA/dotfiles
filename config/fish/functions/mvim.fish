@@ -1,3 +1,5 @@
-function mvim -d "open MacVim.app"
-    open -a MacVim
+function mvim --description 'open MacVim.app'
+	open -a MacVim $argv
+
+
 end
