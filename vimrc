@@ -364,3 +364,7 @@ inoremap <expr><C-p> pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
 " 途中でEnterしたとき、ポップアップを消して改行し、
 " 改行を連続して入力してもインデント部を保持する
 inoremap <expr><CR> pumvisible() ? "\<C-y>\<CR>X\<BS>" : "\<CR>X\<BS>"
+
+let g:NeoComplCache_SnippetsDir = $HOME . '/.vim/snippets'
+imap <silent> <C-m> <Plug>(neocomplcache_snippets_expand)
+smap <silent> <C-m> <Plug>(neocomplcache_snippets_expand)

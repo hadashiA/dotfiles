@@ -1,0 +1,838 @@
+snippet am
+    alias_method :${1:new_name}, :${2:old_name}
+
+snippet anr
+    assert_nothing_raised(${1:Exception}) { ${2} }
+
+snippet as
+    assert ${1:test}, "${2:failure_message}"
+
+snippet ase
+    assert_equal ${1:expected}, ${2:actual}
+
+snippet asid
+    assert_in_delta ${1:expected_float}, ${2:actual_float}, ${3:delta_float}
+
+snippet asio
+    assert_instance_of ${1:ExpectedClass}, ${2:actual_instance}
+
+snippet asko
+    assert_kind_of ${1:ExpectedKind}, ${2:actual_instance}
+
+snippet asm
+    assert_match /${1:expected_pattern}/, ${2:actual_string}
+
+snippet asn
+    assert_nil ${1:instance}
+
+snippet asne
+    assert_not_equal ${1:unexpected}, ${2:actual}
+
+snippet asnm
+    assert_no_match /${1:unexpected_pattern}/, ${2:actual_string}
+
+snippet asnn
+    assert_not_nil ${1:instance}
+
+snippet asns
+    assert_not_same ${1:unexpected}, ${2:actual}
+
+snippet asnt
+    assert_nothing_thrown { ${1} }
+
+snippet aso
+    assert_operator ${1:left}, :${2:operator}, ${3:right}
+
+snippet asr
+    assert_raise(${1:Exception}) { ${2} }
+
+snippet asrt
+    assert_respond_to ${1:object}, :${2:method}
+
+snippet ass
+    assert_send [${1:object}, :${2:message}, ${3:args}]
+
+snippet ast
+    assert_throws(:${1:expected}) { ${2} }
+
+snippet bm
+    TESTS = ${1:10_000}
+    Benchmark.bmbm do |results|
+    	${2}
+    end
+
+snippet case
+    case ${1}
+    when ${2}
+    else
+    	${3}
+    end
+
+snippet class
+    class ${1:`Snippet_RubyClassNameFromFilename()`}${2}
+    	${3}
+    end
+
+snippet classe
+    class ${1:ErrorClassName} < ${2:StandardError}; end${3}
+
+snippet def
+    def ${1:name}
+    	${2}
+    end
+
+snippet defi
+    def initialize${1}
+    	${2}
+    end
+
+snippet defmm
+    def method_missing(meth, *args, &blk)
+    	${1}
+    end
+
+snippet defs
+    def self.${1:class_method_name}
+    	${2}
+    end
+
+snippet deft
+    def test_${1:case_name}
+    	${2}
+    end
+
+snippet detect
+    detect { |${1:element}| ${2:body} }
+
+snippet detecto
+    detect do |${1:element}|
+    	${2:body}
+    end
+
+snippet dglob
+    Dir.glob(${1:"<+dir}"+>) { |${2:file}| ${3} }
+
+snippet do
+    do
+    	${1}
+    end
+
+snippet dop
+    do |${1:param}|
+    	${2}
+    end
+
+snippet ea
+    each { |${1:element}| ${2:body} }
+
+snippet each
+    each { |${1:element}| ${2:body} }
+
+snippet each_with_index
+    each_with_index { |${1:element},${2:i}| ${3:} }
+
+snippet each_with_indexo
+    each_with_index do |${1:element},${2:i}|
+    	${3:body}
+    end
+    
+
+snippet eacho
+    each do |${1:element}|
+    	${2:body}
+    end
+
+snippet eado
+    each do |${1:element}|
+    	${2:body}
+    end
+
+snippet eawi
+    each_with_index { |${1:element},${2:i}| ${3:} }
+
+snippet eawido
+    each_with_index do |${1:element},${2:i}|
+    	${3:body}
+    end
+    
+
+snippet elsif
+    elsif ${1:condition}
+    	${2}
+
+snippet fileeach
+    File.foreach(${1:"<+path}"+>) { |${2:line}| ${3} }
+
+snippet fopen
+    File.open(${1:path}, "${2:rwab}") { |${3:file}| ${4} }
+
+snippet fread
+    File.read(${1})
+
+snippet http_get
+    require 'net/http'
+    res = Net::HTTP.get URI.parse('${1:url}')
+
+snippet http_post
+    require 'net/http'
+    res = Net::HTTP.post_form URI.parse('${1:url}')${2:, params}
+
+snippet if
+    if ${1:condition}
+    	${2}
+    end
+
+snippet ife
+    if ${1:condition}
+    	${2}
+    else
+    end
+
+snippet inj
+    inject(${1:init}) { |${2:total}, ${3:next}| ${4:body} }
+
+snippet injdo
+    inject(${1:init}) do |${2:total}, ${3:next}|
+    	${4:body}
+    end
+
+snippet inject
+    inject { |${1:total},${2:next}| ${3:body} }
+
+snippet injecto
+    inject do |${1:total},${2:next}|
+    	${3:body}
+    end
+
+snippet ip
+    ip_addr = request.env['REMOTE_ADDR']
+
+snippet map
+    map { |${1:element}| ${2:body} }
+
+snippet mapdo
+    map do |${1:element}|
+    	${2:body}
+    end
+
+snippet mapo
+    map do |${1:element}|
+    	${2:body}
+    end
+
+snippet Md
+    File.open(${1:dump_path}, "wb") { |${2:file}| Marshal.dump(${3:obj}, ${4:$2}) }
+
+snippet Ml
+    File.open(${1:dump_path}, "rb") { |${2:file}| Marshal.load(${3:$2}) }
+
+snippet mod
+    module ${1:`Snippet_RubyClassNameFromFilename()`}
+    	${2}
+    end
+
+snippet module
+    module ${1:`Snippet_RubyClassNameFromFilename()`}
+    	module ClassMethods
+    		${2}
+    	end
+    
+    	module InstanceMethods
+    
+    	end
+    
+    	def self.included(receiver)
+    		receiver.extend         ClassMethods
+    		receiver.send :include, InstanceMethods
+    	end
+    end
+
+snippet nam
+    namespace :${1:namespace} do
+    	${2}
+    end
+
+snippet ope
+    open(${1:path}, "${2:rwab}") { |${3:io}| ${4} }
+
+snippet pathhere
+    File.join(File.dirname(__FILE__), *%w[${1:rel_path_here}])
+
+snippet Pn
+    PStore.new(${1})
+
+snippet r
+    attr_reader :${1:attr_names}
+
+snippet reject
+    reject { |${1:element}| ${2:body} }
+
+snippet rejecto
+    reject do |${1:element}|
+    	${2:body}
+    end
+
+snippet rep
+    results.report("${1:name}:") { TESTS.times { ${2} } }
+
+snippet rw
+    attr_accessor :${1:attr_names}
+
+snippet select
+    select { |${1:element}| ${2:body} }
+
+snippet selecto
+    select do |${1:element}|
+    	${2:body}
+    end
+
+snippet sinc
+    class << self; self end
+
+snippet sort
+    sort { |${1:x},${2:y}| ${3:body} }
+
+snippet sorto
+    sort do |${1:x},${2:y}|
+    	${3:body}
+    end
+
+snippet tas
+    desc "${1:Task description}"
+    task :${2:task_name}${3: => [:dependent, :tasks]} do
+    	${4}
+    end
+
+snippet task
+    desc "${1:Task description}"
+    task :${2:task_name}${3: => [:dependent, :tasks]} do
+    	${4}
+    end
+
+snippet tc
+    require "test/unit"
+    
+    require "${1:library_file_name}"
+    
+    class Test${2:`Snippet_RubyClassNameFromFilename()`} < Test::Unit::TestCase
+    	def test_${3:case_name}
+    		${4}
+    	end
+    end
+
+snippet unless
+    unless ${1:condition}
+    	${2}
+    end
+
+snippet unlesse
+    unless ${1:condition}
+    	${2}
+    else
+    end
+
+snippet w
+    attr_writer :${1:attr_names}
+
+snippet while
+    while ${1:condition}
+    	${2}
+    end
+
+snippet xmlr
+    REXML::Document.new(File.read(${1:path}))
+
+snippet xpa
+    elements.each(${1}) do |${2:node}|
+    	${3}
+    end
+
+snippet Yd
+    File.open(${1:path_to_yml}, "w") { |${2:file}| YAML.dump(${3:obj}, ${4:$2}) }
+
+snippet Yl
+    File.open(${1:path_to_yml}) { |${2:file}| YAML.load(${3:$2}) }
+
+snippet zip
+    zip(${1:enums}) { |${2:row}| ${3} }
+
+snippet fac
+    Factory(:<+factory_name+><+, <++>+>)<++>
+
+snippet facb
+    Factory.build(:<+factory_name+><+, <++>+>)<++>
+
+snippet facd
+    Factory.define(:${1:model}) do |${2:m}|
+    	${3}
+    end
+    ${4}
+
+snippet facn
+    Factory.next(:${1:sequence-name})${2}
+
+snippet facs
+    Factory.sequence :${1:sequence-name} do |${2:m}|
+    	${3}
+    end
+    ${4}
+
+snippet art
+    assert_redirected_to ${1::action => "${2:index}"}
+
+snippet artnp
+    assert_redirected_to <+<+parent+>_<+child+>_path(<+@<+parent+>+>, <+@<+child+>+>)+>
+
+snippet artnpp
+    assert_redirected_to <+<+parent+>_<+child+>_path(<+@<+parent+>+>)+>
+
+snippet artp
+    assert_redirected_to <+<+model+>_path(<+@<+model+>+>)+>
+
+snippet artpp
+    assert_redirected_to <+<+model+>s_path+>
+
+snippet asd
+    assert_difference "${1:Model}.${2:count}", $1 do
+    	${3}
+    end
+
+snippet asnd
+    assert_no_difference "${1:Model}.${2:count}" do
+    	${3}
+    end
+
+snippet asre
+    assert_response :${1:success}, @response.body${2}
+
+snippet asrj
+    assert_rjs :<+replace+>, <+"<+dom id+>"+>
+
+snippet ass
+    assert_select '<+path+>'<+, :<+text+> => <+'<+inner_html+>'+>+> <+do<++>+>
+
+snippet bf
+    before_filter :${1:method}
+
+snippet bt
+    belongs_to :${1:association}
+
+snippet crw
+    cattr_accessor :${1:attr_names}
+
+snippet defcreate
+    def create
+    	@${1:model_class_name} = ${2:ModelClassName}.new(params[:$1])
+    
+    	respond_to do |wants|
+    		if @$1.save
+    			flash[:notice] = '$2 was successfully created.'
+    			wants.html { redirect_to(@$1) }
+    			wants.xml  { render :xml => @$1, :status => :created, :location => @$1 }
+    		else
+    			wants.html { render :action => "new" }
+    			wants.xml  { render :xml => @$1.errors, :status => :unprocessable_entity }
+    		end
+    	end
+    end${3}
+
+snippet defdestroy
+    def destroy
+    	@${1:model_class_name} = ${2:ModelClassName}.find(params[:id])
+    	@$1.destroy
+    
+    	respond_to do |wants|
+    		wants.html { redirect_to($1s_url) }
+    		wants.xml  { head :ok }
+    	end
+    end${3}
+
+snippet defedit
+    def edit
+    	@${1:model_class_name} = ${2:ModelClassName}.find(params[:id])
+    end
+
+snippet defindex
+    def index
+    	@${1:model_class_name} = ${2:ModelClassName}.all
+    
+    	respond_to do |wants|
+    		wants.html # index.html.erb
+    		wants.xml  { render :xml => @$1s }
+    	end
+    end${3}
+
+snippet defnew
+    def new
+    	@${1:model_class_name} = ${2:ModelClassName}.new
+    
+    	respond_to do |wants|
+    		wants.html # new.html.erb
+    		wants.xml  { render :xml => @$1 }
+    	end
+    end${3}
+
+snippet defshow
+    def show
+    	@${1:model_class_name} = ${2:ModelClassName}.find(params[:id])
+    
+    	respond_to do |wants|
+    		wants.html # show.html.erb
+    		wants.xml  { render :xml => @$1 }
+    	end
+    end${3}
+
+snippet defupdate
+    def update
+    	@${1:model_class_name} = ${2:ModelClassName}.find(params[:id])
+    
+    	respond_to do |wants|
+    		if @$1.update_attributes(params[:$1])
+    			flash[:notice] = '$2 was successfully updated.'
+    			wants.html { redirect_to(@$1) }
+    			wants.xml  { head :ok }
+    		else
+    			wants.html { render :action => "edit" }
+    			wants.xml  { render :xml => @$1.errors, :status => :unprocessable_entity }
+    		end
+    	end
+    end${3}
+
+snippet fina
+    find(:all<+, :conditions => ['<+<+field+> = ?+>', <+true+>]+>)
+
+snippet finf
+    find(:first<+, :conditions => ['<+<+field+> = ?+>', <+true+>]+>)
+
+snippet fini
+    find(<+id+>)
+
+snippet finl
+    find(:last<+, :conditions => ['<+<+field+> = ?+>', <+true+>]+>)
+
+snippet flash
+    flash[:${1:notice}] = "${2}"
+
+snippet habtm
+    has_and_belongs_to_many :${1:object}, :join_table => "${2:table_name}", :foreign_key => "${3}_id"${4}
+
+snippet hm
+    has_many :<+object+>s<+, :class_name => "<+object+>", :foreign_key => "<+reference+>_id"+>
+
+snippet hmd
+    has_many :<+object+>s<+, :class_name => "<+object+>", :foreign_key => "<+reference+>_id"+>, :dependent => :destroy<++>
+
+snippet hmt
+    has_many :<+association_name+>, :through => :<+join_association+><+, :source => '<++>'+>
+
+snippet ho
+    has_one :${1:object}, :class_name => "${2:Class}", :foreign_key => "${3:class}_id"
+
+snippet i18
+    I18n.t('${1:type.key}')${2}
+
+snippet ist
+    <%= image_submit_tag("<+agree.png+>"<+<+, :id => "<+id+>"+><+, :name => "<+name+>"+><+, :class => "<+class+>"+><+, :disabled => <+false+>+>+>) %>
+
+snippet log
+    RAILS_DEFAULT_LOGGER.${1:debug} ${2}
+
+snippet logd
+    logger.debug { "${1:message}" }${2}
+
+snippet loge
+    logger.error { "${1:message}" }${2}
+
+snippet logf
+    logger.fatal { "${1:message}" }${2}
+
+snippet logi
+    logger.info { "${1:message}" }${2}
+
+snippet logw
+    logger.warn { "${1:message}" }${2}
+
+snippet mac
+    add_column :${1:table}, :${2:column}, :${3:type}
+
+snippet mapc
+    ${1:map}.${2:connect} '${3:controller/:action/:id}'
+
+snippet mapca
+    ${1:map}.catch_all "*${2:anything}", :controller => "${3:default}", :action => "${4:error}"${5}
+
+snippet mapr
+    ${1:map}.resource :${2:resource}
+
+snippet maprs
+    ${1:map}.resources :${2:resource}
+
+snippet mapwo
+    ${1:map}.with_options :${2:controller} => '${3:thing}' do |$3|
+    	${4}
+    end
+
+snippet mbs
+    before_save :${1:method}
+
+snippet mcc
+    change_column :${1:table}, :${2:column}, :${3:type}
+
+snippet mccc
+    t.column :${1:title}, :${2:string}
+
+snippet mcht
+    change_table :${1:table_name} do |t|
+    	${2}
+    end
+
+snippet mcol
+    remove_column :${1:table}, :${2:column}
+
+snippet mct
+    create_table :${1:table_name} do |t|
+    	t.column :${2:name}, :${3:type}
+    end
+
+snippet migration
+    class ${1:`Snippet_MigrationNameFromFilename()`} < ActiveRecord::Migration
+    	def self.up
+    		${2}
+    	end
+    
+    	def self.down
+    	end
+    end
+
+snippet mp
+    map(&:${1:id})
+
+snippet mrc
+    remove_column :${1:column}
+
+snippet mrmc
+    remove_column :${1:table}, :${2:column}
+
+snippet mrnc
+    rename_column :${1:table}, :${2:old}, :${3:new}
+
+snippet mrw
+    mattr_accessor :${1:attr_names}
+
+snippet nc
+    named_scope :<+name+><+, :joins => :<+table+>+>, :conditions => <+['<+<+field+> = ?+>', <+true+>]+>
+
+snippet ncl
+    named_scope :<+name+>, lambda { |<+param+>| { :conditions => <+['<+<+field+> = ?+>', <+param+>]+> } }
+
+snippet pa
+    params[:${1:id}]${2}
+
+snippet ra
+    render :action => "${1:action}"
+
+snippet ral
+    render :action => "${1:action}", :layout => "${2:layoutname}"
+
+snippet rest
+    respond_to do |wants|
+    	wants.${1:html} <+{ <++> }+>
+    end
+
+snippet rf
+    render :file => "${1:filepath}"
+
+snippet rfu
+    render :file => "${1:filepath}", :use_full_path => ${2:false}
+
+snippet ri
+    render :inline => "<+<%= 'hello' %>+>"
+
+snippet ril
+    render :inline => "${1:<%= 'hello' %>}", :locals => { ${2::name} => "${3:value}"${4} }
+
+snippet rit
+    render :inline => "${1:<%= 'hello' %>}", :type => ${2::rxml}
+
+snippet rjson
+    render :json => ${1:text to render}
+
+snippet rl
+    render :layout => "${1:layoutname}"
+
+snippet rn
+    render :nothing => ${1:true}
+
+snippet rns
+    render :nothing => ${1:true}, :status => ${2:401}
+
+snippet rp
+    render :partial => "${1:item}"
+
+snippet rpc
+    render :partial => "<+item+>", :collection => <+@<+item+>s+>
+
+snippet rpl
+    render :partial => "<+item+>", :locals => { :<+item+> => <+@<+item+>+><++> }
+
+snippet rpo
+    render :partial => "<+item+>", :object => <+@<+item+>+>
+
+snippet rps
+    render :partial => "${1:item}", :status => ${2:500}
+
+snippet rt
+    render :text => "${1:text to render}"
+
+snippet rtl
+    render :text => "${1:text to render}", :layout => "${2:layoutname}"
+
+snippet rtlt
+    render :text => "${1:text to render}", :layout => ${2:true}
+
+snippet rts
+    render :text => "${1:text to render}", :status => ${2:401}
+
+snippet ru
+    render :update do |${1:page}|
+    	$1.${2}
+    end
+
+snippet rxml
+    render :xml => ${1:text to render}
+
+snippet sha1
+    Digest::SHA1.hexdigest(${1:string})
+
+snippet sweeper
+    class ${1:ModelClassName}Sweeper < ActionController::Caching::Sweeper
+    	observe $1
+    
+    	def after_save(${2:model_class_name})
+    		expire_cache($2)
+    	end
+    
+    	def after_destroy($2)
+    		expire_cache($2)
+    	end
+    
+    	def expire_cache($2)
+    		expire_page
+    	end
+    end
+
+snippet tcb
+    t.boolean :${1:title}
+    ${2}
+
+snippet tcbi
+    t.binary :<+title+><+, :limit => <+2+>.megabytes+>
+    <++>
+
+snippet tcd
+    t.decimal :<+title+><+<+, :precision => <+10+>+><+, :scale => <+2+>+>+>
+    <++>
+
+snippet tcda
+    t.date :${1:title}
+    ${2}
+
+snippet tcdt
+    t.datetime :${1:title}
+    ${2}
+
+snippet tcf
+    t.float :${1:title}
+    ${2}
+
+snippet tch
+    t.change :<+name+><+, :<+string+><+, :<+limit+> => <+80+>+>+>
+    <++>
+
+snippet tci
+    t.integer :${1:title}
+    ${2}
+
+snippet tcl
+    t.integer :lock_version, :null => false, :default => 0
+    ${1}
+
+snippet tcr
+    t.references :<+taggable+><+, :polymorphic => <+{ :default => '<+Photo+>' }+>+>
+    <++>
+
+snippet tcs
+    t.string :${1:title}
+    ${2}
+
+snippet tct
+    t.text :${1:title}
+    ${2}
+
+snippet tcti
+    t.time :${1:title}
+    ${2}
+
+snippet tcts
+    t.timestamp :${1:title}
+    ${2}
+
+snippet tctss
+    t.timestamps
+    ${1}
+
+snippet trc
+    t.remove :${1:column}
+
+snippet tre
+    t.rename :<+old_column_name+>, :<+new_column_name+>
+    <++>
+
+snippet tref
+    t.references :${1:model}
+
+snippet va
+    validates_associated :<+attribute+><+, :on => :<+:create+>+>
+
+snippet vao
+    validates_acceptance_of :<+terms+><+, :accept => "<++>", :message => "<+terms_message+>"+>
+
+snippet vc
+    validates_confirmation_of :<+attribute+><+, :on => :<+create+>, :message => "<+should match confirmation+>"+>
+
+snippet ve
+    validates_exclusion_of :<+attribute+><+, :in => <+%w( <+mov avi+> )+>, :on => :<+create+>, :message => "<+extension %s is not allowed+>"+>
+
+snippet vf
+    validates_format_of :${1:attribute}, :with => /${2:regex}/<+, :on => :<+create+>, :message => "<+is invalid+>"+>
+
+snippet vi
+    validates_inclusion_of :<+attribute+><+, :in => <+%w( <+mov avi+> )+>, :on => :<+create+>, :message => "<+extension %s is not included in the list+>"+>
+
+snippet vl
+    validates_length_of :<+attribute+>, :within => <+3..20+><+, :on => :<+create+>, :message => "<+must be present+>"+>
+
+snippet vn
+    validates_numericality_of :<+attribute+><+, :on => :<+create+>, :message => "<+is not a number+>"+>
+
+snippet vpo
+    validates_presence_of :${1:attribute}
+
+snippet vu
+    validates_uniqueness_of :<+attribute+><+, :on => :<+create+>, :message => "<+must be unique+>"+>
+
+snippet wants
+    wants.<+js|xml|html+> <+{ <++> }+>
+
+snippet xdelete
+    xhr :delete, :${1:destroy}, :id => ${2:1}${3}
+
+snippet xget
+    xhr :get, :<+show+><+, :id => <+1+>+><++>
+
+snippet xpost
+    xhr :post, :${1:create}, :${2:object} => { ${3} }
+
+snippet xput
+    xhr :put, :${1:update}, :id => ${2:1}, :${3:object} => { ${4} }${5}
+
