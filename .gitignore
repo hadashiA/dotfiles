@@ -4,6 +4,7 @@
 history-*
 fish_history
 fish_read_history
-fishd.*.local
+fishd.*
+vim/.netwhist
 vimperator/info
 vimperator/info/**/*
