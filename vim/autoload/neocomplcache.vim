@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 25 Dec 2009
+" Last Modified: 03 Jan 2009
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -22,7 +22,7 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 4.04, for Vim 7.0
+" Version: 4.06, for Vim 7.0
 "=============================================================================
 
 " Check vimproc.
@@ -377,8 +377,9 @@ function! neocomplcache#keyword_filter(list, cur_keyword_str)"{{{
         return neocomplcache#head_filter(a:list, a:cur_keyword_str)
     endif
 endfunction"}}}
-function! neocomplcache#check_match_filter(cur_keyword_str)"{{{
-    return neocomplcache#keyword_escape(a:cur_keyword_str) =~ '[^\\]\*\|\\+'
+function! neocomplcache#check_match_filter(cur_keyword_str, ...)"{{{
+    return neocomplcache#keyword_escape(
+                \empty(a:000)? a:cur_keyword_str : a:cur_keyword_str[ : a:1-1]) =~ '[^\\]\*\|\\+'
 endfunction"}}}
 function! neocomplcache#head_filter(list, cur_keyword_str)"{{{
     let l:cur_keyword = substitute(a:cur_keyword_str, '\\\zs.', '\0', 'g')
@@ -544,8 +545,7 @@ endfunction"}}}
 
 function! neocomplcache#get_cur_text()"{{{
     " Return cached text.
-
-    return s:cur_text
+    return neocomplcache#is_auto_complete()? s:cur_text : s:get_cur_text()
 endfunction"}}}
 function! neocomplcache#get_completion_length(plugin_name)"{{{
     if has_key(g:NeoComplCache_PluginCompletionLength, a:plugin_name)
@@ -637,6 +637,12 @@ function! neocomplcache#print_caching(string)"{{{
 endfunction"}}}
 function! neocomplcache#print_error(string)"{{{
     echohl Error | echo a:string | echohl None
+endfunction"}}}
+function! neocomplcache#trunk_string(string, max)"{{{
+    return printf('%.' . a:max-10 . 's..%%s', a:string, a:string[-8:])
+endfunction"}}}
+function! neocomplcache#head_match(checkstr, headstr)"{{{
+    return a:headstr == ''? 1 : a:checkstr[: len(a:headstr)-1] ==# a:headstr
 endfunction"}}}
 
 " Set pattern helper.
@@ -775,6 +781,17 @@ function! neocomplcache#start_manual_complete(complfunc_name)"{{{
     return "\<C-x>\<C-u>\<C-p>"
 endfunction"}}}
 
+function! neocomplcache#start_manual_complete_list(cur_keyword_pos, cur_keyword_str, complete_words)"{{{
+    let s:skipped = 0
+    let [s:cur_keyword_pos, s:cur_keyword_str, s:complete_words] = [a:cur_keyword_pos, a:cur_keyword_str, a:complete_words]
+
+    " Set function.
+    let &l:completefunc = 'neocomplcache#auto_complete'
+
+    " Start complete.
+    return "\<C-x>\<C-u>\<C-p>"
+endfunction"}}}
+
 function! neocomplcache#undo_completion()"{{{
     if !exists(':NeoComplCacheDisable')
         return ''
@@ -814,7 +831,7 @@ function! neocomplcache#complete_common_string()"{{{
     
     let l:common_str = l:complete_words[0].word
     for keyword in l:complete_words[1:]
-        while keyword.word !~ '^\V' . l:common_str 
+        while !neocomplcache#head_match(keyword.word, l:common_str) 
             let l:common_str = l:common_str[: -2]
         endwhile
     endfor
@@ -856,7 +873,7 @@ function! s:complete()"{{{
     endif
 
     let s:old_text = l:cur_text
-    let l:use_previous_result = l:cur_text =~ '^\V' . s:old_text
+    let l:use_previous_result = neocomplcache#head_match(l:cur_text, s:old_text)
     
     let l:quickmatch_pattern = s:get_quickmatch_pattern()
     if g:NeoComplCache_EnableQuickMatch && l:cur_text =~ l:quickmatch_pattern.'[a-z0-9]$'
