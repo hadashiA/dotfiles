@@ -89,7 +89,7 @@ set cindent
 let mapleader = ","
 
 imap < <><LEFT>
-imap ( ()<LEFT>:
+imap ( ()<LEFT>
 imap [ []<LEFT>
 inoremap " ""<LEFT>
 inoremap ' ''<LEFT>
