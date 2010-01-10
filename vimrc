@@ -355,6 +355,12 @@ if !exists('g:NeoComplCache_KeywordPatterns')
   let g:NeoComplCache_KeywordPatterns = {}
 endif
 let g:NeoComplCache_KeywordPatterns['default'] = '\h\w*'
+
+let g:NeoComplCache_PluginCompletionLength = {
+  \ 'snipMate_complete' : 1,
+  \ 'keyword_complete'  : 2,
+  \ 'syntax_complete'   : 2
+  \ }
  
 " <TAB> completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
