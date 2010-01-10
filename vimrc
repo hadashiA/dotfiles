@@ -39,7 +39,7 @@ set wildmenu
 " set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}
 set statusline=
 set statusline+=[*%n]\  " バッファ番号
-set statusline+=%f\     " ファイル名
+set statusline+=%F\     " ファイル名
 set statusline+=%{'['.(&fenc!=''?&fenc:'?').'-'.&ff.']'} " 文字コード
 "set statusline+=%{'['.GetShortEncodingJP().'-'.&ff.']'} " 文字コード
 set statusline+=%y      " ファイルタイプ
