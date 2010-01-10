@@ -97,15 +97,6 @@ inoremap ' ''<LEFT>
 noremap <Leader>ww :w<CR>
 noremap <Leader>ffunc :e ~/.config/fish/functions<CR>
 
-let dirlist = split(glob("~/dev/*"), "\n")
-for dir in dirlist
-endfor
-
-noremap <leader>dev :e ~/dev<CR>
-noremap <leader>enpra :e ~/dev/enpra<CR>
-noremap <leader>fish :e ~/dev/fish<CR>
-noremap <leader>ddu :e ~/dev/danceunit<CR>
-
 " emacs keybind
 imap <C-a> <ESC>I
 imap <C-e> <ESC>A
@@ -120,6 +111,18 @@ imap <C-b> <LEFT>
 imap <C-k> <ESC><RIGHT>DA
 nnoremap <SPACE> i<SPACE><ESC><RIGHT>
 nmap { A<SPACE>{}<LEFT><CR><ESC>O
+
+" open project dir
+"let dirlist = split(glob("~/dev/*"), "\n")
+"for dir in dirlist
+"  let proj = system('basename '.dir)
+"  execute('noremap <leader>dev :e '.dir.'<CR>')
+"  execute('noremap <leader>'.proj.' :e '.dir.'<CR>')
+"endfor
+noremap <leader>enpra :e ~/dev/enpra<CR>
+noremap <leader>fish :e ~/dev/fish<CR>
+noremap <leader>ddu :e ~/dev/ddu<CR>
+noremap <leader>hsk :e ~/dev/hadashikick<CR>
 
 "---------------------------------------------------------------
 " PHP
