@@ -147,9 +147,9 @@ augroup END
 "
 autocmd FileType ruby set tabstop=2
 autocmd FileType ruby set shiftwidth=2
-autocmd FileType ruby imap class<Space> class<Space><CR>end<UP><ESC>AClassName<ESC>bgh<RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT>
-autocmd FileType ruby imap def<Space> def<Space><CR>end<UP><ESC>Amethod_name<ESC>bgh<RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT>
-autocmd FileType ruby imap do<Space> do<Space><CR>end<UP><ESC>A
+"autocmd FileType ruby imap class<Space> class<Space><CR>end<UP><ESC>AClassName<ESC>bgh<RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT>
+"autocmd FileType ruby imap def<Space> def<Space><CR>end<UP><ESC>Amethod_name<ESC>bgh<RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT><RIGHT>
+"autocmd FileType ruby imap do<Space> do<Space><CR>end<UP><ESC>A
 autocmd FileType ruby imap #{ #{}<LEFT>
 autocmd FileType eruby inoremap << <%<Space><Space>%><LEFT><LEFT><LEFT>
 autocmd FileType eruby inoremap <<< <%=<Space><Space>%><LEFT><LEFT><LEFT>
@@ -375,5 +375,5 @@ inoremap <expr><C-p> pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
 inoremap <expr><CR> pumvisible() ? "\<C-y>\<CR>X\<BS>" : "\<CR>X\<BS>"
 
 let g:NeoComplCache_SnippetsDir = $HOME . '/.vim/snippets'
-imap <silent> <C-m> <Plug>(neocomplcache_snippets_expand)
-smap <silent> <C-m> <Plug>(neocomplcache_snippets_expand)
+imap <silent> <C-,> <Plug>(neocomplcache_snippets_expand)
+smap <silent> <C-,> <Plug>(neocomplcache_snippets_expand)
