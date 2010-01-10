@@ -160,11 +160,7 @@ autocmd FileType ruby nmap <leader>c :!ruby -c %<CR>
 autocmd BufRead,BufNewFile *.rash set filetype=ruby
 autocmd BufRead,BufNewFile .autotest set filetype=ruby
 
-function! RspecExec ()
-  let cmd=':!spec -fs --drb -l '.line('.').' "%" '
-  execute cmd
-endfunction
-autocm FileType ruby nmap <leader>r :call RspecExec()<CR>
+command! RspecExec execute(':!spec -fs --drb -l '.line('.').' "%" ')
 
 "---------------------------------------------------------------
 " Perl
