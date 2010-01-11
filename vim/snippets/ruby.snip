@@ -1,73 +1,4 @@
-snippet am
-    alias_method :${1:new_name}, :${2:old_name}
-
-snippet anr
-    assert_nothing_raised(${1:Exception}) { ${2} }
-
-snippet as
-    assert ${1:test}, "${2:failure_message}"
-
-snippet ase
-    assert_equal ${1:expected}, ${2:actual}
-
-snippet asid
-    assert_in_delta ${1:expected_float}, ${2:actual_float}, ${3:delta_float}
-
-snippet asio
-    assert_instance_of ${1:ExpectedClass}, ${2:actual_instance}
-
-snippet asko
-    assert_kind_of ${1:ExpectedKind}, ${2:actual_instance}
-
-snippet asm
-    assert_match /${1:expected_pattern}/, ${2:actual_string}
-
-snippet asn
-    assert_nil ${1:instance}
-
-snippet asne
-    assert_not_equal ${1:unexpected}, ${2:actual}
-
-snippet asnm
-    assert_no_match /${1:unexpected_pattern}/, ${2:actual_string}
-
-snippet asnn
-    assert_not_nil ${1:instance}
-
-snippet asns
-    assert_not_same ${1:unexpected}, ${2:actual}
-
-snippet asnt
-    assert_nothing_thrown { ${1} }
-
-snippet aso
-    assert_operator ${1:left}, :${2:operator}, ${3:right}
-
-snippet asr
-    assert_raise(${1:Exception}) { ${2} }
-
-snippet asrt
-    assert_respond_to ${1:object}, :${2:method}
-
-snippet ass
-    assert_send [${1:object}, :${2:message}, ${3:args}]
-
-snippet ast
-    assert_throws(:${1:expected}) { ${2} }
-
-snippet bm
-    TESTS = ${1:10_000}
-    Benchmark.bmbm do |results|
-    	${2}
-    end
-
-snippet case
-    case ${1}
-    when ${2}
-    else
-    	${3}
-    end
-
+# Class定義
 snippet class
     class ${1:`Snippet_RubyClassNameFromFilename()`}${2}
     	${3}
@@ -76,156 +7,11 @@ snippet class
 snippet classe
     class ${1:ErrorClassName} < ${2:StandardError}; end${3}
 
-snippet def
-    def ${1:name}
-    	${2}
-    end
+snippet sinc
+    class << self; self end
 
-snippet defi
-    def initialize${1}
-    	${2}
-    end
 
-snippet defmm
-    def method_missing(meth, *args, &blk)
-    	${1}
-    end
-
-snippet defs
-    def self.${1:class_method_name}
-    	${2}
-    end
-
-snippet deft
-    def test_${1:case_name}
-    	${2}
-    end
-
-snippet detect
-    detect { |${1:element}| ${2:body} }
-
-snippet detecto
-    detect do |${1:element}|
-    	${2:body}
-    end
-
-snippet dglob
-    Dir.glob(${1:"<+dir}"+>) { |${2:file}| ${3} }
-
-snippet do
-    do
-    	${1}
-    end
-
-snippet dop
-    do |${1:param}|
-    	${2}
-    end
-
-snippet ea
-    each { |${1:element}| ${2:body} }
-
-snippet each
-    each { |${1:element}| ${2:body} }
-
-snippet each_with_index
-    each_with_index { |${1:element},${2:i}| ${3:} }
-
-snippet each_with_indexo
-    each_with_index do |${1:element},${2:i}|
-    	${3:body}
-    end
-    
-
-snippet eacho
-    each do |${1:element}|
-    	${2:body}
-    end
-
-snippet eado
-    each do |${1:element}|
-    	${2:body}
-    end
-
-snippet eawi
-    each_with_index { |${1:element},${2:i}| ${3:} }
-
-snippet eawido
-    each_with_index do |${1:element},${2:i}|
-    	${3:body}
-    end
-    
-
-snippet elsif
-    elsif ${1:condition}
-    	${2}
-
-snippet fileeach
-    File.foreach(${1:"<+path}"+>) { |${2:line}| ${3} }
-
-snippet fopen
-    File.open(${1:path}, "${2:rwab}") { |${3:file}| ${4} }
-
-snippet fread
-    File.read(${1})
-
-snippet http_get
-    require 'net/http'
-    res = Net::HTTP.get URI.parse('${1:url}')
-
-snippet http_post
-    require 'net/http'
-    res = Net::HTTP.post_form URI.parse('${1:url}')${2:, params}
-
-snippet if
-    if ${1:condition}
-    	${2}
-    end
-
-snippet ife
-    if ${1:condition}
-    	${2}
-    else
-    end
-
-snippet inj
-    inject(${1:init}) { |${2:total}, ${3:next}| ${4:body} }
-
-snippet injdo
-    inject(${1:init}) do |${2:total}, ${3:next}|
-    	${4:body}
-    end
-
-snippet inject
-    inject { |${1:total},${2:next}| ${3:body} }
-
-snippet injecto
-    inject do |${1:total},${2:next}|
-    	${3:body}
-    end
-
-snippet ip
-    ip_addr = request.env['REMOTE_ADDR']
-
-snippet map
-    map { |${1:element}| ${2:body} }
-
-snippet mapdo
-    map do |${1:element}|
-    	${2:body}
-    end
-
-snippet mapo
-    map do |${1:element}|
-    	${2:body}
-    end
-
-snippet Md
-    File.open(${1:dump_path}, "wb") { |${2:file}| Marshal.dump(${3:obj}, ${4:$2}) }
-
-snippet Ml
-    File.open(${1:dump_path}, "rb") { |${2:file}| Marshal.load(${3:$2}) }
-
+# Module定義
 snippet mod
     module ${1:`Snippet_RubyClassNameFromFilename()`}
     	${2}
@@ -247,47 +33,165 @@ snippet module
     	end
     end
 
-snippet nam
-    namespace :${1:namespace} do
+
+# Method定義
+snippet def
+    def ${1:name}
     	${2}
     end
 
-snippet ope
-    open(${1:path}, "${2:rwab}") { |${3:io}| ${4} }
+snippet defi
+    def initialize${1}
+    	${2}
+    end
 
-snippet pathhere
-    File.join(File.dirname(__FILE__), *%w[${1:rel_path_here}])
+snippet defmm
+    def method_missing(meth, *args, &blk)
+    	${1}
+    end
 
-snippet Pn
-    PStore.new(${1})
+snippet defs
+    def self.${1:class_method_name}
+    	${2}
+    end
 
-snippet r
+snippet am
+    alias_method :${1:new_name}, :${2:old_name}
+
+
+# Attribute定義
+snippet attrr
     attr_reader :${1:attr_names}
 
-snippet reject
-    reject { |${1:element}| ${2:body} }
-
-snippet rejecto
-    reject do |${1:element}|
-    	${2:body}
-    end
-
-snippet rep
-    results.report("${1:name}:") { TESTS.times { ${2} } }
-
-snippet rw
+snippet attrrw
     attr_accessor :${1:attr_names}
+   
+snippet cattrrw
+    cattr_accessor :${1:attr_names}
 
-snippet select
-    select { |${1:element}| ${2:body} }
+snippet attrw
+    attr_writer :${1:attr_names}
 
-snippet selecto
-    select do |${1:element}|
+
+# 制御構文
+snippet if
+    if ${1:condition}
+    	${2}
+    end
+
+snippet elsif
+    elsif ${1:condition}
+    	${2}
+
+snippet ife
+    if ${1:condition}
+    	${2}
+    else
+    end
+
+snippet case
+    case ${1}
+    when ${2}
+    else
+    	${3}
+    end
+
+snippet casemini
+    case ${1}
+    when ${2} then ${3}
+    end
+
+snippet unless
+    unless ${1:condition}
+    	${2}
+    end
+
+snippet while
+    while ${1:condition}
+    	${2}
+    end
+
+
+# Block
+snippet do
+    do
+    	${1}
+    end
+
+snippet dop
+    do |${1:param}|
+    	${2}
+    end
+
+
+# Enumerable
+snippet each
+prev_word '.'
+    each { |${1:element}| ${2:process} }
+
+snippet eachdo
+prev_word '.'
+    each do |${1:element}|
+    	${2:process}
+    end
+
+snippet coll
+prev_word '.'
+    collect { |${1:element}| ${2:process} }
+    
+snippet colldo
+prev_word '.'
+    each do |${1:element}|
     	${2:body}
     end
 
-snippet sinc
-    class << self; self end
+snippet colls
+prev_word '.'
+    collect(&:${1:Method Name})
+
+snippet map
+prev_word '.'
+    collect(&:${1:Method Name})
+
+snippet sel
+prev_word '.'
+    select { |${1:element}| ${2:Include condition...} }
+
+snippet selo
+prev_word '.'
+    select do |${1:element}|
+    	${2:Include condition...}
+    end
+
+snippet det
+prev_word '.'
+    detect { |${1:element}| ${2:Not include condition...} }
+
+snippet detdo
+prev_word '.'
+    detect do |${1:element}|
+    	${2:Not include condition...}
+    end
+    
+snippet rej
+prev_word '.'
+    reject { |${1:element}| ${2:Not include condition...} }
+
+snippet rejdo
+prev_word '.'
+    reject do |${1:element}|
+    	${2:Not include condition...}
+    end
+    
+snippet inj
+prev_word '.'
+    inject(${1:init}) { |${2:total}, ${3:next}| ${4:body} }
+
+snippet injdo
+prev_word '.'
+    inject(${1:init}) do |${2:total}, ${3:next}|
+    	${4:body}
+    end
 
 snippet sort
     sort { |${1:x},${2:y}| ${3:body} }
@@ -297,65 +201,219 @@ snippet sorto
     	${3:body}
     end
 
-snippet tas
-    desc "${1:Task description}"
-    task :${2:task_name}${3: => [:dependent, :tasks]} do
-    	${4}
+
+# File
+snippet glob
+    Dir.glob(${1:glob}) do |path|
+      ${2}
     end
 
+snippet openw
+    open(${1:path}, 'w')
+
+snippet fileeach
+    File.foreach(${1:"<+path}"+>) { |${2:line}| ${3} }
+
+snippet fileputs
+    open(${1:path}, 'w') { |io| io.puts(${2}) }
+
+snippet fileread
+    open(${1:path}) do |f|
+      f.each do |line|
+        ${2}
+      end
+    end
+
+snippet pathhere
+    File.join(File.dirname(__FILE__), ${1:path here})
+
+
+# CSV
+snippet csvread
+    require 'csv'
+
+    CSV.foreach(${1:path}) do |row|
+      ${2}
+    end
+
+snippet csvwrite
+    require 'csv'
+    
+    CSV.open(${1:path}, 'w') do |writer|
+      ${2}
+    end
+
+
+# Net::HTTP
+snippet httpget
+    require 'net/http'
+    
+    res = Net::HTTP.get URI.parse('${1:url}')
+
+snippet httppost
+    require 'net/http'
+    
+    res = Net::HTTP.post_form URI.parse('${1:url}')${2:, params}
+
+
+# Net::FTP
+snippet ftp
+    require 'net/ftp'
+
+
+# Net::Pop
+snippet pop3
+    require 'net/pop3'
+
+
+# TestUnit
+#snippet tc
+#    require "test/unit"
+#    
+#    require "${1:library_file_name}"
+#    
+#    class Test${2:`Snippet_RubyClassNameFromFilename()`} < Test::Unit::TestCase
+#    	def test_${3:case_name}
+#    		${4}
+#    	end
+#    end
+#
+#snippet anr
+#    assert_nothing_raised(${1:Exception}) { ${2} }
+#
+#snippet as
+#    assert ${1:test}, "${2:failure_message}"
+#
+#snippet ase
+#    assert_equal ${1:expected}, ${2:actual}
+#
+#snippet asid
+#    assert_in_delta ${1:expected_float}, ${2:actual_float}, ${3:delta_float}
+#
+#snippet asio
+#    assert_instance_of ${1:ExpectedClass}, ${2:actual_instance}
+#
+#snippet asko
+#    assert_kind_of ${1:ExpectedKind}, ${2:actual_instance}
+#
+#snippet asm
+#    assert_match /${1:expected_pattern}/, ${2:actual_string}
+#
+#snippet asn
+#    assert_nil ${1:instance}
+#
+#snippet asne
+#    assert_not_equal ${1:unexpected}, ${2:actual}
+#
+#snippet asnm
+#    assert_no_match /${1:unexpected_pattern}/, ${2:actual_string}
+#
+#snippet asnn
+#    assert_not_nil ${1:instance}
+#
+#snippet asns
+#    assert_not_same ${1:unexpected}, ${2:actual}
+#
+#snippet asnt
+#    assert_nothing_thrown { ${1} }
+#
+#snippet aso
+#    assert_operator ${1:left}, :${2:operator}, ${3:right}
+#
+#snippet asr
+#    assert_raise(${1:Exception}) { ${2} }
+#
+#snippet asrt
+#    assert_respond_to ${1:object}, :${2:method}
+#
+#snippet ass
+#    assert_send [${1:object}, :${2:message}, ${3:args}]
+#
+#snippet ast
+#    assert_throws(:${1:expected}) { ${2} }
+#
+#snippet art
+#    assert_redirected_to ${1::action => "${2:index}"}
+#
+#snippet artnp
+#    assert_redirected_to <+<+parent+>_<+child+>_path(<+@<+parent+>+>, <+@<+child+>+>)+>
+#
+#snippet artnpp
+#    assert_redirected_to <+<+parent+>_<+child+>_path(<+@<+parent+>+>)+>
+#
+#snippet artp
+#    assert_redirected_to <+<+model+>_path(<+@<+model+>+>)+>
+#
+#snippet artpp
+#    assert_redirected_to <+<+model+>s_path+>
+#
+#snippet asd
+#    assert_difference "${1:Model}.${2:count}", $1 do
+#    	${3}
+#    end
+#
+#snippet asnd
+#    assert_no_difference "${1:Model}.${2:count}" do
+#    	${3}
+#    end
+#
+#snippet asre
+#    assert_response :${1:success}, @response.body${2}
+#
+#snippet asrj
+#    assert_rjs :<+replace+>, <+"<+dom id+>"+>
+#
+#snippet ass
+#    assert_select '<+path+>'<+, :<+text+> => <+'<+inner_html+>'+>+> <+do<++>+>
+#
+#snippet bm
+#    TESTS = ${1:10_000}
+#    Benchmark.bmbm do |results|
+#    	${2}
+#    end
+#
+#snippet deft
+#    def test_${1:case_name}
+#    	${2}
+#    end
+#
+#snippet ip
+#    ip_addr = request.env['REMOTE_ADDR']
+#
+#snippet rep
+#    results.report("${1:name}:") { TESTS.times { ${2} } }
+
+
+# Marshal
+snippet Md
+    File.open(${1:dump_path}, "wb") { |${2:file}| Marshal.dump(${3:obj}, ${4:$2}) }
+
+snippet Ml
+    File.open(${1:dump_path}, "rb") { |${2:file}| Marshal.load(${3:$2}) }
+
+
+# PStore
+snippet Pn
+    PStore.new(${1})
+
+
+# Rake
 snippet task
     desc "${1:Task description}"
     task :${2:task_name}${3: => [:dependent, :tasks]} do
     	${4}
     end
 
-snippet tc
-    require "test/unit"
-    
-    require "${1:library_file_name}"
-    
-    class Test${2:`Snippet_RubyClassNameFromFilename()`} < Test::Unit::TestCase
-    	def test_${3:case_name}
-    		${4}
-    	end
-    end
 
-snippet unless
-    unless ${1:condition}
-    	${2}
-    end
-
-snippet unlesse
-    unless ${1:condition}
-    	${2}
-    else
-    end
-
-snippet w
-    attr_writer :${1:attr_names}
-
-snippet while
-    while ${1:condition}
-    	${2}
-    end
-
-snippet xmlr
-    REXML::Document.new(File.read(${1:path}))
-
-snippet xpa
-    elements.each(${1}) do |${2:node}|
-    	${3}
-    end
-
+# YAML
 snippet Yd
     File.open(${1:path_to_yml}, "w") { |${2:file}| YAML.dump(${3:obj}, ${4:$2}) }
 
 snippet Yl
     File.open(${1:path_to_yml}) { |${2:file}| YAML.load(${3:$2}) }
 
-snippet zip
-    zip(${1:enums}) { |${2:row}| ${3} }
 
+# Factory
 snippet fac
     Factory(:<+factory_name+><+, <++>+>)<++>
 
@@ -377,50 +435,12 @@ snippet facs
     end
     ${4}
 
-snippet art
-    assert_redirected_to ${1::action => "${2:index}"}
 
-snippet artnp
-    assert_redirected_to <+<+parent+>_<+child+>_path(<+@<+parent+>+>, <+@<+child+>+>)+>
-
-snippet artnpp
-    assert_redirected_to <+<+parent+>_<+child+>_path(<+@<+parent+>+>)+>
-
-snippet artp
-    assert_redirected_to <+<+model+>_path(<+@<+model+>+>)+>
-
-snippet artpp
-    assert_redirected_to <+<+model+>s_path+>
-
-snippet asd
-    assert_difference "${1:Model}.${2:count}", $1 do
-    	${3}
-    end
-
-snippet asnd
-    assert_no_difference "${1:Model}.${2:count}" do
-    	${3}
-    end
-
-snippet asre
-    assert_response :${1:success}, @response.body${2}
-
-snippet asrj
-    assert_rjs :<+replace+>, <+"<+dom id+>"+>
-
-snippet ass
-    assert_select '<+path+>'<+, :<+text+> => <+'<+inner_html+>'+>+> <+do<++>+>
-
+# ActionController::Base
 snippet bf
     before_filter :${1:method}
 
-snippet bt
-    belongs_to :${1:association}
-
-snippet crw
-    cattr_accessor :${1:attr_names}
-
-snippet defcreate
+snippet acacreate
     def create
     	@${1:model_class_name} = ${2:ModelClassName}.new(params[:$1])
     
@@ -436,7 +456,7 @@ snippet defcreate
     	end
     end${3}
 
-snippet defdestroy
+snippet acadestroy
     def destroy
     	@${1:model_class_name} = ${2:ModelClassName}.find(params[:id])
     	@$1.destroy
@@ -447,12 +467,12 @@ snippet defdestroy
     	end
     end${3}
 
-snippet defedit
+snippet acaedit
     def edit
     	@${1:model_class_name} = ${2:ModelClassName}.find(params[:id])
     end
 
-snippet defindex
+snippet acaindex
     def index
     	@${1:model_class_name} = ${2:ModelClassName}.all
     
@@ -462,7 +482,7 @@ snippet defindex
     	end
     end${3}
 
-snippet defnew
+snippet acanew
     def new
     	@${1:model_class_name} = ${2:ModelClassName}.new
     
@@ -472,7 +492,7 @@ snippet defnew
     	end
     end${3}
 
-snippet defshow
+snippet acashow
     def show
     	@${1:model_class_name} = ${2:ModelClassName}.find(params[:id])
     
@@ -482,7 +502,7 @@ snippet defshow
     	end
     end${3}
 
-snippet defupdate
+snippet acaupdate
     def update
     	@${1:model_class_name} = ${2:ModelClassName}.find(params[:id])
     
@@ -498,42 +518,106 @@ snippet defupdate
     	end
     end${3}
 
-snippet fina
-    find(:all<+, :conditions => ['<+<+field+> = ?+>', <+true+>]+>)
-
-snippet finf
-    find(:first<+, :conditions => ['<+<+field+> = ?+>', <+true+>]+>)
-
-snippet fini
-    find(<+id+>)
-
-snippet finl
-    find(:last<+, :conditions => ['<+<+field+> = ?+>', <+true+>]+>)
-
 snippet flash
     flash[:${1:notice}] = "${2}"
+
+snippet params
+    params[:${1:key}]${2}
+
+# ActionController::Caghing::Sweeper
+snippet sweeper
+    class ${1:ModelClassName}Sweeper < ActionController::Caching::Sweeper
+    	observe $1
+    
+    	def after_save(${2:model_class_name})
+    		expire_cache($2)
+    	end
+    
+    	def after_destroy($2)
+    		expire_cache($2)
+    	end
+    
+    	def expire_cache($2)
+    		expire_page
+    	end
+    end
+
+
+# ActiveRecord::Base
+snippet armodel
+prev_word '^'
+    class ${1:ModelClassName} < ActiveRecord::Base
+      ${2}
+    end
+
+snippet belongs_to
+    belongs_to :${1:association}
+
+snippet findall
+prev_word '.'
+    all(:conditions => ['${1:condition}', ${2:variables}])
+
+snippet findfirst
+prev_word '.'
+    first(:conditions => ['${1:condition}', ${2:variables}])
 
 snippet habtm
     has_and_belongs_to_many :${1:object}, :join_table => "${2:table_name}", :foreign_key => "${3}_id"${4}
 
-snippet hm
-    has_many :<+object+>s<+, :class_name => "<+object+>", :foreign_key => "<+reference+>_id"+>
+snippet has_many
+    has_many :${1:Association}, :class_name => "${2:Class Name}", :foreign_key => "${3:foreign_key}_id", :dependent => :destroy
 
-snippet hmd
-    has_many :<+object+>s<+, :class_name => "<+object+>", :foreign_key => "<+reference+>_id"+>, :dependent => :destroy<++>
+snippet has_manyth
+    has_many :${1:Association}, :through => :${2:Join association}, :source => '${3}'
 
-snippet hmt
-    has_many :<+association_name+>, :through => :<+join_association+><+, :source => '<++>'+>
+snippet has_one
+    has_one :${1:Association}, :class_name => "${2:Class Name}", :foreign_key => "${3:class}_id"
 
-snippet ho
-    has_one :${1:object}, :class_name => "${2:Class}", :foreign_key => "${3:class}_id"
+snippet validates_associated
+    validates_associated :${1:attribute}
 
+snippet validates_acceptance_of
+    validates_acceptance_of :${1:terms}, :accept => "${2:accept}"
+
+snippet validates_confirmation_of
+    validates_confirmation_of :${1:attribute}
+
+snippet validates_exclusion_of
+    validates_exclusion_of :${1:attribute}, :in => ${2:exclusion list}
+
+snippet validates_format_of
+    validates_format_of :${1:attribute}, :with => /${2:regex}/
+
+snippet validates_inclusion_of
+    validates_inclusion_of :${1:attribute}, :in => ${2:included list}
+
+snippet vl
+    validates_length_of :<+attribute+>, :within => <+3..20+><+, :on => :<+create+>, :message => "<+must be present+>"+>
+
+snippet vn
+    validates_numericality_of :<+attribute+><+, :on => :<+create+>, :message => "<+is not a number+>"+>
+
+snippet vpo
+    validates_presence_of :${1:attribute}
+
+snippet vu
+    validates_uniqueness_of :<+attribute+><+, :on => :<+create+>, :message => "<+must be unique+>"+>
+
+snippet ns
+    named_scope :${1:name}, :conditions => ${2:conditions}
+
+snippet nsp
+    named_scope :${1:name}, proc |${2:param}|
+      ${3}
+    end
+
+
+# I18n
 snippet i18
     I18n.t('${1:type.key}')${2}
 
-snippet ist
-    <%= image_submit_tag("<+agree.png+>"<+<+, :id => "<+id+>"+><+, :name => "<+name+>"+><+, :class => "<+class+>"+><+, :disabled => <+false+>+>+>) %>
 
+# Rails Logger
 snippet log
     RAILS_DEFAULT_LOGGER.${1:debug} ${2}
 
@@ -552,9 +636,6 @@ snippet logi
 snippet logw
     logger.warn { "${1:message}" }${2}
 
-snippet mac
-    add_column :${1:table}, :${2:column}, :${3:type}
-
 snippet mapc
     ${1:map}.${2:connect} '${3:controller/:action/:id}'
 
@@ -572,147 +653,33 @@ snippet mapwo
     	${4}
     end
 
-snippet mbs
-    before_save :${1:method}
-
-snippet mcc
-    change_column :${1:table}, :${2:column}, :${3:type}
-
-snippet mccc
-    t.column :${1:title}, :${2:string}
-
-snippet mcht
-    change_table :${1:table_name} do |t|
-    	${2}
-    end
-
-snippet mcol
-    remove_column :${1:table}, :${2:column}
-
-snippet mct
-    create_table :${1:table_name} do |t|
-    	t.column :${2:name}, :${3:type}
-    end
-
-snippet migration
-    class ${1:`Snippet_MigrationNameFromFilename()`} < ActiveRecord::Migration
+# ActiveRecord::Migration
+snippet armigration
+prev_word '^'
+    class ${1:MigrationClassName} < ActiveRecord::Migration
     	def self.up
-    		${2}
+    		
     	end
     
     	def self.down
     	end
     end
 
-snippet mp
-    map(&:${1:id})
+snippet add_column
+    add_column :${1:table}, :${2:column}, :${3:type}
 
-snippet mrc
-    remove_column :${1:column}
-
-snippet mrmc
+snippet remove_column
     remove_column :${1:table}, :${2:column}
 
-snippet mrnc
+snippet rename_column
     rename_column :${1:table}, :${2:old}, :${3:new}
 
-snippet mrw
-    mattr_accessor :${1:attr_names}
+snippet remove_column
+    remove_column :${1:table}, :${2:column}
 
-snippet pa
-    params[:${1:id}]${2}
-
-snippet ra
-    render :action => "${1:action}"
-
-snippet ral
-    render :action => "${1:action}", :layout => "${2:layoutname}"
-
-snippet rest
-    respond_to do |wants|
-    	wants.${1:html} <+{ <++> }+>
-    end
-
-snippet rf
-    render :file => "${1:filepath}"
-
-snippet rfu
-    render :file => "${1:filepath}", :use_full_path => ${2:false}
-
-snippet ri
-    render :inline => "<+<%= 'hello' %>+>"
-
-snippet ril
-    render :inline => "${1:<%= 'hello' %>}", :locals => { ${2::name} => "${3:value}"${4} }
-
-snippet rit
-    render :inline => "${1:<%= 'hello' %>}", :type => ${2::rxml}
-
-snippet rjson
-    render :json => ${1:text to render}
-
-snippet rl
-    render :layout => "${1:layoutname}"
-
-snippet rn
-    render :nothing => ${1:true}
-
-snippet rns
-    render :nothing => ${1:true}, :status => ${2:401}
-
-snippet rp
-    render :partial => "${1:item}"
-
-snippet rpc
-    render :partial => "<+item+>", :collection => <+@<+item+>s+>
-
-snippet rpl
-    render :partial => "<+item+>", :locals => { :<+item+> => <+@<+item+>+><++> }
-
-snippet rpo
-    render :partial => "<+item+>", :object => <+@<+item+>+>
-
-snippet rps
-    render :partial => "${1:item}", :status => ${2:500}
-
-snippet rt
-    render :text => "${1:text to render}"
-
-snippet rtl
-    render :text => "${1:text to render}", :layout => "${2:layoutname}"
-
-snippet rtlt
-    render :text => "${1:text to render}", :layout => ${2:true}
-
-snippet rts
-    render :text => "${1:text to render}", :status => ${2:401}
-
-snippet ru
-    render :update do |${1:page}|
-    	$1.${2}
-    end
-
-snippet rxml
-    render :xml => ${1:text to render}
-
-snippet sha1
-    Digest::SHA1.hexdigest(${1:string})
-
-snippet sweeper
-    class ${1:ModelClassName}Sweeper < ActionController::Caching::Sweeper
-    	observe $1
-    
-    	def after_save(${2:model_class_name})
-    		expire_cache($2)
-    	end
-    
-    	def after_destroy($2)
-    		expire_cache($2)
-    	end
-    
-    	def expire_cache($2)
-    		expire_page
-    	end
+snippet create_table
+    create_table :${1:table_name} do |t|
+    	t.column :${2:name}, :${3:type}
     end
 
 snippet tcb
@@ -785,35 +752,10 @@ snippet tre
 snippet tref
     t.references :${1:model}
 
-snippet va
-    validates_associated :<+attribute+><+, :on => :<+:create+>+>
 
-snippet vao
-    validates_acceptance_of :<+terms+><+, :accept => "<++>", :message => "<+terms_message+>"+>
-
-snippet vc
-    validates_confirmation_of :<+attribute+><+, :on => :<+create+>, :message => "<+should match confirmation+>"+>
-
-snippet ve
-    validates_exclusion_of :<+attribute+><+, :in => <+%w( <+mov avi+> )+>, :on => :<+create+>, :message => "<+extension %s is not allowed+>"+>
-
-snippet vf
-    validates_format_of :${1:attribute}, :with => /${2:regex}/<+, :on => :<+create+>, :message => "<+is invalid+>"+>
-
-snippet vi
-    validates_inclusion_of :<+attribute+><+, :in => <+%w( <+mov avi+> )+>, :on => :<+create+>, :message => "<+extension %s is not included in the list+>"+>
-
-snippet vl
-    validates_length_of :<+attribute+>, :within => <+3..20+><+, :on => :<+create+>, :message => "<+must be present+>"+>
-
-snippet vn
-    validates_numericality_of :<+attribute+><+, :on => :<+create+>, :message => "<+is not a number+>"+>
-
-snippet vpo
-    validates_presence_of :${1:attribute}
-
-snippet vu
-    validates_uniqueness_of :<+attribute+><+, :on => :<+create+>, :message => "<+must be unique+>"+>
+# Digest
+snippet sha1
+    Digest::SHA1.hexdigest(${1:string})
 
 snippet wants
     wants.<+js|xml|html+> <+{ <++> }+>
@@ -830,14 +772,7 @@ snippet xpost
 snippet xput
     xhr :put, :${1:update}, :id => ${2:1}, :${3:object} => { ${4} }${5}
 
-snippet ns
-    named_scope :${1:name}, :conditions => ${2:conditions}
-
-snippet nsp
-    named_scope :${1:name}, proc |${2:param}|
-      ${3}
-    end
-
+# Rspec
 snippet aft
     after(${1::each}) do
     	${2}
@@ -890,6 +825,7 @@ snippet its
     it "should ${1:do something}" do${2}
 
 snippet mat
+prev_word '^'
     class ${1:ReverseTo}
     	def initialize(${2:param})
     		@$2 = $2
@@ -1085,11 +1021,3 @@ snippet sht
 snippet shtemp
     response.should render_template(:${1:template})
     ${2}
-
-snippet tw
-    twice
-
-snippet wia
-    with(${1:args})
-    ${2}
-
