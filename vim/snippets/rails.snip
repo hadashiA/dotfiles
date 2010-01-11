@@ -186,19 +186,19 @@ snippet validates_numericality_of
 prev_word '^'
     validates_numericality_of :<+attribute+><+, :on => :<+create+>, :message => "<+is not a number+>"+>
 
-snippet vpo
+snippet validates_presence_of
     validates_presence_of :${1:attribute}
 
-snippet vu
+snippet validates_uniqueness_of
     validates_uniqueness_of :<+attribute+><+, :on => :<+create+>, :message => "<+must be unique+>"+>
 
 snippet named_scope
     named_scope :${1:name}, :conditions => ${2:conditions}
 
 snippet named_scopep
-    named_scope :${1:name}, proc |${2:param}|
+    named_scope :${1:name}, proc{ |${2:arg}|
       ${3}
-    end
+    }
 
 
 # I18n
