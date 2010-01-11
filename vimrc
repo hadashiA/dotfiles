@@ -305,10 +305,15 @@ let g:NeoComplCache_MaxKeywordWidth = 50
 let g:NeoComplCache_MaxFilenameWidth = 50
 
 " start length
-let g:NeoComplCache_KeywordCompletionStartLength = 2
-let g:NeoComplCache_ManualCompletionStartLength = 2
-let g:NeoComplCache_MinKeywordLength = 4
-let g:NeoComplCache_MinSyntaxLength = 4
+let g:NeoComplCache_KeywordCompletionStartLength = 1
+if !exists('g:NeoComplCache_PluginCompletionLength')
+endif
+let g:NeoComplCache_PluginCompletionLength = {
+    \'snippets_complete' : 1, 
+    \'buffer_complete' : 2, 
+    \'syntax_complete' : 2, 
+    \'tags_complete' : 3, 
+\}
 
 " ignorecase
 let g:NeoComplCache_IgnoreCase = 0
@@ -356,12 +361,6 @@ if !exists('g:NeoComplCache_KeywordPatterns')
 endif
 let g:NeoComplCache_KeywordPatterns['default'] = '\h\w*'
 
-let g:NeoComplCache_PluginCompletionLength = {
-  \ 'snipMate_complete' : 1,
-  \ 'keyword_complete'  : 2,
-  \ 'syntax_complete'   : 2
-  \ }
- 
 " <TAB> completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " C-jでオムニ補完

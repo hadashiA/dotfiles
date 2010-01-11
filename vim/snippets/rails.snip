@@ -1,0 +1,328 @@
+# ActionController::Base
+snippet bf
+    before_filter :${1:method}
+
+snippet acacreate
+    def create
+    	@${1:model_class_name} = ${2:ModelClassName}.new(params[:$1])
+    
+    	respond_to do |wants|
+    		if @$1.save
+    			flash[:notice] = '$2 was successfully created.'
+    			wants.html { redirect_to(@$1) }
+    			wants.xml  { render :xml => @$1, :status => :created, :location => @$1 }
+    		else
+    			wants.html { render :action => "new" }
+    			wants.xml  { render :xml => @$1.errors, :status => :unprocessable_entity }
+    		end
+    	end
+    end${3}
+
+snippet acadestroy
+    def destroy
+    	@${1:model_class_name} = ${2:ModelClassName}.find(params[:id])
+    	@$1.destroy
+    
+    	respond_to do |wants|
+    		wants.html { redirect_to($1s_url) }
+    		wants.xml  { head :ok }
+    	end
+    end${3}
+
+snippet acaedit
+    def edit
+    	@${1:model_class_name} = ${2:ModelClassName}.find(params[:id])
+    end
+
+snippet acaindex
+    def index
+    	@${1:model_class_name} = ${2:ModelClassName}.all
+    
+    	respond_to do |wants|
+    		wants.html # index.html.erb
+    		wants.xml  { render :xml => @$1s }
+    	end
+    end${3}
+
+snippet acanew
+    def new
+    	@${1:model_class_name} = ${2:ModelClassName}.new
+    
+    	respond_to do |wants|
+    		wants.html # new.html.erb
+    		wants.xml  { render :xml => @$1 }
+    	end
+    end${3}
+
+snippet acashow
+    def show
+    	@${1:model_class_name} = ${2:ModelClassName}.find(params[:id])
+    
+    	respond_to do |wants|
+    		wants.html # show.html.erb
+    		wants.xml  { render :xml => @$1 }
+    	end
+    end${3}
+
+snippet acaupdate
+    def update
+    	@${1:model_class_name} = ${2:ModelClassName}.find(params[:id])
+    
+    	respond_to do |wants|
+    		if @$1.update_attributes(params[:$1])
+    			flash[:notice] = '$2 was successfully updated.'
+    			wants.html { redirect_to(@$1) }
+    			wants.xml  { head :ok }
+    		else
+    			wants.html { render :action => "edit" }
+    			wants.xml  { render :xml => @$1.errors, :status => :unprocessable_entity }
+    		end
+    	end
+    end${3}
+
+snippet flash
+    flash[:${1:notice}] = "${2}"
+
+snippet params
+    params[:${1:key}]${2}
+
+# ActionController::Caghing::Sweeper
+snippet sweeper
+    class ${1:ModelClassName}Sweeper < ActionController::Caching::Sweeper
+    	observe $1
+    
+    	def after_save(${2:model_class_name})
+    		expire_cache($2)
+    	end
+    
+    	def after_destroy($2)
+    		expire_cache($2)
+    	end
+    
+    	def expire_cache($2)
+    		expire_page
+    	end
+    end
+
+
+# ActiveRecord::Base
+snippet armodel
+prev_word '^'
+    class ${1:ModelClassName} < ActiveRecord::Base
+      ${2}
+    end
+
+snippet belongs_to
+prev_word '^'
+    belongs_to :${1:association}
+
+snippet habtm
+prev_word '^'
+    has_and_belongs_to_many :${1:object}, :join_table => "${2:table_name}", :foreign_key => "${3}_id"${4}
+
+snippet has_many
+prev_word '^'
+    has_many :${1:Association}, :class_name => "${2:Class Name}", :foreign_key => "${3:foreign_key}_id", :dependent => :destroy
+
+snippet has_manyth
+prev_word '^'
+    has_many :${1:Association}, :through => :${2:Join association}, :source => '${3}'
+
+snippet has_one
+prev_word '^'
+    has_one :${1:Association}, :class_name => "${2:Class Name}", :foreign_key => "${3:class}_id"
+
+snippet findall
+prev_word '.'
+    all(:conditions => ['${1:condition}', ${2:variables}])
+
+snippet findfirst
+prev_word '.'
+    first(:conditions => ['${1:condition}', ${2:variables}])
+
+snippet validate
+prev_word '^'
+    def validate
+        ${1}
+    end
+
+snippet validates_associated
+prev_word '^'
+    validates_associated :${1:attribute}
+
+snippet validates_acceptance_of
+prev_word '^'
+    validates_acceptance_of :${1:terms}, :accept => "${2:accept}"
+
+snippet validates_confirmation_of
+prev_word '^'
+    validates_confirmation_of :${1:attribute}
+
+snippet validates_exclusion_of
+prev_word '^'
+    validates_exclusion_of :${1:attribute}, :in => ${2:exclusion list}
+
+snippet validates_format_of
+prev_word '^'
+    validates_format_of :${1:attribute}, :with => /${2:regex}/
+
+snippet validates_inclusion_of
+prev_word '^'
+    validates_inclusion_of :${1:attribute}, :in => ${2:included list}
+
+snippet validates_length_of
+prev_word '^'
+    validates_length_of :${1:attribute}, :within => ${2:(1..100)}
+
+snippet validates_length_maximum
+prev_word '^'
+    validates_length_of :${1:attribute}, :maximum => ${2}
+
+snippet validates_length_minimum
+prev_word '^'
+    validates_length_of :${1:attribute}, :minimum => ${2}
+
+snippet validates_numericality_of
+prev_word '^'
+    validates_numericality_of :<+attribute+><+, :on => :<+create+>, :message => "<+is not a number+>"+>
+
+snippet vpo
+    validates_presence_of :${1:attribute}
+
+snippet vu
+    validates_uniqueness_of :<+attribute+><+, :on => :<+create+>, :message => "<+must be unique+>"+>
+
+snippet named_scope
+    named_scope :${1:name}, :conditions => ${2:conditions}
+
+snippet named_scopep
+    named_scope :${1:name}, proc |${2:param}|
+      ${3}
+    end
+
+
+# I18n
+snippet i18
+    I18n.t('${1:type.key}')${2}
+
+
+# Rails Logger
+snippet log
+    RAILS_DEFAULT_LOGGER.${1:debug} ${2}
+
+snippet logd
+    logger.debug { "${1:message}" }${2}
+
+snippet loge
+    logger.error { "${1:message}" }${2}
+
+snippet logf
+    logger.fatal { "${1:message}" }${2}
+
+snippet logi
+    logger.info { "${1:message}" }${2}
+
+snippet logw
+    logger.warn { "${1:message}" }${2}
+
+
+# ActiveRecord::Migration
+snippet armigration
+prev_word '^'
+    class ${1:MigrationClassName} < ActiveRecord::Migration
+    	def self.up
+    		
+    	end
+    
+    	def self.down
+    	end
+    end
+
+snippet add_column
+    add_column :${1:table}, :${2:column}, :${3:type}
+
+snippet remove_column
+    remove_column :${1:table}, :${2:column}
+
+snippet rename_column
+    rename_column :${1:table}, :${2:old}, :${3:new}
+
+snippet remove_column
+    remove_column :${1:table}, :${2:column}
+
+snippet create_table
+    create_table :${1:table_name} do |t|
+    	t.column :${2:name}, :${3:type}
+    end
+
+snippet tcb
+    t.boolean :${1:title}
+    ${2}
+
+snippet tcbi
+    t.binary :<+title+><+, :limit => <+2+>.megabytes+>
+    <++>
+
+snippet tcd
+    t.decimal :<+title+><+<+, :precision => <+10+>+><+, :scale => <+2+>+>+>
+    <++>
+
+snippet tcda
+    t.date :${1:title}
+    ${2}
+
+snippet tcdt
+    t.datetime :${1:title}
+    ${2}
+
+snippet tcf
+    t.float :${1:title}
+    ${2}
+
+snippet tch
+    t.change :<+name+><+, :<+string+><+, :<+limit+> => <+80+>+>+>
+    <++>
+
+snippet tci
+    t.integer :${1:title}
+    ${2}
+
+snippet tcl
+    t.integer :lock_version, :null => false, :default => 0
+    ${1}
+
+snippet tcr
+    t.references :<+taggable+><+, :polymorphic => <+{ :default => '<+Photo+>' }+>+>
+    <++>
+
+snippet tcs
+    t.string :${1:title}
+    ${2}
+
+snippet tct
+    t.text :${1:title}
+    ${2}
+
+snippet tcti
+    t.time :${1:title}
+    ${2}
+
+snippet tcts
+    t.timestamp :${1:title}
+    ${2}
+
+snippet tctss
+    t.timestamps
+    ${1}
+
+snippet trc
+    t.remove :${1:column}
+
+snippet tre
+    t.rename :<+old_column_name+>, :<+new_column_name+>
+    <++>
+
+snippet tref
+    t.references :${1:model}
+
+
