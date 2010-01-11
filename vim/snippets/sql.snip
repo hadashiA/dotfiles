@@ -1,0 +1,13 @@
+snippet ct
+prev_word '^'
+    create sequence ${1:table}_id_seq;
+    create table ${1} (
+      id integer not null
+        default nextval('${1}_id_seq'),
+
+      $2
+    );
+
+snippet ci
+prev_word '^'
+    create index ${1:table}_${2:key}_idx on ${1}(${2});
