@@ -132,70 +132,70 @@ snippet has_one
 prev_word '^'
     has_one :${1:Association}, :class_name => "${2:Class Name}", :foreign_key => "${3:class}_id"
 
-snippet findall
+snippet fa
 prev_word '.'
     all(:conditions => ['${1:condition}', ${2:variables}])
 
-snippet findfirst
+snippet ff
 prev_word '.'
     first(:conditions => ['${1:condition}', ${2:variables}])
 
-snippet validate
+snippet vlidate v
 prev_word '^'
     def validate
         ${1}
     end
 
-snippet validates_associated
+snippet validates_associated vasso
 prev_word '^'
     validates_associated :${1:attribute}
 
-snippet validates_acceptance_of
+snippet validates_acceptance_of vacc
 prev_word '^'
     validates_acceptance_of :${1:terms}, :accept => "${2:accept}"
 
-snippet validates_confirmation_of
+snippet validates_confirmation_of vconf
 prev_word '^'
     validates_confirmation_of :${1:attribute}
 
-snippet validates_exclusion_of
+snippet validates_exclusion_of vexcl
 prev_word '^'
     validates_exclusion_of :${1:attribute}, :in => ${2:exclusion list}
 
-snippet validates_format_of
+snippet validates_format_of vf
 prev_word '^'
     validates_format_of :${1:attribute}, :with => /${2:regex}/
 
-snippet validates_inclusion_of
+snippet validates_inclusion_of vin
 prev_word '^'
     validates_inclusion_of :${1:attribute}, :in => ${2:included list}
 
-snippet validates_length_of
+snippet validates_length_of vlen
 prev_word '^'
     validates_length_of :${1:attribute}, :within => ${2:(1..100)}
 
-snippet validates_length_maximum
+snippet validates_length_maximum vmax
 prev_word '^'
     validates_length_of :${1:attribute}, :maximum => ${2}
 
-snippet validates_length_minimum
+snippet validates_length_minimum vmin
 prev_word '^'
     validates_length_of :${1:attribute}, :minimum => ${2}
 
-snippet validates_numericality_of
+snippet validates_numericality_of vnum
 prev_word '^'
     validates_numericality_of :<+attribute+><+, :on => :<+create+>, :message => "<+is not a number+>"+>
 
-snippet vpo
+snippet validates_presence_of vpre
     validates_presence_of :${1:attribute}
 
-snippet vu
+snippet validates_uniqueness_of vuni
     validates_uniqueness_of :<+attribute+><+, :on => :<+create+>, :message => "<+must be unique+>"+>
 
-snippet named_scope
+snippet named_scope ns
     named_scope :${1:name}, :conditions => ${2:conditions}
 
-snippet named_scopep
+snippet named_scopep nsp
     named_scope :${1:name}, proc |${2:param}|
       ${3}
     end
