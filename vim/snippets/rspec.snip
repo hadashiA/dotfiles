@@ -6,13 +6,13 @@ snippet spec
     end
 
 snippet af
-    after ${1::each} do
+    after :each do
     	${2}
     end
 
 snippet bef
-    before ${1::each} do
-    	${2}
+    before ::each do
+    	${1}
     end
 
 snippet desct
@@ -25,7 +25,7 @@ snippet descs
     	${2}
     end
 
-snippet desctd
+snippet descts
     describe ${1:Type}, "${2:description}" do
     	${3}
     end
@@ -92,31 +92,24 @@ snippet specreq
 
 snippet sheq
     ${1:target}.should == ${2:value}
-    ${3}
 
 snippet shb
     ${1:target}.should be(${2:result})
-    ${3}
 
 snippet shbc
     ${1:target}.should be_close(${2:result}, ${3:tolerance})
-    ${4}
 
 snippet shbio
     ${1:target}.should be_instance_of(${2:class})
-    ${3}
 
 snippet shbko
     ${1:target}.should be_a_kind_of(${2:class})
-    ${3}
 
 snippet shbr
     response.should be_redirect
-    ${1}
 
 snippet shbs
     response.should be_success
-    ${1}
 
 snippet shc
     lambda {
@@ -125,51 +118,39 @@ snippet shc
 
 snippet shdm
     ${1:target}.should match(/${2:regexp}/)
-    ${3}
 
 snippet she
     ${1:target}.should eql(${2:value})
-    ${3}
 
 snippet sheq
     ${1:target}.should equal(${2:value})
-    ${3}
 
 snippet shh
     ${1:target}.should have(${2:num}).${3:things}
-    ${4}
 
 snippet shhal
     ${1:target}.should have_at_least(${2:num}).${3:things}
-    ${4}
 
 snippet shham
     ${1:target}.should have_at_most(${2:num}).${3:things}
-    ${4}
 
 snippet shhr
     ${1:target}.should have(${2:n}).records
-    ${3}
 
 snippet shneq
     ${1:target}.should_not == ${2:value}
-    ${3}
 
 snippet shnb
     ${1:target}.should_not be(${2:result})
-    ${3}
 
 snippet shnbc
     ${1:target}.should_not be_close(${2:result}, ${3:tolerance})
-    ${4}
 
 snippet shnbio
     ${1:target}.should_not be_instance_of(${2:klass})
-    ${3}
 
 snippet shnbko
     ${1:target}.should_not be_a_kind_of(${2:klass})
-    ${3}
 
 snippet shnc
     lambda do
@@ -178,70 +159,54 @@ snippet shnc
 
 snippet shne
     ${1:target}.should_not eql(${2:value})
-    ${3}
 
 snippet shneq
     	${1:target}.should_not equal(${2:value})
-    	${3}
 
 snippet shnm
     ${1:target}.should_not match(/${2:regexp}/)
-    ${3}
 
 snippet shnp
     ${1:target}.should_not be_${2:predicate}
 
 snippet shnr
     ${1:mock}.should_not_receive(:${2:message})${3}
-    ${4}
 
 snippet shnre
     ${1:target}.should_not raise_error(${2:error})
-    ${3}
 
 snippet shnredt
     response.should_not redirect_to(${1:url})
-    ${2}
 
 snippet shnrt
     ${1:target}.should_not respond_to(:${2:sym})
-    ${3}
 
 snippet shns
     ${1:target}.should_not satisfy { |${2:obj}| ${3} }
-    ${4}
 
 snippet shnt
     lambda { ${1} }.should_not throw_symbol(:${2:symbol})
-    ${3}
 
 snippet shp
     ${1:target}.should be_${2:predicate}
 
 snippet shr
     ${1:mock}.should_receive(:${2:message})${3}
-    ${4}
 
 snippet shre
     ${1:target}.should raise_error(${2:error})
-    ${3}
 
 snippet shredt
     response.should redirect_to(${1:url})
-    ${2}
 
 snippet shrt
     ${1:target}.should respond_to(:${2:sym})
-    ${3}
 
 snippet shs
     ${1:target}.should satisfy { |${2:obj}| ${3} }
-    ${4}
 
 snippet sht
     ${1:target}.should throw_symble(:${2:symbol})
-    ${3}
 
 snippet shtemp
     response.should render_template(:${1:template})
-    ${2}
