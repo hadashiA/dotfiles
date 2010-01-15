@@ -11,7 +11,7 @@ snippet af
     end
 
 snippet bef
-    before ::each do
+    before :each do
     	${1}
     end
 
@@ -90,6 +90,12 @@ snippet mocw
 snippet specreq
     require File.dirname(__FILE__) + '/../spec_helper'
 
+snippet shnil
+    ${1:target}.should be_nil
+    
+snippet shnnil
+    ${1:target}.should_not be_nil
+    
 snippet sheq
     ${1:target}.should == ${2:value}
 
@@ -175,7 +181,7 @@ snippet shnr
 snippet shnre
     ${1:target}.should_not raise_error(${2:error})
 
-snippet shnredt
+snippet shnred
     response.should_not redirect_to(${1:url})
 
 snippet shnrt
