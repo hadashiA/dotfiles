@@ -1,8 +1,10 @@
 snippet spec
-    require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+    require 'spec_helper'
     
-    describe ${1:controller} do
-    	${2}
+    describe ${1:Class} do
+      before :each do
+    	  ${2}
+      end
     end
 
 snippet af
