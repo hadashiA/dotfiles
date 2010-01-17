@@ -2,6 +2,15 @@ Autotest.add_discovery do
   "rspec" # use Autotest::Rspec
 end
 
+Autotest.add_hook :initialize do |at|
+  %w(.svn .git).each {|exception| at.add_exception(exception)}
+
+  at.add_mapping(/\.rb$/) do |f, matched|
+    puts f
+    "spec/#{matched[1]}_spec.rb"
+  end 
+end
+
 require 'autotest/growl'
 Autotest::Growl.image_dir = File.join(ENV['HOME'], '.autotest_icons')
 #Autotest::Growl.clear_terminal = false
