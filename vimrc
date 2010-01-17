@@ -162,6 +162,16 @@ autocmd BufRead,BufNewFile .autotest set filetype=ruby
 
 command! RspecExec execute(':!spec -fs --drb -l '.line('.').' "%" ')
 
+function! Snippet_RubyClassNameFromFilename()
+    let name = expand("%:t:r")
+    return NS_camelcase(name)
+endfunction
+ 
+function! Snippet_MigrationNameFromFilename()
+    let name = substitute(expand("%:t:r"), '^.\{-}_', '', '')
+    return NS_camelcase(name)
+endfunction
+
 "---------------------------------------------------------------
 " Perl
 "
