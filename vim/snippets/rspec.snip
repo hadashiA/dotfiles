@@ -92,10 +92,16 @@ snippet mocw
 snippet specreq
     require File.dirname(__FILE__) + '/../spec_helper'
 
-snippet shnil
+snippet shbt
+    ${1:target}.should be_true
+
+snippet shbf
+    ${1:target}.should be_false
+
+snippet shbn
     ${1:target}.should be_nil
     
-snippet shnnil
+snippet shnbn
     ${1:target}.should_not be_nil
     
 snippet sheq

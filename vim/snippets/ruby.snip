@@ -229,11 +229,12 @@ snippet fileputs
     open(${1:path}, 'w') { |io| io.puts(${2}) }
 
 snippet fileread
-    open(${1:path}) do |f|
-      f.each do |line|
-        ${2}
-      end
+    IO.foreach(${1:path}) do |line|
+      ${2}
     end
+
+snippet filejoin
+    File.join(${1}, ${2})
 
 snippet pathhere
     File.join(File.dirname(__FILE__), ${1:path here})
