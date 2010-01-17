@@ -108,11 +108,11 @@ snippet sweeper
 # ActiveRecord::Base
 snippet armodel
 prev_word '^'
-    class ${1:ModelClassName} < ActiveRecord::Base
+    class ${1:`Snippet_RubyClassNameFromFilename()`} < ActiveRecord::Base
       ${2}
     end
 
-snippet belongs_to
+snippet bel
 prev_word '^'
     belongs_to :${1:association}
 
@@ -120,82 +120,82 @@ snippet habtm
 prev_word '^'
     has_and_belongs_to_many :${1:object}, :join_table => "${2:table_name}", :foreign_key => "${3}_id"${4}
 
-snippet has_many
+snippet hm
 prev_word '^'
     has_many :${1:Association}, :class_name => "${2:Class Name}", :foreign_key => "${3:foreign_key}_id", :dependent => :destroy
 
-snippet has_manyth
+snippet hmt
 prev_word '^'
     has_many :${1:Association}, :through => :${2:Join association}, :source => '${3}'
 
-snippet has_one
+snippet ho
 prev_word '^'
     has_one :${1:Association}, :class_name => "${2:Class Name}", :foreign_key => "${3:class}_id"
 
-snippet findall
+snippet fa
 prev_word '.'
     all(:conditions => ['${1:condition}', ${2:variables}])
 
-snippet findfirst
+snippet ff
 prev_word '.'
     first(:conditions => ['${1:condition}', ${2:variables}])
 
-snippet validate
+snippet v
 prev_word '^'
     def validate
         ${1}
     end
 
-snippet validates_associated
+snippet vasso
 prev_word '^'
     validates_associated :${1:attribute}
 
-snippet validates_acceptance_of
+snippet vacc
 prev_word '^'
     validates_acceptance_of :${1:terms}, :accept => "${2:accept}"
 
-snippet validates_confirmation_of
+snippet vconf
 prev_word '^'
     validates_confirmation_of :${1:attribute}
 
-snippet validates_exclusion_of
+snippet vex
 prev_word '^'
     validates_exclusion_of :${1:attribute}, :in => ${2:exclusion list}
 
-snippet validates_format_of
+snippet vf
 prev_word '^'
     validates_format_of :${1:attribute}, :with => /${2:regex}/
 
-snippet validates_inclusion_of
+snippet vi
 prev_word '^'
     validates_inclusion_of :${1:attribute}, :in => ${2:included list}
 
-snippet validates_length_of
+snippet vl
 prev_word '^'
     validates_length_of :${1:attribute}, :within => ${2:(1..100)}
 
-snippet validates_length_maximum
+snippet vlmax
 prev_word '^'
     validates_length_of :${1:attribute}, :maximum => ${2}
 
-snippet validates_length_minimum
+snippet vlmin
 prev_word '^'
     validates_length_of :${1:attribute}, :minimum => ${2}
 
-snippet validates_numericality_of
+snippet vn
 prev_word '^'
     validates_numericality_of :<+attribute+><+, :on => :<+create+>, :message => "<+is not a number+>"+>
 
-snippet validates_presence_of
+snippet vp
     validates_presence_of :${1:attribute}
 
-snippet validates_uniqueness_of
+snippet vu
     validates_uniqueness_of :<+attribute+><+, :on => :<+create+>, :message => "<+must be unique+>"+>
 
-snippet named_scope
+snippet ns
     named_scope :${1:name}, :conditions => ${2:conditions}
 
-snippet named_scopep
+snippet nsp
     named_scope :${1:name}, proc{ |${2:arg}|
       ${3}
     }
@@ -229,7 +229,7 @@ snippet logw
 # ActiveRecord::Migration
 snippet armigration
 prev_word '^'
-    class ${1:MigrationClassName} < ActiveRecord::Migration
+    class ${1:`Snippet_MigrationNameFromFilename()`} < ActiveRecord::Migration
     	def self.up
     		
     	end

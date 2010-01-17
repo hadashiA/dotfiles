@@ -1,6 +1,10 @@
 include rails
 include rspec
 
+snippet     hoge
+prev_word   '^'
+    `expand("#")`
+
 # Class定義
 snippet c
     class ${1:`Snippet_RubyClassNameFromFilename()`}
@@ -134,7 +138,7 @@ snippet dop
 # Enumerable
 snippet each
 prev_word '.'
-    each { |${1:element}| ${2:process} }
+    each(&:${1})
 
 snippet eachdo
 prev_word '.'
@@ -148,7 +152,7 @@ prev_word '.'
     
 snippet colldo
 prev_word '.'
-    each do |${1:element}|
+    collect do |${1:element}|
     	${2:body}
     end
 

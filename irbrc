@@ -1,3 +1,4 @@
+$KCODE = 'u'
 require 'pp'
 require 'rubygems'
 
