@@ -3,12 +3,13 @@ include rspec
 
 # Class定義
 snippet c
-    class ${1:`Snippet_RubyClassNameFromFilename()`}${2}
+    class ${1:`Snippet_RubyClassNameFromFilename()`}
     	${3}
     end
 
 snippet ce
-    class ${1:ErrorClassName} < ${2:StandardError}; end${3}
+    class ${1:ErrorClassName} < ${2:StandardError}; end
+    ${3}
 
 snippet sinc
     class << self; self end
