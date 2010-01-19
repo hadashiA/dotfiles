@@ -86,7 +86,8 @@ set cindent
 "
 
 " Leader
-let mapleader = ","
+"let mapleader = ","
+let mapleader = "m"
 
 imap < <><LEFT>
 imap ( ()<LEFT>
@@ -109,7 +110,7 @@ imap <C-b> <LEFT>
 "imap <C-n> <DOWN>
 "imap <C-p> <UP>
 imap <C-k> <ESC><RIGHT>DA
-nnoremap <SPACE> i<SPACE><ESC><RIGHT>
+"nnoremap <SPACE> i<SPACE><ESC><RIGHT>
 nmap { A<SPACE>{}<LEFT><CR><ESC>O
 
 " open project dir
@@ -275,16 +276,16 @@ let g:fuf_enumeratingLimit = 20
 let g:fuf_keyPreview = '<C-]>'
 let g:fuf_previewHeight = 0
 
-nmap <leader>fr :FufBookmark<CR>
-nmap <leader>b :FufBuffer<CR>
-nmap <leader>fd :FufDir<CR>
-nmap <leader>fdb :FufDirWithCurrentBufferDir<CR>
-nmap <leader>fdf :FufDirWithFullCwd<BR>
-nmap <leader>fi :FufEditInfo<CR>
-nmap <leader>ff :FufFile<CR>
-nmap <leader>fl :FufLine<CR>
-nmap <leader>mf :FufMruFile<CR>
-nmap <leader>mc :FufMruCmd<CR>
+nmap <Space> :FufBuffer<CR>
+nmap m :FufMruFile<CR>
+nmap t :FufFile<CR>
+nmap <leader>l :FufLine<CR>
+nmap <leader>r :FufBookmark<CR>
+nmap <leader>d :FufDir<CR>
+nmap <leader>bd :FufDirWithCurrentBufferDir<CR>
+nmap <leader>dc :FufDirWithFullCwd<BR>
+nmap <leader>i :FufEditInfo<CR>
+nmap <leader>c :FufMruCmd<CR>
 
 "---------------------------------------------------------------
 " smartchr
