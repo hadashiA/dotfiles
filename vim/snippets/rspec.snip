@@ -93,31 +93,31 @@ snippet specreq
     require File.dirname(__FILE__) + '/../spec_helper'
 
 snippet shbt
-    ${1:target}.should be_true
+    should be_true
 
 snippet shbf
-    ${1:target}.should be_false
+    should be_false
 
 snippet shbn
-    ${1:target}.should be_nil
+    should be_nil
     
 snippet shnbn
-    ${1:target}.should_not be_nil
+    should_not be_nil
     
 snippet sheq
-    ${1:target}.should == ${2:value}
+    should == ${2:value}
 
 snippet shb
-    ${1:target}.should be(${2:result})
+    should be(${2:result})
 
 snippet shbc
-    ${1:target}.should be_close(${2:result}, ${3:tolerance})
+    should be_close(${2:result}, ${3:tolerance})
 
 snippet shbio
-    ${1:target}.should be_instance_of(${2:class})
+    should be_instance_of(${2:class})
 
 snippet shbko
-    ${1:target}.should be_a_kind_of(${2:class})
+    should be_a_kind_of(${2:class})
 
 snippet shbr
     response.should be_redirect
@@ -136,40 +136,40 @@ snippet shcb
     }.should change{ ${2:value} }.from(${4:old_value}).to(${5:new_value}).by(${6:change})
 
 snippet shdm
-    ${1:target}.should match(/${2:regexp}/)
+    should match(/${2:regexp}/)
 
 snippet she
-    ${1:target}.should eql(${2:value})
+    should eql(${2:value})
 
 snippet sheq
-    ${1:target}.should equal(${2:value})
+    should equal(${2:value})
 
 snippet shh
-    ${1:target}.should have(${2:num}).${3:things}
+    should have(${2:num}).${3:things}
 
 snippet shhal
-    ${1:target}.should have_at_least(${2:num}).${3:things}
+    should have_at_least(${2:num}).${3:things}
 
 snippet shham
-    ${1:target}.should have_at_most(${2:num}).${3:things}
+    should have_at_most(${2:num}).${3:things}
 
 snippet shhr
-    ${1:target}.should have(${2:n}).records
+    should have(${2:n}).records
 
 snippet shneq
-    ${1:target}.should_not == ${2:value}
+    should_not == ${2:value}
 
 snippet shnb
-    ${1:target}.should_not be(${2:result})
+    should_not be(${2:result})
 
 snippet shnbc
-    ${1:target}.should_not be_close(${2:result}, ${3:tolerance})
+    should_not be_close(${2:result}, ${3:tolerance})
 
 snippet shnbio
-    ${1:target}.should_not be_instance_of(${2:klass})
+    should_not be_instance_of(${2:klass})
 
 snippet shnbko
-    ${1:target}.should_not be_a_kind_of(${2:klass})
+    should_not be_a_kind_of(${2:klass})
 
 snippet shnc
     lambda do
@@ -177,55 +177,55 @@ snippet shnc
     end.should_not change(${2:target}, :${3:method})
 
 snippet shne
-    ${1:target}.should_not eql(${2:value})
+    should_not eql(${2:value})
 
 snippet shneq
-    	${1:target}.should_not equal(${2:value})
+    should_not equal(${2:value})
 
 snippet shnm
-    ${1:target}.should_not match(/${2:regexp}/)
+    should_not match(/${2:regexp}/)
 
 snippet shnp
-    ${1:target}.should_not be_${2:predicate}
+    should_not be_${2:predicate}
 
 snippet shnr
-    ${1:mock}.should_not_receive(:${2:message})${3}
+    should_not_receive(:${2:message})${3}
 
 snippet shnre
-    ${1:target}.should_not raise_error(${2:error})
+    should_not raise_error(${2:error})
 
 snippet shnred
     response.should_not redirect_to(${1:url})
 
 snippet shnrt
-    ${1:target}.should_not respond_to(:${2:sym})
+    should_not respond_to(:${2:sym})
 
 snippet shns
-    ${1:target}.should_not satisfy { |${2:obj}| ${3} }
+    should_not satisfy { |${2:obj}| ${3} }
 
 snippet shnt
     lambda { ${1} }.should_not throw_symbol(:${2:symbol})
 
 snippet shp
-    ${1:target}.should be_${2:predicate}
+    should be_${2:predicate}
 
 snippet shr
-    ${1:mock}.should_receive(:${2:message})${3}
+    should_receive(:${2:message})${3}
 
 snippet shre
-    ${1:target}.should raise_error(${2:error})
+    should raise_error(${2:error})
 
 snippet shredt
     response.should redirect_to(${1:url})
 
 snippet shrt
-    ${1:target}.should respond_to(:${2:sym})
+    should respond_to(:${2:sym})
 
 snippet shs
-    ${1:target}.should satisfy { |${2:obj}| ${3} }
+    should satisfy { |${2:obj}| ${3} }
 
 snippet sht
-    ${1:target}.should throw_symble(:${2:symbol})
+    should throw_symble(:${2:symbol})
 
 snippet shtemp
     response.should render_template(:${1:template})
