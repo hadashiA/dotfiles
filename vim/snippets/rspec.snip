@@ -166,9 +166,14 @@ snippet shnbko
     should_not be_a_kind_of(${2:klass})
 
 snippet shnc
-    lambda do
+    lambda {
     	${1}
-    end.should_not change(${2:target}, :${3:method})
+    }.should_not change(${2:target}, :${3:method})
+
+snippet shncb
+    lambda {
+    	${1}
+    }.should_not change{ ${2} }
 
 snippet shne
     should_not eql(${2:value})
