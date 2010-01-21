@@ -86,8 +86,8 @@ set cindent
 "
 
 " Leader
-"let mapleader = ","
-let mapleader = "m"
+let mapleader = ","
+"let mapleader = "m"
 
 imap < <><LEFT>
 imap ( ()<LEFT>
