@@ -135,7 +135,7 @@ snippet shcb
     	${1}
     }.should change{ ${2:value} }.from(${4:old_value}).to(${5:new_value}).by(${6:change})
 
-snippet shdm
+snippet shm
     should match(/${2:regexp}/)
 
 snippet shh
@@ -174,12 +174,6 @@ snippet shncb
     lambda {
     	${1}
     }.should_not change{ ${2} }
-
-snippet shne
-    should_not eql(${2:value})
-
-snippet shneq
-    should_not equal(${2:value})
 
 snippet shnm
     should_not match(/${2:regexp}/)
