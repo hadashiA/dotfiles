@@ -271,21 +271,24 @@ autocmd FileType html,eruby,php let b:surround_{char2nr('c')} = "class=\"\r\""
 autocmd FileType html,eruby,php let b:surround_{char2nr('s')} = "style=\"\r\""
 
 "---------------------------------------------------------------
-" fuzzyfinder.vim
+" fuf.vim
 "
 
 "let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', ]
+let g:fuf_modesDisable = [ 'mrucmd', ]
 let g:fuf_modesDisable = []
 let g:fuf_file_exclude = '\v\~$|\.(o|exe|bak|swp|gif|jpg|png)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
-let g:fuf_mrufile_exclude = '\v\~$|\.bak$|\.swp|\.howm$|\.(gif|jpg|png)$'
-let g:fuf_mrufile_maxItem = 10000
+let g:fuf_mrufile_exclude  = '\v\~$|\.bak$|\.swp|\.howm$|\.(gif|jpg|png)$'
+"let g:fuf_mrufile_maxItem = 10000
+let g:fuf_mrufile_maxItem  = 1000
 let g:fuf_enumeratingLimit = 20
-let g:fuf_keyPreview = '<C-]>'
-let g:fuf_previewHeight = 0
+"let g:fuf_keyPreview = '<C-]>'
+let g:fuf_keyPreview = '>'
+let g:fuf_previewHeight = 25
 
 nmap <Space> :FufBuffer<CR>
-nmap m :FufMruFile<CR>
-nmap t :FufFile<CR>
+nmap t :FufMruFile<CR>
+nmap s :FufFile<CR>
 nmap <leader>l :FufLine<CR>
 nmap <leader>r :FufBookmark<CR>
 nmap <leader>d :FufDir<CR>
