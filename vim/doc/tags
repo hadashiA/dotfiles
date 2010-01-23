@@ -1,4 +1,3 @@
-'go'	Align.txt	/*'go'*
 :FufAddBookmark	fuf.txt	/*:FufAddBookmark*
 :FufAddBookmarkAsSelectedText	fuf.txt	/*:FufAddBookmarkAsSelectedText*
 :FufBookmark	fuf.txt	/*:FufBookmark*
@@ -58,10 +57,12 @@ align-control	Align.txt	/*align-control*
 align-history	Align.txt	/*align-history*
 align-manual	Align.txt	/*align-manual*
 align-maps	Align.txt	/*align-maps*
+align-multibyte	Align.txt	/*align-multibyte*
 align-option	Align.txt	/*align-option*
 align-options	Align.txt	/*align-options*
 align-strlen	Align.txt	/*align-strlen*
 align-usage	Align.txt	/*align-usage*
+align-userguide	Align.txt	/*align-userguide*
 align-utf	Align.txt	/*align-utf*
 align-utf8	Align.txt	/*align-utf8*
 align.txt	Align.txt	/*align.txt*
@@ -92,6 +93,8 @@ alignman	Align.txt	/*alignman*
 alignmanual	Align.txt	/*alignmanual*
 alignmap-Htd	Align.txt	/*alignmap-Htd*
 alignmap-T=	Align.txt	/*alignmap-T=*
+alignmap-Tsp	Align.txt	/*alignmap-Tsp*
+alignmap-a(	Align.txt	/*alignmap-a(*
 alignmap-a,	Align.txt	/*alignmap-a,*
 alignmap-a<	Align.txt	/*alignmap-a<*
 alignmap-a=	Align.txt	/*alignmap-a=*
@@ -117,6 +120,9 @@ alignmap-t?	Align.txt	/*alignmap-t?*
 alignmap-tab	Align.txt	/*alignmap-tab*
 alignmap-tml	Align.txt	/*alignmap-tml*
 alignmap-ts,	Align.txt	/*alignmap-ts,*
+alignmap-ts:	Align.txt	/*alignmap-ts:*
+alignmap-ts<	Align.txt	/*alignmap-ts<*
+alignmap-ts=	Align.txt	/*alignmap-ts=*
 alignmap-tsp	Align.txt	/*alignmap-tsp*
 alignmap-tsq	Align.txt	/*alignmap-tsq*
 alignmap-tt	Align.txt	/*alignmap-tt*
