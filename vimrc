@@ -255,6 +255,8 @@ autocmd FileType html,eruby,php let b:surround_{char2nr('2')}  = "<h2>\r</h2>"
 autocmd FileType html,eruby,php let b:surround_{char2nr('3')}  = "<h3>\r</h3>"
 autocmd FileType html,eruby,php let b:surround_{char2nr('4')}  = "<h4>\r</h4>"
 autocmd FileType html,eruby,php let b:surround_{char2nr('5')}  = "<h5>\r</h5>"
+
+
 autocmd FileType html,eruby,php let b:surround_{char2nr('6')}  = "<h6>\r</h6>"
 
 autocmd FileType html,eruby,php let b:surround_{char2nr('p')} = "<p>\r</p>"
@@ -265,8 +267,8 @@ autocmd FileType html,eruby,php let b:surround_{char2nr('a')} = "<a\1href\r..*\r
 autocmd FileType html,eruby,php let b:surround_{char2nr('i')} = "<img\1src\r..*\r src=\"&\"\1\2alt\r..*\r alt=\"&\"\2>\r</img>"
 autocmd FileType html,eruby,php let b:surround_{char2nr('d')} = "<div\1id\r..*\r id=\"&\"\1\2class\r..*\r class=\"&\"\2>\r</div>"
 autocmd FileType html,eruby,php let b:surround_{char2nr('i')} = "id=\"\r\""
-autocmd FileType html,eruby,php let b:surround_{char2nr('c')}= "class=\"\r\""
-autocmd FileType html,eruby,php let b:surround_{char2nr('s')}= "style=\"\r\""
+autocmd FileType html,eruby,php let b:surround_{char2nr('c')} = "class=\"\r\""
+autocmd FileType html,eruby,php let b:surround_{char2nr('s')} = "style=\"\r\""
 
 "---------------------------------------------------------------
 " fuzzyfinder.vim
