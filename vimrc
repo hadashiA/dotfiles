@@ -162,6 +162,7 @@ autocmd BufRead,BufNewFile *.rash set filetype=ruby
 autocmd BufRead,BufNewFile .autotest set filetype=ruby
 
 command! RspecExec execute(':!spec -fs --drb -l '.line('.').' "%" ')
+autocmd FileType ruby nmap <leader>r :RspecExec<CR>
 
 "---------------------------------------------------------------
 " Perl
@@ -222,7 +223,8 @@ let g:Align_xstrlen = 3
 " remap
 vmap a :Align<Space>
 vmap = :Align =<CR>
-vmap => :Align =><CR>
+vmap > :Align =><CR>
+vmap , :Align ,<CR>
 
 "---------------------------------------------------------------
 " surround.vim
