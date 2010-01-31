@@ -84,7 +84,7 @@
 
 ;; Emacs内からReFeのドキュメントを読む。M-x refeで実行。
 ;; http://i.loveruby.net/ja/prog/refe.html
-(require 'refe)
+;;(require 'refe)
 
 ;; Emacs内でautotest実行。M-x autotestで実行。
 ;; http://www.emacswiki.org/cgi-bin/emacs/download/autotest.el

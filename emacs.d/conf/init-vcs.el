@@ -15,12 +15,12 @@
 (add-to-list 'vc-handled-backends 'SVN)
 
 ;; psvn
-(require 'psvn)
+;;(require 'psvn)
 
 ;; SVK
 
 ;; vc-svk
-(require 'vc-svk)
+;;(require 'vc-svk)
 (add-to-list 'vc-handled-backends 'SVK)
 
 ;; [2008-03-13]
@@ -35,6 +35,6 @@
 (require 'git-blame)
 (require 'vc-git)
 
-(setq git-committer-email "kentarok@gmail.com")
-(setq git-committer-name "Kentaro Kuribayashi")
+;;(setq git-committer-email "kentarok@gmail.com")
+;;(setq git-committer-name "Kentaro Kuribayashi")
 (add-to-list 'vc-handled-backends 'GIT)
