@@ -223,7 +223,7 @@ let g:Align_xstrlen = 3
 " remap
 vmap a :Align<Space>
 vmap = :Align =<CR>
-vmap > :Align =><CR>
+vmap => :Align =><CR>
 vmap , :Align ,<CR>
 
 "---------------------------------------------------------------
