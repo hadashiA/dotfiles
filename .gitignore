@@ -7,4 +7,4 @@ fish_read_history
 fishd.*
 vim/.netrwhist
 vimperator/info
-vimperator/info/**/*
+emacs.d/auto-save-list
