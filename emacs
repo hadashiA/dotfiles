@@ -87,7 +87,7 @@
 ;;(load "init-woman")
 (load "init-color")
 (load "init-highlighting")
-(load "init-minibuf")
+;;(load "init-minibuf")
 (load "init-killring")
 ;;(load "init-abbrves")
 (load "init-templates")

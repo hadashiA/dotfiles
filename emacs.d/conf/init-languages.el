@@ -13,8 +13,8 @@
 (load "brackets.el")
 
 ;; shellっぽいところで、C-n/pでヒストリ
-(define-key comint-mode-map "\C-p" 'comint-previous-input)
-(define-key comint-mode-map  "\C-n" 'comint-next-input)
+;;(define-key comint-mode-map "\C-p" 'comint-previous-input)
+;;(define-key comint-mode-map  "\C-n" 'comint-next-input)
 
 ;; flymake
 ;; 自動的にシンタックスチェックをかける
