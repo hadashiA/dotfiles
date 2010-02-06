@@ -1,3 +1,4 @@
+
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
 ;; 実行環境を判別する。
