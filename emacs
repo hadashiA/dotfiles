@@ -1,3 +1,4 @@
+
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
 ;; 実行環境を判別する。
@@ -110,7 +111,7 @@
 (load "init-lisp")
 ;;(load "init-haskell")
 ;;(load "init-scheme")
-;;(load "init-yaml")
+(load "init-yaml")
 ;;(load "init-hatena")
 ;;(load "init-autosave-buffers")
 ;;(load "init-elscreen")
