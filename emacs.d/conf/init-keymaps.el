@@ -2,6 +2,10 @@
 
 ;; C-hをBackSpaceに
 (global-set-key "\C-h" 'delete-backward-char)
+(global-set-key "\C-x?" 'help-command)
+
+;; M-hでたんごをけす
+(global-set-key "\M-h" 'backward-kill-word)
 
 ;; [2008-03-12]
 ;; C-lはanythingに
