@@ -3926,27 +3926,39 @@
             <item>
               <name>Bracket left to Control</name>
               <sysctl>remap.bracketL2controlL</sysctl>
-              <autogen>--KeyToKey-- KeyCode::BRACKET_LEFT, KeyCode::CONTROL_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, KeyCode::CONTROL_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::CURSOR_DOWN, KeyCode::BRACKET_RIGHT</autogen>
             </item>
             <item>
               <name>Bracket left to Option</name>
               <sysctl>remap.bracketL2optionL</sysctl>
-              <autogen>--KeyToKey-- KeyCode::BRACKET_LEFT, KeyCode::OPTION_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, KeyCode::OPTION_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::CURSOR_DOWN, KeyCode::BRACKET_RIGHT</autogen>
             </item>
             <item>
               <name>Bracket right to Control</name>
               <sysctl>remap.bracketR2controlL</sysctl>
-              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, KeyCode::CONTROL_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::BACKSLASH, KeyCode::CONTROL_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::CURSOR_RIGHT, KeyCode::BACKSLASH</autogen>
             </item>
             <item>
               <name>Bracket right to Option</name>
               <sysctl>remap.bracketR2optionL</sysctl>
-              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, KeyCode::OPTION_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::BACKSLASH, KeyCode::OPTION_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::CURSOR_RIGHT, KeyCode::BACKSLASH</autogen>
             </item>
             <item>
               <name>Arrow LEFT to Control</name>
               <sysctl>remap.leftallow2controlR</sysctl>
               <autogen>--KeyToKey-- KeyCode::CURSOR_LEFT, KeyCode::CONTROL_R</autogen>
+            </item>
+            <item>
+              <name>Option+hjkl to cursor </name>
+              <sysctl>remap.vimlikecursorformacbook</sysctl>
+              <autogen>--KeyToKey-- KeyCode::H, ModifierFlag::OPTION_L, KeyCode::CURSOR_LEFT</autogen>
+              <autogen>--KeyToKey-- KeyCode::J, ModifierFlag::OPTION_L, KeyCode::CURSOR_DOWN</autogen>
+              <autogen>--KeyToKey-- KeyCode::K, ModifierFlag::OPTION_L, KeyCode::CURSOR_UP</autogen>
+              <autogen>--KeyToKey-- KeyCode::L, ModifierFlag::OPTION_L, KeyCode::CURSOR_RIGHT</autogen>
             </item>
           </list>
         </item>
