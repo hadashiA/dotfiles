@@ -1,12 +1,13 @@
 require 'rake'
- 
+
 desc "install the dot files into user's home directory"
 task :install do
   replace_all = false
   Dir["*"].each do |file|
     puts file
     next if %w[Rakefile README].include? file
-    
+    next if file.match(/^KeyRemap4/)
+
     original = File.join(ENV['HOME'], ".#{file}")
 
     if File.exist?(original) || File.symlink?(original)
@@ -31,12 +32,12 @@ task :install do
     end
   end
 end
- 
+
 def replace_file(file)
   system %Q{rm "$HOME/.#{file}"}
   link_file(file)
 end
- 
+
 def link_file(file)
   puts "linking ~/.#{file}"
   system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
