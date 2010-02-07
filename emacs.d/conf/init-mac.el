@@ -18,3 +18,6 @@
 ;; http://homepage.mac.com/matsuan_tamachan/emacs/TransparencyPatch.html
 (setq default-frame-alist
       (append (list '(alpha . (90 90))) default-frame-alist))
+
+;; Macではメニューバーは邪魔にならないので表示
+(eval-safe (menu-bar-mode 1))

@@ -50,8 +50,8 @@
 (setq default-buffer-file-coding-system 'utf-8)
 
 ;; メニューバー、ツールバー非表示
-(eval-safe (menu-bar-mode nil))
-(eval-safe (tool-bar-mode nil))
+(eval-safe (menu-bar-mode 0))
+(eval-safe (tool-bar-mode 0))
 
 ;; ヴィジブルベルを抑制
 (setq visible-bell nil)
