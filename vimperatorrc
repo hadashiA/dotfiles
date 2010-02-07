@@ -134,7 +134,7 @@ let g:textarea_ime_mode = "inactive"
 map s :google<Space>
 
 " migemo_hint.js
-"set hintmatching=custom
+set hintmatching=custom
 
 "Appearance Change with StyleChanger.js
 let g:styles = "vimperator"
