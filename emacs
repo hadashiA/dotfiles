@@ -80,7 +80,7 @@
 ;; これやっぱ外しておこうとかいうのを調整するのが面倒。
 
 (load "init-global")
-;;(load "init-skk")
+(load "init-skk")
 (load "init-window")
 (load "init-keymaps")
 ;;(load "init-anything")

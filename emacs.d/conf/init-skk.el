@@ -1,5 +1,8 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
+;; SKK install howto
+;; http://memolet.blog22.fc2.com/blog-entry-1204.html
+
 (add-to-load-path "~/.emacs.d/elisp/skk")
 
 (require 'skk-setup)
