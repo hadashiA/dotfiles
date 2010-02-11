@@ -86,12 +86,13 @@ set showcmd                        " 入力中のコマンドをステータス�
 set showmatch                      " 括弧入力時の対応する括弧を表示
 set nobackup                       " バックアップファイルは作らない
 set wildmenu                       " コマンドライン補完するときに強化されたものを使う
-set wildmode=list:longest          " コマンドライン補間をシェルっぽく
+set wildmode=full                  " 
+"set wildmode=list:longest          " コマンドライン補間をシェルっぽく
 "set hidden                         " バッファが編集中でもその他のファイルを開けるように
 set autoread                       " 外部のエディタで編集中のファイルが変更されたら自動で読み直す
 set wrap                           " 自動折り返し
 set laststatus=2                   " 常にステータス行を表示 (詳細は:he laststatus)
-set cmdheight=2                    " コマンドラインの高さ
+set cmdheight=1                    " コマンドラインの高さ
 set showtabline=1
 set title                          " タイトルを表示
 set lazyredraw                     " マクロなど実行中は描画を中断
