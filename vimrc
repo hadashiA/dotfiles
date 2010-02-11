@@ -120,21 +120,33 @@ if has('migemo')
   set migemo
 endif
 
-"ステータスライン
-if winwidth(0) >= 120
-  set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %(%{GitBranch()}\ %)\ %F%=[%{GetB()}]\ %4l/%4L%4p%% %3c% V%4P
-else
-  set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %(%{GitBranch()}\ %)\ %F%=[%{GetB()}]\ %4l/%4L%4p%% %3c% V%4P
-endif
-
-set formatoptions+=mM
-let format_join_spaces = 4
-let format_allow_over_tw = 1
-
 filetype plugin indent on
 
 set autoindent
 set cindent
+"}}}
+
+" Statusline: ステータスライン設定 ============================================= "{{{
+set statusline=
+set statusline+=[*%n]                                     " バッファ番号
+set statusline+=%m                                        " バッファ状態[+]とか
+set statusline+=%r                                        " 読み取り専用フラグ
+set statusline+=%h                                        " ヘルプバッファフラグ
+set statusline+=%w                                        " プレビューウィンドウフラグ
+set statusline+=%{'['.(&fenc!=''?&fenc:'?').'-'.&ff.']'}  " 文字コード
+set statusline+=%y\                                       " ファイルタイプ
+"set statusline+=%(%{GitBranch()}\ %)\                     " git current branch
+set statusline+=%F\                                       " ファイル名
+set statusline+=%=                                        " 区切り
+" set statusline+=\ %{strftime('%c')}                     " 時間
+set statusline+=%4l/%4L%4p%%                              " どこにいるか
+set statusline+=\ %3c                                     " 列
+set statusline+=\ %4B                                     " 文字コード
+set statusline+=%<                                        " 折り返しの指定
+
+set formatoptions+=mM
+let format_join_spaces = 4
+let format_allow_over_tw = 1
 "}}}
 
 " Mapping: マッピング設定 ============================================= "{{{
@@ -203,10 +215,10 @@ vnoremap <silent> ,hc :call CsvH()<CR>"
 
 " select block
 vmap end <ESC>0/end<CR>%V%0
-vmap def <ESC>$?\%(.*#.*def\)\@!def<CR>%V%0
-vmap class <ESC>$?\%(.*#.*class\)\@!class<CR>%V%0
-vmap module <ESC>$?\%(.*#.*module\)\@!module<CR>%V%0
-}}}
+vmap ef <ESC>$?\%(.*#.*def\)\@!def<CR>%V%0
+vmap ss <ESC>$?\%(.*#.*class\)\@!class<CR>%V%0
+vmap mod <ESC>$?\%(.*#.*module\)\@!module<CR>%V%0
+"}}}
 
 " Color: 色設定 ======================================================= "{{{
 " 特定の文字を視覚化。この例では全角スペース
@@ -220,8 +232,8 @@ if !has('gui_running')
     highlight Pmenu ctermfg=white ctermbg=darkgray  guibg=#606060
     highlight PmenuSel ctermbg=darkred guibg=SlateBlue
     highlight PmenuSbar ctermbg=darkblue guibg=#404040
-endif"
-}}}
+endif
+"}}}
 
 " Tags: tags設定 ====================================================== "{{{
 if has("autochdir")
@@ -231,8 +243,8 @@ else
 	"set tags=$HOME/.vim/tags,./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
 	set tags+=./tags
 endif
-command! -nargs=? Ctags call <SID>Ctags(<q-args>)"
-}}}
+command! -nargs=? Ctags call <SID>Ctags(<q-args>)
+"}}}
 
 " Autocmd: autocmd設定 ================================================ {{{1
 if has("autocmd")
@@ -519,7 +531,7 @@ function! Snippet_Underscore(s)
 "turn all 'X' into '_x'
     return substitute(toReturn, '\([A-Z]\)', '\=tolower("_".submatch(1))', 'g')
 endfunction
-}}}
+"}}}
 
 " Command: コマンド設定  ============================================== {{{1
 "1}}}
@@ -627,12 +639,10 @@ nmap <leader>dc :FufDirWithFullCwd<BR>
 nmap <leader>i :FufEditInfo<CR>
 "nmap <leader>c :FufMruCmd<CR>
 
-" 描画の抑制で速度UP 表示されていなくてもFuzzyFinderの対象にはなる
-let g:FuzzyFinderOptions.Base.enumerating_limit = 25
 if has('migemo')
-    let g:FuzzyFinderOptions.Base.migemo_support = 1
+    let g:fuf_useMigemo = 1
 endif
-let g:FuzzyFinderOptions.File.excluded_path = '\v\~$|\.git\\|\.git\/|\.svn|\.o$|\.class$|\.exe$|\.bak$|\.back$|\.swo$|\.swp$|((^|[/\\])\.[/\\]$)'
+let g:fuf_file_exclude = '\v\~$|\.git\\|\.git\/|\.svn|\.o$|\.class$|\.exe$|\.bak$|\.back$|\.swo$|\.swp$|((^|[/\\])\.[/\\]$)'
 
 " smartchr ----------------------------------------------------------- {{{2
 inoremap <expr> = smartchr#one_of(' = ', ' => ', ' == ', ' \|\|= ', '=', '===', ' = ' )
