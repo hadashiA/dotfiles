@@ -108,7 +108,10 @@ snippet sheq
     should == ${2:value}
 
 snippet shb
-    should be(${2:result})
+    should be_${2:result}
+
+snippet shbp
+    should be_present
 
 snippet shbc
     should be_close(${2:result}, ${3:tolerance})
