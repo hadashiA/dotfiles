@@ -215,10 +215,10 @@ vnoremap <silent> <leader>ud :call UrlEscapeTheSelectedTextLiteraly(2)<CR>
 vnoremap <silent> ,hc :call CsvH()<CR>"
 
 " select block
-vmap end <ESC>0/end<CR>%V%0
-vmap ef <ESC>$?\%(.*#.*def\)\@!def<CR>%V%0
-vmap ss <ESC>$?\%(.*#.*class\)\@!class<CR>%V%0
-vmap mod <ESC>$?\%(.*#.*module\)\@!module<CR>%V%0
+vmap en <ESC>0/end<CR>%V%0
+vmap ed <ESC>$?\%(.*#.*def\)\@!def<CR>%V%0
+vmap ec <ESC>$?\%(.*#.*class\)\@!class<CR>%V%0
+vmap em <ESC>$?\%(.*#.*module\)\@!module<CR>%V%0
 "}}}
 
 " Color: 色設定 ======================================================= "{{{
