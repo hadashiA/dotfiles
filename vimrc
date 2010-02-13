@@ -215,10 +215,10 @@ vnoremap <silent> <leader>ud :call UrlEscapeTheSelectedTextLiteraly(2)<CR>
 vnoremap <silent> ,hc :call CsvH()<CR>"
 
 " select block
-vmap end <ESC>0/end<CR>%V%0
-vmap ef <ESC>$?\%(.*#.*def\)\@!def<CR>%V%0
-vmap ss <ESC>$?\%(.*#.*class\)\@!class<CR>%V%0
-vmap mod <ESC>$?\%(.*#.*module\)\@!module<CR>%V%0
+vmap en <ESC>0/end<CR>%V%0
+vmap ed <ESC>$?\%(.*#.*def\)\@!def<CR>%V%0
+vmap ec <ESC>$?\%(.*#.*class\)\@!class<CR>%V%0
+vmap em <ESC>$?\%(.*#.*module\)\@!module<CR>%V%0
 "}}}
 
 " Color: 色設定 ======================================================= "{{{
@@ -623,7 +623,7 @@ autocmd FileType html,eruby,php let b:surround_{char2nr('s')} = "style=\"\r\""
 "let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', ]
 let g:fuf_modesDisable = [ 'mrucmd', ]
 let g:fuf_file_exclude = '\v\~$|\.(o|exe|bak|swp|gif|jpg|png)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
-let g:fuf_mrufile_exclude  = '\v\~$|\.bak$|\.swp|\.howm$|\.(gif|jpg|png)$'
+"let g:fuf_mrufile_exclude  = '\v\~$|\.bak$|\.swp|\.howm$|\.(gif|jpg|png)$'
 let g:fuf_mrufile_maxItem  = 1000
 let g:fuf_enumeratingLimit = 20
 let g:fuf_keyPreview = '>'
@@ -640,10 +640,10 @@ nmap <leader>dc :FufDirWithFullCwd<BR>
 nmap <leader>i :FufEditInfo<CR>
 "nmap <leader>c :FufMruCmd<CR>
 
-if has('migemo')
-    let g:fuf_useMigemo = 1
-endif
-let g:fuf_file_exclude = '\v\~$|\.git\\|\.git\/|\.svn|\.o$|\.class$|\.exe$|\.bak$|\.back$|\.swo$|\.swp$|((^|[/\\])\.[/\\]$)'
+" TODO: なぜかエラーが出た
+"if has('migemo')
+"    let g:fuf_useMigemo = 1
+"endif
 
 " smartchr ----------------------------------------------------------- {{{2
 inoremap <expr> = smartchr#one_of(' = ', ' => ', ' == ', ' \|\|= ', '=', '===', ' = ' )
