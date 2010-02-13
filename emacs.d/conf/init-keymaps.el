@@ -4,15 +4,6 @@
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\C-x?" 'help-command)
 
-;; M-hでたんごをけす
-(global-set-key "\M-h" 'backward-kill-word)
-
-;; [2008-03-12]
-;; C-lはanythingに
-
-;; C-x C-lでrecenter
-(global-set-key "\C-x\C-l" 'recenter)
-
 ;; C-x C-iでリージョンをインデント
 (global-set-key "\C-x\C-i" 'indent-region)
 
@@ -34,3 +25,17 @@
 
 ;; Terminal.appでC-/が効かないので、M-zで代用
 (when run-linux (global-set-key "\M-z" 'undo))
+
+;; キーボードレイアウトをカスタマイズして、[をCtrl、 ]をMetaにしてるの
+;; M-} と M-{ を再設定
+(global-set-key "\M-9" 'forward-paragraph)
+(global-set-key "\M-8" 'backward-paragraph)
+
+;;; スケルトンでのペア補完をオン
+(setq skeleton-pair 1)
+;;; スケルトンでのペア補完定義
+(global-set-key "(" 'skeleton-pair-insert-maybe)
+(global-set-key "[" 'skeleton-pair-insert-maybe)
+(global-set-key "{" 'skeleton-pair-insert-maybe)
+(global-set-key "\"" 'skeleton-pair-insert-maybe)
+(global-set-key "'" 'skeleton-pair-insert-maybe)

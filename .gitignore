@@ -8,3 +8,5 @@ fishd.*
 vim/.netrwhist
 vimperator/info
 emacs.d/auto-save-list
+emacs.d/anything-c-adaptive-history
+.#*

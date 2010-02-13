@@ -26,3 +26,13 @@
 (load "ce-scroll")
 (setq ce-smooth-scroll nil)
 (setq scroll-preserve-screen-position nil)
+
+;; C-tで次のウインドウへ移動。ウインドウが1つだけのときは分割して移動
+;; http://d.hatena.ne.jp/rubikitch/20100210/emacs
+(defun other-window-or-split ()
+  (interactive)
+  (when (one-window-p)
+    (split-window-horizontally))
+  (other-window 1))
+
+(global-set-key "\C-t" 'other-window-or-split)

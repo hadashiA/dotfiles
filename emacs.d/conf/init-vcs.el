@@ -1,7 +1,5 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-(add-to-load-path "~/.emacs.d/elisp/vcs")
-
 ;; vc-mode
 (require 'vc)
 
@@ -11,8 +9,8 @@
 ;; SVN
 
 ;; vc-svn
-(require 'vc-svn)
-(add-to-list 'vc-handled-backends 'SVN)
+;;(require 'vc-svn)
+;;(add-to-list 'vc-handled-backends 'SVN)
 
 ;; psvn
 ;;(require 'psvn)
@@ -21,7 +19,7 @@
 
 ;; vc-svk
 ;;(require 'vc-svk)
-(add-to-list 'vc-handled-backends 'SVK)
+;;(add-to-list 'vc-handled-backends 'SVK)
 
 ;; [2008-03-13]
 ;; なんかpsvn-svkが動かないお。。

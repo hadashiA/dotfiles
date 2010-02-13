@@ -2,6 +2,7 @@
 
 ;; 色の設定
 ;; http://norainu.net/mt/archives/2007/05/emacs_22.html
+;;(set-background-color "black")
 (set-background-color "black")
 (set-foreground-color "white")
 (set-face-foreground 'font-lock-comment-face "tan1")
@@ -17,11 +18,12 @@
 (set-face-foreground 'highlight "black")
 (set-face-background 'region "RoyalBlue4")
 (set-face-foreground 'region "white")
-(set-face-foreground 'modeline "black")
+;;(set-face-foreground 'modeline "black")
+(set-face-foreground 'modeline "white")
 (set-face-background 'modeline "brightwhite")
 
 ;; ウィンドウを複数開いた時、アクティヴでない方のモードラインの色
-(set-face-foreground 'mode-line-inactive "black")
+(set-face-foreground 'mode-line-inactive "gray")
 (set-face-background 'mode-line-inactive "brightblack")
 
 ;; ミニバッファのプロンプトの色

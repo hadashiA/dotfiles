@@ -1,17 +1,5 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-;; grepをackに変更
-;; 事前にackをcpanでインストールすること。debianパッケージだと、ack-grep
-(setq grep-command "ack -a --nocolor ")
-(defun ack ()
-  (interactive)
-  (let ((grep-find-command "ack --nocolor --nogroup "))
-    (call-interactively 'grep-find)))
-
-;; brackets.el
-;; 対応する括弧を自動補完。各言語モードで設定
-(load "brackets.el")
-
 ;; shellっぽいところで、C-n/pでヒストリ
 ;;(define-key comint-mode-map "\C-p" 'comint-previous-input)
 ;;(define-key comint-mode-map  "\C-n" 'comint-next-input)
