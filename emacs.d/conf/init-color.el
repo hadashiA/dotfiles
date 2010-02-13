@@ -18,7 +18,7 @@
 (set-face-foreground 'highlight "black")
 (set-face-background 'region "RoyalBlue4")
 (set-face-foreground 'region "white")
-(set-face-foreground 'modeline "brightwhite")
+(set-face-foreground 'modeline "brightblack")
 (set-face-background 'modeline "brightwhite")
 
 ;; ウィンドウを複数開いた時、アクティヴでない方のモードラインの色

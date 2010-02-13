@@ -60,3 +60,21 @@
 (run-with-idle-timer skk-auto-save-jisyo-interval
                      skk-auto-save-jisyo-interval
                      'skk-auto-save-jisyo)
+
+;; 入力設定
+(setq skk-rom-kana-rule-list
+  '(("z," nil "……")
+    (":" nil ":")
+    (";" nil ";")
+    ("?" nil "？")
+    ("!" nil "！")
+    ("@" nil "@")
+    ("_" nil "——")
+    ("z " nil "　")
+    ("z\\" nil "￥")
+    ("z\"" nil "“”")
+    ("z'" nil "‘’")
+    ("z[" nil "『")
+    ("z]" nil "』")
+    ("{" nil "【】")
+    ("}" nil "〔〕")))
