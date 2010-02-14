@@ -14,6 +14,7 @@
                 ("Rakefile" . ruby-mode)
                 ("\\.rake$" . ruby-mode)
                 ("\\.rjs"   . ruby-mode)
+                ("\\.rash"  . ruby-mode)
                 ) auto-mode-alist))
 
 (setq interpreter-mode-alist
@@ -33,6 +34,7 @@
 (push '("Rakefile$"  flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '(".+\\.rake$" flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '(".+\\.rjs$"  flymake-ruby-init) flymake-allowed-file-name-masks)
+(push '(".+\\.rash$" flymake-ruby-init) flymake-allowed-file-name-masks)
 
 (add-hook 'ruby-mode-hook
           '(lambda ()
