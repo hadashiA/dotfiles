@@ -42,3 +42,20 @@
              (ruby-electric-mode t)
              (abbrev-mode nil)
              (flymake-mode t)))
+
+;; endに対応する行をハイライト
+(require 'ruby-block)
+(ruby-block-mode t)
+(setq ruby-block-highlight-toggle t)
+
+;; Rinari
+(add-to-load-path "~/.emacs.d/elisp/rinari/")
+(require 'rinari)
+
+;; rhtml-mode
+(add-to-load-path "~/.emacs.d/elisp/rhtml-mode/")
+(require 'rhtml-mode)
+(setq auto-mode-alist (cons '("\\.erb$" . rhtml-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.rhtml$" . rhtml-mode) auto-mode-alist))
+(add-hook 'rhtml-mode-hook
+  (lambda () (rinari-launch)))
