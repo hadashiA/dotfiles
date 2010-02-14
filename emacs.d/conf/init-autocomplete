@@ -1,0 +1,13 @@
+;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
+
+(require 'auto-complete)
+
+(set-face-background 'ac-completion-face "lightgray")
+(set-face-underline 'ac-candidate-face "darkgray")
+(set-face-background 'ac-selection-face "steelblue")
+(define-key ac-complete-mode-map "\t" 'ac-expand)
+(define-key ac-complete-mode-map "\r" 'ac-complete)
+(define-key ac-complete-mode-map "\M-n" 'ac-next)
+(define-key ac-complete-mode-map "\M-p" 'ac-previous)
+(setq ac-auto-start 3)
+(setq ac-dwim t)

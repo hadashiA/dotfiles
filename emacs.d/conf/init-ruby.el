@@ -23,30 +23,35 @@
                 )
               interpreter-mode-alist))
 
-;; 深いインデントを避ける
-(setq ruby-deep-indent-paren-style nil)
-
 ;; よくあるコードを、自動挿入する。
 (require 'ruby-electric)
+
+;; endに対応する行をハイライト
+(require 'ruby-block)
+
+;; rcodetools
+(add-to-load-path "~/.emacs.d/elisp/rcodetools/")
+(require 'rcodetools)
+
+;; Ruby自動補完。(rcodetools使ってる)
+(require 'auto-complete-ruby)
 
 ;; flymake-modeで補完する対象を追加
 (push '(".+\\.rb$"   flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '("Rakefile$"  flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '(".+\\.rake$" flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '(".+\\.rjs$"  flymake-ruby-init) flymake-allowed-file-name-masks)
-(push '(".+\\.rash$" flymake-ruby-init) flymake-allowed-file-name-masks)
 
 (add-hook 'ruby-mode-hook
           '(lambda ()
-             (inf-ruby-keys)
              (ruby-electric-mode t)
+             (ruby-block-mode t)
+             (inf-ruby-keys)
              (abbrev-mode nil)
+             (setq ac-omni-completion-sources '(("\\.\\=" ac-source-rcodetools)))
+             (setq ruby-block-highlight-toggle t)
              (flymake-mode t)))
 
-;; endに対応する行をハイライト
-(require 'ruby-block)
-(ruby-block-mode t)
-(setq ruby-block-highlight-toggle t)
 
 ;; Rinari
 (add-to-load-path "~/.emacs.d/elisp/rinari/")
@@ -59,3 +64,11 @@
 (setq auto-mode-alist (cons '("\\.rhtml$" . rhtml-mode) auto-mode-alist))
 (add-hook 'rhtml-mode-hook
   (lambda () (rinari-launch)))
+
+;; readgem
+(defun search-gem-path (name)
+  (shell-command-to-string
+    (format "gem which %s | ruby -n -e 'if /lib/; print $_[0, $_.rindex(%%[lib])]; end'" name)))
+(defun find-ruby-gem (name)
+  (interactive "sRuby gem libraray name: ")
+  (find-file (search-gem-path name)))
