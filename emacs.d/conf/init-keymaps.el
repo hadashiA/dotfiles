@@ -30,12 +30,3 @@
 ;; M-} と M-{ を再設定
 (global-set-key "\M-9" 'forward-paragraph)
 (global-set-key "\M-8" 'backward-paragraph)
-
-;;; スケルトンでのペア補完をオン
-(setq skeleton-pair 1)
-;;; スケルトンでのペア補完定義
-(global-set-key "(" 'skeleton-pair-insert-maybe)
-(global-set-key "[" 'skeleton-pair-insert-maybe)
-(global-set-key "{" 'skeleton-pair-insert-maybe)
-(global-set-key "\"" 'skeleton-pair-insert-maybe)
-(global-set-key "'" 'skeleton-pair-insert-maybe)
