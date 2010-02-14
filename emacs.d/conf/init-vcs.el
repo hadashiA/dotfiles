@@ -1,7 +1,7 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
 ;; vc-mode
-(require 'vc)
+;;(require 'vc)
 
 ;; Usage of vc-mode
 ;; http://www.emacswiki.org/cgi-bin/wiki/VersionControl
@@ -29,10 +29,10 @@
 ;; (require 'psvn-svk)
 
 ;; Git
-(require 'git)
-(require 'git-blame)
-(require 'vc-git)
+;;(require 'git)
+;;(require 'git-blame)
+;;(require 'vc-git)
 
 ;;(setq git-committer-email "kentarok@gmail.com")
 ;;(setq git-committer-name "Kentaro Kuribayashi")
-(add-to-list 'vc-handled-backends 'GIT)
+;;(add-to-list 'vc-handled-backends 'GIT)

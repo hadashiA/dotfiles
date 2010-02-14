@@ -84,7 +84,7 @@
 (load "init-keymaps")
 (load "init-occur")
 (load "init-anything")
-(load "init-autocomplete")
+;;(load "init-autocomplete")
 (load "init-woman")
 (load "init-color")
 (load "init-highlighting")

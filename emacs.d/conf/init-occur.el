@@ -14,5 +14,5 @@
         ("emacs" "~/.emacs.d/" ("\\.el$") nil)
         ))
 
-;;(define-key dired-mode-map "O" 'dired-do-moccur)
-;;(define-key Buffer-menu-mode-map "O" 'Buffer-menu-moccur)
+(define-key dired-mode-map "O" 'dired-do-moccur)
+(define-key Buffer-menu-mode-map "O" 'Buffer-menu-moccur)

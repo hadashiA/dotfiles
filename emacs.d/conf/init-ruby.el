@@ -1,10 +1,13 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
-
 ;; ruby-mode
 ;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs
 (add-to-load-path "~/.emacs.d/elisp/ruby-mode/")
 
 (require 'ruby-mode)
+
+;; magickコメントを入れない
+(defun ruby-mode-set-encoding () ())
+
 (autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
 (autoload 'inf-ruby-keys "inf-ruby" "Set local key defs for inf-ruby in ruby-mode")
 
@@ -33,14 +36,12 @@
 (add-to-load-path "~/.emacs.d/elisp/rcodetools/")
 (require 'rcodetools)
 
-;; Ruby自動補完。(rcodetools使ってる)
-(require 'auto-complete-ruby)
-
 ;; flymake-modeで補完する対象を追加
 (push '(".+\\.rb$"   flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '("Rakefile$"  flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '(".+\\.rake$" flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '(".+\\.rjs$"  flymake-ruby-init) flymake-allowed-file-name-masks)
+(push '(".+\\.rash$"  flymake-ruby-init) flymake-allowed-file-name-masks)
 
 (add-hook 'ruby-mode-hook
           '(lambda ()
@@ -48,7 +49,6 @@
              (ruby-block-mode t)
              (inf-ruby-keys)
              (abbrev-mode nil)
-             (setq ac-omni-completion-sources '(("\\.\\=" ac-source-rcodetools)))
              (setq ruby-block-highlight-toggle t)
              (flymake-mode t)))
 
