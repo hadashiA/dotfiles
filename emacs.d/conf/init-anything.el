@@ -9,10 +9,11 @@
 (define-key anything-map (kbd "C-n") 'anything-next-line)
 (define-key anything-map (kbd "C-v") 'anything-next-source)
 (define-key anything-map (kbd "M-v") 'anything-previous-source)
+(global-set-key (kbd "C-;") 'anything)
 
-(global-set-key (kbd "C-l") 'anything)
+;;(global-set-key (kbd "C-l") 'anything)
 ;; 元のC-lをリマップ
-(global-set-key (kbd "C-x C-l") 'recenter)
+;;(global-set-key (kbd "C-x C-l") 'recenter)
 
 (setq anything-sources
       '(anything-c-source-buffers
