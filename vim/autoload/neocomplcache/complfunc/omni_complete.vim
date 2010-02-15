@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: omni_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 27 Dec 2009
+" Last Modified: 02 Feb 2010
 " Usage: Just source this file.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -23,9 +23,17 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 1.11, for Vim 7.0
+" Version: 1.13, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   1.13:
+"    - Supported omnifunc name pattern.
+"    - Fixed complete length bug.
+"
+"   1.12:
+"    - Added vimshell omni completion support.
+"    - Fixed complete length bug.
+"
 "   1.11:
 "    - Supported mark down filetype.
 "    - Deleted C/C++ omni completion support.
@@ -123,10 +131,13 @@ function! neocomplcache#complfunc#omni_complete#initialize()"{{{
                 \'\h\w\+\|\%(\h\w*\|)\)\%(\.\|->\)\h\w*')
     call neocomplcache#set_variable_pattern('g:NeoComplCache_OmniPatterns', 'cpp',
                 \'\%(\h\w*\|)\)\%(\.\|->\)\h\w*\|\h\w*::')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_OmniPatterns', 'vimshell',
+                \'\%(\\[^[:alnum:].-]\|[[:alnum:]@/.-_+,#$%~=*]\)\{2,}')
     "}}}
 
     let s:keyword_cache = {}
     let s:iskeyword = 0
+    let s:completion_length = neocomplcache#get_completion_length('omni_complete')
     
     augroup neocomplcache
         " Caching events
@@ -141,12 +152,19 @@ function! neocomplcache#complfunc#omni_complete#finalize()"{{{
 endfunction"}}}
 
 function! neocomplcache#complfunc#omni_complete#get_keyword_pos(cur_text)"{{{
-    if !exists('&l:omnifunc') || &l:omnifunc == '' || &filetype == '' 
+    if &l:omnifunc == ''
         return -1
     endif
 
-    if neocomplcache#is_auto_complete() &&
-                \(!has_key(g:NeoComplCache_OmniPatterns, &filetype) || g:NeoComplCache_OmniPatterns[&filetype] == '')
+    if has_key(g:NeoComplCache_OmniPatterns, &l:omnifunc)
+        let l:pattern = g:NeoComplCache_OmniPatterns[&l:omnifunc]
+    elseif &filetype != '' && has_key(g:NeoComplCache_OmniPatterns, &filetype)
+        let l:pattern = g:NeoComplCache_OmniPatterns[&filetype]
+    else
+        let l:pattern = ''
+    endif
+    
+    if neocomplcache#is_auto_complete() && l:pattern == ''
         return -1
     endif
     
@@ -164,9 +182,9 @@ function! neocomplcache#complfunc#omni_complete#get_keyword_pos(cur_text)"{{{
     let s:iskeyword = 0
 
     if neocomplcache#is_auto_complete() &&
-                \l:cur_text !~ '\%(' . g:NeoComplCache_OmniPatterns[&filetype] . '\m\)$'
+                \l:cur_text !~ '\%(' . l:pattern . '\m\)$'
         " Check pattern.
-        if has_key(s:keyword_cache, &filetype)
+        if &filetype != '' && has_key(s:keyword_cache, &filetype)
             let s:iskeyword = 1
             return match(l:cur_text, '\h\w\+$')
         else
@@ -193,6 +211,11 @@ function! neocomplcache#complfunc#omni_complete#get_keyword_pos(cur_text)"{{{
         call setline('.', l:line)
     endif
     call setpos('.', l:pos)
+    
+    if col('.') - l:cur_keyword_pos < s:completion_length 
+        " Too short completion length.
+        return -1
+    endif
 
     return l:cur_keyword_pos
 endfunction"}}}

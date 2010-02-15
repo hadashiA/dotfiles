@@ -1,6 +1,6 @@
 *neocomplcache.txt*	Ultimate auto completion system for Vim
 
-Version: 4.06
+Version: 4.09
 Author : Shougo <Shougo.Matsu@gmail.com>
 License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -353,14 +353,6 @@ g:NeoComplCache_SameFileTypeLists			*g:NeoComplCache_SameFileTypeLists*
 		Because it is complicated, refer to
 		autoload/neocomplcache.vim for the initial value.
 
-g:NeoComplCache_NonBufferFileTypeDetect			*g:NeoComplCache_NonBufferFileTypeDetect*
-		It is a dictionary to connect file type with extension.
-		When neocomplcache cannot judge file type well, dictionary
-		files are effective.
-	
-		Because it is complicated, refer to
-		autoload/neocomplcache.vim for the initial value.
-
 g:NeoComplCache_DictionaryFileTypeLists			*g:NeoComplCache_DictionaryFileTypeLists*
 		It is a dictionary to connect a dictionary file with file
 		type.  The dictionary's key is filetype and value is a path
@@ -381,6 +373,11 @@ g:NeoComplCache_DisableSelectModeMappings		*g:NeoComplCache_DisableSelectModeMap
 		better usually validate it.
 		
 		Default value is 1.
+
+g:NeoComplCache_CtagsProgram				*g:NeoComplCache_CtagsProgram*
+		It is the path to the ctags command.
+		
+		Default value is "ctags".
 
 g:NeoComplCache_CtagsArgumentsList			*g:NeoComplCache_CtagsArgumentsList*
 		It is the dictionary of the character string to set a value
@@ -612,6 +609,53 @@ ability of neocomplcache will spread by creating plugin by yourself.
 ==============================================================================
 CHANGELOG					*neocomplcache-changelog*
 
+   4.09:
+    - Improved syntax detect in snippets_complete.
+    - Improved NeoComplCachePrintSnippets command.
+    - Fixed snippet newline expand in snippets_complete.
+    - Improved syntax highlight in snippets_complete.
+    - Optimized filename_complete.
+    - Added snippet files(Thanks mfumi!).
+    - Fixed multibyte input bug.
+    - Added interactive termtter keyword.
+    - Added keyword pattern of batch file.
+    - Improved filtering word.
+    - Supported Visual Basic.
+    - Supported lingr-vim.
+    - Update lines number in buffer_complete.
+    - Supported omnifunc name pattern in omni_complete.
+    - Fixed complete length bug in omni_complete.
+    - Fixed wildcard bug.
+    - Fixed indent.
+    - Supported interactive ocaml.
+    
+ChangeLog NeoComplCache 4.00-: {{{
+   4.08:
+    - Improved keywords in vim_complete.
+    - Deleted g:NeoComplCache_NonBufferFileTypeDetect option.
+    - Improved composition filetype keyword support.
+    - Fixed neocomplcache#system.
+    - Added g:NeoComplCache_CtagsProgram option.
+    - Fixed ctags execution bug.
+    - Improved quickmatch behaivior.
+    - Fixed complete length bug in omni_complete.
+    - Fixed wildcard freeze in filename_complete.
+    
+   4.07:
+    - Improved filaname pattern.
+    - Deleted '...' pattern.
+    - Fixed functions_prototype bug in vim_complete.
+    - Added same filetype lists for vimshell iexe.
+    - Added syntax pattern for vimshell iexe.
+    - Fixed filename completion bug.
+    - Added vimshell omni completion support.
+    - Disabled filename_complete in vimshell.
+    - Implemented dictionary_complete.vim.
+    - Optimized buffer_complete.
+    - Improved tex pattern.
+    - Improved same filetype.
+    - Improved filetype completion.
+
    4.06:
     - Improved command completion in snippets_complete.
     - Improved skip directory in filename_complete.
@@ -620,7 +664,6 @@ CHANGELOG					*neocomplcache-changelog*
     - Fixed neocomplcache#get_cur_text() bug.
     - Fixed unpack dictionary bug in tags_complete.
     
-ChangeLog NeoComplCache 4.00-: {{{
    4.05:
     - Improved snippet alias.
     - Improved analyzing extra args in vim_complete.
@@ -1644,4 +1687,4 @@ ChangeLog AltAutoComplPop: {{{
 }}}
 
 ==============================================================================
-vim:tw=78:ts=8:ft=help:norl:noet:fen:fdl=0:fdm=marker:
+vim:tw=78:ts=8:ft=help:norl:noet:fen:fdl=0:fdm=marker:noet:
