@@ -650,7 +650,7 @@ inoremap <expr> = smartchr#one_of(' = ', ' => ', ' == ', ' \|\|= ', '=', '===', 
 inoremap <expr> + smartchr#one_of(' + ', ' += ', '+', ' + ')
 
 " neocomplcache ----------------------------------------------------------- {{{2
-let g:NeoComplCache_EnableAtStartup = 1
+let g:NeoComplCache_EnableAtStartup = 0
 let g:NeoComplCache_DisableAutoComplete = 0
 let g:NeoComplCache_TemporaryDir = $HOME.'/.neocon'
 

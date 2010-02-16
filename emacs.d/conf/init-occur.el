@@ -5,14 +5,16 @@
 (require 'color-moccur)
 
 (setq moccur-split-word t)
+(setq dmoccur-use-list nil)
+(setq moccur-kill-moccur-buffer t)
 
 (setq *moccur-buffer-name-exclusion-list*
-      '(".+TAGS.+" "*Completions*" "*Messages*"))
-(setq dmoccur-use-list t)
+      '(".+TAGS.+" "*Completions*" "*Messages*"))gg
+
 (setq dmoccur-list
       '(
         ("emacs" "~/.emacs.d/" ("\\.el$") nil)
         ))
 
-;;(define-key dired-mode-map "O" 'dired-do-moccur)
-;;(define-key Buffer-menu-mode-map "O" 'Buffer-menu-moccur)
+;; (define-key dired-mode-map "O" 'dired-do-moccur)
+;; (define-key Buffer-menu-mode-map "O" 'Buffer-menu-moccur)
