@@ -655,7 +655,7 @@ let g:NeoComplCache_DisableAutoComplete = 0
 let g:NeoComplCache_TemporaryDir = $HOME.'/.neocon'
 
 " popup
-let g:NeoComplCAche_MaxList = 100
+let g:NeoComplCAche_MaxList = 40
 let g:NeoComplCache_MaxKeywordWidth = 50
 let g:NeoComplCache_MaxFilenameWidth = 50
 
@@ -664,15 +664,15 @@ let g:NeoComplCache_KeywordCompletionStartLength = 1
 if !exists('g:NeoComplCache_PluginCompletionLength')
 endif
 let g:NeoComplCache_PluginCompletionLength = {
-    \'snippets_complete' : 1, 
-    \'buffer_complete' : 2, 
-    \'syntax_complete' : 2, 
-    \'tags_complete' : 3, 
+\'snippets_complete' : 1, 
+\'buffer_complete' : 2, 
+\'syntax_complete' : 2, 
+\'tags_complete' : 3, 
 \}
 
 " ignorecase
 let g:NeoComplCache_IgnoreCase = 0
-let g:NeoComplCache_SmartCase = 1
+let g:NeoComplCache_SmartCase = 0
 
 " sort order
 let g:NeoComplCache_AlphabeticalOrder = 0
@@ -699,20 +699,20 @@ let g:NeoComplCache_EnableCamelCaseCompletion = 0
 let g:NeoComplCache_EnableUnderbarCompletion = 1
 
 " popup shortcut
-let g:NeoComplCache_EnableWildCard = 1 " wild card '*'
-let g:NeoComplCache_EnableQuickMatch = 1 " type '-' and select popup number
+let g:NeoComplCache_EnableWildCard = 0 " wild card '*'
+let g:NeoComplCache_EnableQuickMatch = 0 " type '-' and select popup number
 
 " Define dictionary.
 "let g:NeoComplCache_DictionaryFileTypeLists = {
-"  \ 'default' : '',
-"  \ 'vimshell' : $HOME.'/.vimshell_hist',
-"  \ 'scheme' : $HOME.'/.gosh_completions',
+"  \ 'default' : ''                                                                    , 
+"  \ 'vimshell' : $HOME.'/.vimshell_hist'                                              , 
+"  \ 'scheme' : $HOME.'/.gosh_completions'                                             , 
 "  \ 'ruby' : $HOME.'/.vim/dict/ruby.dict'
 "  \ }
 
 " Define keyword.
 if !exists('g:NeoComplCache_KeywordPatterns')
-  let g:NeoComplCache_KeywordPatterns = {}
+let g:NeoComplCache_KeywordPatterns = {}
 endif
 let g:NeoComplCache_KeywordPatterns['default'] = '\h\w*'
 
