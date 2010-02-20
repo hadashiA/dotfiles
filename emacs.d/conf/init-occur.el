@@ -16,5 +16,14 @@
         ("emacs" "~/.emacs.d/" ("\\.el$") nil)
         ))
 
-;; (define-key dired-mode-map "O" 'dired-do-moccur)
-;; (define-key Buffer-menu-mode-map "O" 'Buffer-menu-moccur)
+(require 'anything-c-moccur)
+(global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur)
+(global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur)
+(add-hook 'dired-mode-hook
+          '(lambda ()
+             (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
+
+(setq anything-c-moccur-anything-idle-delay 0.2
+      anything-c-moccur-higligt-info-line-flag t
+      anything-c-moccur-enable-auto-look-flag t
+      anything-c-moccur-enable-initial-pattern t)

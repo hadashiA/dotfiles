@@ -52,10 +52,21 @@
              (setq ruby-block-highlight-toggle t)
              (flymake-mode t)))
 
-
-;; Rinari
 (add-to-load-path "~/.emacs.d/elisp/rinari/")
 (require 'rinari)
+
+;; rinari-extend-by-emacs-rails
+;; (setq rails-tags-dirs '("app" "lib" "test" "db" "vendor"))
+;; (require 'rinari-extend-by-emacs-rails)
+;; (defun ruby-mode-hooks-rinari-extend ()
+;;   (define-key ruby-mode-map (kbd "<C-f1>") 'rails-search-doc)
+;;   (define-key ruby-mode-map [f1] 'rails-search-doc-at-point)
+;; )
+;; (defun rinari-mode-hooks-rinari-extend ()
+;;   (define-key rinari-minor-mode-map "\C-c\C-t" 'rails-create-tags)
+;; )
+;; (add-hook 'ruby-mode-hook 'ruby-mode-hooks-rinari-extend)
+;; (add-hook 'rinari-mode-hook 'rinari-mode-hooks-rinari-extend)
 
 ;; rhtml-mode
 (add-to-load-path "~/.emacs.d/elisp/rhtml-mode/")
@@ -72,3 +83,14 @@
 (defun find-ruby-gem (name)
   (interactive "sRuby gem libraray name: ")
   (find-file (search-gem-path name)))
+
+;; start fastri-server
+(defun start-fastri-server()
+  (let*
+      ((progname "fastri-server")
+       (buffname (format "*%S*" progname)))
+    (start-process progname buffname progname)))
+(start-fastri-server)))
+
+;; refe
+(require 'refe)
