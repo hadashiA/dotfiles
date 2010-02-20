@@ -1,23 +1,47 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-;; 色の設定
 ;; http://norainu.net/mt/archives/2007/05/emacs_22.html
-;;(set-background-color "black")
 (set-background-color "black")
 (set-foreground-color "white")
-(set-face-foreground 'font-lock-comment-face "tan1")
-(set-face-foreground 'font-lock-string-face  "firebrick")
-(set-face-foreground 'font-lock-keyword-face "SandyBrown")
-(set-face-foreground 'font-lock-function-name-face "BlueViolet")
-(set-face-foreground 'font-lock-variable-name-face "limegreen")
-(set-face-foreground 'font-lock-type-face "skyblue1")
-(set-face-foreground 'font-lock-warning-face "yellow")
-(set-face-foreground 'font-lock-builtin-face "goldenrod")
-(set-face-foreground 'font-lock-constant-face "tomato")
-(set-face-background 'highlight "grey")
+
+;; comment
+(set-face-foreground 'font-lock-comment-face "gray59")
+(set-face-italic-p 'font-lock-comment-face t)
+
+;; string
+(set-face-foreground 'font-lock-string-face  "chartreuse1")
+
+;; search keyword
+(set-face-foreground 'font-lock-keyword-face "tomato")
+
+;; 変数
+(set-face-foreground 'font-lock-variable-name-face "white")
+
+;;
+(set-face-foreground 'font-lock-type-face "DarkOliveGreen3")
+
+;; function name
+(set-face-foreground 'font-lock-function-name-face "DarkOliveGreen3")
+
+;; Constant
+(set-face-foreground 'font-lock-constant-face "DarkOliveGreen3")
+
+;; warning
+(set-face-foreground 'font-lock-warning-face "gray56")
+(set-face-background 'font-lock-warning-face "yellow")
+
+;;
+(set-face-foreground 'font-lock-builtin-face "LightSkyBlue")
+
+;; ハイライト
+(set-face-background 'highlight "yellow")
 (set-face-foreground 'highlight "black")
-(set-face-background 'region "RoyalBlue4")
+
+;; region
+(set-face-background 'region "gray")
 (set-face-foreground 'region "white")
+
+;; モードライン
 (set-face-foreground 'modeline "brightblack")
 (set-face-background 'modeline "brightwhite")
 
@@ -27,3 +51,4 @@
 
 ;; ミニバッファのプロンプトの色
 (set-face-foreground 'minibuffer-prompt "Green")
+
