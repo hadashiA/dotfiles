@@ -9,7 +9,7 @@
 (setq moccur-kill-moccur-buffer t)
 
 (setq *moccur-buffer-name-exclusion-list*
-      '(".+TAGS.+" "*Completions*" "*Messages*"))gg
+      '(".+TAGS.+" "*Completions*" "*Messages*"))
 
 (setq dmoccur-list
       '(
