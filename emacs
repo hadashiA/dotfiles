@@ -79,14 +79,15 @@
 ;; 特定ディレクトリ以下を自動でロードするようにしてもいいけど、順番とか、
 ;; これやっぱ外しておこうとかいうのを調整するのが面倒。
 (load "init-global")
+(load "init-color")
 (load "init-skk")
 (load "init-window")
 (load "init-keymaps")
 (load "init-anything")
-(load "init-occur")
 ;;(load "init-autocomplete")
+(load "init-snippet")
+(load "init-occur")
 (load "init-woman")
-(load "init-color")
 (load "init-highlighting")
 (load "init-minibuf")
 (load "init-killring")
