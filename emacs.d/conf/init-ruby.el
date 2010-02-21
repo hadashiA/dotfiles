@@ -84,13 +84,5 @@
   (interactive "sRuby gem libraray name: ")
   (find-file (search-gem-path name)))
 
-;; start fastri-server
-(defun start-fastri-server()
-  (let*
-      ((progname "fastri-server")
-       (buffname (format "*%S*" progname)))
-    (start-process progname buffname progname)))
-(start-fastri-server)))
-
 ;; refe
 (require 'refe)

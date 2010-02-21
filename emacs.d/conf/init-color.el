@@ -11,7 +11,7 @@
 ;; string
 (set-face-foreground 'font-lock-string-face  "chartreuse1")
 
-;; search keyword
+;; keyword
 (set-face-foreground 'font-lock-keyword-face "tomato")
 
 ;; 変数
