@@ -650,7 +650,7 @@ inoremap <expr> = smartchr#one_of(' = ', ' => ', ' == ', ' \|\|= ', '=', '===', 
 inoremap <expr> + smartchr#one_of(' + ', ' += ', '+', ' + ')
 
 " neocomplcache ----------------------------------------------------------- {{{2
-let g:NeoComplCache_EnableAtStartup = 0
+let g:NeoComplCache_EnableAtStartup = 1
 let g:NeoComplCache_DisableAutoComplete = 0
 let g:NeoComplCache_TemporaryDir = $HOME.'/.neocon'
 
@@ -733,3 +733,9 @@ inoremap <expr><CR> pumvisible() ? "\<C-y>\<CR>X\<BS>" : "\<CR>X\<BS>"
 let g:NeoComplCache_SnippetsDir = $HOME . '/.vim/snippets'
 imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 smap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
+
+" rcodetools ----------------------------------------------------------- {{{2
+let g:rct_completion_use_fri = 1  " 0 by default (disabled)
+let g:rct_completion_info_max_len = 20 
+let g:RCT_ri_cmd = "ri -T -f plain "
+let g:RCT_ri_binding="<C-X><C-R>" " use ^X^R to call vim on current word
