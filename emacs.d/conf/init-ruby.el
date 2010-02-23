@@ -33,8 +33,8 @@
 (require 'ruby-block)
 
 ;; rcodetools
-(add-to-load-path "~/.emacs.d/elisp/rcodetools/")
-(require 'rcodetools)
+;;(add-to-load-path "~/.emacs.d/elisp/rcodetools/")
+;;(require 'rcodetools)
 
 ;; flymake-modeで補完する対象を追加
 (push '(".+\\.rb$"   flymake-ruby-init) flymake-allowed-file-name-masks)
@@ -84,5 +84,8 @@
   (interactive "sRuby gem libraray name: ")
   (find-file (search-gem-path name)))
 
-;; refe
-(require 'refe)
+;; Reference
+;;(equire 'refe)
+
+;; Rspec
+(require 'rspec-mode)

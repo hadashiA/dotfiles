@@ -1,0 +1,4 @@
+#name : reject { |...| ... }
+#group : enumerable
+# --
+inject { |${2:v}| $0 }

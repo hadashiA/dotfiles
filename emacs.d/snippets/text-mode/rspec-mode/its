@@ -1,0 +1,5 @@
+#it 'should...' ... end
+# --
+it 'should ${1:description}' do
+  $0
+end
