@@ -52,8 +52,22 @@
              (setq ruby-block-highlight-toggle t)
              (flymake-mode t)))
 
+;; Rinari: Ruby on Rails Minor Mode for Emacs:  http://rinari.rubyforge.org/
 (add-to-load-path "~/.emacs.d/elisp/rinari/")
 (require 'rinari)
+;; (add-hook 'rails-mode-hook
+;;           '(lambda ()
+             (global-set-key "\C-c;m" 'rinari-find-controller)
+             (global-set-key "\C-c;e" 'rinari-find-environment)
+             (global-set-key "\C-c;f" 'rinari-find-file-in-project)
+             (global-set-key "\C-c;h" 'rinari-find-helper)
+             (global-set-key "\C-c;i" 'rinari-find-migration)
+             (global-set-key "\C-c;j" 'rinari-find-javascript)
+             (global-set-key "\C-c;p" 'rinari-find-plugin)
+             (global-set-key "\C-c;m" 'rinari-find-model)
+             (global-set-key "\C-c;n" 'rinari-find-configuration)
+             (global-set-key "\C-c;l" 'rinari-find-lib)
+             (global-set-key "\C-c;s" 'rinari-find-stylesheet);;))
 
 ;; rinari-extend-by-emacs-rails
 ;; (setq rails-tags-dirs '("app" "lib" "test" "db" "vendor"))
