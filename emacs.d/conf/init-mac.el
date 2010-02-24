@@ -21,3 +21,6 @@
 
 ;; Macではメニューバーは邪魔にならないので表示
 (eval-safe (menu-bar-mode 1))
+
+;; ¥の代わりにバックスラッシュを入力する
+(define-key global-map [?¥] [?\\])

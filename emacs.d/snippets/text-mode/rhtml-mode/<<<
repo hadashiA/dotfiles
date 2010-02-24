@@ -1,0 +1,4 @@
+#-*- require-final-newline: t -*-
+#name : <<<
+# --
+<%= $0  %>

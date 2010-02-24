@@ -1,0 +1,6 @@
+#-*- require-final-newline: t -*-
+#name : do
+# --
+<% ${1} do |${2}|  %>
+  <%= $0  %>
+<% end %>

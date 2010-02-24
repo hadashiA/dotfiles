@@ -57,10 +57,11 @@
 (require 'rinari)
 ;; (add-hook 'rails-mode-hook
 ;;           '(lambda ()
-             (global-set-key "\C-c;m" 'rinari-find-controller)
+             (global-set-key "\C-c;c" 'rinari-find-controller)
              (global-set-key "\C-c;e" 'rinari-find-environment)
              (global-set-key "\C-c;f" 'rinari-find-file-in-project)
              (global-set-key "\C-c;h" 'rinari-find-helper)
+             (global-set-key "\C-c;v" 'rinari-find-view)
              (global-set-key "\C-c;i" 'rinari-find-migration)
              (global-set-key "\C-c;j" 'rinari-find-javascript)
              (global-set-key "\C-c;p" 'rinari-find-plugin)

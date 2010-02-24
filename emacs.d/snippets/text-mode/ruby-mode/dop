@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: do |v| .. end
+# key: dop
+# expand-env: ((some-var some-value))
+# --
+do |${1:v}|
+  $0
+end
