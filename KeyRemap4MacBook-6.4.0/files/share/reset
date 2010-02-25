@@ -546,6 +546,7 @@ remap.bracketL2optionLhhk 0
 remap.bracketR2controlLhhk 0
 remap.bracketR2optionLhhk 0
 remap.forwarddelete2controlRhhk 0
+remap.hhkmode_vi_cursor_2 0
 repeat.initial_wait 500
 repeat.wait 30
 parameter.keyoverlaidmodifier_timeout 1000

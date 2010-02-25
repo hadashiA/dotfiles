@@ -4037,7 +4037,7 @@
               <name>Bracket left to Option</name>
               <sysctl>remap.bracketL2optionL</sysctl>
               <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, KeyCode::OPTION_L</autogen>
-              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, ModifierFlag::OPTION_L, KeyCode::BRACKET_RIGHT</autogen>
+              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, ModifierFlag::FN, KeyCode::BRACKET_RIGHT</autogen>
               <autogen>--KeyToKey-- KeyCode::CURSOR_DOWN, KeyCode::BRACKET_RIGHT</autogen>
             </item>
             <item>
@@ -4060,12 +4060,12 @@
               <autogen>--KeyToKey-- KeyCode::CURSOR_LEFT, KeyCode::CONTROL_R</autogen>
             </item>
             <item>
-              <name>Option+hjkl to cursor </name>
+              <name>FN+hjkl to cursor </name>
               <sysctl>remap.vimlikecursorformacbook</sysctl>
-              <autogen>--KeyToKey-- KeyCode::H, ModifierFlag::OPTION_L, KeyCode::CURSOR_LEFT</autogen>
-              <autogen>--KeyToKey-- KeyCode::J, ModifierFlag::OPTION_L, KeyCode::CURSOR_DOWN</autogen>
-              <autogen>--KeyToKey-- KeyCode::K, ModifierFlag::OPTION_L, KeyCode::CURSOR_UP</autogen>
-              <autogen>--KeyToKey-- KeyCode::L, ModifierFlag::OPTION_L, KeyCode::CURSOR_RIGHT</autogen>
+              <autogen>--KeyToKey-- KeyCode::H, ModifierFlag::FN, KeyCode::CURSOR_LEFT</autogen>
+              <autogen>--KeyToKey-- KeyCode::J, ModifierFlag::FN, KeyCode::CURSOR_DOWN</autogen>
+              <autogen>--KeyToKey-- KeyCode::K, ModifierFlag::FN, KeyCode::CURSOR_UP</autogen>
+              <autogen>--KeyToKey-- KeyCode::L, ModifierFlag::FN, KeyCode::CURSOR_RIGHT</autogen>
             </item>
           </list>
         </item>
@@ -4108,6 +4108,14 @@
               <name>ForwardDELL to Control</name>
               <sysctl>remap.forwarddelete2controlRhhk</sysctl>
               <autogen>--KeyToKey-- KeyCode::FORWARD_DELETE, KeyCode::CONTROL_R</autogen>
+            </item>
+            <item>
+              <name>Enable FN+hjkl at HHK to Left/Down/Up/Right</name>
+              <sysctl>remap.hhkmode_vi_cursor_2</sysctl>
+              <autogen>--KeyToKey-- KeyCode::KEYPAD_MULTIPLY, KeyCode::CURSOR_LEFT</autogen>
+              <autogen>--KeyToKey-- KeyCode::KEYPAD_SLASH,    KeyCode::CURSOR_DOWN</autogen>
+              <autogen>--KeyToKey-- KeyCode::HOME,            KeyCode::CURSOR_UP</autogen>
+              <autogen>--KeyToKey-- KeyCode::PAGEUP,          KeyCode::CURSOR_RIGHT</autogen>
             </item>
           </list>
         </item>
