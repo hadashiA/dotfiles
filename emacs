@@ -97,7 +97,7 @@
 (load "init-dired")
 ;;(load "init-migemo")
 (load "init-sdic")
-(load "init-w3m")
+;;(load "init-w3m")
 (load "init-languages")
 (load "init-tags")
 ;;(load "init-vcs")
