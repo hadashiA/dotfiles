@@ -6,7 +6,7 @@
 
 ;; comment
 (set-face-foreground 'font-lock-comment-face "gray59")
-(set-face-italic-p 'font-lock-comment-face t)
+;;(set-face-italic-p 'font-lock-comment-face t)
 
 ;; string
 (set-face-foreground 'font-lock-string-face  "chartreuse1")
