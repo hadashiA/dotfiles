@@ -104,3 +104,72 @@
 
 ;; Rspec
 (require 'rspec-mode)
+
+;; ;; add font-lock
+;; (setq ruby-keywords
+;;       '( "and" "begin" "break" "case" "catch" "do"
+;;         "elsif" "else" "fail" "ensure" "for" "end" "if" "in"
+;;         "next" "not" "or" "raise" "redo" "rescue" "retry" "return" "then"
+;;         "throw" "super" "unless" "until" "when" "while" "yield"
+;;         ;; ^Qasserts^P
+;;         "assert_block" "assert_equal" "assert_in_delta" "assert_instance_of"
+;;         "assert_kind_of" "assert_match" "assert_nil" "assert_no_match"
+;;         "assert_not_equal" "assert_not_nil" "assert_not_same" "assert_nothing_raised"
+;;         "assert_nothing_thrown" "assert_operator" "assert_raises" "assert_respond_to"
+;;         "assert_same" "assert_send" "assert_throws" "assert"
+;;         ;; ^Qrspec^P
+;;         "context" "specify" "should" "should_not"
+;;         ;; other keywords 追加してください。
+;;         "puts" "print")
+;; ;;;;;
+;;       ruby-highlight-keywords
+;;       '("Expectations")
+;; ;;;;;
+;;       ruby-font-lock-keywords
+;;       (list
+;;        ;; functions
+;;        '("^\\s *def\\s +\\([^( \t\n]+\\)" 1 font-lock-function-name-face)
+;;        (cons (concat
+;;               "\\(^\\|[^_:.@$]\\|\\.\\.\\)\\b\\(defined\\?\\|\\("
+;;               (regexp-opt ruby-keywords)
+;;               "\\)\\>\\)")
+;;              2)
+;;        `(,(concat
+;;               "\\(^\\|[^_:.@$]\\|\\.\\.\\)\\b\\("
+;;               (regexp-opt ruby-highlight-keywords)
+;;               "\\>\\)")
+;;              2 font-lock-warning-face prepend)
+;;        '("^\\s *\\(require\\)\\s +" 1 font-lock-reference-face)
+;;        '("^\\s *\\(class|module|def)\\s +" 1 font-lock-preproc-face)
+;;        ;; assignment
+;;        ;; (regexp-opt '("=" "+=" "-=" "*=" "/=" "%=" "**=" "&=" "|=" "^=" "<<=" ">>=" "&&=" "||="))
+;;        ;;`("\\(?:&&\\|\\*\\*\\|<<\\|>>\\|||\\|[%&*+/|^-]\\)?=>?" 0 font-lock-warning-face)
+;;        ;; xmpfilter
+;;        '("# =>.*$" 0 font-lock-warning-face prepend)
+;;        '(ruby-font-lock-xmpfilter-multi-line-annotation 0 font-lock-warning-face prepend)
+;;        ;;`(,(regexp-opt '(">=" "<=" "<=>" "==" "===" "!=" "=~")) 0 font-lock-builtin-face t)
+;;        ;; variables
+;;        '("\\(\\$\\|@\\|@@\\)\\(\\w\\|_\\)+" 0 font-lock-constant-face)
+;;        ;; embedded document
+;;        '(ruby-font-lock-docs 0 font-lock-comment-face t)
+;;        '(ruby-font-lock-maybe-docs 0 font-lock-comment-face t)
+;;        ;; ^Q"here" document^P
+;;        '(ruby-font-lock-here-docs 0 sh-heredoc-face t)
+;;        '(ruby-font-lock-maybe-here-docs 0 sh-heredoc-face t)
+;;        `(,ruby-here-doc-beg-re 0 sh-heredoc-face t)
+;;        ;; general delimited string
+;;        '("\\(^\\|[[ \t\n<+(,=]\\)\\(%[xrqQwW]?\\([^<[{(a-zA-Z0-9 \n]\\)[^\n\\\\]*\\(\\\\.[^\n\\\\]*\\)*\\(\\3\\)\\)" (2 font-lock-string-face t))
+;;        ;; symbols
+;;        '("\\(^\\|[^:]\\)\\(:\\([-+~]@?\\|[/%&|^`]\\|\\*\\*?\\|<\\(<\\|=>?\\)?\\|>[>=]?\\|===?\\|=~\\|\\[\\]=?\\|\\(\\w\\|_\\)+\\([!?=]\\|\\b_*\\)\\|#{[^}\n\\\\]*\\(\\\\.[^}\n\\\\]*\\)*}\\)\\)" 2 font-lock-symbol-face)
+;;        ;; constants
+;;        '("\\(^\\|[^_]\\)\\b\\([A-Z]+\\(\\w\\|_\\)*\\)"
+;;          2 font-lock-constant-face)
+;;        ;; ^Qexpression expansion^P
+;;        ;;'("#\\({[^}\n\\\\]*\\(\\\\.[^}\n\\\\]*\\)*}\\|\\(\\$\\|@\\|@@\\)\\(\\w\\|_\\)+\\)" 0 font-lock-reference-face t)
+;;        ;; warn lower camel case
+;;                                         ;'("\\<[a-z]+[a-z0-9]*[A-Z][A-Za-z0-9]*\\([!?]?\\|\\>\\)"
+;;                                         ;  0 font-lock-warning-face)
+;;        ;; ^Qeev hyperlink^P
+;;        '("^ *#[^(\n]+\\((.*)\\)$" 1 ee-link-underline t)
+     
+;;        ))
