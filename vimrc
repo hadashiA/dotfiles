@@ -546,7 +546,7 @@ let Grep_Find_Use_Xargs = 0
 let Grep_Shell_Quote_Char = '"' 
 
 " git.vim ----------------------------------------------------- {{{2
-autocmd FileType git* set noautochdir
+" autocmd FileType git* set noautochdir
 
 " SrcExpl ----------------------------------------------------- {{{2
 let g:SrcExpl_RefreshTime   = 1
