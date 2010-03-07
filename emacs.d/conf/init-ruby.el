@@ -33,8 +33,21 @@
 (require 'ruby-block)
 
 ;; rcodetools
-;;(add-to-load-path "~/.emacs.d/elisp/rcodetools/")
-;;(require 'rcodetools)
+;; (add-to-load-path "~/.emacs.d/elisp/rcodetools/")
+;; (require 'rcodetools)
+;; (setq rct-find-tag-if-available nil)
+;; (defun ruby-mode-hook-rcodetools ()
+;;   (define-key ruby-mode-map "\M-\C-i" 'rct-complete-symbol)
+;;   (define-key ruby-mode-map "\C-c\C-t" 'ruby-toggle-buffer)
+;;   (define-key ruby-mode-map "\C-c\C-d" 'xmp)
+;;   (define-key ruby-mode-map "\C-c\C-f" 'rct-ri))
+;; (add-hook 'ruby-mode-hook 'ruby-mode-hook-rcodetools)
+
+;; (require 'anything-rcodetools)
+;; (setq rct-get-all-methods-command "PAGER=cat fri -l")
+;; ;; See docs
+;; (define-key anything-map [(control ?;)] 'anything-execute-persistent-action)
+
 
 ;; flymake-modeで補完する対象を追加
 (push '(".+\\.rb$"   flymake-ruby-init) flymake-allowed-file-name-masks)
