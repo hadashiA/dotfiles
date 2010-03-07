@@ -9,7 +9,6 @@
 ;; $ sudo make install
 ;; $ sudo make install-icons
 
-
 (setq w3m-coding-system 'utf-8
       w3m-file-coding-system 'utf-8
       w3m-file-name-coding-system 'utf-8
@@ -31,4 +30,13 @@
 (global-set-key "\C-xm" 'browse-url-at-point)
 
 
+;; Emacs でテキスト翻訳をする elisp - とりあえず暇だったし何となく始めたブログ
+;;  http://d.hatena.ne.jp/khiker/20070503/emacs_text_translator
+(add-to-load-path "~/.emacs.d/elisp/text-translator")
+(require 'text-translator)
+;; 自動選択に使用する関数を設定
+(setq text-translator-auto-selection-func 'text-translator-translate-by-auto-selection-enja)
 
+(global-set-key "\C-x\M-t" 'text-translator-by-auto-selection-enja)
+(global-set-key "\C-x\M-T" 'text-translator-all)
+;;(global-set-key "\C-x\M-T" 'text-translator-translate-last-string)
