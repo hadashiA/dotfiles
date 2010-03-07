@@ -36,3 +36,5 @@
 ;;(setq git-committer-email "kentarok@gmail.com")
 ;;(setq git-committer-name "Kentaro Kuribayashi")
 ;;(add-to-list 'vc-handled-backends 'GIT)
+
+(require 'magit)
