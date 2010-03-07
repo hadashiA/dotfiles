@@ -139,9 +139,20 @@ set hintmatching=custom
 "Appearance Change with StyleChanger.js
 let g:styles = "vimperator"
 
+"feedSomeKeys_2.js
+" autocmd LocationChange .* :fmapc
+" autocmd LocationChange mail\.google\.com/mail :fmap -depth 4 c / y j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gc
+" autocmd LocationChange www\.google\.com/reader :fmap j k s a r v <Space> <S-Space> g
+
+" vimperatorでgoogle readerのショートカットを有効にする - 拡張現実ライフ - モバイルデジタルサイネージ編
+"  http://d.hatena.ne.jp/akio0911/20090112/p1
+autocmd LocationChange .* js modes.passAllKeys = false
+autocmd LocationChange www\\.google\\.(co\\.jp|com)/reader js modes.passAllKeys = true
+
 " Abbreviations
 " ======================================================================
 "読み込み終了のお知らせ
 echo "done."
 source! ~/_vimperatorrc.local
 " vim: set ft=vimperator:
+

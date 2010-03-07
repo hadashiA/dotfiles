@@ -100,7 +100,7 @@
 ;;(load "init-w3m")
 (load "init-languages")
 (load "init-tags")
-;;(load "init-vcs")
+(load "init-vcs")
 ;;(load "init-html")
 ;;(load "init-css")
 ;;(load "init-javascript")
