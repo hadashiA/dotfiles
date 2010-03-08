@@ -37,6 +37,7 @@
 ;; 自動選択に使用する関数を設定
 (setq text-translator-auto-selection-func 'text-translator-translate-by-auto-selection-enja)
 
-(global-set-key "\C-x\M-t" 'text-translator-by-auto-selection-enja)
+;;(global-set-key "\C-x\M-t" 'text-translator)
+(global-set-key "\C-x\M-t" 'text-translator-translate-by-auto-selection-enja)
 (global-set-key "\C-x\M-T" 'text-translator-all)
 ;;(global-set-key "\C-x\M-T" 'text-translator-translate-last-string)
