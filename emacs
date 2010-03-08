@@ -83,6 +83,7 @@
 (load "init-skk")
 (load "init-window")
 (load "init-keymaps")
+(load "init-region")
 (load "init-anything")
 (load "init-autocomplete")
 (load "init-snippet")
