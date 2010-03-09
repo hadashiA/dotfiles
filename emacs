@@ -1,5 +1,8 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
+(byte-recompile-directory "~/.emacs.d/elisp/")
+(byte-recompile-directory "~/.emacs.d/conf/")
+
 ;; 実行環境を判別する。
 ;; http://d.hatena.ne.jp/hito-d/20060220#1140445790
 

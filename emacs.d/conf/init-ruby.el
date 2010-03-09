@@ -1,6 +1,6 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 ;; ruby-mode
-;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs
+;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs 
 (add-to-load-path "~/.emacs.d/elisp/ruby-mode/")
 
 (require 'ruby-mode)
