@@ -46,8 +46,3 @@
 ;; http://www.bookshelf.jp/pukiwiki/pukiwiki.php?Eshell%A4%F2%BB%C8%A4%A4%A4%B3%A4%CA%A4%B9#content_1_31
 (setq eshell-ask-to-save-history (quote always))
 (setq eshell-history-size 100000)
-
-;; PATH
-(setq exec-path (cons "/usr/local/git/bin" exec-path))
-(setenv "PATH"
-    (concat '"/usr/local/git/bin:" (getenv "PATH")))

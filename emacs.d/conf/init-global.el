@@ -31,7 +31,7 @@
 ;; これ、必要なの？
 
 ;; exec-path, PATHの追加
-(let ((path (list "~/bin" "~/local/bin" "/usr/local/bin" "/usr/local/sbin" "/opt/local/bin" "/usr/bin" "/usr/sbin")))
+(let ((path (list "~/bin" "~/local/bin" "/usr/local/bin" "/usr/local/sbin" "/opt/local/bin" "/usr/bin" "/usr/sbin" "/usr/local/git/bin")))
   (setq exec-path (append path exec-path))
   (setenv "PATH" (concat (mapconcat 'identity path ":") ":" (getenv "PATH"))))
 
@@ -79,7 +79,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; kill-lineで行末の改行文字も削除
-;;(setq kill-whole-line t)
+(setq kill-whole-line t)
 
 ;; リージョンをC-hで削除
 (delete-selection-mode 1)
@@ -90,6 +90,9 @@
 
 ;; インデントはスペースで
 (setq-default indent-tabs-mode nil)
+
+;; 改行と同時にインデント
+(global-set-key "\C-m" 'newline-and-indent)
 
 ;; マクロ読み込み
 (load (expand-file-name"~/.emacs.d/conf/macros"))
