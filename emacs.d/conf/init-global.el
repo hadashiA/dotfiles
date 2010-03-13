@@ -134,3 +134,13 @@
 ;;(define-key ctl-x-map "R" 'resume)                        ; C-x R で復元
 ;;(define-key ctl-x-map "K" 'wipe)                          ; C-x K で Kill
 ;;(add-hook 'kill-emacs-hook 'save-current-configuration)   ; 終了時に保存
+
+;; By an unknown contributor
+(global-set-key "%" 'match-paren)
+
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
