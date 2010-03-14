@@ -94,7 +94,7 @@
 (load "init-window")
 (load "init-keymaps")
 (load "init-region")
-;;(load "init-acp")
+(load "init-acp")
 (load "init-flymake")
 (load "init-smartchr")
 (load "init-anything")

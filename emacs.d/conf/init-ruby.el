@@ -3,6 +3,7 @@
 ;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs 
 (add-to-load-path "~/.emacs.d/elisp/ruby-mode/")
 (add-to-load-path "~/.emacs.d/elisp/rinari/")
+(add-to-load-path "~/.emacs.d/elisp/ri-emacs/")
 
 (when (require 'ruby-mode nil t)
   ;; magickコメントを入れない
@@ -50,30 +51,31 @@
                         '(lambda ()
                            (inf-ruby-keys))))))
 
-  ;; ;; M-x alignの設定 for Ruby - (rubikitch loves (Emacs Ruby CUI))
-  ;; ;; http://d.hatena.ne.jp/rubikitch/20080227/1204051280
-  ;; (add-to-list 'align-rules-list
-  ;;              '(ruby-comma-delimiter
-  ;;                (regexp . ",\\(\\s-*\\)[^# \t\n]")
-  ;;                (repeat . t)
-  ;;                (modes  . '(ruby-mode))))
-  ;; (add-to-list 'align-rules-list
-  ;;              '(ruby-hash-literal
-  ;;                (regexp . "\\(\\s-*\\)=>\\s-*[^# \t\n]")
-  ;;                (repeat . t)
-  ;;                (modes  . '(ruby-mode))))
-  ;; (add-to-list 'align-rules-list
-  ;;              '(ruby-assignment-literal
-  ;;                (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
-  ;;                (repeat . t)
-  ;;                (modes  . '(ruby-mode))))
-  ;; (add-to-list 'align-rules-list          ;TODO add to rcodetools.el
-  ;;              '(ruby-xmpfilter-mark
-  ;;                (regexp . "\\(\\s-*\\)# => [^#\t\n]")
-  ;;                (repeat . nil)
-  ;;                (modes  . '(ruby-mode))))
+  ;; M-x alignの設定 for Ruby - (rubikitch loves (Emacs Ruby CUI))
+  ;; http://d.hatena.ne.jp/rubikitch/20080227/1204051280
+  (add-hook 'align-load-hook
+            (lambda ()
+              (add-to-list 'align-rules-list
+                           '(ruby-comma-delimiter
+                             (regexp . ",\\(\\s-*\\)[^# \t\n]")
+                             (repeat . t)
+                             (modes  . '(ruby-mode))))
+              (add-to-list 'align-rules-list
+                           '(ruby-hash-literal
+                             (regexp . "\\(\\s-*\\)=>\\s-*[^# \t\n]")
+                             (repeat . t)
+                             (modes  . '(ruby-mode))))
+              (add-to-list 'align-rules-list
+                           '(ruby-assignment-literal
+                             (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
+                             (repeat . t)
+                             (modes  . '(ruby-mode))))
+              (add-to-list 'align-rules-list          ;TODO add to rcodetools.el
+                           '(ruby-xmpfilter-mark
+                             (regexp . "\\(\\s-*\\)# => [^#\t\n]")
+                             (repeat . nil)
+                             (modes  . '(ruby-mode))))))
 
- 
   ;; Software Design 2008-02 P152
   ;; devel/which and ffap
   (with-temp-buffer
@@ -112,7 +114,7 @@ print(which_library(%%[%s]))'"
            ((progname "fastri-server")
             (wmic-tmp-file "TempWmicBatchFile.bat"))
          (cond
-          (windows-p
+          ((and run-w32 run-meadow)
            (call-process "wmic" nil t t "process")
            (when (file-exists-p wmic-tmp-file)
              (delete-file wmic-tmp-file)))
