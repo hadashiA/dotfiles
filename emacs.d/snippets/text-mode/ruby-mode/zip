@@ -1,4 +1,4 @@
 #name : zip(...) { |...| ... }
-#group : collections
+#group : enumerator
 # --
-zip(${enums}) { |${row}| $0 }
+zip(${enums}){|${row}| $0 }

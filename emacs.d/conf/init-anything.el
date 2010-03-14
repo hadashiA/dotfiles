@@ -11,10 +11,6 @@
 (define-key anything-map (kbd "M-v") 'anything-previous-source)
 (global-set-key (kbd "C-;") 'anything)
 
-;;(global-set-key (kbd "C-l") 'anything)
-;; 元のC-lをリマップ
-;;(global-set-key (kbd "C-x C-l") 'recenter)
-
 (setq anything-sources
       '(anything-c-source-buffers
         anything-c-source-files-in-current-dir       ;; カレントディレクトディレクトリにあるファイル

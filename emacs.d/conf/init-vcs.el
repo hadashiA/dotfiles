@@ -37,4 +37,8 @@
 ;;(setq git-committer-name "Kentaro Kuribayashi")
 ;;(add-to-list 'vc-handled-backends 'GIT)
 
-(require 'magit)
+(when (autoload-if-found 'magit-status "magit" nil t)
+  (add-to-list 'process-coding-system-alist '("git" . utf-8))
+  (add-hook 'dired-mode-hook
+            (lambda ()
+              (define-key dired-mode-map "V" 'magit-status))))

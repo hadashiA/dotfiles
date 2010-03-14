@@ -1,4 +1,4 @@
 #name : any? { |...| ... }
-#group : collections
+#group : enumerator
 # --
-any? { |${e}| $0 }
+any?{|${e}| $0 }
