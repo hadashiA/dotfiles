@@ -77,6 +77,13 @@
 (eval-when-compile
   (require 'cl))
 
+;; dot.emacs
+;; http://www.sodan.org/~knagano/emacs/dotemacs.html
+(defun autoload-if-found (function file &optional docstring interactive type)
+  "set autoload iff. FILE has found."
+  (and (locate-library file)
+       (autoload function file docstring interactive type)))
+
 ;; 個別の設定をロードしまくりパート
 
 ;; 特定ディレクトリ以下を自動でロードするようにしてもいいけど、順番とか、
