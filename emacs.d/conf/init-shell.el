@@ -22,6 +22,9 @@
 (add-hook 'comint-output-filter-functions
           'comint-watch-for-password-prompt)
 
+(setq explicit-shell-file-name "/bin/zsh")
+
+
 ;; エスケープシーケンスを正しく処理する
 ;; http://www.namazu.org/~tsuchiya/elisp/#shell-mode
 (autoload 'ansi-color-for-comint-mode-on "ansi-color"
