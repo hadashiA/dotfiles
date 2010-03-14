@@ -30,3 +30,7 @@
 ;; M-} と M-{ を再設定
 (global-set-key "\M-9" 'forward-paragraph)
 (global-set-key "\M-8" 'backward-paragraph)
+
+;; shellっぽいところで、C-n/pでヒストリ
+;;(define-key comint-mode-map "\C-p" 'comint-previous-input)
+;;(define-key comint-mode-map  "\C-n" 'comint-next-input)

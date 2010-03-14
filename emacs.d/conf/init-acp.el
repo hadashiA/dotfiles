@@ -1,14 +1,11 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-;; (require 'acp)
-
-;; (add-hook 'emacs-lisp-mode-hook 'acp-mode)
-;; (add-hook 'lisp-mode-hook 'acp-mode)
-
-;; (setq acp-paren-alist
-;;   '((?( . ?))
-;;     (?[ . ?])
-;;     (?\" . ?\")))
+(when (require 'acp nil)
+  (acp-mode t)
+  (setq acp-paren-alist
+        '((?( . ?))
+          (?[ . ?])
+          (?\" . ?\"))))
 
 ;; (setq acp-insertion-functions
 ;;    '((mark-active . acp-surround-with-paren)
