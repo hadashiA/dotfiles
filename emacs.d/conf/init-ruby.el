@@ -28,7 +28,7 @@
   (define-key ruby-mode-map "\M-p" 'ruby-beginning-of-block)
  
   (and (require 'ruby-electric nil t)
-       (setq ruby-electric-expand-delimiters-list nil)    
+       ;; (setq ruby-electric-expand-delimiters-list nil)    
        (add-hook 'ruby-mode-hook
                  '(lambda ()
                     (ruby-electric-mode 1))))
@@ -50,28 +50,28 @@
                         '(lambda ()
                            (inf-ruby-keys))))))
 
-  ;; M-x alignの設定 for Ruby - (rubikitch loves (Emacs Ruby CUI))
-  ;; http://d.hatena.ne.jp/rubikitch/20080227/1204051280
-  (add-to-list 'align-rules-list
-               '(ruby-comma-delimiter
-                 (regexp . ",\\(\\s-*\\)[^# \t\n]")
-                 (repeat . t)
-                 (modes  . '(ruby-mode))))
-  (add-to-list 'align-rules-list
-               '(ruby-hash-literal
-                 (regexp . "\\(\\s-*\\)=>\\s-*[^# \t\n]")
-                 (repeat . t)
-                 (modes  . '(ruby-mode))))
-  (add-to-list 'align-rules-list
-               '(ruby-assignment-literal
-                 (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
-                 (repeat . t)
-                 (modes  . '(ruby-mode))))
-  (add-to-list 'align-rules-list          ;TODO add to rcodetools.el
-               '(ruby-xmpfilter-mark
-                 (regexp . "\\(\\s-*\\)# => [^#\t\n]")
-                 (repeat . nil)
-                 (modes  . '(ruby-mode))))
+  ;; ;; M-x alignの設定 for Ruby - (rubikitch loves (Emacs Ruby CUI))
+  ;; ;; http://d.hatena.ne.jp/rubikitch/20080227/1204051280
+  ;; (add-to-list 'align-rules-list
+  ;;              '(ruby-comma-delimiter
+  ;;                (regexp . ",\\(\\s-*\\)[^# \t\n]")
+  ;;                (repeat . t)
+  ;;                (modes  . '(ruby-mode))))
+  ;; (add-to-list 'align-rules-list
+  ;;              '(ruby-hash-literal
+  ;;                (regexp . "\\(\\s-*\\)=>\\s-*[^# \t\n]")
+  ;;                (repeat . t)
+  ;;                (modes  . '(ruby-mode))))
+  ;; (add-to-list 'align-rules-list
+  ;;              '(ruby-assignment-literal
+  ;;                (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
+  ;;                (repeat . t)
+  ;;                (modes  . '(ruby-mode))))
+  ;; (add-to-list 'align-rules-list          ;TODO add to rcodetools.el
+  ;;              '(ruby-xmpfilter-mark
+  ;;                (regexp . "\\(\\s-*\\)# => [^#\t\n]")
+  ;;                (repeat . nil)
+  ;;                (modes  . '(ruby-mode))))
 
  
   ;; Software Design 2008-02 P152
