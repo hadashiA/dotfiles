@@ -2,6 +2,7 @@
 ;; ruby-mode
 ;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs 
 (add-to-load-path "~/.emacs.d/elisp/ruby-mode/")
+(add-to-load-path "~/.emacs.d/elisp/rhtml-mode/")
 (add-to-load-path "~/.emacs.d/elisp/rinari/")
 (add-to-load-path "~/.emacs.d/elisp/ri-emacs/")
 
@@ -75,6 +76,8 @@
                              (regexp . "\\(\\s-*\\)# => [^#\t\n]")
                              (repeat . nil)
                              (modes  . '(ruby-mode))))))
+
+  (require 'rspec-mode nil t)
 
   ;; Software Design 2008-02 P152
   ;; devel/which and ffap
