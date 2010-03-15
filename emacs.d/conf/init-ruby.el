@@ -52,6 +52,9 @@
                         '(lambda ()
                            (inf-ruby-keys))))))
 
+  (when (require 'ruby-block nil t)
+    (ruby-block-mode t))
+  
   ;; M-x alignの設定 for Ruby - (rubikitch loves (Emacs Ruby CUI))
   ;; http://d.hatena.ne.jp/rubikitch/20080227/1204051280
   (add-hook 'align-load-hook
