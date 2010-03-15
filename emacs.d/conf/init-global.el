@@ -82,11 +82,11 @@
 (setq kill-whole-line t)
 
 ;; リージョンをC-hで削除
-(delete-selection-mode 1)
+;;(delete-selection-mode 1)
 
 ;; シフト + 矢印で範囲選択
-(setq pc-select-selection-keys-only t)
-(pc-selection-mode 1)
+;; (setq pc-select-selection-keys-only t)
+;; (pc-selection-mode 1)
 
 ;; インデントはスペースで
 (setq-default indent-tabs-mode nil)
