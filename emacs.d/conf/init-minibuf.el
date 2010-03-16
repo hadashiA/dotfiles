@@ -2,9 +2,13 @@
 
 ;; find-file時にハイライトする
 ;; http://www.bookshelf.jp/soft/meadow_23.html#SEC217
-;;(setq hc-ctrl-x-c-is-completion t)
-;;(require 'highlight-completion)
-;;(highlight-completion-mode 1)
+(when (require 'highlight-completion nil t)
+  (setq hc-ctrl-x-c-is-completion t)
+  (highlight-completion-mode 1)
+  (defadvice hc-expand-file-name
+    (around hc-expand-file-name-del activate)
+    (if name
+        ad-do-it)))
 
 ;; find-file時に、大文字・小文字を区別しない
 ;; http://d.hatena.ne.jp/khiker/20061220/1166643421
