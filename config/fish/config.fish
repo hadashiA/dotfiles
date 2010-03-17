@@ -1,5 +1,5 @@
 # $PATH
-set -l path_list ~/bin /opt/local/bin /opt/local/sbin /opt/local/lib/mysql5/bin/ /opt/local/lib/postgresql84/bin/ /usr/local/git/bin /usr/local/mysql/bin
+set -l path_list $HOME/bin /opt/local/bin /opt/local/sbin /opt/local/lib/mysql5/bin/ /opt/local/lib/postgresql84/bin/ /usr/local/git/bin /usr/local/mysql/bin
 for i in $path_list
 	if not contains $i $PATH
 		if test -d $i
