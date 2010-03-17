@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh ddunit_user@$(fetch_ec2_app_servers -1)
