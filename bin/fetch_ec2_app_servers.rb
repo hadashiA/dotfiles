@@ -34,6 +34,6 @@ ssh_config << prod_app_configs
 puts ssh_config
 print "write in it at '#{ssh_config_path}' ? (y/n): "
 
-if gets.match(/^y/)
+if $stdin.gets.chomp == 'y'
   open(ssh_config_path, 'w'){|f| f.puts(ssh_config) }
 end
