@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd ~/dev/fish
+cap production_mixi amazon:app_servers
