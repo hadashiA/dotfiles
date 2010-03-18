@@ -5,7 +5,7 @@ task :install do
   replace_all = false
   Dir["*"].each do |file|
     puts file
-    next if %w[Rakefile README].include? file
+    next if %w[Rakefile README bin].include? file
     next if file.match(/^KeyRemap4/)
 
     original = File.join(ENV['HOME'], ".#{file}")

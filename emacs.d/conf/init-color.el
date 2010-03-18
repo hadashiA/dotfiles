@@ -85,3 +85,28 @@
 ;; (make-face 'font-lock-reference-face)
 ;; (set-face-foreground 'font-lock-reference-face "tomato")
 
+;; 補完候補に色
+(when (require 'dircolors nil t)
+  ;; (setq dircolors-face-color
+  ;;       '(
+  ;;         (dircolors-face-dir            "SkyBlue"        )
+  ;;         (dircolors-face-doc            "MediumTurquoise")
+  ;;         (dircolors-face-html           "Plum"           )
+  ;;         (dircolors-face-package        "IndianRed"      )
+  ;;         (dircolors-face-tar            "OrangeRed"      )
+  ;;         (dircolors-face-dos            "LimeGreen"      )
+  ;;         (dircolors-face-sound          "LightBlue"      )
+  ;;         (dircolors-face-img            "Salmon"         )
+  ;;         (dircolors-face-ps             "BlueViolet"     )
+  ;;         (dircolors-face-backup         "Magenta"        )
+  ;;         (dircolors-face-make           "Khaki"          )
+  ;;         (dircolors-face-paddb          "Orange"         )
+  ;;         (dircolors-face-lang           "Yellow"         )
+  ;;         (dircolors-face-emacs          "GreenYellow"    )
+  ;;         (dircolors-face-lang-interface "Goldenrod"      )
+  ;;         (dircolors-face-yacc           "Coral"          )
+  ;;         (dircolors-face-objet          "DimGray"        )
+  ;;         (dircolors-face-asm            "Tan"            )
+  ;;         (dircolors-face-compress       "Sienna"         )
+  ;;         )))
+)

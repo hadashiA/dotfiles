@@ -18,10 +18,10 @@
  
   (mapc '(lambda (arg)
            (cons arg auto-mode-alist))
-        (list '("\\.rb$" . ruby-mode)
+        (list '("\\.rb$"   . ruby-mode)
               '("\\.rash$" . ruby-mode)
               '("\\.rake$" . ruby-mode)
-              '("\\.rjs$" . ruby-mode)
+              '("\\.rjs$"  . ruby-mode)
               '("Rakefile" . ruby-mode)))
  
   (define-key ruby-mode-map "\C-m" 'reindent-then-newline-and-indent)
