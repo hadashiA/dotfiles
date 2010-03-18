@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
-# servers_result = `cap production_mixi amazon::app_servers`
-servers_result = 'Production apps servers list: ["204.236.205.249", "204.236.243.113"]'
+servers_result = `cap production_mixi amazon::app_servers`
+# servers_result = 'Production apps servers list: ["204.236.205.249", "204.236.243.113"]'
 # puts servers_result
 
 ips = servers_result.scan(/(([0-9]+\.){3}[0-9]+)/).map{|m0, m1| m0  }
