@@ -16,13 +16,21 @@
  
   (add-to-list 'auto-coding-alist '("\\.rb\\'" . utf-8-unix))
  
-  (mapc '(lambda (arg)
-           (cons arg auto-mode-alist))
-        (list '("\\.rb$"   . ruby-mode)
-              '("\\.rash$" . ruby-mode)
-              '("\\.rake$" . ruby-mode)
-              '("\\.rjs$"  . ruby-mode)
-              '("Rakefile" . ruby-mode)))
+  ;; (mapc '(lambda (arg)
+  ;;          (cons arg auto-mode-alist))
+  ;;       (list '("\\.rb$"   . ruby-mode)
+  ;;             '("\\.rash$" . ruby-mode)
+  ;;             '("\\.rake$" . ruby-mode)
+  ;;             '("\\.rjs$"  . ruby-mode)
+  ;;             '("Rakefile" . ruby-mode)))
+
+  (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.rjs$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.rash$" . ruby-mode))
  
   (define-key ruby-mode-map "\C-m" 'reindent-then-newline-and-indent)
   
