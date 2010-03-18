@@ -1,11 +1,5 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-;; find-file時にハイライトする
-;; http://www.bookshelf.jp/soft/meadow_23.html#SEC217
-;;(setq hc-ctrl-x-c-is-completion t)
-;;(require 'highlight-completion)
-;;(highlight-completion-mode 1)
-
 ;; find-file時に、大文字・小文字を区別しない
 ;; http://d.hatena.ne.jp/khiker/20061220/1166643421
 (setq completion-ignore-case t)
@@ -62,3 +56,10 @@
 ;; ミニバッファ内の入力を、インクリメンタルに選択
 ;; http://www.sodan.org/%7Eknagano/emacs/minibuf-isearch/
 ;; (require 'minibuf-isearch)
+
+;; find-file時にハイライトする
+;; http://www.bookshelf.jp/soft/meadow_23.html#SEC217
+;; (when (require 'highlight-completion nil t)
+;;   (setq hc-ctrl-x-c-is-completion t)
+;;   (highlight-completion-mode 1))
+
