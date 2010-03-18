@@ -3,6 +3,10 @@
 (byte-recompile-directory "~/.emacs.d/elisp/")
 (byte-recompile-directory "~/.emacs.d/conf/")
 
+(require 'auto-install)
+(setq auto-install-directory "~/.emacs.d/elisp/")
+(auto-install-update-emacswiki-package-name t)
+
 ;; 実行環境を判別する。
 ;; http://d.hatena.ne.jp/hito-d/20060220#1140445790
 
