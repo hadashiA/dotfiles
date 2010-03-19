@@ -4,7 +4,6 @@
 (add-to-load-path "~/.emacs.d/elisp/ruby-mode/")
 (add-to-load-path "~/.emacs.d/elisp/rhtml-mode/")
 (add-to-load-path "~/.emacs.d/elisp/rinari/")
-(add-to-load-path "~/.emacs.d/elisp/ri-emacs/")
 
 (when (require 'ruby-mode nil t)
   ;; magickコメントを入れない
