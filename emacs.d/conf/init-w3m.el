@@ -23,7 +23,7 @@
 (autoload 'w3m-search "w3m-search" "Search QUERY using SEARCH-ENGINE." t)
 
 ;; GNU infoなキーバインドにする。
-;;(setq w3m-key-binding 'info)
+;; (setq w3m-key-binding 'info)
 
 (setq browse-url-browser-function 'w3m-browse-url)
 (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
@@ -38,6 +38,6 @@
 (setq text-translator-auto-selection-func 'text-translator-translate-by-auto-selection-enja)
 
 ;;(global-set-key "\C-x\M-t" 'text-translator)
-(global-set-key "\C-x\M-t" 'text-translator-translate-by-auto-selection-enja)
+(global-set-key "\C-x\M-t" 'text-translator-translate-by-auto-selection)
 (global-set-key "\C-x\M-T" 'text-translator-all)
 ;;(global-set-key "\C-x\M-T" 'text-translator-translate-last-string)
