@@ -117,6 +117,7 @@
 ;;(load "init-migemo")
 (load "init-sdic")
 (load "init-w3m")
+(load "init-translate")
 (load "init-tags")
 (load "init-vcs")
 ;;(load "init-html")
