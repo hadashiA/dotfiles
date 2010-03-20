@@ -28,16 +28,3 @@
 (setq browse-url-browser-function 'w3m-browse-url)
 (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
 (global-set-key "\C-xm" 'browse-url-at-point)
-
-
-;; Emacs でテキスト翻訳をする elisp - とりあえず暇だったし何となく始めたブログ
-;;  http://d.hatena.ne.jp/khiker/20070503/emacs_text_translator
-(add-to-load-path "~/.emacs.d/elisp/text-translator")
-(require 'text-translator)
-;; 自動選択に使用する関数を設定
-(setq text-translator-auto-selection-func 'text-translator-translate-by-auto-selection-enja)
-
-;;(global-set-key "\C-x\M-t" 'text-translator)
-(global-set-key "\C-x\M-t" 'text-translator-translate-by-auto-selection)
-(global-set-key "\C-x\M-T" 'text-translator-all)
-;;(global-set-key "\C-x\M-T" 'text-translator-translate-last-string)
