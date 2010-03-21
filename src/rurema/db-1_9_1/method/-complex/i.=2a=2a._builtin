@@ -1,0 +1,8 @@
+kind=defined
+names=**
+visibility=public
+
+--- **(other)
+
+Raise this complex number to the given (real or complex) power.
+

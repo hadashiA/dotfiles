@@ -1,0 +1,7 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(path) -> Pathname
+文字列 path を元に Pathname オブジェクトを生成します。
+

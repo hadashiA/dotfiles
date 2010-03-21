@@ -1,0 +1,8 @@
+kind=defined
+names=decrypt
+visibility=public
+
+--- decrypt(pkey, cert, flags = 0)
+
+復号化します。
+

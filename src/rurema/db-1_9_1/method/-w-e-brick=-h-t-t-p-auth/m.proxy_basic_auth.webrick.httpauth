@@ -1,0 +1,18 @@
+kind=defined
+names=proxy_basic_auth
+visibility=public
+
+--- proxy_basic_auth(req, res, realm){|user, pass| ... }     -> nil
+
+プロクシーの Basic 認証行うためのメソッドです。
+
+ブロックは user, pass を引数として呼ばれ、
+ブロックが true を返すとユーザを認証したことになります。
+ブロックが false を返すと認証に失敗し、例外
+WEBrick::HTTPStatus::ProxyAuthenticationRequired を投げます。
+
+@param req クライアントからのリクエストを表す [[c:WEBrick::HTTPRequest]] オブジェクトを指定します。
+
+@param res [[c:WEBrick::HTTPResponse]] オブジェクトを指定します。
+
+@param realm 認証のレルムを文字列で指定します。

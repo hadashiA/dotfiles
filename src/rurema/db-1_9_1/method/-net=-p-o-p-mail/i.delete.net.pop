@@ -1,0 +1,13 @@
+kind=defined
+names=delete,delete!
+visibility=public
+
+--- delete
+--- delete!
+
+サーバ上からメールを削除します。
+
+Ruby 1.8 以降では delete と delete! は同じ効果です。
+また、delete! は obsolete なので、
+これからは常に delete を使うべきです。
+

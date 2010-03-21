@@ -1,0 +1,22 @@
+kind=defined
+names=variables
+visibility=public
+
+--- variables
+
+Returns array of WIN32OLE_VARIABLE objects which represent variables
+defined in OLE class.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'XlSheetType')
+   vars = tobj.variables
+   vars.each do |v|
+     puts "#{v.name} = #{v.value}"
+   end
+
+   The result of above sample script is follows:
+     xlChart = -4109
+     xlDialogSheet = -4116
+     xlExcel4IntlMacroSheet = 4
+     xlExcel4MacroSheet = 3
+     xlWorksheet = -4167
+

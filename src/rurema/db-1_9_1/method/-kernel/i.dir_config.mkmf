@@ -1,0 +1,36 @@
+kind=added
+names=dir_config
+visibility=private 
+
+--- dir_config(target[, default])
+--- dir_config(target[, idefault, ldefault])
+
+configure オプション
+--with-TARGET-dir,
+--with-TARGET-include,
+--with-TARGET-lib
+をユーザが extconf.rb に指定できるようにします。
+
+--with-TARGET-dir オプションは
+システム標準ではない、
+ヘッダファイルやライブラリがあるディレクトリをまとめて指定するために使います。
+ユーザが extconf.rb に --with-TARGET-dir=PATH を指定したときは
+[[m:$CFLAGS]] に "-IPATH/include" を、
+[[m:$LDFLAGS]] に "-LPATH/lib" を、
+それぞれ追加します。
+
+--with-TARGET-include オプションは
+システム標準ではないヘッダファイルのディレクトリを指定するために使います。
+ユーザが extconf.rb に --with-TARGET-include=PATH を指定したときは
+[[m:$CFLAGS]] に PATH を追加します。
+
+--with-TARGET-lib オプションは
+システム標準ではないライブラリのディレクトリを指定するために使います。
+ユーザが extconf.rb に --with-TARGET-lib=PATH を指定したときは
+[[m:$CFLAGS]] に PATH を追加します。
+
+以上 3 つの configure オプションがいずれも指定されていないときは、
+デフォルト値として引数 default、idefault、ldefault の値が使われます。
+第 2 引数のみ与えた場合は "-Idefault/include" と "-Ldefault/lib" をそれぞれ追加し、
+第 3 引数も与えた場合は "-Iidefault" と "-Lldefault" をそれぞれ追加します。
+

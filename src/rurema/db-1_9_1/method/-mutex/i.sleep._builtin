@@ -1,0 +1,9 @@
+kind=defined
+names=sleep
+visibility=public
+
+--- sleep(timeout = nil)    -> self
+
+Releases the lock and sleeps timeout seconds if it is given and
+non-nil or forever. Raises ThreadError if mutex wasn't locked
+by the current thread.

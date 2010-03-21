@@ -1,0 +1,10 @@
+kind=defined
+names=ole_reference_count
+visibility=public
+
+--- ole_reference_count(aWIN32OLE) -> number
+
+Returns reference counter of Dispatch interface of WIN32OLE object.
+You should not use this method because this method exists only
+for debugging WIN32OLE.
+

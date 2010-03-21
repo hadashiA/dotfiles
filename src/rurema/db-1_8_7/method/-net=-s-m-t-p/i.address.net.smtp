@@ -1,0 +1,8 @@
+kind=defined
+names=address
+visibility=public
+
+--- address
+
+接続するアドレス
+

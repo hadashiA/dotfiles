@@ -1,0 +1,11 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(address, port = 25)
+
+新しい SMTP オブジェクトを生成します。
+address はSMTPサーバーのFQDNで、
+port は接続するポート番号です。
+ただし、このメソッドではまだ接続はしません。
+

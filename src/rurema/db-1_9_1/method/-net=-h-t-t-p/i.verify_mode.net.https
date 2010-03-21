@@ -1,0 +1,11 @@
+kind=added
+names=verify_mode,verify_mode=
+visibility=public
+
+--- verify_mode
+--- verify_mode=(mode)
+
+サーバ証明書に対する検証モードを設定します。
+OpenSSL::SSL::VERIFY_NONE か OpenSSL::SSL::VERIFY_PEER が設定可能です。
+[[c:OpenSSL::SSL]] も参照してください。
+

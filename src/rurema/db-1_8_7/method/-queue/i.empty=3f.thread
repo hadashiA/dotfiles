@@ -1,0 +1,7 @@
+kind=defined
+names=empty?
+visibility=public
+
+--- empty?
+queueが空の時、真を返します。
+

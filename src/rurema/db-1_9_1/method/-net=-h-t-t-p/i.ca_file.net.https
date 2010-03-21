@@ -1,0 +1,10 @@
+kind=added
+names=ca_file,ca_file=
+visibility=public
+
+--- ca_file
+--- ca_file=(path)
+
+PEM 形式で保存された CA 証明書ファイルのパスを設定します。
+ファイルには複数の CA 証明書が含まれていても構いません。
+

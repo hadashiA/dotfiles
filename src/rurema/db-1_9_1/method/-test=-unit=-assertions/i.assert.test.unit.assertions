@@ -1,0 +1,10 @@
+kind=defined
+names=assert
+visibility=public
+
+--- assert(boolean, message=nil)    -> ()
+
+boolean が真ならパスします。
+
+@raise Test::Unit::AssertionFailedError assert が失敗した時に発生します。
+

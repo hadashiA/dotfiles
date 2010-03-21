@@ -1,0 +1,11 @@
+kind=defined
+names=export,to_pem,to_s
+visibility=public
+
+--- export(cipher = nil, pass = nil)
+--- export
+--- to_pem
+--- to_s
+
+鍵ペアを PEM 形式で出力します。cipher と pass が指定された場合、秘密鍵を暗号 cipher [[c:OpenSSL::Cipher::Cipher]] とパスワード pass を使って暗号化します。
+

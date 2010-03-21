@@ -1,0 +1,7 @@
+kind=defined
+names=to_s
+visibility=public
+
+--- to_s -> String
+
+例外の情報を文字列として返します。

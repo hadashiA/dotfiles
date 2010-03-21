@@ -1,0 +1,6 @@
+kind=defined
+names=warn
+visibility=private 
+
+--- warn(fmt, *args)
+

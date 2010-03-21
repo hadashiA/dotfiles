@@ -1,0 +1,10 @@
+kind=defined
+names=find_gems
+visibility=public 
+
+--- find_gems(name, source_index) -> Hash
+
+@param name
+
+@param source_index
+

@@ -1,0 +1,9 @@
+kind=defined
+names=issuer,issuer=
+visibility=public
+
+--- issuer
+--- issuer=(name)
+
+証明書の発行者 (CA) の名前 [[c:OpenSSL::X509::Name]] オブジェクトです。
+

@@ -1,0 +1,13 @@
+kind=added
+names=have_var
+visibility=private 
+
+--- have_var(var, headers = nil, &b)
+Returns whether or not the variable +var+ can be found in the common
+header files, or within any +headers+ that you provide.  If found, a
+macro is passed as a preprocessor constant to the compiler using the
+variable name, in uppercase, prepended with 'HAVE_'.
+
+For example, if have_var('foo') returned true, then the HAVE_FOO
+preprocessor macro would be passed to the compiler.
+

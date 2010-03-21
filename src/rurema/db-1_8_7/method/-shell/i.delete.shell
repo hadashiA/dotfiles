@@ -1,0 +1,11 @@
+kind=defined
+names=delete
+visibility=public
+
+--- delete(*filename)    -> Integer
+Fileクラスにある同名のクラスメソッドと同じです.
+
+@param filename ファイル名を表す文字列を指定します。
+
+@see [[m:File.delete]]
+

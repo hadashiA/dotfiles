@@ -1,0 +1,7 @@
+kind=defined
+names=close_on_terminate
+visibility=public
+
+--- close_on_terminate -> True
+本メソッドを呼び出すことで終了(terminateメソッド実行)時に[[c:CSV::IOReader]]オブジェクトがnewメソッドで指定した読み込み先のIOクローズ処理を行います。
+

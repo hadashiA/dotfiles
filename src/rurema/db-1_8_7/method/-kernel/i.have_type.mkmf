@@ -1,0 +1,18 @@
+kind=added
+names=have_type
+visibility=private 
+
+--- have_type(type, headers = nil, opt = "", &b)
+Returns whether or not the static type +type+ is defined.  You may
+optionally pass additional +headers+ to check against in addition to the
+common header files.
+
+You may also pass additional flags to +opt+ which are then passed along to
+the compiler.
+
+If found, a macro is passed as a preprocessor constant to the compiler using
+the type name, in uppercase, prepended with 'HAVE_TYPE_'.
+
+For example, if have_type('foo') returned true, then the HAVE_TYPE_FOO
+preprocessor macro would be passed to the compiler.
+

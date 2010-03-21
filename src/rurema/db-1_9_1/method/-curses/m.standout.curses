@@ -1,0 +1,10 @@
+kind=defined
+names=standout
+visibility=public
+
+--- standout
+
+以降書き込む文字を強調します。
+「強調」は反転であることが多いようですが、
+そう決められているわけではありません。
+

@@ -1,0 +1,6 @@
+kind=defined
+names=create_mediator
+visibility=public
+
+--- create_mediator(suite)
+

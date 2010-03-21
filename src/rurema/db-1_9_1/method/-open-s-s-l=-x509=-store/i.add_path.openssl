@@ -1,0 +1,8 @@
+kind=defined
+names=add_path
+visibility=public
+
+--- add_path(path)
+
+パスに含まれる証明書を信頼する証明書としてストレージに加えます。
+

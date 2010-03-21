@@ -1,0 +1,22 @@
+kind=defined
+names=ole_method_help
+visibility=public
+
+--- ole_method_help(method)
+alias ole_method_help
+
+Returns WIN32OLE_METHOD object corresponding with method specified
+by 1st argument.
+
+   excel = WIN32OLE.new('Excel.Application')
+   method = excel.ole_method_help('Quit')
+
+--- ole_method_help(method)
+alias ole_method_help
+
+Returns WIN32OLE_METHOD object corresponding with method specified
+by 1st argument.
+
+   excel = WIN32OLE.new('Excel.Application')
+   method = excel.ole_method_help('Quit')
+

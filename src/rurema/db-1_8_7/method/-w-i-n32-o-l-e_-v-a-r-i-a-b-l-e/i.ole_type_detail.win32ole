@@ -1,0 +1,14 @@
+kind=defined
+names=ole_type_detail
+visibility=public
+
+--- ole_type_detail
+
+Returns detail information of type. The information is array
+of type.
+
+   tobj = WIN32OLE_TYPE.new('DirectX 7 for Visual Basic Type Library', 'D3DCLIPSTATUS')
+   variable = tobj.variables.find {|variable| variable.name == 'lFlags'}
+   tdetail  = variable.ole_type_detail
+   p tdetail # => ["USERDEFINED", "CONST_D3DCLIPSTATUSFLAGS"]
+

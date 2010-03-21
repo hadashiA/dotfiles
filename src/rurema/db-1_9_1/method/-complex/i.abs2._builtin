@@ -1,0 +1,9 @@
+kind=defined
+names=abs2
+visibility=public
+
+--- abs2
+
+Square of the absolute value.
+
+

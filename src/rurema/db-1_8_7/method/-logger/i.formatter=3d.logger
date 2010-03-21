@@ -1,0 +1,9 @@
+kind=defined
+names=formatter=
+visibility=public
+
+--- formatter=(formatter)
+
+ログを出力際のフォーマット文字列をセットします。
+
+

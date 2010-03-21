@@ -1,0 +1,10 @@
+kind=defined
+names=assert_match
+visibility=public
+
+--- assert_match(pattern, string, message="")    -> ()
+
+string =~ pattern が真ならばパスします。
+
+@raise Test::Unit::AssertionFailedError assert が失敗した時に発生します。
+

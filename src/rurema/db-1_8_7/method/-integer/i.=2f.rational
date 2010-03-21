@@ -1,0 +1,14 @@
+kind=redefined
+names=/
+visibility=public
+
+--- /(other)
+
+除算。
+
+  * otherが有理数(Rational)ならば、有理数(Rational)を返す。
+  * otherがそれ以外なら、[[m:Integer#/]]と同じ。つまり、
+    other が整数(Integer)ならば、整数(Integer)を(整除)、浮動小数(Float)ならば、
+    浮動小数(Float)を返す。
+    ただし、いずれも、other == 0 の時は、[[c:ZeroDivisionError]]となる。
+

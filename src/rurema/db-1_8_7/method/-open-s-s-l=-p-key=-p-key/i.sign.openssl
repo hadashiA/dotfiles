@@ -1,0 +1,9 @@
+kind=defined
+names=sign
+visibility=public
+
+--- sign(digest, data)
+
+digest を使って、data に署名し、文字列を返します。digest は
+[[c:OpenSSL::Digest::Digest]] のサブクラスのインスタンスです。data は文字列です。
+

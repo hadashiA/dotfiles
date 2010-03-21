@@ -1,0 +1,8 @@
+kind=defined
+names=addstr
+visibility=public
+
+--- addstr(str)
+
+stdscr のカーソルの位置に文字列 str を挿入します。
+

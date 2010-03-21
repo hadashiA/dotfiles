@@ -1,0 +1,11 @@
+kind=defined
+names=guid
+visibility=public
+
+--- guid -> The guid String.
+
+Returns guid string which specifies type library.
+
+   tlib = WIN32OLE_TYPELIB.new('Microsoft Excel 9.0 Object Library')
+   guid = tlib.guid # -> '{00020813-0000-0000-C000-000000000046}'
+

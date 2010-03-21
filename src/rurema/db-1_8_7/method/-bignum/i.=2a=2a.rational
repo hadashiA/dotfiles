@@ -1,0 +1,8 @@
+kind=redefined
+names=**,rpower
+visibility=public
+
+--- **(other)
+--- rpower(other)
+Returns a Rational number if the result is in fact rational (i.e. +other+ < 0).
+

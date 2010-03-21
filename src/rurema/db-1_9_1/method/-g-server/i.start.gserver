@@ -1,0 +1,9 @@
+kind=defined
+names=start
+visibility=public
+
+--- start(maxConnections = -1)
+
+GServer を起動します。 0 より大きい maxConnections を与えたなら、
+最大接続数として設定されます。
+

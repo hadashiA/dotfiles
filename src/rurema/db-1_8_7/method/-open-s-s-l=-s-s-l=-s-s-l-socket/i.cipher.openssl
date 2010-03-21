@@ -1,0 +1,11 @@
+kind=defined
+names=cipher
+visibility=public
+
+--- cipher
+
+現在実際に使われている暗号の情報を配列で返します。 TLS/SSL ハンドシェイクが行われる前の接続されていない状態では nil を返します。
+返される配列の形式は以下の例のように [暗号名, TLS/SSLのバージョン, 鍵長, アルゴリズムで使われる bit 数] となります。
+
+  ["DES-CBC3-SHA", "TLSv1/SSLv3", 168, 168]
+

@@ -1,0 +1,8 @@
+kind=defined
+names=filename
+visibility=public 
+
+--- filename -> String
+
+作成するインデックスファイルの名前を返します。
+

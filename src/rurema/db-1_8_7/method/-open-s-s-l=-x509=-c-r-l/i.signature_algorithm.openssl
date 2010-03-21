@@ -1,0 +1,8 @@
+kind=defined
+names=signature_algorithm
+visibility=public
+
+--- signature_algorithm
+
+署名に使ったアルゴリズム。
+

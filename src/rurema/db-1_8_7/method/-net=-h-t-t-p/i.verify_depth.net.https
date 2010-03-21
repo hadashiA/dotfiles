@@ -1,0 +1,9 @@
+kind=added
+names=verify_depth,verify_depth=
+visibility=public
+
+--- verify_depth
+--- verify_depth=(depth)
+
+サーバ証明書を検証する時の証明書チェーンの最大の深さを設定します。
+

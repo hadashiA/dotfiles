@@ -1,0 +1,10 @@
+kind=defined
+names=sign,verify
+visibility=public
+
+--- sign(digest, data)
+--- verify(digest, sign, data)
+
+[[c:OpenSSL::PKey::PKey]] で定義された sign と verify を呼び出すことができますが、
+Diffie-Hellman 暗号の性質から、呼び出しても全て PKeyError になります。
+

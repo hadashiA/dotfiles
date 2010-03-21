@@ -1,0 +1,9 @@
+kind=defined
+names=CLF_TIME_FORMAT
+visibility=public
+
+--- CLF_TIME_FORMAT
+
+Apache のアクセスログと同じ時刻の形式を表す以下の文字列です。
+  "[%d/%b/%Y:%H:%M:%S %Z]"
+

@@ -1,0 +1,16 @@
+kind=defined
+names=params
+visibility=public
+
+--- params
+
+returns array of WIN32OLE_PARAM object corresponding with method
+parameters.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Workbook')
+   method = WIN32OLE_METHOD.new(tobj, 'SaveAs')
+   p method.params # => [Filename, FileFormat, Password, WriteResPassword,
+                         ReadOnlyRecommended, CreateBackup, AccessMode,
+                         ConflictResolution, AddToMru, TextCodepage,
+                         TextVisualLayout]
+

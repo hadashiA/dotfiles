@@ -1,0 +1,9 @@
+kind=defined
+names=peer_cert
+visibility=public
+
+--- peer_cert
+
+接続相手の X509 証明書 [[c:OpenSSL::X509::Certificate]] オブジェクトを返します。
+検証結果は別途知る必要があります。
+

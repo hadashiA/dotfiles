@@ -1,0 +1,15 @@
+kind=defined
+names=ole_methods
+visibility=public
+
+--- ole_methods -> [WIN32OLE_METHOD]
+
+Returns array of WIN32OLE_METHOD objects which represent OLE
+method defined in OLE type library.
+
+  tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Worksheet')
+  methods = tobj.ole_methods.collect{|m|
+    m.name
+  }
+  # => ['Activate', 'Copy', 'Delete',....]
+

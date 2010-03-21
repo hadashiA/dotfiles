@@ -1,0 +1,10 @@
+kind=added
+names=verify_callback,verify_callback=
+visibility=public
+
+--- verify_callback
+--- verify_callback=(proc)
+
+通常のサーバ証明書の検証に加えてさらに適用される
+[[c:Proc]] オブジェクトを設定します。
+

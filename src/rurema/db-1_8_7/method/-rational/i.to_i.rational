@@ -1,0 +1,8 @@
+kind=defined
+names=to_i
+visibility=public
+
+--- to_i
+
+[[c:Fixnum]] に変換します。
+

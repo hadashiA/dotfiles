@@ -1,0 +1,7 @@
+kind=added
+names=to_r
+visibility=public
+
+--- to_r
+[[c:Rational]]に変換する
+

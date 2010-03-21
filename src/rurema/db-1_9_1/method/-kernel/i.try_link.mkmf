@@ -1,0 +1,20 @@
+kind=added
+names=try_link
+visibility=private 
+
+--- try_link(src[, opt])
+
+C プログラムのソースコード src をコンパイル、リンクします。
+問題なくリンクできたら true を返します。
+コンパイルとリンクに失敗したら false を返します。
+
+第 2 引数 opt が指定されたときは、リンカにコマンド引数として渡します。
+また、このメソッドは [[m:$CFLAGS]] と [[m:$LDFLAGS]] の値も
+コンパイラまたはリンカに渡します。
+
+例：
+
+  if try_link("int main() { sin(0.0); }", '-lm')
+    $stderr.puts "sin() exists"
+  end
+

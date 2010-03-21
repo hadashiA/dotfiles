@@ -1,0 +1,8 @@
+kind=defined
+names=debug=
+visibility=public
+
+--- debug=(bool)
+
+デバッグモードにするかどうかを設定します。
+

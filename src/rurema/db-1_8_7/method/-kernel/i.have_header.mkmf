@@ -1,0 +1,14 @@
+kind=added
+names=have_header
+visibility=private 
+
+--- have_header(header)
+
+ヘッダファイル header がシステムに存在するかどうか調べます。
+
+ヘッダファイル header が存在すれば
+グローバル変数 [[m:$defs]] に "-DHAVE_header" を追加して true を返します。
+ヘッダファイル header が存在しないときは $defs は変更せず false を返します。
+なお、-DHAVE_header の header には、
+実際には header.upcase.tr('-.', '_') が使われます。
+

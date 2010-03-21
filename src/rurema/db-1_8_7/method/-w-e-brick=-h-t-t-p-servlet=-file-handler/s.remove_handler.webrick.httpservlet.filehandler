@@ -1,0 +1,6 @@
+kind=defined
+names=remove_handler
+visibility=public
+
+--- remove_handler(suffix)
+

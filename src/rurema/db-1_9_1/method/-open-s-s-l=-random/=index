@@ -1,0 +1,14 @@
+.egd	OpenSSL::Random.#egd
+.egd_bytes	OpenSSL::Random.#egd_bytes
+.load_random_file	OpenSSL::Random.#load_random_file
+.pseudo_bytes	OpenSSL::Random.#pseudo_bytes
+.random_bytes	OpenSSL::Random.#random_bytes
+.seed	OpenSSL::Random.#seed
+.write_random_file	OpenSSL::Random.#write_random_file
+#egd	OpenSSL::Random.#egd
+#egd_bytes	OpenSSL::Random.#egd_bytes
+#load_random_file	OpenSSL::Random.#load_random_file
+#pseudo_bytes	OpenSSL::Random.#pseudo_bytes
+#random_bytes	OpenSSL::Random.#random_bytes
+#seed	OpenSSL::Random.#seed
+#write_random_file	OpenSSL::Random.#write_random_file

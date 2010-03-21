@@ -1,0 +1,8 @@
+kind=defined
+names=to_s
+visibility=public
+
+--- to_s
+
+人間の読める形式にして返します。
+

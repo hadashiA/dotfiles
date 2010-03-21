@@ -1,0 +1,8 @@
+kind=defined
+names=to_splat
+visibility=public
+
+--- to_splat -> Array
+
+この enumerator を多重代入などのための配列に変換します。
+

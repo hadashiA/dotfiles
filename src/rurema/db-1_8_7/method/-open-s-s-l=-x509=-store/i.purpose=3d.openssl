@@ -1,0 +1,8 @@
+kind=defined
+names=purpose=
+visibility=public
+
+--- purpose=(purpose)
+
+証明書の使用目的を設定します。verify では検証対象の証明書がこの目的に使えるかどうかも検証します。[[c:OpenSSL::X509]] の定数を参照してください。
+

@@ -1,0 +1,23 @@
+kind=added
+names=try_cpp
+visibility=private 
+
+--- try_cpp(src[, opt])
+
+C プログラムのソースコード src をプリプロセスします。
+問題なくプリプロセスできたら true を返します。
+プリプロセスに失敗したら false を返します。
+
+第 1 引数 src は文字列で渡します。
+
+第 2 引数 opt と [[m:$CFLAGS]] の値を
+プリプロセッサにコマンドライン引数として渡します。
+
+このメソッドはヘッダファイルの存在チェックなどに使用します。
+
+例：
+
+  if try_cpp("#include <stdio.h>")
+    $stderr.puts "stdio.h exists"
+  end
+

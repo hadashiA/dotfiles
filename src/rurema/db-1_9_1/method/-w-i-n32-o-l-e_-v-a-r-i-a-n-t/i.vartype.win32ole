@@ -1,0 +1,11 @@
+kind=defined
+names=vartype
+visibility=public
+
+--- vartype -> Class
+
+Returns OLE variant type.
+
+   obj = WIN32OLE_VARIANT.new("string")
+   obj.vartype   # => WIN32OLE::VARIANT::VT_BSTR
+

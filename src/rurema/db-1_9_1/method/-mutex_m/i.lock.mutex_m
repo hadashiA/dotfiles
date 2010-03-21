@@ -1,0 +1,12 @@
+kind=defined
+names=lock,mu_lock
+visibility=public
+
+--- mu_lock
+--- lock
+Mutex_m をロックします。一度にひとつのスレッドしかロックできません。
+既にロックされている mutex に対してロックを行おうとしたスレッドは
+Mutex_m のロックが解放されるまで、実行が停止されます。
+
+self を返します。
+

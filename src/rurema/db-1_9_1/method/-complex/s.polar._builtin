@@ -1,0 +1,8 @@
+kind=defined
+names=polar
+visibility=public
+
+--- polar(r, theta)
+
+Creates a Complex number in terms of r (radius) and theta (angle).
+

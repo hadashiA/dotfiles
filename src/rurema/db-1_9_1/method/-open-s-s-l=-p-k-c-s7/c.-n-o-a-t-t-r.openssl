@@ -1,0 +1,8 @@
+kind=defined
+names=NOATTR
+visibility=public
+
+--- NOATTR
+
+署名した時間などの情報を省略します。
+

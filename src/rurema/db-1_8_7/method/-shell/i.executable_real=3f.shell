@@ -1,0 +1,11 @@
+kind=defined
+names=executable_real?
+visibility=public
+
+--- executable_real?(file)    -> bool
+FileTestクラスにある同名のクラスメソッドと同じです.
+
+@param file ファイル名を表す文字列を指定します。
+
+@see [[m:FileTest.#executable_real?]]
+

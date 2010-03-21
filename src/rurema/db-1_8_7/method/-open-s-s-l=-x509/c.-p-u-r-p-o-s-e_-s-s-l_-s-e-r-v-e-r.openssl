@@ -1,0 +1,10 @@
+kind=defined
+names=PURPOSE_SSL_SERVER
+visibility=public
+
+--- PURPOSE_SSL_SERVER
+
+SSL のサーバサイドの証明書として使えるか。
+
+以下は OpenSSL::X509::Store#trust にセットされる値です。
+

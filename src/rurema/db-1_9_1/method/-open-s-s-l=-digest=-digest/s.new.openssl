@@ -1,0 +1,9 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(name)
+
+オブジェクトを生成します。name でハッシュアルゴリズムを指定します。
+
+

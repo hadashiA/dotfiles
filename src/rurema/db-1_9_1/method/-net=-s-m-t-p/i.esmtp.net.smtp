@@ -1,0 +1,7 @@
+kind=defined
+names=esmtp,esmtp=
+visibility=public
+
+--- esmtp
+--- esmtp=(bool)
+

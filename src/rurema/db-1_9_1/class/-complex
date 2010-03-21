@@ -1,0 +1,7 @@
+superclass=Numeric
+type=class
+library=_builtin
+extended=
+included=
+
+複素数を扱うクラスです。

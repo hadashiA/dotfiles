@@ -1,0 +1,10 @@
+kind=defined
+names=assert_kind_of
+visibility=public
+
+--- assert_kind_of(c, obj[, message])
+
+obj.kind_of?(c) が真であると表明します。
+
+message はアサート失敗時のエラーメッセージです。
+

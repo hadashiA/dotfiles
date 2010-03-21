@@ -1,0 +1,9 @@
+kind=defined
+names=reduce
+visibility=public
+
+--- reduce(num, den = 1)
+
+Reduces the given numerator and denominator to their lowest terms.
+Use Rational() instead.
+

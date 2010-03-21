@@ -1,0 +1,9 @@
+kind=added
+names=CFLAGS
+visibility=private 
+
+--- CFLAGS
+
+C コンパイラに渡されるコマンドラインオプションです。
+この値は Makefile にも反映されます。
+

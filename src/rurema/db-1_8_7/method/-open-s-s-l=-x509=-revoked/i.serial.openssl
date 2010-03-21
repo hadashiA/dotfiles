@@ -1,0 +1,9 @@
+kind=defined
+names=serial,serial=
+visibility=public
+
+--- serial
+--- serial=(serial)
+
+失効した証明書のシリアルです。
+

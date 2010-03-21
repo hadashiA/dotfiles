@@ -1,0 +1,10 @@
+kind=defined
+names=assert_no_match
+visibility=public
+
+--- assert_no_match(regexp, string, message="")    -> ()
+
+regexp !~ string が真ならばパスします。
+
+@raise Test::Unit::AssertionFailedError assert が失敗した時に発生します。
+

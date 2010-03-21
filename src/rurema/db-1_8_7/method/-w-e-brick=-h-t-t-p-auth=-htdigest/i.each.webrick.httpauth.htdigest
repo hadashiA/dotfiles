@@ -1,0 +1,7 @@
+kind=defined
+names=each
+visibility=public
+
+--- each{|user, realm, pass| ...}
+各ユーザ、realm とパスワードに関してブロックを評価する。
+

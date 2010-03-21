@@ -1,0 +1,8 @@
+kind=defined
+names=cleanup
+visibility=public 
+
+--- cleanup
+
+@see [[m:Gem::Indexer::AbstractIndexBuilder#cleanup]]
+

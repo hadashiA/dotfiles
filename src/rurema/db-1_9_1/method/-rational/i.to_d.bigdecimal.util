@@ -1,0 +1,7 @@
+kind=added
+names=to_d
+visibility=public
+
+--- to_d(nFig = 0)
+[[c:BigDecimal]]に変換する
+

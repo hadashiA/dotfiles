@@ -1,0 +1,9 @@
+kind=defined
+names=mon_try_enter,try_enter
+visibility=public
+
+--- mon_try_enter
+--- try_enter
+
+[[m:MonitorMixin#mon_try_enter]] を参照して下さい。
+

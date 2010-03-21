@@ -1,0 +1,8 @@
+kind=defined
+names=join
+visibility=public
+
+--- join
+
+サーバのサービスを実行しているスレッドを join します。
+

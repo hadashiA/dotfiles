@@ -1,0 +1,8 @@
+kind=defined
+names=sign
+visibility=public
+
+--- sign(pkey, chain = nil)
+
+CRL に署名します。
+

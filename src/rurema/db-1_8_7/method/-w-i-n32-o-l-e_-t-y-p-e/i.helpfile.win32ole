@@ -1,0 +1,12 @@
+kind=defined
+names=helpfile
+visibility=public
+
+--- helpfile
+
+Returns helpfile path. If helpfile is not found, then returns
+nil.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Worksheet')
+   puts tobj.helpfile # => C:\...\VBAXL9.CHM
+

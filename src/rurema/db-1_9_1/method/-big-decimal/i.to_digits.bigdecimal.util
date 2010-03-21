@@ -1,0 +1,8 @@
+kind=added
+names=to_digits
+visibility=public
+
+--- to_digits
+Converts a BigDecimal to a String of the form "nnnnnn.mmm".
+This method is deprecated; use BigDecimal#to_s("F") instead.
+

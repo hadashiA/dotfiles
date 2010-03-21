@@ -1,0 +1,6 @@
+kind=defined
+names=escape
+visibility=public
+
+--- escape(str)
+

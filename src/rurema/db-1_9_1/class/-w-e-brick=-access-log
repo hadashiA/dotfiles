@@ -1,0 +1,34 @@
+superclass=
+type=module
+library=webrick.accesslog
+extended=
+included=
+
+WEBrick::HTTPServer のアクセスログの形式を処理するために内部で使われるモジュールです。
+
+アクセスログの形式は Apache の mod_log_config の形式に準拠しますが、HTTP ステータスコードを
+指定することは出来ません。最後のステータスを表す %>s は %s と同じように解釈されます。
+
+ "%h %l %u %t \"%r\" %s %b"
+ "%{User-Agent}i"
+
+指定できる形式は以下のとおりです。
+  %a    req.peeraddr[3]
+  %b    res.sent_size
+  %e    ENV
+  %f    res.filename || ""
+  %h    req.peeraddr[2]
+  %i    req
+  %l    "-"
+  %m    req.request_method
+  %n    req.attributes
+  %o    res
+  %p    req.port
+  %q    req.query_string
+  %r    req.request_line.sub(/\x0d?\x0a\z/o, '')
+  %s    res.status       # won't support "%>s"
+  %t    req.request_time
+  %T    Time.now - req.request_time
+  %u    req.user || "-"
+  %U    req.unparsed_uri
+  %v    config[:ServerName]

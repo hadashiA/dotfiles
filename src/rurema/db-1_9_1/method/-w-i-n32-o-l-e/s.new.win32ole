@@ -1,0 +1,14 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(server, [host]) -> WIN32OLE object
+
+Returns a new WIN32OLE object(OLE Automation object). The first
+argument server specifies OLE Automation server. The first argument
+should be CLSID or PROGID. If second argument host specified,
+then returns OLE Automation object on host.
+
+    WIN32OLE.new('Excel.Application') # => Excel OLE Automation WIN32OLE object.
+    WIN32OLE.new('{00024500-0000-0000-C000-000000000046}') # => Excel OLE Automation WIN32OLE object.
+

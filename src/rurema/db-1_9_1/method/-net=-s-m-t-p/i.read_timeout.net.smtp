@@ -1,0 +1,10 @@
+kind=defined
+names=read_timeout,read_timeout=
+visibility=public
+
+--- read_timeout
+--- read_timeout=(n)
+
+読みこみ ([[man:read(2)]] 一回) でブロックしてよい最大秒数。
+この秒数たっても読みこめなければ例外 TimeoutError を発生します。
+

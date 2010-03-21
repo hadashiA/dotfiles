@@ -1,0 +1,11 @@
+kind=defined
+names=path
+visibility=public
+
+--- path -> The type library file path. 
+
+Returns the type library file path.
+
+   tlib = WIN32OLE_TYPELIB.new('Microsoft Excel 9.0 Object Library')
+   puts tlib.path #-> 'C:\...\EXCEL9.OLB'
+

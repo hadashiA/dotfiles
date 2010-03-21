@@ -1,0 +1,9 @@
+kind=added
+names=ca_path,ca_path=
+visibility=public
+
+--- ca_path
+--- ca_path=(path)
+
+PEM 形式で保存された CA 証明書ファイルが存在するディレクトリを設定します。
+

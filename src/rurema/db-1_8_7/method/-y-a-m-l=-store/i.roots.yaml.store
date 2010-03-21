@@ -1,0 +1,27 @@
+kind=defined
+names=roots
+visibility=public
+
+--- roots -> Array
+ルートの集合を配列で返します。 
+
+@raise PStore::Error トランザクション外でこのメソッドが呼び出された場合に発生します。 
+
+  require 'yaml/store'
+
+  db = YAML::Store.new('/tmp/store.yaml')
+  db.transaction {
+    db["hoge"] = [ 1, 2, 3, 4]
+    db["fuga"] = [ 5, 6, 7]
+  }
+
+  db.transaction {
+    p db.roots #=> ["fuga", "hoge"]
+  }
+
+  begin
+    p db.roots
+  rescue PStore::Error
+    puts "transaction に与えるブロックのなかでroots は呼び出す。"
+  end
+

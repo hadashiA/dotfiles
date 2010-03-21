@@ -1,0 +1,8 @@
+kind=defined
+names=PURPOSE_SMIME_SIGN
+visibility=public
+
+--- PURPOSE_SMIME_SIGN
+
+S/MIME の署名をするのに使えるか。
+

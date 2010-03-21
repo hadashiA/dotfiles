@@ -1,0 +1,9 @@
+kind=defined
+names=close
+visibility=public
+
+--- close
+
+接続を閉じます。flush を呼んでから閉じます。
+
+

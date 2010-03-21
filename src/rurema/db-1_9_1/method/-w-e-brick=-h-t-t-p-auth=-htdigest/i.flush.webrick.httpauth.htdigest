@@ -1,0 +1,7 @@
+kind=defined
+names=flush
+visibility=public
+
+--- flush(path=nil)
+ファイルに書き込む。ファイル名 path を与えた場合は、path に書き込む。
+

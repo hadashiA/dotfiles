@@ -1,0 +1,9 @@
+kind=defined
+names=open
+visibility=public
+
+--- open(*args, &block)
+File.open(self.to_s, *args, &block) と同じです。
+
+@see [[m:File.open]]
+

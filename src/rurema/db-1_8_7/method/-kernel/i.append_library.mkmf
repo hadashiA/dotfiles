@@ -1,0 +1,22 @@
+kind=added
+names=append_library
+visibility=private 
+
+--- append_library(libs, lib)
+
+ライブラリのリスト libs の先頭にライブラリ lib を追加し、
+その結果を返します。
+
+引数 libs とこのメソッドの戻り値は
+リンカに渡す引数形式の文字列です。
+すなわち、UNIX 系 OS では
+
+  "-lfoo -lbar"
+
+であり、MS Windows などでは
+
+  "foo.lib bar.lib"
+
+です。
+第 2 引数 lib は、この例での "foo" や "bar" にあたります。
+

@@ -1,0 +1,8 @@
+kind=defined
+names=TEXT
+visibility=public
+
+--- TEXT
+
+text/plain のためのコンテンツに MIME ヘッダーを加えます。DETACHED ビットが立っている時だけ意味をもちます。
+

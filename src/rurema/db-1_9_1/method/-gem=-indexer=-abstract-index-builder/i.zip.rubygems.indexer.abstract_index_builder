@@ -1,0 +1,13 @@
+kind=defined
+names=zip
+visibility=public 
+
+--- zip(string) -> String
+
+与えられた文字列を圧縮して返します。
+
+@param string 圧縮するデータを指定します。
+
+
+@see [[m:Zlib::Deflate.deflate]]
+

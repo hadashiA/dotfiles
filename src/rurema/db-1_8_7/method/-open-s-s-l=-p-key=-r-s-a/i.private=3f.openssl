@@ -1,0 +1,8 @@
+kind=defined
+names=private?
+visibility=public
+
+--- private?
+
+秘密鍵を持っているかどうか判定します。
+

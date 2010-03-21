@@ -1,0 +1,8 @@
+kind=defined
+names=challenge
+visibility=public
+
+--- challenge(req, res)
+クライアントにパスワードを要求するために res に WWW-Authenticate ヘッダを
+設定し、例外 WEBrick::HTTPStatus::Unauthorized を投げます。
+

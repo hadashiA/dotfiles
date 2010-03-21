@@ -1,0 +1,16 @@
+kind=defined
+names=emacs_editing_mode
+visibility=public
+
+--- emacs_editing_mode
+
+編集モードを Emacs モードにします。デフォルトは Emacs モードです。
+
+Emacs モードの詳細は、 GNU Readline のマニュアルを参照してください。
+
+  * [[url:http://www.gnu.org/directory/readline.html]]
+
+サポートしていない環境では、例外 NotImplementedError が発生します。
+
+セーフレベル ($SAFE) が 4 の場合、例外 SecurityError を発生します。
+

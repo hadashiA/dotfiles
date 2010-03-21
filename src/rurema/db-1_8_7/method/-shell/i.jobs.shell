@@ -1,0 +1,8 @@
+kind=defined
+names=jobs
+visibility=public
+
+--- jobs -> Array
+
+執筆者募集. スケジューリングされているjobの一覧を返す.
+

@@ -1,0 +1,8 @@
+kind=defined
+names=print_profile
+visibility=public
+
+--- print_profile(file)
+
+stop_profile を実行し、プロファイルの結果を file に出力します。
+file には printf メソッドが定義されていなければいけません。

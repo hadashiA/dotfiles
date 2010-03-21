@@ -1,0 +1,10 @@
+kind=defined
+names=TABSIZE
+visibility=public
+
+--- TABSIZE -> Integer
+
+タブ幅を取得します。
+
+サポートしていない環境では、例外 NotImplementedError が発生します。
+

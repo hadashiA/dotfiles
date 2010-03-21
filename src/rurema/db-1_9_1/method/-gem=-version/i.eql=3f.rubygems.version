@@ -1,0 +1,18 @@
+kind=defined
+names=eql?
+visibility=public 
+
+--- eql?(other) -> bool
+
+引数で与えられた比較対象が自身と同じバージョンを表すオブジェクトである場合に真を返します。
+そうでない場合は偽を返します。
+
+例:
+  a = Gem::Version.create('1.0') # => #<Gem::Version "1.0">
+  b = Gem::Version.create('1.0') # => #<Gem::Version "1.0">
+  c = Gem::Version.create('1')   # => #<Gem::Version "1">
+  a.eql?(b) # => true
+  a.eql?(c) # => false
+
+@param other 比較対象の [[c:Gem::Version]] を指定します。
+

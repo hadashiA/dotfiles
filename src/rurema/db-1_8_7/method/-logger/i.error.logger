@@ -1,0 +1,14 @@
+kind=defined
+names=error
+visibility=public
+
+--- error(progname = nil){ ... } -> true
+--- error(progname = nil) -> true
+
+ERROR 情報を出力します。
+
+@param progname ブロックを与えない場合は、メッセージとして文字列または例外オブジェクト指定します。
+                ブロックを与えた場合は、プログラム名を文字列として与えます。
+
+@see [[m:Logger#debug]]
+

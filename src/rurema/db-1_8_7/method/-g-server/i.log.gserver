@@ -1,0 +1,8 @@
+kind=defined
+names=log
+visibility=public
+
+--- log(msg)
+
+文字列 msg をログに記録します。protected メソッドです。
+

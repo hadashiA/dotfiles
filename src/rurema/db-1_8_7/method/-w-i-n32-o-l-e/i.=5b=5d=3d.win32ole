@@ -1,0 +1,17 @@
+kind=defined
+names=[]=,setproperty
+visibility=public
+
+--- []=(property, val)
+--- setproperty('property', [arg1, arg2,...] val)
+
+Sets property of OLE object. When you want to set property with
+argument, you can use this method.
+
+   excel = WIN32OLE.new('Excel.Application')
+   excel['Visible'] = true
+   book = excel.workbooks.add
+   sheet = book.worksheets(1)
+   sheet.setproperty('Cells', 1, 2, 10) # => The B1 cell value is 10.
+
+

@@ -1,0 +1,9 @@
+kind=defined
+names=public_key,public_key=
+visibility=public
+
+--- public_key
+--- public_key=(pkeu)
+
+証明書に記載された公開鍵 [[c:OpenSSL::PKey::RSA]] オブジェクトです。
+

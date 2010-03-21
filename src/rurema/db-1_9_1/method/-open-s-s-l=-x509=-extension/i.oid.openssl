@@ -1,0 +1,9 @@
+kind=defined
+names=oid,oid=
+visibility=public
+
+---oid
+---oid=(oid)
+
+OID を文字列で設定します。
+

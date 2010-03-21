@@ -1,0 +1,8 @@
+kind=defined
+names=coerce
+visibility=public
+
+--- coerce(other)
+
+Attempts to coerce other to a Complex number.
+

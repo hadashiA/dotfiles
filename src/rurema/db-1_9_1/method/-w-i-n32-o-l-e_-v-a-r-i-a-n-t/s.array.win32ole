@@ -1,0 +1,17 @@
+kind=defined
+names=array
+visibility=public
+
+--- array(ary, vt)
+
+Returns Ruby object wrapping OLE variant whose variant type is
+VT_ARRAY. The first argument should be Array object which specifies
+dimensions and each size of dimensions of OLE array. The second
+argument specifies variant type of the element of OLE array.
+
+The following create 2 dimensions OLE array. The first dimensions
+size is 3, and the second is 4.
+
+   ole_ary = WIN32OLE_VARIANT.array([3,4], VT_I4)
+   ruby_ary = ole_ary.value # => [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+

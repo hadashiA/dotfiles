@@ -1,0 +1,7 @@
+kind=defined
+names=DEBUG
+visibility=public
+
+--- DEBUG -> Integer
+重要度:デバッグを表す定数です。
+

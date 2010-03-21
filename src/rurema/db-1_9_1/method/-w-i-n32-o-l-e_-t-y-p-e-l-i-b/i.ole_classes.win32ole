@@ -1,0 +1,8 @@
+kind=defined
+names=ole_classes
+visibility=public
+
+--- ole_classes
+
+Alias for #ole_types
+

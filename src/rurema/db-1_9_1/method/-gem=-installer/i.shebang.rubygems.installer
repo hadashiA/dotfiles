@@ -1,0 +1,8 @@
+kind=defined
+names=shebang
+visibility=public 
+
+--- shebang(bin_file_name) -> String
+
+実行ファイル内で使用する shebang line (#! line) を表す文字列を返します。
+

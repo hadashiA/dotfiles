@@ -1,0 +1,32 @@
+kind=defined
+names=abort
+visibility=public
+
+--- abort -> ()
+データベースの読み書きを終了する。
+transaction ブロックから抜けますが、データベースの変更は反映されません。 
+
+@raise PStore::Error トランザクション外でこのメソッドが呼び出された場合に発生します。 
+
+  require 'yaml/store'
+  require 'tmpdir'
+
+  db = YAML::Store.new("/#{Dir.tmpdir}/#{$$}.yaml")
+  db.transaction {
+    db["hoge"] = [ 1, 2, 3, 4]
+    db["fuga"] = [ 5, 6, 7]
+    db.abort
+    db["ugougo"] = [ 8, 9, 10]
+  }
+
+  db.transaction {
+    p db.root?("hoge")   #=> false
+    p db.root?('ugougo') #=> false
+  }
+
+  begin
+    p db.abort
+  rescue PStore::Error
+    puts "transaction に与えるブロックのなかでabort は呼び出す。"
+  end
+

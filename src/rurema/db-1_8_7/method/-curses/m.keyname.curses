@@ -1,0 +1,6 @@
+kind=defined
+names=keyname
+visibility=public
+
+--- keyname(c)
+

@@ -1,0 +1,12 @@
+kind=defined
+names=event?
+visibility=public
+
+--- event?
+
+Returns true if the method is event.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Workbook')
+   method = WIN32OLE_METHOD.new(tobj, 'SheetActivate')
+   puts method.event? # => true
+

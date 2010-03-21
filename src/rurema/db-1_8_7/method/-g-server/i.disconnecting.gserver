@@ -1,0 +1,10 @@
+kind=defined
+names=disconnecting
+visibility=public
+
+--- disconnecting(clientPort)
+
+audit が true に設定されているなら、クライアントとの接続終了時に呼ばれます。
+clientPort は接続していたクライアントのポートです。
+サブクラスでオーバーライドします。
+

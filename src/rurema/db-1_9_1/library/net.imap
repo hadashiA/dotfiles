@@ -1,0 +1,57 @@
+methods=
+sublibraries=
+requires=
+classes=Net=IMAP,Net=IMAP=ContinuationRequest,Net=IMAP=UntaggedResponse,Net=IMAP=TaggedResponse,Net=IMAP=ResponseText,Net=IMAP=ResponseCode,Net=IMAP=MailboxList,Net=IMAP=MailboxQuota,Net=IMAP=MailboxQuotaRoot,Net=IMAP=MailboxACLItem,Net=IMAP=StatusData,Net=IMAP=FetchData,Net=IMAP=Envelope,Net=IMAP=Address,Net=IMAP=ContentDisposition,Net=IMAP=ThreadMember,Net=IMAP=BodyTypeBasic,Net=IMAP=BodyTypeText,Net=IMAP=BodyTypeMessage,Net=IMAP=BodyTypeMultipart,Net=IMAP=LoginAuthenticator,Net=IMAP=CramMD5Authenticator,Net=IMAP=PlainAuthenticator,Net=IMAP=DigestMD5Authenticator,Net=IMAP=Error,Net=IMAP=DataFormatError,Net=IMAP=ResponseParseError,Net=IMAP=ResponseError,Net=IMAP=NoResponseError,Net=IMAP=BadResponseError,Net=IMAP=ByeResponseError
+is_sublibrary=false
+
+IMAP プロトコルを扱うライブラリです。
+
+Net::IMAP implements Internet Message Access Protocol (IMAP) clients.
+The IMAP protocol is described in [[RFC:2060]].
+
+Net::IMAP supports multiple commands. For example,
+
+  imap = Net::IMAP.new("imap.foo.net", "imap2")
+  imap.authenticate("cram-md5", "bar", "password")
+  imap.select("inbox")
+  fetch_thread = Thread.start { imap.fetch(1..-1, "UID") }
+  search_result = imap.search(["BODY", "hello"])
+  fetch_result = fetch_thread.value
+  imap.disconnect
+
+This script invokes the FETCH command and the SEARCH command concurrently.
+
+=== References
+
+  * [IMAP]
+    M. Crispin, "INTERNET MESSAGE ACCESS PROTOCOL - VERSION 4rev1",
+    RFC 2060, December 1996.
+
+  * [LANGUAGE-TAGS]
+    Alvestrand, H., "Tags for the Identification of
+    Languages", RFC 1766, March 1995.
+
+  * [MD5]
+    Myers, J., and M. Rose, "The Content-MD5 Header Field", RFC
+    1864, October 1995.
+
+  * [MIME-IMB]
+    Freed, N., and N. Borenstein, "MIME (Multipurpose Internet
+    Mail Extensions) Part One: Format of Internet Message Bodies", RFC
+    2045, November 1996.
+
+  * [RFC-822]
+    Crocker, D., "Standard for the Format of ARPA Internet Text
+    Messages", STD 11, RFC 822, University of Delaware, August 1982.
+
+  * [RFC-2087]
+    Myers, J., "IMAP4 QUOTA extension", RFC 2087, January 1997.
+
+  * [RFC-2086]
+    Myers, J., "IMAP4 ACL extension", RFC 2086, January 1997.
+
+  * [OSSL]
+    http://www.openssl.org
+
+  * [RSSL]
+    http://savannah.gnu.org/projects/rubypki

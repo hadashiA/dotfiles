@@ -1,0 +1,6 @@
+kind=defined
+names=add_marshal
+visibility=public 
+
+--- add_marshal(spec)
+

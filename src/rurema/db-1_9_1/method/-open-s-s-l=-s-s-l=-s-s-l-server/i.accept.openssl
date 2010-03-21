@@ -1,0 +1,8 @@
+kind=defined
+names=accept
+visibility=public
+
+--- accept
+
+TLS/SSL クライアントから接続を受け付け、[[c:OpenSSL::SSL::SSLSocket]] オブジェクトを返します。start_immediately が真なら SSLSocket#accept を呼び TLS/SSL ハンドシェイクを実行してから SSLSocket オブジェクトを返します。
+

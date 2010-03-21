@@ -1,0 +1,7 @@
+kind=defined
+names=realm
+visibility=public
+
+--- realm
+realm を文字列で返します。
+

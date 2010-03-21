@@ -1,0 +1,10 @@
+kind=defined
+names=assert_respond_to
+visibility=public
+
+--- assert_respond_to(object, method, message="")    -> ()
+
+object.respond_to?(method) が真ならパスします。
+
+@raise Test::Unit::AssertionFailedError assert が失敗した時に発生します。
+

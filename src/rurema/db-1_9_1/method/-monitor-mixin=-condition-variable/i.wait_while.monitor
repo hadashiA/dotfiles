@@ -1,0 +1,10 @@
+kind=defined
+names=wait_while
+visibility=public
+
+--- wait_while { ... }
+
+block が真を返している間は ConditionVariable#signal で起こされても
+スレッドを停止し続けます。 block が偽を返すとスレッドを再開します。
+true を返します。
+

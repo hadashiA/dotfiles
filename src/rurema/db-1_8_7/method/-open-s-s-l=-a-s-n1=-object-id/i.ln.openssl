@@ -1,0 +1,17 @@
+kind=defined
+names=ln,long_name
+visibility=public
+
+--- ln
+--- long_name
+
+オブジェクト ID に対応する長い形式の名前を返します。
+
+
+例:
+
+  require "openssl"
+  oid = OpenSSL::ObjectId.new("subjectAltName")
+  p oid.oid   #=> "2.5.29.17"
+  p oid.sn    #=> "subjectAltName"
+  p oid.ln    #=> "X509v3 Subject Alternative Name"

@@ -1,0 +1,10 @@
+kind=defined
+names=start
+visibility=public
+
+--- start(account, password)
+--- start(account, password) {|pop| .... }
+
+リモートホストとの TCP 接続を開始し、アカウントに account、
+パスワードに password を使って POP ログインします。
+

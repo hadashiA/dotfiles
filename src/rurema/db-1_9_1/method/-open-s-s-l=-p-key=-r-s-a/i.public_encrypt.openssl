@@ -1,0 +1,8 @@
+kind=defined
+names=public_encrypt
+visibility=public
+
+--- public_encrypt(str, mode = OpenSSL::PKey::RSA::PKCS1_PADDING)
+
+文字列 str を公開鍵で暗号化します。
+

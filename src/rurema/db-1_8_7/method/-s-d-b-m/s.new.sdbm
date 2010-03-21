@@ -1,0 +1,12 @@
+kind=defined
+names=new,open
+visibility=public
+
+--- new(dbname, mode = 0666) -> SDBM
+--- open(dbname, mode = 0666) -> SDBM
+--- open(dbname, mode = 0666) {|db| ... } -> ()
+
+dbname で指定したデータベースをモードを mode に設定してオープンします。
+mode の省略値は 0666 です。mode として nil を指定するとデータベースが
+存在しない時には新たなデータベースを作らず nil を返します。
+

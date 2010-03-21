@@ -1,0 +1,8 @@
+kind=defined
+names=PURPOSE_SSL_CLIENT
+visibility=public
+
+--- PURPOSE_SSL_CLIENT
+
+SSL のクライアントサイドの証明書として使えるか。
+

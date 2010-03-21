@@ -1,0 +1,11 @@
+kind=defined
+names=chroot
+visibility=public
+
+--- chroot
+Dir.chroot(self.to_s) と同じです。
+
+@see [[m:Dir.chroot]]
+
+このメソッドは obsolete です。
+代わりに [[m:Dir.chroot]] を使ってください。

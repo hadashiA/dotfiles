@@ -1,0 +1,8 @@
+kind=defined
+names=port
+visibility=public
+
+--- port
+
+ポートを数で返します。
+

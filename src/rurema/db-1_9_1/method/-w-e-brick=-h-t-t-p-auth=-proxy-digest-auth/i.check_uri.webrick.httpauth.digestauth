@@ -1,0 +1,5 @@
+kind=defined
+names=check_uri
+visibility=public
+
+--- check_uri(req, auth_req)

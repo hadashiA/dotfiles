@@ -1,0 +1,9 @@
+kind=defined
+names=error
+visibility=public
+
+--- error(detail)
+
+debug が true に設定されている時、例外が発生すると呼ばれます。
+detail は例外オブジェクトです。protected メソッドです。
+

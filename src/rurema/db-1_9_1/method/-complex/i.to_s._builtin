@@ -1,0 +1,8 @@
+kind=defined
+names=to_s
+visibility=public
+
+--- to_s
+
+Standard string representation of the complex number.
+

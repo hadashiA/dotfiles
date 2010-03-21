@@ -1,0 +1,15 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(str)
+
+ASN.1 のオブジェクト ID を生成します。
+
+例:
+
+  require "openssl"
+  include OpenSSL
+  p ASN1::ObjectId.new("1.2.840.10040.4.3").long_name # => "dsaWithSHA1"
+  p ASN1::ObjectId.new("dsaWithSHA1").oid             # => "1.2.840.10040.4.3"
+

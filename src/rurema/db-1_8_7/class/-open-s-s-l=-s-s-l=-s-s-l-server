@@ -1,0 +1,26 @@
+superclass=Object
+type=class
+library=openssl
+extended=
+included=OpenSSL=SSL=SocketForwarder
+
+SSL サーバーのためのクラス。[[c:TCPServer]] に対応します。
+
+以下はクライアントからの入力を出力するだけの echo サーバーの例です。
+
+  require 'socket'
+  require 'openssl'
+  
+  include OpenSSL
+  
+  ctx = SSL::SSLContext.new()
+  ctx.cert = X509::Certificate.new(File.read('cert.pem'))
+  ctx.key = PKey::RSA.new(File.read('privkey.pem'))
+  svr = TCPServer.new(2007)
+  serv = SSL::SSLServer.new(svr, ctx)
+  
+  loop do
+    while soc = serv.accept
+      puts soc.read
+    end
+  end

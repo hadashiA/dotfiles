@@ -1,0 +1,12 @@
+kind=defined
+names=library_name
+visibility=public
+
+--- library_name 
+
+Returns library name. If the method fails to access library name,
+WIN32OLERuntimeError is raised.
+
+   tlib = WIN32OLE_TYPELIB.new('Microsoft Excel 9.0 Object Library')
+   tlib.library_name # => Excel
+

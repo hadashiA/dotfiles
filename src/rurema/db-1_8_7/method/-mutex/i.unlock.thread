@@ -1,0 +1,23 @@
+kind=defined
+names=unlock
+visibility=public
+
+--- unlock     -> self | nil
+
+mutex のロックを解放します。mutex のロック待ちになっていたスレッ
+ドの実行は再開されます。
+
+self がロックされていなければ nil を返します。そうでな
+ければself を返します。
+
+例:
+
+ m = Mutex.new
+ begin 
+   m.lock
+   # critical part
+ ensure
+   m.unlock
+ end
+
+

@@ -1,0 +1,13 @@
+kind=defined
+names=verify_callback,verify_callback=
+visibility=public
+
+--- verify_callback
+--- verify_callback=(proc)
+
+通常の証明書の検証に加えてさらに適用される [[c:Proc]] オブジェクトです。この Proc オブジェクトは preverify_ok と ctx 二つの引数をとります。preverify_ok は true か false の値をとり、verify_mode で設定した通常の証明書の検証が成功したかどうかで決まります。ctx は SSLContext オブジェクトです。この Proc オブジェクトは true か false を返す必要があります。
+
+  lambda{|preverify_ok, ctx|
+    return true # or false
+  }
+

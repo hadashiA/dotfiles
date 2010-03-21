@@ -1,0 +1,7 @@
+superclass=Object
+type=class
+library=shell
+extended=
+included=Enumerable
+
+コマンドの実行結果はすべてShell::Filterとしてかえります.

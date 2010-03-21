@@ -1,0 +1,8 @@
+kind=defined
+names=auth_plain
+visibility=public
+
+--- auth_plain(user, secret)
+
+Plain authentication.
+

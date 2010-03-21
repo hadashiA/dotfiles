@@ -1,0 +1,11 @@
+kind=defined
+names=tag,tag=
+visibility=public
+
+--- tag
+--- tag=(tag)
+
+タグ番号です。Universal 型の場合は BOOLEAN = 1 から BMPSTRING = 30 のいずれかの値をとります。
+あらかじめ定義されているタグ番号の定数に関しては [[c:OpenSSL::ASN1]] の
+定数の項を参照してください。
+

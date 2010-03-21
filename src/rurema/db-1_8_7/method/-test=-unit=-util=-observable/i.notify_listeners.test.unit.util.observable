@@ -1,0 +1,11 @@
+kind=defined
+names=notify_listeners
+visibility=public
+
+--- notify_listeners(channel_name, *arguments)
+
+Calls all the procs registered on the channel
+indicated by channel_name. If value is
+specified, it is passed in to the procs,
+otherwise they are called with no arguments.
+

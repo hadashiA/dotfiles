@@ -1,0 +1,8 @@
+kind=defined
+names=signal
+visibility=public
+
+--- signal
+
+待っているスレッドがあれば実行を再開させます。nil を返します。
+

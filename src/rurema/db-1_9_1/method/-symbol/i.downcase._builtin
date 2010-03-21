@@ -1,0 +1,8 @@
+kind=defined
+names=downcase
+visibility=public
+
+--- downcase -> Symbol
+
+@see [[m:String#downcase]]
+

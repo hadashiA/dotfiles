@@ -1,0 +1,9 @@
+kind=defined
+names=binmode,binmode=
+visibility=public
+
+--- binmode
+--- binmode(bool)
+--- binmode=(bool)
+    ...
+

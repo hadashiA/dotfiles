@@ -1,0 +1,9 @@
+kind=defined
+names=cert_store,cert_store=
+visibility=public
+
+--- cert_store
+--- cert_store=(store)
+
+接続相手の証明書の検証のために使う、信頼している CA 証明書のストレージです。 [[c:OpenSSL::X509::Store]] オブジェクトです。通常は ca_path=(path) や ca_file=(path) を使います。
+

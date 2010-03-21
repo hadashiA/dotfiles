@@ -1,0 +1,10 @@
+kind=defined
+names=compute_key
+visibility=public
+
+--- compute_key(num)
+--- compute_key(str)
+--- compute_key(bn)
+
+Diffie-Hellman 鍵交換の第2ステップです。共有暗号鍵を自分の秘密鍵と相手の公開鍵 (num, str, bn) から計算して文字列として返します。これで鍵交換は完了します。
+

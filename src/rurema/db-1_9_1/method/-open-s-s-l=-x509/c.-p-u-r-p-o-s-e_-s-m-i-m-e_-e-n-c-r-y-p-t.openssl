@@ -1,0 +1,8 @@
+kind=defined
+names=PURPOSE_SMIME_ENCRYPT
+visibility=public
+
+--- PURPOSE_SMIME_ENCRYPT
+
+S/MIME の暗号化をするのに使えるか。
+

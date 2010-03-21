@@ -1,0 +1,12 @@
+kind=defined
+names=helpcontext
+visibility=public
+
+--- helpcontext
+
+Returns helpcontext. If helpcontext is not found, then returns
+nil.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Worksheet')
+   puts tobj.helpfile # => 131185
+

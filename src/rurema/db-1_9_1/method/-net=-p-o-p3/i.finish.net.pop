@@ -1,0 +1,9 @@
+kind=defined
+names=finish
+visibility=public
+
+--- finish
+
+POP3 セッションを終了します。セッション開始前にこのメソッドが
+呼ばれた場合は例外 IOError を発生します。
+

@@ -1,0 +1,19 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(val, vartype) -> WIN32OLE_VARIANT
+
+Returns Ruby object wrapping OLE variant. The first argument
+specifies Ruby object to convert OLE variant variable. The second
+argument specifies VARIANT type. In some situation, you need
+the WIN32OLE_VARIANT object to pass OLE method
+
+   shell = WIN32OLE.new("Shell.Application")
+   folder = shell.NameSpace("C:\Windows")
+   item = folder.ParseName("tmp.txt")
+   # You can't use Ruby String object to call FolderItem.InvokeVerb.
+   # Instead, you have to use WIN32OLE_VARIANT object to call the method.
+   shortcut = WIN32OLE_VARIANT.new("Create Shortcut(\&S)")
+   item.invokeVerb(shortcut)
+

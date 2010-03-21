@@ -1,0 +1,9 @@
+kind=defined
+names=client_ca,client_ca=
+visibility=public
+
+--- client_ca
+--- client_ca=(ca)
+
+クライアント証明書を要求する時にクライアントに送る CA のリストです。CA の Certificate オブジェクトの配列です。このリストに含まれる CA ―あるはその下位の CA―に署名された証明書をクライアントは送り返すことになっています。
+

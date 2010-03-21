@@ -1,0 +1,13 @@
+kind=defined
+names=link
+visibility=public
+
+--- link(old)
+File.link(old, self.to_s) と同じです。
+
+@see [[m:File.link]]
+
+レシーバと引数がシステムコールの引数と逆順に対応していて紛らわしいため、
+このメソッドは obsolete です。
+代わりに [[m:Pathname#make_link]] を使ってください。
+

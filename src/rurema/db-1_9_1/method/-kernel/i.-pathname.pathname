@@ -1,0 +1,12 @@
+kind=added
+names=Pathname
+visibility=private 
+
+--- Pathname(path) -> Pathname
+文字列 path を元に Pathname オブジェクトを生成します。
+
+Pathname.new(string) と同じです。
+
+
+
+

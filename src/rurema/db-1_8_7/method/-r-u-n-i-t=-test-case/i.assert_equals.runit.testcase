@@ -1,0 +1,8 @@
+kind=defined
+names=assert_equals
+visibility=public
+
+--- assert_equals(expected, really, message = nil)
+
+alias of assert_equal.
+

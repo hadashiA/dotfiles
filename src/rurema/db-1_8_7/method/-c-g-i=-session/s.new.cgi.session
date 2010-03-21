@@ -1,0 +1,87 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(cgi[, aHash])
+
+セッションオブジェクトを新しく作成し返します。
+オプションとして [[c:Hash]] オブジェクト aHash を与えることができます。
+
+例:
+
+  CGI::Session.new(cgi, {"new_session" => true})
+
+以下の文字列が aHash のキーとして認識されます。
+
+  * "session_path"
+    クッキーのb path として使われます。
+    (default: File.dirname(ENV["SCRIPT_NAME"]),
+    スクリプトの URI の path 部の最後のスラッシュまで)
+
+  * "session_key"
+    クッキーと <FORM type=hidden> の name として使われます。
+    (default: "_session_id")
+
+  * "session_id"
+    セッション ID として使われます。
+    デフォルトのデータベースである FileStore を用いる場合,
+    値は英数字だけからなる文字列で無ければなりません。
+    このオプションを指定するとリクエストにセッション ID が含まれても無視します。
+    (default: ランダムに生成されます)
+
+  * "new_session"
+    値が true のときは強制的に新しいセッションを始めます。
+    以下は ((<ruby 1.8.2 feature>)) です。
+    値が false のときは、リクエストにセッション ID が含まれていない場合に
+    例外 ArgumentError が発生します。
+    値がないときは、リクエストにセッション ID が
+    含まれている場合はそれを使用し、含まれていない場合は新しいセッションを始めます。
+    (default: 値なし)
+
+  * "database_manager"
+    データベースクラスを指定します。
+    (default: CGI::Session::FileStore)
+
+  * CGI::Session::FileStore
+    テキストファイルを使います。文字列データしか扱えません。
+
+  * CGI::Session::MemoryStore
+    メモリ上のハッシュを使います。Ruby インタプリタの生存期間中のみ有効です。
+
+  * CGI::Session::PStore
+    Marshal フォーマットを使い、あらゆる型のデータを保存できます。
+    cgi/session/pstore によって提供される機能のため、このライブラリを読み込まなければ利用できません。
+
+  * "tmpdir"
+    CGI::Session::FileStore がセッションデータを作成するディレクトリの名前を指定します。
+    (default: ENV["TMP"] || "/tmp")
+    ((<ruby 1.8 feature>)): default は [[m:Dir.tmpdir]] になりました。
+
+  * "prefix"
+    CGI::Session::FileStore がセッションデータのファイル名に与えるプレフィックス。
+    (default: "")
+
+  * "suffix"
+    CGI::Session::FileStore がセッションデータのファイル名に与えるサフィックス。
+    (default: "") ((<ruby 1.8.2 feature>))
+
+  * "no_hidden"
+    [[unknown:執筆者募集]]
+
+  * "no_cookies"
+    [[unknown:執筆者募集]]
+
+  * "session_expires"
+    セッションの有効期間。
+    [[c:Time]] オブジェクトを与えると、セッションはその日時まで破棄されずに残ります。
+    (default: ブラウザの終了と同時に破棄されます)
+
+  * "session_domain"
+    [[unknown:執筆者募集]]
+
+  * "session_secure"
+    [[unknown:執筆者募集]]
+
+  * "session_path"
+    [[unknown:執筆者募集]]
+

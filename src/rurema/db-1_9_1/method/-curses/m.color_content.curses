@@ -1,0 +1,6 @@
+kind=defined
+names=color_content
+visibility=public
+
+--- color_content(color)
+

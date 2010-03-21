@@ -1,0 +1,10 @@
+kind=defined
+names=chain
+visibility=public
+
+--- chain
+
+最後に verify(cert) した証明書を出発点とするルート CA 証明書までの証明書のチェーンです。OpenSSL::X509::Certificate オブジェクトの配列です。verify を一度も呼び出していない時は nil を返します。証明書の順序は以下の通りです。
+
+  [証明書, 下位 CA 証明書, 中間 CA 証明書, ... , ルート CA 証明書]
+

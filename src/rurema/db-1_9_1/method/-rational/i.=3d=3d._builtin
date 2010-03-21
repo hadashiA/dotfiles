@@ -1,0 +1,15 @@
+kind=defined
+names===
+visibility=public 
+
+--- ==(other)
+
+Returns true iff this value is numerically equal to other.
+
+But beware:
+
+  Rational(1,2) == Rational(4,8)          # -> true
+  Rational(1,2) == Rational.new!(4,8)     # -> false
+
+Don't use Rational.new!
+

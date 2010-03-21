@@ -1,0 +1,8 @@
+kind=defined
+names=files
+visibility=public 
+
+--- files -> [String]
+
+作成するインデックスファイルに含まれるファイルのリストを返します。
+

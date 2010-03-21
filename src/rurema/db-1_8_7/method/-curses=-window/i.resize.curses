@@ -1,0 +1,6 @@
+kind=defined
+names=resize
+visibility=public
+
+--- resize(lin, col)
+

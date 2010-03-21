@@ -1,0 +1,18 @@
+kind=added
+names=have_struct_member
+visibility=private 
+
+--- have_struct_member(type, member, headers = nil, &b)
+
+Returns whether or not the struct of type +type+ contains +member+.  If
+it does not, or the struct type can't be found, then false is returned.  You
+may optionally specify additional +headers+ in which to look for the struct
+(in addition to the common header files).
+
+If found, a macro is passed as a preprocessor constant to the compiler using
+the member name, in uppercase, prepended with 'HAVE_ST_'.
+
+For example, if have_struct_member('foo', 'bar') returned true, then the
+HAVE_ST_BAR preprocessor macro would be passed to the compiler.
+ 
+

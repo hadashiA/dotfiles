@@ -1,0 +1,13 @@
+kind=defined
+names=push
+visibility=public
+
+--- push(obj)
+queue に obj を追加します。
+
+queue のサイズが max に達している場合は、
+queue のサイズが max より小さくなるまで他のスレッドに実行を譲ります。その後、
+queue に obj を追加します。
+
+あとは [[m:Queue#push]] と同じです。
+

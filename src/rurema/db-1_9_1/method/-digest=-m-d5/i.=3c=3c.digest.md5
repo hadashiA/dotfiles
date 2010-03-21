@@ -1,0 +1,15 @@
+kind=defined
+names=<<,==,clone,digest,dup,hexdigest,to_s,update
+visibility=public
+
+--- dup
+--- clone
+--- digest
+--- hexdigest
+--- to_s
+--- update(str)
+--- <<(str)
+--- ==(md)
+--- ==(str)
+
+[[c:Digest::Base]] のページを参照のこと。

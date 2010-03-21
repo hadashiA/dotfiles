@@ -1,0 +1,6 @@
+kind=defined
+names=curs_set
+visibility=public
+
+--- curs_set(visibility)
+

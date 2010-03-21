@@ -1,0 +1,8 @@
+kind=defined
+names=to_s
+visibility=public
+
+--- to_s    -> String
+
+Overridden to return the name given the suite at creation.
+

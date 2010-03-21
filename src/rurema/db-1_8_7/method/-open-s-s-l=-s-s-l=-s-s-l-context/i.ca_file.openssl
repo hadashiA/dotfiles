@@ -1,0 +1,21 @@
+kind=defined
+names=ca_file,ca_file=
+visibility=public
+
+--- ca_file
+--- ca_file=(ca)
+
+接続相手の検証のために使う、信頼している CA 証明書ファイルのパスです。以下のように複数の証明書を含んでいても構いません。
+
+  (ここに証明書の説明)
+
+  -----BEGIN CERTIFICATE-----
+  ... (CA certificate in base64 encoding) ...
+  -----END CERTIFICATE-----
+
+  (ここに証明書の説明)
+
+  -----BEGIN CERTIFICATE-----
+  ... (CA certificate in base64 encoding) ...
+  -----END CERTIFICATE-----
+

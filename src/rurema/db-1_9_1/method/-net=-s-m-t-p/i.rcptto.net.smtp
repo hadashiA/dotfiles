@@ -1,0 +1,8 @@
+kind=defined
+names=rcptto
+visibility=public
+
+--- rcptto(to_addr)
+
+Dispatch RCPTTO command.
+

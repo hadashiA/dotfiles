@@ -1,0 +1,19 @@
+kind=defined
+names=start
+visibility=public
+
+--- start(address, port = 25, helo_domain = 'localhost.localdomain', account = nil, password = nil, authtype = nil)
+--- start(address, port = 25, helo_domain = 'localhost.localdomain', account = nil, password = nil, authtype = nil) {|smtp| .... }
+
+以下と同じです。
+
+  Net::SMTP.new(address, port).start(helo_domain, account, password, authtype)
+  
+Example:
+
+  require 'net/smtp'
+
+  Net::SMTP.start('your.smtp.server') {|smtp|
+    smtp.send_message mail_string, 'from@mail.address', 'dest@mail.address'
+  }
+

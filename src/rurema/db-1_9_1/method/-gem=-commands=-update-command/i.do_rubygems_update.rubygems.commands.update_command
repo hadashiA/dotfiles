@@ -1,0 +1,7 @@
+kind=defined
+names=do_rubygems_update
+visibility=public 
+
+--- do_rubygems_update(version)
+
+

@@ -1,0 +1,10 @@
+kind=defined
+names=open
+visibility=public
+
+--- open(io, security_policy = nil){|is| ... }
+
+@param io
+
+@param security_policy
+

@@ -1,0 +1,10 @@
+kind=defined
+names=ole_free
+visibility=public
+
+--- ole_free
+
+invokes Release method of Dispatch interface of WIN32OLE object.
+Usually, you do not need to call this method because Release
+method called automatically when WIN32OLE object garbaged.
+

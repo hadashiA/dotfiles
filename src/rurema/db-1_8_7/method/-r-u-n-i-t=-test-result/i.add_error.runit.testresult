@@ -1,0 +1,6 @@
+kind=defined
+names=add_error
+visibility=public
+
+--- add_error(error)
+

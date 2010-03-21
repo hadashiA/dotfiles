@@ -1,0 +1,8 @@
+superclass=Net=IMAP=ResponseError
+type=class
+library=net.imap
+extended=
+included=
+
+Error raised upon a "NO" response from the server, indicating
+that the client command could not be completed successfully.

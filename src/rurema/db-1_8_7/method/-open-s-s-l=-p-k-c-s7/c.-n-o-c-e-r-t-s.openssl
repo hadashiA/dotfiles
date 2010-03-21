@@ -1,0 +1,8 @@
+kind=defined
+names=NOCERTS
+visibility=public
+
+--- NOCERTS
+
+署名者の証明書を署名に含めません。送り先がすでに証明書をもっている場合、データの量を減らすことができます。
+

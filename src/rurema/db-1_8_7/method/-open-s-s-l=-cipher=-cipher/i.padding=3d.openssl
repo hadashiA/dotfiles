@@ -1,0 +1,8 @@
+kind=defined
+names=padding=
+visibility=public
+
+--- padding=(padding)
+
+パディングを設定します。
+

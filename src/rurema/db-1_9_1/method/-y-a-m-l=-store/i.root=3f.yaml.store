@@ -1,0 +1,30 @@
+kind=defined
+names=root?
+visibility=public
+
+--- root?(name) -> bool
+ルート name がデータベースに格納されている場合に真を返します。
+
+@param name 探索するルートの名前を指定します。
+
+@raise PStore::Error トランザクション外でこのメソッドが呼び出された場合に発生します。 
+
+  require 'yaml/store'
+
+  db = YAML::Store.new('/tmp/store.yaml')
+  db.transaction {
+    db["hoge"] = [ 1, 2, 3, 4]
+    db["fuga"] = [ 5, 6, 7]
+  }
+
+  db.transaction {
+    p db.root?('fuga')   #=> true
+    p db.root?('ugougo') #=> false
+  }
+
+  begin
+    p db.root?('hoge')
+  rescue PStore::Error
+    puts "transaction に与えるブロックのなかでroot? は呼び出す。"
+  end
+

@@ -1,0 +1,10 @@
+kind=defined
+names=new
+visibility=public
+
+--- new
+--- new(*arguments)
+
+GetoptLong のオブジェクトを生成します。arguments が与えられ
+たときは、それを set_options メソッドに渡します。
+

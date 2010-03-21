@@ -1,0 +1,10 @@
+kind=defined
+names=assert_raises
+visibility=public
+
+--- assert_raises(*args, &block)    -> object
+
+[[m:Test::Unit::Assertions#assert_raise]] のエイリアスです。
+
+@raise Test::Unit::AssertionFailedError assert が失敗した時に発生します。
+

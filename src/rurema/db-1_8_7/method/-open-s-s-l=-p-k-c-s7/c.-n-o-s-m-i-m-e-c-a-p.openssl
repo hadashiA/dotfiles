@@ -1,0 +1,8 @@
+kind=defined
+names=NOSMIMECAP
+visibility=public
+
+--- NOSMIMECAP
+
+署名者が使用可能な暗号アルゴリズムの情報などを省略します。
+

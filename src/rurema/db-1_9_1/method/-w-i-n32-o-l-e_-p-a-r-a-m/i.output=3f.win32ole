@@ -1,0 +1,22 @@
+kind=defined
+names=output?
+visibility=public
+
+--- output?
+
+Returns true if argument is output.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Internet Controls', 'DWebBrowserEvents')
+   method = WIN32OLE_METHOD.new(tobj, 'NewWindow')
+   method.params.each do |param|
+     puts "#{param.name} #{param.output?}"
+   end
+
+   The result of above script is following:
+     URL false
+     Flags false
+     TargetFrameName false
+     PostData false
+     Headers false
+     Processed true
+

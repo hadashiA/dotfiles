@@ -1,0 +1,8 @@
+kind=defined
+names=find_reverse_dependencies
+visibility=public 
+
+--- find_reverse_dependencies(spec) -> Array
+
+@param spec
+

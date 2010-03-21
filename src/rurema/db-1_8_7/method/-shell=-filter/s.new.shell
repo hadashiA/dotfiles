@@ -1,0 +1,10 @@
+kind=defined
+names=new
+visibility=public
+
+--- new -> Shell::Filter
+
+執筆者募集。
+Shell::Filter クラス のインスタンスを返します。
+通常このnewを直接使う機会はすくないでしょう。
+

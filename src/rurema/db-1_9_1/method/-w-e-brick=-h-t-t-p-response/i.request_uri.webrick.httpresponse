@@ -1,0 +1,12 @@
+kind=defined
+names=request_uri,request_uri=
+visibility=public
+
+--- request_uri        -> URI | nil
+--- request_uri=(uri)
+
+リクエストの URI を [[c:URI]] オブジェクトで表すアクセサです。
+デフォルトは nil です。
+
+@param method リクエストの URI を [[c:URI]] オブジェクトで指定します。
+

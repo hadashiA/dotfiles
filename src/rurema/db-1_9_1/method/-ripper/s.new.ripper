@@ -1,0 +1,12 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(src, filename = "(ripper)", lineno = 1)
+
+Ripper オブジェクトを作成します。
+
+第一引数 src には Ruby プログラム (文字列)、
+第二引数 filename には src のファイル名、
+第三引数 lineno には src の開始行番号を、それぞれ与えます。
+

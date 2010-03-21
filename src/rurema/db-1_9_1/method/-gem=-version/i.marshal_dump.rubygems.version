@@ -1,0 +1,8 @@
+kind=defined
+names=marshal_dump
+visibility=public 
+
+--- marshal_dump -> [String]
+
+完全なオブジェクトではなく自身のバージョンを表す文字列をダンプします。
+

@@ -1,0 +1,8 @@
+kind=defined
+names=marshal_load
+visibility=public 
+
+--- marshal_load(array) -> Gem::Requirement
+
+必要条件をロードします。
+

@@ -1,0 +1,12 @@
+kind=defined
+names=VERIFY_PEER
+visibility=public
+
+--- VERIFY_PEER
+
+[[m:OpenSSL::SSL::SSLContext#verify_mode=]] に指定できるもの。サーバーモードであるかクライアントモードであるかによって意味がことなります。
+
+サーバーモード: サーバーはクライアントに証明書を要求します。送られてきた証明書は検証されます。検証が失敗した場合、TLS/SSL ハンドシェイクを即座に終了させます。
+
+クライアントモード: サーバーの証明書を検証します。検証が失敗した場合、TLS/SSL ハンドシェイクを即座に終了させます。サーバーが証明書を返さずに、anonymous cipher を用いる場合、VERIFY_PEER は無視されます。
+

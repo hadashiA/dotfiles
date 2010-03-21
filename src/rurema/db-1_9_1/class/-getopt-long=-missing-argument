@@ -1,0 +1,7 @@
+superclass=GetoptLong=Error
+type=class
+library=getoptlong
+extended=
+included=
+
+与えられたオプションには引数が欠けている。

@@ -1,0 +1,9 @@
+kind=defined
+names=ole_classes
+visibility=public
+
+--- ole_classes(typelib)
+
+Returns array of WIN32OLE_TYPE objects defined by the typelib
+type library.
+

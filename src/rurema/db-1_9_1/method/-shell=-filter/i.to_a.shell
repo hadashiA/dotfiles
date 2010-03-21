@@ -1,0 +1,18 @@
+kind=defined
+names=to_a,to_s
+visibility=public
+
+--- to_a -> Array
+--- to_s -> String
+
+実行結果を文字列、それぞれ文字列の配列で返します。
+
+使用例
+  Shell.def_system_command("wc")
+  sh = Shell.new
+  puts sh.cat("/etc/passwd").to_a
+
+  sh.transact {
+    puts (cat("/etc/passwd") | wc("-l")).to_s
+  }
+

@@ -1,0 +1,10 @@
+kind=defined
+names=codepage
+visibility=public
+
+--- codepage
+
+Returns current codepage.
+
+   WIN32OLE.codepage   # => WIN32OLE::CP_ACP
+

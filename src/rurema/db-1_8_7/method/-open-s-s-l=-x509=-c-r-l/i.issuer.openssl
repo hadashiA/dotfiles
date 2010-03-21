@@ -1,0 +1,9 @@
+kind=defined
+names=issuer,issuer=
+visibility=public
+
+--- issuer
+--- issuer=(issuer)
+
+CRL の発行者。
+

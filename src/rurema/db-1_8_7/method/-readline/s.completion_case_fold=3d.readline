@@ -1,0 +1,14 @@
+kind=defined
+names=completion_case_fold=
+visibility=public
+
+--- completion_case_fold=(bool)
+
+ユーザの入力を補完する際、大文字と小文字を同一視する／しないを指定します。
+bool が真ならば同一視します。bool が偽ならば同一視しません。
+セーフレベル ($SAFE) が 4 の場合、例外 SecurityError を発生します。
+
+@param bool 大文字と小文字を同一視する(true)／しない(false)を指定します。
+
+@see [[m:Readline.completion_case_fold]]
+

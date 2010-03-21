@@ -1,0 +1,10 @@
+kind=defined
+names=unescape
+visibility=public
+
+--- unescape(str) -> String
+
+URI 文字列をデコードした文字列を返します。
+
+@see [[m:URI.#unescape]]
+

@@ -1,0 +1,8 @@
+kind=defined
+names=count_waiters
+visibility=public
+
+--- count_waiters
+
+待っているスレッドの数を返します。
+

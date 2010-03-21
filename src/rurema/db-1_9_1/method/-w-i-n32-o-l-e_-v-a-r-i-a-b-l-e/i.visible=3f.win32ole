@@ -1,0 +1,21 @@
+kind=defined
+names=visible?
+visibility=public
+
+--- visible?
+
+Returns true if the variable is public.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'XlSheetType')
+   variables = tobj.variables
+   variables.each do |variable|
+     puts "#{variable.name} #{variable.visible?}"
+   end
+
+   The result of above script is following:
+     xlChart true
+     xlDialogSheet true
+     xlExcel4IntlMacroSheet true
+     xlExcel4MacroSheet true
+     xlWorksheet true
+

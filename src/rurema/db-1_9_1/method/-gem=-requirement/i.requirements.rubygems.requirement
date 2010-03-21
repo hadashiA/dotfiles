@@ -1,0 +1,10 @@
+kind=defined
+names=requirements
+visibility=public 
+
+--- requirements -> Array
+自身に含まれる必要条件の配列を返します。
+
+配列に含まれる各要素は、比較演算子と [[c:Gem::Version]] のインスタンスを要素とする二要素の配列です。
+
+

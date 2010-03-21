@@ -1,0 +1,10 @@
+kind=added
+names=enable_config
+visibility=private 
+
+--- enable_config(config[, default])
+
+[[m:Kernel#arg_config]] と同じですが、
+--enable-config オプション、
+または--disable-config オプションの値だけを参照します。
+

@@ -1,0 +1,11 @@
+kind=defined
+names=value
+visibility=public
+
+--- value -> Object
+
+Returns Ruby object value from OLE variant.
+
+   obj = WIN32OLE_VARIANT.new(1, WIN32OLE::VARIANT::VT_BSTR)
+   obj.value # => "1" (not Fixnum object, but String object "1")
+

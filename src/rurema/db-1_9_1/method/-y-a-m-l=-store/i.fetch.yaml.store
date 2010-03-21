@@ -1,0 +1,36 @@
+kind=defined
+names=fetch
+visibility=public
+
+--- fetch(name, default = PStore::Error) -> object
+
+ルートnameに対応する値を得る。
+
+該当するルートが登録されていない時には、
+引数 default が与えられていればその値を返し、
+与えられていなければ例外 [[c:PStore::Error]] が発生します。 
+
+@param name 探索するルートを文字列で指定します。
+@param default name に対応するルートが登録されていない場合に返す値を指定します。
+
+@raise PStore::Error name に対応するルートが登録されていないかつ、
+                     default が与えられていない場合に発生します。
+                     また、トランザクション外でこのメソッドが呼び出された場合に発生します。 
+
+  require 'yaml/store'
+
+  db = YAML::Store.new('/tmp/store.yaml')
+  db.transaction {
+    db["hoge"] = [ 1, 2, 3, 4]
+  }
+
+  db.transaction {
+    p db.fetch("hoge") #=> [1, 2, 3, 4]
+    begin
+      p db.fetch("fuga")
+    rescue PStore::Error
+      puts "name に対応するルートが登録されていなく、さらに、 default が与えられていません。"
+    end
+    p db.fetch("fuga", "ugougo") #=> "ugougo"
+  }
+

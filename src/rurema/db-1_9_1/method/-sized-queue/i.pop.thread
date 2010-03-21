@@ -1,0 +1,9 @@
+kind=defined
+names=pop
+visibility=public
+
+--- pop
+queue からひとつ値を取り出します。
+queue に push しようと待っているスレッドがあれば、実行を再開させます。
+
+あとは [[m:Queue#pop]] と同じです。

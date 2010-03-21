@@ -1,0 +1,8 @@
+kind=defined
+names=short_display
+visibility=public
+
+--- short_display
+
+Returns a brief version of the error description.
+

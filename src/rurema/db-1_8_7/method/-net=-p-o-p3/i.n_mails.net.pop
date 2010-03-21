@@ -1,0 +1,8 @@
+kind=defined
+names=n_mails
+visibility=public
+
+--- n_mails
+
+サーバにあるメールの数を返します。
+

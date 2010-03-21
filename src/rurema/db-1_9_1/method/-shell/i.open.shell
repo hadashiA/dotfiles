@@ -1,0 +1,14 @@
+kind=defined
+names=open
+visibility=public
+
+--- open(path, mode) -> object
+
+pathがファイルなら, File#open
+pathがディレクトリなら, Dir#open
+の動作をします。
+
+@param path くわしくは、[[m:File.open]], [[m:Dir.open]]を参照してください。
+
+@param mode くわしくは、[[m:File.open]], [[m:Dir.open]]を参照してください。
+

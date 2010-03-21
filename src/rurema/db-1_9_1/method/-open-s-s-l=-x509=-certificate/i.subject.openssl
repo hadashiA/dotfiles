@@ -1,0 +1,10 @@
+kind=defined
+names=subject,subject=
+visibility=public
+
+--- subject
+--- subject=(name)
+
+証明書の所有者の名前 [[c:OpenSSL::X509::Name]] オブジェクトです。
+http://www.ipa.go.jp/security/pki/033.html#_Toc3020767
+

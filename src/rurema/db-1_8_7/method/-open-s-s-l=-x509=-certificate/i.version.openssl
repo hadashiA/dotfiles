@@ -1,0 +1,9 @@
+kind=defined
+names=version,version=
+visibility=public
+
+--- version
+--- version=(version)
+
+X509 証明書の version です。 v1の場合は 0 、v3 の場合は 2 となります。
+

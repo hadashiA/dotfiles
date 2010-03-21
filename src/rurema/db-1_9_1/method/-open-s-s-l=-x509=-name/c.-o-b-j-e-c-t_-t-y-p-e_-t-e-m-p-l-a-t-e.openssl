@@ -1,0 +1,11 @@
+kind=defined
+names=OBJECT_TYPE_TEMPLATE
+visibility=public
+
+--- OBJECT_TYPE_TEMPLATE
+
+エントリーのタイプを収納したハッシュです。エントリーをキーとして、値にタイプが収納されています。キーは次の文字列、
+
+  'C', 'countryName', 'serialNumber', 'dnQualifier',
+  'DC', 'domainComponent', 'emailAddress'
+

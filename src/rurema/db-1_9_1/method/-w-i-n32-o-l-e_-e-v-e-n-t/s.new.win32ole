@@ -1,0 +1,12 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(ole, event) -> WIN32OLE_EVENT
+
+Returns OLE event object. The first argument specifies WIN32OLE
+object. The second argument specifies OLE event name.
+
+   ie = WIN32OLE.new('InternetExplorer.Application')
+   ev = WIN32OLE_EVENT.new(ie, 'DWebBrowserEvents')
+

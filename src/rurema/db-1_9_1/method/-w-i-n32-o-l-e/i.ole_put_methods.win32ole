@@ -1,0 +1,12 @@
+kind=defined
+names=ole_put_methods
+visibility=public
+
+--- ole_put_methods
+
+Returns the array of WIN32OLE_METHOD object . The element of
+the array is property (settable) of WIN32OLE object.
+
+   excel = WIN32OLE.new('Excel.Application')
+   properties = excel.ole_put_methods
+

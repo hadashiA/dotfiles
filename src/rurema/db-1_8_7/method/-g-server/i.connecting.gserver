@@ -1,0 +1,10 @@
+kind=defined
+names=connecting
+visibility=public
+
+--- connecting(client)
+
+audit が true に設定されているなら、クライアント接続時に呼ばれます。
+client はクライアントと接続している [[c:TCPSocket]] です。
+サブクラスでオーバーライドします。
+

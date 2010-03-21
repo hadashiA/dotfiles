@@ -1,0 +1,8 @@
+kind=defined
+names=close
+visibility=public
+
+--- close
+
+接続を閉じます。
+

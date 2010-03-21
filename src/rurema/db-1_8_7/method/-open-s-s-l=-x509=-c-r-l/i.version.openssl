@@ -1,0 +1,9 @@
+kind=defined
+names=version,version=
+visibility=public
+
+--- version
+--- version=(version)
+
+CRL のバージョン。
+

@@ -1,0 +1,9 @@
+kind=defined
+names=extensions,extensions=
+visibility=public
+
+--- extensions
+--- extensions=(extensions)
+
+拡張領域です。[[c:OpenSSL::X509::Extension]] の配列です。
+

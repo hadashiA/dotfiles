@@ -1,0 +1,6 @@
+kind=added
+names=waitfor
+visibility=public
+
+--- waitfor(options)
+

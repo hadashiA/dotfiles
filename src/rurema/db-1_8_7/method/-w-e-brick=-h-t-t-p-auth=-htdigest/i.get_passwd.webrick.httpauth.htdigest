@@ -1,0 +1,8 @@
+kind=defined
+names=get_passwd
+visibility=public
+
+--- get_passwd(realm, user, reload_db)
+realm からユーザのパスワードの MD5 ハッシュ値を取得し文字列として返す。
+reload_db が true の場合、reload を呼んでからハッシュ値を返す。
+

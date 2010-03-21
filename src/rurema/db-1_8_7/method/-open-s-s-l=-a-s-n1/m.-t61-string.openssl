@@ -1,0 +1,6 @@
+kind=defined
+names=T61String
+visibility=public
+
+--- T61String(value ... )
+

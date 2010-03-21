@@ -1,0 +1,9 @@
+kind=defined
+names=ca_path,ca_path=
+visibility=public
+
+--- ca_path
+--- ca_path=(ca)
+
+接続相手の証明書の検証のために使う、信頼している CA 証明書ファイルを含むディレクトリです。
+

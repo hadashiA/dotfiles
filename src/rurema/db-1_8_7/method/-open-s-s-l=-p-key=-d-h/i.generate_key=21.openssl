@@ -1,0 +1,8 @@
+kind=defined
+names=generate_key!
+visibility=public
+
+--- generate_key!
+
+新たに公開鍵と秘密鍵を生成し直します。
+

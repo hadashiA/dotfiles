@@ -1,0 +1,8 @@
+kind=defined
+names=verify
+visibility=public
+
+--- verify
+
+will be altered by #ssl_context.
+

@@ -1,0 +1,9 @@
+kind=defined
+names=verify_mode,verify_mode=
+visibility=public
+
+--- verify_mode
+--- verify_mode=(mode)
+
+検証モードです。デフォルトは nil、つまり検証しません。定数の項を参照してください。定数 VERIFY_* のビットマスクで指定します。
+

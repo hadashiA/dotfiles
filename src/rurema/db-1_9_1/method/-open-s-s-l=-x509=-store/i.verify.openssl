@@ -1,0 +1,8 @@
+kind=defined
+names=verify
+visibility=public
+
+--- verify(cert, chain = nil)
+
+証明書 cert をストレージに存在する CA 証明書で検証します。
+

@@ -1,0 +1,11 @@
+kind=defined
+names=assert_fail
+visibility=public
+
+--- assert_fail(message)
+
+このアサーションは常に失敗します。
+message はアサート失敗時のエラーメッセージです。
+
+このアサーションは、テストをまだ書いていない場合に、
+それを明示するために使われます。

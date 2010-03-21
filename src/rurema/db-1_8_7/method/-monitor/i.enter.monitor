@@ -1,0 +1,10 @@
+kind=defined
+names=enter,mon_enter
+visibility=public
+
+--- mon_enter
+--- enter
+
+モニターをロックします。[[m:MonitorMixin#mon_enter]] を
+参照して下さい。
+

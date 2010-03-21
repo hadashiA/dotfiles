@@ -1,0 +1,12 @@
+kind=defined
+names=hypot
+visibility=public
+
+--- hypot(x, y) -> Float
+
+sqrt(x*x + y*y) を返します。
+
+@param x 実数
+@param y 実数
+
+

@@ -1,0 +1,11 @@
+kind=defined
+names=safe_unlink
+visibility=public
+
+--- safe_unlink(*filenames) -> Array
+FileToolsクラスにある同名のクラスメソッドと同じです.
+
+@param filenames 削除するファイルを指定します。
+
+@see [[m:File.safe_unlink]]
+

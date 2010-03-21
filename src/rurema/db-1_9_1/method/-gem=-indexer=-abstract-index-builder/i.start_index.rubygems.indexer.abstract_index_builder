@@ -1,0 +1,9 @@
+kind=defined
+names=start_index
+visibility=public 
+
+--- start_index
+
+[[m:Gem::Indexer::AbstractIndexBuilder#build]] 内でブロックが実行される前に呼び出されます。
+インデックスファイルは有効で、@file も参照可能です。
+

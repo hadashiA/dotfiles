@@ -1,0 +1,22 @@
+kind=defined
+names=[]
+visibility=public
+
+--- [](i,j,...) -> WIN32OLE_VARIANT
+
+Returns the element of WIN32OLE_VARIANT object (OLE array).  This
+method is available only when the variant type of WIN32OLE_VARIANT
+object is VT_ARRAY.
+
+REMARK:
+
+   The all indicies should be 0 or natural number and
+   lower than or equal to max indicies.
+   (This point is different with Ruby Array indicies.)
+
+   obj = WIN32OLE_VARIANT.new([[1,2,3],[4,5,6]])
+   p obj[0,0] # => 1
+   p obj[1,0] # => 4
+   p obj[2,0] # => WIN32OLERuntimeError
+   p obj[0, -1] # => WIN32OLERuntimeError
+

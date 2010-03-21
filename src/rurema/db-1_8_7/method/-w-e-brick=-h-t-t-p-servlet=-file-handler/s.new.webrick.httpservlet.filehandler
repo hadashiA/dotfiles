@@ -1,0 +1,12 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(server, root, options={}, default=Config::FileHandler)
+FileHandler サーブレットを生成する。root はサーブレットにルートディレクトリ
+として認識させる、ローカルのファイルシステムのディレクトリを文字列で与える。
+
+configは設定を保存したハッシュ、
+defaultにはデフォルトの設定を保存したハッシュを与える。
+デフォルト値はそれぞれ{}と[[m:WEBrick::Config::FileHandler]]。
+

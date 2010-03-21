@@ -1,0 +1,8 @@
+kind=defined
+names=new
+visibility=public
+
+--- new([issuer_cert [, subject_cert [, subject_req [, crl]]]])
+
+ExtensionFactory オブジェクトを生成します。
+

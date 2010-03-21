@@ -1,0 +1,12 @@
+kind=defined
+names=return_vtype
+visibility=public
+
+--- return_vtype
+
+Returns number of return value type of method.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Workbooks')
+   method = WIN32OLE_METHOD.new(tobj, 'Add')
+   puts method.return_vtype # => 26
+

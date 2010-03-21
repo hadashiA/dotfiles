@@ -1,0 +1,25 @@
+kind=defined
+names=traverse
+visibility=public
+
+--- traverse(der) {|depth, off, hlen, len, constructed, tag_class, tag| ...}
+
+der に含まれる全てのオブジェクトを再帰的に解析して、
+そのプロパティを引数として与えられたブロックを評価します。
+
+  * depth は再帰の深さ
+   * off は対象の ASN.1 オブジェクトの開始の
+     der の始めからのオフセット
+   * hlen は ASN.1 オブジェクトのヘッダの長さ
+   * len は ASN.1 オブジェクトの値フィールドの長さ
+   * constructed は対象の ASN.1 オブジェクトが Constructive なら真
+   * tag_class はタグクラスを表す [[c:Symbol]] オブジェクト
+     (:UNIVERSAL, :CONTEXT_SPECIFIC, :APPLICATION)
+   * tag はタグ番号
+
+ASN1.decode_all と同じように der に含まれる全ての ASN.1 オブジェクトを
+再帰的に解析します。
+
+以下のようなモジュール関数も定義されています。メソッドと同じ名前のクラスの
+コンストラクター new と同じです。
+

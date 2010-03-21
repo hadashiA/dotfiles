@@ -1,0 +1,12 @@
+kind=defined
+names=new!
+visibility=public
+
+--- new!(num, den = 1)
+
+Implements the constructor. This method does not reduce to lowest
+terms or check for division by zero. Therefore #Rational() should
+be preferred in normal use.
+
+  puts Rational.new!(6,10) #=> 6/10
+

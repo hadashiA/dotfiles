@@ -1,0 +1,8 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(obj)
+
+obj への weak reference を生成します。
+

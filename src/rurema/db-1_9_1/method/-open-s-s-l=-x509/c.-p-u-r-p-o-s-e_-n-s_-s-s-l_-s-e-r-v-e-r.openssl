@@ -1,0 +1,8 @@
+kind=defined
+names=PURPOSE_NS_SSL_SERVER
+visibility=public
+
+--- PURPOSE_NS_SSL_SERVER
+
+Netscape SSL server の証明書として使えるか。
+

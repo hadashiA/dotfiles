@@ -1,0 +1,11 @@
+kind=defined
+names=guid
+visibility=public
+
+--- guid -> GUID
+
+Returns GUID.
+
+  tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Application')
+  puts tobj.guid  # => {00024500-0000-0000-C000-000000000046}
+

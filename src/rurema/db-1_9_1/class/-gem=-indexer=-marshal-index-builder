@@ -1,0 +1,7 @@
+superclass=Gem=Indexer=MasterIndexBuilder
+type=class
+library=rubygems.indexer.marshal_index_builder
+extended=
+included=
+
+[[c:Marshal]] 形式のインデックスを作成するためのクラスです。

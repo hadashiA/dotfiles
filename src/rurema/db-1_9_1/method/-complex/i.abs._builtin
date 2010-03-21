@@ -1,0 +1,9 @@
+kind=defined
+names=abs
+visibility=public
+
+--- abs
+
+Absolute value (aka modulus): distance from the zero point on
+the complex plane.
+

@@ -1,0 +1,11 @@
+kind=defined
+names=ciphers,ciphers=
+visibility=public
+
+--- ciphers
+--- ciphers=(ciphers)
+
+使用可能な暗号の配列です。以下のような形式です。
+
+  [["EDH-RSA-DES-CBC3-SHA", "TLSv1/SSLv3", 168, 168], ...]
+

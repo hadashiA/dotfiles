@@ -1,0 +1,9 @@
+kind=defined
+names=to_s
+visibility=public
+
+--- to_s
+
+文字列に変換します。
+
+  Rational(-3,4).to_s # => "-3/4"

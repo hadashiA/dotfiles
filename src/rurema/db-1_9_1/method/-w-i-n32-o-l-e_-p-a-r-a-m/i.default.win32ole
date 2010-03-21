@@ -1,0 +1,32 @@
+kind=defined
+names=default
+visibility=public
+
+--- default
+
+Returns default value. If the default value does not exist, this
+method returns nil.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Workbook')
+   method = WIN32OLE_METHOD.new(tobj, 'SaveAs')
+   method.params.each do |param|
+     if param.default
+       puts "#{param.name} (= #{param.default})"
+     else
+       puts "#{param}"
+     end
+   end
+
+   The above script result is following:
+       Filename
+       FileFormat
+       Password
+       WriteResPassword
+       ReadOnlyRecommended
+       CreateBackup
+       AccessMode (= 1)
+       ConflictResolution
+       AddToMru
+       TextCodepage
+       TextVisualLayout
+

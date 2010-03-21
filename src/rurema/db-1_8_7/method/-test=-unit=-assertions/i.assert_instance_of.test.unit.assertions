@@ -1,0 +1,13 @@
+kind=defined
+names=assert_instance_of
+visibility=public
+
+--- assert_instance_of(klass, object, message="")    -> ()
+
+object が klass の直接のインスタンスであるなら、パスします。
+[[m:Object#instance_of?]]も参照して下さい。
+
+[[m:Test::Unit::Assertions#assert_kind_of]] との違いに注意して下さい。
+
+@raise Test::Unit::AssertionFailedError assert が失敗した時に発生します。
+

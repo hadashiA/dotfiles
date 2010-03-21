@@ -1,0 +1,11 @@
+kind=defined
+names=deleted?
+visibility=public
+
+--- deleted?
+
+メールがサーバ上で消去されていたら true を返します。
+
+いったんメールを消去したら
+[[m:Net::POP3#reset]] を使う以外に復活する方法はありません。
+

@@ -1,0 +1,8 @@
+kind=defined
+names=hash
+visibility=public
+
+--- hash
+
+Returns a hash code for the complex number.
+

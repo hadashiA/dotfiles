@@ -1,0 +1,8 @@
+kind=defined
+names=capitalize
+visibility=public
+
+--- capitalize -> Symbol
+
+@see [[m:String#capitalize]]
+

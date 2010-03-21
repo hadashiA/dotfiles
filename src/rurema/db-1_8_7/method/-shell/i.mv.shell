@@ -1,0 +1,8 @@
+kind=defined
+names=mv
+visibility=public
+
+--- mv
+
+[[m:Shell#move]] と同じです。
+

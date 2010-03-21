@@ -1,0 +1,10 @@
+kind=defined
+names=add
+visibility=public 
+
+--- add(spec)
+
+自身が持つインデックスに与えられた [[c:Gem::Specification]] のインスタンスを追加します。
+
+@param spec インデックスに追加する [[c:Gem::Specification]] のインスタンスを指定します。
+

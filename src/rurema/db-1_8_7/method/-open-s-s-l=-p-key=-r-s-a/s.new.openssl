@@ -1,0 +1,14 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(size, exponent = 65537)
+
+RSA 暗号鍵オブジェクトを生成します。RSA.generate(size, exponent) と同じです。
+
+--- new(str, pass = nil)
+--- new(io, pass = nil)
+--- new
+
+RSA 暗号鍵オブジェクトを生成します。pass が指定された場合は、秘密鍵を pass を使って復号化します。
+

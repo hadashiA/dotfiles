@@ -1,0 +1,9 @@
+kind=defined
+names=io,to_io
+visibility=public
+
+--- io
+--- to_io
+
+SSLSocket オブジェクトを生成する時に渡されたソケットを返します。
+

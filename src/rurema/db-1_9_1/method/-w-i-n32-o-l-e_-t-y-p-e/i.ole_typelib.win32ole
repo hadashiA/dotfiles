@@ -1,0 +1,12 @@
+kind=defined
+names=ole_typelib
+visibility=public
+
+--- ole_typelib
+
+Returns the WIN32OLE_TYPELIB object which is including the WIN32OLE_TYPE
+object. If it is not found, then returns nil.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Worksheet')
+   puts tobj.ole_typelib # => 'Microsoft Excel 9.0 Object Library'
+

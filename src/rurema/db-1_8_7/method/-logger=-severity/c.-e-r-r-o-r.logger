@@ -1,0 +1,7 @@
+kind=defined
+names=ERROR
+visibility=public
+
+--- ERROR -> Integer
+重要度:エラーを表す定数です。
+

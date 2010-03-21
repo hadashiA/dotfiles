@@ -1,0 +1,10 @@
+kind=defined
+names=assert_instance_of
+visibility=public
+
+--- assert_instance_of(c, obj[, message])
+
+c.instance_of?(c) が真であると表明します。
+
+message はアサート失敗時のエラーメッセージです。
+

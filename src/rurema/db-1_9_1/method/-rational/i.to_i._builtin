@@ -1,0 +1,9 @@
+kind=defined
+names=to_i,truncate
+visibility=public 
+
+--- to_i
+--- truncate
+
+Alias for #truncate
+

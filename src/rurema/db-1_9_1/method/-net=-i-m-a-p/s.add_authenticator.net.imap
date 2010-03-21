@@ -1,0 +1,8 @@
+kind=defined
+names=add_authenticator
+visibility=public
+
+--- add_authenticator(auth_type, authenticator)
+
+Adds an authenticator for Net::IMAP#authenticate.
+

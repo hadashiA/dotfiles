@@ -1,0 +1,8 @@
+kind=defined
+names=do_not_reverse_lookup=
+visibility=public
+
+--- do_not_reverse_lookup=(bool)
+
+[[m:BasicSocket#do_not_reverse_lookup]] と同様です。
+

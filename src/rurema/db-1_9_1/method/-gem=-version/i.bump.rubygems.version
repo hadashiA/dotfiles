@@ -1,0 +1,13 @@
+kind=defined
+names=bump
+visibility=public 
+
+--- bump -> Gem::Version
+
+自身の次のバージョンを表すオブジェクトを返します。
+
+例:
+  # 5.3.1 => 5.4
+  a = Gem::Version.create('5.3.1') # => #<Gem::Version "5.3.1">
+  a.bump                           # => #<Gem::Version "5.4">
+  

@@ -1,0 +1,18 @@
+kind=defined
+names=delete_all
+visibility=public
+
+--- delete_all(address, port = 110, account, password)
+--- delete_all(address, port = 110, account, password) {|mail| .... }
+
+POP セッションを開き、サーバ上のメールをすべて削除します。
+ブロックが与えられた時は削除する前にブロックにそのメールを渡します。
+
+使用例:
+
+  require 'net/pop'
+
+  Net::POP3.delete_all(addr, nil, 'YourAccount', 'YourPassword') do |m|
+    puts m.pop
+  end
+

@@ -1,0 +1,17 @@
+kind=added
+names=Rational
+visibility=private 
+
+--- Rational(a, b)
+[[c:Rational]] オブジェクトを生成する。
+
+Creates a Rational number (i.e. a fraction).  +a+ and +b+ should be Integers:
+ 
+  Rational(1,3)           # -> 1/3
+
+Note: trying to construct a Rational with floating point or real values
+produces errors:
+
+  Rational(1.1, 2.3)      # -> NoMethodError
+
+

@@ -1,0 +1,13 @@
+kind=defined
+names=on_event
+visibility=public
+
+--- on_event([event]){...}
+
+Defines the callback event. If argument is omitted, this method
+defines the callback of all events.
+
+  ie = WIN32OLE.new('InternetExplorer.Application')
+  ev = WIN32OLE_EVENT.new(ie, 'DWebBrowserEvents')
+  ev.on_event("NavigateComplete") {|url| puts url}
+

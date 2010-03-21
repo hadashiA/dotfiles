@@ -1,0 +1,9 @@
+kind=defined
+names=angle,arg
+visibility=public
+
+--- angle
+--- arg
+
+Argument (angle from (1,0) on the complex plane).
+

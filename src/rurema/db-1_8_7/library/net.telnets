@@ -1,0 +1,7 @@
+methods=Net=Telnet/i.ssl.net.telnets,Net=Telnet/i.ssl=3f.net.telnets,Net=Telnet/i.preprocess.net.telnets,Net=Telnet/i.waitfor.net.telnets
+sublibraries=
+requires=
+classes=
+is_sublibrary=false
+
+net/telnet に SSL 拡張を実装するライブラリです。

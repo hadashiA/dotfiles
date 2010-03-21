@@ -1,0 +1,8 @@
+kind=added
+names=srcdir
+visibility=private 
+
+--- $srcdir
+
+Ruby インタプリタを make したときのソースディレクトリです。
+

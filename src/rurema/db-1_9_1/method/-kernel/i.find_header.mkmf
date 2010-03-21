@@ -1,0 +1,11 @@
+kind=added
+names=find_header
+visibility=private 
+
+--- find_header(header, *paths)
+Instructs mkmf to search for the given +header+ in any of the +paths+
+provided, and returns whether or not it was found in those paths.
+
+If the header is found then the path it was found on is added to the list
+of included directories that are sent to the compiler (via the -I switch).
+

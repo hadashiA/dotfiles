@@ -1,0 +1,5 @@
+kind=defined
+names=get_passwd
+visibility=public
+
+--- get_passwd(realm, user, reload_db = false)

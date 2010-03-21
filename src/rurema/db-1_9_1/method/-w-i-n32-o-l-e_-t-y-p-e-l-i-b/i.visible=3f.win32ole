@@ -1,0 +1,15 @@
+kind=defined
+names=visible?
+visibility=public
+
+--- visible? 
+
+Returns true if the type library information is not hidden. If
+wLibFlags of TLIBATTR is 0 or LIBFLAG_FRESTRICTED or LIBFLAG_FHIDDEN,
+the method returns false, otherwise, returns true. If the method
+fails to access the TLIBATTR information, then WIN32OLERuntimeError
+is raised.
+
+   tlib = WIN32OLE_TYPELIB.new('Microsoft Excel 9.0 Object Library')
+   tlib.visible? # => true
+

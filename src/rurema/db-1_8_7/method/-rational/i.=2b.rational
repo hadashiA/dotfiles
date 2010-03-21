@@ -1,0 +1,12 @@
+kind=defined
+names=+
+visibility=public
+
+--- +(other)
+
+和を計算します。
+
+  Rational(3, 4) + 2               # => Rational(11, 4)
+  Rational(3, 4) + Rational(2, 1)  # => Rational(11, 4)
+  Rational(3, 4) + 2.0             # => 2.75
+

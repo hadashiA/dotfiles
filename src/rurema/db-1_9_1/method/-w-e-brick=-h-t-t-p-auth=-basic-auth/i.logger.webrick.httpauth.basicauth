@@ -1,0 +1,7 @@
+kind=defined
+names=logger
+visibility=public
+
+--- logger
+ロガーオブジェクトを返します。
+

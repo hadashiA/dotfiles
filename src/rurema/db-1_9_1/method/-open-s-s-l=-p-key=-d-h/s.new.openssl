@@ -1,0 +1,14 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(size, generator = 2)
+
+DH.generate(size, generator) と同じです。
+
+--- new(str)
+--- new(io)
+--- new()
+
+DH オブジェクトを生成します。
+

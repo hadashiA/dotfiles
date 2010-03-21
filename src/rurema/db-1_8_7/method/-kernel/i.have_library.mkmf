@@ -1,0 +1,17 @@
+kind=added
+names=have_library
+visibility=private 
+
+--- have_library(lib[, func])
+
+ライブラリ lib がシステムに存在し、
+関数 func が定義されているかどうかをチェックします。
+チェックが成功すれば [[m:$libs]] に lib を追加し true を返します。
+チェックが失敗したら false を返します。
+
+第 2 引数 func を省略した場合、関数の存在までは検査せず、
+ライブラリが存在するかどうかだけをチェックします。
+
+第 2 引数 func が nil または空文字列 ("") のときは、
+何も検査をせず、無条件で lib を追加します。
+

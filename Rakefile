@@ -38,7 +38,7 @@ def skip?(file)
 end
 
 def dotfile?(file)
-  !%w(bin opt).include?(file)
+  !%w(bin opt src).include?(file)
 end
 
 def replace_file(path)

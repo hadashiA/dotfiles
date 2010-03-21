@@ -1,0 +1,10 @@
+kind=added
+names=cert_store,cert_store=
+visibility=public
+
+--- cert_store
+--- cert_store=(store)
+
+サーバ証明書の検証のために使う信頼している CA 証明書のストレージ
+[[c:OpenSSL::X509::Store]] オブジェクトを設定します。
+通常は ca_path=(path) や ca_file=(path) を使います。

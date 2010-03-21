@@ -1,0 +1,12 @@
+kind=defined
+names=level=
+visibility=public
+
+--- level=(level)
+
+ログの重要度をセットします。
+
+@param level ログの重要度。
+
+@see [[c:Logger::Severity]]
+

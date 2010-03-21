@@ -1,0 +1,8 @@
+kind=defined
+names=add_entry
+visibility=public
+
+--- add_entry(oid, value, type = nil)
+
+エントリー oid に value を設定します。type を指定することも出来ます。type を指定しない場合は oid より自動的に判別します。
+

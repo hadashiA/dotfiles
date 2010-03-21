@@ -1,0 +1,12 @@
+kind=defined
+names=name
+visibility=public
+
+--- name -> The type library name
+alias to_s
+
+Returns the type library name.
+
+   tlib = WIN32OLE_TYPELIB.new('Microsoft Excel 9.0 Object Library')
+   name = tlib.name # -> 'Microsoft Excel 9.0 Object Library'
+

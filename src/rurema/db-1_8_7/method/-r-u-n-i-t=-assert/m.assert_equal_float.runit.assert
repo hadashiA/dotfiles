@@ -1,0 +1,12 @@
+kind=defined
+names=assert_equal_float
+visibility=public
+
+--- assert_equal_float(expected, actual, e[, message])
+
+浮動小数点数 actual と expected が等しいことを表明します。
+このとき、expected-e <= actual <= expected+e
+であれば「等しい」と判定されます。
+
+message はアサート失敗時のエラーメッセージです。
+

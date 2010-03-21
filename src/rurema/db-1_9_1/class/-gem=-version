@@ -1,0 +1,7 @@
+superclass=Object
+type=class
+library=rubygems.version
+extended=
+included=Comparable
+
+Gem パッケージのバージョンを扱うためのクラスです。

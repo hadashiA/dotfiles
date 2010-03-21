@@ -1,0 +1,8 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(svr, ctx)
+
+svr には [[c:TCPServer]] オブジェクトを、ctx には [[c:OpenSSL::SSL::SSLContext]] オブジェクトを取ります。
+

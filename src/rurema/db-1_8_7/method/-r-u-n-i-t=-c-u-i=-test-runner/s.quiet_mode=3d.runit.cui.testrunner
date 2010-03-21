@@ -1,0 +1,6 @@
+kind=defined
+names=quiet_mode=
+visibility=public
+
+--- quiet_mode=(bool)
+

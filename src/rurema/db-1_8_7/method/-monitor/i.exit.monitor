@@ -1,0 +1,10 @@
+kind=defined
+names=exit,mon_exit
+visibility=public
+
+--- mon_exit
+--- exit
+
+モニターを解放します。[[m:MonitorMixin#mon_exit]] を
+参照して下さい。
+

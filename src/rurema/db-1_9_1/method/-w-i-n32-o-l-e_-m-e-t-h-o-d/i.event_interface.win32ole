@@ -1,0 +1,12 @@
+kind=defined
+names=event_interface
+visibility=public
+
+--- event_interface
+
+Returns event interface name if the method is event.
+
+  tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Workbook')
+  method = WIN32OLE_METHOD.new(tobj, 'SheetActivate')
+  puts method.event_interface # =>  WorkbookEvents
+

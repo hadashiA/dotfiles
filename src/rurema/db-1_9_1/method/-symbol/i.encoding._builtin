@@ -1,0 +1,9 @@
+kind=defined
+names=encoding
+visibility=public
+
+--- encoding   -> Encoding
+
+@see [[m:String#encoding]]
+
+

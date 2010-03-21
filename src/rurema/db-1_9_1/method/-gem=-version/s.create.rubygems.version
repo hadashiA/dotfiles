@@ -1,0 +1,10 @@
+kind=defined
+names=create
+visibility=public
+
+--- create(input) -> Gem::Version | nil
+
+このクラスをインスタンス化するためのファクトリメソッドです。
+
+@param input [[c:Gem::Version]] のインスタンスか、バージョンを表す文字列を指定します。
+

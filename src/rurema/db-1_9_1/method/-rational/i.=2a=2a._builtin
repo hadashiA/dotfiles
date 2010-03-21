@@ -1,0 +1,15 @@
+kind=defined
+names=**
+visibility=public 
+
+--- **(other)
+
+Returns this value raised to the given power.
+
+Examples:
+
+  r = Rational(3,4)    # -> Rational(3,4)
+  r ** 2               # -> Rational(9,16)
+  r ** 2.0             # -> 0.5625
+  r ** Rational(1,2)   # -> 0.866025403784439
+

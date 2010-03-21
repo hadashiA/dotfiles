@@ -1,0 +1,17 @@
+kind=defined
+names=each
+visibility=public
+
+--- each {|i|...}
+
+Iterates over each item of OLE collection which has IEnumVARIANT
+interface.
+
+   excel = WIN32OLE.new('Excel.Application')
+   book = excel.workbooks.add
+   sheets = book.worksheets(1)
+   cells = sheets.cells("A1:A5")
+   cells.each do |cell|
+     cell.value = 10
+   end
+

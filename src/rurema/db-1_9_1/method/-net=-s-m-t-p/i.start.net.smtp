@@ -1,0 +1,16 @@
+kind=defined
+names=start
+visibility=public
+
+--- start(helo_domain = <local host name>, account = nil, password = nil, authtype = nil)
+--- start(helo_domain = <local host name>, account = nil, password = nil, authtype = nil) {|smtp| .... }
+
+TCP コネクションを張り、同時に SMTP セッションを開始します。
+そのとき、こちらのホストの FQDN を helo_domain に指定します。
+もしすでにセッションが開始していたら IOError を発生します。
+
+account と password の両方が与えられた場合、
+SMTP AUTH コマンドによって認証を行います。
+authtype は使用する認証のタイプで、
+シンボルで :plain か :cram_md5 を指定します。
+

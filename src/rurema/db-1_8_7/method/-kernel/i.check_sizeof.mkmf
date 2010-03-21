@@ -1,0 +1,15 @@
+kind=added
+names=check_sizeof
+visibility=private 
+
+--- check_sizeof(type, headers = nil, &b)
+Returns the size of the given +type+.  You may optionally specify additional
++headers+ to search in for the +type+.
+
+If found, a macro is passed as a preprocessor constant to the compiler using
+the type name, in uppercase, prepended with 'SIZEOF_', followed by the type
+name, followed by '=X' where 'X' is the actual size.
+
+For example, if check_sizeof('mystruct') returned 12, then the
+SIZEOF_MYSTRUCT=12 preprocessor macro would be passed to the compiler.
+

@@ -1,0 +1,9 @@
+kind=defined
+names=last_update,last_update=
+visibility=public
+
+--- last_update
+--- last_update=(time)
+
+最後に更新された日時。
+

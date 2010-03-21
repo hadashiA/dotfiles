@@ -1,0 +1,10 @@
+kind=added
+names=power!
+visibility=public
+
+--- power!(other)
+
+[[lib:rational]]で再定義される前の[[m:Integer#**]]の別名。
+other が正または 0 の整数 (Integer) ならば、
+整数 (Integer) を、それ以外なら、浮動小数 (Float) を返す。
+

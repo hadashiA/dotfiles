@@ -1,0 +1,8 @@
+kind=defined
+names=certs
+visibility=public
+
+--- certs
+
+will be altered by #ssl_context.
+

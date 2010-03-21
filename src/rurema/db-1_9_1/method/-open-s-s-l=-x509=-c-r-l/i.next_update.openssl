@@ -1,0 +1,9 @@
+kind=defined
+names=next_update,next_update=
+visibility=public
+
+--- next_update
+--- next_update=(time)
+
+次に更新する日時。
+

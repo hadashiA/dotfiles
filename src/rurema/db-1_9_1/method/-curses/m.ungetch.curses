@@ -1,0 +1,8 @@
+kind=defined
+names=ungetch
+visibility=public
+
+--- ungetch(ch)
+
+文字 ch (ASCII コードを示す整数) をストリームに戻します。
+

@@ -1,0 +1,9 @@
+kind=defined
+names=truncate
+visibility=public
+
+--- truncate(length)
+File.truncate(self.to_s, length) と同じです。
+
+@see [[m:File.truncate]]
+

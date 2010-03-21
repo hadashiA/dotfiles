@@ -1,0 +1,7 @@
+superclass=OpenSSL=PKey=PKey
+type=class
+library=openssl
+extended=
+included=
+
+Diffie-Hellman 暗号クラス

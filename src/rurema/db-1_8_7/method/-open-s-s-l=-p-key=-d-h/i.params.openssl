@@ -1,0 +1,8 @@
+kind=defined
+names=params
+visibility=public
+
+--- params
+
+パラメータの入った [[c:Hash]] オブジェクトを返します。
+

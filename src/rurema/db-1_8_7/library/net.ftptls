@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=
+classes=Net=FTPTLS
+is_sublibrary=false
+
+net/ftp に TLS 拡張を実装するライブラリです。

@@ -1,0 +1,11 @@
+kind=defined
+names=nonl
+visibility=public
+
+--- nonl
+
+cooked モードのとき、return キーの入力に対して
+CR (Ctrl-m) を返すようにします。
+
+詳しくは、 man ページの curs_outopts(3X) の nonl 関数を参照ください。
+

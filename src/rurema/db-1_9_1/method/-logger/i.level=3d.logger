@@ -1,0 +1,12 @@
+kind=defined
+names=level=,sev_threshold=
+visibility=public
+
+--- level=(level)
+--- sev_threshold=(level)
+
+Logger オブジェクトの重要度を設定します。重要度がこれより低いメッセージは
+出力されません。
+
+@param level 重要度を指定します。
+

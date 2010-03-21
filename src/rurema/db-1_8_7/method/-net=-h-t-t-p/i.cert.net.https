@@ -1,0 +1,10 @@
+kind=added
+names=cert,cert=
+visibility=public
+
+--- cert
+--- cert=(certificate)
+
+クライアント証明書として
+[[c:OpenSSL::X509::Certificate]] オブジェクトを設定します。
+

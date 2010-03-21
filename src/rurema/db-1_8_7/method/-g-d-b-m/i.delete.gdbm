@@ -1,0 +1,12 @@
+kind=defined
+names=delete
+visibility=public
+
+--- delete(key) -> nil
+--- delete(key) {|key| ... } -> ()
+
+key をキーとする項目を削除します。
+
+指定したキーが存在しなければ nil を返します。
+このときブロックを指定していれば、ブロックを評価します。
+

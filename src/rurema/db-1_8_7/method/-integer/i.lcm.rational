@@ -1,0 +1,12 @@
+kind=added
+names=lcm
+visibility=public
+
+--- lcm(n)
+
+self と n の最小公倍数を返す。
+self や n が負の場合は、正に変換してから計算する。
+
+   6.lcm 7        # -> 42
+   6.lcm 9        # -> 18
+

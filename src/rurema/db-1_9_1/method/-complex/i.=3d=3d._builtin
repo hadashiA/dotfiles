@@ -1,0 +1,8 @@
+kind=defined
+names===
+visibility=public
+
+--- ==(other)
+
+Test for numerical equality (a == a + 0i).
+

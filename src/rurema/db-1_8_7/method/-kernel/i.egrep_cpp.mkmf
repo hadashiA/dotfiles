@@ -1,0 +1,21 @@
+kind=added
+names=egrep_cpp
+visibility=private 
+
+--- egrep_cpp(pat, src[, opt])
+
+C プログラムのソースコード src をプリプロセスし、
+その結果が正規表現 pat にマッチするかどうかを判定します。
+
+  CPP $CFLAGS opt | egrep pat
+
+を実行し、その結果が正常かどうかを true または false で返します。
+
+第 1 引数 pat には「egrep の」正規表現を文字列で指定します。
+Ruby の正規表現ではありません。
+
+第 2 引数 src には C 言語のソースコードを文字列で記述します。
+
+このメソッドはヘッダファイルに関数などの宣言があるかどうか
+検査するために使用します。
+

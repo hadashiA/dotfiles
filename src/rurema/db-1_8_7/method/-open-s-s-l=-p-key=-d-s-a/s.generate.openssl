@@ -1,0 +1,15 @@
+kind=defined
+names=generate,new
+visibility=public
+
+--- generate(size)
+--- new(size)
+
+DSA オブジェクトを生成します。size は鍵長です。
+
+--- new
+--- new(str)
+--- new(io)
+
+DSA オブジェクトを生成します。
+

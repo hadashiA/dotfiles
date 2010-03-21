@@ -1,0 +1,8 @@
+kind=defined
+names=starttls
+visibility=public
+
+--- starttls
+
+Dispatch STARTTLS command (use SMTP/TLS).
+

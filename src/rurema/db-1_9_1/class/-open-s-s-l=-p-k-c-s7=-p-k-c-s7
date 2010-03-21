@@ -1,0 +1,13 @@
+superclass=Object
+type=class
+library=openssl
+extended=
+included=
+
+=== 注意
+
+[[c:OpenSSL::PKCS7]] も参照してください。read_smime, write_smime, sign そして encrypt は [[c:OpenSSL::PKCS7]] モジュールのモジュールメソッドとして定義されています。
+
+PKCS #7 は暗号技術とともに用いられるデータのフォーマットの仕様です。
+データやそれに対する署名、証明した日時など任意の属性を含むことができ、S/MIME などに使用されています。
+[[rfc:2315]]

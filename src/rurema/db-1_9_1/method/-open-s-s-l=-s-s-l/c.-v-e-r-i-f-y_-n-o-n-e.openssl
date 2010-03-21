@@ -1,0 +1,12 @@
+kind=defined
+names=VERIFY_NONE
+visibility=public
+
+--- VERIFY_NONE
+
+[[m:OpenSSL::SSL::SSLContext#verify_mode=]] に指定できるもの。サーバーモードであるかクライアントモードであるかによって意味がことなります。
+
+サーバーモード: クライアントに証明書を要求しません。
+
+クライアントモード: anonymous cipher を用いない場合にサーバーは証明書を送ってきます。TLS/SSL ハンドシェイクの結果は SSL_get_verify_result を使ってチェックできます。証明書の検証の結果によらずハンドシェイクは継続します。
+

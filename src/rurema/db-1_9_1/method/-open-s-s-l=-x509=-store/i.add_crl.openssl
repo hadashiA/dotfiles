@@ -1,0 +1,8 @@
+kind=defined
+names=add_crl
+visibility=public
+
+--- add_crl(crl)
+
+信頼する CRL(証明書失効リスト) [[c:OpenSSL::X509::CRL]] オブジェクトをストレージに加えます。
+

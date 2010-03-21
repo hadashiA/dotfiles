@@ -1,0 +1,11 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(gem_dir, port, daemon) -> Gem::Server
+@param gem_dir 
+
+@param port リッスンするポートを指定します。
+
+@param daemon 
+

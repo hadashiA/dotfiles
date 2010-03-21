@@ -1,0 +1,8 @@
+kind=defined
+names=cover?
+visibility=public
+
+--- cover?(obj) -> bool
+
+@see [[m:Range#include?]]
+

@@ -1,0 +1,8 @@
+kind=defined
+names=match
+visibility=public
+
+--- match
+
+@see [[m:String#match]]
+

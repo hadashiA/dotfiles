@@ -1,0 +1,8 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(test_name, exception)
+
+Creates a new Error with the given test_name and exception.
+

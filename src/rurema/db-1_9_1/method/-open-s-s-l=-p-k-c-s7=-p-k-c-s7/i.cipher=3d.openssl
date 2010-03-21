@@ -1,0 +1,8 @@
+kind=defined
+names=cipher=
+visibility=public
+
+--- cipher=(cipher)
+
+使用する暗号アルゴリズムを指定します。
+

@@ -1,0 +1,9 @@
+kind=defined
+names=r
+visibility=public
+
+--- r -> Float
+
+ベクトルの絶対値を返します。
+ベクトルの絶対値は、各要素の２乗の和の正の平方根を返します。
+

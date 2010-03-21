@@ -1,0 +1,8 @@
+kind=defined
+names=final
+visibility=public
+
+--- final
+
+ブロックに残っているデータを暗号化あるいは復号化します。final を呼んだあとでは update を呼んではいけません。
+

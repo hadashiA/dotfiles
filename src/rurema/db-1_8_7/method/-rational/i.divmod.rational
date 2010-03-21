@@ -1,0 +1,18 @@
+kind=defined
+names=divmod
+visibility=public
+
+--- divmod(other)
+
+self を other で割った、商と余りの配列を返します。
+商は Fixnum、余りは絶対値が other の絶対値を越えず、符号が other と同じ
+Numeric です。[[m:Numeric#divmod]] も参照して下さい。
+
+ Rational(3,4).divmod(Rational(2,3))  # => [1, Rational(1, 12)]
+ Rational(-3,4).divmod(Rational(2,3)) # => [-2, Rational(7, 12)]
+ Rational(3,4).divmod(Rational(-2,3)) # => [-2, Rational(-7, 12)]
+
+ Rational(9,4).divmod(2)              # => [1, Rational(1, 4)]
+ Rational(9,4).divmod(Rational(2, 1)) # => [1, Rational(1, 4)]
+ Rational(9,4).divmod(2.0)            # => [1, 0.25]
+

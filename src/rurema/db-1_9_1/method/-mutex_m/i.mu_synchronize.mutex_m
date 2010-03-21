@@ -1,0 +1,9 @@
+kind=defined
+names=mu_synchronize,synchronize
+visibility=public
+
+--- mu_synchronize{ ... }
+--- synchronize{ ... }
+Mutex_m をロックし、ブロックを実行します。実行後に必ず Mutex_m 
+のロックを解放します。
+

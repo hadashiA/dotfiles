@@ -1,0 +1,8 @@
+kind=added
+names=to_r
+visibility=public
+
+--- to_r
+対応する有理数 (Rational) を返す。
+Rational(self, 1) と同じ。
+

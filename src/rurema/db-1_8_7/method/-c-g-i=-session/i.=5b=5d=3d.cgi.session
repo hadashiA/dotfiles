@@ -1,0 +1,8 @@
+kind=defined
+names=[]=
+visibility=public
+
+--- []=(key, val)
+
+指定されたキーの値を設定します。
+

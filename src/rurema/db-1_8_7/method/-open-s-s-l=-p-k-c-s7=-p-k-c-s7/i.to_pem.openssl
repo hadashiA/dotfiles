@@ -1,0 +1,9 @@
+kind=defined
+names=to_pem,to_s
+visibility=public
+
+--- to_pem
+--- to_s
+
+PEM 形式に変換します。
+

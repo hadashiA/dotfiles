@@ -1,0 +1,11 @@
+kind=defined
+names=[]
+visibility=public
+
+--- [](property)
+
+Returns property of OLE object.
+
+   excel = WIN32OLE.new('Excel.Application')
+   puts excel['Visible'] # => false
+

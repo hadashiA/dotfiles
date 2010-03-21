@@ -1,0 +1,9 @@
+kind=defined
+names=quiet,quiet?
+visibility=public
+
+--- quiet
+--- quiet?
+静粛モードが有効であれば、TRUE が返ります。そうでなければ、
+FALSE が返ります。
+

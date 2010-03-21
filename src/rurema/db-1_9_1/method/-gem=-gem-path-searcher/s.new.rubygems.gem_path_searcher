@@ -1,0 +1,9 @@
+kind=defined
+names=new
+visibility=public
+
+--- new
+
+検索を行うのに必要なデータを初期化します。
+
+

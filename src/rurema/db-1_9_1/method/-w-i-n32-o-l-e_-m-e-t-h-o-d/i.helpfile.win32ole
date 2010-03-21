@@ -1,0 +1,13 @@
+kind=defined
+names=helpfile
+visibility=public
+
+--- helpfile
+
+Returns help file. If help file is not found, then the method
+returns nil.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Workbooks')
+   method = WIN32OLE_METHOD.new(tobj, 'Add')
+   puts method.helpfile # => C:\...\VBAXL9.CHM
+

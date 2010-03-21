@@ -1,0 +1,8 @@
+kind=defined
+names=error
+visibility=public
+
+--- error
+
+[[c:OpenSSL::X509]] を参照してください。
+

@@ -1,0 +1,18 @@
+kind=defined
+names=write_smime
+visibility=public
+
+--- write_smime(p7sig)
+--- write_smime(p7sig, data, flags = DETACHED)
+
+PKCS7 オブジェクトから S/MIME 形式の文字列を返します。
+multipart/signed による平文署名である場合、署名されたデータを data として与えなければなりません。
+
+例:
+
+  data = "hoge"
+  p7 = PKCS7.sign( X509::Certificate.new(File.read('cert.pem')),
+                   PKey::RSA.new(File.read('privkey.pem')),
+                   data)
+  smime = PKCS7.write_smime(p7, data)
+

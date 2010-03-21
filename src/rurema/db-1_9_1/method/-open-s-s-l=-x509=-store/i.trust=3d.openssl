@@ -1,0 +1,8 @@
+kind=defined
+names=trust=
+visibility=public
+
+--- trust=(trust)
+
+[[c:OpenSSL::X509]] の定数を参照してください。
+

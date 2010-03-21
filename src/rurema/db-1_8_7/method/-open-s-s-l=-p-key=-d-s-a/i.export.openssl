@@ -1,0 +1,10 @@
+kind=defined
+names=export,to_pem,to_s
+visibility=public
+
+--- export
+--- to_pem
+--- to_s
+
+PEM 形式に変換して返します。
+

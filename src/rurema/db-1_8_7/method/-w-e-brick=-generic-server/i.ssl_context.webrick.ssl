@@ -1,0 +1,7 @@
+kind=redefined
+names=ssl_context
+visibility=public
+
+--- ssl_context
+サーバが保持する [[c:OpenSSL::SSL::SSLContext]] オブジェクトを返す。
+

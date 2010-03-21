@@ -1,0 +1,12 @@
+kind=defined
+names=VERIFY_FAIL_IF_NO_PEER_CERT
+visibility=public
+
+--- VERIFY_FAIL_IF_NO_PEER_CERT
+
+[[m:OpenSSL::SSL::SSLContext#verify_mode=]] に指定できるもの。サーバーモードであるかクライアントモードであるかによって意味がことなります。
+
+サーバーモード: クライアントが証明書を返さない場合に TLS/SSL ハンドシェイクを即座に終了させます。このフラグは VERIFY_PEER フラグとともに使われなければなりません。
+
+クライアントモード: 無視されます。
+

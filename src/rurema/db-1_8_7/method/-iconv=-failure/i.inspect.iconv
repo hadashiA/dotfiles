@@ -1,0 +1,10 @@
+kind=defined
+names=inspect
+visibility=public
+
+--- inspect    -> String
+
+#<type: "success", "failed"> のような形をした
+文字列を返します。
+
+

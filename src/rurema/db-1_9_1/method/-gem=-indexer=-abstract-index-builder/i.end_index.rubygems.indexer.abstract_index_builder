@@ -1,0 +1,9 @@
+kind=defined
+names=end_index
+visibility=public 
+
+--- end_index
+
+[[m:Gem::Indexer::AbstractIndexBuilder#build]] 内でブロックが実行された後に呼び出されます。
+インデックスファイルは有効で、@file も参照可能です。
+

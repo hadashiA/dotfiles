@@ -1,0 +1,8 @@
+kind=defined
+names=casecmp
+visibility=public
+
+--- casecmp(other) -> Integer
+
+@see [[m:String#casecmp]]
+

@@ -1,0 +1,8 @@
+kind=defined
+names=class=
+visibility=public
+
+--- class=(class)
+
+ユーザアクセスクラス(文字列)を設定します。このメンバはシステム依存です。
+

@@ -1,0 +1,8 @@
+kind=defined
+names=readlines
+visibility=public
+
+--- readlines([rs])
+
+[[m:IO#readlines]] と同様です。
+

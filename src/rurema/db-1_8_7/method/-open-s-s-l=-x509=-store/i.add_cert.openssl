@@ -1,0 +1,8 @@
+kind=defined
+names=add_cert
+visibility=public
+
+--- add_cert(cert)
+
+証明書を信頼する証明書としてストレージに加えます。
+

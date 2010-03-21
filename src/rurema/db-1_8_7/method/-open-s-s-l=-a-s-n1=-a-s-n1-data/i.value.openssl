@@ -1,0 +1,9 @@
+kind=defined
+names=value,value=
+visibility=public
+
+--- value
+--- value=(value)
+
+ASN.1 データの表現する値です。
+

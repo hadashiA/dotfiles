@@ -1,0 +1,9 @@
+kind=defined
+names=bulk_threshold=
+visibility=public 
+
+--- bulk_threshold=(bulk_threshold)
+
+Bulk threshold value.  If the number of missing gems are above
+this threshold value, then a bulk download technique is used.
+

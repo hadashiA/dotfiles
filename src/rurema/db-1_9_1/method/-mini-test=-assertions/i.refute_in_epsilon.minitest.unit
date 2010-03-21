@@ -1,0 +1,19 @@
+kind=defined
+names=refute_in_epsilon
+visibility=public 
+
+--- refute_in_epsilon(a, b, epsilon = 0.001, message = nil) -> true
+
+
+@param a 任意の数値を指定します。
+
+@param b 任意の数値を指定します。
+
+@param epsilon ???
+
+@param message 検査に失敗した場合に表示するメッセージを指定します。
+               文字列か [[c:Proc]] を指定します。[[c:Proc]] である場合は [[m:Proc#call]] した
+               結果を使用します。
+
+@raise MiniTest::Assertion 
+

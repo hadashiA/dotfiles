@@ -1,0 +1,12 @@
+kind=defined
+names=**
+visibility=public
+
+--- **(other)
+
+冪を計算します。
+
+  Rational(3, 4) ** 2              # => Rational(9, 16)
+  Rational(3, 4) ** Rational(2, 1) # => 0.5625
+  Rational(3, 4) ** 2.0            # => 0.5625
+

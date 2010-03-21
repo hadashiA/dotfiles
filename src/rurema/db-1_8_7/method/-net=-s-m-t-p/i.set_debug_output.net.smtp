@@ -1,0 +1,6 @@
+kind=defined
+names=set_debug_output
+visibility=public
+
+--- set_debug_output(f)
+

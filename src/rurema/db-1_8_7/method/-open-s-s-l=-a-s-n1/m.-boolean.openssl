@@ -1,0 +1,6 @@
+kind=defined
+names=Boolean
+visibility=public
+
+--- Boolean(value [, tag [, tagging [, tag_class]]])
+

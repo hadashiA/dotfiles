@@ -1,0 +1,8 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(value, tag, tag_class)
+
+ASN1Data オブジェクトを生成します。
+

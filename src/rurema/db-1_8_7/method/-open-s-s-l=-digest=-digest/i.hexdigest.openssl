@@ -1,0 +1,10 @@
+kind=defined
+names=hexdigest,inspect,to_s
+visibility=public
+
+--- hexdigest
+--- inspect
+--- to_s
+
+文字列に対するハッシュ値を、ASCII コードを使って 16 進数の列を示す文字列にエンコードして返します。
+

@@ -1,0 +1,12 @@
+kind=defined
+names=assert_equal,assert_equals
+visibility=public
+
+--- assert_equal(expected, actual[, message])
+--- assert_equals(expected, actual[, message])
+
+actual == expected であることを表明します。
+actual != expected のときにこのアサーションは失敗します。
+
+message はアサート失敗時のエラーメッセージです。
+

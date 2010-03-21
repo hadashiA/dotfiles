@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=
+classes=Net=Telnet
+is_sublibrary=false
+
+Telnetプロトコルを扱うライブラリです。

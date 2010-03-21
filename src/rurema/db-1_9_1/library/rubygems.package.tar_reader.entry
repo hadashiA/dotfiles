@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=
+classes=Gem=Package=TarReader=Entry
+is_sublibrary=true
+
+

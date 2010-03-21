@@ -1,0 +1,8 @@
+kind=redefined
+names=General
+visibility=public
+
+--- General
+
+[[m:WEBrick::Config::SSL]] の内容がマージされます。
+

@@ -1,0 +1,9 @@
+kind=defined
+names=weakref_alive?
+visibility=public
+
+--- weakref_alive?
+
+参照先のオブジェクトがまだ生きていれば true を返します。
+GCされていれば false を返します。
+

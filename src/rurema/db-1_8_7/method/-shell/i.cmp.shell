@@ -1,0 +1,8 @@
+kind=defined
+names=cmp
+visibility=public
+
+--- cmp
+
+[[m:Shell#compare]] と同じです。
+

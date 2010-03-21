@@ -1,0 +1,8 @@
+kind=defined
+names=verify
+visibility=public
+
+--- verify(certs, store, indata = nil, flags = 0)
+
+署名を検証します。
+

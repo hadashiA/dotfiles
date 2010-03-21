@@ -1,0 +1,9 @@
+kind=defined
+names=tagging,tagging=
+visibility=public
+
+--- tagging
+--- tagging=(tag)
+
+[[c:Symbol]] オブジェクト :IMPLICIT または :EXPLICIT のいずれかをとります。
+

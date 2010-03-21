@@ -1,0 +1,9 @@
+kind=defined
+names=key_len,key_len=
+visibility=public
+
+--- key_len
+--- key_len=(length)
+
+暗号鍵の長さ。
+

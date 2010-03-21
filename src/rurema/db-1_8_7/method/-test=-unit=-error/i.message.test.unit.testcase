@@ -1,0 +1,8 @@
+kind=defined
+names=message
+visibility=public
+
+--- message
+
+Returns the message associated with the error.
+

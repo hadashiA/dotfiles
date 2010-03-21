@@ -1,0 +1,10 @@
+kind=defined
+names=assert_not_nil
+visibility=public
+
+--- assert_not_nil(obj[, message])
+
+obj が nil ではないと表明します。
+
+message はアサート失敗時のエラーメッセージです。
+

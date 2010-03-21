@@ -1,0 +1,22 @@
+kind=defined
+names=name
+visibility=public
+
+--- name
+alias to_s
+
+Returns the name of variable.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'XlSheetType')
+   variables = tobj.variables
+   variables.each do |variable|
+     puts "#{variable.name}"
+   end
+
+   The result of above script is following:
+     xlChart
+     xlDialogSheet
+     xlExcel4IntlMacroSheet
+     xlExcel4MacroSheet
+     xlWorksheet
+

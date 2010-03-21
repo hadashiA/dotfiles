@@ -1,0 +1,6 @@
+kind=defined
+names=PACK_FORMAT
+visibility=public
+
+--- PACK_FORMAT -> String
+

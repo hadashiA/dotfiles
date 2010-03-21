@@ -1,0 +1,12 @@
+kind=defined
+names=VERIFY_CLIENT_ONCE
+visibility=public
+
+--- VERIFY_CLIENT_ONCE
+
+[[m:OpenSSL::SSL::SSLContext#verify_mode=]] に指定できるもの。サーバーモードであるかクライアントモードであるかによって意味がことなります。
+
+サーバーモード: 最初の TLS/SSL ハンドシェイクの時だけクライアントに証明書を要求します。このフラグは VERIFY_PEER フラグとともに使われなければなりません。
+
+クライアントモード: 無視されます。
+

@@ -1,0 +1,8 @@
+kind=defined
+names=digest
+visibility=public
+
+--- digest(name, str)
+
+name で与えられたハッシュアルゴリズムで与えられた文字列 str に対するハッシュ値を文字列で返します。
+

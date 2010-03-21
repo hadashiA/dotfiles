@@ -1,0 +1,9 @@
+kind=defined
+names=PERMUTE,REQUIRE_ORDER,RETURN_IN_ORDER
+visibility=public
+
+--- PERMUTE
+--- REQUIRE_ORDER
+--- RETURN_IN_ORDER
+順序形式を表しています。
+

@@ -1,0 +1,8 @@
+kind=defined
+names=generate
+visibility=public
+
+--- generate(size, exponent = 65537)
+
+RSA 公開鍵と秘密鍵のペアを生成して、RSA オブジェクトを返します。size (単位はビット) で鍵の modulus つまりは 鍵のサイズを指定します。size < 1024 では小さ過ぎると考えられています。exponent で public exponent を指定します。exponent には奇数を指定し、大抵の場合、3、17 あるいは 65537 を指定します。
+

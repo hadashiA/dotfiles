@@ -1,0 +1,10 @@
+kind=defined
+names=decrypt
+visibility=public
+
+--- decrypt(key, iv)
+
+復号化の準備をします。iv は initialization vector のことで、必要なら使用されます。
+この API に引数を渡すことは推奨されません。パスワードから鍵を生成する場合は、
+pkcs5_keyivgen を使用してください。
+

@@ -1,0 +1,8 @@
+kind=defined
+names=authenticate
+visibility=public
+
+--- authenticate(req, res)
+クライアントから送られてきたユーザ名とパスワードを認証します。
+認証に失敗した場合は challenge を呼びます。
+

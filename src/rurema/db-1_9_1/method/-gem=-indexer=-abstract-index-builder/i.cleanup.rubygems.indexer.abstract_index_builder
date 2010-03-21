@@ -1,0 +1,8 @@
+kind=defined
+names=cleanup
+visibility=public 
+
+--- cleanup
+
+インデックスファイルを閉じたあとに呼び出されます。
+

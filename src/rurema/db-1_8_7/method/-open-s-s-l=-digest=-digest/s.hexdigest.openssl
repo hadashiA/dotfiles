@@ -1,0 +1,8 @@
+kind=defined
+names=hexdigest
+visibility=public
+
+--- hexdigest(name, str)
+
+name で与えられたハッシュアルゴリズムで与えられた文字列 str に対するハッシュ値を、ASCIIコードを使って 16進数の列を示す文字列にエンコードして返します。
+

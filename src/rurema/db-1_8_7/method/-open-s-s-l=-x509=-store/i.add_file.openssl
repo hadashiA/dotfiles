@@ -1,0 +1,8 @@
+kind=defined
+names=add_file
+visibility=public
+
+--- add_file(file)
+
+ファイルに含まれる証明書を信頼する証明書としてストレージに加えます。
+

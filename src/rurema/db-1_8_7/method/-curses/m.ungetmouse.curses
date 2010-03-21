@@ -1,0 +1,6 @@
+kind=defined
+names=ungetmouse
+visibility=public
+
+--- ungetmouse(mevent)
+

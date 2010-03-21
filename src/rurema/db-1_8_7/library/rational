@@ -1,0 +1,10 @@
+methods=Kernel/i.Rational.rational,Integer/i.=2f.rational,Integer/i.=2a=2a.rational,Integer/i.power=21.rational,Integer/i.to_r.rational,Integer/i.gcd.rational,Integer/i.lcm.rational,Integer/i.gcdlcm.rational,Integer/i.numerator.rational,Integer/i.denominator.rational,Fixnum/i.quo.rational,Fixnum/i.=2a=2a.rational,Fixnum/i.power=21.rational,Bignum/i.quo.rational,Bignum/i.=2a=2a.rational,Bignum/i.power=21.rational
+sublibraries=
+requires=
+classes=Rational
+is_sublibrary=false
+
+有理数を扱うためのライブラリです。
+
+有理数のためのクラス。
+rational を require すると [[c:Integer]] のメソッドが以下のように再定義される。

@@ -1,0 +1,8 @@
+kind=defined
+names=addr
+visibility=public
+
+--- addr
+
+[[m:IPSocket#addr]] と同様です。
+

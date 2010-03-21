@@ -1,0 +1,10 @@
+kind=defined
+names=assert_operator
+visibility=public
+
+--- assert_operator(obj1, op, obj2[, message])
+
+actual.__send__(op, expected) が真であることを表明します。
+
+message はアサート失敗時のエラーメッセージです。
+

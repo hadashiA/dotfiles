@@ -1,0 +1,13 @@
+kind=defined
+names=_invoke
+visibility=public
+
+--- _invoke(dispid, args, types)
+
+Runs the early binding method. The 1st argument specifies dispatch
+ID, the 2nd argument specifies the array of arguments, the 3rd
+argument specifies the array of the type of arguments.
+
+   excel = WIN32OLE.new('Excel.Application')
+   excel._invoke(302, [], []) #  same effect as excel.Quit
+

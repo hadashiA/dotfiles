@@ -1,0 +1,7 @@
+kind=defined
+names=*
+visibility=public
+
+--- *(other)
+Multiplication with real or complex number.
+

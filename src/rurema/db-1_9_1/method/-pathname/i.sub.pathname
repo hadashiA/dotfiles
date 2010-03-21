@@ -1,0 +1,11 @@
+kind=defined
+names=sub
+visibility=public
+
+--- sub(pattern, replace)  -> Pathname
+--- sub(pattern) {|matched| ... } -> Pathname
+
+self を表現するパス文字列に対して sub メソッドを呼び出し、その結果を内
+容とする新しい Pathname オブジェクトを生成し、返します。 cf. [[m:String#sub]]
+
+

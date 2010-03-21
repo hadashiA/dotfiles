@@ -1,0 +1,11 @@
+kind=defined
+names=deq,pop,shift
+visibility=public
+
+--- pop(non_block = false)
+--- shift(non_block = false)
+--- deq(non_block = false)
+queueからひとつ値を取り出します。queueが空の時、呼出元のスレッ
+ドは停止します。non_block に true を与えると、
+queueが空の時に例外 [[c:ThreadError]] が発生します。
+

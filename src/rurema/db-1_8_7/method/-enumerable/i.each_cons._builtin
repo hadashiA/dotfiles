@@ -1,0 +1,28 @@
+kind=defined
+names=each_cons,enum_cons
+visibility=public
+
+--- each_cons(n)               -> Enumerable::Enumerator
+--- enum_cons(n)               -> Enumerable::Enumerator
+--- each_cons(n) {|list| ... } -> nil
+--- enum_cons(n) {|list| ... } -> nil
+
+要素を重複ありで n 要素ずつに区切り、
+ブロックに渡して繰り返します。
+
+enum_cons は 1.9.1 以降ではなくなっています。
+代わりに each_cons を使ってください。
+
+@arg n   区切る要素数を示す整数です。
+
+例:
+
+  [1, 2, 3, 4, 5].each_cons(3) {|a| p a }
+      # => [1, 2, 3]
+      #    [2, 3, 4]
+      #    [3, 4, 5]
+
+@see [[m:Enumerable#each_slice]]
+
+
+

@@ -1,0 +1,8 @@
+kind=defined
+names=block_size
+visibility=public
+
+--- block_size
+
+ブロックのサイズを返します。
+

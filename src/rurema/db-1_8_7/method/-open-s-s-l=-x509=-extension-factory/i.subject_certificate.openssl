@@ -1,0 +1,8 @@
+kind=defined
+names=subject_certificate,subject_certificate=
+visibility=public
+
+--- subject_certificate
+--- subject_certificate=(name)
+subject の証明書を設定します。
+

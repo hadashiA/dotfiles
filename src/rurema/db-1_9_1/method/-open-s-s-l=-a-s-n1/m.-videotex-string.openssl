@@ -1,0 +1,6 @@
+kind=defined
+names=VideotexString
+visibility=public
+
+--- VideotexString(value ... )
+

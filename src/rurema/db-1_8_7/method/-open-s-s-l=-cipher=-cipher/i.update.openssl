@@ -1,0 +1,8 @@
+kind=defined
+names=update
+visibility=public
+
+--- update(data)
+
+与えられた文字列を暗号化あるいは復号化して文字列として返します。直前に呼ばれた encrypt あるいは decrypt により暗号化か復号化かが決まります。
+

@@ -1,0 +1,13 @@
+kind=defined
+names=return_type_detail
+visibility=public
+
+--- return_type_detail
+
+Returns detail information of return value type of method. The
+information is array.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Workbooks')
+   method = WIN32OLE_METHOD.new(tobj, 'Add')
+   p method.return_type_detail # => ["PTR", "USERDEFINED", "Workbook"]
+

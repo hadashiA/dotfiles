@@ -1,0 +1,17 @@
+superclass=
+type=module
+library=mutex_m
+extended=
+included=
+
+スレッド同期機構である [[c:Mutex]] のモジュール版です。普通のオブジェクトを
+extend により Mutex にする事ができます。
+
+[[ruby-list:1991]]
+
+
+  require "mutex_m"
+  obj = Object.new
+  obj.extend(Mutex_m)
+  obj.lock
+  obj.unlock

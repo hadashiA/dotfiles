@@ -1,0 +1,21 @@
+kind=defined
+names=children
+visibility=public
+
+--- children -> [Pathname]
+self 配下にあるパス名(Pathnameオブジェクト)の配列を返します。
+
+    require 'pathname'
+
+    p Pathname.new("/tmp").children
+    => ruby 1.8.0 (2003-10-10) [i586-linux]
+       [#<Pathname:.X11-unix>, #<Pathname:.iroha_unix>, ... ]
+
+ただし、 ".", ".." は要素に含まれません。
+
+self が存在しないパスであったりディレクトリでなければ例外
+[[c:Errno::EXXX]] が発生します。
+
+
+
+

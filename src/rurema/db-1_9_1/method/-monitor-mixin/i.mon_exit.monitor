@@ -1,0 +1,12 @@
+kind=defined
+names=mon_exit
+visibility=public
+
+--- mon_exit
+
+モニターのロックを解放します。mon_enter でロックした回数だけ mon_exit を
+呼ばなければモニターは解放されません。返り値は不定です。
+
+モニターが解放されればモニターのロック待ちになっていたスレッドの実行は
+再開されます。
+

@@ -1,0 +1,9 @@
+kind=defined
+names=pkcs5_keyivgen
+visibility=public
+
+--- pkcs5_keyivgen(pass, salt=nil, num=2048, digest=OpenSSL::Digest::MD5.new())
+
+pass から key と iv を生成し key= と iv= に設定します。
+salt は 8-octet string でないといけません。nil を返します。
+

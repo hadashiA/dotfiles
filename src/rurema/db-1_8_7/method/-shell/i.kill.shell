@@ -1,0 +1,9 @@
+kind=defined
+names=kill
+visibility=public
+
+--- kill(sig, job)
+
+執筆者募集. jobにシグナルsigを送る.
+
+

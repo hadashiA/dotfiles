@@ -1,0 +1,20 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(config, default=Config::BasicAuth)
+BasicAuth オブジェクトを生成します。config は設定を保存したハッシュです。
+
+config で有効なハッシュキーは以下の通りです。
+ #
+ :Realm            =>
+ :UserDB           =>
+ :Logger           =>
+ :AutoReloadUserDB =>
+
+realm を表す文字列 :Realm には与えます。:UserDB
+には [[c:WEBrick::HTTPAuth::Htpasswd]] オブジェクトを与えます。:Logger には
+ロガーオブジェクトを与えます。また、:AutoReloadUserDB には
+[[m:WEBrick::HTTPAuth::Htpasswd#get_passwd]] の
+reload_db に渡す引数を与えます。
+

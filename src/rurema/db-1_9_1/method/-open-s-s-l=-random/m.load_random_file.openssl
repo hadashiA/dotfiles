@@ -1,0 +1,6 @@
+kind=defined
+names=load_random_file
+visibility=public
+
+--- load_random_file
+

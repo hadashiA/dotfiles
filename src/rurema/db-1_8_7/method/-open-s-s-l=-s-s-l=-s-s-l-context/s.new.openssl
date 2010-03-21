@@ -1,0 +1,12 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(ssl_method)
+--- new
+
+SSLContext オブジェクトを生成します。ssl_method で TLS/SSL method を指定します。ssl_method は文字列かシンボルを与えます。指定できるのは以下のいずれかです。SSL_CTX_new を参照してください。
+
+  'TLSv1', 'TLSv1_server', 'TLSv1_client', 'SSLv2', 'SSLv2_server', 'SSLv2_client',
+  'SSLv3', 'SSLv3_server', 'SSLv3_client', 'SSLv23', 'SSLv23_server', 'SSLv23_client'
+

@@ -1,0 +1,9 @@
+kind=defined
+names=time,time=
+visibility=public
+
+--- time
+--- time=(time)
+
+失効した日時です。[[c:Time]] オブジェクトです。
+

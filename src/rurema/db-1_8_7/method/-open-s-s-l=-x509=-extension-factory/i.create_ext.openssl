@@ -1,0 +1,8 @@
+kind=defined
+names=create_ext
+visibility=public
+
+--- create_ext(oid, value, critical = false)
+
+OpenSSL::X509::Extension を生成して返します。
+

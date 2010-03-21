@@ -1,0 +1,6 @@
+kind=defined
+names=extract_entry
+visibility=public 
+
+--- extract_entry(destdir, entry, expected_md5sum = nil)
+

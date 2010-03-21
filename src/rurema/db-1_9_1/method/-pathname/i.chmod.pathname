@@ -1,0 +1,9 @@
+kind=defined
+names=chmod
+visibility=public
+
+--- chmod(mode)
+File.chmod(mode, self.to_s) と同じです。
+
+@see [[m:File.chmod]]
+

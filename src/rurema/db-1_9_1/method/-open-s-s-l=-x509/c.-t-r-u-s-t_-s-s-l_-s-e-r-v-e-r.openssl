@@ -1,0 +1,8 @@
+kind=defined
+names=TRUST_SSL_SERVER
+visibility=public
+
+--- TRUST_SSL_SERVER
+
+以下は OpenSSL::X509::Store#error にセットされる値です。
+

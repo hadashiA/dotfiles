@@ -1,0 +1,6 @@
+kind=defined
+names=post_install_message
+visibility=public
+
+--- post_install_message -> String
+

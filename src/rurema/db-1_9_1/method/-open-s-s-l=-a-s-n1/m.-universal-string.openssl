@@ -1,0 +1,6 @@
+kind=defined
+names=UniversalString
+visibility=public
+
+--- UniversalString(value ... )
+

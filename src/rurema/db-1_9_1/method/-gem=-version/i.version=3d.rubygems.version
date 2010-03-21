@@ -1,0 +1,8 @@
+kind=defined
+names=version=
+visibility=public 
+
+--- version=(version)
+
+@param version バージョンを表す文字列を指定します。
+

@@ -1,0 +1,6 @@
+kind=defined
+names=set_passwd
+visibility=public
+
+--- set_passwd(realm, user, pass)
+realm に対応させてユーザ user とパスワード pass を保存する。

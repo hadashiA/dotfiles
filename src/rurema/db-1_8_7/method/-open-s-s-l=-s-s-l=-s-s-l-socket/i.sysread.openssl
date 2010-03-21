@@ -1,0 +1,8 @@
+kind=defined
+names=sysread
+visibility=public
+
+--- sysread(length[, buf])
+
+[[m:IO#sysread]] と同様です。
+

@@ -1,0 +1,11 @@
+kind=defined
+names=setpos
+visibility=public
+
+--- setpos(y, x)
+
+stdscr のカーソルを座標 (x,y) に移動します。
+座標はともに 0 が始点です。
+
+文字がない場所に setpos した場合の挙動は OS に依存します。
+

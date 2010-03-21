@@ -1,0 +1,10 @@
+kind=added
+names=have_macro
+visibility=private 
+
+--- have_macro(macro, headers = nil, opt = "", &b)
+Returns whether or not +macro+ is defined either in the common header
+files or within any +headers+ you provide.
+
+Any options you pass to +opt+ are passed along to the compiler.
+

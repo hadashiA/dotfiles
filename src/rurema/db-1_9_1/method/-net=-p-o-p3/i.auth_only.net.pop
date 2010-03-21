@@ -1,0 +1,16 @@
+kind=defined
+names=auth_only
+visibility=public
+
+--- auth_only(account, password)
+
+POP セッションを開き認証だけを行って接続を切ります。
+主に POP before SMTP のために用意されています。
+
+使用例:
+
+  require 'net/pop'
+
+  pop = Net::POP3.new('your.pop3.server')
+  pop.auth_only 'YourAccount', 'YourPassword'
+

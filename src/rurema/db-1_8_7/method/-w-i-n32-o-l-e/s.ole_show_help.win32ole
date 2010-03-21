@@ -1,0 +1,13 @@
+kind=defined
+names=ole_show_help
+visibility=public
+
+--- ole_show_help(obj, helpcontext = nil)
+
+Displays helpfile. The 1st argument specifies WIN32OLE_TYPE object
+or WIN32OLE_METHOD object or helpfile.
+
+   excel = WIN32OLE.new('Excel.Application')
+   typeobj = excel.ole_type
+   WIN32OLE.ole_show_help(typeobj)
+

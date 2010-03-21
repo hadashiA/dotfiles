@@ -1,0 +1,8 @@
+kind=defined
+names=generate
+visibility=public
+
+--- generate(size, generator = 2)
+
+Diffie-Hellman 鍵交換の最初のステップである秘密鍵と公開鍵の生成を行ない DH オブジェクトを返します。size は安全な素数のサイズで、単位はビットです。generator は 1 より大きい小さな数で、大抵は 2 か 5 を指定します。
+

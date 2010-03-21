@@ -1,0 +1,14 @@
+kind=defined
+names=path
+visibility=public
+
+--- path -> String
+データベースのファイル名を得ます。 
+
+  require 'yaml/store'
+
+  db = YAML::Store.new('/tmp/store.yaml')
+  db.transaction {
+    p db.path #=> /tmp/store.yaml
+  }
+

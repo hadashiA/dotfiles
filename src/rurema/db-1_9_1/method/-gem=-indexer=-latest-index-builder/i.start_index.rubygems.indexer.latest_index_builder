@@ -1,0 +1,8 @@
+kind=defined
+names=start_index
+visibility=public 
+
+--- start_index
+
+@see [[m:Gem::Indexer::AbstractIndexBuilder#start_index]]
+

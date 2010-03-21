@@ -1,0 +1,7 @@
+superclass=Gem=Indexer=AbstractIndexBuilder
+type=class
+library=rubygems.indexer.latest_index_builder
+extended=
+included=
+
+

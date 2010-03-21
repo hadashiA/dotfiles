@@ -1,0 +1,11 @@
+kind=defined
+names=extra_chain_cert,extra_chain_cert=
+visibility=public
+
+--- extra_chain_cert
+--- extra_chain_cert=(certificates)
+
+証明書チェーンです。所有している証明書からルート CA までの証明書のリストです。これを指定しない場合、ca_file や ca_path で指定した信頼されている証明書のストレージから証明書チェーンを構成しようとします。 順序は以下の通りです。
+
+  [所有している証明書, 下位 CA 証明書, ... 中間 CA 証明書]
+

@@ -1,0 +1,8 @@
+kind=defined
+names=formatter
+visibility=public
+
+--- formatter -> String
+
+ログを出力する際のフォーマット文字列を取得します。
+

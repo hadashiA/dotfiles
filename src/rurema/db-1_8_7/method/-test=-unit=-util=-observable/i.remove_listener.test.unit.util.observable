@@ -1,0 +1,11 @@
+kind=defined
+names=remove_listener
+visibility=public
+
+--- remove_listener(channel_name, listener_key)
+
+Removes the listener indicated by listener_key
+from the channel indicated by
+channel_name. Returns the registered proc, or
+nil if none was found.
+

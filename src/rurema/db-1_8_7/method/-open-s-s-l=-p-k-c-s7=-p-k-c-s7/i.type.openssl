@@ -1,0 +1,11 @@
+kind=defined
+names=type,type=
+visibility=public
+
+--- type
+--- type=(type)
+
+タイプを [[c:Symbol]] オブジェクトで返します。次のうちのいずれかの値をとります。
+
+:signed, :encrypted, :enveloped, :signedAndEnveloped, :data
+

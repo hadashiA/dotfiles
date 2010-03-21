@@ -1,0 +1,9 @@
+kind=defined
+names=starting
+visibility=public
+
+--- starting
+
+audit が true に設定されているなら、サーバ起動時に呼ばれます。
+サブクラスでオーバーライドします。
+

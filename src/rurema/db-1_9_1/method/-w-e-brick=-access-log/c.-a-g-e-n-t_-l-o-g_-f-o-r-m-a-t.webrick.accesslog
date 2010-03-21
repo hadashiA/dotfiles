@@ -1,0 +1,9 @@
+kind=defined
+names=AGENT_LOG_FORMAT
+visibility=public
+
+--- AGENT_LOG_FORMAT
+
+Apache のアクセスログで一般的に使われる User-Agent の形式を表す以下の文字列です。
+  "%{User-Agent}i"
+

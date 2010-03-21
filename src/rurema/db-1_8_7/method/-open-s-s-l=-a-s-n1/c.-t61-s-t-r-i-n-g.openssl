@@ -1,0 +1,8 @@
+kind=defined
+names=T61STRING
+visibility=public
+
+--- T61STRING
+
+T61STRING のタグ番号 20 を表す定数です。
+

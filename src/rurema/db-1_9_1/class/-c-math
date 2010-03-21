@@ -1,0 +1,11 @@
+superclass=
+type=module
+library=cmath
+extended=
+included=
+
+複素数演算をサポートするモジュールです。
+
+Math モジュールの複素数版です。
+
+@see [[c:Math]]

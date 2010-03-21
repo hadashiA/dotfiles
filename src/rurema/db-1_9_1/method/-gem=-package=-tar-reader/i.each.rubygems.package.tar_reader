@@ -1,0 +1,6 @@
+kind=defined
+names=each
+visibility=public 
+
+--- Gem::Package::TarReader#each
+

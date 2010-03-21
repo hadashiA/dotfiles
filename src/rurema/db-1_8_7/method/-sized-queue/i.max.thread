@@ -1,0 +1,8 @@
+kind=defined
+names=max,max=
+visibility=public
+
+--- max
+--- max=(n)
+queue の最大サイズを設定します。
+

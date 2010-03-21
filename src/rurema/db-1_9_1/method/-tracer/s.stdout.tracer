@@ -1,0 +1,20 @@
+kind=defined
+names=stdout,stdout=
+visibility=public
+
+--- stdout -> Object
+--- stdout=(fp)
+
+トレース出力先をIOオブジェクトなどに変更したり、参照することができます。
+
+@param fp トレース出力をfp に変更します。
+
+  require 'tracer'
+
+  fp = File.open('temptrace.txt', "w")
+  Tracer.stdout = fp
+  Tracer.on {
+    puts "Hello"
+  }
+  fp.close
+

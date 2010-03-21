@@ -1,0 +1,11 @@
+kind=defined
+names=mon_try_enter,try_mon_enter
+visibility=public
+
+--- mon_try_enter
+--- try_mon_enter
+
+モニターを開始しようとして成功した場合、true を返します。
+つまりモニターしているスレッドがいないか、モニターしているのがスレッドが
+現在のスレッドの場合に true を返します。
+

@@ -1,0 +1,12 @@
+kind=defined
+names=build
+visibility=public 
+
+--- build{ ... }
+
+Gem のインデックスを作成します。
+
+実際のインデックスを作成する処理の詳細は与えられたブロックに記述されています。
+基本的な処理をカスタマイズするために、適切なタイミングで
+begin_index, end_index, cleanup が呼び出されるようになっています。
+

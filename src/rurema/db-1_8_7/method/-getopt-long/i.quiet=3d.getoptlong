@@ -1,0 +1,13 @@
+kind=defined
+names=quiet=
+visibility=public
+
+--- quiet=(flag)
+flag が TRUE なら、静粛 (quiet) モードが有効になります。
+静粛モードが有効になっていると、レシーバのオブジェクトは、
+get, get_option, each, each_option メソッドでエラーが
+発生しても、エラーメッセージを出力しません。初期値は、FALSE
+になっています。
+
+flag を返します。
+

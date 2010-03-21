@@ -1,0 +1,20 @@
+kind=defined
+names=[]
+visibility=public
+
+--- [](name) -> object
+ルートnameに対応する値を得ます。
+
+@param name 探索するルートの名前を指定します。
+
+  require 'yaml/store'
+
+  db = YAML::Store.new('/tmp/store.yaml')
+  db.transaction {
+    db["hoge"] = [ 1, 2, 3, 4]
+  }
+
+  db.transaction {
+    p db["hoge"] #=> [1, 2, 3, 4]
+  }
+

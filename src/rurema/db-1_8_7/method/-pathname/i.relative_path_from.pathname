@@ -1,0 +1,28 @@
+kind=defined
+names=relative_path_from
+visibility=public
+
+--- relative_path_from(base_directory) -> Pathname
+base_directory から self への相対パスを求め、その内容の新しい Pathname
+オブジェクトを生成して返します。
+
+パス名の解決は文字列操作によって行われ、ファイルシステムをアクセス
+しません。
+
+    require 'pathname'
+
+    path = Pathname.new("/tmp/foo")
+    base = Pathname.new("/tmp")
+
+    p path.relative_path_from(base)
+
+    # => ruby 1.8.0 (2003-10-10) [i586-linux]
+         #<Pathname:foo>
+
+self が相対パスなら base_directory も相対パス、self が絶対パスなら
+base_directory も絶対パスでなければなりません。
+
+base_directory は Pathname オブジェクトでなければなりません。
+
+
+

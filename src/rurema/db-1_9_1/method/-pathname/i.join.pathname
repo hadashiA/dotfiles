@@ -1,0 +1,9 @@
+kind=defined
+names=join
+visibility=public
+
+--- join(*args)
+Pathname.new(File.join(self.to_s, *args)) と同じです。
+
+@see [[m:File.join]]
+

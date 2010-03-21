@@ -1,0 +1,9 @@
+kind=defined
+names=extname
+visibility=public
+
+--- extname
+File.extname(self.to_s) と同じです。
+
+@see [[m:File.extname]]
+

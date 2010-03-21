@@ -1,0 +1,9 @@
+kind=defined
+names=verify
+visibility=public
+
+--- verify(digest, sign, data)
+
+digest には DSA の性質から OpenSSL::PKey::DSS1 のインスタンスのみ受け付けます。他は
+例外 OpenSSL::PKey::PKeyError を投げます。
+

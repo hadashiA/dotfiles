@@ -1,0 +1,6 @@
+kind=defined
+names=ISO64String
+visibility=public
+
+--- ISO64String(value ... )
+

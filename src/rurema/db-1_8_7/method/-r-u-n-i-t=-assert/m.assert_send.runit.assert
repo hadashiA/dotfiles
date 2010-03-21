@@ -1,0 +1,8 @@
+kind=defined
+names=assert_send
+visibility=public
+
+--- assert_send(obj, method, *args)
+
+obj.__send__(method, *args) が真であることを表明します。
+

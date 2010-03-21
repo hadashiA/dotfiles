@@ -1,0 +1,12 @@
+kind=defined
+names=active?,started?
+visibility=public
+
+--- started?
+--- active?
+
+POP3 セッションが開始されていたら真を返します。
+
+Ruby 1.8.0 以降では active? は obsolete です。
+これからは常に started? を使ってください。
+

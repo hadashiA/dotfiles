@@ -1,0 +1,8 @@
+kind=defined
+names=start_immediately,start_immediately=
+visibility=public
+
+--- start_immediately
+--- start_immediately=(bool)
+
+accept したらすぐに TLS/SSL ハンドシェイクを実行するかどうかを設定します。デフォルトでは true です。

@@ -1,0 +1,10 @@
+kind=defined
+names=tag_class,tag_class=
+visibility=public
+
+--- tag_class
+--- tag_class=(tag_class)
+
+[[c:Symbol]] オブジェクト :UNIVERSAL、:ONTEXT_SPECIFIC、:APPLICATION
+のいずれかをとります。
+

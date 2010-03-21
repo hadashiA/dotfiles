@@ -1,0 +1,7 @@
+kind=defined
+names=locked?
+visibility=public
+
+--- locked?
+mutex がロックされている時、真を返します。
+

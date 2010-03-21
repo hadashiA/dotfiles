@@ -1,0 +1,8 @@
+kind=defined
+names=shutdown
+visibility=public
+
+--- shutdown
+
+GServer を停止します。
+

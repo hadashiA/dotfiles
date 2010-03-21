@@ -1,0 +1,8 @@
+kind=defined
+names===
+visibility=public
+
+--- ==(digest)
+
+与えられた Digest オブジェクトと等しいかどうか。
+

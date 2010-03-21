@@ -1,0 +1,8 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(test_name, location, message)
+
+Creates a new Failure with the given location and message.
+

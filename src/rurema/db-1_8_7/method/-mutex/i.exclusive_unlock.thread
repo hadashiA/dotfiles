@@ -1,0 +1,13 @@
+kind=defined
+names=exclusive_unlock
+visibility=public
+
+--- exclusive_unlock { ... }
+ロックを解放し、ロック待ちになっているスレッドを実行可能状態に
+した後、ブロックを実行します。
+
+ブロックの実行が終了するまで、スレッドは切り替わりません。
+
+self がロックされていなければ nil を返します。そうでな
+ければself を返します。
+

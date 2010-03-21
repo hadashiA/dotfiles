@@ -1,0 +1,8 @@
+kind=defined
+names=add_revoked
+visibility=public
+
+--- add_revoked(rev)
+
+CRL に失効した証明書を加えます。rev は [[c:OpenSSL::X509::Revoked]] オブジェクトです。
+

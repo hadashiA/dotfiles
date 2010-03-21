@@ -1,0 +1,12 @@
+kind=defined
+names=connect
+visibility=public
+
+--- connect(ole) -> WIN32OLE
+
+Returns running OLE Automation object or WIN32OLE object from
+moniker. 1st argument should be OLE program id or class id or
+moniker.
+
+   WIN32OLE.connect('Excel.Application') # => WIN32OLE object which represents running Excel.
+

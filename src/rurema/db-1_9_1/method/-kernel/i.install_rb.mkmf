@@ -1,0 +1,12 @@
+kind=added
+names=install_rb
+visibility=private 
+
+--- install_rb(mfile, dest, srcdir = '.')
+
+ディレクトリ srcdir/lib 配下の Ruby スクリプト (*.rb ファイル)
+を dest にインストールするための Makefile 規則を mfile に出力します。
+mfile は [[c:IO]] クラスのインスタンスです。
+
+srcdir/lib のディレクトリ構造はそのまま dest 配下に反映されます。
+

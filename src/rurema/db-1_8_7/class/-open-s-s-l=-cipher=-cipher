@@ -1,0 +1,41 @@
+superclass=Object
+type=class
+library=openssl
+extended=
+included=
+
+対称鍵暗号のために抽象化されたインターフェースを提供するクラスです。
+
+以下のクラスが実装されています。
+
+  * OpenSSL::Cipher::BF
+  * OpenSSL::Cipher::CAST5
+  * OpenSSL::Cipher::DES
+  * OpenSSL::Cipher::IDEA
+  * OpenSSL::Cipher::RC2
+  * OpenSSL::Cipher::RC4
+  * OpenSSL::Cipher::RC5
+
+AES も OpenSSL::Cipher::Cipher.new('aes256') などとすれば利用可能です。
+
+ruby 1.8.3 から Cast5 と Idea が CAST5 と IDEA に改名されました。
+
+=== 使用例
+
+  require 'openssl'
+  
+  p a123 = "0123456789"
+  pass = "hogehoge"
+  enc = OpenSSL::Cipher::DES.new
+  enc.encrypt
+  enc.pkcs5_keyivgen(pass)
+  p a = enc.update(a123)
+  p b = enc.final
+  s = a + b
+  
+  dec = OpenSSL::Cipher::DES.new
+  dec.decrypt
+  dec.pkcs5_keyivgen(pass)
+  p a = dec.update(s)
+  p b = dec.final
+  p a + b #=> "0123456789"

@@ -1,0 +1,11 @@
+kind=defined
+names=program_name,program_name=
+visibility=public
+
+--- program_name           -> String
+--- program_name=(name)
+
+プログラムの名前を表すアクセサです。デフォルトは $0 が使われます。
+
+@param name プログラムの名前を文字列で指定します。
+

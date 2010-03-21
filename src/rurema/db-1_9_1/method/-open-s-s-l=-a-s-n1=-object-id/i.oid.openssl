@@ -1,0 +1,8 @@
+kind=defined
+names=oid
+visibility=public
+
+--- oid
+
+オブジェクト ID のドット区切り数値を文字列で返します。
+

@@ -1,0 +1,8 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(port, host = DEFAULT_HOST, maxConnections = 4, stdlog = $stderr, audit = false, debug = false)
+
+GServer オブジェクトを生成します。
+

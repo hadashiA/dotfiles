@@ -1,0 +1,12 @@
+kind=defined
+names=upto
+visibility=public
+
+--- upto(max){|date| ...} -> self
+このメソッドは、step(max, 1){|date| ...} と等価です。
+
+
+[[m:Date#step]] を参照してください。
+
+@param max 日付オブジェクト
+

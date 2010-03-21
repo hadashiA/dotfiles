@@ -1,0 +1,9 @@
+kind=defined
+names=decode_all
+visibility=public
+
+--- decode_all(der)
+
+ASN1.decode と違って、der に含まれる全てのオブジェクトを再帰的に解析し
+配列として返します。
+

@@ -1,0 +1,8 @@
+kind=defined
+names=readchar
+visibility=public
+
+--- readchar
+
+[[m:IO#readchar]] と同様です。
+

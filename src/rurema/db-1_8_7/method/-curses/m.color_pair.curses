@@ -1,0 +1,6 @@
+kind=defined
+names=color_pair
+visibility=public
+
+--- color_pair(attr)
+

@@ -1,0 +1,8 @@
+kind=defined
+names=each_byte
+visibility=public
+
+--- each_byte
+
+[[m:IO#each_byte]] と同様です。
+

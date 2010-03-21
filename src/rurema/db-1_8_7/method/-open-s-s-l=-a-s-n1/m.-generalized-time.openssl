@@ -1,0 +1,6 @@
+kind=defined
+names=GeneralizedTime
+visibility=public
+
+--- GeneralizedTime(value ... )
+

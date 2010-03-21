@@ -1,0 +1,7 @@
+superclass=Gem=Indexer=AbstractIndexBuilder
+type=class
+library=rubygems.indexer.master_index_builder
+extended=
+included=
+
+マスターとなる Gem のインデックスファイルを作成するためのクラスです。

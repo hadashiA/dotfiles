@@ -1,0 +1,10 @@
+kind=defined
+names=path_info,path_info=
+visibility=public
+
+--- path_info          -> String
+--- path_info=(value)
+リクエスト URI のパスを文字列で表すアクセサです。デフォルトは path と同じです。
+
+@param value 
+

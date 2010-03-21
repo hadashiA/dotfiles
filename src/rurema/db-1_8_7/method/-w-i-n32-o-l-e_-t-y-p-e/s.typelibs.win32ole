@@ -1,0 +1,8 @@
+kind=defined
+names=typelibs
+visibility=public
+
+--- typelibs
+
+Returns array of type libraries.
+

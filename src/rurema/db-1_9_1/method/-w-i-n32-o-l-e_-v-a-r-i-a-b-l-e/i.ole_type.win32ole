@@ -1,0 +1,21 @@
+kind=defined
+names=ole_type
+visibility=public
+
+--- ole_type
+
+Returns OLE type string.
+
+  tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'XlSheetType')
+  variables = tobj.variables
+  variables.each do |variable|
+    puts "#{variable.ole_type} #{variable.name}"
+  end
+
+  The result of above script is following:
+    INT xlChart
+    INT xlDialogSheet
+    INT xlExcel4IntlMacroSheet
+    INT xlExcel4MacroSheet
+    INT xlWorksheet
+

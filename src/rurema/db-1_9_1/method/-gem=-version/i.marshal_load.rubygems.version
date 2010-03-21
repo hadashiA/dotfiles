@@ -1,0 +1,9 @@
+kind=defined
+names=marshal_load
+visibility=public 
+
+--- marshal_load(array) -> self
+
+@param array
+
+

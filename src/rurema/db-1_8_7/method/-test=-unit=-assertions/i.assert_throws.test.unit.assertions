@@ -1,0 +1,10 @@
+kind=defined
+names=assert_throws
+visibility=public
+
+--- assert_throws(expected_symbol, message="") { ... }    -> ()
+
+ブロックを実行して :expected_symbol が throw されたらパスします。
+
+@raise Test::Unit::AssertionFailedError assert が失敗した時に発生します。
+

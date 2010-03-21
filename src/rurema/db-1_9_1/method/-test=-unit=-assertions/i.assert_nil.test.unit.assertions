@@ -1,0 +1,10 @@
+kind=defined
+names=assert_nil
+visibility=public
+
+--- assert_nil(object, message="")    -> ()
+
+object が nil ならばパスします。
+
+@raise Test::Unit::AssertionFailedError assert が失敗した時に発生します。
+

@@ -1,0 +1,10 @@
+kind=defined
+names=codepage=
+visibility=public
+
+--- codepage=(cp)
+
+Sets current codepage.
+
+   WIN32OLE.codepage = WIN32OLE::CP_UTF8
+

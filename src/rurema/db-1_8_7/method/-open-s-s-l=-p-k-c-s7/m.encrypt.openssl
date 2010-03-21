@@ -1,0 +1,8 @@
+kind=defined
+names=encrypt
+visibility=public
+
+--- encrypt([rcpt], smime)
+
+S/MIME 形式の文字列をメッセージの受け取り手の公開鍵 rcpt を使って暗号化します。
+

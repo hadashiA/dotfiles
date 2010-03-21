@@ -1,0 +1,7 @@
+kind=redefined
+names=quo
+visibility=public
+
+--- quo(other)
+If Rational is defined, returns a Rational number instead of a Bignum.
+

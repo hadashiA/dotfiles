@@ -1,0 +1,13 @@
+kind=defined
+names=new
+visibility=private 
+
+--- new(io, security_policy = nil)
+
+このクラスを初期化します。
+
+@param io
+
+@param security_policy
+
+

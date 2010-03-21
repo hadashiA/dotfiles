@@ -1,0 +1,13 @@
+kind=defined
+names=ole_type
+visibility=public
+
+--- ole_type
+
+Returns OLE type of WIN32OLE_PARAM object(parameter of OLE method).
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Workbook')
+   method = WIN32OLE_METHOD.new(tobj, 'SaveAs')
+   param1 = method.params[0]
+   puts param1.ole_type # => VARIANT
+

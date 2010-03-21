@@ -1,0 +1,8 @@
+kind=defined
+names=gets
+visibility=public
+
+--- gets([rs])
+
+[[m:IO#gets]] と同様です。
+

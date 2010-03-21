@@ -1,0 +1,11 @@
+kind=defined
+names=src_type
+visibility=public
+
+--- src_type -> Class
+
+Returns source class when the OLE class is 'Alias'.
+
+   tobj =  WIN32OLE_TYPE.new('Microsoft Office 9.0 Object Library', 'MsoRGBType')
+   p tobj.src_type   # => I4
+

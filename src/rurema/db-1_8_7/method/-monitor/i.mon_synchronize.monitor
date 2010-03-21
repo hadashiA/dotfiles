@@ -1,0 +1,9 @@
+kind=defined
+names=mon_synchronize,synchronize
+visibility=public
+
+--- mon_synchronize { ... }
+--- synchronize     { ... }
+
+[[m:MonitorMixin#mon_synchronize]] を参照して下さい。
+

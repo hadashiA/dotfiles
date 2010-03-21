@@ -1,0 +1,33 @@
+kind=defined
+names=[],test
+visibility=public
+
+--- test(command, file1, file2 = nil) -> bool
+--- [](command, file1, file2 = nil) -> bool
+
+執筆者募集。 ファイルテスト関数testと同じです。
+
+@param command ファイルテスト関数testと同じです。
+
+@param file1 文字列でファイルへのパスを指定します。
+             ファイルテスト関数testに渡される第一引数となります。
+
+@param file2 文字列でファイルへのパスを指定します。
+             ファイルテスト関数testに渡される第二引数となります。省略可。
+
+
+例:
+
+  require 'shell'
+  Shell.verbose = false
+  sh = Shell.new
+  begin
+    sh.mkdir("foo")
+  rescue
+  end
+  p sh[?e, "foo"]         #=> true
+  p sh[:e, "foo"]         #=> true
+  p sh["e", "foo"]        #=> true
+  p sh[:exists?, "foo"]   #=> true
+  p sh["exists?", "foo"]  #=> true
+

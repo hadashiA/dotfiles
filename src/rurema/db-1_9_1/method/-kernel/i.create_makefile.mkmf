@@ -1,0 +1,15 @@
+kind=added
+names=create_makefile
+visibility=private 
+
+--- create_makefile(target[, srcdir])
+
+[[m:Kernel#have_library]] などの各種検査の結果を元に、
+拡張ライブラリ TARGET.so をビルドするための Makefile を生成します。
+
+第 2 引数 srcdir は make 変数 srcdir の値を指定します。
+この変数には、ソースコードがあるディレクトリ名を指定します。
+この引数を省略した場合は、extconf.rb があるディレクトリが使われます。
+
+extconf.rb は普通このメソッドの呼び出しで終ります。
+

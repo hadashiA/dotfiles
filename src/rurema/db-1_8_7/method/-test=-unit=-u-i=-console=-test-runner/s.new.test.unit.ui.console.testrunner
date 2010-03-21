@@ -1,0 +1,19 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(suite, output_level=NORMAL, io=STDOUT)
+
+TestRunner オブジェクトを生成して返します。
+
+@param suite 実行したいテストを保持している TestSuite オブジェクトか
+             TestCase オブジェクトを与えます。
+
+@param output_level 出力レベルを指定します。指定できるのは以下の4つです。
+ * Test::Unit::UI::SILENT 
+ * Test::Unit::UI::PROGRESS_ONLY
+ * Test::Unit::UI::NORMAL
+ * Test::Unit::UI::VERBOSE
+
+@param io 結果を出力するための [[c:IO]] オブジェクトを与えます。
+

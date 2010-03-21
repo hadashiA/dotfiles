@@ -1,0 +1,8 @@
+kind=added
+names=exclusive
+visibility=public
+
+--- Thread.exclusive { ... }
+ブロック実行中、Threadの切り替えを行いません。
+
+

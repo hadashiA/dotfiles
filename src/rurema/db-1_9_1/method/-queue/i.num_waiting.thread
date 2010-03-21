@@ -1,0 +1,7 @@
+kind=defined
+names=num_waiting
+visibility=public
+
+--- num_waiting
+queue を待っているスレッドの数を返します。
+

@@ -1,0 +1,11 @@
+kind=defined
+names=minor_version
+visibility=public
+
+--- minor_version -> Integer
+
+Returns minor version.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Word 10.0 Object Library', 'Documents')
+   p tobj.minor_version   # => 2
+

@@ -1,0 +1,8 @@
+kind=defined
+names=error_string
+visibility=public
+
+--- error_string
+
+verify を呼び出した時のエラー内容を述べた文字列です。エラーでない場合は、"ok" がセットされます。verify を一度も呼び出していない時は nil です。
+

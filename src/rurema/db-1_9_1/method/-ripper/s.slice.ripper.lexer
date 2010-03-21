@@ -1,0 +1,21 @@
+kind=added
+names=slice
+visibility=public
+
+--- Ripper.slice(src, pattern, n = 0)
+
+Ruby プログラム src のうち、
+パターン pattern の n 番目の括弧にマッチする文字列を取り出します。
+ただし、n が 0 のときは pattern 全体を意味します。
+
+pattern は Ripper のイベント ID のリストを文字列で記述します。
+また pattern には Ruby の正規表現と同じメタ文字も使えます。
+ただし「.」は任意のトークン 1 つにマッチし、
+その他のメタ文字もすべて文字単位ではなくトークン単位で動作します。
+
+使用例
+
+  p Ripper.slice(%(<<HERE\nstring\#{nil}\nHERE),
+                 "heredoc_beg .*? nl $(.*?) heredoc_end", 1)
+      # => "string\#{nil}\n"
+

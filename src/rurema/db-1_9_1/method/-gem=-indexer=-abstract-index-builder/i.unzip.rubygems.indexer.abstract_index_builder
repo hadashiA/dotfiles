@@ -1,0 +1,12 @@
+kind=defined
+names=unzip
+visibility=public 
+
+--- unzip(string) -> String
+
+与えられた圧縮済み文字列を展開して返します。
+
+@param string 圧縮されているデータを指定します。
+
+@see [[m:Zlib::Inflate.inflate]]
+

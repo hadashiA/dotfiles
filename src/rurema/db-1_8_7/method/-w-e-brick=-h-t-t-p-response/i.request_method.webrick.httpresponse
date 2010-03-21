@@ -1,0 +1,12 @@
+kind=defined
+names=request_method,request_method=
+visibility=public
+
+--- request_method          -> String | nil
+--- request_method=(method)
+
+リクエストの HTTP メソッドを文字列で表すアクセサです。
+デフォルトは nil です。
+
+@param method リクエストの HTTP メソッドを文字列で指定します。
+

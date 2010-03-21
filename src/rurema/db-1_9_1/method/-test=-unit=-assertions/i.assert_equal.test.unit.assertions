@@ -1,0 +1,13 @@
+kind=defined
+names=assert_equal
+visibility=public
+
+--- assert_equal(expected, actual, message=nil)    -> ()
+
+expected == actual ならばパスします。
+
+[[m:Test::Unit::Assertions#assert_same]]との違いに注意して下さい。
+[[m:Object#==]] も参照して下さい。
+
+@raise Test::Unit::AssertionFailedError assert が失敗した時に発生します。
+

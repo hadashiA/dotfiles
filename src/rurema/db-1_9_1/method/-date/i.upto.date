@@ -1,0 +1,14 @@
+kind=defined
+names=upto
+visibility=public
+
+--- upto(max){|date| ...} -> self
+このメソッドは、step(max, 1){|date| ...} と等価です。
+
+1.9.0 以降では、ブロックが与えられない場合、
+[[c:Enumerable::Enumerator]] オブジェクトを返します。
+
+[[m:Date#step]] を参照してください。
+
+@param max 日付オブジェクト
+

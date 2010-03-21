@@ -1,0 +1,15 @@
+kind=defined
+names=NO_PADDING,PKCS1_OAEP_PADDING,PKCS1_PADDING,SSLV23_PADDING
+visibility=public
+
+--- PKCS1_PADDING
+--- SSLV23_PADDING
+--- NO_PADDING
+--- PKCS1_OAEP_PADDING
+
+[[m:OpenSSL::PKey::RSA#public_encrypt]]、
+[[m:OpenSSL::PKey::RSA#public_decrypt]]、
+[[m:OpenSSL::PKey::RSA#private_encrypt]]、
+[[m:OpenSSL::PKey::RSA#private_decrypt]] の
+第二引数に指定できるパディングモード。
+

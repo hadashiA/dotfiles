@@ -1,0 +1,33 @@
+kind=defined
+names=each
+visibility=public
+
+--- each -> Enumerable::Enumerator
+--- each {|string| ... }
+
+ヒストリの内容に対してブロックを評価します。
+ブロック引数にはヒストリの最初から最後までの内容を順番に渡します。
+ブロックが与えられなかった場合は、自身と each から生成した
+[[c:Enumerable::Enumerator]] オブジェクトを返します。
+
+セーフレベル ($SAFE) が 4 の場合、例外 SecurityError を発生します。
+
+例: ヒストリの内容を最初から順番に出力する。
+
+  require "readline"
+  
+  Readline::HISTORY.push("foo", "bar", "baz")
+  Readline::HISTORY.each do |s|
+    p s #=> "foo", "bar", "baz"
+  end
+
+例: [[c:Enumerable::Enumerator]] オブジェクトを返す場合。
+
+  require "readline"
+  
+  Readline::HISTORY.push("foo", "bar", "baz")
+  e = Readline::HISTORY.each
+  e.each do |s|
+    p s #=> "foo", "bar", "baz"
+  end
+

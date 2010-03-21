@@ -1,0 +1,8 @@
+kind=defined
+names=as_list
+visibility=public 
+
+--- as_list -> [String]
+
+必要条件を文字列の配列で返します。
+

@@ -1,0 +1,7 @@
+kind=defined
+names=new_cond
+visibility=public
+
+--- new_cond
+
+[[m:MonitorMixin#new_cond]] を参照して下さい。

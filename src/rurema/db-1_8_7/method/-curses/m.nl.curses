@@ -1,0 +1,11 @@
+kind=defined
+names=nl
+visibility=public
+
+--- nl -> nil
+
+cooked モードのとき、return キーの入力に対して
+LF (Ctrl-j) を返すようにします。
+
+詳しくは、 man ページの curs_outopts(3X) の nl 関数を参照ください。
+

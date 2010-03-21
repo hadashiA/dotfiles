@@ -1,0 +1,8 @@
+methods=
+sublibraries=
+requires=rubygems.spec_fetcher,rubygems.requirement,rubygems.specification,rubygems.remote_fetcher,rubygems.package.tar_writer,rubygems.package,rubygems.gem_openssl,rubygems.builder,rubygems.exceptions,rubygems.package.tar_input,rubygems.source_index,rubygems.package.tar_reader,rubygems.package.tar_header,rubygems.source_info_cache_entry,rubygems.indexer,rubygems.digest.sha2,rubygems.gem_path_searcher,rubygems.defaults.operating_system,rubygems.platform,rubygems.defaults,rubygems.package.tar_reader.entry,rubygems.package.f_sync_dir,rubygems.digest.md5,rubygems.dependency,rubygems.source_info_cache,rubygems.user_interaction,rubygems,rubygems.version,rubygems.format,rubygems.package.tar_output,rubygems.security
+classes=Gem=Indexer=LatestIndexBuilder
+is_sublibrary=true
+
+##
+# Construct the latest Gem index file.

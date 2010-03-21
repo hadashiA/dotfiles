@@ -1,0 +1,6 @@
+kind=defined
+names=quote
+visibility=public
+
+--- quote(str)
+

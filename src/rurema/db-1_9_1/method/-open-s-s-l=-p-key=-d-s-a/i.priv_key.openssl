@@ -1,0 +1,8 @@
+kind=defined
+names=priv_key,priv_key=
+visibility=public
+
+--- priv_key
+--- priv_key=(private_key)
+    パラメータ。
+

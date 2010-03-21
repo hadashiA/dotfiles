@@ -1,0 +1,11 @@
+kind=defined
+names=progid
+visibility=public
+
+--- progid -> String
+
+Returns ProgID if it exists. If not found, then returns nil.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Application')
+   p tobj.progid   # => "Excel.Application.9"
+

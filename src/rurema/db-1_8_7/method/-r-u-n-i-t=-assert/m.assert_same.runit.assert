@@ -1,0 +1,10 @@
+kind=defined
+names=assert_same
+visibility=public
+
+--- assert_same(expected, actual[, message])
+
+expected.equal?(actual) が真であると表明します。
+
+message はアサート失敗時のエラーメッセージです。
+

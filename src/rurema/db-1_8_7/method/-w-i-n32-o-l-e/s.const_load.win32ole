@@ -1,0 +1,30 @@
+kind=defined
+names=const_load
+visibility=public
+
+--- const_load(ole, mod = WIN32OLE)
+
+Defines the constants of OLE Automation server as mod's constants.
+The first argument is WIN32OLE object or type library name. If
+2nd argument is omitted, the default is WIN32OLE. The first letter
+of Ruby's constant variable name is upper case, so constant variable
+name of WIN32OLE object is capitalized. For example, the 'xlTop'
+constant of Excel is changed to 'XlTop' in WIN32OLE. If the first
+letter of constant variabl is not [A-Z], then the constant is
+defined as CONSTANTS hash element.
+
+   module EXCEL_CONST
+   end
+   excel = WIN32OLE.new('Excel.Application')
+   WIN32OLE.const_load(excel, EXCEL_CONST)
+   puts EXCEL_CONST::XlTop # => -4160
+   puts EXCEL_CONST::CONSTANTS['_xlDialogChartSourceData'] # => 541
+
+   WIN32OLE.const_load(excel)
+   puts WIN32OLE::XlTop # => -4160
+
+   module MSO
+   end
+   WIN32OLE.const_load('Microsoft Office 9.0 Object Library', MSO)
+   puts MSO::MsoLineSingle # => 1
+

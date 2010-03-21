@@ -1,0 +1,6 @@
+kind=defined
+names=NumericString
+visibility=public
+
+--- NumericString(value ... )
+

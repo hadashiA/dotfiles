@@ -1,0 +1,11 @@
+kind=defined
+names=version,version=
+visibility=public
+
+--- version       -> String
+--- version=(ver)
+
+プログラムのバージョンを表すアクセサです。
+
+@param ver プログラムのバージョンを文字列で指定します。
+

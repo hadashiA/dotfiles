@@ -1,0 +1,8 @@
+kind=defined
+names=public_key
+visibility=public
+
+--- public_key
+
+公開鍵を複製して DH オブジェクトとして返します。
+

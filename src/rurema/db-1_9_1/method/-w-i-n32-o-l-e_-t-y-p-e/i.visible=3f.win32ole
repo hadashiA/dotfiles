@@ -1,0 +1,11 @@
+kind=defined
+names=visible?
+visibility=public
+
+--- visible? -> bool
+
+Returns true if the OLE class is public.
+
+  tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Application')
+  puts tobj.visible  # => true
+

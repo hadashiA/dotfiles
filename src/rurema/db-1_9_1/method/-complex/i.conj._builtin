@@ -1,0 +1,9 @@
+kind=defined
+names=conj,conjugate
+visibility=public
+
+--- conjugate
+--- conj
+
+Complex conjugate (z + z.conjugate = 2 * z.real).
+

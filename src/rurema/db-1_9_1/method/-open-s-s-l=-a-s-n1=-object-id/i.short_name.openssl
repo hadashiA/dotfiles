@@ -1,0 +1,9 @@
+kind=defined
+names=short_name,sn
+visibility=public
+
+--- sn
+--- short_name
+
+オブジェクト ID に対応する短い形式の名前を返します。
+

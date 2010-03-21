@@ -1,0 +1,8 @@
+kind=defined
+names=marshal_dump
+visibility=public 
+
+--- marshal_dump -> Array
+
+必要条件のみを [[m:Marshal.#dump]] で使用するために返します。
+

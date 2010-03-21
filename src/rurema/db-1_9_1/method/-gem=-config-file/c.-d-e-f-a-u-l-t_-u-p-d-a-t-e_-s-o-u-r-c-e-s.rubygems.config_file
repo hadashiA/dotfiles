@@ -1,0 +1,6 @@
+kind=defined
+names=DEFAULT_UPDATE_SOURCES
+visibility=protected 
+
+--- DEFAULT_UPDATE_SOURCES -> true
+

@@ -1,0 +1,10 @@
+kind=added
+names=gcdlcm
+visibility=public
+
+--- gcdlcm(int)
+
+最大公約数と最小公倍数の配列 [self.gcd, self.lcm] を返します。
+
+   6.gcdlcm 9     # -> [3, 18]
+

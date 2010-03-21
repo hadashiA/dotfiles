@@ -1,0 +1,6 @@
+kind=defined
+names=calculate_integers_for_gem_version
+visibility=public 
+
+--- calculate_integers_for_gem_version
+

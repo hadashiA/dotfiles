@@ -1,0 +1,8 @@
+kind=defined
+names=debug=
+visibility=public
+
+--- debug=(val)
+
+Sets the debug mode.
+

@@ -1,0 +1,8 @@
+kind=defined
+names=sign
+visibility=public
+
+--- sign(cert, key, data, []= nil, flags = 0)
+
+data に証明書 cert を付けて key で署名します。
+

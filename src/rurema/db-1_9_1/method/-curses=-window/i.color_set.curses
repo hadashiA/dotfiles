@@ -1,0 +1,6 @@
+kind=defined
+names=color_set
+visibility=public
+
+--- color_set(color)
+

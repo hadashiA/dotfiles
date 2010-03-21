@@ -1,0 +1,8 @@
+kind=defined
+names=private_encrypt
+visibility=public
+
+--- private_encrypt(str, mode = OpenSSL::PKey::RSA::PKCS1_PADDING)
+
+矢机误 str を入泰赴で芭规步します。
+

@@ -1,0 +1,14 @@
+kind=defined
+names=invoke
+visibility=public
+
+--- invoke(method, [arg1,...])  -> return value of method.
+
+Runs OLE method. The first argument specifies the method name
+of OLE Automation object. The others specify argument of the
+method. If you can not execute method directly, then use this
+method instead.
+
+  excel = WIN32OLE.new('Excel.Application')
+  excel.invoke('Quit')  # => same as excel.Quit
+

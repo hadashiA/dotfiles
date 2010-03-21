@@ -1,0 +1,9 @@
+kind=defined
+names=data,data=
+visibility=public
+
+--- data
+--- data=(data)
+
+署名の対象となるデータを返します。
+

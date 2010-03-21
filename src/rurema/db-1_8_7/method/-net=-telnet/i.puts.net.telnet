@@ -1,0 +1,8 @@
+kind=defined
+names=puts
+visibility=public
+
+--- puts(string)
+
+string を改行を付けてリモートホストに送ります。
+

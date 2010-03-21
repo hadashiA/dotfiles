@@ -1,0 +1,6 @@
+kind=defined
+names=AuthException
+visibility=public
+
+--- AuthException
+

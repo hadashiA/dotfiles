@@ -1,0 +1,31 @@
+kind=defined
+names=set_debug_output
+visibility=public
+
+--- set_debug_output(f)
+
+デバッグ用の出力 f をセットします。
+f は << メソッドを持っているオブジェクトでなければなりません。
+
+使用例:
+
+  require 'net/pop'
+
+  pop = Net::POP3.new('your.pop3.server', 110)
+  pop.set_debug_output $stderr
+  pop.start('YourAccount', 'YourPassword') {
+    p pop.n_bytes
+  }
+
+実行結果:
+
+  POP session started: your.pop3.server:110 (POP)
+  -> "+OK popd <1162042773.26346.155555a1861c@your.pop3.server>\r\n"
+  <- "APOP YourAccount XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\r\n"
+  -> "+OK\r\n"
+  <- "STAT\r\n"
+  -> "+OK 37 339936\r\n"
+  339936
+  <- "QUIT\r\n"
+  -> "+OK\r\n"
+

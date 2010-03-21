@@ -1,0 +1,8 @@
+kind=defined
+names=signers
+visibility=public
+
+--- signers
+
+メッセージの署名者 OpenSSL::PKCS7::Signer オブジェクトの配列を返します。
+

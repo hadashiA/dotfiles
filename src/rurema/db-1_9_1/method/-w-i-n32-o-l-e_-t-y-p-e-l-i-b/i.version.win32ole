@@ -1,0 +1,11 @@
+kind=defined
+names=version
+visibility=public
+
+--- version -> The type library version. 
+
+Returns the type library version.
+
+   tlib = WIN32OLE_TYPELIB.new('Microsoft Excel 9.0 Object Library')
+   puts tlib.version #-> 1.3
+

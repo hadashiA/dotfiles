@@ -1,0 +1,10 @@
+kind=added
+names=readbytes
+visibility=public
+
+--- readbytes(size)
+[[m:IO#read]]と同様にsizeバイト読み込みますが、
+EOFに到達した時に例外 [[c:EOFError]] を発生させます。
+sizeバイト未満しか読み込めなかった時には
+例外 [[c:TruncatedDataError]] を発生させます。
+

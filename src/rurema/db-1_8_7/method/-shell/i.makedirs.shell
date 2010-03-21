@@ -1,0 +1,12 @@
+kind=defined
+names=makedirs
+visibility=public
+
+--- makedirs(*dirs) -> Array
+
+FileToolsクラスにある同名のクラスメソッドと同じです.
+
+@param dirs 作成するディレクトリを指定します。
+
+@see [[m:File.makedirs]]
+

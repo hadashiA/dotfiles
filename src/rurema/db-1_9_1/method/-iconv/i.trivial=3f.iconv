@@ -1,0 +1,9 @@
+kind=defined
+names=trivial?
+visibility=public
+
+--- trivial?
+
+Returns trivial flag.
+
+

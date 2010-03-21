@@ -1,0 +1,7 @@
+kind=defined
+names=auth_type,auth_type=
+visibility=public
+
+--- auth_type
+--- auth_type=(type)
+

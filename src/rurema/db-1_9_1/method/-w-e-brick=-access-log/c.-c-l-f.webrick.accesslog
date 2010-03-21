@@ -1,0 +1,10 @@
+kind=defined
+names=CLF,COMMON_LOG_FORMAT
+visibility=public
+
+--- COMMON_LOG_FORMAT
+--- CLF
+
+Apache のアクセスログで一般的に使われる形式を表す以下の文字列です。
+  "%h %l %u %t \"%r\" %s %b"
+

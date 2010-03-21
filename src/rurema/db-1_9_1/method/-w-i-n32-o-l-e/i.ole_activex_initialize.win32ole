@@ -1,0 +1,19 @@
+kind=defined
+names=ole_activex_initialize
+visibility=public
+
+--- ole_activex_initialize -> Qnil
+
+Initialize WIN32OLE object(ActiveX Control) by calling IPersistMemory::InitNew.
+
+Before calling OLE method, some kind of the ActiveX controls
+created with MFC should be initialized by calling IPersistXXX::InitNew.
+
+If and only if you recieved the exception "HRESULT error code:
+0x8000ffff catastrophic failure", try this method before invoking
+any ole_method.
+
+   obj = WIN32OLE.new("ProgID_or_GUID_of_ActiveX_Control")
+   obj.ole_activex_initialize
+   obj.method(...)
+

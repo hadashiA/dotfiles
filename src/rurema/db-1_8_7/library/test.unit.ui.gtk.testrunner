@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=test.unit.testresult,test.unit,test.unit.assertions,test.unit.util.observable,test.unit.autorunner,test.unit.testsuite,test.unit.ui.testrunnermediator,test.unit.testcase,test.unit.ui.testrunnerutilities
+classes=Test=Unit=UI=GTK=TestRunner
+is_sublibrary=true
+
+

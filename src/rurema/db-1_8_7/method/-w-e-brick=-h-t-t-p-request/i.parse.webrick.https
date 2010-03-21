@@ -1,0 +1,6 @@
+kind=redefined
+names=parse
+visibility=public
+
+--- parse(socket = nil)
+

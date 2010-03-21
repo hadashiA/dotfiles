@@ -1,0 +1,7 @@
+kind=redefined
+names=HTTP
+visibility=public
+
+--- HTTP
+[[m:WEBrick::Config::SSL]] の内容がマージされます。
+

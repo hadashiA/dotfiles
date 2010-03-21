@@ -1,0 +1,8 @@
+kind=defined
+names=stop
+visibility=public
+
+--- stop
+
+GServer をすぐに停止します。
+

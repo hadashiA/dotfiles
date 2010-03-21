@@ -1,0 +1,8 @@
+kind=added
+names=numerator
+visibility=public
+
+--- numerator
+In an integer, the value is the numerator of its rational equivalent.
+Therefore, this method returns self.
+

@@ -1,0 +1,11 @@
+kind=defined
+names=assert
+visibility=public
+
+--- assert(condition[, message])
+
+condition が Ruby の真 (false または nil 以外) であることを表明します。
+condition が偽であったらこのアサーションは失敗します。
+
+message はアサート失敗時のエラーメッセージです。
+

@@ -1,0 +1,9 @@
+kind=defined
+names=each_line
+visibility=public
+
+--- each_line(*args, &block)
+IO.foreach(self.to_s, *args, &block) と同じです。
+
+@see [[m:IO.foreach]]
+

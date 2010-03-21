@@ -1,0 +1,23 @@
+kind=defined
+names=[]=
+visibility=public
+
+--- []=(i,j,...,val)
+
+Set the element of WIN32OLE_VARIANT object (OLE array) to val.
+This method is available only when the variant type of WIN32OLE_VARIANT
+object is VT_ARRAY.
+
+REMARK:
+
+   The all indicies should be 0 or natural number and
+   lower than or equal to max indicies.
+   (This point is different with Ruby Array indicies.)
+
+   obj = WIN32OLE_VARIANT.new([[1,2,3],[4,5,6]])
+   obj[0,0] = 7
+   obj[1,0] = 8
+   p obj.value # => [[7,2,3], [8,5,6]]
+   obj[2,0] = 9 # => WIN32OLERuntimeError
+   obj[0, -1] = 9 # => WIN32OLERuntimeError
+

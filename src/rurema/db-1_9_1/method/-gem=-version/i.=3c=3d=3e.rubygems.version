@@ -1,0 +1,8 @@
+kind=defined
+names=<=>
+visibility=public 
+
+--- <=>(other) -> -1 | 0 | 1 | nil
+
+@param other 比較対象の [[c:Gem::Version]] を指定します。
+

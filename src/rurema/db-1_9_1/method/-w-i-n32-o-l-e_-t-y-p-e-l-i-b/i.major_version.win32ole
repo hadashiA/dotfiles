@@ -1,0 +1,11 @@
+kind=defined
+names=major_version
+visibility=public
+
+--- major_version -> The type library major version. 
+
+Returns the type library major version.
+
+   tlib = WIN32OLE_TYPELIB.new('Microsoft Excel 9.0 Object Library')
+   puts tlib.major_version # -> 1
+

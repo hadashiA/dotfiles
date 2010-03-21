@@ -1,0 +1,8 @@
+kind=defined
+names=header
+visibility=public
+
+--- header
+
+ヘッダだけを受信して文字列で返します。
+

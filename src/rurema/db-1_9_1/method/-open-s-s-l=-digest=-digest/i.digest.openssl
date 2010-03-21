@@ -1,0 +1,8 @@
+kind=defined
+names=digest
+visibility=public
+
+--- digest
+
+ハッシュ値を計算して文字列を返します。
+

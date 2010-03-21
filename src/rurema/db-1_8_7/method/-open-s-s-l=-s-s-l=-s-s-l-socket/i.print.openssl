@@ -1,0 +1,8 @@
+kind=defined
+names=print
+visibility=public
+
+--- print([arg[, ...]])
+
+[[m:IO#print]] と同様です。
+

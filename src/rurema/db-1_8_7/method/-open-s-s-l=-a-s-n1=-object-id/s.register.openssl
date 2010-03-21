@@ -1,0 +1,14 @@
+kind=defined
+names=register
+visibility=public
+
+--- register(oid, short_name, long_name)
+
+オブジェクト ID に対応する名前を登録します。登録した名前は [[c:OpenSSL::X509::Extension]] などで利用できるようになります。
+
+例:
+
+  require "openssl"
+  OpenSSL::ASN1::ObjectId.register(
+    "2.5.29.9", "subjectDirAttrs", "X509v3 Subject Directory Attributes")
+

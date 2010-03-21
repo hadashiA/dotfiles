@@ -1,0 +1,7 @@
+kind=defined
+names=stopped?
+visibility=public
+
+--- stopped?
+
+GServer が停止しているなら真を返します。

@@ -1,0 +1,7 @@
+kind=defined
+names=UNKNOWN
+visibility=public
+
+--- UNKNOWN -> Integer
+重要度:不明なエラーを表す定数です。
+

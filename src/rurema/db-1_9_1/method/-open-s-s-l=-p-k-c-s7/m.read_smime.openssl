@@ -1,0 +1,9 @@
+kind=defined
+names=read_smime
+visibility=public
+
+--- read_smime(str)
+--- read_smime(io)
+
+S/MIME 形式を読み込み、PKCS7 オブジェクトを返します。
+

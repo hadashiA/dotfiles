@@ -1,0 +1,10 @@
+kind=defined
+names=assert_not_equal
+visibility=public
+
+--- assert_not_equal(expected, actual, message="")    -> ()
+
+expected != actual ならばパスします。
+
+@raise Test::Unit::AssertionFailedError assert が失敗した時に発生します。
+

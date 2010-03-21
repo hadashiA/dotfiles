@@ -1,0 +1,11 @@
+kind=defined
+names=ole_obj_help
+visibility=public
+
+--- ole_obj_help
+
+Returns WIN32OLE_TYPE object.
+
+   excel = WIN32OLE.new('Excel.Application')
+   tobj = excel.ole_obj_help
+

@@ -1,0 +1,25 @@
+kind=defined
+names=open_message_stream,ready
+visibility=public
+
+--- open_message_stream(from_addr, *to_addrs) {|f| .... }
+--- ready(from_addr, *to_addrs) {|f| .... }
+
+メール書きこみの準備をしたうえで、
+write, print, printf, puts メソッドを持つオブジェクト f をブロックにあたえます。
+from_addr は送信元メールアドレスで
+to_addrs は宛先のメールボックスです。
+
+  require 'net/smtp'
+
+  Net::SMTP.start('your.smtp.server', 25) {|smtp|
+    smtp.open_message_stream('from@mail.addr', 'dest@mail.addr') {|f|
+      f.puts 'From: aamine@loveruby.net'
+      f.puts 'To: someone@somedomain.org'
+      f.puts 'Subject: test mail'
+      f.puts
+      f.puts 'This is test mail.'
+    }
+  }
+
+

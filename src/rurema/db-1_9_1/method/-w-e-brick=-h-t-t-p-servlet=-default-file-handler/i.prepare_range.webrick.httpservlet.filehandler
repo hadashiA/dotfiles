@@ -1,0 +1,5 @@
+kind=defined
+names=prepare_range
+visibility=public
+
+--- prepare_range(range, filesize)

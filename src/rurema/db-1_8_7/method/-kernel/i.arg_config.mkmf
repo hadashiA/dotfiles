@@ -1,0 +1,16 @@
+kind=added
+names=arg_config
+visibility=private 
+
+--- arg_config(config[, default])
+
+configure オプション --config の値を返します。
+オプションが指定されていないときは第 2 引数 default を返します。
+
+例えば extconf.rb で arg_config メソッドを使う場合、
+
+  $ ruby extconf.rb --foo --bar=baz
+
+と実行したとき、arg_config("--foo") の値は true、
+arg_config("--bar") の値は "baz" です。
+

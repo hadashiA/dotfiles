@@ -1,0 +1,8 @@
+kind=defined
+names=add_signer
+visibility=public
+
+--- add_signer(singer)
+
+署名者を加えます。
+

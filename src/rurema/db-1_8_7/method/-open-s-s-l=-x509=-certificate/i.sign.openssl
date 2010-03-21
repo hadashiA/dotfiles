@@ -1,0 +1,12 @@
+kind=defined
+names=sign
+visibility=public
+
+--- sign(pkey, digest)
+
+証明書に署名します。pkey は発行者の秘密鍵です。digest は
+[[c:OpenSSL::Digest::Digest]] オブジェクトです。秘密鍵オブジェクトが
+[[c:OpenSSL::PKey::DSA]] のインスタンスである場合、 digest は OpenSSL::Digest::DSS1
+オブジェクトでなければなりません。逆も同じです。OpenSSL::Digest::DSS1 は
+OpenSSL::PKey::DSA 以外のダイジェストとして使えません。
+

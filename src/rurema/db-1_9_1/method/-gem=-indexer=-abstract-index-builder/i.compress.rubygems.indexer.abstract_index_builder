@@ -1,0 +1,12 @@
+kind=defined
+names=compress
+visibility=public 
+
+--- compress(filename, ext = 'rz')
+
+与えられたファイルを圧縮します。
+
+@param filename 圧縮するファイルの名前を指定します。
+
+@param ext 圧縮後のファイルの拡張子を指定します。
+

@@ -1,0 +1,8 @@
+kind=defined
+names=public?
+visibility=public
+
+--- public?
+
+公開鍵をもっている場合に true を返します。
+

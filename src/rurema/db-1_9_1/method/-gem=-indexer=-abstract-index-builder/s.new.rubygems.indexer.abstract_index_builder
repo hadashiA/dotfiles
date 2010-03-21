@@ -1,0 +1,11 @@
+kind=defined
+names=new
+visibility=public
+
+--- new(filename, directory)
+
+自身を初期化します。
+
+@param filename 作成するインデックスを保存するファイル名です。
+
+@param directory インデックスファイルを保存する作業ディレクトリです。

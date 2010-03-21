@@ -2,7 +2,6 @@
 ;; ruby-mode
 ;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs 
 (add-to-load-path "~/.emacs.d/elisp/ruby-mode/")
-
 (when (require 'ruby-mode nil t)
   ;; magickコメントを入れない
   (defun ruby-mode-set-encoding () ())
@@ -150,14 +149,22 @@ print(which_library(%%[%s]))'"
    (defadvice ri-ruby-get-process (before ri/force-start-fastri-server
                                           activate)
      (fastri-server-start)))
+
+  ;; Rsense
+  ;;   RSense - ユーザーマニュアル
+  ;; http://cx4a.org/software/rsense/manual.ja.html#.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB
+  (setq rsense-home (expand-file-name "~/opt/rsense"))
+  (add-to-list 'load-path (concat rsense-home "/etc"))
+  (when (require 'rsense nil t)
+    (setq rsense-rurema-home (expand-file-name "~/src/rurema")))
  
   ;; Software Design 2008-02 P154
   ;; xmpfilter (rcodetools)
   (when (require 'rcodetools nil t)
-    (and (require 'anything nil t)
-         (require 'anything-rcodetools nil t)
-         (setq rct-get-all-methods-command "PAGER=cat fri -l")
-         (define-key anything-map "\C-z" 'anything-execute-persistent-action))
+    ;; (and (require 'anything nil t)
+    ;;      (require 'anything-rcodetools nil t)
+    ;;      (setq rct-get-all-methods-command "PAGER=cat fri -l")
+    ;;      (define-key anything-map "\C-z" 'anything-execute-persistent-action))
  
     (setq rct-find-tag-if-available nil)
  
@@ -190,11 +197,11 @@ print(which_library(%%[%s]))'"
         (mapc (lambda (pair)
                 (apply #'define-key ruby-mode-map pair))
               (list
-               '([(meta i)] rct-complete-symbol)
-               '([(meta control i)] rct-complete-symbol)
-               '([(control c) (control t)] ruby-toggle-buffer)
-               '([(control c) (control d)] xmp)
-               '([(control c) (control f)] rct-ri))))))
+               ;; '([(meta i)] rct-complete-symbol)
+               ;; '([(meta control i)] rct-complete-symbol)
+               ;; '([(control c) (control t)] ruby-toggle-buffer)
+               '([(control c) (control f)] rct-ri)
+               '([(control c) (control d)] xmp)))))
 
   (add-to-load-path "~/.emacs.d/elisp/rinari/")
   (when (require 'rinari nil t)
@@ -203,4 +210,4 @@ print(which_library(%%[%s]))'"
   (add-to-load-path "~/.emacs.d/elisp/rhtml-mode/")
   (when (require 'rhtml-mode nil t)
     (add-hook 'rhtml-mode-hook
-              (lambda () (rinari-launch)))))
+              (lambda () (rinari-launch))))))

@@ -1,0 +1,8 @@
+kind=defined
+names=end_index
+visibility=public 
+
+--- end_index
+
+@see [[m:Gem::Indexer::AbstractIndexBuilder#end_index]]
+

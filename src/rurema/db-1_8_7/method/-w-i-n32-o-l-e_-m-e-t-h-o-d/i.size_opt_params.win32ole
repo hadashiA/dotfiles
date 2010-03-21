@@ -1,0 +1,12 @@
+kind=defined
+names=size_opt_params
+visibility=public
+
+--- size_opt_params
+
+Returns the size of optional parameters.
+
+   tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Workbook')
+   method = WIN32OLE_METHOD.new(tobj, 'SaveAs')
+   puts method.size_opt_params # => 4
+

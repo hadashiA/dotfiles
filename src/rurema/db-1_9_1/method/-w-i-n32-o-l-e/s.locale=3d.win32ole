@@ -1,0 +1,12 @@
+kind=defined
+names=locale=
+visibility=public
+
+--- locale=(lcid)
+
+Sets current locale id (lcid).
+
+   WIN32OLE.locale = 1033 # set locale English(U.S)
+   obj = WIN32OLE_VARIANT.new("$100,000", WIN32OLE::VARIANT::VT_CY)
+
+

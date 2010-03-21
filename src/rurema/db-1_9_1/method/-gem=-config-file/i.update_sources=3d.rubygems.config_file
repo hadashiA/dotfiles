@@ -1,0 +1,8 @@
+kind=defined
+names=update_sources=
+visibility=public 
+
+--- update_sources=(update_sources)
+
+@param update_sources 真を指定すると毎回 [[c:Gem::SourceInfoCache]] を更新します。
+

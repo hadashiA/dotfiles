@@ -1,0 +1,10 @@
+kind=defined
+names=[]
+visibility=public
+
+--- [](key)
+
+指定されたキーの値を返します。
+
+値が設定されていなければ nil を返します。
+

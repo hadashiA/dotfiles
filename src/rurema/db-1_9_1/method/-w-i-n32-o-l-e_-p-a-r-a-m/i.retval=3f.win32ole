@@ -1,0 +1,14 @@
+kind=defined
+names=retval?
+visibility=public
+
+--- retval?
+
+Returns true if argument is return value.
+
+   tobj = WIN32OLE_TYPE.new('DirectX 7 for Visual Basic Type Library',
+                            'DirectPlayLobbyConnection')
+   method = WIN32OLE_METHOD.new(tobj, 'GetPlayerShortName')
+   param = method.params[0]
+   puts "#{param.name} #{param.retval?}"  # => name true
+

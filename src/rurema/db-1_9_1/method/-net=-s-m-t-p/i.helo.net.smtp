@@ -1,0 +1,8 @@
+kind=defined
+names=helo
+visibility=public
+
+--- helo(domain)
+
+Dispatch HELO command (use standard SMTP).
+

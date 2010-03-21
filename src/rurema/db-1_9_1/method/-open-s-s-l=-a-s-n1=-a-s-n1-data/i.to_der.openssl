@@ -1,0 +1,7 @@
+kind=defined
+names=to_der
+visibility=public
+
+--- to_der
+
+ASN.1 データの DER 表現を返します。

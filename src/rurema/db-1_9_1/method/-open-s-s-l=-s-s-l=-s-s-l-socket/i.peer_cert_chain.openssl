@@ -1,0 +1,10 @@
+kind=defined
+names=peer_cert_chain
+visibility=public
+
+--- peer_cert_chain
+
+接続相手の証明書チェーンすなわち [[c:OpenSSL::X509::Certificate]] オブジェクトの配列を返します。接続相手の証明書からルート CA の証明書までのリストで、順序は以下の通りです。
+
+  [接続相手の証明書, 下位CAの証明書,... 中間CAの証明書]
+

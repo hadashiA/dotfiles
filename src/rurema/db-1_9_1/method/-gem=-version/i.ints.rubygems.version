@@ -1,0 +1,13 @@
+kind=defined
+names=ints
+visibility=public 
+
+--- ints -> [Integer]
+
+自身のバージョンを表す数値の配列を返します。
+
+例:
+  # 5.3.1 => 5.4
+  a = Gem::Version.create('5.3.1') # => #<Gem::Version "5.3.1">
+  a.ints                           # => [5, 3, 1]
+

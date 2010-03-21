@@ -1,0 +1,8 @@
+kind=defined
+names=debug
+visibility=public
+
+--- debug
+
+デバッグモードなら true、そうでないなら false を返します。
+

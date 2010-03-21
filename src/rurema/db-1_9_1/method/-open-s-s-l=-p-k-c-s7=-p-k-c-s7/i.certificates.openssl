@@ -1,0 +1,9 @@
+kind=defined
+names=certificates,certificates=
+visibility=public
+
+--- certificates
+--- certificates=(certificates)
+
+署名に付ける証明書を指定します。
+

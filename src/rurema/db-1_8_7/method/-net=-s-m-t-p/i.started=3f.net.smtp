@@ -1,0 +1,8 @@
+kind=defined
+names=started?
+visibility=public
+
+--- started?
+
+SMTP セッションが開始されていたら真。
+

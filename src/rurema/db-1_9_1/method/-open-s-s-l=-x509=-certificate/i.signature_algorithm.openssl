@@ -1,0 +1,8 @@
+kind=defined
+names=signature_algorithm
+visibility=public
+
+--- signature_algorithm
+
+発行者 (CA) が証明書に署名するのに使ったアルゴリズムです。
+

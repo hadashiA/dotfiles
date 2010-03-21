@@ -1,0 +1,13 @@
+kind=defined
+names=/
+visibility=public
+
+--- /(other)
+
+商を計算します。
+other が 0 の時は、例外 [[c:ZeroDivisionError]] を投げます。
+
+  Rational(3, 4) / 2              # => Rational(3, 8)
+  Rational(3, 4) / Rational(2, 1) # => Rational(3, 8)
+  Rational(3, 4) / 2.0            # => 0.375
+

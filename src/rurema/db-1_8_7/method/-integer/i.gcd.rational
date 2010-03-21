@@ -1,0 +1,12 @@
+kind=added
+names=gcd
+visibility=public
+
+--- gcd(n)
+
+self と n の最大公約数を Fixnum として返す。
+self や n が負の場合は、正に変換してから計算する。
+
+   72.gcd 168           # -> 24
+   19.gcd 36            # -> 1
+

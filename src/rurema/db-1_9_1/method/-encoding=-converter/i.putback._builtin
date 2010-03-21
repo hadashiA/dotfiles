@@ -1,0 +1,12 @@
+kind=defined
+names=putback
+visibility=public
+
+--- putback -> String
+--- putback(max_numbytes) -> String
+後の変換用に変換器内部で保持しているバイト列をはき出します。
+
+@param max_numbytes
+
+@return 格納されていたバイト列
+

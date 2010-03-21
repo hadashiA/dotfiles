@@ -1,0 +1,9 @@
+kind=defined
+names=verify_depth,verify_depth=
+visibility=public
+
+--- verify_depth
+--- verify_depth=(depth)
+
+証明書を検証する深さです。
+

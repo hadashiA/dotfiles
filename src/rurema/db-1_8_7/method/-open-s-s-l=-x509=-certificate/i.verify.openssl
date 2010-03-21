@@ -1,0 +1,8 @@
+kind=defined
+names=verify
+visibility=public
+
+--- verify(key)
+
+key は証明書の発行者の公開鍵です。 key で証明書の署名を検証します。
+

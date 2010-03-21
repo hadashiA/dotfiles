@@ -1,0 +1,12 @@
+kind=defined
+names=ole_func_methods
+visibility=public
+
+--- ole_func_methods
+
+Returns the array of WIN32OLE_METHOD object . The element of
+the array is functional method of WIN32OLE object.
+
+   excel = WIN32OLE.new('Excel.Application')
+   properties = excel.ole_func_methods
+

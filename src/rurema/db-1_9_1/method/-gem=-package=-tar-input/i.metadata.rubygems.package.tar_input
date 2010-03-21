@@ -1,0 +1,6 @@
+kind=defined
+names=metadata
+visibility=public 
+
+--- metadata -> Gem::Specification
+

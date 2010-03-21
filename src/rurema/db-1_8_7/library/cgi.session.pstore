@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=pstore,cgi.session
+classes=CGI=Session=PStore
+is_sublibrary=true
+
+

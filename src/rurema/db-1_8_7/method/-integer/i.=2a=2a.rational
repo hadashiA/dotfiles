@@ -1,0 +1,16 @@
+kind=redefined
+names=**
+visibility=public
+
+--- **(other)
+
+べき乗。
+
+  * otherが正または0の整数(Integer)ならば、整数(Integer)を返す。
+  * otherが負の整数(Integer)ならば、有理数(Rational)を返す。
+  * otherが有理数(Rational)や浮動小数(Float)ならば、浮動小数(Float)を返す。
+
+  2 **  3          #=> 8
+  2 ** -3          #=> Rational(1, 8)
+  2 ** Rational(3) #=> 8.0
+

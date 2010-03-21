@@ -1,0 +1,13 @@
+kind=defined
+names=symlink
+visibility=public
+
+--- symlink(old)
+File.symlink(old, self.to_s) と同じです。
+
+@see [[m:File.symlink]]
+
+レシーバと引数がシステムコールの引数と逆順に対応していて紛らわしいため、
+このメソッドは obsolete です。
+代わりに [[m:Pathname#make_symlink]] を使ってください。
+

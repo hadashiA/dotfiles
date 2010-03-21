@@ -1,0 +1,25 @@
+kind=defined
+names=pop
+visibility=public
+
+--- pop -> String
+
+ヒストリの最後の内容を取り出します。
+最後の内容は、ヒストリから取り除かれます。
+
+サポートしていない環境では、例外 NotImplementedError が発生します。
+
+セーフレベル ($SAFE) が 4 の場合、例外 SecurityError を発生します。
+
+例:
+
+  require "readline"
+  
+  Readline::HISTORY.push("foo", "bar", "baz")
+  p Readline::HISTORY.pop #=> "baz"
+  p Readline::HISTORY.pop #=> "bar"
+  p Readline::HISTORY.pop #=> "foo"
+
+@see [[m:Readline::HISTORY.push]]、[[m:Readline::HISTORY.shift]]、
+     [[m:Readline::HISTORY.delete_at]]
+

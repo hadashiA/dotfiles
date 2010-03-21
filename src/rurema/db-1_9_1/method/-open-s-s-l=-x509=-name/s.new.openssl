@@ -1,0 +1,9 @@
+kind=defined
+names=new
+visibility=public
+
+--- new([[oid1, val1], [oid2, val2] ...], template = OBJECT_TYPE_TEMPLATE)
+--- new
+
+Name オブジェクトを生成します。
+

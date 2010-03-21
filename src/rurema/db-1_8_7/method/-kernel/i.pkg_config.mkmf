@@ -1,0 +1,6 @@
+kind=added
+names=pkg_config
+visibility=private 
+
+--- pkg_config(pkg)
+

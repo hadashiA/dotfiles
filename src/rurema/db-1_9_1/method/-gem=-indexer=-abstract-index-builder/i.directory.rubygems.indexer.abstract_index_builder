@@ -1,0 +1,8 @@
+kind=defined
+names=directory
+visibility=public 
+
+--- directory -> String
+
+インデックスファイルに入れるファイルを配置しているディレクトリ名を返します。
+

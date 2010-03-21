@@ -1,0 +1,8 @@
+kind=defined
+names=write
+visibility=public
+
+--- write(str)
+
+[[m:IO#write]] と同様です。
+

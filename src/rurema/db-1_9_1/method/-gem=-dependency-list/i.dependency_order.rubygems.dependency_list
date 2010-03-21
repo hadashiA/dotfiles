@@ -1,0 +1,8 @@
+kind=defined
+names=dependency_order
+visibility=public 
+
+--- dependency_order -> [Gem::Specification]
+
+依存する Gem の数が少ない順にソートされた [[c:Gem::Specification]] のリストを返します。
+

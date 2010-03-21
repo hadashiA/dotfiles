@@ -1,0 +1,6 @@
+kind=defined
+names=setscrreg
+visibility=public
+
+--- setscrreg(top, bottom)
+

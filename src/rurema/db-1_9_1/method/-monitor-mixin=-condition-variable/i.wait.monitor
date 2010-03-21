@@ -1,0 +1,14 @@
+kind=defined
+names=wait
+visibility=public
+
+--- wait(timeout = nil)
+
+現在のスレッドを停止します。timeout を与えない場合、
+ConditionVariable#signal で起こされるまでスレッドは停止し続けます。
+timeout を与えた場合は最大 timeout 秒まで停止した後にスレッドを
+再開します。
+
+true を返します。timeout が与えられていて待ち時間が timeout を
+越えた場合は false を返します。
+
