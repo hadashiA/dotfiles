@@ -2,8 +2,6 @@
 ;; ruby-mode
 ;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs 
 (add-to-load-path "~/.emacs.d/elisp/ruby-mode/")
-(add-to-load-path "~/.emacs.d/elisp/rhtml-mode/")
-(add-to-load-path "~/.emacs.d/elisp/rinari/")
 
 (when (require 'ruby-mode nil t)
   ;; magickコメントを入れない
@@ -27,6 +25,7 @@
   (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rjs$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.erb$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.rhtml$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rash$" . ruby-mode))
@@ -195,22 +194,13 @@ print(which_library(%%[%s]))'"
                '([(meta control i)] rct-complete-symbol)
                '([(control c) (control t)] ruby-toggle-buffer)
                '([(control c) (control d)] xmp)
-               '([(control c) (control f)] rct-ri)))))))
+               '([(control c) (control f)] rct-ri))))))
 
-(when (require 'rinari nil t)
-  (global-set-key "\C-c;c" 'rinari-find-controller)
-  (global-set-key "\C-c;e" 'rinari-find-environment)
-  (global-set-key "\C-c;f" 'rinari-find-file-in-project)
-  (global-set-key "\C-c;h" 'rinari-find-helper)
-  (global-set-key "\C-c;v" 'rinari-find-view)
-  (global-set-key "\C-c;i" 'rinari-find-migration)
-  (global-set-key "\C-c;j" 'rinari-find-javascript)
-  (global-set-key "\C-c;p" 'rinari-find-plugin)
-  (global-set-key "\C-c;m" 'rinari-find-model)
-  (global-set-key "\C-c;n" 'rinari-find-configuration)
-  (global-set-key "\C-c;l" 'rinari-find-lib)
-  (global-set-key "\C-c;s" 'rinari-find-stylesheet)
+  (add-to-load-path "~/.emacs.d/elisp/rinari/")
+  (when (require 'rinari nil t)
+    (setq rinari-minor-mode-prefixes (list "\C-c")))
   
+  (add-to-load-path "~/.emacs.d/elisp/rhtml-mode/")
   (when (require 'rhtml-mode nil t)
     (add-hook 'rhtml-mode-hook
               (lambda () (rinari-launch)))))
