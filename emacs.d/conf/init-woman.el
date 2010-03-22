@@ -2,12 +2,8 @@
 
 (setq woman-manpath
       (mapcar 'expand-file-name
-              (list "~/local/man"
-                    "~/fuse/maimai/local/man"
-                    "/opt/local/share/man"
-                    "/usr/local/share/man"
-                    "/usr/share/man"
-                    )))
+              '("/opt/local/share/man"
+                "/usr/share/man")))
 
 (setq woman-cache-filename (expand-file-name "~/.womancache"))
 (setq woman-cache-level 3)
