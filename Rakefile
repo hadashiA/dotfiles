@@ -1,55 +1,81 @@
-require 'rake'
-
 desc "install the dot files into user's home directory"
-task :install do
-  replace_all = false
+task :install => 'install:all'
+
+namespace :install do
+  task :all => [
+    '.irbrc',
+    '.emacs',
+    '.vimrc',
+    '.gvimrc',
+    '.config',  # fish shell configuration
+    '.zshrc',
+    '.vimperatorrc',
+    '.autotest',
+  ]
   
-  Dir["*"].each do |file|
-    next if skip?(file)
+  rule(/^\./ => lambda{|dotfile| File.join(ENV['PWD'], dotfile.sub(/^\./, ''))}) do |t|
+    symlink_with_confirm t.source, File.expand_path("~/#{t.name}")
+  end
+  
+  rule /(bin|opt|src)/ do |t|
+    symlink_with_confirm File.join(ENV['PWD'], t.name), File.join(ENV['HOME'], t.name)
+  end
+  
+  file '.emacs'        => ['.emacs.d', 'gems:fastri', 'gems:rcodetools', :devel_which, :rsense]
+  file '.vimrc'        => ['.vim']
+  file '.irbrc'        => ['gems:hirb', 'gems:wirble']
+  file '.zshrc'        => ['.aliases', '.exports','.gitrc']
+  file '.vimperatorrc' => ['.vimperator']
+  file '.autotest'     => ['.autotest_icons']
 
-    original = File.join(ENV['HOME'], (dotfile?(file) ? ".#{file}" : file))
-
-    if File.exist?(original) or File.symlink?(original)
-      if replace_all
-        replace_file(original)
-        next
+  namespace :gems do
+    rule /gems:/ do |t|
+      gem_name = t.name.sub(/^gems:/, '')
+      unless `gem list #{gem_name}`.include? gem_name
+        puts '-' * 20
+        cmd = "sudo gem install #{gem_name}"
+        puts cmd
+        puts
+        system cmd
       end
-      
-      print "overwrite #{original}? [ynaq] "
-      case $stdin.gets.chomp
-      when 'a'
-        replace_all = true
-        replace_file(original)
-      when 'y'
-        replace_file(original)
-      when 'q'
-        exit
-      else
-        puts "skipping #{original}"
-      end
-    else
-      link_file(original)
     end
+  end
+
+  desc 'install devel/which. find ruby library path tool'
+  task :devel_which => :src do
+    `cd ./src/which-0.2.0/ && sudo ruby ./install.rb`
+  end
+
+  desc 'install rsense. see http://cx4a.org/software/rsense/index.ja.html'
+  task :rsense => [:opt, :src] do
+    `ruby ./opt/rsense/etc/config.rb > $HOME/.rsense`
+    puts `cat $HOME/.rsense`
   end
 end
 
-def skip?(file)
-  %w(Rakefile README).include?(file) or file.match(/^(KeyRemap4|drnic-dot-files)/)
-end
-
-def dotfile?(file)
-  !%w(bin opt src).include?(file)
-end
-
-def replace_file(path)
-  cmd = "rm -fr #{path}"
-  puts cmd
-  system cmd
-  link_file path
-end
-
-def link_file(path)
-  cmd = "ln -s #{File.join(ENV['PWD'], File.basename(path).sub(/^\./, ''))} #{path}"
-  puts cmd
-  system cmd
+@replace_flg = false
+# create symlink
+def symlink_with_confirm(src, dest)
+  if @replace_flg
+    rm_rf dest
+    ln_s src, dest
+    return
+  end
+  
+  if File.exist?(dest) or File.symlink?(dest)
+    print "overwrite #{dest}? [ynaq] "
+    case $stdin.gets.chomp
+    when 'a'
+      @replace_flg = true
+      rm_rf dest
+      ln_s  src, dest
+    when 'y'
+      rm_rf dest
+      ln_s  src, dest
+    when 'q'
+      exit
+    end
+  else
+    ln_s src, dest
+  end
 end
