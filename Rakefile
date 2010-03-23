@@ -43,25 +43,22 @@ namespace :install do
       gem_name = t.name.sub(/^gems:/, '')
       unless `gem list #{gem_name}`.include? gem_name
         puts '-' * 20
-        cmd = "sudo gem install #{gem_name}"
-        puts cmd
-        puts
-        system cmd
+        sh "sudo gem install #{gem_name}"
       end
     end
   end
 
   desc 'install devel/which. find ruby library path tool'
   task 'devel/which' do
-    `cd ./src/which-0.2.0/ && sudo ruby ./install.rb`
+    sh "cd ./src/which-0.2.0/ && sudo ruby ./install.rb"
   end
 
   desc 'install rsense. see http://cx4a.org/software/rsense/index.ja.html'
   task :rsense => [opt, src] do
     ln_s_confirm File.expand_path('./opt/rsense'), File.join(opt, 'rsense')
     ln_s_confirm File.expand_path('./src/rurema'), File.join(src, 'rurema')
-    `ruby ./opt/rsense/etc/config.rb > $HOME/.rsense`
-    puts `cat $HOME/.rsense`
+    sh "ruby ./opt/rsense/etc/config.rb > $HOME/.rsense"
+    sh "cat $HOME/.rsense"
   end
 end
 
