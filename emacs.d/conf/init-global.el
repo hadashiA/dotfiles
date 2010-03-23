@@ -31,7 +31,7 @@
 ;; これ、必要なの？
 
 ;; exec-path, PATHの追加
-(let ((path (list "~/bin" "~/local/bin" "/usr/local/bin" "/usr/local/sbin" "/opt/local/bin" "/usr/bin" "/usr/sbin" "/usr/local/git/bin")))
+(let ((path (list "~/bin" "/opt/local/lib/postgresql84/bn" "/opt/local/lib/mysql5/bin" "/opt/local/bin" "/opt/local/sbin" "/usr/local/mysql/bin" "/usr/local/git/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/bin" "/usr/X11/bin")))
   (setq exec-path (append path exec-path))
   (setenv "PATH" (concat (mapconcat 'identity path ":") ":" (getenv "PATH"))))
 
