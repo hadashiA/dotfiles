@@ -4,8 +4,8 @@
 ;;(when nil ;(require 'yasnippet nil t) ; pending.
 (when (require 'yasnippet nil)
   (setq yas/use-menu nil
-        ;; yas/trigger-key (kbd "SPC")    ; default => "TAB"
-        ;; yas/next-field-key (kbd "TAB")
+        yas/trigger-key (kbd "SPC")    ; default => "TAB"
+        yas/next-field-key (kbd "TAB")
         yas/buffer-local-condition
         '(or (not (or (string= "font-lock-comment-face"
                                (get-char-property (point) 'face))

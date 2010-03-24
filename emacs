@@ -104,7 +104,7 @@
 (load "init-smartchr")
 (load "init-anything")
 (load "init-autocomplete")
-(load "init-snippet")
+;;(load "init-snippet")
 (load "init-occur")
 (load "init-woman")
 (load "init-highlighting")
