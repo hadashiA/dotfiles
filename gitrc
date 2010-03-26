@@ -13,8 +13,8 @@ alias gba='git branch -a'
 alias gco='git checkout'
 alias gdc='git-svn dcommit'
 alias gk='gitk --all &'
-alias gog='git log'
-alias gogl='git log --stat'
+alias gog='git log --stat'
+# alias gogl='git log --stat'
 
 alias gpatch='git diff master -p'
 # alias up='sake git:update' - need to priorities origin vs git-svn
