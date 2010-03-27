@@ -10,6 +10,9 @@
   ;; (setq ac-ignore-case 'smart)
   (setq ac-ignore-case t)
 
+  ;; C-c /‚Åƒtƒ@ƒCƒ‹–¼•âŠ®
+  (global-set-key (kbd "C-c /") 'ac-complete-filename)
+
   (when (require 'pos-tip nil t)
     (setq ac-quick-help-prefer-x t))
 
