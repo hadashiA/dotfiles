@@ -1,7 +1,12 @@
 ;; based upon
 ;; http://d.hatena.ne.jp/antipop/20080321/1206090430
  
-;;(when nil ;(require 'yasnippet nil t) ; pending.
+(defun file-name-camelize ()
+  (replace-regexp-in-string "[_-]" "" 
+                            (capitalize (file-name-nondirectory
+                                         (file-name-sans-extension
+                                          (or (buffer-file-name)
+                                              (buffer-name (current-buffer))))))))
 
 (when (require 'yasnippet nil t)
   (setq yas/use-menu nil
