@@ -33,12 +33,15 @@
   
   (define-key ruby-mode-map "\M-n" 'ruby-end-of-block)
   (define-key ruby-mode-map "\M-p" 'ruby-beginning-of-block)
- 
-  (and (require 'ruby-electric nil t)
-       ;; (setq ruby-electric-expand-delimiters-list nil)    
-       (add-hook 'ruby-mode-hook
-                 '(lambda ()
-                    (ruby-electric-mode 1))))
+
+  ;; [2010-03-28]
+  ;; yasnippetとか、regionをクォートするやつとかと競合するのでコメント
+  ;; アウト
+  ;; (and (require 'ruby-electric nil t)
+  ;;      ;; (setq ruby-electric-expand-delimiters-list nil)    
+  ;;      (add-hook 'ruby-mode-hook
+  ;;                '(lambda ()
+  ;;                   (ruby-electric-mode 1))))
  
   (and (require 'inf-ruby nil t)
        (setq interpreter-mode-alist
