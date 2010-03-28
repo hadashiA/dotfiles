@@ -13,10 +13,20 @@
                       (string= "font-lock-string-face"
                                (get-char-property (point) 'face))))
              '(require-snippet-condition . force-in-comment)))
+
+  (add-hook 'rinari-minor-mode-hook
+          #'(lambda ()
+              (setq yas/mode-symbol 'rails-mode)))
+
+  (add-hook 'rspec-mode-hook
+          #'(lambda ()
+              (setq yas/mode-symbol 'rspec-mode)))
  
-  (and (require 'dropdown-list nil t)
-       (setq yas/text-popup-function
-             #'yas/dropdown-list-popup-for-template))
+  ;; (and (require 'dropdown-list nil t)
+  ;;      (setq yas/text-popup-function
+  ;;            #'yas/dropdown-list-popup-for-template))
+  (require 'dropdown-list)
+  (setq yas/prompt-functions '(yas/dropdown-prompt))
  
   ;;; [2008-03-17]
   ;;; yasnippet展開中はflymakeを無効にする

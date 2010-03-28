@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Dir.glob(..) do |path| ... end
+# group: file
+# --
+Dir.glob("${1:glob}") do |path|
+  $0
+end

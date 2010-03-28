@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: def ... end
+# name: def initialize .. end
 # group: definitions
 # --
-def ${1:method}
+def initialize${1:($2)}
   $0
 end

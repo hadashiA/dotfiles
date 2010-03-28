@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: IO.foreach(path) do |line| ... end
+# group: file
+# --
+IO.foreach(${1:path}) do |line|
+  $0
+end

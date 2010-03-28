@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: lambda {|v| ...  }
+# group: block
+# --
+lambda${1:{${2:|${3:v}|} $0 }}

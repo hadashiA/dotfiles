@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: CSV.open(path, 'w') do |writer| ... end
+# group: csv
+# --
+require 'csv'
+
+CSV.open(${1:path}, 'w') do |writer|
+  $0
+end
