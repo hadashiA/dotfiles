@@ -61,6 +61,7 @@
                            (inf-ruby-keys))))))
 
   (when (require 'ruby-block nil t)
+    (setq ruby-block-highlight-toggle t)
     (ruby-block-mode t))
   
   ;; M-x alignの設定 for Ruby - (rubikitch loves (Emacs Ruby CUI))
