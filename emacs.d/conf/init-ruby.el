@@ -204,8 +204,8 @@ print(which_library(%%[%s]))'"
                '([(control c) (control d)] xmp)))))
 
   (add-to-load-path "~/.emacs.d/elisp/rinari/")
-  (when (require 'rinari nil t)
-    (setq rinari-minor-mode-prefixes (list "\C-c")))
+  (setq rinari-minor-mode-prefixes (list "\C-c"))
+  (require 'rinari nil t)
   
   (add-to-load-path "~/.emacs.d/elisp/rhtml-mode/")
   (when (require 'rhtml-mode nil t)
