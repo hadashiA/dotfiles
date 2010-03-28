@@ -1,8 +1,7 @@
 # -*- mode: snippet -*-
-# name: case ... when ... end
+# name: case ... when then ... end
 # group : control structure
 # --
 case ${1:object}
-when ${2:condition}
-  ${3}
+when ${2:condition} then ${3}
 end

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: deep_copy(...)
+# group: marshal
+# --
+def ${1:method}
+  $0
+end

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name : if ... elsif ... else ... end
+# group : control structure
+# --
+if ${1:condition 1}
+  $3
+elsif ${$2: conditions 2}
+  $4
+else
+  $5
+end

@@ -1,9 +1,7 @@
 # -*- mode: snippet -*-
-# name: do..end
-# key: do
-# binding: "keybinding"
-# expand-env: ((some-var some-value))
+# name : do..end
+# group : block
 # --
-do
+do ${1:|${2:params}|}
   $0
 end

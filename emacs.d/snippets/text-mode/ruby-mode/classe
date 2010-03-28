@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: class ErrorClass < StandardError; end
+# group: definitions
+# --
+class ${1:$$(capitalize text)} < ${2:StandardError}; end
