@@ -1,7 +1,7 @@
 ;;; color-moccur.el ---  multi-buffer occur (grep) mode
 ;; -*- Mode: Emacs-Lisp -*-
 
-;; $Id: color-moccur.el,v 2.65 2010-01-11 07:06:10 Akihisa Exp $
+;; $Id: color-moccur.el,v 2.66 2010-02-23 14:17:11 Akihisa Exp $
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -349,6 +349,12 @@
 
 ;;; History:
 ;;
+
+;; 2010/02/23
+;; Bug fix.
+;; line 2199
+;; (cdr (reverse inputs))) -> (reverse (cdr (reverse inputs))))
+;; Thanks for patch!
 
 ;; 2008/7/27
 ;; Bug fix.
@@ -2192,7 +2198,7 @@ It serves as a menu to find any of the occurrences in this buffer.
           (mapconcat 'concat
                      (if (= 1 (length inputs))
                          inputs
-                       (cdr (reverse inputs)))
+                       (reverse (cdr (reverse inputs))))
                      " "))
     (setq mask
           (if (= 1 (length inputs))
