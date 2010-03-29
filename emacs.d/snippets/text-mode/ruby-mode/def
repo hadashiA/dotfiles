@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: def ... end
+# group: definitions
+# --
+def ${1:method}
+  $0
+end

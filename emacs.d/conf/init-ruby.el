@@ -33,12 +33,15 @@
   
   (define-key ruby-mode-map "\M-n" 'ruby-end-of-block)
   (define-key ruby-mode-map "\M-p" 'ruby-beginning-of-block)
- 
-  (and (require 'ruby-electric nil t)
-       ;; (setq ruby-electric-expand-delimiters-list nil)    
-       (add-hook 'ruby-mode-hook
-                 '(lambda ()
-                    (ruby-electric-mode 1))))
+
+  ;; [2010-03-28]
+  ;; yasnippetとか、regionをクォートするやつとかと競合するのでコメント
+  ;; アウト
+  ;; (and (require 'ruby-electric nil t)
+  ;;      ;; (setq ruby-electric-expand-delimiters-list nil)    
+  ;;      (add-hook 'ruby-mode-hook
+  ;;                '(lambda ()
+  ;;                   (ruby-electric-mode 1))))
  
   (and (require 'inf-ruby nil t)
        (setq interpreter-mode-alist
@@ -58,6 +61,7 @@
                            (inf-ruby-keys))))))
 
   (when (require 'ruby-block nil t)
+    (setq ruby-block-highlight-toggle t)
     (ruby-block-mode t))
   
   ;; M-x alignの設定 for Ruby - (rubikitch loves (Emacs Ruby CUI))
@@ -204,8 +208,8 @@ print(which_library(%%[%s]))'"
                '([(control c) (control d)] xmp)))))
 
   (add-to-load-path "~/.emacs.d/elisp/rinari/")
-  (when (require 'rinari nil t)
-    (setq rinari-minor-mode-prefixes (list "\C-c")))
+  (setq rinari-minor-mode-prefixes (list "\C-c"))
+  (require 'rinari nil t)
   
   (add-to-load-path "~/.emacs.d/elisp/rhtml-mode/")
   (when (require 'rhtml-mode nil t)

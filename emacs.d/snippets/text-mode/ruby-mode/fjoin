@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: File.join(.., ..)
+# group: file
+# --
+File.join($1, $2)

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: File.join(File.dirname(__FILE__), ..)
+# group: file
+# --
+File.join(File.dirname(__FILE__), ${1:path here})

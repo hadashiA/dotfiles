@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Digest::SHA1.hexdigest(..)
+# group: digest
+# --
+Digest::SHA1.hexdigest(${1:string})

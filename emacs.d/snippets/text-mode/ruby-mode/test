@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: each(&:method_name)
+# group : enumerable
+# --
+\section{${1:"Titel der Tour"}}%
+\index{$1}%
+\label{{2:"waiting for reftex-label call..."$(unless yas/modified-p (reftex-label nil 'dont-
+insert))}}%

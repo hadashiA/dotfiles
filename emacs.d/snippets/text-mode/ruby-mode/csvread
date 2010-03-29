@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: CSV.foreach(path) do |row| ... end
+# group: csv
+# --
+require 'csv'
+
+CSV.foreach(${1:path}) do |row|
+  $0
+end

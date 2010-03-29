@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: class .. end
+# group: definitions
+# --
+class ${1:`(file-name-camelize)`}
+  $0
+end

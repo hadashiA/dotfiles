@@ -1,12 +1,6 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
 (when (require 'acp nil)
-  (acp-mode t)
-  (setq acp-paren-alist
-        '((?( . ?))
-          (?[ . ?])
-          (?\" . ?\")))
-
   ;; (setq acp-insertion-functions
   ;;    '((mark-active . acp-surround-with-paren)
   ;;      ((thing-at-point 'symbol) . acp-surround-symbol-with-paren)
@@ -21,5 +15,21 @@
   ;;       (goto-char (point-max))
   ;;       (insert-char (cdr (acp-current-pair)) n))))
   
-  (add-hook 'emacs-lisp-mode-hook 'acp-mode)
-  (add-hook 'lisp-mode-hook 'acp-mode))
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+                (setq acp-paren-alist
+                      '( (?( . ?)) (?[ . ?]) (?\" . ?\") ))
+                (acp-mode t)))
+  
+  (add-hook 'lisp-mode-hook
+            (lambda ()
+                (setq acp-paren-alist
+                      '( (?( . ?)) (?[ . ?]) (?\" . ?\") ))
+                (acp-mode t)))
+  
+  (add-hook 'ruby-mode-hook
+            (lambda ()
+                (setq acp-paren-alist
+                      '( (?( . ?)) (?[ . ?]) (?\" . ?\") (?\' . ?\') ))
+                (acp-mode t)))
+  )

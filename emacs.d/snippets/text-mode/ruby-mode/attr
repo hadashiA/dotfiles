@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: attr_{reader, writer, accessor} ...
+# group: dsl
+# --
+cattr_${1:$$(yas/choose-value '("reader" "writer" "accessor"))} :${2:attr_names}

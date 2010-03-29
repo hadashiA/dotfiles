@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: open(path){|file| YAML.load(file) }
+# group: yaml
+# --
+open(${1:path_to_yml}){|${2:file}| YAML.load(${3:$2}) }

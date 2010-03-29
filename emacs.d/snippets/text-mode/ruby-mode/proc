@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: proc {|v| ...  }
+# group: block
+# --
+proc ${1:{${2:|${3:v}|} $0 }}

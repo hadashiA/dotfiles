@@ -1,6 +1,7 @@
+# -*- mode: snippet -*-
 # name : Snippet header
 # contributor : joaotavora
-# --
+# -*- mode: snippet -*-
 # name : $1${2:
 # key : ${3:expand-key}}${4:
 # group : ${5:group}} 
