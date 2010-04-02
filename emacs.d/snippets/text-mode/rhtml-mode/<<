@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
 # name: <% ...  %>
-# group: definitions
+# binding: "C-c C-e e"
 # --
 <% $0  %>

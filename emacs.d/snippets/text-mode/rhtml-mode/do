@@ -1,6 +1,7 @@
-#-*- require-final-newline: t -*-
-#name : do
+# -*- mode: snippet -*-
+# name: <% .. do %> ... <% end %>
+# group: block
 # --
-<% ${1} do  %>
+<% $1 do${2: |${3:param}|} %>
   $0
 <% end %>

@@ -1,4 +1,5 @@
-#-*- require-final-newline: t -*-
-#name : <<<
+# -*- mode: snippet -*-
+# name : <<<
+# binding: "C-c C-e p"
 # --
 <%= $0  %>

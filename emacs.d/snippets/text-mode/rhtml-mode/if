@@ -1,6 +1,7 @@
-#-*- require-final-newline: t -*-
-#name : <<
+# -*- mode: snippet -*-
+# name : <% if .. %> ... <% end %>
+# group: block
 # --
-<% if ${1}  %>
+<% if $1 %>
   $0
 <% end %>

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name : <%= hidden_field_tag name, value %>
+# group: form
+# --
+<%= hidden_field_tag ${1:name}, ${2:value} %>
