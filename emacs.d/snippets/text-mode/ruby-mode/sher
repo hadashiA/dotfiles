@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : lambda{ .. }.should raise_error
+# group : rspec
+# --
+lambda {
+  $1
+}.should raise_error(${2:StandardError})

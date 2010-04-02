@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : it "should .." do ... end
+# group : rspec
+# --
+it "${1:should }" do
+  $0
+end

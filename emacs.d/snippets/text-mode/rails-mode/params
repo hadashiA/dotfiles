@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: params[:key]
+# group : controller
+# --
+params[:$1]$0

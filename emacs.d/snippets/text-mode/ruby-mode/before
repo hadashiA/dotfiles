@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : before :each do ... end
+# group : rspec
+# --
+before :${1:$$(yas/choose-value '("each" "all"))} do
+  $0
+end

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: describe .. do ... end
-# group: definitions
+# group: rspec
 # --
 describe ${1:`(replace-regexp-in-string "Spec$" "" file-name-camelize)n`}$0
 end
