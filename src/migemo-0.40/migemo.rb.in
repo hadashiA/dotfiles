@@ -1,0 +1,235 @@
+#
+# Ruby/Migemo - a library for Japanese incremental search.
+#
+# Copyright (C) 2001 Satoru Takabayashi <satoru@namazu.org>
+#     All rights reserved.
+#     This is free software with ABSOLUTELY NO WARRANTY.
+#
+# You can redistribute it and/or modify it under the terms of 
+# the GNU General Public License version 2.
+#
+# NOTE: Ruby/Migemo can work only with EUC_JP encoding. ($KCODE="e")
+#
+
+require 'migemo-dict'
+require 'migemo-regex'
+require 'romkan'
+require 'jcode'
+include MigemoRegex
+
+class String
+  # Hiragana to Katakana
+  def to_katakana
+    self.gsub(/§¶°´/, '\\1•Ù').tr('§°-§Û', '•°-•Û')
+  end
+
+  def quotemeta
+    self.gsub(/([^ \w])/, '\\\\\\1')
+  end
+
+  def first
+    /^(\\.|.)/ =~ self
+    $1
+  end
+
+  def last
+    /(\\.|.)$/ =~ self
+    $1
+  end
+
+  def rest
+    /^(\\.|.)(.*)/ =~ self
+    $2
+  end
+
+  HANZEN_TAB = {
+    " " => "°°", "!" => "°™", '"' => "°…", "#" => "°Ù", 
+    "\$" => "°", "%" => "°Û", "&" => "°ı", "'" => "°«",
+    "(" => "° ", ")" => "°À", "*" => "°ˆ", "+" => "°‹",
+    "," => "°§", "-" => "°›", "." => "°•", "/" => "°ø",
+    "0" => "£∞", "1" => "£±", "2" => "£≤", "3" => "£≥",
+    "4" => "£¥", "5" => "£µ", "6" => "£∂", "7" => "£∑",
+    "8" => "£∏", "9" => "£π", ":" => "°ß", ";" => "°®",
+    "<" => "°„", "=" => "°·", ">" => "°‰", "?" => "°©",
+    '@' => "°˜", "A" => "£¡", "B" => "£¬", "C" => "£√",
+    "D" => "£ƒ", "E" => "£≈", "F" => "£∆", "G" => "£«",
+    "H" => "£»", "I" => "£…", "J" => "£ ", "K" => "£À",
+    "L" => "£Ã", "M" => "£Õ", "N" => "£Œ", "O" => "£œ",
+    "P" => "£–", "Q" => "£—", "R" => "£“", "S" => "£”",
+    "T" => "£‘", "U" => "£’", "V" => "£÷", "W" => "£◊",
+    "X" => "£ÿ", "Y" => "£Ÿ", "Z" => "£⁄", "[" => "°Œ", 
+    "\\" => "°¿", "]" => "°œ", "^" => "°∞", "_" => "°≤",
+    "`" => "°∆", "a" => "£·", "b" => "£‚", "c" => "£„",
+    "d" => "£‰", "e" => "£Â", "f" => "£Ê", "g" => "£Á",
+    "h" => "£Ë", "i" => "£È", "j" => "£Í", "k" => "£Î",
+    "l" => "£Ï", "m" => "£Ì", "n" => "£Ó", "o" => "£Ô",
+    "p" => "£", "q" => "£Ò", "r" => "£Ú", "s" => "£Û",
+    "t" => "£Ù", "u" => "£ı", "v" => "£ˆ", "w" => "£˜",
+    "x" => "£¯", "y" => "£˘", "z" => "£˙", "{" => "°–",
+    "|" => "°√", "}" => "°—", "~" => "°±"} #'
+
+  HANZEN_RE = Regexp.new(HANZEN_TAB.keys.sort.map {|x| x.quotemeta}.join('|'))
+
+  def to_fullwidth
+    self.gsub(HANZEN_RE) {|s| HANZEN_TAB[s]}
+  end
+end
+
+class Migemo
+  VERSION = '@VERSION@'
+  def initialize (dict, pattern)
+    @type = "ruby"
+    @pattern = pattern
+    @insertion = ""
+    @optimization = 3
+    @static_dict = dict
+    @dict_cache = nil
+    @user_dict = nil
+    @regex_dict = nil
+    @with_paren = false
+  end
+  attr_accessor :optimization
+  attr_accessor :type
+  attr_accessor :insertion
+  attr_accessor :dict_cache
+  attr_accessor :user_dict
+  attr_accessor :regex_dict
+  attr_accessor :with_paren
+
+  private
+  # `do'   => (§…)
+  # `d'    => (§√ §¿ §¬ §≈ §« §…)
+  # `sh'   => (§∑§„ §∑ §∑§Â §∑§ß §∑§Á)
+  # `don'  => (§…§Û §…§  §…§À §…§Ã §…§Õ §…§Œ §…§√)  # special case 1
+  # `nodd' => (§Œ§√)                                # special case 2
+  # `doc'  => (§…§√ §…§¡)                           # special case 3
+  # `dox'  => (§…§√ §…§„ §…§Â §…§Á)                 # special case 4
+  # `essy' => (§®§√§∑§„ §®§√§∑§Â §®§√§∑§Á)          # special case 5
+  # `ny'   => (§À§„ §À§Â §À§Á)                      # special case 6
+  def expand_kanas
+    kana = @pattern.downcase.to_kana
+    /^(.*)(.)$/ =~ kana ;
+    head = $1;
+    last = $2;
+
+    cand = Array.new;
+    return [] if last == nil
+    if last.consonant?
+      if /^(.*)(.)$/ =~ head && $2.consonant?
+	head2 = $1;
+	beforelast = $2;
+	if last == $beforelast # special case 2
+	  cand.push head2 + "§√"
+        elsif /^(.*)(.)$/ =~ head2 && beforelast == $2 && last.consonant?
+          # special case 5
+	  cand += (beforelast + last).expand_consonant.map do |x|
+	    $1 + "§√" + x.to_kana
+          end
+	else
+	  cand += (beforelast + last).expand_consonant.map do |x|
+	    head2 + x.to_kana
+	  end
+	end
+      elsif /^(.*?)(n?)ny$/ =~ @pattern && $2 == "" # special case 6
+        head2 = $1
+        cand += "ny".expand_consonant.map do |x|
+          head2 + x.to_kana
+        end
+      else
+	deriv = last.expand_consonant
+	deriv.push "xtsu";
+	if last == "c" # special case 3
+	  deriv.push "chi";
+	elsif last == "x" # special case 4
+	  deriv.push "xya", "xyu", "xyo", "xwa"
+	end
+	cand += deriv.map do |x| head + x.to_kana end
+      end
+    elsif last == "§Û" # speacial case 1
+      cand.push kana;
+      cand += ("n".expand_consonant + ["§√"]).map do |x|
+	head + x.to_kana
+      end
+    else
+      cand.push kana
+    end
+    return cand.sort
+  end
+
+  # `§·§∑' => (»” »”πÁ ªÛÈ¢ ªÛº… »”›§ Ã‹≤º »”Œ≥ æ§ª» »”≤∞)
+  def expand_words (dict, pattern)
+    raise if pattern == nil
+    words = Array.new
+    dict.lookup(pattern) do |item|
+      words += item.values
+    end
+    return words
+  end
+
+  def lookup_cache
+    @dict_cache.lookup(@pattern)
+  end
+
+  def lookup0
+    compiler = RegexCompiler.new
+    compiler.push(@pattern)
+    compiler.push(@pattern.to_fullwidth)
+    expand_kanas.each do |x| 
+      compiler.push(x)
+      compiler.push(x.to_katakana)
+      expand_words(@static_dict, x).each do |x| compiler.push(x) end
+    end
+    expand_words(@static_dict, @pattern).each do |x| compiler.push(x) end
+    compiler.uniq
+    compiler.optimize(@optimization) if @optimization
+    compiler.regex
+  end
+
+  def lookup_user_dict
+    compiler = RegexCompiler.new
+    expand_kanas.each do |x| 
+      expand_words(@user_dict, x).each do |x| compiler.push(x) end
+    end
+    expand_words(@user_dict, @pattern).each do |x| compiler.push(x) end
+    compiler.uniq
+    compiler.optimize(@optimization) if @optimization
+    compiler.regex
+  end
+
+  def lookup_regex_dict
+    regexes = []
+    @regex_dict.lookup(@pattern) do |item|
+      regexes += item.values
+    end
+    regexes
+  end
+
+  public
+  def lookup
+    if @pattern == ""
+      return RegexAlternation.new
+    end
+    result = if @dict_cache
+	       lookup_cache || lookup0
+	     else
+	       lookup0
+	     end
+    if @user_dict
+      lookup_user_dict.each{|x| result.push(x) }
+    end
+    result
+  end
+
+  def regex_tree
+    lookup
+  end
+
+  def regex
+    regex = lookup
+    renderer = RegexRendererFactory.new(regex, @type, @insertion)
+    renderer.with_paren = @with_paren
+    string = renderer.render
+    string = renderer.join_regexes(string, lookup_regex_dict) if @regex_dict
+    string
+  end
+end

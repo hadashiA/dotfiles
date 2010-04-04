@@ -116,7 +116,7 @@
 (load "init-templates")
 (load "init-shell")
 (load "init-dired")
-;;(load "init-migemo")
+(load "init-migemo")
 (load "init-sdic")
 (load "init-w3m")
 (load "init-translate")

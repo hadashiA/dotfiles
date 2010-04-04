@@ -1,0 +1,189 @@
+#! /usr/bin/env ruby
+#
+# migemo-server
+#
+# Copyright (C) 2001 Satoru Takabayashi <satoru@namazu.org>
+#     All rights reserved.
+#     This is free software with ABSOLUTELY NO WARRANTY.
+#
+# You can redistribute it and/or modify it under the terms of 
+# the GNU General Public License version 2.
+#
+
+$KCODE = "e"
+require 'migemo'
+require 'cgi'
+require 'socket'
+require 'getoptlong'
+
+class MigemoServer
+  CRLF = "\r\n"
+  HEADER_ERROR = ['HTTP/1.0 400']
+
+  def initialize(rootdir, port)
+    @rootdir = rootdir
+    @server = TCPServer.new(port)
+    @start_time = Time.new
+    @count = 0
+  end
+
+  private
+  def check_params (socket, params)
+    ['pattern', 'dict'].each do |key|
+      if params[key] == []
+	print_http(socket, HEADER_ERROR, "#{key} must be given.")
+	return false
+      end
+    end
+    true
+  end
+
+  def do_migemo (socket, query)
+    params = CGI.parse(query)
+    return if check_params(socket, params) == false
+
+    if params['user-dict'].first
+      dictname = File.join(@rootdir, params['user-dict'].first)
+      user_dict = MigemoUserDict.new(dictname)
+    end
+    if params['regex-dict'].first
+      dictname = File.join(@rootdir, params['regex-dict'].first)
+      regex_dict = MigemoRegexDict.new(dictname)
+    end
+
+    dictname = File.join(@rootdir, params['dict'].first)
+    static_dict = MigemoStaticDict.new(dictname)
+    cachename = File.join(@rootdir, params['dict'].first + ".cache")
+    dict_cache  = MigemoDictCache.new(cachename)
+
+    migemo = Migemo.new(static_dict, params['pattern'].first)
+    migemo.dict_cache = dict_cache if dict_cache
+    migemo.user_dict = user_dict if user_dict
+    migemo.regex_dict = regex_dict if regex_dict
+    migemo.type = params['type'].first if params['type'].first
+    migemo.insertion = params['insertion'].first if params['insertion'].first
+    migemo.regex
+  end
+
+  def print_result (socket, regex)
+    print_http(socket, 
+	       ['HTTP/1.0 200',
+		 'Content-type: text/plain; charset=EUC-JP'],
+	       regex)
+  end
+
+  def print_form (socket)
+    print_http (socket, 
+		['HTTP/1.0 200', 
+		  'Content-type: text/html'], 
+		<<"EOF")
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Migemo Server at #{Socket.gethostname}</title>
+</head>
+<body>
+<h1>Migemo Server at #{Socket.gethostname}</h1>
+
+<form method="get" action="/">
+<p>
+<strong>Pattern:</strong> 
+<input type="text" name="pattern" size="20">
+<strong>Type:</strong>
+<select name="type">
+<option selected value="ruby">ruby
+<option value="perl">perl
+<option value="emacs">emacs
+<option value="egrep">egrep
+</select>
+<input type="hidden" name="dict" value="migemo-dict" size="20">
+<input type="submit" name="submit" value="Go!">
+</p>
+</form>
+<hr>
+Access: #{@count}.
+Started at #{@start_time}.
+</body>
+</html>
+EOF
+  end
+
+  def print_http (socket, header, body)
+    header.each { |h| socket.syswrite h + CRLF }
+    socket.syswrite 'Content-Length: ' + body.size.to_s + CRLF
+    socket.syswrite CRLF
+    socket.syswrite body
+  end
+
+  def write_log (socket, query)
+    remote_host = (socket.peeraddr[2] or socket.peeraddr[3])
+    $stderr.print "#{Time.new}: #{remote_host}: #{query}\n"
+  end
+
+  public
+  def accept
+    while true
+      socket = @server.accept
+      t = Thread.new do
+	s = socket
+	@count += 1
+	path = s.gets(CRLF)
+	true while s.gets(CRLF) != CRLF
+	next if path == nil
+	method, url, version = path.split(/\s/)
+	if method == "GET"
+	  query = url.split("?")[1]
+	  write_log(s, query)
+	  if query
+	    begin
+	      regex = do_migemo(s, query)
+	      print_result(s, regex)
+	    rescue => error
+	      print_http(s, HEADER_ERROR, error.message)
+	    end
+	  else
+	    print_form(s)
+	  end
+	else
+	  s.syswrite 'HTTP/1.0 501 Not Implemented' + CRLF + CRLF
+	end
+	s.close
+      end
+      t.abort_on_exception = true
+    end
+  end
+end
+
+def usage
+    puts "Usage: migemo-server ROOT-DIRECTORY"
+end
+
+def main
+  options = Hash.new
+  parser = GetoptLong.new
+  parser.set_options(['--help', '-h',	GetoptLong::NO_ARGUMENT],
+		     ['--port', '-p',   GetoptLong::REQUIRED_ARGUMENT])
+  parser.each_option do |name, arg|
+    options[name.sub(/^--/, "")] = arg
+  end
+
+  if ARGV.empty? || options['help']
+    usage
+    exit 1
+  end
+
+  port = 31413
+  port = options['port']  if options['port']
+  rootdir = ARGV.shift
+  if !File.directory?(rootdir) || !File.readable?(rootdir)
+    $stderr.puts "Invalid directory: #{rootdir}"
+    exit 1
+  end
+
+  server = MigemoServer.new(rootdir, port)
+  server.accept
+end
+
+main
+

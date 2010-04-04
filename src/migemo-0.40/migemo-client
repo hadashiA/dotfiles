@@ -1,0 +1,77 @@
+#!/usr/bin/env ruby
+#
+# migemo-client - a client to communicate with migemo-server.
+#
+# Copyright (C) 2001 Hidai Kenichi <hidai@symbio.jst.go.jp>
+#     All rights reserved.
+#     This is free software with ABSOLUTELY NO WARRANTY.
+#
+# You can redistribute it and/or modify it under the terms of 
+# the GNU General Public License version 2.
+#
+
+$KCODE = "e"
+require 'net/http'
+require 'getoptlong'
+
+def usage
+  print "\
+Usage: migemoc-client [OPTION] PATTERN...
+  -h, --help             Display this help and exit
+  -H, --host=HOST        Set hostname of Migemo server to HOST.
+  -p, --port=PORT        Set port number of Migemo server to PORT.
+  -d, --dict=DICT        Use DICT as a static dictionary.
+  -u, --user-dict=DICT   Use DICT as a user dictionary.
+  -r, --regex-dict=DICT  Use DICT as a regex dictionary.
+  -i, --insert=STRING    Insert STRING to each character.
+  -t, --type=TYPE        Set regex type to TYPE ([egrep], emacs, perl, ruby)
+"
+end
+
+def main
+  options = Hash.new
+  parser = GetoptLong.new
+  parser.set_options(['--help', '-h',		GetoptLong::NO_ARGUMENT],
+		     ['--host', '-H',		GetoptLong::REQUIRED_ARGUMENT],
+		     ['--port', '-p',		GetoptLong::REQUIRED_ARGUMENT],
+		     ['--dict', '-d',		GetoptLong::REQUIRED_ARGUMENT],
+		     ['--type', '-t',		GetoptLong::REQUIRED_ARGUMENT],
+		     ['--user-dict', '-u',      GetoptLong::REQUIRED_ARGUMENT],
+		     ['--regex-dict', '-r',     GetoptLong::REQUIRED_ARGUMENT],
+		     ['--insert', '-i',		GetoptLong::REQUIRED_ARGUMENT])
+
+
+  parser.each_option do |name, arg|
+    options[name.sub(/^--/, "")] = arg
+  end
+
+  if ARGV.empty? || options['help']
+    usage
+    exit 1
+  end
+
+  host = 'localhost'
+  port = 31413
+  dict = 'migemo-dict'
+  type = 'ruby'
+
+  host = options['host'] if options['host']
+  port = options['port'] if options['port']
+  dict = options['dict'] if options['dict']
+  type = options['type'] if options['type']
+
+  path = '/?dict=' + dict
+  path << '&type=' + type
+  path << '&insertion='  + options['insert'] if options['insert']
+  path << '&user-dict='  + options['user-dict'] if options['user-dict']
+  path << '&regex-dict=' + options['regex-dict'] if options['regex-dict']
+
+  ARGV.each do |pattern|
+    Net::HTTP.start(host, port) {|http|
+      response, body = http.get(sprintf("%s&pattern=%s", path, pattern))
+      puts body
+    }
+  end
+end
+
+main

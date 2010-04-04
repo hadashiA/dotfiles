@@ -1,0 +1,77 @@
+;; kap
+世界と漢字についての活発な議論
+
+;; kana
+のどか 漢字 カナブン
+
+;; 3a:
+こういう文字は嫌だ １２３ａ：ｂｃ
+
+;; softw
+祖父とソフトウェア
+
+;; kens
+  行をまたぐ権利と検
+  索の問題
+
+;; カタカナ語
+ファイル     file, fairu
+ディレクトリ directory, dexirekutori, dyirekutori
+ドキュメント document, dokyument
+ソフトウェア software, sofutouwea, sohutouxea
+
+;; 記号
+Σ sigma, siguma
+λ lambda, ramuda
+π pi, pai
+○ maru
+
+;; chi 問題
+沈没     chinbotsu, tinbotu
+今一     imaichi, imaiti
+いまいち imaichi, imaiti
+
+;; ch 問題
+ちぇりー cheri-, tyeri-
+最中     saichuu, saityuu
+
+;; ky 問題
+教授 kyouju    ; kixyouju   で引けないのは仕様
+宗教 syuukyou  ; syuukixyou で引けないのは仕様
+
+;; ji 問題
+漢字 kanji, kanzi
+時事 jiji, zizi
+
+;; sh 問題
+シュークリーム shu-kuri-mu, syu-kuri-mu, 
+信頼 shinrai, sinrai
+安心 anshin, ansin
+各種 kakushu, kakusyu
+
+;; nn 問題
+反応 hannnou, han'nou
+範囲 hanni, han'i
+般若 hannnya, han'nya
+
+;; ssy問題
+エッシャー essya- essha-
+
+;; 各種文字
+0123 abcd ABCD ひらがな カタカナ 漢字 
+!"[#\$]%^&_':`(;)<*=+>,?-@./{|}~
+
+;; 全角文字
+０１２３　ａｂｃｄ　ＡＢＣＤ
+！”［＃＼＄］％＾＆＿’：‘（；）＜＊＝＋＞，？−＠．／｛｜｝￣
+
+;; 記号の同一視
+;; . ．。
+;; , ，、
+;; * ×※
+;; / ÷
+;; [ 「『
+;; ]  」』
+;; \ ＼￥
+;; " “”
+;; # ＃♯

@@ -1,0 +1,164 @@
+#! /usr/bin/env ruby
+#
+# migemo - a tool for Japanese incremental search.
+#
+# Copyright (C) 2001 Satoru Takabayashi <satoru@namazu.org>
+#     All rights reserved.
+#     This is free software with ABSOLUTELY NO WARRANTY.
+#
+# You can redistribute it and/or modify it under the terms of 
+# the GNU General Public License version 2.
+#
+
+$KCODE = "e"
+
+require 'migemo'
+require 'getoptlong'
+require 'thread'
+
+class Logger
+  def initialize (filename)
+    @mutex = Mutex.new
+    @logfile = File.open(filename, "a")
+  end
+
+  def puts (msg)
+    @mutex.synchronize {
+      time = Time.now.strftime("%Y-%m-%dT%H:%M:%S")
+      @logfile.puts "#{time}: #{msg}"
+    }
+  end
+end
+
+def print_usage
+  print "\
+Usage: migemo [OPTION]
+  -h, --help             Display this help and exit.
+  -d, --static-dict=DICT Use DICT as a static dictionary.
+  -u, --user-dict=DICT   Use DICT as a user dictionary.
+  -r, --regex-dict=DICT  Use DICT as a regex dictionary.
+  -O, --optimize=LEVEL   Optimize output regular expressions (0-3). [3]
+  -t, --type=TYPE        Set regex type to TYPE ([ruby], perl, emacs, egrep)
+  -i, --insert=STRING    Insert STRING to each character.
+  -s, --separator=STRING Insert String to each regular expression.
+  -n, --nocache		 Don't use caches.
+  -l, --logging=FILE	 Log patterns to FILE.
+"
+end
+
+def parse_options
+  options = Hash.new
+  options['optimize'] = 3
+
+  parser = GetoptLong.new
+  parser.set_options(['--help', '-h',           GetoptLong::NO_ARGUMENT],
+		     ['--regex-dict', '-r',     GetoptLong::REQUIRED_ARGUMENT],
+		     ['--static-dict', '-d',    GetoptLong::REQUIRED_ARGUMENT],
+		     ['--user-dict', '-u',      GetoptLong::REQUIRED_ARGUMENT],
+		     ['--optimize', '-O',       GetoptLong::REQUIRED_ARGUMENT],
+		     ['--type', '-t',           GetoptLong::REQUIRED_ARGUMENT],
+		     ['--insert', '-i',		GetoptLong::REQUIRED_ARGUMENT],
+		     ['--separator', '-s',	GetoptLong::REQUIRED_ARGUMENT],
+		     ['--logging', '-l',	GetoptLong::REQUIRED_ARGUMENT],
+		     ['--nocache', '-n',	GetoptLong::NO_ARGUMENT])
+
+  parser.each_option do |name, arg|
+    options[name.sub(/^--/, "")] = arg
+  end
+
+  if options['help']
+    print_usage
+    exit 1
+  end
+
+  unless ARGV.length == 1 or options['static-dict']
+    print_usage
+    exit 1
+  end
+
+  return options
+end
+
+# segment("fooB") => ["foo", "B"]
+# segment("fooBar") => ["foo", "Bar"]
+# segment("FooBAR") => ["foo", "BAR"]
+# segment("foo..")  => ["foo.."]
+# segment("foo..Bar..") => ["foo..", "Bar.."]
+def segment (pattern)
+  pattern.scan(/[A-Z]?[^A-Z]+|[A-Z]+/)
+end
+
+def main
+  options = parse_options
+
+  static_dict_file = if options['static-dict']
+                       options['static-dict']
+                     else
+                       ARGV.shift
+                     end
+  static_dict = if File.readable?(static_dict_file)
+                  MigemoStaticDict.new(static_dict_file)
+                else
+                  raise "static dictionary not found: #{static_dict_file}"
+                end
+
+  if options['nocache'].nil? && File.readable?(static_dict_file + ".cache")
+    dict_cache = MigemoDictCache.new(static_dict_file + ".cache")
+  end
+
+  if options['user-dict']
+    if File.readable?(options['user-dict'])
+      user_dict = MigemoUserDict.new(options['user-dict'])
+    else
+      raise "user dictionary not found: #{options['user-dict']}"
+    end
+  end
+
+  if options['regex-dict']
+    if File.readable?(options['regex-dict'])
+      regex_dict = MigemoRegexDict.new(options['regex-dict'])
+    else
+      raise "regex dictionary not found: #{options['regex-dict']}"
+    end
+  end
+
+  logger = nil
+  if options['logging']
+    logger = Logger.new(options['logging'])
+  end
+
+  generate_regex_str = lambda {|pattern, with_paren|
+    migemo = Migemo.new(static_dict, pattern)
+    migemo.user_dict = user_dict if user_dict
+    migemo.regex_dict = regex_dict if regex_dict
+    migemo.dict_cache = dict_cache if dict_cache
+    migemo.type = options['type'] if options['type']
+    migemo.optimization = options['optimize'].to_i if options['optimize']
+    migemo.insertion = options['insert'] if options['insert']
+    migemo.with_paren = with_paren
+    migemo.regex
+  }
+
+  $stdout.sync = true
+  while line = gets
+    pattern = line.chomp
+    segments = segment(pattern)
+    
+    if segments.length <= 1
+      regex_str = generate_regex_str.call(pattern, false)
+    elsif segments.length > 1
+      regex_str1 = generate_regex_str.call(pattern, true)
+      regex_str2 = segments.map {|pattern|
+        generate_regex_str.call(pattern, true)
+      }.join((options['insert'] or ""))
+      bar = RegexMetacharsFactory.new(options['type']).bar
+      regex_str = [regex_str1, regex_str2].join(bar)
+    end
+
+    puts regex_str
+    puts options['separator'] if options['separator']
+    logger.puts(pattern) if logger
+  end
+end
+
+main

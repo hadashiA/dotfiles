@@ -1,0 +1,31 @@
+AC_INIT(migemo)
+AM_INIT_AUTOMAKE(migemo, 0.40)
+
+AC_PATH_PROG(RUBY, ruby, no)
+if test "$RUBY" = "no"; then
+    AC_MSG_ERROR(ruby not found)
+fi
+
+AM_PATH_LISPDIR
+AM_PATH_RUBYDIR
+
+echo -n "checking Ruby/Bsearch... "
+if ruby -rbsearch -e 'exit(if Bsearch::VERSION >= "1.2" then 0 else 1 end)'; then
+   echo found
+else
+   echo not found
+   echo "Ruby/Bsearch is available at <http://namazu.org/~satoru/ruby-bsearch/>"
+   exit 1
+fi
+
+echo -n "checking Ruby/Romkan... "
+if ruby -rromkan -e 'exit(if Romkan::VERSION >= "0.3" then 0 else 1 end)'; then
+   echo found
+else
+   echo not found
+   echo "Ruby/Romkan is available at <http://namazu.org/~satoru/ruby-romkan/>"
+   exit 1
+fi
+
+
+AC_OUTPUT(Makefile tests/Makefile migemo.rb)

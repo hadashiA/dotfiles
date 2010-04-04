@@ -1,0 +1,102 @@
+#! /usr/bin/env ruby
+#
+# migemo-grep - a simple grep-like tool employing migemo.
+#
+# Copyright (C) 2001 Satoru Takabayashi <satoru@namazu.org>
+#     All rights reserved.
+#     This is free software with ABSOLUTELY NO WARRANTY.
+#
+# You can redistribute it and/or modify it under the terms of 
+# the GNU General Public License version 2.
+#
+$KCODE = "e"
+
+require 'migemo'
+require 'getoptlong'
+require 'kconv'
+include Kconv
+
+def print_usage
+  print "\
+Usage: migemo-grep [OPTION]... DICT PATTERN [FILE]...
+  -u, --user-dict=DICT   Use DICT as a user dictionary.
+  -r, --regex-dict=DICT  Use DICT as a regex dictionary.
+"
+end
+
+$static_dict = nil
+$dict_cache = nil
+$user_dict = nil
+$regex_dict = nil
+$pattern = nil
+
+def parse_options
+  options = Hash.new
+  parser = GetoptLong.new
+  parser.set_options(['--help', '-h',           GetoptLong::NO_ARGUMENT],
+		     ['--regex-dict', '-r',     GetoptLong::REQUIRED_ARGUMENT],
+		     ['--user-dict', '-u',      GetoptLong::REQUIRED_ARGUMENT],
+		     ['--type', '-t',           GetoptLong::REQUIRED_ARGUMENT],
+		     ['--insert', '-i',		GetoptLong::REQUIRED_ARGUMENT],
+		     ['--separator', '-s',	GetoptLong::REQUIRED_ARGUMENT],
+		     ['--nocache', '-n',	GetoptLong::NO_ARGUMENT])
+  parser.each_option do |name, arg|
+    options[name.gsub(/^--/, "")] = arg
+  end
+
+  if options['help']
+    print_usage
+    exit 1
+  end
+
+  if ARGV.length < 2
+    print_usage
+    exit 1
+  end
+
+  dictname = ARGV.shift
+  $static_dict = MigemoStaticDict.new(dictname)
+  $dict_cache = MigemoDictCache.new(dictname + ".cache")
+
+  if options['user-dict'] != nil 
+    if File.readable?(options['user-dict'])
+      $user_dict = MigemoUserDict.new(options['user-dict'])
+    else
+      raise "user dictionary not found: #{options['user-dict']}"
+    end
+  end
+
+  if options['regex-dict'] != nil 
+    if File.readable?(options['regex-dict'])
+      $regex_dict = MigemoRegexDict.new(options['regex-dict'])
+    else
+      raise "regex dictionary not found: #{options['regex-dict']}"
+    end
+  end
+
+  $pattern = ARGV.shift
+end
+
+def main
+  parse_options
+  files = ["-"]
+  files = ARGV if ARGV.length > 0
+
+  migemo = Migemo.new($static_dict, $pattern)
+  migemo.dict_cache = $dict_cache if $dict_cache
+  migemo.user_dict = $user_dict if $user_dict
+  migemo.regex_dict = $regex_dict if $regex_dict
+  regex = Regexp.new(migemo.regex)
+
+  files.each do |file|
+    File.new(file).each do |line|
+      line = toeuc(line)
+      if regex =~ line
+	print file + ":" if files.length > 1
+	puts line
+      end
+    end
+  end
+end
+
+main

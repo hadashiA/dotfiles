@@ -1,0 +1,650 @@
+2003-05-28  Satoru Takabayashi  <satoru@namazu.org>
+
+	* Migemo: Version 0.40 Released.
+
+	* Makefile.am (EXTRA_DIST): Add migemo.rb.in
+
+	* configure.in: Bumped version number to 0.40.
+	(AC_OUTPUT): Add migemo.rb.
+
+	* migemo.el.in (migemo-get-pattern): Use migemo-white-space-regexp
+	variable.
+	(migemo-white-space-regexp): New variable.
+	Add -*- coding: euc-jp-unix -*- to the beginning of the file.
+
+2003-05-27  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo-grep (parse_options): Add parens to String#sub method to
+	avoid warnings.
+
+	* migemo (main): Insert migemo.insertion in the middle of each
+	segment. Thanks to Hideyuki Shirai for the suggestion [migemo:00232]
+
+	* migemo.el.in (migemo-get-pattern): Fix paren matching.
+
+2003-05-26  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo.el.in (migemo-get-pattern): Remove the extra ) at the end.
+
+	* migemo-convert.rb: Add parens to sprintf method to avoid
+	warnings.
+
+	* migemo-index.rb: Add parens to Array#pack method to avoid
+	warnings.
+
+	* migemo (parse_options): Add parens to String#sub method to avoid
+	warnings.
+
+2003-05-26  Hideyuki SHIRAI  <shirai@meadowy.org>
+
+	* migemo.el.in (migemo-get-pattern): Check null word for CMIGEMO.
+
+2003-05-22  Hideyuki SHIRAI  <shirai@meadowy.org>
+
+	* migemo.el.in (migemo-search-pattern-alist): New variable.
+	(migemo-search-pattern-get): New inline macro.
+	(migemo-forward): Use `migemo-search-pattern-get'.
+	(migemo-backward): Ditto. Try `looking-at' when migemo search.
+	(isearch-search-and-update): New advice.
+	(isearch-mode, isearch-done, migemo-dabbrev-expand-done)
+	(migemo-dabbrev-expand): Set `migemo-search-pattern-alist' to nil.
+	(migemo-isearch-lazy-highlight-search): Use
+	`migemo-search-pattern-get'.
+	(isearch-highlightify-region): Ditto.
+
+2003-05-20  Hideyuki SHIRAI  <shirai@meadowy.org>
+
+	* migemo.el.in (top): Modify comment for CMIGEMO.
+	(migemo-dictionary, migemo-user-dictionary)
+	(migemo-regex-dictionary): Add doc-string.
+	(migemo-init): Allow `nil' of `migemo-user-dictionary' and
+	`migemo-regex-dictionary'.
+
+2003-05-19  Hideyuki SHIRAI  <shirai@meadowy.org>
+
+	* migemo.el.in (migemo-use-pattern-alist)
+	(TOP): Use `when' and `unless' instead of `if'.
+	(migemo-use-frequent-pattern-alist, migemo-pattern-alist-length)
+	(migemo-pattern-alist-file, migemo-frequent-pattern-alist-file)
+	(migemo-dabbrev-display-message, migemo-message-prefix-face):
+	New user options.
+	(migemo-pattern-alist, migemo-frequent-pattern-alist)
+	(migemo-emacs21p): New variables.
+	(migemo-init): Handle pattern alist.
+	(migemo-get-pattern): Ditto. Change the way of `\r' remove.
+	(migemo-pattern-alist-load, migemo-pattern-alist-save)
+	(migemo-kill, migemo-pattern-alist-clear)
+	(migemo-frequent-pattern-make): New function.
+	(migemo-dabbrev-pattern, migemo-dabbrev-start-point)
+	(migemo-dabbrev-search-point, migemo-dabbrev-pre-patterns)
+	(migemo-dabbrev-ol, migemo-dabbrev-ol-face): New variables.
+	(migemo-dabbrev-expand-done): New function.
+	(migemo-dabbrev-expand): Re-write.
+	(isearch-search): Re-write use `defadvice'.
+	(search-forward, search-backward, isearch-message-prefix): New
+	defadvices.
+	(migemo-isearch-toggle-migemo, migemo-isearch-yank-line): New
+	functions.
+	(migemo-isearch-yank-char, migemo-isearch-yank-word): Bind
+	`search-upper-case'.
+	(TOP): Add hook `migemo-pattern-alist-save' to `kill-emacs-hook'.
+
+2003-05-13  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo.el.in (migemo-get-pattern): Remove the CR at the end of a
+	pattern.
+	(replace-regexp-in-string): Imported from GNU Emacs 21.2.1.
+
+	* migemo (parse_options): New option -d to be compatible with cmigemo.
+	(print_usage): Updated.
+	(main): Use a static dictionary specified with -d option.
+
+	* migemo.el.in (migemo-get-pattern): Use replace-regexp-in-string
+	to replace \t -> TAB  and \n -> LF.
+	(migemo-command): Rename from migemo-ruby.
+
+	* migemo-convert.rb: Remove elisp codes in a SKK dictionary as
+	well as annotations.
+	- Thanks to Kazuhiro NISHIYAMA's for the suggestion [migemo:00196]
+
+2003-04-28  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo.el.in: Apply Kazuhiro NISHIYAMA's patch [migemo:00195]
+
+2003-03-24  Hideyuki SHIRAI  <shirai@meadowy.org>
+
+	* migemo.el.in (TOP): Change the way of determination for
+	migemo-isearch-yank-char|work().
+
+2003-03-24  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo.el.in (migemo-isearch-yank-word): New function.
+	(migemo-isearch-yank-char): New function.
+	- thanks to the patch by Hideyuki SHIRAI
+	<shirai@rdmg.mgcs.mei.co.jp> [migemo:00171]
+
+2002-11-29  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo.rb (Migemo::expand_kanas): Add special handling for
+	"ny" for 入力
+	- before: ん[っやゆよ]
+	- after:  に[ゃゅょ]
+	- Thanks to: YOSHIMURA Shunji <Shunji.Yoshimura@jp.sony.com> for
+	the bug report.
+
+2002-11-15  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo.rb (Migemo::expand_kanas): Add special handling for
+	"essy" for エッシャー
+	- before:  essy => essy|ｅｓｓｙ|えsし[ゃゅょ]|エsシ[ャュョ]
+	- after:   essy => essy|ｅｓｓｙ|えっし[ゃゅょ]|エッシ[ャュョ]
+
+2002-10-22  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo-dict.rb (MigemoDict::lookup): downcase pattern.
+	(MigemoDictCache::lookup): Ditto.
+
+	* migemo (segment): New method.
+	(main): Use segment() to supprot a multi-segment (renbunsetsu) pattern.
+
+	* migemo-regex.rb (MigemoRegex::RegexRenderer::initialize): New
+	field: @with_paren.
+
+	* migemo.rb (Migemo::initialize): New field: @with_paren.
+
+	* migemo-regex.rb (MigemoRegex::RegexMetacharsFactory::new): New
+	module.
+	(MigemoRegex::RegexEmacsRenderer::initialize): Use RegexEmacsMetachars.
+	(MigemoRegex::RegexPerlRenderer::initialize): Use RegexPerlMetachars.
+	(MigemoRegex::RegexRenderer::initialize): Use RegexMetachars.
+	(MigemoRegex::RegexEmacsMetachars): New class.
+	(MigemoRegex::RegexRubyMetachars): Ditto.
+	(MigemoRegex::RegexPerlMetachars): Ditto.
+	(MigemoRegex::RegexEgrepMetachars): Ditto.
+	(MigemoRegex::RegexMetachars): Ditto.
+
+	* migemo.rb (Migemo::expand_kanas): downcase pattern.
+
+2002-10-21  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo.el.in: Support isearch-highlightify-region for XEmacs 21.
+	- by applying a patch by Hiroyuki Komatsu <komatsu@taiyaki.org>.
+	[migemo:00159]
+
+2002-01-25  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo (parse_options): Add -l, --logging option.
+	(print_usage): Modify the usage message.
+	(Logger): New class.
+	(main): Use Logger if -l option is given.
+
+2002-01-24  Hideyuki SHIRAI  <shirai@meadowy.org>
+
+	* migemo.el.in (migemo-dabbrev-expand): Fix the bound option of
+	`re-search-forward'.
+
+2001-08-14  Satoru Takabayashi  <satoru@namazu.org>
+
+	* Migemo: Version 0.32 Released.
+
+2001-08-13  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo-dict: Use Hiragana for head words.
+	- suggested by "Muraoka Taro" <koron@tka.att.ne.jp>
+
+	* genchars.sh: Use romkan.rb to create frequent ngrams.
+
+	* migemo.rb (expand_words): Remove special cases.
+
+	* ngram.sh (dictionary): Use ruby instead of perl.
+
+	* migemo-convert.rb (dict): Don't convert Hiragana to ASCII.
+
+	* migemo.rb (VERSION): Bumped version number to 0.32.
+
+2001-07-30  Satoru Takabayashi  <satoru@namazu.org>
+
+	* Migemo: Version 0.31 Released.
+
+	* migemo.rb (VERSION): Bumped version number to 0.31.
+
+	* migemo.el.in (migemo-get-pattern): Don't use the separator "ok".
+	(migemo-options): Likewise.
+
+2001-07-16  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo-client: Apply Akira Yamada <akira@arika.org>'s patch.
+
+	* migemo-server: Apply Akira Yamada <akira@arika.org>'s patch.
+
+2001-07-15  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo-client: New file.
+
+	* migemo-server: Print "Content-Length" header.
+
+2001-07-15  Hidai Kenichi  <hidai@symbio.jst.go.jp>
+
+	* Makefile.am: Remove unnecessary source specification (*.rb)
+
+	* migemo-cache.rb: Fix misspell (optimize -> optimization)
+
+2001-07-13  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo-server: New file.
+
+	* migemo.rb: Support a new type: egrep
+	(lookup): Allow @pattern == ""
+
+	* migemo.rb: Use (?: instead of ( for perl or ruby type regexes.
+	Thanks to Kazuhiro NISHIYAMA <zn@mbf.nifty.com> for the suggestion.
+
+2001-07-12  Satoru Takabayashi  <satoru@namazu.org>
+
+	* Migemo: Version 0.3 Released.
+
+	* migemo.el.in: Use line-beginning-position and line-end-position
+	instead of point-at-bol and point-at-eol.
+
+2001-07-11  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo.rb: String#to_fullwidth: New method.
+
+	* tests/test.txt: New file.
+
+	* tests/charclass.sh: New file.
+
+	* tests/emacs-type.sh: New file.
+
+	* tests/insertion.sh: New file.
+
+	* tests/user-dict.sh: New file.
+
+	* tests/regex-dict.sh: New file.
+
+	* tests/symbols.sh: New file.
+
+	* migemo.rb: Fix character class problem: []-], [\\] [\]
+
+2001-07-10  Satoru Takabayashi  <satoru@namazu.org>
+
+	* configure.in: Check Ruby/Bsearch and Ruby/Romkan.
+
+	* migemo.rb (render_charclass): Add '-' handling.
+
+	* tests/ruby-syntax.sh: New file.
+
+2001-07-08  Satoru Takabayashi  <satoru@namazu.org>
+
+	* Makefile.am (bin_SCRIPTS): Add migemo-grep.
+
+	* migemo-grep: New file.
+
+2001-07-07  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo: Add -r, --regex-dict=DICT option.
+
+	* migemo: Add -u, --user-dict=DICT option.
+
+	* migemo-dict.rb: (MigemoRegexDict): New class.
+
+	* migemo-dict.rb: (MigemoUserDict): New class.
+
+	* migemo (main): Set $stdout.sync = true
+
+	* user-dict.sample: New file.
+
+	* regex-dict.sample: New file.
+
+2001-07-06  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo.ja.rd: New file.
+
+	* tests/migemo.sh: New file.
+
+	* tests/regex.sh: New file.
+
+	* tests/test-dict: New file.
+
+2001-07-04  Satoru Takabayashi  <satoru@namazu.org>
+
+	* tests/cache.sh: New file.
+
+	* tests/convert.sh: New file.
+
+2001-07-03  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo.rb: Rewrite the optimizing routines.
+
+2001-06-03  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo-dict.rb: Support a Sary-indexed dictionary.
+
+2001-05-04  Satoru Takabayashi  <satoru@namazu.org>
+
+	* migemo.rb: New file.
+
+	* migemo-dict.rb: New file.
+
+	* The development of perl version of Migemo is over. We switch to Ruby.
+
+2001-05-02  Satoru Takabayashi  <satoru@namazu.org>
+
+	* Lingua-Romkan/Romkan.pm (VERSION): Bumped version number to 0.17.
+
+	* Lingua-Romkan/Romkan.pm (katahira): Add s/ヴ/う゛/ handling.
+	(hirakata): Add s/う゛/ヴ/ handling.
+
+2001-04-24  Hideyuki SHIRAI  <shirai@meadowy.org>
+
+	* migemo.el.in (migemo-mw32-input-method): New defconst.
+	(isearch-mode): Check "MW32-IME" for Meadow with Windows IME.
+	(isearch-done): Ditto.
+
+2001-04-20  Satoru Takabayashi  <satoru@csl.sony.co.jp>
+
+	* configure.in (AM_INIT_AUTOMAKE): Bumped version number to 0.22.
+
+2001-03-14  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* migemo.pl (emacsize): Add `{' for avoinding "imcomplete pattern"
+	error occurred in Emacs 21.
+
+2001-03-12  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* migemo.el.in (migemo-get-pattern): Set timeout to
+	accept-process-output for avoiding infinite loops.
+
+2001-03-12  Hideyuki SHIRAI  <shirai@meadowy.org>
+
+	* migemo.el.in (migemo-process): Use 'defvar' instead of 'setq'.
+	(migemo-buffer): Ditto.
+	(migemo-current-input-method): Ditto.
+	(migemo-search-pattern): New variable.
+	(migemo-get-pattern): Exec delete-regin() befor process-send-string().
+	(migemo-forward): If 'word' has multibyte strings, don't use
+	migemo-get-pattern(). Set search pattern to 'migemo-search-pattern'.
+	(migemo-backward): Ditto.
+	(isearch-search): Use unwind-protect() more safer.
+	(isearch-mode): Add advice (setq migemo-search-pattern nil).
+	(isearch-done): Ditto.
+	(migemo-isearch-lazy-highlight-search): New function, fake
+	isearch-lazy-highlight() in Emacs21.
+
+2001-03-11  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* migemo.el.in (migemo-current-input-method): Add
+	(setq migemo-current-input-method nil) for avoiding the following
+	errors occurred with Emacs 21
+	  ** assignment to free variable migemo-current-input-method
+	  ** reference to free variable migemo-current-input-method
+
+2001-02-17  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* migemo.el.in (migemo-dabbrev-expand):
+	s/jrsearch-backward/migemo-backward/
+	Thanks to Hiroyuki Komatsu <komatsu@taiyaki.org> for reporting.
+
+	* migemo: Version 0.21 Released.
+
+	* migemo.el.in (migemo-dabbrev-expand): New function.
+
+2001-02-03  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* jrsearch.pl (emacsize): Add ['=`] handling.
+
+2000-12-02  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* jrsearch.pl (emacsize): Add `<' and `>' handling.
+
+	* jrsearch: Version 0.20 Released.
+
+	* jrsearch.pl (emacsize): New function.
+
+	* Makefile.am (clean-local): New rule.
+
+	* jrsearch.pl (main): Fix `ok' bug.  Thanks to SAWADA Katsuya
+	<ama@igs.inter-gate.co.jp> for reporting.
+
+	* configure.in (AM_INIT_AUTOMAKE): Bumped version number to 0.20
+
+2000-10-12  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* jrsearch: Version 0.19 Released.
+
+	* configure.in (AM_INIT_AUTOMAKE): Bumped version number to 0.19
+
+	* jrsearch.el.in (jrsearch-get-pattern): Receive `ok.' message.
+
+	* jrsearch.pl: Send `ok' message.
+
+2000-07-13  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* Lingua-Romkan/Romkan.pm: Bumped version number to 0.16.
+
+	* Lingua-Romkan/Romkan.pm (isvowel): New function.
+
+2000-07-27  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* jrsearch.el.in (jrsearch-get-options): Avoid using ` macro. Use
+	(list) instead. Thanks to endo-h@remus.dti.ne.jp (Hideyuki
+	Endo) for the patch.
+
+	* elisp-comp: Change the order of emacs' command line options to
+	support mule2.3@19.28. Thanks to endo-h@remus.dti.ne.jp (Hideyuki
+	Endo) for the patch.
+
+2000-07-12  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* jrsearch.el.in (jrsearch-init): Apply
+	TSUCHIYA Masatoshi <tsuchiya@pine.kuee.kyoto-u.ac.jp>'s patch.
+	[ELF:00868]
+
+2000-07-11  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* jrsearch: Version 0.18 Released.
+
+	* Makefile.am (EXTRA_DIST): Remove jrsearch-cache.pl.
+
+	* jrsearch.pl (optimize): Simplfy and be efficient.
+	(optimize): Bring sort process here from process().
+
+2000-07-10  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* configure.in (AM_INIT_AUTOMAKE): Bumped version number to 0.18
+	(ROMKAN_VERSION): Get the latest Romkan.pm VERSION automatically.
+
+	* jrsearch.pl (init_hanzen): Modify "<", ">", "[", "]".
+
+	* configure.in (ROMKAN_VERSION): Require version 0.15.
+
+	* jrsearch: Version 0.17 Released.
+
+	* jrsearch.pl (extract_words): Add a special case for "ty".
+
+	* Lingua-Romkan/Romkan.pm: Bumped version number to 0.15.
+
+	* Lingua-Romkan/Romkan.pm (get_kunreitab): Add "tye" and "ttye".
+	(get_hepburntab): Add "che" and "cche".
+
+	* jrsearch.el.in (jrsearch-get-options): New function.
+	(jrsearch-pl-options): Abolished.
+
+2000-07-09  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* jrsearch.el.in (jrsearch-dir): New variable.
+	(jrsearch-pl): Abolished.
+	(jrsearch-dict): Abolished.
+	(jrsearch-pl-options): Use -I option.
+
+	* jrsearch.pl: Renamed from jrsearch.pl.in.
+
+	* jrsearch.el.in (jrsearch): Add (provide 'jrsearch).
+	Thanks to MIYOSHI Masanori <miyoshi@hrl.hitachi.co.jp> for the
+	suggestion.
+
+	* jrsearch.pl.in (parse_options): Add -I option.
+
+	* gencache.pl: Renamed from compile.pl
+
+	* compile.pl: s/compiled_patterns/cache/g.
+
+	* jrsearch.el.in (isearch-mode): New advice.
+	(isearch-done): New advice.
+
+	* jrsearch.pl.in (process): Employ Schwartzian Transform.
+	(init_hanzen): Modify ".", ",", "\\", `"', "*", "/", "#", "[", "]".
+	Thanks to tatuo-y@is.aist-nara.ac.jp (YAMASITA Tatuo) for the idea.
+
+	* Makefile.am (jrsearch.pl): New rule.
+	(EXTRA_DIST): Updated.
+
+	* jrsearch.pl.in: Renamed from jrsearch.pl.
+
+	* jrsearch.pl (init_cache): Renamed from init_compiled_patterns.
+	(init_cache) Use cache.pl
+
+	* ngram.sh (dictionary): New file.
+
+	* genchars.sh: New file.
+
+	* genchars.pl: Abolished.
+
+	* Makefile.am (cache.pl): New rule.
+
+	* jrsearch.pl (process): Abolish the condition of length($roma) == 1;
+
+2000-07-07  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* configure.in (AM_INIT_AUTOMAKE): Bumped version number to 0.17
+
+2000-07-06  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* jrsearch: Version 0.16 Released.
+
+	* Lingua-Romkan/Romkan.pm (normalize_double_n): Simplfy rules.
+	(get_hepburntab): Add n' and Remove n'... entries.
+	(get_kunreitab): Add n'and Remove n'... entries.
+	(kanrom): Add n' handling.
+	(consonant2moras): Remove the special case for "x".
+	(get_kunreitab): Fix "ppi", "bba", "bbya", "bbyu", "bbyo", "bbe",
+	"bbo"  entries.
+	(init_romrom): Totally rewritten.
+
+	* jrsearch.pl (init_compiled_patterns): Regenerated.
+	(binsearch): New function.
+	(lookup): New function.
+	(open_dictionary): New function.
+	(extract_words): Do not use `look' command anymore. Use	Because it
+	is unreliable. (I cannot find anything with "look da jrsearch-dict")
+	Use Search::Dict instead.
+	(extract_words): Exclude ASCII entries if its head is ASCII.
+	(extract_initials): Accept ASCII initials.
+	(extract_kanas): Add special handling for "c".
+	(genpat): Apply extract_words for $roma too.
+	(extract_words): Add special cases for "z" and "t".
+
+	* Makefile.am (EXTRA_DIRS): New variable.
+
+	* genchars.pl: Renamed from genmoras.pl
+
+	* jrsearch.el.in (jrsearch-get-pattern): Change the condition of
+	the while loop.
+
+	* jrsearch.pl (extract_kanas): Fix "double-consonant"
+	problem. e.g. "ky" of "dokyument".
+
+	* configure.in (ROMKAN_VERSION): Require version 0.14.
+
+	* Lingua-Romkan/Romkan.pm: Bumped version number to 0.14.
+
+	* Lingua-Romkan/Romkan.pm (consonant2moras): Fix "x" handling.
+
+	* configure.in (AM_INIT_AUTOMAKE): Bumped version number to 0.16
+
+	* jrsearch: Version 0.15 Released.
+
+	* configure.in (ROMKAN_VERSION): Require version 0.13.
+
+	* Lingua-Romkan/Romkan.pm: Bumped version number to 0.13.
+
+	* jrsearch.pl (process): Use quotemeta. Without this, input string
+	such as "(" cannot be handled correctly.
+	(process): Change the regex for inserting $insert_string. It
+	solved line-across isearch-backword problem.
+
+2000-07-05  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* Lingua-Romkan/Romkan.pm (get_hepburntab): Add "dyi" entry.
+	(get_kunreitab): Add "dyi" entry.
+	$consonants: Add "x" and "n";
+	(consonant2moras): Add the special handling of "x".
+
+	* genmoras.pl: Fix a nasty command line option problem.
+
+	* doc/Makefile.am (doc_DATA): Add new images.
+
+	* jrsearch.pl (init_compiled_patterns): Regenerated.
+
+	* convert.pl: Do grep { /^$CHAR+$/ } to exclude strange words.
+
+	* jrsearch.pl (extract_initials): Fix the regex to get an initial.
+
+	* configure.in (AM_INIT_AUTOMAKE): Bumped version number to 0.15
+
+	* jrsearch: Version 0.14 Released.
+
+	* jrsearch.el.in: Change a buffer name: s/*jrsearch*/ *jrsearch*/
+
+	* jrsearch.pl (extract_words): Change the delimiter handling.
+
+	* convert.pl: Change the delimiter in jrsearch-dict from space to
+	TAB.
+
+	* Makefile.am (jrsearch-dict): Add dependency of convert.pl
+
+	* convert.pl: Allow English word to be in jrsearch-dict.
+
+	* configure.in (AM_INIT_AUTOMAKE): Bumped version number to 0.14
+
+	* jrsearch: Version 0.13 Released.
+
+	* jrsearch.pl (init_compiled_patterns): Regenerated.
+
+	* compile.pl: Use -o -i "\\s *" options.
+
+	* genmoras.pl: Use $kunreitab.
+
+	* configure.in (ROMKAN_VERSION): Require Lingua::Romkan 0.12.
+
+	* Lingua-Romkan/Romkan.pm: Bumped version number to 0.12
+
+	* Lingua-Romkan/Romkan.pm (romrom): Fix "shu" problem using
+	$heppat. Convert shu -> sfu by mistake.
+	(init_romrom): Construct $heppat.
+
+	* jrsearch.pl (main): Do not convert $roma into Hepburn.
+
+2000-07-04  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* jrsearch.el.in (jrsearch-expand-pattern): New function.
+
+	* jrsearch.pl (process): New function.
+
+	* configure.in (AM_INIT_AUTOMAKE): Bumped version number to 0.13
+
+	* jrsearch: Version 0.12 Released.
+
+	* Fix error handling. Thanks to KAWABE Kou for the code.
+
+	* Support Emacs 19.28. Thanks to KAWABE Kou for the code.
+
+2000-07-03  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* Support "Zenkaku" alha-num-symbol-string. Thanks to KAWABE Kou
+	for giving me the idea.
+
+	* jrsearch: Version 0.11 Released.
+
+	* jrsearch: Version 0.10 Released.
+

@@ -1,0 +1,28 @@
+2002-02-12  Satoru Takabayashi  <satoru@namazu.org>
+
+	* Ruby/Romkan: Version 0.4 released.
+
+	* romkan.rb (HEPBURNTAB): Add "じぇ je"
+
+2001-07-11  Satoru Takabayashi  <satoru@namazu.org>
+
+	* Ruby/Romkan: Version 0.3 released.
+
+	* romkan.rb (to_kunrei): New method.
+
+2001-07-04  Satoru Takabayashi  <satoru@namazu.org>
+
+	* romkan.rb (vowel?): New method.
+
+2001-07-03  Satoru Takabayashi  <satoru@namazu.org>
+
+	* Ruby/Romkan: Version 0.2 released.
+
+	* romkan.rb (consonant?): New method.
+
+	* romkan.rb (expand_moras?): New method.
+
+2001-05-01  Satoru Takabayashi  <satoru@namazu.org>
+
+	* Ruby/Romkan: Version 0.1 released.
+
