@@ -2,6 +2,7 @@
 
 (byte-recompile-directory "~/.emacs.d/elisp/")
 (byte-recompile-directory "~/.emacs.d/conf/")
+;; (require 'isearch)
 
 ;; 実行環境を判別する。
 ;; http://d.hatena.ne.jp/hito-d/20060220#1140445790
@@ -97,6 +98,7 @@
 (load "init-color")
 (load "init-skk")
 (load "init-window")
+(load "init-vimlike")
 (load "init-keymaps")
 (load "init-region")
 (load "init-acp")
