@@ -1,0 +1,30 @@
+kind=defined
+names=[]=
+visibility=public
+
+--- []=(name, value)
+ルート name に対応する値 value を代入します。
+
+@param name 探索するルートの名前を指定します。
+@param value 代入するオブジェクトを指定します。
+
+  require 'yaml/store'
+
+  class HogeHoge
+    def initialize
+      @ho = 'hoge'
+      @ge = 'fuga'
+    end
+  end
+
+  hoge = HogeHoge.new
+
+  db = YAML::Store.new('/tmp/store.yaml')
+  db.transaction {
+    db["hoge"] = hoge
+  }
+
+  db.transaction {
+    p db["hoge"] #=> #<HogeHoge:0x3bcc5c @ho="hoge", @ge="fuga">
+  }
+

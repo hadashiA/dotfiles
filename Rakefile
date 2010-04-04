@@ -53,12 +53,18 @@ namespace :install do
     sh "cd ./src/which-0.2.0/ && sudo ruby ./install.rb"
   end
 
-  desc 'install rsense. see http://cx4a.org/software/rsense/index.ja.html'
+  desc 'install rsense. see http://cx4a.org/software/rsense/index.ja.html , http://redmine.ruby-lang.org/wiki/rurema/'
   task :rsense => [opt, src] do
-    ln_s_confirm File.expand_path('./opt/rsense'), File.join(opt, 'rsense')
-    ln_s_confirm File.expand_path('./src/rurema'), File.join(src, 'rurema')
-    sh "ruby ./opt/rsense/etc/config.rb > $HOME/.rsense"
+    current  = File.expand_path('~/opt/rsense')
+    original = Dir[File.expand_path('./opt/rsense*')].sort.last
+
+    ln_s_confirm original, current
+    sh "ruby #{File.join(original, 'etc/config.rb')} > $HOME/.rsense"
     sh "cat $HOME/.rsense"
+
+    current  = File.expand_path('~/src/rurema')
+    original = Dir[File.expand_path('./src/ruby-refm*')].sort.last
+    ln_s_confirm original, current
   end
 end
 
