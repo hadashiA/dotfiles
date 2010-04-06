@@ -63,7 +63,7 @@ PACKAGE = migemo
 RUBY = /opt/local/bin/ruby
 VERSION = 0.40
 emacsdir = $(datadir)/emacs
-lispdir = /Users/hadashi/.emacs.d/elisp/
+lispdir = /Users/kubota/.emacs.d/elisp
 rubydir = /opt/local/lib/ruby/site_ruby
 
 SUBDIRS = tests
