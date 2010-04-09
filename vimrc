@@ -646,7 +646,8 @@ nmap <leader>i :FufEditInfo<CR>
 "endif
 
 " smartchr ----------------------------------------------------------- {{{2
-inoremap <expr> = smartchr#one_of(' = ', ' => ', ' == ', ' \|\|= ', '=', '===', ' = ' )
+inoremap <expr> = smartchr#one_of(' = ', ' == ', ' \|\|= ', '=', '===', ' = ' )
+inoremap <expr> > smartchr#one_of('>', '  => ', '>')
 inoremap <expr> + smartchr#one_of(' + ', ' += ', '+', ' + ')
 
 " neocomplcache ----------------------------------------------------------- {{{2
