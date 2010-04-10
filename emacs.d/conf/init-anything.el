@@ -27,11 +27,28 @@
 ;;        anything-c-source-info-elisp
         ))
 
-;; 
-;;(require 'anything-c-moccur)
-;;
-;;(global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur) ;バッファ内検索
-;;(global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur) ;ディレクトリ
-;;(add-hook 'dired-mode-hook ;dired
-;;          '(lambda ()
-;;             (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
+;; \M-y でキルリング履歴
+(setq kill-ring-max 30) ;; kill-ring の最大値. デフォルトは 30.
+(setq anything-kill-ring-threshold 5) ;; anything で対象とするkill-ring の要素の長さの最小値.デフォルトは 10.
+(global-set-key "\M-y" 'anything-show-kill-ring);;kill-ring の最大値. デフォルトは 30.
+
+(setq kill-ring-max 20)
+
+;;anything で対象とするkill-ring の要素の長さの最小値.
+
+;;デフォルトは 10.
+
+(setq anything-kill-ring-threshold 5)
+
+(global-set-key "\M-y" 'anything-show-kill-ring)
+
+(when (require 'anything-c-moccur)
+  (global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur)
+  ;; (global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur)
+  (add-hook 'dired-mode-hook
+            '(lambda ()
+               (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
+  (setq anything-c-moccur-anything-idle-delay 0.2
+        anything-c-moccur-higligt-info-line-flag t
+        anything-c-moccur-enable-auto-look-flag t
+        anything-c-moccur-enable-initial-pattern t))
