@@ -31,7 +31,7 @@ namespace :install do
     ln_s_confirm t.source, File.expand_path("~/#{t.name}")
   end
 
-  file '.emacs'        => ['.emacs.d', 'gems:fastri', 'gems:rcodetools', 'devel/which', :rsense]
+  file '.emacs'        => ['.emacs.d', 'gems:fastri', 'gems:rcodetools', 'devel/which', :rsense, :cmigemo]
   file '.vimrc'        => ['.vim']
   file '.irbrc'        => ['gems:hirb', 'gems:wirble']
   file '.zshrc'        => ['.aliases', '.exports','.gitrc']
@@ -50,7 +50,9 @@ namespace :install do
 
   desc 'install devel/which. find ruby library path tool'
   task 'devel/which' do
-    sh "cd ./src/which-0.2.0/ && sudo ruby ./install.rb"
+    cd "src/which-0.2.0" do 
+      sh "sudo ruby ./install.rb"
+    end
   end
 
   desc 'install rsense. see http://cx4a.org/software/rsense/index.ja.html , http://redmine.ruby-lang.org/wiki/rurema/'
@@ -68,6 +70,19 @@ namespace :install do
 
     rm_rf current
     ln_s original, current
+  end
+
+  desc "install C/Migemo (Kaoriya.net http://www.kaoriya.net/#CMIGEMO)"
+  task :cmigemo do
+    cd "src/cmigemo-1.3c" do
+      sh "./configure"
+      sh "make osx"
+      sh "make osx-dict"
+      cd "dict" do 
+        sh "make utf-8"
+      end
+      sh "sudo make osx-install"
+    end
   end
 end
 

@@ -6,7 +6,8 @@
   (interactive "cSearch to forward char: ")
   (when (= (char-after (point)) char)
     (forward-char))
-  (search-forward (char-to-string char) (point-at-eol) nil 1)
+  ;; (search-forward (char-to-string char) (point-at-eol) nil 1)
+  (migemo-forward (char-to-string char) (point-at-eol) t 1)
   (backward-char)
   (setq vimlike-f-recent-search-char char
         vimlike-f-recent-search-func 'vimlike-f))
@@ -14,7 +15,8 @@
 (defun vimlike-F (char)
   "search to forward char into current line and move point. (vim 'F' command)"
   (interactive "cSearch to backward char: ")
-  (search-backward (char-to-string char) (point-at-bol) nil 1)
+  ;; (search-backward (char-to-string char) (point-at-bol) nil 1)
+  (migemo-backward (char-to-string char) (point-at-bol) t 1)
   (setq vimlike-f-recent-search-char char
         vimlike-f-recent-search-func 'vimlike-F))
 

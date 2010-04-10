@@ -1,0 +1,10 @@
+*.exp
+*.lib
+*.map
+*.tds
+Profile
+build
+cmigemo
+libmigemo*dylib
+libmigemo.so*
+tmp
