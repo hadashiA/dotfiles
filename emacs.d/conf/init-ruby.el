@@ -1,3 +1,4 @@
+
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 ;; ruby-mode
 ;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs 

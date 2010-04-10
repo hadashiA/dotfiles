@@ -34,3 +34,20 @@
 ;; shellっぽいところで、C-n/pでヒストリ
 ;;(define-key comint-mode-map "\C-p" 'comint-previous-input)
 ;;(define-key comint-mode-map  "\C-n" 'comint-next-input)
+
+ 	
+;; M-y で行のコピー
+(defun duplicate-line (&optional numlines)
+  "One line is duplicated wherever there is a cursor."
+  (interactive "p")
+  (let* ((col (current-column))
+         (bol (progn (beginning-of-line) (point)))
+         (eol (progn (end-of-line) (point)))
+         (line (buffer-substring bol eol)))
+    (while (> numlines 0)
+      (insert "\n" line)
+      (setq numlines (- numlines 1)))
+    (move-to-column col)))
+
+(define-key esc-map "y" 'duplicate-line)
+
