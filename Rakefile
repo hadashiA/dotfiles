@@ -11,7 +11,7 @@ namespace :install do
     '.config',  # fish shell configuration
     '.zshrc',
     '.vimperatorrc',
-    # '.autotest',
+    '.autotest',
   ]
   
   bin = File.expand_path("~/bin")
@@ -58,13 +58,16 @@ namespace :install do
     current  = File.expand_path('~/opt/rsense')
     original = Dir[File.expand_path('./opt/rsense*')].sort.last
 
-    ln_s_confirm original, current
+    rm_rf current
+    ln_s original, current
     sh "ruby #{File.join(original, 'etc/config.rb')} > $HOME/.rsense"
     sh "cat $HOME/.rsense"
 
     current  = File.expand_path('~/src/rurema')
     original = Dir[File.expand_path('./src/ruby-refm*')].sort.last
-    ln_s_confirm original, current
+
+    rm_rf current
+    ln_s original, current
   end
 end
 
