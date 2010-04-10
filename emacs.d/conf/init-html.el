@@ -13,5 +13,8 @@
 ;; ;; 勝手に雛形が作られてウザいのでnilにしておく
 ;; (setq html-helper-build-new-buffer nil)
 
-(define-key html-mode-map "\M-n" 'sgml-skip-tag-forward)
-(define-key html-mode-map "\M-p" 'sgml-skip-tag-backward)
+(add-hook 'html-mode-hook
+          (lambda ()
+            (define-key html-mode-map (kbd "M-n") 'sgml-skip-tag-forward)
+            (define-key html-mode-map "\M-p" 'sgml-skip-tag-backward)))
+
