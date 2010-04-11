@@ -32,4 +32,9 @@
                 (setq acp-paren-alist
                       '( (?( . ?)) (?[ . ?]) (?\" . ?\") (?\' . ?\') ))
                 (acp-mode t)))
-  )
+  (add-hook 'python-mode-hook
+            (lambda ()
+                (setq acp-paren-alist
+                      '( (?( . ?)) (?[ . ?]) (?\" . ?\") (?\' . ?\') ))
+                (acp-mode t)))
+  ) 
