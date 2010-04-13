@@ -3,5 +3,5 @@
 # group : debug
 # --
 puts '${1:@}' * ${2:100}
-puts $0
+p $0
 puts '$1' * $2
