@@ -111,7 +111,7 @@
 (load "init-flymake")
 (load "init-snippet")
 (load "init-occur")
-(load "init-woman")
+;; (load "init-woman") [2010-04-14 別に見易くないような。何が良いんだろう]
 (load "init-autocomplete")
 (load "init-anything")
 ;;(load "init-abbrves")
