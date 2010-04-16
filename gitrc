@@ -1,6 +1,6 @@
 alias gst='git status'
-alias gl='git pull --rebase'
-alias gp='git push'
+alias gpl='git pull --rebase'
+alias gph='git push'
 alias gpa='git push-all' # see [alias] in ~/.gitconfig
 alias gd='git diff | mate'
 alias ga='git add'
