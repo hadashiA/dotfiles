@@ -11,12 +11,3 @@
 
   (global-set-key "\C-x\M-T" 'text-translator-translate-by-auto-selection)
   (global-set-key "\C-x\M-t" 'text-translator-all-by-auto-selection))
-
-
-
-
-
-
-
-
-
