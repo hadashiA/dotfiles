@@ -13,28 +13,21 @@
   ;;       (goto-char (point-min))
   ;;       (insert-char (car (acp-current-pair)) n)
   ;;       (goto-char (point-max))
-  ;;       (insert-char (cdr (acp-current-pair)) n))))
-  
-  (add-hook 'emacs-lisp-mode-hook
-            (lambda ()
-                (setq acp-paren-alist
-                      '( (?( . ?)) (?[ . ?]) (?\" . ?\") ))
-                (acp-mode t)))
-  
-  (add-hook 'lisp-mode-hook
-            (lambda ()
-                (setq acp-paren-alist
-                      '( (?( . ?)) (?[ . ?]) (?\" . ?\") ))
-                (acp-mode t)))
-  
-  (add-hook 'ruby-mode-hook
-            (lambda ()
-                (setq acp-paren-alist
-                      '( (?( . ?)) (?[ . ?]) (?\" . ?\") (?\' . ?\') ))
-                (acp-mode t)))
-  (add-hook 'python-mode-hook
-            (lambda ()
-                (setq acp-paren-alist
-                      '( (?( . ?)) (?[ . ?]) (?\" . ?\") (?\' . ?\') ))
-                (acp-mode t)))
-  ) 
+  ;;       (insert-char (cdr (acp-current-pair))
+
+  (defun acp-setup-default ()
+    (setq acp-paren-alist '( (?( . ?)) (?[ . ?]) (?\" . ?\") (?\' . ?\')))
+    (acp-mode-turn-on))
+
+  (defun acp-setup-lisp ()
+    (setq acp-paren-alist '( (?( . ?)) (?[ . ?]) (?\" . ?\") ))
+    (acp-mode-turn-on))
+
+  ;; (add-hook 'text-mode-hook 'acp-mode-turn-on)
+  (add-hook 'html-mode-hook 'acp-setup-default)
+  (add-hook 'c-common-mode-hook 'acp-setup-default)
+  (add-hook 'ruby-mode-hook 'acp-setup-default)
+  (add-hook 'python-mode-hook 'acp-setup-default)
+
+  (add-hook 'lisp-mode-hook 'acp-setup-lisp)
+  (add-hook 'emacs-lisp-mode-hook 'acp-setup-lisp))
