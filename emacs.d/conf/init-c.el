@@ -9,5 +9,15 @@
 ;; M - .     CTAGSで関数にジャンプ
 ;; M - +     CTAGSでジャンプしてた時に元の場所に戻る
 
+;; BackSpace キーを「賢く」し，インデント幅は4桁，タブはスペースに展開
+(setq c-default-style "gnu")
 (add-hook 'c-mode-common-hook
- '(lambda ()))
+            '(lambda ()
+               (c-toggle-hungry-state t)
+               (c-toggle-auto-state t)               
+               (setq c-basic-offset 4 indent-tabs-mode nil)))
+
+
+
+
+
