@@ -13,5 +13,8 @@
       (setq numlines (- numlines 1)))
     (move-to-column col)))
 
-(define-key esc-map "Y" 'duplicate-line)
+;; (define-key esc-map "Y" 'duplicate-line)
+(global-set-key (kbd "C-S-y") 'duplicate-line)
+
+
 
