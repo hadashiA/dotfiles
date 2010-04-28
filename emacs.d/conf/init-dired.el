@@ -18,3 +18,7 @@
     (around reset-locale activate compile)
     (let ((system-time-locale "C"))
       ad-do-it)))
+
+(when (require 'dired-x nil t)
+  (global-set-key "\C-x\C-d" 'dired-jump)
+  )
