@@ -19,6 +19,31 @@
     (let ((system-time-locale "C"))
       ad-do-it)))
 
-(when (require 'dired-x nil t)
-  (global-set-key "\C-x\C-d" 'dired-jump)
-  )
+(require 'dired-x)
+
+(add-hook 'dired-load-hook
+          (lambda ()
+            (require 'sorter)))
+
+;; ディレクトリを移動してもソート方法が変化しない
+;; Meadow/Emacs memo: ディレクトリ表示 — dired など
+;; http://www.bookshelf.jp/soft/meadow_25.html#SEC290
+(defadvice dired-advertised-find-file
+  (around dired-sort activate)
+  (let ((sw dired-actual-switches))
+    ad-do-it
+    (if (string= major-mode 'dired-mode)
+        (progn
+          (setq dired-actual-switches sw)
+          (dired-sort-other dired-actual-switches)))
+    ))
+
+(defadvice dired-my-up-directory
+  (around dired-sort activate)
+  (let ((sw dired-actual-switches))
+    ad-do-it
+    (if (string= major-mode 'dired-mode)
+        (progn
+          (setq dired-actual-switches sw)
+          (dired-sort-other dired-actual-switches)))
+    ))
