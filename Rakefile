@@ -1,18 +1,15 @@
-
 desc "install the dot files into user's home directory"
 task :install => 'install:all'
 
 namespace :install do
   task :all => [
-    # 'bin',
     '.irbrc',
     '.emacs',
     '.vimrc',
-    '.gvimrc',
     '.config',  # fish shell configuration
     '.zshrc',
     '.vimperatorrc',
-    '.autotest',
+    # '.autotest',
   ]
   
   bin = File.expand_path("~/bin")
@@ -28,7 +25,7 @@ namespace :install do
   end
 
   file '.emacs'        => ['.emacs.d', 'gems:rcodetools', 'devel/which', :rurema, :rsense, :cmigemo]
-  file '.vimrc'        => ['.vim']
+  file '.vimrc'        => ['.vim', '.gvimrc']
   file '.irbrc'        => ['gems:hirb', 'gems:wirble']
   file '.zshrc'        => ['.aliases', '.exports','.gitrc']
   file '.vimperatorrc' => ['.vimperator']
@@ -90,29 +87,33 @@ namespace :install do
       sh "sudo make osx-install"
     end
   end
+
+  desc "setup Emacs configuration. write .emacs and .emacs.d"
+  task :dotemacs => '.emacs'
+
+  desc "setup Vim configuration. write .vimrc, .gvimrc .vim direcotry"
+  task :dotvimrc => '.vimrc'
+
+  desc "setup .irbrc"
+  task :dotirbrc => '.irbrc'
+
+  desc "setup .vimperator configuration. .vimepratorrc and .vimperator directory"
+  task :dotvimperatorrc => '.vimperatorrc'
+
+  desc "setup .zshrc"
+  task :dotzshrc => '.zshrc'
+
+  desc "setup fishshell configuration. .config direcotry"
+  task :dotconfig => '.config'
 end
 
-@replace_flg = false
 # create symlink
 def ln_s_confirm(src, dest)
-  if @replace_flg
-    rm_rf dest
-    ln_s src, dest
-    return
-  end
-  
   if File.exist?(dest) or File.symlink?(dest)
-    print "overwrite #{dest}? [ynaq] "
-    case $stdin.gets.chomp
-    when 'a'
-      @replace_flg = true
+    print "overwrite #{dest}? [yn] "
+    if $stdin.gets.chomp == 'y'
       rm_rf dest
       ln_s  src, dest
-    when 'y'
-      rm_rf dest
-      ln_s  src, dest
-    when 'q'
-      exit
     end
   else
     ln_s src, dest
