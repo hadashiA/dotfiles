@@ -2,5 +2,5 @@
 # name: describe .. do ... end
 # group: rspec
 # --
-describe ${1:`(replace-regexp-in-string "Spec$" "" file-name-camelize)n`}$0
+describe ${1:`(replace-regexp-in-string "Spec$" "" (file-name-camelize))`}$0 do
 end
