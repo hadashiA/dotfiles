@@ -55,5 +55,7 @@
 
 (when (require 'anything-rurima nil t)
   (setq anything-rurima-index-file "~/src/rurema/rubydoc/rurema.e")
-  (define-key ruby-mode-map "\C-cue" 'anything-rurima)
-  (define-key ruby-mode-map "\C-cum" 'anything-rurima-at-point))
+  ;; (define-key ruby-mode-map "\C-cue" 'anything-rurima)
+  ;; (define-key ruby-mode-map "\C-cum" 'anything-rurima-at-point)
+    (global-set-key "\C-cue" 'anything-rurima)
+    (global-set-key "\C-cum" 'anything-rurima-at-point))

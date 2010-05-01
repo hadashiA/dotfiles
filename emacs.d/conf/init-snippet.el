@@ -1,4 +1,5 @@
 ;; based upon
+
 ;; http://d.hatena.ne.jp/antipop/20080321/1206090430
  
 (defun file-name-camelize ()
