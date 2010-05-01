@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name : fgets 
+# --
+fgets(${1:line}, ${2:sizeof(line)}, ${3:stdin});
