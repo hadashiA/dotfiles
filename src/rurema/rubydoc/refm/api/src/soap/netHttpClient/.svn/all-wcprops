@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/netHttpClient
+END
+NetHttpClient__Response
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/netHttpClient/NetHttpClient__Response
+END
+NetHttpClient__SessionManager
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/netHttpClient/NetHttpClient__SessionManager
+END
+NetHttpClient
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/netHttpClient/NetHttpClient
+END

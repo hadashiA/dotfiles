@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/2629/doctree/trunk/refm/api/src/soap/rpc/cgistub
+END
+RPC__CGIStub__SOAPStdinRequest
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/cgistub/RPC__CGIStub__SOAPStdinRequest
+END
+RPC__CGIStub
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/rurema/!svn/ver/2629/doctree/trunk/refm/api/src/soap/rpc/cgistub/RPC__CGIStub
+END
+RPC__CGIStub__SOAPFCGIRequest
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/cgistub/RPC__CGIStub__SOAPFCGIRequest
+END
+RPC__CGIStub__SOAPRequest
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/cgistub/RPC__CGIStub__SOAPRequest
+END

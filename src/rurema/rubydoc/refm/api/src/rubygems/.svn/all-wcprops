@@ -1,0 +1,245 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/rurema/!svn/ver/4062/doctree/trunk/refm/api/src/rubygems
+END
+gem_openssl.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/3201/doctree/trunk/refm/api/src/rubygems/gem_openssl.rd
+END
+user_interaction.rd
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/3386/doctree/trunk/refm/api/src/rubygems/user_interaction.rd
+END
+command.rd
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/3101/doctree/trunk/refm/api/src/rubygems/command.rd
+END
+dependency.rd
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/3386/doctree/trunk/refm/api/src/rubygems/dependency.rd
+END
+source_info_cache_entry.rd
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/rurema/!svn/ver/3699/doctree/trunk/refm/api/src/rubygems/source_info_cache_entry.rd
+END
+local_remote_options.rd
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/rurema/!svn/ver/3188/doctree/trunk/refm/api/src/rubygems/local_remote_options.rd
+END
+timer.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/3204/doctree/trunk/refm/api/src/rubygems/timer.rd
+END
+install_update_options.rd
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/rurema/!svn/ver/3189/doctree/trunk/refm/api/src/rubygems/install_update_options.rd
+END
+validator.rd
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/3180/doctree/trunk/refm/api/src/rubygems/validator.rd
+END
+old_format.rd
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/3386/doctree/trunk/refm/api/src/rubygems/old_format.rd
+END
+builder.rd
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/3329/doctree/trunk/refm/api/src/rubygems/builder.rd
+END
+format.rd
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/3386/doctree/trunk/refm/api/src/rubygems/format.rd
+END
+spec_fetcher.rd
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/3043/doctree/trunk/refm/api/src/rubygems/spec_fetcher.rd
+END
+dependency_installer.rd
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/rurema/!svn/ver/3683/doctree/trunk/refm/api/src/rubygems/dependency_installer.rd
+END
+indexer.rd
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/3723/doctree/trunk/refm/api/src/rubygems/indexer.rd
+END
+doc_manager.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/3609/doctree/trunk/refm/api/src/rubygems/doc_manager.rd
+END
+gem_runner.rd
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/2988/doctree/trunk/refm/api/src/rubygems/gem_runner.rd
+END
+config_file.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/3117/doctree/trunk/refm/api/src/rubygems/config_file.rd
+END
+custom_require.rd
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/3182/doctree/trunk/refm/api/src/rubygems/custom_require.rd
+END
+version_option.rd
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/3185/doctree/trunk/refm/api/src/rubygems/version_option.rd
+END
+specification.rd
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/3821/doctree/trunk/refm/api/src/rubygems/specification.rd
+END
+require_paths_builder.rd
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/rurema/!svn/ver/3191/doctree/trunk/refm/api/src/rubygems/require_paths_builder.rd
+END
+exceptions.rd
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/3210/doctree/trunk/refm/api/src/rubygems/exceptions.rd
+END
+platform.rd
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/3628/doctree/trunk/refm/api/src/rubygems/platform.rd
+END
+version.rd
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/3116/doctree/trunk/refm/api/src/rubygems/version.rd
+END
+source_index.rd
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/3980/doctree/trunk/refm/api/src/rubygems/source_index.rd
+END
+package.rd
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/3081/doctree/trunk/refm/api/src/rubygems/package.rd
+END
+remote_fetcher.rd
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/3045/doctree/trunk/refm/api/src/rubygems/remote_fetcher.rd
+END
+installer.rd
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/3386/doctree/trunk/refm/api/src/rubygems/installer.rd
+END
+source_info_cache.rd
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/rurema/!svn/ver/4062/doctree/trunk/refm/api/src/rubygems/source_info_cache.rd
+END
+gem_path_searcher.rd
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/rurema/!svn/ver/3208/doctree/trunk/refm/api/src/rubygems/gem_path_searcher.rd
+END
+requirement.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/3118/doctree/trunk/refm/api/src/rubygems/requirement.rd
+END
+ext.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/3195/doctree/trunk/refm/api/src/rubygems/ext.rd
+END
+uninstaller.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/3185/doctree/trunk/refm/api/src/rubygems/uninstaller.rd
+END
+server.rd
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/3074/doctree/trunk/refm/api/src/rubygems/server.rd
+END
+security.rd
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/3935/doctree/trunk/refm/api/src/rubygems/security.rd
+END
+defaults.rd
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/3454/doctree/trunk/refm/api/src/rubygems/defaults.rd
+END
+command_manager.rd
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/rurema/!svn/ver/3075/doctree/trunk/refm/api/src/rubygems/command_manager.rd
+END
+dependency_list.rd
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/rurema/!svn/ver/3607/doctree/trunk/refm/api/src/rubygems/dependency_list.rd
+END
+test_utilities.rd
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/3630/doctree/trunk/refm/api/src/rubygems/test_utilities.rd
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/rurema/!svn/ver/3366/doctree/trunk/refm/api/src/curses
+END
+Curses__Window
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/curses/Curses__Window
+END
+Curses__Key
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/curses/Curses__Key
+END
+Curses__MouseEvent
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/3366/doctree/trunk/refm/api/src/curses/Curses__MouseEvent
+END

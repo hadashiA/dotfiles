@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/rurema/!svn/ver/3331/doctree/trunk/refm/api/src/win32ole
+END
+WIN32OLE
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/3331/doctree/trunk/refm/api/src/win32ole/WIN32OLE
+END
+WIN32OLE_METHOD
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/2320/doctree/trunk/refm/api/src/win32ole/WIN32OLE_METHOD
+END
+WIN32OLE_PARAM
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/2320/doctree/trunk/refm/api/src/win32ole/WIN32OLE_PARAM
+END
+WIN32OLE_EVENT
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/3004/doctree/trunk/refm/api/src/win32ole/WIN32OLE_EVENT
+END
+WIN32OLE_TYPE
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/3331/doctree/trunk/refm/api/src/win32ole/WIN32OLE_TYPE
+END
+WIN32OLE_VARIANT
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/3004/doctree/trunk/refm/api/src/win32ole/WIN32OLE_VARIANT
+END
+WIN32OLE_VARIABLE
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/2320/doctree/trunk/refm/api/src/win32ole/WIN32OLE_VARIABLE
+END
+WIN32OLE_TYPELIB
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/2322/doctree/trunk/refm/api/src/win32ole/WIN32OLE_TYPELIB
+END

@@ -1,0 +1,775 @@
+== Special Variables
+
+#@# === 組み込み変数
+#@# ここで挙げるグローバル変数はRuby処理系によって特殊な意味を与えられています。これらを組み込み変数と呼びます。
+#@# 
+#@# === 識別子と分類
+#@# 組み込み変数の一部は、通常の変数としては使用できない特殊な名前を持っています。
+#@# 
+#@# 例えば、 $' や $&  あるいは $1, $2, $12345678901234567890 がそうです。
+#@# このように 「'$' + 特殊文字一文字」、または「'$' + 10進数字」という名前を持つ変数を特殊変数と呼びます。
+#@# 
+#@# また、 $-F や $-I のような変数もあります。これらは Ruby の起動オプションと -F や -I などと対応しており、オプション変数と呼ばれます。
+#@# 
+#@# === スコープ
+#@# 組み込み変数は文法解析上はグローバル変数として扱われます。けれども、実際のスコープは必ずしもグローバルとは限りません。
+#@# 
+#@# 組み込み変数には次の種類のスコープがありえます。
+#@# :グローバルスコープ
+#@#   通常のグローバル変数と同じ大域的なスコープを持ちます。
+#@# :ローカルスコープ
+#@#   通常のローカル変数と同じスコープを持ちます。つまり、 class 式本体やメソッド本体で行われた代入はその外側には影響しません。
+#@#   
+#@#   プログラム内のすべての場所において代入を行わずともアクセスできることを除いて、通常のローカル変数と同じです。
+#@# :スレッドローカルスコープ
+#@#   スレッドごとの値を持ちます。他のスレッドで異なる値が割り当てられても影響しません。
+#@# 
+#@# また、一部の変数は読み取り専用です。ユーザープログラムから変更することができません。代入しようとすると実行時に例外を生じます。
+
+--- $_ -> String | nil
+
+最後に [[m:Kernel.#gets]] または [[m:Kernel.#readline]] で読み込んだ文字列です。
+EOF に達した場合には、 nil になります。
+(覚え方: Perlと同じ)
+
+[[m:Kernel.#print]] のような Perl 由来の幾つかのメソッドは、引数を省略すると代わりに $_ を利用します。
+
+この変数はローカルスコープかつスレッドローカルです。
+Ruby起動時の初期値は nil です。
+
+@see [[m:Kernel.#print]], [[m:Kernel.#gets]], [[m:Kernel.#readline]], [[m:Kernel::ARGF]]
+
+=== 例
+example.txt:
+ foo
+ bar
+ baz
+
+このとき、コマンド ruby -e 'print while gets' example.txt は次を出力します
+ foo
+ bar
+ baz
+
+ただし、このプログラムは次のように書く方がよりRuby的です。
+ ARGF.each do |line|
+   print line
+ end
+
+
+--- $& -> String | nil
+
+現在のスコープで最後に成功した正規表現のパターンマッチでマッチした文字列です。
+最後のマッチが失敗していた場合には nil となります。
+
+[[m:Regexp.last_match]][0] と同じです。
+
+この変数はローカルスコープかつスレッドローカル、読み取り専用です。
+Ruby起動時の初期値は nil です。
+
+=== 例
+ str = '<p><a href="http://example.com">example.com</a></p>'
+ if %r[<a href="(.*?)">(.*?)</a>] =~ str
+   p $& 
+ end
+ #=> "<p><a href=\"http://example.com\">example.com</a></p>"
+
+
+--- $~ -> MatchData | nil
+
+現在のスコープで最後に成功したマッチに関する [[c:MatchData]]オブジェクトです。
+[[m:Regexp.last_match]] の別名です。
+
+このデータから n 番目のマッチ ($n) を取り出すためには $~[n] を使います。
+
+この値に代入すると Regexp.last_match や、 [[m:$&]], [[m:$1]], [[m:$2]], ... などの関連する組み込み変数の値が変化します。
+MatchData オブジェクトでも nil でもない値を代入しようとすると [[c:TypeError]] が発生します。
+
+この変数はローカルスコープかつスレッドローカルです。
+Ruby起動時の初期値は nil です。
+
+=== 例
+ str = '<p><a href="http://example.com">example.com</a></p>'
+ if %r[<a href="(.*?)">(.*?)</a>] =~ str
+   p $~[1]
+ end
+ #=> "http://example.com"
+
+
+--- $` -> String | nil
+
+現在のスコープで最後に成功した正規表現のパターンマッチでマッチした
+部分より前の文字列です。
+最後のマッチが失敗していた場合には nil となります。
+
+[[m:Regexp.last_match]].pre_match と同じです。
+
+この変数はローカルスコープかつスレッドローカル、読み取り専用です。
+Ruby起動時の初期値は nil です。
+
+=== 例
+ str = '<p><a href="http://example.com">example.com</a></p>'
+ if %r[<a href="(.*?)">(.*?)</a>] =~ str
+   p $`
+ end
+ #=> "<p>"
+
+
+--- $' -> String | nil
+
+現在のスコープで最後に成功した正規表現のパターンマッチでマッチした
+部分より後ろの文字列です。
+最後のマッチが失敗していた場合には nil となります。
+
+[[m:Regexp.last_match]].post_match と同じです。
+
+この変数はローカルスコープかつスレッドローカル、読み取り専用です。
+Ruby起動時の初期値は nil です。
+
+=== 例
+ str = '<p><a href="http://example.com">example.com</a></p>'
+ if %r[<a href="(.*?)">(.*?)</a>] =~ str
+   p $'
+ end
+ #=> "</p>"
+
+
+--- $+ -> String | nil
+
+現在のスコープで最後に成功した正規表現のパターンマッチで
+マッチした中で最後の括弧に対応する部分文字列です。
+
+最後のマッチが失敗していた場合には nil。
+いくつかある選択型のパターンのどれがマッチしたのか分からない時に便利です。
+
+この変数はローカルスコープかつスレッドローカルです。
+
+
+--- $1 -> String | nil
+--- $2 -> String | nil
+--- $3 -> String | nil
+--- $4 -> String | nil
+--- $5 -> String | nil
+--- $6 -> String | nil
+--- $7 -> String | nil
+--- $8 -> String | nil
+--- $9 -> String | nil
+--- $10 -> String | nil
+--- $11 -> String | nil
+
+最後に成功したパターンマッチで n 番目の括弧にマッチした値が格納されます。
+該当する括弧がなければ nil が入っています。(覚え方: \数字 のようなもの)
+
+番号 n はいくらでも大きな正整数を利用できます。
+
+[[m:Regexp.last_match]][1],
+[[m:Regexp.last_match]][2], ... と同じ。
+
+これらの変数はローカルスコープかつスレッドローカル、読み取り専用です。
+
+=== 例
+ str = '<p><a href="http://example.com">example.com</a></p>'
+ if %r[<a href="(.*?)">(.*?)</a>] =~ str
+   print $1
+   print $2
+ end
+ #=> "http://example.com"
+ #=> "example.com"
+
+
+--- $? -> Process::Status | nil
+
+このスレッドで最後に終了した子プロセスのステータスです。
+
+#@if (version >= "1.8.0")
+[[c:Process::Status]] オブジェクトが入っています。
+子プロセスの終了時ステータスは [[m:Process::Status#exitstatus]] で得られます。
+#@else
+整数が入っています。この値は wait() システムコールで得られる値そのものなので、
+子プロセスの終了時ステータスを得るには 8 ビット右シフトする必要があります ($? >> 8)。
+#@end
+
+この変数はスレッドローカルで読み取り専用です。
+
+@see [[m:Process.#wait]]
+
+
+--- $! -> Exception | nil
+
+最後に例外が発生したときの [[c:Exception]] オブジェクトです。
+該当する例外がないときは nil です。
+
+[[m:Kernel.#raise]] によって設定されます。
+
+#@since 1.9.1
+この変数はスレッドローカル、読み取り専用です。
+#@else
+この変数はスレッドローカルです。
+#@end
+
+
+--- $@ -> [String] | nil
+
+最後に例外が発生した時のバックトレースを表す配列です。
+[[m:Kernel.#raise]] によって設定されます。
+
+配列の各要素はメソッドの呼び出し位置を示す文字列で形式は
+
+  "filename:line"
+
+または
+
+  "filename:line:in `methodname'"
+
+です。これは [[m:Kernel.#caller]] が返す値と同じ形式です。
+
+$@ へ値を代入するときは、[[m:$!]] が nil であってはいけません。
+$@ の値は、[[m:$!]].backtrace の値と同じです。
+また、$@ への代入は [[m:$!]].set_backtrace 呼び出しと同じです。
+
+文字列の配列でも nil でもない値を代入しようとすると、 [[c:TypeError]] 例外が発生します。
+
+この変数はスレッドローカルです。
+
+--- $SAFE -> Fixnum
+
+カレントスレッドのセーフレベルを表す整数です。セーフレベルについては
+[[d:spec/safelevel]] を参照してください。
+
+Thread.current.safe_level と同じです。
+非整数を代入しようとすると [[c:TypeError]] が発生します。
+
+この変数はスレッドローカルです。
+Ruby起動時の初期値は 0 です。
+
+--- $= -> bool
+
+#@since 1.9.1
+過去との互換性のために残されていますが、もはや何の意味もありません。
+
+値は常に false です。代入しても無視されます。
+
+#@else
+非推奨([[unknown:obsolete]]): この変数は将来のバージョンで削除される予定です。
+
+パターンマッチや文字列の比較でアルファベットの大文字小文字を
+区別するかどうかのフラグです。
+
+過去との互換性のために残されています。Ruby 1.9 以降では意味を持たなくなります。また、将来のバージョンでは文法エラーになる可能性もあります。新規に作成するプログラムでは利用すべきでありません。 
+#@end
+この変数はグローバルスコープです。
+
+--- $/  -> String | nil
+--- $-0 -> String | nil
+
+入力レコード区切りを表す文字列です。
+awk の RS 変数のように働きます。
+
+[[m:Kernel.#gets]] のような「行」単位の読み込みメソッドが「行」の区切りとして使用します。
+Rubyがコマンドオプション -0 付きで起動されたときには -0 で指定された値が規定値となります。そうでないとき、規定値は "\n" です。
+
+この変数に nil を設定すると読み込みメソッドはファイル全体を一度に読み込みます。
+空文字列 "" を設定するとパラグラフモードとみなされ、
+2 つ以上連続した改行が「行」の区切りになります。
+
+$/ には正規表現は使えません。
+
+この変数はグローバルスコープです。
+
+@see [[d:spec/rubycmd]]
+
+--- $\ -> String | nil
+
+出力レコード区切りを表す文字列です。
+[[m:Kernel.#print]] が最後にこの文字列を出力します。
+
+デフォルトは nil で、何も出力しません。
+
+この変数はグローバルスコープです。
+
+--- $, -> String | nil
+
+デフォルトの出力フィールド区切り文字列です。
+[[m:Array#join]] で引数を省略した場合と、
+[[m:Kernel.#print]] の各引数の間で出力されます。
+
+デフォルト値は nil で、空文字列と同じ結果になります。
+
+この変数はグローバルスコープです。
+
+--- $;  -> Regexp | String | nil
+--- $-F -> Regexp | String | nil
+
+[[m:String#split]] で引数を省略した場合の区切り文字です。
+
+nilを設定すると特殊な分割を行います。
+詳細は [[m:String#split]] を参照してください。
+
+コマンドラインオプション -F を指定して Ruby を起動した場合、
+初期値は -F で指定した値です。
+それ以外の時には初期値は nil です。
+
+#@if (version >= "1.8.0")
+Ruby 1.6 では $; には文字列しか代入できませんが、
+Ruby 1.8 以降は任意のオブジェクトを代入できます。
+ただし、[[m:String#split]] の仕様変更を考慮すると
+常に正規表現を指定すべきです。
+#@end
+
+Ruby のバージョンによらず動作するプログラムを書くときは
+$; に頼らないコードを書くべきです。
+
+この変数はグローバルスコープです。
+
+@see [[d:spec/rubycmd]]
+
+--- $. -> Fixnum
+
+いずれかの [[c:IO]] オブジェクトが最後に読んだ行の行番号です。
+[[m:Kernel::ARGF]] などの IO 互換のオブジェクトも $. を更新します。
+
+IO からの読み込みが起きるタイミングが予測不能であるような複雑なプログラムでは使用すべきではありません。特に、マルチスレッドプログラムではスレッド間で競合を起こす可能性があります。
+そのような場合には、 [[m:IO#lineno]] を使用してください。
+
+この変数はグローバルスコープです。
+Ruby起動時の初期値は 0 です。
+
+--- $< -> IO
+
+すべての引数または標準入力で構成される仮想ファイルです。
+定数 [[m:Kernel::ARGF]] の別名です。
+
+この変数はグローバルスコープ、読み取り専用です。
+
+--- $0 -> String
+#@since 1.8.2
+--- $PROGRAM_NAME -> String
+#@end
+
+現在実行中の Ruby スクリプトの名前を表す文字列です。
+
+OS と Ruby のバージョンによっては、この変数に代入すると [[man:ps(1)]] の出力が変化します。
+この機能はプログラムの現在の状態を表示するのに便利です。
+
+この変数はグローバルスコープです。
+
+--- $* -> [String]
+
+Rubyスクリプトに与えられた引数を表す配列です。
+組み込み定数 [[m:Kernel::ARGV]] の別名です。
+
+Ruby 自身に対する引数は取り除かれています。
+
+この変数はグローバルスコープです。
+
+--- $$ -> Fixnum
+現在実行中の Ruby プロセスのプロセス ID です。
+[[m:Process.#pid]] と同じです。
+
+この変数はグローバルスコープです。
+
+--- $:         -> [String]
+--- $LOAD_PATH -> [String]
+--- $-I        -> [String]
+Rubyライブラリをロードするときの検索パスです。
+
+[[m:Kernel.#load]] や [[m:Kernel.#require]]
+がファイルをロードする時に検索するディレクトリのリストを含む配列です。
+
+起動時にはコマンドラインオプション -I で指定したディレクトリ、
+環境変数 RUBYLIB の値、
+コンパイル時に指定したデフォルト値、
+"." (カレントディレクトリ) をこの順番で含みます。
+
+#@# 1.6.5 から以下のように変更されている
+#@# 1.6.4 以前の値は書かなくていいよね……
+以下に典型的な UNIX システム上でのロードパスを示します。
+
+  -I で指定したパス
+  環境変数 RUBYLIB の値
+  /usr/local/lib/ruby/site_ruby/VERSION        サイト固有、バージョン依存のライブラリ
+  /usr/local/lib/ruby/site_ruby/VERSION/ARCH   サイト固有、システム依存、拡張ライブラリ
+  /usr/local/lib/ruby/site_ruby                サイト固有ライブラリ
+  /usr/local/lib/ruby/VERSION                  標準ライブラリ
+  /usr/local/lib/ruby/VERSION/ARCH             標準、システム依存、拡張ライブラリ
+  .                                            カレントディレクトリ
+
+#@#((-デフォルトの順序は 1.6.5 から変更されました-))
+上記表中の VERSION は Ruby のバージョンを表す文字列で、
+「1.6」や「1.8」です。
+ARCH はハードウェアと OS を表す文字列で、
+「i686-linux」や「alpha-osf5.1」などです。
+ARCH の値は Config::CONFIG['arch'] で得られます。
+
+コンパイル時のデフォルトパスは
+多くの UNIX システムでは "/usr/local/lib/ruby" です。
+[[d:platform/mswin32]]、[[d:platform/mingw32]]、[[d:platform/Cygwin]]、
+[[d:platform/bccwin32]]、[[d:platform/mswince]] 環境では
+ruby.dll の位置からの相対で決まります。
+[[d:platform/DJGPP]] と [[d:platform/emx]] (OS/2) では
+ruby.exe の位置からの相対で決まります。
+
+-T オプションで起動時に [[m:$SAFE]] を 1 以上に
+設定したときは "." (カレントディレクトリ) はロードパスに入りません。
+
+require 'foo' を実行すると、
+以下のように foo.rb と foo.so が交互に探索されます。
+
+  /usr/local/lib/ruby/site_ruby/VERSION/foo.rb
+  /usr/local/lib/ruby/site_ruby/VERSION/foo.so
+  /usr/local/lib/ruby/site_ruby/VERSION/ARCH/foo.rb
+  /usr/local/lib/ruby/site_ruby/VERSION/ARCH/foo.so
+    :
+    :
+
+なお、共有ライブラリの拡張子が .so でないシステムでは
+「.so」が適切な拡張子に変更されます。
+例えば HP-UX では require 'foo.so' とすると foo.sl を検索します。
+したがって Ruby で記述されたコードでは常に .so を使うべきです。
+
+なお、ロードパスをコマンドラインから調べるには
+
+  $ ruby -e 'puts $:'
+
+とします。
+
+この変数はグローバルスコープです。
+
+@see [[d:spec/rubycmd]], [[d:spec/envvars]]
+
+--- $"               -> [String]
+#@since 1.8.2
+--- $LOADED_FEATURES -> [String]
+#@end
+
+[[m:Kernel.#require]] でロードされたファイル名を含む配列です。
+
+[[m:Kernel.#require]] で同じファイルを
+複数回ロードしないようにするためのロックとして使われます。
+
+この変数はグローバルスコープです。
+
+--- $DEBUG -> bool
+--- $-d    -> bool
+
+この値が真のときはインタプリタがデバッグモードになります。
+
+コマンドラインオプション -d でセットされます。
+スクリプトから代入することもできます。
+
+デバッグモードでは、通常モードに比べて以下の違いがあります。
+
+ * 通常時はいずれかのスレッドが例外によって終了しても
+   他のスレッドは実行を続けますが、デバッグモードでは
+   いずれかのスレッドが例外によって終了した時に
+   インタプリタ全体が中断されるようになります。
+   [[m:Thread.abort_on_exception]] を
+   true にセットするのと同じ効果です。
+ * Thread.abort_on_exception= の効果がなくなります。
+ * 例外を捕捉しているかどうかに関係なく、
+   例外が発生した時点で [[m:$stderr]] にそれが出力されます。
+   スクリプトの処理は続行されます。
+
+この変数はグローバルスコープです。
+
+@see [[d:spec/rubycmd]]
+
+--- $FILENAME -> String
+
+仮想ファイル [[m:Kernel::ARGF]] で現在読み込み中のファイル名です。
+[[m:ARGF.filename]] と同じです。
+
+この変数はグローバルスコープです。
+
+--- $stdin -> object
+標準入力です。
+
+自プロセスの標準入力をリダイレクトしたいときは
+$stdin に代入すれば十分です。
+
+    # 標準入力の入力元 /tmp/foo に変更
+    $stdin = File.open("/tmp/foo", "w")
+    gets               # 入力する
+    $stdin = STDIN     # 元に戻す
+
+ただし、[[m:Kernel.#gets]] など、特定の組み込みメソッドは
+$stdin オブジェクトにメソッドを転送して実装されています。
+従って、[[m:Kernel.#gets]] などが正しく動作するには、
+$stdin オブジェクトに代入したオブジェクトが以下のメソッドを
+正しく実装していなければいけません。
+
+    gets, readline, readlines, getc, readchar, tell, seek,
+    pos=, rewind, fileno, to_io, eof, each_line, each_byte,
+    binmode, closed?
+
+例:
+
+    $stdin = Object.new
+    def $stdin.gets
+      "foo"
+    end
+    p gets()  # => "foo"
+
+自プロセスだけでなく、子プロセスの標準入力もリダイレクトしたいときは
+以下のように [[m:IO#reopen]] を使います。
+
+    $stdin.reopen("/tmp/foo")
+
+また、リダイレクトしたあと
+出力先をまた元に戻したい場合は以下のようにします。
+
+    stdin_old = $stdin.dup       # 元の $stdin を保存する
+    $stdout.reopen("/tmp/foo")   # $stdin を /tmp/foo にリダイレクトする
+    gets                         # /tmp/foo から入力
+    $stdin.reopen stdin_old      # 元に戻す
+
+$stdin はグローバルスコープです。
+
+--- $>      -> object
+--- $stdout -> object
+#@until 1.9.1
+--- $defout  -> object
+#@end
+
+標準出力です。
+
+組み込み関数 [[m:Kernel.#print]]、[[m:Kernel.#puts]] や
+[[m:Kernel.#p]] などのデフォルトの出力先となります。
+初期値は [[m:Kernel::STDOUT]] です。
+コマンドラインオプションオプション -i を指定した場合には
+読み込み元と同じ名前のファイルを表します。
+
+#@until 1.9.1
+$stdout には $defout という別名がありますが、
+$defout は非推奨([[unknown:obsolete]])になったので、
+新しいコードでは常に $stdout を使ってください。
+#@end
+
+$stdout に代入するオブジェクトには
+write という名前のメソッドが定義されていなければいけません。
+
+自プロセスの標準出力をリダイレクトしたいときには、
+以下のように $stdout に代入すれば十分です。
+
+    # 標準出力の出力先を /tmp/foo に変更
+    $stdout = File.open("/tmp/foo", "w")
+    puts "foo"         # 出力する
+    $stdout = STDOUT   # 元に戻す
+
+自プロセスだけでなく、子プロセスの標準出力もリダイレクトしたいときは
+以下のように [[m:IO#reopen]] を使います。
+
+    STDOUT.reopen("/tmp/foo", "w")
+
+また、リダイレクトしたあと
+出力先をまた元に戻したい場合は以下のようにします。
+
+    stdout_old = $stdout.dup        # 元の $stdout を保存する
+    $stdout.reopen("/tmp/foo")      # $stdout を /tmp/foo にリダイレクトする
+    puts "foo"                      # /tmp/foo に出力
+    $stdout.flush                   # 念のためフラッシュする
+    $stdout.reopen stdout_old       # 元に戻す
+
+$stdout はグローバルスコープです。
+
+@see [[d:spec/rubycmd]]
+
+--- $stderr -> object
+#@until 1.9.1
+--- $deferr -> object
+#@end
+
+標準エラー出力です。
+
+Ruby インタプリタが出力するエラーメッセージや
+警告メッセージ、[[m:Kernel.#warn]] の出力先となります。
+初期値は [[m:Kernel::STDERR]] です。
+
+#@until 1.9.1
+$stderr には $deferr という別名がありますが、
+$deferr は非推奨([[unknown:obsolete]])になったので、
+新しいコードでは常に $stderr を使ってください。
+#@end
+
+$stderr に代入するオブジェクトには
+write という名前のメソッドが定義されていなければいけません。
+
+自プロセスの標準エラー出力をリダイレクトしたいときには、
+$stderr に代入すれば十分です。
+
+    # 標準エラー出力の出力先を /tmp/foo に変更
+    $stderr = File.open("/tmp/foo", "w")
+    puts "foo"         # 出力する
+    $stderr = STDERR   # 元に戻す
+
+自プロセスだけでなく、子プロセスの標準エラー出力も
+リダイレクトしたいときは以下のように [[m:IO#reopen]] を使います。
+
+    $stderr.reopen("/tmp/foo", "w")
+
+また、リダイレクトしたあと
+出力先をまた元に戻したい場合は以下のようにします。
+
+    stderr_old = $stderr.dup        # 元の $stderr を保存する
+    $stderr.reopen("/tmp/foo")      # $stderr を /tmp/foo にリダイレクトする
+    puts "foo"                      # /tmp/foo に出力
+    $stderr.flush                   # 念のためフラッシュする
+    $stderr.reopen stderr_old       # 元に戻す
+
+$stderr はグローバルスコープです。
+
+--- $VERBOSE -> bool | nil
+--- $-v      -> bool | nil
+--- $-w      -> bool | nil
+冗長メッセージフラグです。Rubyインタプリタへの
+コマンドラインオプション -v でセットされます。
+
+#@if (version >= "1.8.0")
+警告レベルは三段階あり、それぞれ以下の通りです。
+
+: nil
+    警告を出力しない
+: false
+    重要な警告のみ出力 (デフォルト)
+: true
+    すべての警告を出力する
+
+$VERBOSE に nil, false 以外を代入すると値は true になります。
+
+$VERBOSE の値はコマンドラインオプション
+-W でも設定できます。
+-W0 オプションで nil、
+-W1 オプションで false、
+-W2, -W オプションで true が設定されます。
+-v オプションや
+-w オプションを指定した場合は
+true が設定されます。
+#@end
+
+$VERBOSE はグローバルスコープです。
+
+@see [[d:spec/rubycmd]]
+
+#@since 1.9.1
+--- $KCODE -> nil
+--- $-K    -> nil
+
+この特殊変数は何の影響も持たなくなりました。
+
+値を代入しても無視され、参照すると常に nil です。
+
+  >> $KCODE = true
+  (irb):1: warning: variable $KCODE is no longer effective; ignored
+  => true
+  >> $KCODE
+  (irb):2: warning: variable $KCODE is no longer effective
+  => nil
+
+@see [[d:spec/rubycmd]]
+
+#@else
+--- $KCODE -> String
+--- $-K    -> String
+
+Ruby の認識するマルチバイト文字列エンコーディングです。
+変数の値は "EUC" "SJIS" "UTF8" "NONE" のいずれかの文字列です。
+
+
+$KCODE の値が "EUC" のときは文字列や正規表現の
+エンコーディングが EUC-JP であると仮定します。
+同様に "SJIS" のときは Shift JIS を仮定します。
+"UTF8" のときは UTF-8 を仮定します。
+"NONE" のときはマルチバイト文字列を認識しません。
+
+代入するときには値の最初の 1 バイトしか意味がなく、
+また大文字小文字の違いも無視されます。すなわち、
+"e" "E" は "EUC"、"s" "S" は "SJIS"、
+"u" "U" は "UTF8"、"n" "N" は "NONE" に展開されます。
+
+デフォルト値は "NONE" です。
+
+[参考]
+
+現在の実装では $KCODE は Ruby の以下の動作に影響します。
+
+  * インタプリタの字句解析器
+  * [[c:Regexp]] のエンコーディングフラグのデフォルト値
+  * [[ref:d:spec/literal#regexp]]
+  * [[m:Regexp.new]]
+  * [[m:String#upcase]]
+  * [[m:String#downcase]]
+  * [[m:String#swapcase]]
+  * [[m:String#capitalize]]
+  * [[m:String#inspect]]
+  * [[m:String#split]]
+  * [[m:String#gsub]]
+  * [[m:String#scan]]
+
+$KCODE はグローバルスコープです。
+
+@see [[d:spec/rubycmd]]
+
+#@end
+
+--- $-a -> bool
+自動 split モードを表すフラグです。
+
+コマンドラインオプション -a を使ったとき true に設定されます。
+この変数には代入できません。
+
+この変数はグローバルスコープです。
+
+@see [[d:spec/rubycmd]]
+
+--- $-i -> bool
+in-place 置換モードで用いられます。
+
+コマンドラインオプション -i を指定したとき、空文字列になります。
+-i オプションに拡張子を渡した場合にはその拡張子が文字列として格納されます。
+
+-i オプションが指定されていない時の値は nil です。
+
+スクリプト内で $-i に代入することもでき、
+その場合は [[m:Kernel::ARGV]] の次の
+ファイルを読み込み始めるタイミングで in-place 置換を開始します。
+
+この変数はグローバルスコープです。
+
+@see [[d:spec/rubycmd]]
+
+--- $-l -> bool
+
+コマンドラインオプション -l を指定したとき true に設定されます。
+この変数には代入できません。
+
+この変数はグローバルスコープです。
+
+@see [[d:spec/rubycmd]]
+
+--- $-p -> bool
+
+コマンドラインオプション -p を指定したとき true に設定されます。
+この変数には代入できません。
+
+この変数はグローバルスコープです。
+
+#@since 1.9.1
+--- $-W -> 0 | 1 | 2
+コマンドラインオプション -W を指定したとき、
+そのコマンドライン引数の値が設定されます。
+
+つまり、[[m:$VERBOSE]] の値によって以下の値を返します。
+
+: nil
+    0。警告を出力しない。
+: false
+    1。重要な警告のみ出力する。(デフォルト)
+: true
+    2。すべての警告を出力する。
+
+この変数には代入できません。
+
+この変数はグローバルスコープです。
+
+@see [[d:spec/rubycmd]]
+
+#@end

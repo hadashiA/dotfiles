@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/rurema/!svn/ver/4071/doctree/trunk/refm/capi/src
+END
+array.c.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1778/doctree/trunk/refm/capi/src/array.c.rd
+END
+parse.y.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/4071/doctree/trunk/refm/capi/src/parse.y.rd
+END
+class.c.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1778/doctree/trunk/refm/capi/src/class.c.rd
+END
+variable.c.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1788/doctree/trunk/refm/capi/src/variable.c.rd
+END
+object.c.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1778/doctree/trunk/refm/capi/src/object.c.rd
+END
+ruby.h.rd
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/3571/doctree/trunk/refm/capi/src/ruby.h.rd
+END
+st.c.rd
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/rurema/!svn/ver/1778/doctree/trunk/refm/capi/src/st.c.rd
+END
+string.c.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1778/doctree/trunk/refm/capi/src/string.c.rd
+END
+eval.c.rd
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/1788/doctree/trunk/refm/capi/src/eval.c.rd
+END
+io.c.rd
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/rurema/!svn/ver/1788/doctree/trunk/refm/capi/src/io.c.rd
+END
+error.c.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1788/doctree/trunk/refm/capi/src/error.c.rd
+END
+gc.c.rd
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/rurema/!svn/ver/1778/doctree/trunk/refm/capi/src/gc.c.rd
+END

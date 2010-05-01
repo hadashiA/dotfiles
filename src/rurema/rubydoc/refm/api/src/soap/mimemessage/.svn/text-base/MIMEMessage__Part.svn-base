@@ -1,0 +1,33 @@
+#@since 1.8.2
+
+= class SOAP::MIMEMessage::Part
+
+== Class Methods
+
+--- new
+#@todo
+
+--- parse(str)
+#@todo
+
+== Instance Methods
+
+--- headers
+--- headers=(value)
+#@todo
+
+--- body
+--- body=(value)
+--- content
+#@todo
+
+--- parse(str)
+#@todo
+
+--- contentid
+#@todo
+
+--- to_s
+#@todo
+
+#@end

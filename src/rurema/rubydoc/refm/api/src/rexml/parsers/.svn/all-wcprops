@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/parsers
+END
+treeparser.rd
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/parsers/treeparser.rd
+END
+ultralightparser.rd
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/parsers/ultralightparser.rd
+END
+xpathparser.rd
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/parsers/xpathparser.rd
+END
+lightparser.rd
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/parsers/lightparser.rd
+END
+baseparser.rd
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/parsers/baseparser.rd
+END
+streamparser.rd
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/parsers/streamparser.rd
+END
+pullparser.rd
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/parsers/pullparser.rd
+END
+sax2parser.rd
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/parsers/sax2parser.rd
+END

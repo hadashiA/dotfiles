@@ -1,0 +1,467 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/rurema/!svn/ver/3856/doctree/trunk/refm/api/src/tk
+END
+button.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/button.rd
+END
+canvas.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1440/doctree/trunk/refm/api/src/tk/canvas.rd
+END
+textwindow.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/textwindow.rd
+END
+TkCore__Tk_OBJECT_TABLE
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/TkCore__Tk_OBJECT_TABLE
+END
+msgcat.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/msgcat.rd
+END
+optiondb.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/optiondb.rd
+END
+timer.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1393/doctree/trunk/refm/api/src/tk/timer.rd
+END
+wm.rd
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/rurema/!svn/ver/3004/doctree/trunk/refm/api/src/tk/wm.rd
+END
+labelframe.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/labelframe.rd
+END
+frame.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/frame.rd
+END
+toplevel.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/toplevel.rd
+END
+TkObject
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/3856/doctree/trunk/refm/api/src/tk/TkObject
+END
+TkTreatFont
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/TkTreatFont
+END
+pack.rd
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/pack.rd
+END
+TkBindCore
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/TkBindCore
+END
+mngfocus.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/2281/doctree/trunk/refm/api/src/tk/mngfocus.rd
+END
+winfo.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/winfo.rd
+END
+scrollbar.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/2281/doctree/trunk/refm/api/src/tk/scrollbar.rd
+END
+text.rd
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/text.rd
+END
+listbox.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/listbox.rd
+END
+message.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/message.rd
+END
+itemfont.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1453/doctree/trunk/refm/api/src/tk/itemfont.rd
+END
+scale.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/scale.rd
+END
+validation.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1424/doctree/trunk/refm/api/src/tk/validation.rd
+END
+namespace.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/namespace.rd
+END
+TkConfigMethod
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/TkConfigMethod
+END
+entry.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1424/doctree/trunk/refm/api/src/tk/entry.rd
+END
+tagfont.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1455/doctree/trunk/refm/api/src/tk/tagfont.rd
+END
+menu.rd
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/menu.rd
+END
+bindtag.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/2281/doctree/trunk/refm/api/src/tk/bindtag.rd
+END
+Tk
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/rurema/!svn/ver/3284/doctree/trunk/refm/api/src/tk/Tk
+END
+kinput.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/kinput.rd
+END
+menuspec.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/menuspec.rd
+END
+label.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/label.rd
+END
+scrollable.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/scrollable.rd
+END
+spinbox.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/spinbox.rd
+END
+itemconfig.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1451/doctree/trunk/refm/api/src/tk/itemconfig.rd
+END
+place.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/place.rd
+END
+TkComm
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/TkComm
+END
+menubar.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/menubar.rd
+END
+encodedstr.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/3284/doctree/trunk/refm/api/src/tk/encodedstr.rd
+END
+palette.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1430/doctree/trunk/refm/api/src/tk/palette.rd
+END
+winpkg.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1419/doctree/trunk/refm/api/src/tk/winpkg.rd
+END
+textmark.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/textmark.rd
+END
+clipboard.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/clipboard.rd
+END
+console.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/console.rd
+END
+bgerror.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1397/doctree/trunk/refm/api/src/tk/bgerror.rd
+END
+TclTkIp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/TclTkIp
+END
+font.rd
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/font.rd
+END
+canvastag.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1440/doctree/trunk/refm/api/src/tk/canvastag.rd
+END
+checkbutton.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/checkbutton.rd
+END
+panedwindow.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/panedwindow.rd
+END
+texttag.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/texttag.rd
+END
+event.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/event.rd
+END
+image.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/image.rd
+END
+root.rd
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/3284/doctree/trunk/refm/api/src/tk/root.rd
+END
+TkCore
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/rurema/!svn/ver/3004/doctree/trunk/refm/api/src/tk/TkCore
+END
+variable.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/variable.rd
+END
+selection.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/selection.rd
+END
+grid.rd
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/grid.rd
+END
+virtevent.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1402/doctree/trunk/refm/api/src/tk/virtevent.rd
+END
+textimage.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/textimage.rd
+END
+radiobutton.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/radiobutton.rd
+END
+clock.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/clock.rd
+END
+package.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/3004/doctree/trunk/refm/api/src/tk/package.rd
+END
+xim.rd
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/xim.rd
+END
+dialog.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/dialog.rd
+END
+after.rd
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1281/doctree/trunk/refm/api/src/tk/after.rd
+END
+macpkg.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/macpkg.rd
+END
+TkWindow
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/TkWindow
+END
+composite.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/composite.rd
+END
+TkCore__INTERP
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/TkCore__INTERP
+END
+optionobj.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/optionobj.rd
+END
+TclTkLib
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1734/doctree/trunk/refm/api/src/tk/TclTkLib
+END
+txtwin_abst.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1415/doctree/trunk/refm/api/src/tk/txtwin_abst.rd
+END
+scrollbox.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1394/doctree/trunk/refm/api/src/tk/scrollbox.rd
+END
+autoload.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/3391/doctree/trunk/refm/api/src/tk/autoload.rd
+END

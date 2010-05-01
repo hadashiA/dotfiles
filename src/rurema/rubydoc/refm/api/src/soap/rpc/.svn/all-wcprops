@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/rurema/!svn/ver/3004/doctree/trunk/refm/api/src/soap/rpc
+END
+driver.rd
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/driver.rd
+END
+standaloneServer.rd
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/standaloneServer.rd
+END
+cgistub.rd
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/1433/doctree/trunk/refm/api/src/soap/rpc/cgistub.rd
+END
+router.rd
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1428/doctree/trunk/refm/api/src/soap/rpc/router.rd
+END
+proxy.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1428/doctree/trunk/refm/api/src/soap/rpc/proxy.rd
+END
+rpc.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/rpc.rd
+END
+httpserver.rd
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/httpserver.rd
+END
+soaplet.rd
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/soaplet.rd
+END
+element.rd
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/3004/doctree/trunk/refm/api/src/soap/rpc/element.rd
+END

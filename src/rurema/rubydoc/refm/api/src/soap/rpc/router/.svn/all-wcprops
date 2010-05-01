@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/router
+END
+RPC__Router__ApplicationScopeOperation
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/router/RPC__Router__ApplicationScopeOperation
+END
+RPC__Router__Operation
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/router/RPC__Router__Operation
+END
+RPC__Router
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/router/RPC__Router
+END
+RPC__Router__RequestScopeOperation
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/rpc/router/RPC__Router__RequestScopeOperation
+END

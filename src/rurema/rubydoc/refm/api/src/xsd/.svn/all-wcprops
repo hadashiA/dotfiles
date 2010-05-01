@@ -1,0 +1,389 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/rurema/!svn/ver/2856/doctree/trunk/refm/api/src/xsd
+END
+XSDFloat
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDFloat
+END
+XMLParser__Parser
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XMLParser__Parser
+END
+XSDDate
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDDate
+END
+XSDPositiveInteger
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDPositiveInteger
+END
+XMLParser__REXMLParser
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XMLParser__REXMLParser
+END
+XSDHexBinary
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDHexBinary
+END
+XSDInt
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDInt
+END
+XSDGMonthDay
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDGMonthDay
+END
+XSDNormalizedString
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDNormalizedString
+END
+XSDUnsignedShort
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDUnsignedShort
+END
+XSDUnsignedLong
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDUnsignedLong
+END
+XSDUnsignedByte
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDUnsignedByte
+END
+NSDBase
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/NSDBase
+END
+XSDQName
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDQName
+END
+Charset__XSDError
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/1049/doctree/trunk/refm/api/src/xsd/Charset__XSDError
+END
+CodeGen__MethodDef
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/CodeGen__MethodDef
+END
+XSDString
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDString
+END
+XSDAnyURI
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDAnyURI
+END
+Error
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/rurema/!svn/ver/1049/doctree/trunk/refm/api/src/xsd/Error
+END
+CodeGen__GenSupport
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/CodeGen__GenSupport
+END
+Charset
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/Charset
+END
+Charset__UnknownCharsetError
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/rurema/!svn/ver/1049/doctree/trunk/refm/api/src/xsd/Charset__UnknownCharsetError
+END
+XSDDateTimeImpl
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDDateTimeImpl
+END
+XSDNegativeInteger
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDNegativeInteger
+END
+XSDNil
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDNil
+END
+datatypes.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/2856/doctree/trunk/refm/api/src/xsd/datatypes.rd
+END
+FloatConstants
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/FloatConstants
+END
+XSDDuration
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDDuration
+END
+CodeGen__CommentDef
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/CodeGen__CommentDef
+END
+XSDUnsignedInt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDUnsignedInt
+END
+XMLParser__XMLScanner
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XMLParser__XMLScanner
+END
+XSDBase64Binary
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDBase64Binary
+END
+NS__Assigner
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/NS__Assigner
+END
+XSDTime
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/2856/doctree/trunk/refm/api/src/xsd/XSDTime
+END
+XSDShort
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDShort
+END
+Charset__CharsetConversionError
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/rurema/!svn/ver/1049/doctree/trunk/refm/api/src/xsd/Charset__CharsetConversionError
+END
+NamedElements
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/NamedElements
+END
+XSDGYear
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDGYear
+END
+XSDDouble
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDDouble
+END
+XSDGYearMonth
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDGYearMonth
+END
+datatypes1999.rd
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/1049/doctree/trunk/refm/api/src/xsd/datatypes1999.rd
+END
+XSD
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/rurema/!svn/ver/1648/doctree/trunk/refm/api/src/xsd/XSD
+END
+CodeGen__ClassDef
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/CodeGen__ClassDef
+END
+codegen.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1051/doctree/trunk/refm/api/src/xsd/codegen.rd
+END
+XMLParser__XMLParser
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XMLParser__XMLParser
+END
+XSDNonPositiveInteger
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDNonPositiveInteger
+END
+XSDGMonth
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDGMonth
+END
+Charset__CharsetError
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/1049/doctree/trunk/refm/api/src/xsd/Charset__CharsetError
+END
+XSDLong
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDLong
+END
+NS
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/rurema/!svn/ver/1648/doctree/trunk/refm/api/src/xsd/NS
+END
+xmlparser.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/xmlparser.rd
+END
+XSDAnySimpleType
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDAnySimpleType
+END
+XSDByte
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/2856/doctree/trunk/refm/api/src/xsd/XSDByte
+END
+CodeGen__ModuleDef
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/CodeGen__ModuleDef
+END
+IconvCharset
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/IconvCharset
+END
+XSDBoolean
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDBoolean
+END
+NS__FormatError
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/2856/doctree/trunk/refm/api/src/xsd/NS__FormatError
+END
+QName
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/QName
+END
+ValueSpaceError
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/1049/doctree/trunk/refm/api/src/xsd/ValueSpaceError
+END
+XSDGDay
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDGDay
+END
+XSDNonNegativeInteger
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDNonNegativeInteger
+END
+XSDDateTime
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDDateTime
+END
+XSDInteger
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDInteger
+END
+XSDDecimal
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/xsd/XSDDecimal
+END

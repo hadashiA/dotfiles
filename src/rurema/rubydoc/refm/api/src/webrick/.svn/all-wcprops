@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/rurema/!svn/ver/3972/doctree/trunk/refm/api/src/webrick
+END
+httpproxy.rd
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/2231/doctree/trunk/refm/api/src/webrick/httpproxy.rd
+END
+log.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1441/doctree/trunk/refm/api/src/webrick/log.rd
+END
+compat.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1441/doctree/trunk/refm/api/src/webrick/compat.rd
+END
+httpstatus.rd
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/2221/doctree/trunk/refm/api/src/webrick/httpstatus.rd
+END
+httpservlet.rd
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1441/doctree/trunk/refm/api/src/webrick/httpservlet.rd
+END
+htmlutils.rd
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/2230/doctree/trunk/refm/api/src/webrick/htmlutils.rd
+END
+httpversion.rd
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/2210/doctree/trunk/refm/api/src/webrick/httpversion.rd
+END
+httprequest.rd
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/3742/doctree/trunk/refm/api/src/webrick/httprequest.rd
+END
+httpresponse.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/3353/doctree/trunk/refm/api/src/webrick/httpresponse.rd
+END
+httputils.rd
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/2933/doctree/trunk/refm/api/src/webrick/httputils.rd
+END
+utils.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/2241/doctree/trunk/refm/api/src/webrick/utils.rd
+END
+ssl.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/2458/doctree/trunk/refm/api/src/webrick/ssl.rd
+END
+httpauth.rd
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/2242/doctree/trunk/refm/api/src/webrick/httpauth.rd
+END
+cgi.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/3668/doctree/trunk/refm/api/src/webrick/cgi.rd
+END
+https.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/webrick/https.rd
+END
+accesslog.rd
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/2228/doctree/trunk/refm/api/src/webrick/accesslog.rd
+END
+config.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/3900/doctree/trunk/refm/api/src/webrick/config.rd
+END
+httpserver.rd
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/2224/doctree/trunk/refm/api/src/webrick/httpserver.rd
+END
+server.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/2226/doctree/trunk/refm/api/src/webrick/server.rd
+END
+cookie.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/3960/doctree/trunk/refm/api/src/webrick/cookie.rd
+END

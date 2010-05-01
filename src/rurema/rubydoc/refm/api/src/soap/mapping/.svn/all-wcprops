@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/mapping
+END
+mapping.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1433/doctree/trunk/refm/api/src/soap/mapping/mapping.rd
+END
+rubytypeFactory.rd
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/mapping/rubytypeFactory.rd
+END
+typeMap.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/mapping/typeMap.rd
+END
+wsdlliteralregistry.rd
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/mapping/wsdlliteralregistry.rd
+END
+wsdlencodedregistry.rd
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/mapping/wsdlencodedregistry.rd
+END
+factory.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/mapping/factory.rd
+END
+registry.rd
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/mapping/registry.rd
+END

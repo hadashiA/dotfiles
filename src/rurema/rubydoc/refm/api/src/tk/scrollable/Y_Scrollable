@@ -1,0 +1,29 @@
+= module Tk::Y_Scrollable
+
+== Instance Methods
+
+--- yscrollbar(bar = nil)
+#@todo
+
+
+
+--- yscrollcommand(cmd = Proc.new)
+#@todo
+
+
+
+--- yview(*index)
+#@todo
+
+
+
+--- yview_moveto(*index)
+#@todo
+
+
+
+--- yview_scroll(*index)
+#@todo
+
+
+

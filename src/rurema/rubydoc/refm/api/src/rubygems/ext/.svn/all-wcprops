@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/3195/doctree/trunk/refm/api/src/rubygems/ext
+END
+ext_conf_builder.rd
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/rurema/!svn/ver/3195/doctree/trunk/refm/api/src/rubygems/ext/ext_conf_builder.rd
+END
+builder.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/3195/doctree/trunk/refm/api/src/rubygems/ext/builder.rd
+END
+configure_builder.rd
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/rurema/!svn/ver/3195/doctree/trunk/refm/api/src/rubygems/ext/configure_builder.rd
+END
+rake_builder.rd
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/3195/doctree/trunk/refm/api/src/rubygems/ext/rake_builder.rd
+END

@@ -1,3 +1,4 @@
+
 desc "install the dot files into user's home directory"
 task :install => 'install:all'
 
@@ -21,17 +22,12 @@ namespace :install do
   directory bin
   directory opt
   directory src
-
-  desc "install local scripts"
-  task 'bin' => bin do
-    p FileList['bin/*']
-  end
   
   rule(/^\./ => lambda{|dotfile| File.expand_path("./#{dotfile.sub(/^\./, '')}") }) do |t|
     ln_s_confirm t.source, File.expand_path("~/#{t.name}")
   end
 
-  file '.emacs'        => ['.emacs.d', 'gems:fastri', 'gems:rcodetools', 'devel/which', :rsense, :cmigemo]
+  file '.emacs'        => ['.emacs.d', 'gems:rcodetools', 'devel/which', :rurema, :rsense, :cmigemo]
   file '.vimrc'        => ['.vim']
   file '.irbrc'        => ['gems:hirb', 'gems:wirble']
   file '.zshrc'        => ['.aliases', '.exports','.gitrc']
@@ -55,8 +51,24 @@ namespace :install do
     end
   end
 
-  desc 'install rsense. see http://cx4a.org/software/rsense/index.ja.html , http://redmine.ruby-lang.org/wiki/rurema/'
-  task :rsense => [opt, src] do
+  desc "install ruby refm (るりま) see http://redmine.ruby-lang.org/wiki/rurema/"
+  task :rurema => src do |t|
+    # source = Dir[File.expand_path('./src/ruby-refm*')].sort.last
+    # source = File.expand_path('./src/ruby-refm-1.9.0-dynamic')
+    dest   = File.join(src, 'rurema')
+    source = File.expand_path('./src/rurema')
+
+    rm_f dest
+    ln_s source, dest
+
+    cd dest do
+      cmd =  "ruby1.9 #{File.expand_path('./bin/ar-index.rb')} ./rubydoc ./rurema.e"
+      puts cmd
+    end
+  end
+
+  desc 'install rsense. see http://cx4a.org/software/rsense/index.ja.html'
+  task :rsense => [opt, :rurema] do
     current  = File.expand_path('~/opt/rsense')
     original = Dir[File.expand_path('./opt/rsense*')].sort.last
 
@@ -64,12 +76,6 @@ namespace :install do
     ln_s original, current
     sh "ruby #{File.join(original, 'etc/config.rb')} > $HOME/.rsense"
     sh "cat $HOME/.rsense"
-
-    current  = File.expand_path('~/src/rurema')
-    original = Dir[File.expand_path('./src/ruby-refm*')].sort.last
-
-    rm_rf current
-    ln_s original, current
   end
 
   desc "install C/Migemo (Kaoriya.net http://www.kaoriya.net/#CMIGEMO)"

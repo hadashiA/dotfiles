@@ -1,4 +1,4 @@
-;; Auto Complete Modeユーザーマニュアル
+;; Auto Complete Mode
 ;; http://cx4a.org/software/auto-complete/manual.ja.html#ac-source-yasnippet
 (when (require 'auto-complete nil t)
   ;; (ac-config-default)
@@ -32,11 +32,11 @@
   ;; (setq ac-ignore-case 'smart)
   (setq ac-ignore-case t)
 
-  ;; C-c /でファイル名補完
   (global-set-key (kbd "C-c /") 'ac-complete-filename)
 
-  (when (require 'pos-tip nil t)
-    (setq ac-quick-help-prefer-x t))
+  ;; 繝�繝ｼ繝ｫ繝√ャ繝励☆縺斐＞縺代←縲√≠繧薙∪繧願ｦ九※縺ｪ縺�縺ｮ縺ｧ辟｡蜉ｹ
+  ;; (when (require 'pos-tip nil t)
+  ;;   (setq ac-quick-help-prefer-x t))
 
   (add-hook 'emacs-lisp-mode-hook
             (lambda ()
@@ -49,4 +49,3 @@
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-rsense-method)
               (add-to-list 'ac-sources 'ac-source-rsense-constant))))
-

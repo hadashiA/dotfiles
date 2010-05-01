@@ -1,0 +1,257 @@
+= class Symbol < Object
+#@since 1.9.1
+include Comparable
+#@end
+#@#インターンされた文字列
+シンボルを表すクラス。シンボルは任意の文字列と一対一に対応するオブジェクトです。
+
+文字列の代わりに用いることもできますが、必ずしも文字列と同じ振る舞いをするわけではありません。
+同じ内容のシンボルはかならず同一のオブジェクトです。
+
+シンボルオブジェクトは以下のようなリテラルで得られます。
+#@#リテラル-シンボルリテラルへのリンク貼る
+
+  :symbol
+  :'symbol'
+  %s!symbol! # %記法
+
+生成されたシンボルの一覧は[[m:Symbol.all_symbols]]で得られます。
+一番目のリテラルでシンボルを表す場合、`:' の後に
+は識別子、メソッド名(`!',`?',`=' などの接尾辞を含む)、変数名
+(`$'などの接頭辞を含む)、再定義できる演算子のいずれかに適合する
+ものしか書くことはできません(そうでなければ文法エラーになります)。
+そうでない文字列をシンボルにしたい場合は残りの表記か[[m:String#intern]]を使用してください。
+
+#@#どの形式でもシンボルはヌル文字('\0')を含むことはできません。
+#@#↑1.9では可能。調べる
+
+#@# 1.9では空文字列もシンボルにできる
+
+=== シンボルの実装と用途
+==== 実装
+Rubyの内部実装では、メソッド名や変数名、定数名、クラス名など
+の`名前'を整数で管理しています。これは名前を直接文字列として処理するよりも
+速度面で有利だからです。そしてその整数をRubyのコード上で表現したものがシンボルです。
+
+シンボルは、ソース上では文字列のように見え、内部では整数として扱われる、両者を仲立ちするような存在です。
+#@#表現を変える？
+
+名前を管理するという役割上、シンボルと文字列は一対一に対応します。
+また、文字列と違い、immutable(変更不可)であり、同値ならば必ず同一です。
+
+  p "abc" == "abc" #=> true
+  p "abc".equal?("abc") #=> false
+  p :abc == :abc #=> true
+  p :abc.equal?(:abc) #=> true ←同値ならば同一
+
+==== 用途
+実用面では、シンボルは文字の意味を明確にします。`名前'を指し示す時など、
+文字列そのものが必要なわけではない時に用います。
+
+#@#プログラム内部でしか使わない文字列
+
+  * ハッシュのキー { :key => "value" }
+  * アクセサの引数で渡すインスタンス変数名 attr_reader :name
+  * メソッド引数で渡すメソッド名 __send__ :to_s
+  * C の enum 的な使用 (値そのものは無視してよい場合)
+
+シンボルを使うメリットは
+
+  * 新しく文字列を生成しない分やや効率がよく、比較も高速。
+  * 文字の意味がはっきりするのでコードが読みやすくなる
+  * immutableなので内容を書き換えられる心配がない
+#@#タイプ量が少ない
+
+大抵のメソッドはシンボルの代わりに文字列を引数として渡すこともできるようになっています。
+
+#@since 1.9.1
+Symbolクラスのメソッドには、Stringクラスのメソッドと同名で似た働きをするものもあります。
+#@end
+
+== Class Methods
+
+#@since 1.8.0
+--- all_symbols -> [Symbol]
+
+定義済みの全てのシンボルオブジェクトの配列を返します。
+
+    p Symbol.all_symbols #=> [:RUBY_PLATFORM, :RUBY_VERSION, ...]
+
+リテラルで表記したシンボルのうち、コンパイル時に値が決まるものはその時に生成されます。
+それ以外の式展開を含むリテラルや、メソッドで表記されたものは式の評価時に生成されます。
+(何にも使われないシンボルは最適化により生成されないことがあります)
+
+  def number
+    'make_3'
+  end
+  
+  p Symbol.all_symbols.select{|sym|sym.to_s.include? 'make'}
+  #=> [:make_1, :make_2]
+  
+  re  = #確実に生成されるように代入操作を行う
+  :make_1,
+  :'make_2',
+  :"#{number}",
+  'make_4'.intern
+  
+  p Symbol.all_symbols.select{|sym|sym.to_s.include? 'make'}
+  #=> [:make_1, :make_2, :make_3, :make_4]
+
+#@end
+
+== Instance Methods
+
+#@since 1.9.1
+--- intern -> self
+#@end
+#@since 1.8.0
+--- to_sym -> self
+self を返します。
+
+@see [[m:String#intern]]
+#@end
+
+
+--- id2name -> String
+--- to_s -> String
+
+シンボルに対応する文字列を返します。
+
+逆に、文字列に対応するシンボルを得るには
+[[m:String#intern]] を使います。
+
+  p :foo.id2name
+  #=> "foo"
+  
+  p :foo.id2name.intern == :foo
+  #=> true
+  
+@see [[m:String#intern]]
+
+#@until 1.9.1
+--- to_i -> Integer
+--- to_int -> Integer
+
+シンボルに対応する整数を返します。
+
+このメソッドで得られる整数は、内部実装で名前の管理に使われています。
+オブジェクトに対応する整数([[m:Object#object_id]] で得ら
+れます)と Symbol に対応する整数は別のものです。
+
+#@if ("1.8.0" > version)
+逆にこの整数から対応するシンボルを得るには
+[[m:Fixnum#id2name]] を使って一旦文字列を得る必要が
+あります。
+#@else
+逆にこの整数から対応するシンボルを得るには
+[[m:Fixnum#to_sym]] が使えます
+#@end
+
+   id = :foo.to_i
+   p id                  #=> 8881
+#@if ("1.8.0" > version)
+   p id.id2name.intern   #=> :foo
+#@else
+   p id.to_sym           #=> :foo
+#@end
+
+#@if ("1.8.0" > version)
+@see [[m:Fixnum#id2name]]
+#@else
+@see [[m:Fixnum#to_sym]]
+#@end
+#@end
+
+#@since 1.8.7
+--- to_proc -> Proc
+#@todo
+
+self に対応する Proc オブジェクトを返します。
+
+  (1..3).collect(&:to_s)  #=> ["1", "2", "3"]
+  (1..3).inject(&:+)      #=> 6
+
+#@end
+
+#@since 1.9.1
+--- ==(other)        -> true | false
+#@todo
+
+other が同じシンボルの時に true を返します。
+
+--- succ -> Symbol
+--- next -> Symbol
+#@todo
+
+@see [[m:String#succ]]
+
+--- <=>(other) -> Integer
+#@todo
+
+@see [[m:String#<=>]]
+
+--- casecmp(other) -> Integer
+#@todo
+
+@see [[m:String#casecmp]]
+
+--- =~(other) -> Integer
+#@todo
+
+@see [[m:String#=~]]
+
+--- []
+--- slice
+#@todo
+
+@see [[m:String#[] ]], [[m:String#slice]]
+
+--- length -> Integer
+--- size -> Integer
+#@todo
+
+@see [[m:String#length]], [[m:String#size]]
+
+--- empty? -> bool
+#@todo
+
+@see [[m:String#empty?]]
+
+--- match
+#@todo
+
+@see [[m:String#match]]
+
+--- upcase -> Symbol
+#@todo
+
+@see [[m:String#upcase]]
+
+--- downcase -> Symbol
+#@todo
+
+@see [[m:String#downcase]]
+
+--- capitalize -> Symbol
+#@todo
+
+@see [[m:String#capitalize]]
+
+--- swapcase -> Symbol
+#@todo
+
+@see [[m:String#swapcase]]
+
+--- encoding   -> Encoding
+#@todo
+
+@see [[m:String#encoding]]
+
+#@end
+
+--- inspect    -> String
+#@todo
+
+Returns the representation of sym as a symbol literal.
+
+   :fred.inspect   #=> ":fred"

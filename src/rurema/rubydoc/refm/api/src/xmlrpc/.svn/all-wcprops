@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/rurema/!svn/ver/3392/doctree/trunk/refm/api/src/xmlrpc
+END
+datetime.rd
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/2326/doctree/trunk/refm/api/src/xmlrpc/datetime.rd
+END
+client.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/2326/doctree/trunk/refm/api/src/xmlrpc/client.rd
+END
+Server
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/2323/doctree/trunk/refm/api/src/xmlrpc/Server
+END
+BasicServer
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/2323/doctree/trunk/refm/api/src/xmlrpc/BasicServer
+END
+ModRubyServer
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/2328/doctree/trunk/refm/api/src/xmlrpc/ModRubyServer
+END
+CGIServer
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/2323/doctree/trunk/refm/api/src/xmlrpc/CGIServer
+END
+config.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/2345/doctree/trunk/refm/api/src/xmlrpc/config.rd
+END
+server.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/2326/doctree/trunk/refm/api/src/xmlrpc/server.rd
+END
+WEBrickServlet
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/2323/doctree/trunk/refm/api/src/xmlrpc/WEBrickServlet
+END
+Client
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/2326/doctree/trunk/refm/api/src/xmlrpc/Client
+END
+Client__Proxy
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/3392/doctree/trunk/refm/api/src/xmlrpc/Client__Proxy
+END

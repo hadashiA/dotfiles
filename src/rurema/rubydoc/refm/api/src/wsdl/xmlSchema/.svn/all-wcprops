@@ -1,0 +1,155 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema
+END
+pattern.rd
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/pattern.rd
+END
+simpleRestriction.rd
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/simpleRestriction.rd
+END
+length.rd
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/length.rd
+END
+xsd2ruby.rd
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/xsd2ruby.rd
+END
+include.rd
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/include.rd
+END
+simpleContent.rd
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/simpleContent.rd
+END
+enumeration.rd
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/enumeration.rd
+END
+simpleExtension.rd
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/simpleExtension.rd
+END
+any.rd
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/any.rd
+END
+element.rd
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/element.rd
+END
+choice.rd
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/choice.rd
+END
+simpleType.rd
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/simpleType.rd
+END
+parser.rd
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/parser.rd
+END
+schema.rd
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/schema.rd
+END
+importer.rd
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/importer.rd
+END
+complexContent.rd
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/complexContent.rd
+END
+attribute.rd
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/attribute.rd
+END
+unique.rd
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/unique.rd
+END
+all.rd
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/all.rd
+END
+sequence.rd
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/sequence.rd
+END
+data.rd
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/data.rd
+END
+complexType.rd
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/complexType.rd
+END
+import.rd
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/import.rd
+END
+content.rd
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/content.rd
+END
+annotation.rd
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/xmlSchema/annotation.rd
+END

@@ -1,0 +1,24 @@
+#@since 1.8.0
+
+= module TkBindCore
+
+== Instance Methods
+
+--- bind(context, *args)
+#@todo
+
+
+
+--- bind_append(context, *args)
+#@todo
+
+
+--- bind_remove(context)
+#@todo
+
+
+--- bindinfo(context = nil)
+#@todo
+
+#@end
+

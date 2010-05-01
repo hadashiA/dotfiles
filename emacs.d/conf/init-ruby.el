@@ -1,4 +1,3 @@
-
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 ;; ruby-mode
 ;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs 
@@ -112,48 +111,86 @@ print(which_library(%%[%s]))'"
   (require 'ffap)
   (add-to-list 'ffap-alist '(ruby-mode . ffap-ruby-mode))
  
+  ;; ;; Ruby リファレンスマニュアルを Emacs で参照・ anything.el との連携（改訂版） - (rubikitch loves (Emacs Ruby CUI))
+  ;; ;; http://d.hatena.ne.jp/rubikitch/20080102/rubyrefm
+  ;; (defun refe2x (kw)
+  ;;   (interactive "sReFe2x: ")
+  ;;   (let ((coding-system-for-read 'euc-japan))
+  ;;     (with-current-buffer (get-buffer-create (concat "*refe2x:" kw "*"))
+  ;;       (when (zerop (buffer-size))
+  ;;         (call-process "refe2x" nil t t kw)
+  ;;         (diff-mode))
+  ;;       (setq minibuffer-scroll-window (get-buffer-window (current-buffer) t))
+  ;;       (goto-char (point-min))
+  ;;       (display-buffer (current-buffer)))))
+
+  ;; (defun anything-c-source-static-escript (symbol desc filename &rest other-attrib)
+  ;;   `((name . ,desc)
+  ;;     (candidates . ,symbol)
+  ;;     ,@other-attrib
+  ;;     (init
+  ;;      . (lambda ()
+  ;;          (unless (and (boundp ',symbol) ,symbol)
+  ;;            (with-current-buffer (find-file-noselect ,filename)
+  ;;              (setq ,symbol (split-string (buffer-string) "\n" t))))))
+  ;;     (action
+  ;;      ("Eval it"
+  ;;       . (lambda (cand)
+  ;;           (with-temp-buffer
+  ;;             (insert cand)
+  ;;             (cd ,(file-name-directory filename))
+  ;;             (backward-sexp 1)
+  ;;             (eval (read (current-buffer)))))))))
+  ;; (setq anything-c-source-refe2x
+  ;;       (anything-c-source-static-escript
+  ;;        'anything-c-refe2x-candidates "ReFe2x"
+  ;;        "~/rurema/bitclust/refe2x.e"
+  ;;        '(delayed)
+  ;;        '(requires-pattern . 3)))
+  ;; (add-to-list 'anything-sources 'anything-c-source-refe2x t)
+
   ;; Software Design 2008-02 P153
   ;; ri
-  (and
-   (executable-find "fastri-server")
-   (executable-find "fri")
-   (setq ri-ruby-script (executable-find "ri-emacs"))
-   (load "ri-ruby" t)
+  ;; (and
+  ;;  (executable-find "fastri-server")
+  ;;  (executable-find "fri")
+  ;;  (setq ri-ruby-script (executable-find "ri-emacs"))
+  ;;  (load "ri-ruby" t)
  
-   (defun fastri-server-alive-p ()
-     (with-temp-buffer
-       (let
-           ((progname "fastri-server")
-            (wmic-tmp-file "TempWmicBatchFile.bat"))
-         (cond
-          ((and run-w32 run-meadow)
-           (call-process "wmic" nil t t "process")
-           (when (file-exists-p wmic-tmp-file)
-             (delete-file wmic-tmp-file)))
-          (t
-           (call-process "ps" nil t t "uxww")))
-         (goto-char (point-min))
-         (not (not (re-search-forward progname nil t))))))
+  ;;  (defun fastri-server-alive-p ()
+  ;;    (with-temp-buffer
+  ;;      (let
+  ;;          ((progname "fastri-server")
+  ;;           (wmic-tmp-file "TempWmicBatchFile.bat"))
+  ;;        (cond
+  ;;         ((and run-w32 run-meadow)
+  ;;          (call-process "wmic" nil t t "process")
+  ;;          (when (file-exists-p wmic-tmp-file)
+  ;;            (delete-file wmic-tmp-file)))
+  ;;         (t
+  ;;          (call-process "ps" nil t t "uxww")))
+  ;;        (goto-char (point-min))
+  ;;        (not (not (re-search-forward progname nil t))))))
  
-   (defun fastri-server-start ()
-     (unless (fastri-server-alive-p)
-       (message "starting fastri-server. please wait...")
-       (let*
-           ((progname "fastri-server")
-            (buffname (format "*%s*" progname)))
+  ;;  (defun fastri-server-start ()
+  ;;    (unless (fastri-server-alive-p)
+  ;;      (message "starting fastri-server. please wait...")
+  ;;      (let*
+  ;;          ((progname "fastri-server")
+  ;;           (buffname (format "*%s*" progname)))
  
-         (start-process progname buffname progname)
-         (while (not
-                 (with-temp-buffer
-                   (sit-for 0.5)
-                   (call-process
-                    "fri" nil t t "Kernel#lambda")
-                   (goto-char (point-min))
-                   (re-search-forward "lambda" nil t)))))))
+  ;;        (start-process progname buffname progname)
+  ;;        (while (not
+  ;;                (with-temp-buffer
+  ;;                  (sit-for 0.5)
+  ;;                  (call-process
+  ;;                   "fri" nil t t "Kernel#lambda")
+  ;;                  (goto-char (point-min))
+  ;;                  (re-search-forward "lambda" nil t)))))))
  
-   (defadvice ri-ruby-get-process (before ri/force-start-fastri-server
-                                          activate)
-     (fastri-server-start)))
+  ;;  (defadvice ri-ruby-get-process (before ri/force-start-fastri-server
+  ;;                                         activate)
+  ;;    (fastri-server-start)))
 
   ;; Rsense
   ;;   RSense - ユーザーマニュアル

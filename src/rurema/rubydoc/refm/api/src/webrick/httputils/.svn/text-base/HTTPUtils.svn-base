@@ -1,0 +1,98 @@
+= module WEBrick::HTTPUtils
+
+HTTP のためのユーティリティ関数を提供します。
+
+== Module Functions
+
+--- load_mime_types(file)    -> Hash
+
+Apache の mime.types ファイル形式の file を読み込み
+拡張子をキー、MIME タイプを値とするハッシュを返します。キーも値も文字列です。
+
+@param file Apache の mime.types ファイル形式のファイルの名前を文字列で指定します。
+
+  p WEBrick::HTTPUtils.load_mime_types('/etc/mime.types')
+  # => {"htm"=>"text/html", "rpm"=>"application/x-rpm", ... }
+
+--- mime_type(filename, mime_tab)    -> String
+
+ファイル名 filename の拡張子をもとにその MIME タイプを指定された mime_tab 
+から探して文字列として返します。MIME タイプが見つからない場合は "application/octet-stream"
+を返します。
+
+@param filename ファイル名を文字列で指定します。
+
+@param mime_tab 拡張子をキー、MIME タイプを値とするハッシュを指定します。
+
+  include WEBrick::HTTPUtils
+  p mime_type('index.html', DefaultMimeTypes)     #=> "text/html"
+  p mime_type('index.html.ja', DefaultMimeTypes)  #=> "text/html"
+  p mime_type('index.hoge', DefaultMimeTypes)     #=> "application/octet-stream"
+
+--- parse_header(raw)
+#@todo
+
+--- split_header_value(str)
+#@todo
+
+--- parse_range_header(ranges_specifier)
+#@todo
+
+--- dequote(str)
+#@todo
+
+--- quote(str)
+#@todo
+
+--- escape(str)
+#@todo
+
+--- unescape(str)
+#@todo
+
+#@since 1.8.3
+--- escape_path(str)
+#@todo
+#@end
+
+--- escape8bit(str)
+#@todo
+
+#@#--- normalize_path(path)
+#@#todo
+
+#@since 1.8.2
+#@#--- parse_qvalues(value)
+#@#todo
+#@end
+
+#@#--- escape_form(str)
+#@#todo
+
+#@#--- unescape_form(str)
+#@#todo
+
+#@since 1.8.3
+#@#--- _make_regex!(str)
+#@#todo
+#@end
+
+#@#--- _escape(str, regex)
+#@#todo
+
+#@#--- _unescape(str, regex)
+#@#todo
+
+#@#--- parse_query(str)
+#@#todo
+
+#@#--- parse_form_data(io, boundary)
+#@#todo
+
+#@#--- _make_regex(str)
+#@#todo
+
+== Constants
+
+--- DefaultMimeTypes
+#@todo

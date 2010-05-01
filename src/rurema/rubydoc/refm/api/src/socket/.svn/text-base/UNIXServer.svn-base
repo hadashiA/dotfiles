@@ -1,0 +1,73 @@
+= class UNIXServer < UNIXSocket
+
+UNIXストリーム型接続のサーバ側のソケットのクラス。
+
+== Class Methods
+
+--- open(path)
+--- new(path)
+#@todo
+
+path で指定したパス名を用いて接続を受け付けるソケットを返
+します。
+
+== Instance Methods
+
+--- accept
+#@todo
+
+クライアントからの接続要求を受け付け、接続した
+[[c:UNIXSocket]] のインスタンスを返します。
+
+例:
+
+  UNIXServer.open("/tmp/s") {|serv|
+    c = UNIXSocket.open("/tmp/s")
+    s = serv.accept
+    s.write "from server"
+    c.write "from client"
+    p c.recv(20)    #=> "from server"
+    p s.recv(20)    #=> "from client"
+  }
+
+#@if (version >= "1.8.5")
+--- accept_nonblock
+#@todo
+
+ソケットをノンブロッキングモードに設定した後、
+[[man:accept(2)]] を呼び出します。
+
+引数、返り値は [[m:UNIXServer#accept]] と同じです。
+
+[[man:accept(2)]] がエラーになった場合、
+EAGAIN, EINTR を含め例外 [[c:Errno::EXXX]] が発生します。
+#@end
+
+#@if (version >= "1.8.0")
+--- listen(backlog)
+#@todo
+
+[[man:listen(2)]] を実行します。
+([[m:Socket#listen]]と同じ)
+
+backlog は、クライアントからの接続要求を保留できる数です。
+UNIXServer のインスタンスは最初は backlog の値は 5 で生成されます。
+
+[[man:listen(2)]] が成功すれば 0 を返します。
+失敗すれば 例外 [[c:Errno::EXXX]] が発生します。
+#@end
+
+#@if (version >= "1.8.0")
+--- sysaccept
+#@todo
+
+接続したクライアントのソケットをファイル記述子で返すことを除けば
+[[m:UNIXServer#accept]] と同じです。
+
+例:
+
+  UNIXServer.open("/tmp/s") {|serv|
+    c = UNIXSocket.open("/tmp/s")
+    p serv.sysaccept        #=> 6
+  }
+#@end

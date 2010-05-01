@@ -1,0 +1,117 @@
+= class ThreadGroup < Object
+
+スレッドグループを表すクラスです。グループに属する [[c:Thread]] をまとめて
+操作することができます。
+
+[[c:Thread]] は必ずいずれかひとつのスレッドグループに属します。
+生成されたばかりの Thread は、生成した Thread のグループを引き継ぎます。
+メインスレッドはデフォルトでは [[m:ThreadGroup::Default]] に属します。
+
+: 例:
+
+生成したすべてのThreadが終了するのを待つ
+
+    5.times {
+       Thread.new { sleep 1; puts "#{Thread.current} finished" }
+    }
+    
+    (ThreadGroup::Default.list - [Thread.current]).each {|th| th.join}
+    
+    puts "all threads finished"
+
+対象の Thread が Thread を起こす可能性がある場合
+([[m:Thread.exclusive]]参照)
+
+    Thread.exclusive do
+      (ThreadGroup::Default.list - [Thread.current]).each {|th| th.join}
+    end
+
+=== ThreadGroup#freeze と ThreadGroup#enclose の違い
+
+どちらのメソッドでも [[m:ThreadGroup#add]] によるスレッドの追加ができなくなる点は同じですが、
+[[m:Thread.new]] に関して違いがあります。現在のスレッドが属する ThreadGroup が freeze 
+されている場合、Thread.new{ ... } はエラーになります。ThreadGroup が enclose されているだけでは、
+Thread.new{ ... } はエラーになりません。生成されたスレッドは従来通り 親スレッドの ThreadGroup に属します。
+
+== Class Methods
+
+--- new    -> ThreadGroup
+
+新たな ThreadGroup を生成して返します。
+
+== Instance Methods
+
+--- add(thread)    -> self
+
+スレッド thread が属するグループを自身に変更します。
+
+@param thread 自身に加えたいスレッドを指定します。
+
+@raise ThreadError 自身が freeze されているか enclose されている場合に、発生します。また引数 thread が属する ThreadGroup が freeze されているか enclose されている場合にも発生します。
+
+#@since 1.8.0
+--- enclose    -> self
+
+自身への [[m:ThreadGroup#add]] によるスレッドの追加・削除を禁止します。
+enclose された ThreadGroup に追加や削除を行うと例外 [[c:ThreadError]] が発生します。
+
+ただし、[[m:Thread.new]] によるスレッドの追加は禁止されません。enclose されたスレッドグループ A に
+属するスレッドが新たにスレッドを生成した場合、生成されたスレッドはスレッドグループ A に属します。
+
+追加の例:
+
+  thg = ThreadGroup.new.enclose
+  thg.add Thread.new {}
+
+  => -:2:in `add': can't move to the enclosed thread group (ThreadError)
+
+削除の例:
+
+  thg1 = ThreadGroup.new
+  thg2 = ThreadGroup.new
+
+  th = Thread.new {sleep 1}
+
+  thg1.add th
+  thg1.enclose
+  thg2.add th
+
+  => -:8:in `add': can't move from the enclosed thread group (ThreadError)
+#@end
+
+#@since 1.8.0
+--- enclosed?    -> bool
+
+自身が enclose されているなら true を返します。そうでないなら false を返します。デフォルトは false です。
+
+freeze された ThreadGroup には Thread の追加/削除ができませんが、enclosed? は false を返します。
+
+    thg = ThreadGroup.new
+    p thg.enclosed?         # => false
+    thg.enclose
+    p thg.enclosed?         # => true
+
+    thg = ThreadGroup.new
+    p thg.enclosed?         # => false
+    thg.freeze
+    p thg.enclosed?         # => false
+
+@see [[m:ThreadGroup#enclose]]
+#@end
+--- list    -> [Thread] 
+
+self に属するスレッドの配列を返します。
+#@since 1.8.0
+version 1.8 では、aborting 状態であるスレッド
+も要素に含まれます。つまり「生きている」スレッドの配列を返します。
+#@else
+終了処理中(aborting)、や終了状態(dead)であるスレッドは要素に含まれ
+ません([[m:Thread.list]]と同じです)。
+#@end
+
+== Constants
+
+--- Default -> ThreadGroup
+
+デフォルトで定義されている [[c:ThreadGroup]] です。メインスレッド
+は最初このグループに属します。

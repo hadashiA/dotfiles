@@ -1,0 +1,67 @@
+#@since 1.8.1
+= class OpenSSL::ASN1::ASN1Data < Object
+
+ASN.1データ型のスーパークラス
+
+継承の関係
+
+     OpenSSL::ASN1::ASN1Data
+       +-> OpenSSL::ASN1::Primitive
+       |     +-> OpenSSL::ASN1::Boolean
+       |     +-> OpenSSL::ASN1::Integer
+       |     +-> OpenSSL::ASN1::Enumerated
+       |     +-> OpenSSL::ASN1::BitString
+       |     +-> OpenSSL::ASN1::OctetString
+       |     +-> OpenSSL::ASN1::UTF8String
+       |     +-> OpenSSL::ASN1::NumericString
+       |     +-> OpenSSL::ASN1::PrintableString
+       |     +-> OpenSSL::ASN1::T61String
+       |     +-> OpenSSL::ASN1::VideotexString
+       |     +-> OpenSSL::ASN1::IA5String
+       |     +-> OpenSSL::ASN1::GraphicString
+       |     +-> OpenSSL::ASN1::ISO64String
+       |     +-> OpenSSL::ASN1::GeneralString
+       |     +-> OpenSSL::ASN1::UniversalString
+       |     +-> OpenSSL::ASN1::BMPString
+       |     +-> OpenSSL::ASN1::Null
+       |     +-> OpenSSL::ASN1::ObjectId
+       |     +-> OpenSSL::ASN1::UTCTime
+       |     `-> OpenSSL::ASN1::GeneralizedTime
+       `-> OpenSSL::ASN1::Constructive
+             +-> OpenSSL::ASN1::Set
+             `-> OpenSSL::ASN1::Sequence
+
+== Class Methods
+--- new(value, tag, tag_class)
+#@todo
+
+ASN1Data オブジェクトを生成します。
+
+== Instance Methods
+
+--- value
+--- value=(value)
+#@todo
+
+ASN.1 データの表現する値です。
+
+--- tag
+--- tag=(tag)
+#@todo
+
+タグ番号です。Universal 型の場合は BOOLEAN = 1 から BMPSTRING = 30 のいずれかの値をとります。
+あらかじめ定義されているタグ番号の定数に関しては [[c:OpenSSL::ASN1]] の
+定数の項を参照してください。
+
+--- tag_class
+--- tag_class=(tag_class)
+#@todo
+
+[[c:Symbol]] オブジェクト :UNIVERSAL、:ONTEXT_SPECIFIC、:APPLICATION
+のいずれかをとります。
+
+--- to_der
+#@todo
+
+ASN.1 データの DER 表現を返します。
+#@end

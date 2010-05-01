@@ -1,0 +1,6 @@
+= class TkKernel < Object
+
+== Class Methods
+
+--- new(*args)
+#@todo

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/3386/doctree/trunk/refm/api/src/rubygems/indexer
+END
+abstract_index_builder.rd
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/rurema/!svn/ver/3196/doctree/trunk/refm/api/src/rubygems/indexer/abstract_index_builder.rd
+END
+marshal_index_builder.rd
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/rurema/!svn/ver/3197/doctree/trunk/refm/api/src/rubygems/indexer/marshal_index_builder.rd
+END
+master_index_builder.rd
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/rurema/!svn/ver/3197/doctree/trunk/refm/api/src/rubygems/indexer/master_index_builder.rd
+END
+latest_index_builder.rd
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/rurema/!svn/ver/3197/doctree/trunk/refm/api/src/rubygems/indexer/latest_index_builder.rd
+END
+quick_index_builder.rd
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/rurema/!svn/ver/3386/doctree/trunk/refm/api/src/rubygems/indexer/quick_index_builder.rd
+END

@@ -1,0 +1,215 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/rurema/!svn/ver/3785/doctree/trunk/refm/api/src/openssl
+END
+Random
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/Random
+END
+PKey__DH
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/3785/doctree/trunk/refm/api/src/openssl/PKey__DH
+END
+X509__Revoked
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/X509__Revoked
+END
+X509__StoreContext
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/X509__StoreContext
+END
+SSL__SSLContext
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/SSL__SSLContext
+END
+X509__Attribute
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/X509__Attribute
+END
+X509__ExtensionFactory
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/rurema/!svn/ver/3685/doctree/trunk/refm/api/src/openssl/X509__ExtensionFactory
+END
+ASN1__Primitive
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/ASN1__Primitive
+END
+SSL__SSLSocket
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/3724/doctree/trunk/refm/api/src/openssl/SSL__SSLSocket
+END
+PKey__DSA
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/PKey__DSA
+END
+PKey__PKey
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/PKey__PKey
+END
+BN
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/BN
+END
+SSL
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/3672/doctree/trunk/refm/api/src/openssl/SSL
+END
+Cipher__Cipher
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/Cipher__Cipher
+END
+PKCS12
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/PKCS12
+END
+Engine
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/Engine
+END
+ASN1__Constructive
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/ASN1__Constructive
+END
+X509__Request
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/X509__Request
+END
+PKey__RSA
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/3785/doctree/trunk/refm/api/src/openssl/PKey__RSA
+END
+Digest__Digest
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/Digest__Digest
+END
+X509__Store
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/X509__Store
+END
+Netscape__SPKI
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/Netscape__SPKI
+END
+PKCS7
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/PKCS7
+END
+PKCS7__PKCS7
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/3511/doctree/trunk/refm/api/src/openssl/PKCS7__PKCS7
+END
+X509__Extension
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/X509__Extension
+END
+ASN1
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/ASN1
+END
+X509__Name
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/X509__Name
+END
+X509__CRL
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/X509__CRL
+END
+ASN1__ObjectId
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/ASN1__ObjectId
+END
+OCSP
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/OCSP
+END
+X509
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/X509
+END
+X509__Certificate
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/X509__Certificate
+END
+SSL__SSLServer
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/3284/doctree/trunk/refm/api/src/openssl/SSL__SSLServer
+END
+HMAC
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/HMAC
+END
+ASN1__ASN1Data
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/openssl/ASN1__ASN1Data
+END

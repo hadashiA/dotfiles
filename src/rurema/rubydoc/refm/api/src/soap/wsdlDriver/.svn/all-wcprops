@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/wsdlDriver
+END
+WSDLDriver__Servant__
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/wsdlDriver/WSDLDriver__Servant__
+END
+WSDLDriver
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/wsdlDriver/WSDLDriver
+END
+WSDLDriverFactory
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/soap/wsdlDriver/WSDLDriverFactory
+END

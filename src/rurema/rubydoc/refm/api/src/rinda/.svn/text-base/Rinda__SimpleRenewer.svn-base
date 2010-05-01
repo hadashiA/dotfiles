@@ -1,0 +1,25 @@
+
+#@since 1.8.2
+
+= class Rinda::SimpleRenewer < Object
+include DRb::DRbUndumped
+
+An SimpleRenewer allows a TupleSpace to check if a TupleEntry is
+still alive.
+
+== Class Methods
+
+--- new(sec = 180)
+#@todo
+
+Creates a new SimpleRenewer that keeps an object alive for another
++sec+ seconds.
+
+== Instance Methods
+
+--- renew
+#@todo
+
+Called by the TupleSpace to check if the object is still alive.
+
+#@end
