@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=restart
+
+--- restart(*restart_args) { .... }
+

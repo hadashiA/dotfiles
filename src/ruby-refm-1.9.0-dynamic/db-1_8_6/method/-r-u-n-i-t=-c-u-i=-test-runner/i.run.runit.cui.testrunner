@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=run
+
+--- run(suite, quiet_mode = @@quiet_mode)
+

@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=info
+
+--- info(progname = nil) { ... }
+--- info(message = nil)
+--- info { ... }
+
+INFO 情報を記録します。debug を参照して下さい。
+

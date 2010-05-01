@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=remove_dir
+
+--- remove_dir(path, force = false)
+
+ディレクトリ path を削除します。
+
+force が真のときは削除中に発生した StandardError を無視します。
+

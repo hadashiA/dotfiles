@@ -1,0 +1,21 @@
+visibility=public
+kind=defined
+names=slice
+
+--- slice(nth)       -> object | nil
+
+指定された自身の要素を返します。[[m:Array#[] ]] と同じです。
+
+@param nth 要素のインデックスを整数で指定します。[[m:Array#[] ]] と同じです。
+
+--- slice(pos, len)  -> Array | nil
+--- slice(range)     -> Array | nil
+
+指定された自身の部分配列を返します。[[m:Array#[] ]] と同じです。
+
+@param pos [[m:Array#[] ]] と同じです。
+
+@param len [[m:Array#[] ]] と同じです。
+
+@param range [[m:Array#[] ]] と同じです。
+

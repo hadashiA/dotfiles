@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=+,union,|
+
+--- union(enum)
+--- +(enum)
+--- |(enum)
+
+和集合、すなわち、2つの集合の少なくともどちらか一方に属するすべて
+の要素からなる新しい集合を作りそれを返します。
+

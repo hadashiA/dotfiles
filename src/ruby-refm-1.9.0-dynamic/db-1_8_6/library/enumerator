@@ -1,0 +1,7 @@
+methods=Enumerable/i.each_slice.enumerator,Enumerable/i.each_cons.enumerator,Enumerable/i.enum_slice.enumerator,Enumerable/i.enum_cons.enumerator,Enumerable/i.enum_with_index.enumerator
+sublibraries=
+requires=
+classes=Enumerable=Enumerator
+is_sublibrary=false
+
+

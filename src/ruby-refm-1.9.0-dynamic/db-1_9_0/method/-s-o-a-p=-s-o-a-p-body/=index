@@ -1,0 +1,8 @@
+.new	SOAP::SOAPBody.new
+#encode	SOAP::SOAPBody#encode
+#fault	SOAP::SOAPBody#fault
+#fault=	SOAP::SOAPBody#fault
+#outparams	SOAP::SOAPBody#outparams
+#request	SOAP::SOAPBody#request
+#response	SOAP::SOAPBody#response
+#root_node	SOAP::SOAPBody#root_node

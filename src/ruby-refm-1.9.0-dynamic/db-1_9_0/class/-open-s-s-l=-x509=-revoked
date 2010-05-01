@@ -1,0 +1,7 @@
+superclass=Object
+type=class
+library=openssl
+extended=
+included=
+
+失効した証明書のクラス。[[c:OpenSSL::X509::CRL]] クラスから使われます。

@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=datetime_format,datetime_format=
+
+--- datetime_format
+--- datetime_format=(format)
+
+ログに記録する時の日付のフォーマットです。デフォルトでは "%Y-%m-%dT%H:%M:%S.%06d "
+です。[[m:Time#strftime]] を参照して下さい。
+

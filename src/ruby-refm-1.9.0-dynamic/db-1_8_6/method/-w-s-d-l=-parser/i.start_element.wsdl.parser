@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=start_element
+
+--- start_element(name, attrs)
+
+

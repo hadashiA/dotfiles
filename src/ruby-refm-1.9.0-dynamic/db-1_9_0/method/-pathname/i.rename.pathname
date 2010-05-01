@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=rename
+
+--- rename(to)
+File.rename(self.to_s, to) と同じです。 (cf. [[m:File.rename]])
+

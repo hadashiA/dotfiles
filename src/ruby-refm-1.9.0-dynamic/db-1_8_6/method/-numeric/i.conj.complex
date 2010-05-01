@@ -1,0 +1,8 @@
+visibility=public
+kind=added
+names=conj,conjugate
+
+--- conj
+--- conjugate
+共役をかえします。実数の場合はselfを返します。
+

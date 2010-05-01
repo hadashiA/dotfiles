@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=new_without_utf_backslash
+
+--- new_without_utf_backslash(str, enc = nil)
+

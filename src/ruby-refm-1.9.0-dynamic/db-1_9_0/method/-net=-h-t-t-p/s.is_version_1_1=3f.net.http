@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=is_version_1_1?,version_1_1,version_1_1?
+
+--- version_1_1?
+--- version_1_1
+--- is_version_1_1?
+
+ライブラリのバージョンが 1.1 のとき true を返します。
+Ruby 1.8 以降では常に false です。
+

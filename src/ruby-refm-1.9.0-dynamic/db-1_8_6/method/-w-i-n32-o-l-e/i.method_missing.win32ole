@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=method_missing
+
+--- method_missing(id [,arg1, arg2, ...])
+
+Calls WIN32OLE#invoke method.
+

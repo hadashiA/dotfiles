@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=_
+
+--- $_
+
+最後に gets または readline で読み込んだ文字列です。
+
+EOF に達した場合には、nil。この変数はローカルスコープです。
+(覚え方: Perlと同じ)
+
+この変数はローカルスコープかつスレッドローカルです。
+

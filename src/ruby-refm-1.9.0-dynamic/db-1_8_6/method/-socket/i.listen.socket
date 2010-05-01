@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=listen
+
+--- listen(backlog)
+
+[[man:listen(2)]] と同じ働きをします。
+
+0 を返します。
+

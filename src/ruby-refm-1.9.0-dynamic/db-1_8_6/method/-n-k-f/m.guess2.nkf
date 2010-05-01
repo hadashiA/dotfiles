@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=guess2
+
+--- guess2(str)
+
+nkf2の漢字コード自動判定ルーチンを利用したものです。
+

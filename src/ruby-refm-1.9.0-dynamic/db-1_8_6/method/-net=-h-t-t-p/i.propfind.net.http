@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=propfind
+
+--- propfind(path, body, initheader = {'Depth' => '0'})
+

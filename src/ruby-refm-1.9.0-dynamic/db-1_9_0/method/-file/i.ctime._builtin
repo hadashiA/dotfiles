@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=ctime
+
+--- ctime    -> Time
+
+状態が最後に変更された時刻を Time オブジェクトとして返します。状態の変更とは chmod などによるものです。
+
+@raise IOError 自身が close されている場合に発生します。
+
+@raise Errno::EXXX ファイルの時刻の取得に失敗した場合に発生します。
+

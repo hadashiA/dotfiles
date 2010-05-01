@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=ABBR_DAYNAMES
+
+--- ABBR_DAYNAMES
+曜日の省略名(Sun, Mon ... )
+
+ABBR_DAYNAMES[0] == "Sun" です。
+

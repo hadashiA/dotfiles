@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=state
+
+--- state
+
+現在の状態を 6 文字の文字列で返します。
+

@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=init_pair
+
+--- init_pair(pair, f, b)
+

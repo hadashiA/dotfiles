@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=set_basic_auth
+
+--- set_basic_auth(client, basic_auth)
+

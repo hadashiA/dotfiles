@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=add_crl
+
+--- add_crl(s)
+
+CRL に加えます。
+

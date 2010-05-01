@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=F_SETLKW
+
+--- F_SETLKW
+acquire a lock on a region of a file, waiting if necessary.
+

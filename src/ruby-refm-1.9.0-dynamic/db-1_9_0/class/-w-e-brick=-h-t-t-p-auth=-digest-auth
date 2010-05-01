@@ -1,0 +1,9 @@
+superclass=Object
+type=class
+library=webrick.httpauth.digestauth
+extended=
+included=WEBrick=HTTPAuth=Authenticator
+
+[[unknown:執筆者募集]]
+
+Digest 認証のためのクラス。

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=UNSAFE
+
+--- UNSAFE
+URIとして指定できない文字にマッチする正規表現
+  /[^-_.!~*'()a-zA-Z\d;\/?:@&=+$,\[\]]/n
+です。

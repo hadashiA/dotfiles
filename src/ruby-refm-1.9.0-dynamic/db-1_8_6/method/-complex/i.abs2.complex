@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=abs2
+
+--- abs2
+複素数の絶対値の 2 乗を返します。
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=to_int
+
+--- to_int    -> Integer
+
+self.to_i と同じです。
+

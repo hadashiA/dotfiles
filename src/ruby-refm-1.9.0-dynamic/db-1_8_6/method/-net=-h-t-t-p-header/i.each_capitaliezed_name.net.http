@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=each_capitaliezed_name
+
+--- each_capitaliezed_name {|name| .... }
+

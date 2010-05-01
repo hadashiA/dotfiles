@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=progids
+
+--- progids
+
+Returns array of ProgID.
+

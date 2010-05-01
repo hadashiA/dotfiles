@@ -1,0 +1,9 @@
+superclass=URI=Generic
+type=class
+library=uri
+extended=
+included=
+
+LDAP URI SCHEMA (described in [[RFC:2255]])
+
+  ldap://<host>/<dn>[?<attrs>[?<scope>[?<filter>[?<extensions>]]]]

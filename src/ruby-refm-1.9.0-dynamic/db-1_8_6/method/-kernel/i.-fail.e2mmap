@@ -1,0 +1,44 @@
+visibility=private 
+kind=added
+names=Fail,Raise
+
+--- Raise(error, *args)
+--- Fail(error, *args)
+
+error クラスのエラーを発生させます。
+
+error の後に続く引数 args 群は、例外クラスに関連づけられたエラー
+メッセージ用フォーマットと合わせて、エラーメッセージの一部に
+なります。例えば、
+
+  class Foo
+    extend Exception2MessageMapper
+    def_exception :NewExceptionClass, "message...%d, %d and %d"
+    
+    def foo
+      Raise NewExceptionClass, 1, 2, 3
+    end
+  end
+
+という定義があれば、
+
+  Foo.new().foo()
+
+というメソッドで、
+
+  in `Raise': message...1, 2 and 3 (Foo::NewExceptionClass)
+
+というエラーが発生します。
+
+また、
+
+  Foo.Raise Foo::NewExceptionClass, 1, 3, 5
+
+というメソッドでも、
+
+  in `Raise': message...1, 3 and 5 (Foo::NewExceptionClass)
+
+という例外が発生します。
+
+
+

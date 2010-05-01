@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=context
+
+--- context
+
+SSLSocket オブジェクトを生成する時に渡されたコンテクストを返します。
+[[C:openSSL::SSL::SSLContext]] オブジェクトです。
+

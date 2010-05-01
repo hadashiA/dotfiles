@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=F_DUPFD
+
+--- F_DUPFD
+duplicate a close-on-exec file handle to a non-close-on-exec
+file handle.
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=new_with_uri
+
+--- new_with_uri(uri)
+
+Create a new DRbObject from a URI alone.
+

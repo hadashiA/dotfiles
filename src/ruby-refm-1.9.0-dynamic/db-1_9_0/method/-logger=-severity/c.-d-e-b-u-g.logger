@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=DEBUG,ERROR,FATAL,INFO,UNKNOWN,WARN
+
+--- DEBUG
+--- INFO
+--- WARN
+--- ERROR
+--- FATAL
+--- UNKNOWN
+

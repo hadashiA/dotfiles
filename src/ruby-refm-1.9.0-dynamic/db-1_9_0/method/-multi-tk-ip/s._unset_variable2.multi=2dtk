@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=_unset_variable2
+
+--- _unset_variable2(var, idx, flag)
+

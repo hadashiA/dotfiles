@@ -1,0 +1,14 @@
+visibility=public
+kind=defined
+names=fail
+
+--- fail -> ()
+--- fail(message) -> ()
+--- fail(error_type, message = nil, backtrace = caller(0)) -> ()
+
+例外を発生させます。 [[m:Kernel.#raise]] の別名です。
+
+@param error_type [[m:Kernel.#raise]] 参照
+@param message [[m:Kernel.#raise]] 参照
+@param backtrace [[m:Kernel.#raise]] 参照
+

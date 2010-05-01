@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=maininterp_eval
+
+--- maininterp_eval(tcl_script)
+

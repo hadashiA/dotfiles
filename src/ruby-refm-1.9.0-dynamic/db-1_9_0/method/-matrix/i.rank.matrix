@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=rank
+
+--- rank
+
+階数 (rank) を返す。
+

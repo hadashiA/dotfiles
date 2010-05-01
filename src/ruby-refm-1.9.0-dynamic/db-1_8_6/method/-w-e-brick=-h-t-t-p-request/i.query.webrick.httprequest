@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=query
+
+--- query    -> Hash
+
+リクエストのクエリーを表すハッシュを返します。key も val も unescape されています。
+[[m:WEBrick::HTTPRequest#query_string]] から生成されます。
+

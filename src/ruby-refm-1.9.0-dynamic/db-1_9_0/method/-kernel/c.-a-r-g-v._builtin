@@ -1,0 +1,19 @@
+visibility=public
+kind=defined
+names=ARGV
+
+--- ARGV
+Ruby スクリプトに与えられた引数を表す配列です。
+
+組み込み変数 [[m:$*]] の別名です。
+Ruby 自身に対する引数は取り除かれています。
+
+==== 例
+argv.rb:
+    p ARGV
+
+このとき、シェルから次を実行すると、
+    ruby argv.rb foo bar baz
+結果は
+    ["foo", "bar", "baz"]
+

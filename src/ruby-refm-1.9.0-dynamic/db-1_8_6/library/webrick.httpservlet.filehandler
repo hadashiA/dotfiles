@@ -1,0 +1,7 @@
+methods=WEBrick=Config/c.FileHandler.webrick.httpservlet.filehandler
+sublibraries=
+requires=webrick.httpstatus,webrick.htmlutils,webrick.httputils
+classes=WEBrick=HTTPServlet=DefaultFileHandler,WEBrick=HTTPServlet=FileHandler
+is_sublibrary=true
+
+

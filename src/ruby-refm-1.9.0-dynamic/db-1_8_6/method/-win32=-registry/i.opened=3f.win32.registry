@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=opened?
+
+--- opened?
+
+キーがまだ閉じられていない場合，真を返します。
+

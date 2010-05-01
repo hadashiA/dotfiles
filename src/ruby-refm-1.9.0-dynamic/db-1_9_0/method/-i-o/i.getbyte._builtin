@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=getbyte
+
+--- getbyte   -> Integer | nil
+
+Gets the next 8-bit byte (0..255) from ios. Returns nil if called
+at end of file.
+
+   f = File.new("testfile")
+   f.getbyte   #=> 84
+   f.getbyte   #=> 104
+

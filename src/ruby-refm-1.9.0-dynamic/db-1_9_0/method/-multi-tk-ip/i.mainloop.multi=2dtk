@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=mainloop
+
+--- mainloop(check_root = true, restart_on_dead = true)
+

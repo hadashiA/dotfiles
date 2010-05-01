@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=lines
+
+--- lines -> Enumerable::Enumerator
+
+文字列を行の配列 (を生成する Enumerator) に変換します。
+
+例:
+    p "aa\nbb\ncc\n".lines.to_a   # => ["aa\n", "bb\n", "cc\n"]
+    p "aa\n".lines.to_a           # => ["aa\n"]
+    p "".lines.to_a               # => []
+

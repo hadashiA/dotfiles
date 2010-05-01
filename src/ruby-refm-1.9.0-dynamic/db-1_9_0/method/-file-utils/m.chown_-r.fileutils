@@ -1,0 +1,20 @@
+visibility=public
+kind=defined
+names=chown_R
+
+--- chown_R(user, group, list, options = {})
+
+list[0], list[1], ... 以下のファイルの所有ユーザと所有グループを
+user と group へ再帰的に変更します。
+user, group に nil または -1 を渡すとその項目は変更しません。
+
+options には :noop と :verbose が指定可能です。
+
+例:
+
+  FileUtils.chown 'root', 'staff', '/usr/local/bin/ruby'
+  FileUtils.chown nil, 'bin', Dir.glob('/usr/bin/*'), :verbose => true
+  
+  FileUtils.chown_R 'www', 'www', '/var/www/htdocs'
+  FileUtils.chown_R 'cvs', 'cvs', '/var/cvs', :verbose => true
+

@@ -1,0 +1,14 @@
+visibility=public
+kind=defined
+names=chmod_R
+
+--- chmod_R(mode, list, options = {})
+
+ファイル list[0], list[1], …… のパーミッションを再帰的に mode へ変更します。
+
+options には :noop と :verbose が指定可能です。
+
+例:
+
+  FileUtils.chmod_R(0700, '/tmp/removing')
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=close_screen
+
+---  close_screen
+
+curses スクリーンを閉じます。これ以後 Curses モジュール
+のメソッドを呼び出すとすべて例外になります。
+

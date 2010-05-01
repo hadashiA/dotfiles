@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=new
+
+--- new -> Object
+
+Objectクラスのインスタンスを生成して返します。
+
+  some = Object.new
+  p some #=> #<Object:0x2b696d8>
+

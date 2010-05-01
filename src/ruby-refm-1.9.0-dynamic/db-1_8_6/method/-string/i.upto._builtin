@@ -1,0 +1,19 @@
+visibility=public
+kind=defined
+names=upto
+
+--- upto(max) {|s| ... } -> ()
+
+self から始めて max まで
+「次の文字列」を順番にブロックに与えて繰り返します。
+「次」の定義については [[m:String#succ]] を参照してください。
+
+たとえば以下のコードは a, b, c, ... z, aa, ... az, ..., za を
+出力します。
+
+  ("a" .. "za").each do |str|
+    puts str
+  end
+
+@arg max    繰り返しをやめる文字列
+

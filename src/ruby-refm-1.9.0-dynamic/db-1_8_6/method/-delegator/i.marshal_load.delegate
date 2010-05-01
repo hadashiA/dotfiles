@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=marshal_load
+
+--- marshal_load(obj)
+
+

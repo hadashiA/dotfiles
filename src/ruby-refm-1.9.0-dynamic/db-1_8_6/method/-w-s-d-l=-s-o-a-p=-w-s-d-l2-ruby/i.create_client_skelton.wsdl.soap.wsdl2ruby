@@ -1,0 +1,6 @@
+visibility=private 
+kind=defined
+names=create_client_skelton
+
+--- create_client_skelton(servicename)
+

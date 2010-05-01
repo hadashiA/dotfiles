@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=grid_columnconfiginfo
+
+--- grid_columnconfiginfo(index, slot = nil)
+
+

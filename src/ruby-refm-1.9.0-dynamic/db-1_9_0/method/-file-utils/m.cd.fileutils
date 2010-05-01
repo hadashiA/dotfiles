@@ -1,0 +1,21 @@
+visibility=public
+kind=defined
+names=cd,chdir
+
+--- cd(dir, options = {})
+--- cd(dir, options = {}) {|dir| .... }
+--- chdir(dir, options = {})
+--- chdir(dir, options = {}) {|dir| .... }
+
+プロセスのカレントディレクトリを dir に変更します。
+ブロックとともに呼び出された時はブロック終了後に
+元のディレクトリに戻ります。
+
+options には :verbose が指定できます。
+
+:noop オプションは廃止されました。
+
+例:
+
+  FileUtils.cd('/', {:verbose => true})   # chdir and report it
+

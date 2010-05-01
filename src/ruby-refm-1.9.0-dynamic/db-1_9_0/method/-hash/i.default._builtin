@@ -1,0 +1,35 @@
+visibility=public
+kind=defined
+names=default
+
+--- default -> object
+--- default(key) -> object
+
+ハッシュのデフォルト値を返します。
+ハッシュのデフォルト値がブロックで与えられている場合、1番目の形式だと
+返り値がnilになることに注意してください。
+
+ブロックのデフォルト値について調べる時は2番目の形式か
+[[m:Hash#default_proc]]を使ってください。
+
+2 番目の形式はハッシュがデフォルト値としてブロックを持つ場合に、
+self と 引数 key をブロック引数としてブロックを実行し、その結果を返します。
+
+@param key デフォルトのブロックにキーとして渡されます。
+  
+  h = Hash.new("default")
+  p h.default #=>"default"
+  p h.default(:some) #=>"default"
+  p h #=>{}
+  
+  h = Hash.new{|hash,key|hash[key] ="default" }
+  p h.default #=>nil
+  p h.default(:some) #=>"default"
+  p h #=>{:some=>"default"}
+  
+  h = Hash.new
+  p h.default #=>nil
+  p h.default(:some) #=>nil
+  p h #=>{}
+@see [[m:Hash#default=]],[[m:Hash#default_proc]]
+

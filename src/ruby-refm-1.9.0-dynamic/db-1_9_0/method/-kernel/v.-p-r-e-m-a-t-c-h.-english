@@ -1,0 +1,15 @@
+visibility=public
+kind=added
+names=PREMATCH
+
+--- $PREMATCH
+
+[[m:$`]] ¤ÎÊÌÌ¾
+
+  require "English"
+
+  str = 'hoge,foo,bar,hee,hoo'
+
+  /foo/ =~ str
+  p $PREMATCH  #=> "hoge,"
+

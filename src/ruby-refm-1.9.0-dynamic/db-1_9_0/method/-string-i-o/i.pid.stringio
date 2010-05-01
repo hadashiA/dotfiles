@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=pid
+
+--- pid    -> nil
+
+何もせず nil を返します。
+

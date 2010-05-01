@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=tagfont_configure
+
+--- tagfont_configure(tagOrId, slot)
+
+
+

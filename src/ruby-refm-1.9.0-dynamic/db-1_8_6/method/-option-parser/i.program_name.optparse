@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=program_name,program_name=
+
+--- program_name           -> String
+--- program_name=(name)
+プログラムの名前を文字列で設定します。デフォルトは $0 が使わ
+れます。
+

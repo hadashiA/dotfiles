@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=get_print
+
+--- get_print(address, path, port = 80)
+
+ホスト address の port 番ポートに接続して path の表現する
+エンティティボディを取得したうえ、$stdout に << で出力します。
+

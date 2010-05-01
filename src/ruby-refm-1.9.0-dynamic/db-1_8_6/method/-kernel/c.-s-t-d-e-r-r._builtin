@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=STDERR
+
+--- STDERR
+
+標準エラー出力。[[m:$stderr]] のデフォルト値。詳細は [[m:$stderr]] を参照してください。
+

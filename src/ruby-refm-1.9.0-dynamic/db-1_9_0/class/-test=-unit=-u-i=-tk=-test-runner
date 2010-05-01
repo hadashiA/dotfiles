@@ -1,0 +1,8 @@
+superclass=Object
+type=class
+library=test.unit.ui.tk.testrunner
+extended=Test=Unit=UI=TestRunnerUtilities
+included=
+
+Runs a Test::Unit::TestSuite in a Tk UI. 
+Obviously, this one requires you to have Tk and the Ruby Tk extension installed.

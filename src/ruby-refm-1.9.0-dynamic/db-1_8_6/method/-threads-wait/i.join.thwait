@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=join
+
+--- join(thread1, ...)
+
+wait for specified thread(s).
+

@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=flunk
+
+--- flunk(message="Flunked")    -> ()
+
+常に失敗します。
+
+ちゃんとしたテストを書くまでの間、テストを失敗させておきたい場合などに使います。
+
+@raise Test::Unit::AssertionFailedError 常に発生します。
+

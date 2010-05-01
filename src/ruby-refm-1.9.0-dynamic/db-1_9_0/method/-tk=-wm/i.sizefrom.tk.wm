@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=sizefrom
+
+--- sizefrom(who = Tk::None)
+

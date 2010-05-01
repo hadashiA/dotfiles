@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=-p
+
+--- $-p
+
+コマンドラインオプション [[unknown:Rubyの起動/-p]] を指定したとき true に設定されます。
+この変数には代入できません。
+
+この変数はグローバルスコープです。
+

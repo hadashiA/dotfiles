@@ -1,0 +1,11 @@
+visibility=public
+kind=added
+names=makedirs,mkpath
+
+--- makedirs(dirs[, ...][, verbose = false])
+--- mkpath(dirs[, ...][, verbose = false])
+
+(複数の)ディレクトリを作成します。多階層のパスを一度に作成することも可能です。
+ディレクトリが既にあれば何もしません。
+mkdir -p([[man:mkdir(1)]])に相当します。
+

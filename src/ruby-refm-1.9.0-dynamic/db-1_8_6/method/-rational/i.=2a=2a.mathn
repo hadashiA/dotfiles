@@ -1,0 +1,8 @@
+visibility=public
+kind=redefined
+names=**
+
+--- **
+
+self のべき乗を返します。 Rational になるようであれば Rational で返します。
+

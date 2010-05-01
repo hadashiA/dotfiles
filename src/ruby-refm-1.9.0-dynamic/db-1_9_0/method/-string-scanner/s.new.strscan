@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(str, dup = false)
+
+新しい StringScanner オブジェクトを生成します。
+str はスキャン対象の文字列です。
+
+dup は単に無視します。
+引数の文字列は複製も freeze もされず、そのまま使います。
+

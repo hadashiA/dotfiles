@@ -1,0 +1,9 @@
+visibility=public
+kind=redefined
+names=send
+
+--- send(mesg, flags, *rest)
+
+4 引数の形式で [[m:UDPSocket#send]] 実行したとき、パラメータ host の名前解決に
+[[lib:resolv]] ライブラリを使います。
+

@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=webrick.httpstatus,webrick.httprequest,webrick.config,webrick.log,webrick.htmlutils,webrick.httpservlet.erbhandler,webrick.httpservlet.filehandler,webrick.accesslog,webrick.cookie,webrick.httpresponse,webrick.httpservlet,webrick.httpservlet.abstract,webrick.httpservlet.prochandler,webrick.httputils,webrick.httpserver,webrick.httpservlet.cgihandler,webrick.server,webrick.httpversion,webrick.version,webrick.utils
+classes=WEBrick=HTTPProxyServer
+is_sublibrary=true
+
+

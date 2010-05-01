@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=xsd.qname,xsd.ns,wsdl.xmlSchema.simpleExtension,wsdl.xmlSchema.parser,wsdl.xmlSchema.complexType,wsdl.xmlSchema.simpleRestriction,wsdl.xmlSchema.importer,soap.property,wsdl.xmlSchema.choice,wsdl.xmlSchema.pattern,wsdl.xmlSchema.schema,wsdl.info,wsdl.xmlSchema.complexContent,soap.httpconfigloader,wsdl.xmlSchema.data,wsdl.xmlSchema.content,wsdl.xmlSchema.annotation,wsdl.xmlSchema.sequence,wsdl.xmlSchema.simpleType,wsdl.xmlSchema.import,wsdl.xmlSchema.length,wsdl.xmlSchema.unique,wsdl.xmlSchema.attribute,wsdl.xmlSchema.element,wsdl.xmlSchema.enumeration,wsdl.xmlSchema.all,wsdl.xmlSchema.simpleContent,xsd.xmlparser,xsd.datatypes,wsdl.xmlSchema.any,xsd.charset,wsdl.xmlSchema.include,xsd.namedelements
+classes=WSDL=XMLSchema
+is_sublibrary=true
+
+

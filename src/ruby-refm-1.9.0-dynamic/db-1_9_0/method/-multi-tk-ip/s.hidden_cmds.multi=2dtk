@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=hidden_cmds
+
+--- hidden_cmds(slave = '')
+

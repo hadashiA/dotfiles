@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=init_ip_env
+
+--- init_ip_env(script = Proc.new)
+

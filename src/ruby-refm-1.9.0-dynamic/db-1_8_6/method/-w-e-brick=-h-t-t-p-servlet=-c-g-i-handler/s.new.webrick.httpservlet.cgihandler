@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(server, name)
+name は実行したいローカルの CGI ファイルを文字列で与える。
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=Regex_6Hex4Dec,Regex_8Hex,Regex_CompressedHex,Regex_CompressedHex4Dec
+
+--- Regex_6Hex4Dec
+--- Regex_8Hex
+--- Regex_CompressedHex
+--- Regex_CompressedHex4Dec
+

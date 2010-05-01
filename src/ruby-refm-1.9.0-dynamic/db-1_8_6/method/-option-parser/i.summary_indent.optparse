@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=summary_indent,summary_indent=
+
+--- summary_indent          -> String
+--- summary_indent=(indent)
+
+サマリを表示する時のインデントを文字列で設定します。
+

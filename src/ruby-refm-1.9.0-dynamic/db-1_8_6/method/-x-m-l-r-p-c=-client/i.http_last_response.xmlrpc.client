@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=http_last_response
+
+--- http_last_response
+
+Returns the Net::HTTPResponse object of the last RPC.
+

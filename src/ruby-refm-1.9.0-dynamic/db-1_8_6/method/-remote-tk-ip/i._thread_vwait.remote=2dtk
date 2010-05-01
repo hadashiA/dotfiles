@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=_thread_vwait
+
+--- _thread_vwait(var_name)
+

@@ -1,0 +1,23 @@
+visibility=public
+kind=defined
+names=symbol
+
+--- symbol(sym)    -> DL::PtrData
+ロードしたダイナミックライブラリ内のシンボルを検索し
+シンボルへのポインタを返します。
+
+@param sym 欲しいシンボル名を文字列で与えます。
+
+@raise RuntimeError ライブラリ内でシンボルが見つからない時に発生します。
+
+--- symbol(sym, typespec)    -> DL::Symbol 
+
+ロードしたダイナミックライブラリ内のシンボルを検索し
+名前が sym のシンボルを取り出します。
+
+@param sym 欲しいシンボル名を文字列で与えます。
+
+@param typespec シンボルの型を型指定子を使って文字列で与えます。
+
+@raise RuntimeError ライブラリ内でシンボルが見つからない時に発生します。
+

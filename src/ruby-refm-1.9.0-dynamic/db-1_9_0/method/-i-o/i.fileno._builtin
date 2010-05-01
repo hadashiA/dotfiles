@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=fileno,to_i
+
+--- fileno    -> Integer
+--- to_i      -> Integer
+
+ファイル記述子を表す整数を返します。
+
+@raise IOError 既に close されている場合に発生します。
+

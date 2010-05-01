@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=delete_if
+
+--- delete_if { |o| ... }
+
+ブロックで最後に評価された値が真であるようなすべての要素を削除し、
+その集合自身を返します。
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=data
+
+--- data
+
+Returns the data ([[c:Net::IMAP::ResponseText]]).
+

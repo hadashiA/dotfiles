@@ -1,0 +1,29 @@
+visibility=public
+kind=defined
+names=system
+
+--- system(command) -> bool
+--- system(program, *arg) -> bool
+
+引数を外部コマンドとして実行して、成功した時に真を返します。
+
+子プロセスが終了ステータス 0 で終了すると成功とみなし true を返します。
+それ以外の時
+(コマンドが実行できなかった場合も含む)は false を返します。
+
+終了ステータスは変数 [[m:$?]] で参照できます。
+
+コマンドを実行することができなかった場合、多くのシェルはステータス
+127 を返します。(したがって $? の数値は、0x7f00)、シェルを介
+さない場合は Ruby の子プロセスがステータス 127 で終了します。
+コマンドが実行できなかったのか、コマンドが失敗したのかは、普通
+$? を参照することで判別可能です。
+
+引数の解釈に関しては [[m:Kernel.#exec]] を参照してください。
+
+@param command [[m:Kernel.#exec]] 参照
+@param program [[m:Kernel.#exec]] 参照
+@param arg [[m:Kernel.#exec]] 参照
+@see [[m:Kernel.#`]],[[m:Kernel.#exec]]
+
+

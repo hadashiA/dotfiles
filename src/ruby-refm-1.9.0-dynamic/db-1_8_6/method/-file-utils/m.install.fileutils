@@ -1,0 +1,18 @@
+visibility=public
+kind=defined
+names=install
+
+--- install(src, dest, options = {})
+
+src と dest の内容が違うときだけ src を dest にコピーします。
+
+options には :noop, :verbose, :mode を指定できます。
+mode オプションを指定した場合はコピー先ファイルのパーミッションを
+options[:mode] の値に設定します。
+
+例:
+
+  FileUtils.install('ruby', '/usr/local/bin/ruby', {:mode => 0755, :verbose => true})
+  FileUtils.install('lib.rb', '/usr/local/lib/ruby/site_ruby'
+                            , {:verbose => true})
+

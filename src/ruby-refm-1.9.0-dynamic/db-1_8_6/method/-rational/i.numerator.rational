@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=numerator
+
+--- numerator
+
+分子を Fixnum として返します。
+

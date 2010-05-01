@@ -1,0 +1,19 @@
+visibility=public
+kind=defined
+names=inflate
+
+--- inflate(string)
+
+string を展開します。展開に辞書が必要な場合には
+Zlib::NeedDict 例外が発生します。
+
+ちなみに、このメソッドは以下のコードとほぼ同じです:
+
+  def inflate(string)
+    zstream = Zlib::Inflate.new
+    buf = zstream.inflate(string)
+    zstream.finish
+    zstream.close
+    buf
+  end
+

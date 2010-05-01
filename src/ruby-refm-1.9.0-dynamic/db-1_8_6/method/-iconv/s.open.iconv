@@ -1,0 +1,16 @@
+visibility=public
+kind=defined
+names=open
+
+--- open(to, from)               -> Iconv
+--- open(to, from) {|cd| ...}    -> object
+
+ブロックが与えられない場合は [[m:Iconv.new]] と等価です。
+ブロックが与えられると、Iconv オブジェクトを生成し、それを引数としてブロックを実行します。
+ブロックの終りに Iconv オブジェクトは close されます。
+ブロックの値を返します。
+
+@param to 変換先の文字コード体系を表す文字列を指定します。
+
+@param from 変換前の文字コード体系を表す文字列を指定します。
+

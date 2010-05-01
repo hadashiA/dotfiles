@@ -1,0 +1,8 @@
+visibility=private 
+kind=defined
+names=EVENTS
+
+--- EVENTS 
+
+PARSER_EVENTS + SCANNER_EVENTS
+

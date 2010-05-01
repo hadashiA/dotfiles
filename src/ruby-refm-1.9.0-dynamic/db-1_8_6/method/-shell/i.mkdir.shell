@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=mkdir
+
+--- mkdir(*path)
+
+Dir.mkdirと同じ (複数可)
+

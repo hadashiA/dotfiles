@@ -1,0 +1,7 @@
+superclass=Object
+type=class
+library=test.unit.ui.gtk2.testrunner
+extended=Test=Unit=UI=TestRunnerUtilities
+included=
+
+

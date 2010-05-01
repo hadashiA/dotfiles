@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=hexdigest!
+
+--- hexdigest!
+Returns the resulting hash value and resets the digest to the
+initial state.
+

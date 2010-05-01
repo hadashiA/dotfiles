@@ -1,0 +1,11 @@
+visibility=private 
+kind=added
+names=mv
+
+--- mv -> ()
+Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY.
+
+  ruby -run -e mv -- [OPTION] SOURCE DEST
+
+  -v          verbose
+

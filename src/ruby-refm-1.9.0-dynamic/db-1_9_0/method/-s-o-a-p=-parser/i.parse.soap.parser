@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=parse
+
+--- parse(string_or_readable)
+

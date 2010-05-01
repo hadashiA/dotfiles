@@ -1,0 +1,18 @@
+visibility=public
+kind=defined
+names=ord
+
+--- ord -> Integer
+
+文字列の最初の文字の文字コードを返します。
+
+self が空文字列のときは例外 TypeError を発生します。
+
+@return             文字コードを表す整数
+@raise TypeError    self の長さが 0 のとき発生
+
+例:
+    p "a".ord   # => 97
+
+@see [[m:Integer#chr]], [[m:String#chr]]
+

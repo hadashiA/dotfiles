@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=grpowned?
+
+--- grpowned?(path)    -> bool
+
+[[m:FileTest.#grpowned?]] と同じです。
+
+@param path パスを表す文字列か IO オブジェクトを指定します。
+

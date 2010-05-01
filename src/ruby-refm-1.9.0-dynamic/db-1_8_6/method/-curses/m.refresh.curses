@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=refresh
+
+--- refresh
+
+stdscr の表示を更新します。
+

@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=to_elename
+
+--- to_elename(obj, namespace = nil)
+

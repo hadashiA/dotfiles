@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=data
+
+--- data
+
+Returns the data if it exists.
+
+
+

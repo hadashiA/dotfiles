@@ -1,0 +1,20 @@
+visibility=public
+kind=defined
+names=try_convert
+
+--- try_convert(obj) -> array or nil
+
+Try to convert obj into an array, using to_ary method. Returns
+converted array or nil if obj cannot be converted for any reason.
+This method is to check if an argument is an array.
+
+   Array.try_convert([1])   # => [1]
+   Array.try_convert("1")   # => nil
+
+   if tmp = Array.try_convert(arg)
+     # the argument is an array
+   elsif tmp = String.try_convert(arg)
+     # the argument is a string
+   end
+
+

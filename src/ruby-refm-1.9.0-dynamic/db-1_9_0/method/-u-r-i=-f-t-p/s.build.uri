@@ -1,0 +1,24 @@
+visibility=public
+kind=defined
+names=build
+
+--- build(ary)     -> URI::FTP
+--- build(hash)    -> URI::FTP
+
+引数で与えられた URI 構成要素から URI::FTP オブジェクトを生成します。
+引数の正当性を検査します。
+
+  p URI::FTP.build([nil, "www.example.com", 10020, "/path",  'a'])
+  #=> #<URI::FTP:0x201c4f9c URL:ftp://www.example.com:10020/path;type=a>
+  
+  p URI::FTP.build({:host => "www.example.com", :path => "/path",  :typecode => 'a'})
+  #=> #<URI::FTP:0x201bd9cc URL:ftp://www.example.com/path;type=a>
+
+@param ary 構成要素を表す文字列の配列を与えます。要素は
+      [userinfo, host, port, path, typecode]
+の順です。typecode は、"a"、"i" あるいは "d" です。"a" はテキスト、"i" はバイナリ、"d" はディレクトリを表します。"a" がテキストで、"i" がバイナリなのは、それぞれのデータタイプがFTPのプロトコルで ASCII と IMAGE と呼ばれていたためです。
+
+@param hash 構成要素を表すハッシュを与えます。ハッシュのキーは :scheme, :userinfo, :host, :port, :path, :typecode のいずれかです。ハッシュの値は文字列です。typecode は、"a"、"i" あるいは "d" です。"a" はテキスト、"i" はバイナリ、"d" はディレクトリを表します。"a" がテキストで、"i" がバイナリなのは、それぞれのデータタイプがFTPのプロトコルで ASCII と IMAGE と呼ばれていたためです。
+
+@raise URI::InvalidURIError 引数が invalid な場合に発生します。
+

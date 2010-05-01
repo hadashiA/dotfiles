@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=SEEK_END
+
+--- SEEK_END
+
+[[m:IO#seek]] を参照してください。
+

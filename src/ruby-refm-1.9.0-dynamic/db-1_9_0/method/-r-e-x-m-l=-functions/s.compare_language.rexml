@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=compare_language
+
+--- compare_language(lang1, lang2)
+

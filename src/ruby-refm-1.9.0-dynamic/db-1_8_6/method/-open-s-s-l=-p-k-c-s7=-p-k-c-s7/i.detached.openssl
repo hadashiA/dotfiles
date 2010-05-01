@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=detached,detached=
+
+--- detached
+--- detached=(bool)
+
+平文に署名を付ける形式(multipart/signed)かどうかを表します。 type では :signed にあたります。
+

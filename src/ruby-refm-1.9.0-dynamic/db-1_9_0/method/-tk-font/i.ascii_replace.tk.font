@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=ascii_replace,latin_replace
+
+--- latin_replace(ltn)
+--- ascii_replace(ltn)
+

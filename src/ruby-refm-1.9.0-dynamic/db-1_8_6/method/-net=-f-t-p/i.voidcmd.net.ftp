@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=voidcmd
+
+--- voidcmd(cmd)
+
+sendcmdと同様にサーバーにコマンドを送りますが、nil を返す点と、
+応答コードが 2xx 以外の場合、例外 FTPReplyError が発生する点が異なります。
+

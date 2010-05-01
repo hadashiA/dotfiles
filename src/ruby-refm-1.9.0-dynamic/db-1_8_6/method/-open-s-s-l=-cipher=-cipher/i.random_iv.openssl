@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=random_iv,random_key
+
+--- random_iv
+--- random_key
+

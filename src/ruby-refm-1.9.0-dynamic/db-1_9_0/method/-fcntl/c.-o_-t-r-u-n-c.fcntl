@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=O_TRUNC
+
+--- O_TRUNC
+truncate file on open.
+

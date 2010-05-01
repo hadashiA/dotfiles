@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(resolv_conf = '/etc/resolv.conf')
+

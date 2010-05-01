@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=[]
+
+--- [](i, j)
+
+(i,j)要素を返す。
+

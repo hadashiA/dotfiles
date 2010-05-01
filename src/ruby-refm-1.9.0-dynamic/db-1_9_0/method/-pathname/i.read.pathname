@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=read
+
+--- read(*args)
+IO.read(self.to_s, *args)と同じです。 (cf. [[m:IO.read]])
+

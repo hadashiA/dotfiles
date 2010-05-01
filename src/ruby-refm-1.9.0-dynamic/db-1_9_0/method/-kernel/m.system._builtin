@@ -1,0 +1,23 @@
+visibility=public
+kind=defined
+names=system
+
+--- system(command) -> bool
+--- system(program, *arg) -> bool
+
+引数を外部コマンドとして実行して、成功した時に真を返します。
+
+子プロセスが終了ステータス 0 で終了すると成功とみなし true を返します。
+それ以外の終了ステータスの場合は false を返します。
+
+終了ステータスは変数 [[m:$?]] で参照できます。
+
+
+引数の解釈に関しては [[m:Kernel.#exec]] を参照してください。
+
+@param command [[m:Kernel.#exec]] 参照
+@param program [[m:Kernel.#exec]] 参照
+@param arg [[m:Kernel.#exec]] 参照
+@raise Errno::EXXX コマンドが実行できなかった場合に発生します。
+@see [[m:Kernel.#`]],[[m:Kernel.#spawn]],[[m:Kernel.#exec]]
+

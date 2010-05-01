@@ -1,0 +1,25 @@
+visibility=public
+kind=defined
+names=debug
+
+--- debug(progname = nil) { ... }
+--- debug(message = nil)
+--- debug { ... }
+
+DEBUG 情報 message を記録します。ブロックを与えた場合は、ブロックを評価した
+返り値をメッセージとして記録します。現在の Logger の重要度が DEBUG よりも高い場合、
+メッセージは記録されません。
+
+例:
+
+  logger.debug "Waiting for input from user"
+  # ...
+  logger.debug { "User typed #{input}" }
+
+引数とブロックを同時に与えた場合は、progname はプログラム名、ブロックを評価した
+返り値がメッセージとなります。
+
+例:
+
+  logger.debug("MainApp") { "Received connection from #{ip}" }
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=to_f
+
+--- to_f -> Float
+
+0.0 を返します。
+

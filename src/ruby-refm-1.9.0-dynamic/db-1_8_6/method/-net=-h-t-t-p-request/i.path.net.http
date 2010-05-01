@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=path
+
+--- path
+
+リクエストする path を文字列で返します。
+

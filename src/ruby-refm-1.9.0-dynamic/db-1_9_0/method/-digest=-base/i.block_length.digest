@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=block_length
+
+--- block_length
+
+Returns the block length of the digest.
+
+This method is overridden by each implementation subclass. 
+

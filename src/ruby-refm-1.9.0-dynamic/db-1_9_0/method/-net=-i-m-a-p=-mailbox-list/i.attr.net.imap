@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=attr
+
+--- attr
+
+Returns the name attributes. Each name attribute is a symbol
+capitalized by String#capitalize, such as :Noselect (not :NoSelect).
+

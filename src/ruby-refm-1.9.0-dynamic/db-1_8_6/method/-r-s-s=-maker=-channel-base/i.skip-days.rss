@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=skipDays
+
+--- skipDays
+     skipDaysを返します．
+

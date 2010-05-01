@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=multipart?
+
+--- multipart?
+
+Returns true.
+
+
+
+
+

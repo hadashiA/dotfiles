@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=def_e2message
+
+--- def_e2message(k, c, m)
+

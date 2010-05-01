@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=header,reader_header,response
+
+--- response
+--- header
+--- reader_header
+
+互換性を保つためだけに導入されたメソッドです。
+使わないでください。
+

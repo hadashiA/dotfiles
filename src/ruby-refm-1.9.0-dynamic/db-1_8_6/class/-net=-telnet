@@ -1,0 +1,35 @@
+superclass=SimpleDelegator
+type=class
+library=net.telnet
+extended=
+included=
+
+=== 使用例
+
+  require 'net/telnet'
+  
+  # リモートホスト foobar に接続
+  telnet = Net::Telnet.new("Host" => "foobar") {|c| print c}
+  
+  # ログイン
+  telnet.login("your name", "your password") {|c| print c}
+  # ログイン後、プロンプトが出るまで待ち合わせる
+  
+  telnet.cmd("ls") {|c| print c}
+  # コマンド実行後、プロンプトが出るまで待ち合わせる
+  
+  # 少し複雑な例
+  telnet.cmd("sleep 5 && echo foobar &") {|c| print c}
+  
+  STDOUT.flush # <- これがないとここまで処理が来てることがわかりにくい
+  
+  # 前のコマンドの出力を待ち合わせる
+  telnet.waitfor(/foobar\Z/) {|c| print c}
+  
+  # ログインセッションの終了
+  telnet.cmd("exit") {|c| print c}
+  telnet.close
+
+
+Net::Telnet のインスタンスは、ソケットのメソッドをdelegateします(例え
+ば、セッションが終わった後は close を実行した方が良いでしょう)。

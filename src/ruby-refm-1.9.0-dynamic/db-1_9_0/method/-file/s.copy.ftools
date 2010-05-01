@@ -1,0 +1,20 @@
+visibility=public
+kind=added
+names=copy,cp
+
+--- copy(from, to[, verbose = false])
+--- cp(from, to[, verbose = false])
+
+ファイルをコピーします。より正確には from を読んで to
+に書き、モードを変更します。ファイルの更新時刻はコピーした時刻に更
+新されます。
+
+例えば、更新時刻を保持したい場合は
+
+  File.copy(from, to)
+  stat = File.stat(from)
+  File.utime(stat.atime, stat.mtime, to)
+
+などとします。
+コピーに成功したなら ture、失敗したなら false を返します。
+

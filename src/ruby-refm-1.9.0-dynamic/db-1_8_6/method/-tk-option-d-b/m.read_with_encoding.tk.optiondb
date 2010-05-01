@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=read_with_encoding
+
+--- read_with_encoding(file, f_enc = nil, pri = Tk::None)
+
+

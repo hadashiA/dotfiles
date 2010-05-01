@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=IGNORECASE
+
+--- IGNORECASE
+
+文字の大小の違いを無視します。
+[[unknown:リテラル/正規表現リテラル]] の //i オプションと同じです。
+

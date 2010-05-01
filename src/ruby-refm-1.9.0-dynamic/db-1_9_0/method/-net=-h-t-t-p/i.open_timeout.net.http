@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=open_timeout,open_timeout=
+
+--- open_timeout
+--- open_timeout=(seconds)
+
+接続時に待つ最大秒数。この秒数たってもコネクションが
+開かなければ例外 TimeoutError を発生します。
+

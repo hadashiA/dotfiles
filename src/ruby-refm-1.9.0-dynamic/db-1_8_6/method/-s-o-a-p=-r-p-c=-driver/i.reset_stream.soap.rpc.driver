@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=reset_stream,reset_stream=
+
+--- reset_stream
+--- reset_stream=(value)
+

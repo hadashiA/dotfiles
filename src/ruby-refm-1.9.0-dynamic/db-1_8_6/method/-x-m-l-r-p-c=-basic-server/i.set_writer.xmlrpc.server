@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=set_writer
+
+--- set_writer( writer )
+Sets the XML writer to use for generating XML output.
+Should be an instance of a class from module XMLRPC::XMLWriter.
+If this method is not called, then XMLRPC::Config::DEFAULT_WRITER is used.
+

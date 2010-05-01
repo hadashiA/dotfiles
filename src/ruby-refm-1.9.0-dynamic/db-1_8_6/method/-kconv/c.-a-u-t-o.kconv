@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=AUTO
+
+--- AUTO
+
+エンコーディングを自動検出します。
+入力の指定でのみ有効です。
+

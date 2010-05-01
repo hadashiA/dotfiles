@@ -1,0 +1,16 @@
+visibility=public
+kind=defined
+names=run
+
+--- run(result) {|STARTED, name| ...}
+
+このメソッドをユーザが直接呼ぶことはありません。
+
+自身に対応したテストメソッドを実行します。
+
+Runs the individual test method represented by this instance
+of the fixture, collecting statistics, failures and errors in
+result.
+
+@param result [[c:Test::Unit::TestResult]] オブジェクトを与えます。
+

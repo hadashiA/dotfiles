@@ -1,0 +1,16 @@
+visibility=public
+kind=defined
+names=mkdir
+
+--- mkdir(dir, options = {})
+
+ディレクトリ dir を作成します。
+
+options には :noop, :verbose が指定できます。
+
+例:
+
+  FileUtils.mkdir('test')
+  FileUtils.mkdir(%w( tmp data ))
+  FileUtils.mkdir('notexist', {:noop => true})  # does not create really
+

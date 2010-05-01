@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=assert_not_match
+
+--- assert_not_match(str, re[, message])
+
+re =~ str が偽であると表明します。
+
+message はアサート失敗時のエラーメッセージです。
+

@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=finite?
+
+--- finite? -> bool
+数値が ∞ でも、NaN でもなければ真を返します
+
+  p 3.14.finite? #=> true
+  inf = 1.0/0
+  p inf.finite? #=> false
+

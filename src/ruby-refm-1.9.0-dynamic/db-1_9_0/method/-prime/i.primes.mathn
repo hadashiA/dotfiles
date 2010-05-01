@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=primes
+
+--- primes
+
+それまでに求めた素数の配列を返します。
+

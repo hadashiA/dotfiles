@@ -1,0 +1,17 @@
+visibility=public
+kind=defined
+names=touch
+
+--- touch(list, options = {})
+
+list[0], list[1], ... の最終変更時刻 (mtime) と
+アクセス時刻 (atime) を変更します。
+list[n] が存在しない場合は空のファイルを作成します。
+
+option には :noop と :verbose が指定できます。
+
+例:
+
+  FileUtils.touch('timestamp')
+  FileUtils.touch(Dir.glob('*.c'))
+

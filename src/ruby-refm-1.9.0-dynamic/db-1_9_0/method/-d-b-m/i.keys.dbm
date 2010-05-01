@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=keys
+
+--- keys
+
+データベース中に存在するキー全てを含む配列を返します。
+

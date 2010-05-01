@@ -1,0 +1,7 @@
+superclass=Object
+type=class
+library=sdbm
+extended=
+included=Enumerable
+
+

@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=gid
+
+--- gid -> Integer
+オーナーのグループIDを返します。
+
+  fs = File::Stat.new($0)
+  #例
+  p fs.gid      #=> 0
+

@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=allow_content_encoding_gzip=
+
+--- allow_content_encoding_gzip=(allow)
+

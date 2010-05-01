@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=accept
+
+--- accept
+
+TLS/SSL クライアントから接続を受け付け、 TLS/SSL ハンドシェイクを実行し、自分自身を返します。
+
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=disposition
+
+--- disposition
+
+Returns a [[c:Net::IMAP::ContentDisposition]] object giving
+the content disposition.
+

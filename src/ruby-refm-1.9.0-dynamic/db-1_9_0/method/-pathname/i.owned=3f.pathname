@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=owned?
+
+--- owned?
+FileTest.owned?(self.to_s) と同じです。 (cf. [[m:FileTest.#owned?]])
+

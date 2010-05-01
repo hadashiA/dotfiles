@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=+
+
+--- +(c)
+複素数 c を加えた結果を返します。
+

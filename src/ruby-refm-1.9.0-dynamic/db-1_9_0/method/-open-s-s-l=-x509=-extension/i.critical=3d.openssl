@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=critical=,critical?
+
+---critical=(bool)
+---critical?
+
+クリティカルかどうかを設定します。
+

@@ -1,0 +1,7 @@
+superclass=Test=Unit=TestCase
+type=class
+library=runit.testcase
+extended=
+included=RUNIT=AssertMixin
+
+

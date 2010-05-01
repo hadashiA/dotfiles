@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=user,user=
+
+--- user          -> String
+--- user=(value)
+
+REMOTE_USER を文字列で表すアクセサです。
+
+@param value ユーザ名を文字列で指定します。
+
+
+

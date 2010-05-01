@@ -1,0 +1,21 @@
+visibility=public
+kind=defined
+names=sysopen
+
+--- sysopen(path, mode = "r", perm = 0666)     -> Integer
+
+path で指定されるファイルをオープンし、ファイル記述子を返しま
+す。
+
+[[m:IO.for_fd]] などで IO オブジェクトにしない限り、このメソッ
+ドでオープンしたファイルをクローズする手段はありません。
+
+@param path ファイル名を表す文字列を指定します。
+
+@param mode 組み込み関数 [[m:Kernel.#open]] と同じです。
+
+@param perm 組み込み関数 [[m:Kernel.#open]] と同じです。
+
+@raise Errno::EXXX ファイルのオープンに失敗した場合に発生します。
+
+

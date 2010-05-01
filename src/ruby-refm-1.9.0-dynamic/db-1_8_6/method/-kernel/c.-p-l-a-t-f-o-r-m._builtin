@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=PLATFORM
+
+--- PLATFORM
+
+非推奨([[unknown:obsolete]])。 [[m:Kernel::RUBY_PLATFORM]] の古い名前です。
+
+この定数は過去との互換性のために提供されています。 RUBY_PLATFORM を使ってください。
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=cwyear
+
+--- cwyear -> Integer
+暦週における年を返します。
+
+

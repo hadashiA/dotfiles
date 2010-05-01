@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=F_GETFD
+
+--- F_GETFD
+read the close-on-exec flag of a file handle.
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=column
+
+--- column(j)
+
+第j番目の列ベクトルを返す。
+ブロックが与えられたときは、各列ベクトルについて、ブロックを繰り返す。
+

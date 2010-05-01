@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(host = nil, user = nil, passwd = nil, acct = nil)
+
+新しいインスタンスを生成します。
+
+host が指定された場合、生成されたインスタンスに対して connect を呼び出し、
+さらに user が指定された場合は login を呼び出します。
+

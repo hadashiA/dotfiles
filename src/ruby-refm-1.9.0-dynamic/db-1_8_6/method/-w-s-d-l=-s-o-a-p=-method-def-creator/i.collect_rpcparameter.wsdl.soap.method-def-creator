@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=collect_rpcparameter
+
+--- collect_rpcparameter(operation)
+
+

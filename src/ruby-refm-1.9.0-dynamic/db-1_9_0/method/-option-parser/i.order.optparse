@@ -1,0 +1,42 @@
+visibility=public
+kind=defined
+names=order,order!
+
+--- order(argv = ARGV)              -> [String]
+--- order(argv = ARGV){|s| ...}     -> [String]
+--- order(*args)                    -> [String]
+--- order(*args){|s| ...}           -> [String]
+--- order!(argv = ARGV)             -> [String]
+--- order!(argv = ARGV) {|s| ...}   -> [String]
+
+与えられた argv を順番にパースします。
+オプションではないコマンドの引数(下の例で言うと somefile)に出会うと、パースを中断します。
+ブロックが与えられている場合は、パースを中断せずに
+引数をブロックに渡してブロックを評価し、パースを継続します。argv を返します。
+
+order! は与えられた argv を破壊的にパースします。
+argv からオプションがすべて取り除かれます。
+
+  $ cat opt.rb
+  require 'optparse'
+  opt = OptionParser.new
+
+  opt.on('-a [VAL]') {|v| p :a }
+  opt.on('-b') {|v| p :b }
+
+  opt.order!(ARGV)
+  p ARGV
+
+  $ ruby opt2.rb -a foo somefile -b
+  :a
+  ["somefile", "-b"]
+
+コマンドの引数 somefile よりも後ろにオプションを置くことができま
+せん。-b もコマンドのオプションではない引数として扱われてしまいます。
+
+@param argv パースしたい引数を文字列の配列で指定します。
+
+@param args パースしたい引数を順に文字列として与えます。
+
+@raise OptionParser::ParseError パースに失敗した場合、例外 OptionParser::ParseError のサブクラスが投げられます。
+

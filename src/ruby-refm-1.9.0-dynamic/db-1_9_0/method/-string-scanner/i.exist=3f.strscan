@@ -1,0 +1,19 @@
+visibility=public
+kind=defined
+names=exist?
+
+--- exist?(regexp)
+
+スキャンポインタの位置の文字列から regexp がマッチする位置を返します。
+この位置はスキャンポインタからの相対位置です。
+マッチしなければ nil を返します。
+
+このメソッドはマッチが成功してもスキャンポインタを進めません。
+
+      s = StringScanner.new('test string')
+      s.exist?(/s/) # => 3
+      s.exist?(//)  # => 0
+      s.scan(/\w+/) # => "test"
+      s.exist?(/s/) # => 2
+      s.exist?(/e/) # => nil
+

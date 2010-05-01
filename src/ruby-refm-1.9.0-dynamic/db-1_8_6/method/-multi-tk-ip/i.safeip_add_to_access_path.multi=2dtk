@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=safeip_add_to_access_path
+
+--- safeip_add_to_access_path(dir)
+

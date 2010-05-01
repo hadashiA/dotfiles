@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(max)
+SizedQueue オブジェクトを生成します。
+max は queue のサイズの最大値です。
+

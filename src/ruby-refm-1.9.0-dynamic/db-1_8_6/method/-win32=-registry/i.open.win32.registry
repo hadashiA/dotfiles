@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=open
+
+--- open(subkey, desired = KEY_READ, opt = REG_OPTION_RESERVED)
+
+[[m:Win32::Registry.open]](self, subkey, desired, opt) と同じです。
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=&
+
+--- &(ipaddr)
+
+他の IPAddr オブジェクトとのビットごとの論理積により、
+新しい IPAddr オブジェクトを生成します。
+

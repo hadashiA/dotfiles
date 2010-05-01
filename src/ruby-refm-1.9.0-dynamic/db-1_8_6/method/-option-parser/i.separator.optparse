@@ -1,0 +1,14 @@
+visibility=public
+kind=defined
+names=separator
+
+--- separator(sep)    -> ()
+
+サマリを表示する時に使われる、オプションを区切るための文字列 sep を設定します。
+オプションにいくつかの種類がある場合に、サマリがわかりやすくなります。
+
+サマリには on メソッドを呼んだ順にオプションが表示されるので、区切りを挿入したい
+ところでこのメソッドを呼びます。[[unknown:例|optparse/Example]]を参照してください。
+
+@param sep 区切りとして表示されます。
+

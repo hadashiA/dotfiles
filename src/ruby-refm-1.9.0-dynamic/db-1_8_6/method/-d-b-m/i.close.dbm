@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=close
+
+--- close
+
+DBM ファイルをクローズします。以後の操作は例外を発生させます。
+

@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=fastmode=,syncmode=
+
+--- fastmode=(bool)
+--- syncmode=(bool)
+
+オープンしている GDBM オブジェクトのモードを変更します。下記の定数
+GDBM::FAST、GDBM::SYNC を参照してください。
+

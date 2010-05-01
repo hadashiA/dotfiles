@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=present_exact
+
+--- present_exact(package, version)
+

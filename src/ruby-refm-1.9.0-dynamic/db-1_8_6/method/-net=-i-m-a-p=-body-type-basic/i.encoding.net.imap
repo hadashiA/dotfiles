@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=encoding
+
+--- encoding
+
+Returns a string giving the content transfer encoding as defined in [MIME-IMB].
+

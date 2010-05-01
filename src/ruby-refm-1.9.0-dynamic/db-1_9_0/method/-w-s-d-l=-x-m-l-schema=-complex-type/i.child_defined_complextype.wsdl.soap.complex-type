@@ -1,0 +1,6 @@
+visibility=public
+kind=added
+names=child_defined_complextype
+
+--- child_defined_complextype(name)
+

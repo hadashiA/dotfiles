@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=login
+
+--- login(user = "anonymous", passwd = nil, acct = nil)
+

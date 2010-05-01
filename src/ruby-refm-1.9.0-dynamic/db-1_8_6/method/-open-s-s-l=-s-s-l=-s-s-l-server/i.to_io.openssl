@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=to_io
+
+--- to_io
+
+[[c:TCPServer]] オブジェクトを返します。
+

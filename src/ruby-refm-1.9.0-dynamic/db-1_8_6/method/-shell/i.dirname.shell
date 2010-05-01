@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=dirname
+
+--- dirname(file)
+
+Fileクラスにある同名のクラスメソッドと同じです.
+

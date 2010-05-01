@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=mkdir
+
+--- mkdir(*args)
+Dir.mkdir(self.to_s, *args) と同じです。 (cf. [[m:Dir.mkdir]])
+

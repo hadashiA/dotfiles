@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=getgrnam
+
+--- getgrnam(name)
+
+name という名前のグループエントリを返します。
+戻り値は [[m:Etc.#getgrgid]] と同様です。
+
+詳細は[[man:getgrnam(3)]] を参照してください。
+

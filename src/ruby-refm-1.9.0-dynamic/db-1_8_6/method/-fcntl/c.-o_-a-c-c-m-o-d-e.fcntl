@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=O_ACCMODE
+
+--- O_ACCMODE
+mask to extract read/write flags.
+

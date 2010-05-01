@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=search
+
+--- search(pat, start, stop = Tk::None)
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=[]
+
+--- [](key)
+
+key をキーとする値を返します。
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=priv_key,priv_key=
+
+--- priv_key
+--- priv_key=(private_key)
+
+class OpenSSL::PKey::DHError < OpenSSL::PKey::PKeyError

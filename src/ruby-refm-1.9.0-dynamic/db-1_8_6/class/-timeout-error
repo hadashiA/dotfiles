@@ -1,0 +1,7 @@
+superclass=Interrupt
+type=class
+library=timeout
+extended=
+included=
+
+[[c:Timeout::Error]]の別名です。

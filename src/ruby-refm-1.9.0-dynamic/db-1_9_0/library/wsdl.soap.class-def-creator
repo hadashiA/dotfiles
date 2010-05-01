@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=xsd.codegen.gensupport,wsdl.service,wsdl.soap.header,wsdl.xmlSchema.all,soap.baseData,wsdl.soap.operation,wsdl.xmlSchema.schema,wsdl.xmlSchema.simpleRestriction,wsdl.soap.binding,soap.mapping.typeMap,wsdl.xmlSchema.sequence,soap.mapping,wsdl.xmlSchema.complexType,xsd.qname,wsdl.message,wsdl.xmlSchema.enumeration,wsdl.xmlSchema.content,wsdl.types,wsdl.import,soap.mapping.rubytypeFactory,xsd.codegen,wsdl.xmlSchema.length,wsdl.xmlSchema.attribute,soap.mapping.registry,wsdl.param,wsdl.binding,wsdl.data,wsdl.parser,soap.mapping.factory,wsdl.xmlSchema.import,soap.httpconfigloader,wsdl.soap.element,wsdl.soap.address,wsdl.xmlSchema.unique,wsdl.xmlSchema.complexContent,soap.property,wsdl.xmlSchema.pattern,wsdl.soap.data,wsdl.xmlSchema.importer,wsdl.port,xsd.ns,wsdl.info,wsdl.xmlSchema.simpleExtension,wsdl.soap.complexType,wsdl.xmlSchema.data,wsdl.xmlSchema.parser,wsdl.soap.definitions,wsdl.xmlSchema.include,wsdl.soap.body,wsdl.operationBinding,wsdl.wsdl,wsdl.xmlSchema.annotation,wsdl.xmlSchema.choice,wsdl.documentation,wsdl.xmlSchema.any,wsdl.portType,wsdl.part,wsdl.xmlSchema.simpleType,xsd.datatypes,wsdl.xmlSchema.element,wsdl.soap.fault,xsd.charset,wsdl.soap.headerfault,wsdl.definitions,xsd.xmlparser,wsdl.xmlSchema.simpleContent,soap.soap,wsdl.soap.classDefCreatorSupport,wsdl.operation,xsd.namedelements,soap.mapping.mapping,wsdl.importer
+classes=WSDL=SOAP=ClassDefCreator
+is_sublibrary=true
+
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=singular?
+
+--- singular?
+
+特異(singular)である、すなわち、正則でないなら真を返す。
+

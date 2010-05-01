@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=find_command
+
+--- find_command(pat)
+
+
+

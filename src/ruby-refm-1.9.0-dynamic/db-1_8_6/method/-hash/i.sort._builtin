@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=sort
+
+--- sort              -> Array
+--- sort{|a, b| ... } -> Array
+
+Converts hsh to a nested array of [ key, value ] arrays and
+sorts it, using Array#sort.
+
+ h = { "a" => 20, "b" => 30, "c" => 10  }
+ h.sort                       #=> [["a", 20], ["b", 30], ["c", 10]]
+ h.sort {|a,b| a[1]<=>b[1]}   #=> [["c", 10], ["a", 20], ["b", 30]]

@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=ordering
+
+--- ordering
+現在の順序形式を返します。
+

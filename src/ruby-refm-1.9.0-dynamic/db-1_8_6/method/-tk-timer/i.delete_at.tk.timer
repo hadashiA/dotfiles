@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=delete_at
+
+--- delete_at(n)
+

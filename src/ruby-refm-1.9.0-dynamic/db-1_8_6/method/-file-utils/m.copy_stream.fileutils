@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=copy_stream
+
+--- copy_stream(src, dest)
+
+src を dest にコピーします。
+src には read メソッド、dest には write メソッドが必要です。
+

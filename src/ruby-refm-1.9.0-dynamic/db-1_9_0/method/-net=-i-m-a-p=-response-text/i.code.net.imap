@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=code
+
+--- code
+
+Returns the response code. See [[c:Net::IMAP::ResponseCode]].
+

@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=set_interval
+
+--- set_interval(interval)
+
+

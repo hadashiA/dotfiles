@@ -1,0 +1,29 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(logdev, shift_age = 0, shift_size = 1048576)
+
+Logger オブジェクトを生成する。logdev には
+記録するファイル名か、write と close が定義されたオブジェクト(IO
+オブジェクトなど)を与えます。
+
+例:
+
+  logger = Logger.new(STDERR)
+  logger = Logger.new(STDOUT)
+  logger = Logger.new('logfile.log')
+
+shift_age に [[c:Integer]] を与えた場合は、rotate したログファイルの
+残す個数と解釈されます。shift_size 毎に rotate されます。
+shift_age に 'daily', 'weekly', 'monthly' のいずれかの文字列を
+与えた場合は、その間隔毎にログは rotate されます。
+
+例:
+
+  file = File.open('foo.log', File::WRONLY | File::APPEND)
+  logger = Logger.new(file, 'daily')
+
+shift_size は shift_age に [[c:Integer]] を与えた場合にのみ
+有効です。
+

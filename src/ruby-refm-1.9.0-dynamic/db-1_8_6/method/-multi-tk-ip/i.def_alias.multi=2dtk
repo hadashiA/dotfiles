@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=def_alias
+
+--- def_alias(slave, new_cmd, org_cmd, *args)
+

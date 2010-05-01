@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=contains
+
+--- contains(string, test)
+

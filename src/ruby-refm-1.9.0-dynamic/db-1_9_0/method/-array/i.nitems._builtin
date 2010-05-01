@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=nitems
+
+--- nitems    -> Integer
+--- nitems{|obj| ... }
+
+nil でない要素の数を返します。
+
+  p [1, nil, 3, nil].nitems     #=> 2
+

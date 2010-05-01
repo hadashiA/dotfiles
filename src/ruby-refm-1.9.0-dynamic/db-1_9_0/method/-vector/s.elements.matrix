@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=elements
+
+--- elements(a, copy = true)
+
+配列 a を要素とするベクトルを生成します。
+ただし、オプション引数 copy が偽 (false) ならば、複製を行いません。
+

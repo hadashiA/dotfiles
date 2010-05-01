@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=set_no_event_wait
+
+--- set_no_event_wait(tick)
+

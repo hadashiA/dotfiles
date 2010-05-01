@@ -1,0 +1,14 @@
+visibility=public
+kind=defined
+names=deflate
+
+--- deflate(string[, flush])
+
+string を圧縮ストリームに入力します。処理後、ストリームからの
+出力を返します。このメソッドを呼ぶと出力バッファ及び入力バッファは
+空になります。string が nil の場合はストリームへの入力を
+終了します。([[m:Zlib::ZStream#finish]] と同じ)。
+flush には Zlib::NO_FLUSH, Zlib::SYNC_FLUSH,
+Zlib::FULL_FLUSH, Zlib::FINISH のいずれかを指定します。
+詳しくは zlib.h を参照して下さい。
+

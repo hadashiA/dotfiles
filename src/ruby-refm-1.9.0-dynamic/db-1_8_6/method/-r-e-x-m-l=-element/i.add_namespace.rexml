@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=add_namespace
+
+--- add_namespace(prefix, uri = nil)
+

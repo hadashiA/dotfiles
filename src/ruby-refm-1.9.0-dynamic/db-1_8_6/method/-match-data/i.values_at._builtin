@@ -1,0 +1,21 @@
+visibility=public
+kind=defined
+names=values_at
+
+--- values_at(*index) -> [String]
+
+正規表現中の indexN 番目の括弧にマッチした部分文字列の配列を返します。
+
+0 番目は [[m:$&]] のようにマッチした文字列全体を表します。
+
+@param index インデックスを整数で指定します。
+
+  m = /(foo)(bar)(baz)/.match("foobarbaz")
+  p m.values_at(0,1,2,3,4)   # same as m.to_a.values_at(...)
+  p m.values_at(-1,-2,-3)
+
+  => ["foobarbaz", "foo", "bar", "baz", nil]
+     ["baz", "bar", "foo"]
+
+@see [[m:Array#values_at]]
+

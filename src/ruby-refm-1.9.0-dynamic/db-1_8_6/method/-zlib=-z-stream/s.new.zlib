@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=new
+
+--- new
+
+[[m:Zlib::Deflate.new]] 及び [[m:Zlib::Inflate.new]] を参照。
+

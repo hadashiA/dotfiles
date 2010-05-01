@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=each,each_child
+
+--- each {|object| ... }
+--- each_child {|object| ... }
+

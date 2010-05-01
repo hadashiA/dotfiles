@@ -1,0 +1,6 @@
+visibility=private 
+kind=added
+names=check_array_content
+
+--- check_array_content(content)
+

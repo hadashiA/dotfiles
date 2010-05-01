@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=delegate_alias
+
+--- delegate_alias(alias_opt, option, *wins)
+

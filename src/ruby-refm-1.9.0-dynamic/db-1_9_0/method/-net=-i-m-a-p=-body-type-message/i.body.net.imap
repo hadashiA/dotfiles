@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=body
+
+--- body
+
+Returns an object giving the body structure.
+
+And Net::IMAP::BodyTypeMessage has all methods of [[c:Net::IMAP::BodyTypeText]].
+

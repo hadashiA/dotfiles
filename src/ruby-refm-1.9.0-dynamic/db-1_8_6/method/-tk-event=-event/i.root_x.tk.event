@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=root_x,rootx,x_root
+
+--- x_root
+--- root_x
+--- rootx
+

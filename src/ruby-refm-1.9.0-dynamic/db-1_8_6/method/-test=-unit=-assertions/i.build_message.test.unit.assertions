@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=build_message
+
+--- build_message(head, template=nil, *arguments)
+
+Builds a failure message. head is added before the template and
+arguments replaces the '?'s positionally in the template.
+

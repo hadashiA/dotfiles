@@ -1,0 +1,10 @@
+#lock	Mutex_m#lock
+#locked?	Mutex_m#locked?
+#mu_lock	Mutex_m#lock
+#mu_locked?	Mutex_m#locked?
+#mu_synchronize	Mutex_m#mu_synchronize
+#mu_try_lock	Mutex_m#mu_try_lock
+#mu_unlock	Mutex_m#mu_unlock
+#synchronize	Mutex_m#mu_synchronize
+#try_lock	Mutex_m#mu_try_lock
+#unlock	Mutex_m#mu_unlock

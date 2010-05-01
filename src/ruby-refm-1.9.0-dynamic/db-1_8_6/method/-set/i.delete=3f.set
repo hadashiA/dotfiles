@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=delete?
+
+--- delete?(o)
+
+Deletes the given object from the set and returns self. If the
+object is not in the set, returns nil.
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=columns
+
+--- columns(columns)
+
+columnsを列ベクトルの集合とする行列を生成する。
+

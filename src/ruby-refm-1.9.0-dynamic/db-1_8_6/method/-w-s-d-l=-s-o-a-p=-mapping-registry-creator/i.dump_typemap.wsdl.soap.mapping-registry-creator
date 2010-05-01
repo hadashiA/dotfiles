@@ -1,0 +1,6 @@
+visibility=private 
+kind=defined
+names=dump_typemap
+
+--- dump_typemap(type)
+

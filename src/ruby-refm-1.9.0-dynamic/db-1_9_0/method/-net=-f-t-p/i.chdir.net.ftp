@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=chdir
+
+--- chdir(dirname)
+
+カレントディレクトリを dirname に変更します。
+

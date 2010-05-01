@@ -1,0 +1,14 @@
+superclass=OpenSSL=PKey=PKey
+type=class
+library=openssl
+extended=
+included=
+
+以下は、data に署名し、署名をもとに data を検証する簡単な例です。
+
+  require "openssl"
+  dsa512 = OpenSSL::PKey::DSA.new(512)
+  dss1 = OpenSSL::Digest::DSS1.new
+  data = 'hoge'
+  sign = dsa512.sign(dss1, data)
+  p dsa512.verify(dss1, sign, data)

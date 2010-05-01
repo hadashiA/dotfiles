@@ -1,0 +1,18 @@
+visibility=public
+kind=defined
+names=<,<=,==,>,>=
+
+--- ==(other) -> bool
+--- <(other)  -> bool
+--- <=(other) -> bool
+--- >(other)  -> bool
+--- >=(other) -> bool
+Èæ³Ó±é»»»Ò¡£
+
+  p 3.14 == 3.14000 #=> true
+  p 3.14 == 3.1415  #=> false
+  p 3.14 <  3.1415  #=> true
+  p 3.14 <= 3.1415  #=> true
+  p 3.14 >  3.1415  #=> false
+  p 3.14 >= 3.1415  #=> false
+

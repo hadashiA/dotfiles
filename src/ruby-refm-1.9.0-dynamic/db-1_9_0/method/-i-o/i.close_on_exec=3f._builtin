@@ -1,0 +1,17 @@
+visibility=public
+kind=defined
+names=close_on_exec?
+
+--- close_on_exec?   -> bool
+
+Returns true if ios will be closed on exec.
+
+   f = open("/dev/null")
+   f.close_on_exec?                 #=> false
+   f.close_on_exec = true
+   f.close_on_exec?                 #=> true
+   f.close_on_exec = false
+   f.close_on_exec?                 #=> false
+
+
+

@@ -1,0 +1,6 @@
+visibility=private 
+kind=defined
+names=buf_size
+
+--- buf_size(idx)
+

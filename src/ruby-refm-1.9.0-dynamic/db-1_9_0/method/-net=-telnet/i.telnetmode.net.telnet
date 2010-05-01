@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=telnetmode,telnetmode=
+
+--- telnetmode
+--- telnetmode(bool)
+--- telnetmode=(bool)
+    ...
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=open
+
+--- open(path, mode)
+
+pathがファイルなら, File#open
+pathがディレクトリなら, Dir#open
+

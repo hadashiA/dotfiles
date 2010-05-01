@@ -1,0 +1,10 @@
+visibility=public
+kind=added
+names=cmp,compare
+
+--- compare(from, to[, verbose = false])
+--- cmp(from, to[, verbose = false])
+
+2つのファイルを比較します。
+同じなら true、異なるなら false を返します。
+

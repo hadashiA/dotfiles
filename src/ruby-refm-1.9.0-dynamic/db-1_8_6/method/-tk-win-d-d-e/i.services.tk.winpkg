@@ -1,0 +1,5 @@
+visibility=public
+kind=defined
+names=services
+
+--- services(service, topic)

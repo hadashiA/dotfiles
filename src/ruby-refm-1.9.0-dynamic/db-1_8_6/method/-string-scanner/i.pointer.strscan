@@ -1,0 +1,17 @@
+visibility=public
+kind=defined
+names=pointer,pos
+
+--- pointer
+--- pos
+現在のスキャンポインタのインデックスを返します。
+
+      s = StringScanner.new('test string')
+      s.pos         # => 0
+      s.scan(/\w+/) # => "test"
+      s.pos         # => 4
+      s.scan(/\w+/) # => nil
+      s.pos         # => 4
+      s.scan(/\s+/) # => " "
+      s.pos         # => 5
+

@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=configinfo
+
+--- configinfo(key = nil)
+
+  def configure(keys)
+  
+    @c.itemconfigure @id, keys
+  
+  end
+

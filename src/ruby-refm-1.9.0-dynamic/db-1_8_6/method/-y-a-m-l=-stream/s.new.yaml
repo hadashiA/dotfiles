@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(opts = {})
+ストリームを返します。ストリームはYAMLドキュメントを複数保持することができます。
+

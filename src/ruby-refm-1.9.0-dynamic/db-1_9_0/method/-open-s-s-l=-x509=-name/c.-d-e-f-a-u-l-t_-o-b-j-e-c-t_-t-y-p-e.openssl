@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=DEFAULT_OBJECT_TYPE
+
+--- DEFAULT_OBJECT_TYPE
+
+エントリーのデフォルトのタイプです。UTF8文字列です。
+

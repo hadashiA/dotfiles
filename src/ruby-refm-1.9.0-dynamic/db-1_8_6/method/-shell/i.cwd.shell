@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=cwd,dir,getwd,pwd
+
+--- cwd
+--- dir
+--- getwd
+--- pwd
+
+カレントディレクトリを返す。
+

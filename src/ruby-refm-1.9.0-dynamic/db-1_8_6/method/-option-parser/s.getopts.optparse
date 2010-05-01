@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=getopts
+
+--- getopts(argv, *opts)
+--- getopts(*opts)
+
+self.new.getopts(*args) と同じです。
+[[m:OptionParser#getopts]] を参照して下さい。
+
+

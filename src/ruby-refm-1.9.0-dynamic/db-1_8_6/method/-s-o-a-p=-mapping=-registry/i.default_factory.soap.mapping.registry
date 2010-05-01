@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=default_factory,default_factory=
+
+--- default_factory
+--- default_factory=(value)
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=shuffle!
+
+--- shuffle!        -> Array | nil
+
+Shuffles elements in self in place.
+
+

@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=close!
+
+--- close!
+テンポラリファイルをクローズし、すぐに削除します。
+
+  tf = Tempfile.open("bar")
+  tf.close!
+  p FileTest.exist?(tf.path) # => false
+

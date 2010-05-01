@@ -1,0 +1,11 @@
+methods=IO/i.expect.expect
+sublibraries=
+requires=
+classes=
+is_sublibrary=false
+
+Author: A. Ito
+
+Expect ライブラリは、tcl の expect パッケージと似たような機能を IO クラスに追加します。
+
+追加されるメソッドの使い方は次の通りです。

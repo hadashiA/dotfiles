@@ -1,0 +1,7 @@
+methods=Kernel/i.y.yaml,Class/i.to_yaml.yaml,Object/i.to_yaml.yaml,Object/i.to_yaml_style.yaml,Object/i.to_yaml_properties.yaml,Struct/s.yaml_tag_class_name.yaml,Struct/s.yaml_tag_read_class.yaml,String/i.is_complex_yaml=3f.yaml,String/i.is_binary_data=3f.yaml
+sublibraries=yaml.store
+requires=
+classes=YAML,YAML=Stream,YAML=Error,YAML=ParseError,YAML=TypeError,YAML=YPath,YAML=BaseNode,YAML=YamlNode
+is_sublibrary=false
+
+構造化されたデータを表現するフォーマットであるYAML (YAML Ain't Markup Language) を扱うためのライブラリです。

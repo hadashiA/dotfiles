@@ -1,0 +1,7 @@
+superclass=Object
+type=class
+library=sha1
+extended=
+included=
+
+[[c:Digest::SHA1]] のエイリアスです。

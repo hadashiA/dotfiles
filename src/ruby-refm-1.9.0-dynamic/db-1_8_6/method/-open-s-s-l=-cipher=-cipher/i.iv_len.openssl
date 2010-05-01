@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=iv_len
+
+--- iv_len
+
+初期ベクトルの長さ。
+

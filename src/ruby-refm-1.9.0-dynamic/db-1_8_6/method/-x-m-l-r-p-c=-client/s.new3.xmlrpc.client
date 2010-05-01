@@ -1,0 +1,20 @@
+visibility=public
+kind=defined
+names=new3,new_from_hash
+
+--- new3( hash={} )
+--- new_from_hash( hash={} )
+
+Parameter hash has following case-insensitive keys:
+ * host
+ * path
+ * port
+ * proxy_host
+ * proxy_port
+ * user
+ * password
+ * use_ssl
+ * timeout
+
+Calls [[m:XMLRPC::Client.new]] with the corresponding values.
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=[]
+
+--- [](*ary)
+
+与えられたオブジェクトからなる新しい集合を作ります。
+

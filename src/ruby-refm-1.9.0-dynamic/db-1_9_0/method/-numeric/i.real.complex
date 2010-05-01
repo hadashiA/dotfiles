@@ -1,0 +1,7 @@
+visibility=public
+kind=added
+names=real
+
+--- real
+The real part of a complex number, i.e. self
+

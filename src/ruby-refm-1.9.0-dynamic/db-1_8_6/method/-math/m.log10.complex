@@ -1,0 +1,6 @@
+visibility=public
+kind=redefined
+names=log10
+
+--- log10(z)
+

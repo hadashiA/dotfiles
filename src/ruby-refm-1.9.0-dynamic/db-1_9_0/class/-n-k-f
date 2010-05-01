@@ -1,0 +1,101 @@
+superclass=
+type=module
+library=nkf
+extended=
+included=
+
+nkf(Network Kanji code conversion Filter, [[url:http://www.ie.u-ryukyu.ac.jp/~kono/nkf/]]) を
+Ruby から使うためのモジュールです。
+
+Ruby 1.8.2 以降では nkf の 2.0 以降が取り込まれています。
+
+=== 使い方
+
+以下は、漢字コード変換コマンドの例です。
+
+  #!/usr/local/bin/ruby
+  
+  require 'nkf'
+  
+  opt = ''
+  opt = ARGV.shift if ARGV[0][0] == ?-
+  
+  while line = ARGF.gets
+    print NKF.nkf(opt, line)
+  end
+
+以下は、漢字コード判別コマンドの例です。
+(Ruby 1.8.2 以降の NKF.guess では、
+以下の5種類以外の値になる可能性があります [[trap:NKF]])
+
+  #!/usr/local/bin/ruby
+  
+  require 'nkf'
+  
+  CODES = {
+    NKF::JIS      => "JIS",
+    NKF::EUC      => "EUC",
+    NKF::SJIS     => "SJIS",
+    NKF::BINARY   => "BINARY",
+    NKF::UNKNOWN  => "UNKNOWN(ASCII)",
+  }
+  
+  while file = ARGV.shift
+    str = open(file) {|io| io.gets(nil) }
+    
+    printf "%-10s ", file
+    if str.nil?
+      puts "EMPTY"
+    else
+      puts CODES.fetch NKF.guess(str)
+    end
+  end
+
+=== オプション文字列
+
+==== Ruby 1.8.2 以降
+
+NKF 2.0.5 相当です。
+
+  b,u      Output is buffered (DEFAULT),Output is unbuffered
+  j,s,e,w  Outout code is JIS 7 bit (DEFAULT), Shift JIS, AT&T JIS (EUC), UTF-8
+           After 'w' you can add more options. (80?|16((B|L)0?)?)
+  J,S,E,W  Input assumption is JIS 7 bit , Shift JIS, AT&T JIS (EUC), UTF-8
+           After 'W' you can add more options. (8|16(B|L)?)
+  t        no conversion
+  i_/o_    Output sequence to designate JIS-kanji/ASCII (DEFAULT B)
+  r        {de/en}crypt ROT13/47
+  h        1 katakana->hiragana, 2 hiragana->katakana, 3 both
+  m[BQN0]  MIME decode [B:base64,Q:quoted,N:non-strict,0:no decode]
+  M[BQ]    MIME encode [B:base64 Q:quoted]
+  l        ISO8859-1 (Latin-1) support
+  f/F      Folding: -f60 or -f or -f60-10 (fold margin 10) F preserve nl
+  Z[0-3]   Convert X0208 alphabet to ASCII  1: Kankaku to space,2: 2 spaces,
+                                            3: Convert HTML Entity
+  X,x      Assume X0201 kana in MS-Kanji, -x preserves X0201
+  B[0-2]   Broken input  0: missing ESC,1: any X on ESC-[($]-X,2: ASCII on NL
+  T        Text mode output
+  d,c      Delete \r in line feed and \032, Add \r in line feed
+  I        Convert non ISO-2022-JP charactor to GETA
+  -L[uwm]  line mode u:LF w:CRLF m:CR (DEFAULT noconversion)
+  long name options
+   --fj,--unix,--mac,--windows                        convert for the system
+   --jis,--euc,--sjis,--utf8,--utf16,--mime,--base64  convert for the code
+   --hiragana, --katakana    Hiragana/Katakana Conversion
+   --cap-input, --url-input  Convert hex after ':' or ''
+   --numchar-input   Convert Unicode Character Reference
+   --no-cp932        Don't convert Shift_JIS FAxx-FCxx to equivalnet CP932
+   --cp932inv        convert Shift_JIS EDxx-EFxx to equivalnet CP932 FAxx-FCxx
+   --ms-ucs-map      Microsoft UCS Mapping Compatible
+
+
+=== BUGS
+
+Ruby 1.8.2 に添付されている NKF は
+Unicode 入力時の自動判定の精度が落ちています。
+Ruby 1.8.3 以降にバージョンアップするか、
+できるだけ明示的に文字コードを指定するようにしましょう。
+
+=== 参考
+
+  * "標準添付ライブラリ紹介【第 3 回】 Kconv/NKF/Iconv" [[url:http://jp.rubyist.net/magazine/?0009-BundledLibraries#l15]]

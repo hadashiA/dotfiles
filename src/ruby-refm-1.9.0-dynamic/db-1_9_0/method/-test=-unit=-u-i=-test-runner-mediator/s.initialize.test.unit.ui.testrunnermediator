@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=initialize
+
+--- initialize(suite)
+
+新しく TestRunnerMediator オブジェクトを生成して返します。
+
+@param suite 実行したいテストを持った Test::Unit::TestSuite オブジェクトを
+与えます。
+

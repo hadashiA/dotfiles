@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=read
+
+--- read([length[, buf]])
+
+[[m:IO#read]] と同様です。
+

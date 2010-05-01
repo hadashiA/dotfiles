@@ -1,0 +1,11 @@
+visibility=public
+kind=added
+names=issjis
+
+--- issjis
+
+((<ruby 1.8.2 feature>))
+
+
+Kconv.issjis(self) と同じです。
+

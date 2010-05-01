@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=foreach
+
+--- foreach(path = nil, &block)
+
+pathがファイルなら, File#foreach
+pathがディレクトリなら, Dir#foreach
+

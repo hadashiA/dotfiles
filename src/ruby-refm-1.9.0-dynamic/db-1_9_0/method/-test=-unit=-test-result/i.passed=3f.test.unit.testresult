@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=passed?
+
+--- passed?    -> bool
+
+すべてのテストが成功したなら true を返します。
+そうでないなら false を返します。
+

@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=O_CREAT
+
+--- O_CREAT
+create file if it doesn't exist.
+

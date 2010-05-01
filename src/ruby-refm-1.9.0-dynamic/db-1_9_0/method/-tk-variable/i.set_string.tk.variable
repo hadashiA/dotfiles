@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=set_string,string=
+
+--- string=
+--- set_string(val)
+

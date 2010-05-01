@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=length,size
+
+--- length
+--- size
+queueの長さを返します。
+

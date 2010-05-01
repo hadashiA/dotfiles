@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=deferr
+
+--- $deferr
+
+非推奨([[unknown:obsolete]])。 [[m:$stderr]] の別名です。
+
+この変数は過去との互換性のために提供されています。
+新しいコードでは常に [[m:$stderr]] を使ってください。
+
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=total_out
+
+--- total_out
+
+ストリームの出力したデータの総バイト数を返します。
+

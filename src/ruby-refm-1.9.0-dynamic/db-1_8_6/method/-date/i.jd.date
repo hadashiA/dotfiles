@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=jd
+
+--- jd -> Integer
+ユリウス日を返します。
+時刻を含みません。
+
+[[m:Date#ajd]] も参照してください。
+
+

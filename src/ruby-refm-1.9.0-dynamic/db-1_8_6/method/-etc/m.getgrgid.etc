@@ -1,0 +1,19 @@
+visibility=public
+kind=defined
+names=getgrgid
+
+--- getgrgid(gid)
+
+group データベースを検索し、グループ ID が gid
+であるグループエントリを返します。
+戻り値は group 構造体で、以下のメンバを持ちます。
+
+  struct group
+    name        # グループ名(文字列)
+    passwd      # グループのパスワード(文字列)
+    gid         # グループID(整数)
+    mem         # グループメンバ名の配列
+  end
+
+詳細は [[man:getgrgid(3)]] を参照してください。
+

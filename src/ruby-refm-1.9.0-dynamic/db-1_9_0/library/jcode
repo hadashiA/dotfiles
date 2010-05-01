@@ -1,0 +1,16 @@
+methods=String/i.each_char.jcode,String/i.jcount.jcode,String/i.jlength.jcode,String/i.mbchar=3f.jcode,String/i.chop.jcode,String/i.delete.jcode,String/i.squeeze.jcode,String/i.succ.jcode,String/i.tr.jcode,String/i.tr_s.jcode
+sublibraries=
+requires=
+classes=
+is_sublibrary=false
+
+[[c:String]]クラスのメソッドを追加、再定義し、
+日本語を意識した文字列処理を提供します。
+
+=== 使用例 
+
+  require 'jcode'
+  $KCODE = 'EUC' # 漢字コードをEUC-JPに。Windows で Shift JIS なら 'SJIS' にする
+  puts 'abcdef'.tr('a-z', 'Ａ-Ｚ')
+
+$KCODE はこのスクリプト自体の文字コードあわせて設定します。

@@ -1,0 +1,32 @@
+visibility=public
+kind=defined
+names=getpwnam
+
+--- getpwnam(name)
+
+passwd データベースを検索し、
+名前が name である passwd エントリを返します。
+戻り値は passwd 構造体で、以下のメンバを持ちます。
+
+  struct passwd
+    name        # ユーザ名(文字列)
+    passwd      # パスワード(文字列)
+    uid         # ユーザID(整数)
+    gid         # グループID(整数)
+    gecos       # gecosフィールド(文字列)
+    dir         # ホームディレクトリ(文字列)
+    shell       # ログインシェル(文字列)
+    # 以降のメンバはシステムによっては提供されない
+    change      # パスワード変更時間(整数)
+    quota       # クォータ(整数)
+    age         # エージ(整数)
+    class       # ユーザアクセスクラス(文字列)
+    comment     # コメント(文字列)
+    expire      # アカウント有効期限(整数)
+  end
+
+名前が name である passwd エントリがなかった場合、
+ArgumentError が発生します。
+
+詳細は [[man:getpwnam(3)]] を参照してください。
+

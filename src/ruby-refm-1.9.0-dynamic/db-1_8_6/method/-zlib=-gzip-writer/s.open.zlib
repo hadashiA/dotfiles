@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=open
+
+--- open(filename[, level[, strategy]])
+--- open(filename[, level[, strategy]]) {|gz| ... }
+
+filename で指定されるファイルを gzip 圧縮データの
+書き出し用にオープンします。GzipWriter オブジェクトを返します。
+その他詳細は [[m:Zlib::GzipWriter.new]] や [[m:Zlib::GzipWriter.wrap]] と
+同じです。
+
+

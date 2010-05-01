@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=run=,run?
+
+--- run?        -> bool
+--- run=(flag)  
+
+trueをセットすると[[c:Test::Unit]]はユニットテストを自動実行``しなくなります''。
+runは過去分詞のrunです。trueにするとテストを実行し終えたという意味になります。
+
+

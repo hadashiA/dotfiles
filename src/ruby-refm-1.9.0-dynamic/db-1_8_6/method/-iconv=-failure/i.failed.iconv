@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=failed
+
+--- failed    -> String
+
+[[c:Iconv]] に渡された文字列のうち、
+例外が起こった位置からはじまる部分を返します。
+

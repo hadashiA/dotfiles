@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=check_encoding
+
+--- check_encoding(str)
+
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=delete,unlink
+
+--- unlink
+--- delete
+self が指すディレクトリあるいはファイルを削除します。
+
+

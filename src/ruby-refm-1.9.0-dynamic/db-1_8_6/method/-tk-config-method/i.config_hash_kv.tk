@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=config_hash_kv
+
+--- config_hash_kv(keys, enc_mode = nil, conf = nil)
+

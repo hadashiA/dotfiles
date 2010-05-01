@@ -1,0 +1,24 @@
+visibility=public
+kind=defined
+names=permutation
+
+--- permutation(n) { |p| block }       -> Array
+--- permutation(n)                     -> Enumerable::Enumerator
+
+When invoked with a block, yield all permutations of length n
+of the elements of ary, then return the array itself. The implementation
+makes no guarantees about the order in which the permutations
+are yielded.
+
+When invoked without a block, return an enumerator object instead.
+
+Examples:
+
+    a = [1, 2, 3]
+    a.permutation(1).to_a  #=> [[1],[2],[3]]
+    a.permutation(2).to_a  #=> [[1,2],[1,3],[2,1],[2,3],[3,1],[3,2]]
+    a.permutation(3).to_a  #=> [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+    a.permutation(0).to_a  #=> [[]]: one permutation of length 0
+    a.permutation(4).to_a  #=> []  : no permutations of length 4
+
+

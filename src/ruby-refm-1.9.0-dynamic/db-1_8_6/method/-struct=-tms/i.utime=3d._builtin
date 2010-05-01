@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=utime=
+
+--- utime=(n)
+ユーザー CPU 時間をセットします。
+
+

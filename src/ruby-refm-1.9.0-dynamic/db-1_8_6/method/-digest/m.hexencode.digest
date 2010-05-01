@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=hexencode
+
+--- hexencode(string)
+
+Generates a hex-encoded version of a given string. 
+

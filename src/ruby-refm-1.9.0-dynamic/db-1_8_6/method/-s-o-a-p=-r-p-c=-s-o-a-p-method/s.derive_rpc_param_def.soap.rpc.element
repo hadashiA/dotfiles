@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=derive_rpc_param_def
+
+--- derive_rpc_param_def(obj, name, *param)
+

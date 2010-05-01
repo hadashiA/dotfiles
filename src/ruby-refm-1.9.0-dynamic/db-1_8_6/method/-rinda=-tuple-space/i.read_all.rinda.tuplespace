@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=read_all
+
+--- read_all(tuple)
+
+Returns all tuples matching +tuple+. Does not remove the found
+tuples.
+
+

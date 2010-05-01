@@ -1,0 +1,6 @@
+visibility=public
+kind=added
+names=event_generate
+
+--- event_generate(context, keys = nil)
+

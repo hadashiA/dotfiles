@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=link
+
+--- link(file_from, file_to)
+
+Fileクラスにある同名のクラスメソッドと同じです.
+

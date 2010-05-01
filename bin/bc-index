@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+require 'bitclust'
+require 'optparse'
+
+def names(db)
+  libs = db.libraries.map{|lib| [:l, lib.name] }
+  classes = db.classes.map{|c| [:c, c.name] }
+  methods = db.classes.inject([]){|a, c| a.concat c.entries.map{|m| m.labels }.flatten.uniq.map{|m| [:m, m] } }
+  (libs + classes + methods).sort_by {|e| e[1].downcase }.map{|kind,x| "#{kind}/#{x}"}
+end
+
+def db(prefix)
+  BitClust::Database.new(prefix)
+#   unless capi
+#     db = BitClust::Database.new(prefix)
+#   else
+#     db = BitClust::FunctionDatabase.new(prefix)
+#   end
+end
+
+def identity(entries)
+  entries
+end
+
+def escape(kw)
+  kw.gsub(/"/){ '\\' + '"' }
+end
+
+def sexp(entries)
+  entries.map{|e| %Q!# (refe2x "#{escape(e)}")! }
+end
+
+@filter = :identity
+ARGV.options {|o|
+  o.on("-d", "--database=PATH", "Database prefix.") {|x| @prefix = x }
+  o.on("--sexp", "Output sexps for Emacs.") {|x| @filter = :sexp }
+  if ARGV.empty?
+    print o
+    exit 1
+  end
+  o.parse!
+}
+
+puts __send__(@filter, names(db(@prefix)))
+

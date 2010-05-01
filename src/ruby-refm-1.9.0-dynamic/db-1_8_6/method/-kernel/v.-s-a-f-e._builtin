@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=SAFE
+
+--- $SAFE
+
+カレントスレッドのセーフレベルを表す整数です。セーフレベルについては
+[[unknown:セキュリティモデル]]を参照してください。
+
+Thread.current.safe_level と同じです。
+
+この変数はスレッドローカルです。
+

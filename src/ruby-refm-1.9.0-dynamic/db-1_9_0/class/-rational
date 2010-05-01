@@ -1,0 +1,9 @@
+superclass=Numeric
+type=class
+library=rational
+extended=
+included=
+
+Integer < Rational < Float の順に強いです。つまり other が Float なら、
+self を Float に変換してから演算子を適用します。other が Integer なら other を
+Rational に変換してから演算子を適用します。冪乗は例外です。

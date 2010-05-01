@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=test_loopback_response,test_loopback_response=
+
+--- test_loopback_response
+--- test_loopback_response=(value)
+

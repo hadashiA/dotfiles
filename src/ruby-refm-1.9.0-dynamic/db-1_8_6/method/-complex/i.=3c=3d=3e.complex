@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=<=>
+
+--- <=>(c)
+cとselfの絶対値absを比較した結果を返します。
+

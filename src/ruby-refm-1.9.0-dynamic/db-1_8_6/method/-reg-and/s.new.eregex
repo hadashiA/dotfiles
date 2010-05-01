@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(re1, re2)
+
+新しい RegAnd オブジェクトを生成します。
+

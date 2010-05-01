@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=
+classes=Sync,Sync_m,Synchronizer,Synchronizer_m
+is_sublibrary=false
+
+

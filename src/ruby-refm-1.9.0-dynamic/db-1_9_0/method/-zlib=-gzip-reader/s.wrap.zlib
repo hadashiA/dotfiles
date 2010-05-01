@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=wrap
+
+--- wrap(io) {|gz| ... }
+
+と関連付けられた GzipReader オブジェクトを作成し、
+それを引数としてブロックを実行します。
+ブロックの実行が終了すると、GzipReader オブジェクトは自動的に
+クローズされます。関連付けられている IO オブジェクトまで
+クローズしたくない時は、ブロック中で [[m:Zlib::GzipFile#finish]]
+メソッドを呼び出して下さい。
+

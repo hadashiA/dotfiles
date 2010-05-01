@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=delete_passwd
+
+--- delete_passwd(realm, user)
+realm に属するユーザ user のパスワードを削除する。
+

@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=sync_synchronize,synchronize
+
+--- sync_synchronize(mode = EX) {...}
+--- synchronize(mode = EX) {...}
+ロック状態を変更してブロックを実行する。

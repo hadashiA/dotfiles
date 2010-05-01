@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=ret_val
+
+--- ret_val(val)
+
+def self._get_extra_args_tbl
+
+  # return an array of convert procs
+  []
+
+end
+

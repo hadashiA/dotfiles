@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=clone_menu
+
+--- clone_menu(*args)
+

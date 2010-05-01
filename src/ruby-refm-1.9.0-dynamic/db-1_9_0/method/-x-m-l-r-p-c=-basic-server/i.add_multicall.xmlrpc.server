@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=add_multicall
+
+--- add_multicall
+Adds the multi-call handler "system.multicall".
+

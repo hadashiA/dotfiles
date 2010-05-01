@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=soap.baseData,soap.element,soap.mapping.typeMap,soap.soap,soap.encodingstyle.handler
+classes=SOAP=EncodingStyle=ASPDotNetHandler,SOAP=EncodingStyle=ASPDotNetHandler=SOAPTemporalObject,SOAP=EncodingStyle=ASPDotNetHandler=SOAPUnknown
+is_sublibrary=true
+
+

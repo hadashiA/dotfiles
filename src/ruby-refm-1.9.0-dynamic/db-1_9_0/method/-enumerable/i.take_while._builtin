@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=take_while
+
+--- take_while {|arr| block }   -> Array
+
+Passes elements to the block until the block returns nil or false,
+then stops iterating and returns an array of all prior elements.
+
+   a = [1, 2, 3, 4, 5, 0]
+   a.take {|i| i < 3 }   # => [1, 2]
+

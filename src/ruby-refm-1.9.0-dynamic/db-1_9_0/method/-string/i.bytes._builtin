@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=bytes
+
+--- bytes -> Enumerable::Enumerator
+
+文字列をバイト配列 (を表す Enumerator) に分割します。
+
+例:
+    p "string".bytes   # => [115, 116, 114, 105, 110, 103]
+

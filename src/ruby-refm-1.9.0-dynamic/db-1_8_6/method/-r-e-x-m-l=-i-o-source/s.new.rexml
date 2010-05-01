@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(arg, block_size = 500)
+

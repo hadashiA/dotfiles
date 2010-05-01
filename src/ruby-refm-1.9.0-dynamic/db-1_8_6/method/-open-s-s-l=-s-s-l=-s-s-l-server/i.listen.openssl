@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=listen
+
+--- listen
+
+[[m:TCPServer#listen]] と同様です。
+

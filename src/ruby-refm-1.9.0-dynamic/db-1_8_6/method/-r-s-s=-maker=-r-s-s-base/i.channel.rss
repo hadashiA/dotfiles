@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=channel
+
+--- channel
+channel要素を生成するオブジェクトを返します．
+

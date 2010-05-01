@@ -1,0 +1,14 @@
+visibility=public
+kind=defined
+names=minmax_by
+
+--- minmax_by {| obj| block }   -> [min, max]
+
+Returns two elements array array containing the objects in enum
+that gives the minmum and maximum values respectively from the
+given block.
+
+   a = %w(albatross dog horse)
+   a.minmax_by {|x| x.length }   #=> ["dog", "albatross"]
+
+

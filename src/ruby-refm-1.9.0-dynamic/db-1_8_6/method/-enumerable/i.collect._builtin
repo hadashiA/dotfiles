@@ -1,0 +1,17 @@
+visibility=public
+kind=defined
+names=collect,map
+
+--- collect {|item| ... } -> [Object]
+--- map {|item| ... }     -> [Object]
+
+各要素に対してブロックを評価した結果を全て含む配列を返します。
+
+ブロックを省略した場合、
+obj.collect {|item| item } を実行します。
+これは [[m:Enumerable#to_a]] と同じです。
+
+例:
+    # すべて 3 倍にする
+    p [1, 2, 3].map {|n| n * 3 }  # => [3, 6, 9]
+

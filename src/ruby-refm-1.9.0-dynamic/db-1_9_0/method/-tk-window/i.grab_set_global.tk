@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=grab_set_global,set_global_grab
+
+--- grab_set_global
+--- set_global_grab
+

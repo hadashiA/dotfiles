@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=rc
+
+--- rc
+
+~/.irbrc を読み込んでいたら true を返します。
+読み込んでいなければ false を返します。
+

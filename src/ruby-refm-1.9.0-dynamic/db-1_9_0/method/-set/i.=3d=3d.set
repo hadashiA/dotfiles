@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names===
+
+--- ==(set)
+
+2つの集合が等しいときに true を返します。
+要素の等しさは Object#eql? で検査されます。
+

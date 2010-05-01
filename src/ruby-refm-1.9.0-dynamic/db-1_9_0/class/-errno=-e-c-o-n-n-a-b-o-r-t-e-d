@@ -1,0 +1,7 @@
+superclass=SystemCallError
+type=class
+library=webrick.compat
+extended=
+included=
+
+

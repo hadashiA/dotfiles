@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=do_GET,do_POST
+
+--- do_GET(req, res)
+--- do_POST(req, res)
+

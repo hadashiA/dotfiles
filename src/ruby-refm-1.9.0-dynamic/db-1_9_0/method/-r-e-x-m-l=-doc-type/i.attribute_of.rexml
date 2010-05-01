@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=attribute_of
+
+--- attribute_of(element, attribute)
+

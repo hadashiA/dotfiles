@@ -1,0 +1,5 @@
+visibility=public
+kind=defined
+names=MUTEX_FOR_THREAD_EXCLUSIVE
+
+--- MUTEX_FOR_THREAD_EXCLUSIVE

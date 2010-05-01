@@ -1,0 +1,10 @@
+superclass=
+type=module
+library=openssl
+extended=
+included=
+
+  * [[c:OpenSSL::X509::Certificate]]
+  * [[c:OpenSSL::X509::Store]]
+
+以下は OpenSSL::X509::Store#purpose にセットされる値です。

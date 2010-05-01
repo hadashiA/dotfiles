@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=getwd,pwd
+
+--- pwd
+--- getwd
+
+プロセスのカレントディレクトリを文字列で返します。
+

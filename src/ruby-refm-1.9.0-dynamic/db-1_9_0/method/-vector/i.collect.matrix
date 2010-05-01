@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=collect,map
+
+--- collect {|x| ... }
+--- map {|x| ... }
+
+ベクトルの各要素に対してブロックを評価した結果を、要素として持つベクトルを生成します。
+

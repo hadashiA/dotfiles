@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=new
+
+--- new
+--- new(str)
+--- new(io)
+
+証明書オブジェクトを生成します。
+

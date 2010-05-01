@@ -1,0 +1,18 @@
+visibility=public
+kind=defined
+names=def_system_command
+
+--- def_system_command(command, path = command)
+
+Shellのメソッドとしてcommandを登録します.
+
+OS上のコマンドを実行するにはまず, Shellのメソッドとして定義します.
+注) コマンドを定義しなくとも直接実行できるShell#systemコマンドもあります.
+
+例)
+  Shell.def_system_command "ls"
+  ls を定義
+
+  Shell.def_system_command "sys_sort", "sort"
+  sortコマンドをsys_sortとして定義
+

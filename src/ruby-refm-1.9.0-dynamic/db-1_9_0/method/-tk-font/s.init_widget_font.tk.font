@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=init_widget_font
+
+--- init_widget_font(pathname, *args)
+

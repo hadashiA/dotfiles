@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=MAX_10_EXP,MIN_10_EXP
+
+--- MAX_10_EXP
+--- MIN_10_EXP
+
+最大／最小の 10 進の指数
+

@@ -1,0 +1,7 @@
+superclass=Net=IMAP=Error
+type=class
+library=net.imap
+extended=
+included=
+
+Error raised when a response from the server is non-parseable.

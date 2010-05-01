@@ -1,0 +1,21 @@
+visibility=public
+kind=defined
+names=det,determinant
+
+--- determinant
+--- det
+
+行列式 (determinant) を返す。
+
+注意:
+
+全ての要素が整数である場合、正しい答を返さないかも知れません。
+その場合は [[lib:mathn]] を require して下さい。
+
+ p Matrix[[2, 1], [-1, 2]].det #=> 6
+ 
+ p Matrix[[2.0, 1.0], [-1.0, 2.0]].det #=> 5.0
+
+ require 'mathn'
+ p Matrix[[2, 1], [-1, 2]].det #=> 5
+

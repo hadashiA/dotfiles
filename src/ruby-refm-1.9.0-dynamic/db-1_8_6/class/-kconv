@@ -1,0 +1,27 @@
+superclass=
+type=module
+library=kconv
+extended=
+included=
+
+文字コードエンコーディングを変換するためのモジュール。
+[[c:Kconv]] は [[lib:nkf]] のラッパーです。
+
+see also: [[m:kconv#String に追加されるメソッド]]
+
+[[trap:Kconv]]
+
+=== 使用例
+
+  newstring = Kconv.kconv(string, Kconv::JIS, Kconv::AUTO)
+  newstring = Kconv.tojis(string)
+  newstring = Kconv.toeuc(string)
+  newstring = Kconv.tosjis(string)
+  guessed_code = Kconv.guess(string)
+
+または
+
+  newstring = string.kconv(Kconv::JIS, Kconv::AUTO)
+  newstring = string.tojis
+  newstring = string.toeuc
+  newstring = string.tosjis

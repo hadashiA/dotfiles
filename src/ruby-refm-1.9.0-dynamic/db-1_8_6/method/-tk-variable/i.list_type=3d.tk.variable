@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=list_type=,set_list_type
+
+--- list_type=
+--- set_list_type(val)
+

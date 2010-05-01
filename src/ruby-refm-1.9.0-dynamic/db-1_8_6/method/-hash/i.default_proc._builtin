@@ -1,0 +1,20 @@
+visibility=public
+kind=defined
+names=default_proc
+
+--- default_proc -> Proc|nil
+
+ハッシュのデフォルト値を返す [[c:Proc]] オブジェクトを返します。
+ハッシュがブロックのデフォルト値を持たない場合 nil を返します。
+
+  h = Hash.new {|hash, key| "The #{key} not exit in #{hash.inspect}"}
+  p h.default              #=> nil
+  p block = h.default_proc #=> #<Proc:0x0x401a9ff4>
+  p block.call({},:foo)    #=> "The foo not exit in {}"
+  
+  h = Hash.new("default")
+  p h.default              #=> "default"
+  p h.default_proc         #=> nil
+
+@see [[m:Hash#default]]
+

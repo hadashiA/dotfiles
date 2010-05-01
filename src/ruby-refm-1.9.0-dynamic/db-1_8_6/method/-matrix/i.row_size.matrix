@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=row_size
+
+--- row_size
+
+行の大きさを返す。
+

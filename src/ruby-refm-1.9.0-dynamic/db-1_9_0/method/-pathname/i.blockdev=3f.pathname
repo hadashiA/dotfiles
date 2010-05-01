@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=blockdev?
+
+--- blockdev?
+FileTest.blockdev?(self.to_s) と同じです。 (cf. [[m:FileTest.#blockdev?]])
+

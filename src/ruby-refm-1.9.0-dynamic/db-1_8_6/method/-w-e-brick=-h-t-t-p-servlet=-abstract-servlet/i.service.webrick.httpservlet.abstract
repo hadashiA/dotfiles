@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=service
+
+--- service(req, res)
+最初にサーバーから呼び出されるメソッド。この service メソッドが
+クライアントの HTTP リクエストメソッドに応じて、
+do_GET, do_HEAD, do_POST, do_OPTIONS... などを呼ぶ。
+

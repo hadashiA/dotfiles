@@ -1,0 +1,12 @@
+superclass=
+type=module
+library=rbconfig
+extended=
+included=
+
+[[unknown:執筆者募集]]
+
+Ruby インタプリタ作成時に設定された情報を格納したライブラリです。
+Config モジュールを定義します。
+
+RbConfig モジュールを Config と同じものとして定義します。

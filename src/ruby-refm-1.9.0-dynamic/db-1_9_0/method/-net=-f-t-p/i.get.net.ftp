@@ -1,0 +1,20 @@
+visibility=public
+kind=defined
+names=get
+
+--- get(remotefile, localfile = File.basename(remotefile), blocksize = DEFAULT_BLOCKSIZE)
+--- get(remotefile, localfile = File.basename(remotefile), blocksize = DEFAULT_BLOCKSIZE) { |data| .... }
+
+binary の値に従ってリモートファイルを取得し、
+localfile をファイル名とするローカルファイルに保存します。
+remotefile が省略されると localfile のベースネームが
+仮定されます。
+block_size が省略されると DEFAULT_BLOCLSIZE が仮定されます。
+この値は binary が真であるときのみ有効です。
+
+ブロックが与えられた場合はそのデータをファイルに書きこむごとに、
+書き込んだデータを data に代入してブロックが評価されます。
+ブロックを最後に評価したときに得られた値が get の値になります。
+
+ブロックが与えられなかった場合の get の値は nil です。
+

@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=read_with_substitution
+
+--- read_with_substitution(input, illegal = nil)
+

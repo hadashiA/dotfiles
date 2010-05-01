@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=__add_xmlele_value
+
+--- __add_xmlele_value(qname, value)
+
+

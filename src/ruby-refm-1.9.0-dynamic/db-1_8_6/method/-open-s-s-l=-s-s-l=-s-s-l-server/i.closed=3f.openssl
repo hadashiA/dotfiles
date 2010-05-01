@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=closed?
+
+--- closed?
+
+close していたら true を返します。
+

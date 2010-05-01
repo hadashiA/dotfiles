@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=connect
+
+--- connect(host, port)
+
+ソケットを host の port に connect します。
+

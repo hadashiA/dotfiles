@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=cweek
+
+--- cweek -> Integer
+暦週を返します (1-53)。
+

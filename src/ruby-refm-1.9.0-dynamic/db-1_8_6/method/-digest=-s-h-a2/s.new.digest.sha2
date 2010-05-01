@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(bitlen = 256)
+Creates a new SHA2 hash object with a given bit length.

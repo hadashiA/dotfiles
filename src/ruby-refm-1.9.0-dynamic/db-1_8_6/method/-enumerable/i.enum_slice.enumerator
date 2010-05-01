@@ -1,0 +1,12 @@
+visibility=public
+kind=added
+names=enum_slice
+
+--- enum_slice(n) -> Enumerable::Enumerator
+
+n 要素ずつ繰り返す Enumerator を返します。
+Enumerable::Enumerator.new(self, :each_slice, n) と同じです。
+
+@arg n   区切る要素数を示す整数です。
+@see [[m:Enumerable#each_cons]]
+

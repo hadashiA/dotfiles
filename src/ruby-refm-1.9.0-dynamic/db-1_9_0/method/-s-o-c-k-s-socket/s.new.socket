@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=new,open
+
+--- open(host, service)
+--- new(host, service)
+
+host で指定したホストの service で指定したポートと接続したソケッ
+トを返します。host はホスト名、または octet decimal
+によるインターネットアドレスを示す文字列、service
+は /etc/services (または NIS) に登録されているサー
+ビス名かポート番号です。
+

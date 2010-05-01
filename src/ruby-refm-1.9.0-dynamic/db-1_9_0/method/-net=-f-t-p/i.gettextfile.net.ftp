@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=gettextfile
+
+--- gettextfile(remotefile, localfile, callback = nil)
+
+サーバー上のテキストファイルを get します。
+
+callback やブロックが指定された場合は
+データが送信されるごとにそれを呼び出します。
+
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=~
+
+--- ~        -> Fixnum | Bignum
+ビット演算子。否定を計算します。
+
+@return      数値
+

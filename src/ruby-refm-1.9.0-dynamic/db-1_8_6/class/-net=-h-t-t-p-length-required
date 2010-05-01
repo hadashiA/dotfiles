@@ -1,0 +1,7 @@
+superclass=Net=HTTPClientError
+type=class
+library=net.http
+extended=
+included=
+
+411

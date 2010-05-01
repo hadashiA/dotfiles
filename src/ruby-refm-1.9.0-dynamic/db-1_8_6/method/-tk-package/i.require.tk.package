@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=require
+
+--- require(package, version=None)
+

@@ -1,0 +1,11 @@
+visibility=private 
+kind=added
+names=touch
+
+--- touch -> ()
+Update the access and modification times of each FILE to the current time.
+
+  ruby -run -e touch -- [OPTION] FILE
+
+  -v          verbose
+

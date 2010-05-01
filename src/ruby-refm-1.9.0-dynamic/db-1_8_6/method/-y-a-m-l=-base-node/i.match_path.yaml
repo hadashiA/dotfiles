@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=match_path
+
+--- match_path(ypath_str)
+

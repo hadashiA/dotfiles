@@ -1,0 +1,8 @@
+visibility=private 
+kind=added
+names=CONFIG
+
+--- CONFIG
+
+[[m:Config::MAKEFILE_CONFIG]] と同じです。
+

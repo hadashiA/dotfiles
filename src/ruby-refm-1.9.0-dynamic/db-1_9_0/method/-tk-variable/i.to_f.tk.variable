@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=to_f
+
+--- to_f
+
+値を数値([[c:Float]])として返します。
+
+

@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=_callback_entry_class?
+
+--- _callback_entry_class?(klass)
+
+

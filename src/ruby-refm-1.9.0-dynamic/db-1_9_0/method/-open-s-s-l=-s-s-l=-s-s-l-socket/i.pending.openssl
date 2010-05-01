@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=pending
+
+--- pending
+
+読み取り可能なバイト数を返します。
+

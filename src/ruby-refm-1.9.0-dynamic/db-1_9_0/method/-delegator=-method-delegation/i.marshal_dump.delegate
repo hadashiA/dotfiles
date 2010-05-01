@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=marshal_dump
+
+--- marshal_dump
+
+Serialization support for the object returned by __getobj__.
+

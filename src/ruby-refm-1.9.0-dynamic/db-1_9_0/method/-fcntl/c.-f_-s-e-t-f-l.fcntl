@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=F_SETFL
+
+--- F_SETFL
+set file descriptor flags.
+

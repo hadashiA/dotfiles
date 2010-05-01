@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=attributes
+
+--- attributes(slot = nil, value = Tk::None)
+

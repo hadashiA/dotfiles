@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=get_default_handler
+
+--- get_default_handler
+Returns the default-handler, which is called when no handler for
+a method-name is found.
+It is a Proc object or nil.
+

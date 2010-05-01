@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=pushd,pushdir
+
+--- pushd(path = nil, &block)
+--- pushdir
+
+カレントディレクトリをディレクトリスタックにつみ, カレントディレク
+トリをpathにする. pathが省略されたときには, カレントディレクトリと
+ディレクトリスタックのトップを交換する. イテレータとして呼ばれたと
+きには, ブロック実行中のみpushdする.
+

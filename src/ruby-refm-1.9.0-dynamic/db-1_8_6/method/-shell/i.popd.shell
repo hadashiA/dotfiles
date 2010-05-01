@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=popd,popdir
+
+--- popd
+--- popdir
+
+ディレクトリスタックからポップし, それをカレントディレクトリにする.
+

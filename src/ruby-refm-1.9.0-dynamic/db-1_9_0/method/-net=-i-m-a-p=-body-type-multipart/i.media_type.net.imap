@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=media_type
+
+--- media_type
+
+Returns the content media type name as defined in [MIME-IMB].
+

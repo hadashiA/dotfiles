@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=entries
+
+--- entries
+Dir.entries(self.to_s) と同じです。 (cf. [[m:Dir.entries]])
+
+

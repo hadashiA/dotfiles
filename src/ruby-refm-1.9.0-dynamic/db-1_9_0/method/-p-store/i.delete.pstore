@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=delete
+
+--- delete(name)
+
+ルートnameに対応する値を削除する。
+[[m:Hash#delete]]に相当。
+

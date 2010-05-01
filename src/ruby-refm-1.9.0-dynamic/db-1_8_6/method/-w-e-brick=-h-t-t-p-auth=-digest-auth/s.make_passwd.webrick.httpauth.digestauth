@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=make_passwd
+
+--- make_passwd(realm, user, pass)
+

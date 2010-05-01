@@ -1,0 +1,36 @@
+visibility=public
+kind=defined
+names=open
+
+--- open(ident=$0, options=Syslog::LOG_PID|Syslog::LOG_CONS, facility=Syslog::LOG_USER)
+--- open(ident=$0, options=Syslog::LOG_PID|Syslog::LOG_CONS, facility=Syslog::LOG_USER) { |syslog| ... }
+
+与えられた引数でsyslogを開く。以降、他の Syslog モジュール関数が使
+用可能となる。
+
+ブロック付きで呼ばれた場合は、self を引数としてブロックを実行し、
+最後に Syslog.close を行う。
+
+syslogを既に開いていた場合は[[c:RuntimeError]]が発生する。
+
+ident はすべてのログにつく識別子で、どのプログラムから送られ
+たログなのかを識別するために使われる。通常プログラム名が使われる。
+
+options には、Syslog.open や Syslog.log の動作を制御するフラ
+グを指定する。
+
+facility には、ログ出力を行うプログラムの種別を指定する。
+syslog はこの値にしたがって出力先となるログファイルを決める。
+[[man:syslog.conf(5)]] 参照)
+
+options と facility に指定できる値については
+[[c:Syslog::Constants]] を参照。
+
+      例:
+        Syslog.open('ftpd', Syslog::LOG_PID | Syslog::LOG_NDELAY,
+                    Syslog::LOG_FTP)
+
+self を返す。
+
+syslog の詳細については [[man:syslog(3)]] を参照。
+

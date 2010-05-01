@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=finished?,stream_end?
+
+--- finished?
+--- stream_end?
+
+ストリームへの入力が終了している時に真を返します。
+

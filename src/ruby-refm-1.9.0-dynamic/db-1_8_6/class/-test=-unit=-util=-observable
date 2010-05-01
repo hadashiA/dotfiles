@@ -1,0 +1,9 @@
+superclass=
+type=module
+library=test.unit.util.observable
+extended=
+included=
+
+This is a utility class that allows anything mixing
+it in to notify a set of listeners about interesting
+events.

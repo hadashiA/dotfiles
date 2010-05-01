@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=_thread_tkwait
+
+--- _thread_tkwait(mode, target)
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=refresh
+
+--- refresh
+
+ウィンドウの表示を更新します。
+

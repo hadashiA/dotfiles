@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=get_cb_entry
+
+--- get_cb_entry(cmd)
+

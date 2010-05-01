@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=bool_type=,set_bool_type
+
+--- bool_type=
+--- set_bool_type(val)
+

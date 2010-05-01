@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=return_code
+
+--- return_code
+
+現在のセッションの改行コードを返します。
+

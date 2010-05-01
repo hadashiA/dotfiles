@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=exp
+
+--- exp(x) -> Float
+
+x の指数関数の値を返します。
+
+@param x 実数
+

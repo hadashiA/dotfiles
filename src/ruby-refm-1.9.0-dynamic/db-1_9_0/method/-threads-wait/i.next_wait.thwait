@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=next_wait
+
+--- next_wait
+
+waits until any of specified threads is terminated.
+

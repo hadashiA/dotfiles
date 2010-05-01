@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=send_io
+
+--- send_io(io)
+
+IO や Fixnum に対応するファイルディスクリプタをソケットの接続先に送ります。

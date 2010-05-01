@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=fatal
+
+--- fatal(progname = nil) { ... }
+--- fatal(message = nil)
+--- fatal { ... }
+
+FATAL 情報を記録します。debug を参照して下さい。
+

@@ -1,0 +1,5 @@
+visibility=public
+kind=defined
+names=filter_ns
+
+--- filter_ns(ns, attrs)

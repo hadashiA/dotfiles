@@ -1,0 +1,6 @@
+visibility=public
+kind=added
+names=bubblebabble
+
+--- bubblebabble(string)
+Returns a BubbleBabble encoded version of a given string.

@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=to_proc
+
+--- to_proc
+
+Returns a Proc object which respond to the given method by sym.
+
+  (1..3).collect(&:to_s)  #=> ["1", "2", "3"]
+

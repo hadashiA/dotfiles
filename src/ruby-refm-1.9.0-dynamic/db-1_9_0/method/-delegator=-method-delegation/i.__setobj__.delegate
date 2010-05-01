@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=__setobj__
+
+--- __setobj__(obj)
+
+This method must be overridden by subclasses and change the object
+delegate to obj.
+

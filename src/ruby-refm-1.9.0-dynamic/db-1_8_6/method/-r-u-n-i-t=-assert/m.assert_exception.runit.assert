@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=assert_exception
+
+--- assert_exception(exception[, message]) { ... }
+
+ブロックを実行中に例外 exception が発生することを表明します。
+ブロックを実行しても例外 exception が発生しなかったら
+このアサーションは失敗します。
+message はアサート失敗時のエラーメッセージです。
+

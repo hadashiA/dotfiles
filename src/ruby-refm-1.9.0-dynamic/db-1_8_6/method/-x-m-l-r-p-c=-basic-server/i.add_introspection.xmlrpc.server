@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=add_introspection
+
+--- add_introspection
+Adds the introspection handlers "system.listMethods", "system.methodSignature" and "system.methodHelp",
+where only the first one works.
+

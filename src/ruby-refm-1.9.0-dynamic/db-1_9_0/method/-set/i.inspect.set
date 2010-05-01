@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=inspect
+
+--- inspect
+
+人間の読みやすい形に表現した文字列を返します。

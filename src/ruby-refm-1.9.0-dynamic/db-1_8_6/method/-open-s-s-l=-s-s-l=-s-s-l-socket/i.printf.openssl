@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=printf
+
+--- printf(format[, arg[, ...]])
+
+[[m:IO#printf]] と同様です。
+

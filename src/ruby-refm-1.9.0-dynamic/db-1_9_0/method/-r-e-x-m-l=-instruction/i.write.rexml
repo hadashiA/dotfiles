@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=write
+
+--- write(writer, indent = -1, transitive = false, ie_hack = false)
+

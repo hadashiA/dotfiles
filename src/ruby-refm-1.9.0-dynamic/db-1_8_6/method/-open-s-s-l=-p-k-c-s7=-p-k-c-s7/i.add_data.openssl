@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=add_data
+
+--- add_data(data)
+
+署名の対象となるデータに data を加えます。
+

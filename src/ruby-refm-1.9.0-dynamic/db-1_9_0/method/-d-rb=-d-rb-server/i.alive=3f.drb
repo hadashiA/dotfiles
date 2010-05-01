@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=alive?
+
+--- alive?
+
+Is this server alive? 
+

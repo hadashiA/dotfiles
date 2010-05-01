@@ -1,0 +1,17 @@
+visibility=public
+kind=redefined
+names=tr_s,tr_s!
+
+--- tr_s(search, replace)
+--- tr_s!(search, replace)
+
+[[m:String#tr_s]] ¤ÎÆüËÜ¸ìÂÐ±þÈÇ¤Ç¤¹¡£
+
+  $KCODE = 'EUC'
+
+  p "foo".tr_s("o", "f")        # => "ff"
+  p "£æ£ï£ï".tr_s("£ï", "£æ")   # => TODO: fill result
+
+  require 'jcode'
+  p "foo".tr_s("o", "f")        # => "ff"
+  p "£æ£ï£ï".tr_s("£ï", "£æ")   # => "£æ£æ"

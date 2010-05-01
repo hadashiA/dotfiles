@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=dup
+
+--- dup
+
+Duplication support for the object returned by __getobj__.
+

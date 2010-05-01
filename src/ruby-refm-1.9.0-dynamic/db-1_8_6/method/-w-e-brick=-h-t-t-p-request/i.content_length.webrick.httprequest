@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=content_length
+
+--- content_length    -> Intger
+
+リクエストの Content-Length ヘッダの値を整数で返します。リクエストに Content-Length ヘッダ
+が含まれていない場合は 0 を返します。
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=atime
+
+--- atime(file)
+
+Fileクラスにある同名のクラスメソッドと同じです.
+

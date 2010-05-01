@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=webrick.httprequest,webrick.httpstatus,webrick.log,webrick.config,webrick.httpservlet.erbhandler,webrick.htmlutils,webrick.accesslog,webrick.httpservlet.filehandler,webrick.cookie,webrick.httpservlet.abstract,webrick.httpservlet,webrick.httpresponse,webrick.httpservlet.prochandler,webrick.httputils,webrick.httpservlet.cgihandler,webrick.httpversion,webrick.server,webrick.version,webrick.utils
+classes=WEBrick=HTTPServerError,WEBrick=HTTPServer
+is_sublibrary=true
+
+

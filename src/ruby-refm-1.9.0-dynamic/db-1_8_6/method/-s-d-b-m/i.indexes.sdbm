@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=indexes,indices
+
+--- indexes(key_1, ... )
+--- indices(key_1, ... )
+
+このメソッドは obsolete です。
+
+各引数の値をキーとする要素を含む配列を返します。
+
+

@@ -1,0 +1,33 @@
+visibility=public
+kind=defined
+names=ln_s,symlink
+
+--- ln_s(src, dest, options = {})
+--- symlink(src, dest, options = {})
+
+src へのシンボリックリンク dest を作成します。
+dest がすでに存在しディレクトリであるときは dest/src を作成します。
+dest がすでに存在しディレクトリでないならば例外 Errno::ENOTDIR が発生します。
+ただし :force オプションを指定したときは dest を上書きします。
+
+options には :force, :noop, :verbose を指定できます。
+
+例:
+
+  FileUtils.ln_s('/usr/bin/ruby', '/usr/local/bin/ruby')
+  FileUtils.ln_s('verylongsourcefilename.c', 'c', {:force => true})
+
+--- ln_s(list, destdir, options = {})
+--- symlink(list, destdir, options = {})
+
+list[0]、list[1] …へのシンボリックリンク dir/list[0], dir/list[1] …を
+作成します。destdir がディレクトリでない場合は例外 Errno::ENOTDIR が
+発生します。
+ただし :force オプションを指定したときは dest を上書きします。
+
+options には :noop, :verbose を指定できます。
+
+例:
+
+  FileUtils.ln_s(Dir.glob('bin/*.rb'), '/home/aamine/bin')
+

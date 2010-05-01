@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=curx
+
+--- curx
+
+ウィンドウ内におけるカーソルの桁番号を返します。
+一桁目が 0 です。
+

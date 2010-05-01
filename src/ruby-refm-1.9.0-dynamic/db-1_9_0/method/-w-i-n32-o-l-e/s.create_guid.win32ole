@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=create_guid
+
+--- create_guid
+
+Creates GUID.
+
+   WIN32OLE.create_guid # => {1CB530F1-F6B1-404D-BCE6-1959BF91F4A8}
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=rm_f,safe_unlink
+
+--- rm_f(list, options = {})
+--- safe_unlink(list, options = {})
+
+FileUtils.rm(list, :force => true) と同じです。
+

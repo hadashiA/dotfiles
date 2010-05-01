@@ -1,0 +1,5 @@
+visibility=public
+kind=defined
+names=string_value
+
+--- string_value(o)

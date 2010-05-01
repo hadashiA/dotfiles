@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=define_singleton_method
+
+--- define_singleton_method(obj, name) { ... }
+

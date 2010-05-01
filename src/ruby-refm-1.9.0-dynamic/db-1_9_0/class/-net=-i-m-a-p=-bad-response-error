@@ -1,0 +1,9 @@
+superclass=Net=IMAP=ResponseError
+type=class
+library=net.imap
+extended=
+included=
+
+Error raised upon a "BAD" response from the server, indicating
+that the client command violated the IMAP protocol, or an internal
+server failure has occurred.

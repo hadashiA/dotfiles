@@ -1,0 +1,15 @@
+visibility=public
+kind=defined
+names=add_additional,add_answer,add_authority,add_question,each_additional,each_answer,each_authority,each_question,each_resource,encode
+
+--- add_question(name, typeclass)
+--- each_question
+--- add_answer(name, ttl, data)
+--- each_answer
+--- add_authority(name, ttl, data)
+--- each_authority
+--- add_additional(name, ttl, data)
+--- each_additional
+--- each_resource
+--- encode
+

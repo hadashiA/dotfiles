@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=cbreak,crmode
+
+--- cbreak
+--- crmode
+
+キーボード入力のバッファリングをやめます。
+

@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=assert_no_exception
+
+--- assert_no_exception(exceptions, ...[, message]) { ... }
+
+ブロックを実行中に例外 exceptions が発生しないことを表明します。
+ブロックを実行したときに例外 exception が発生すると
+このアサーションは失敗します。
+message はアサート失敗時のエラーメッセージです。
+

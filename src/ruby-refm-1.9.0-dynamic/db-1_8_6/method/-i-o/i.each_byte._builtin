@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=each_byte
+
+--- each_byte {|ch| ... }    -> self
+
+IO の現在位置から 1 バイトずつ読み込み、それを整数として与え、ブロックを実行します。
+
+@raise IOError 自身が読み込み用にオープンされていなければ発生します。
+

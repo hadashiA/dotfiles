@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=READER
+
+--- READER
+
+[[m:GDBM.open]] の第3引数に指定します。
+読み込みモードでオープンします。
+

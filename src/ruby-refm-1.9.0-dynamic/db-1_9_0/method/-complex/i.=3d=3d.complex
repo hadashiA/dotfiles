@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names===
+
+--- ==(c)
+c と等しければ、真を返します。
+
+

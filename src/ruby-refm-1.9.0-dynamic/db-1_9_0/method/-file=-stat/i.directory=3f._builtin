@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=directory?
+
+--- directory? -> bool
+ディレクトリの時に真を返します。
+
+  p File::Stat.new($0).directory? #=> false
+
+@see [[m:FileTest.#directory?]]
+

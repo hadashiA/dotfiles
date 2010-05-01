@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=ALT_SEPARATOR
+
+--- ALT_SEPARATOR
+
+システムのファイルパスのセパレータが SEPARATOR と異なる場合
+に設定されます。MS-DOS などでは "\" です。UNIX や
+[[c:Cygwin]] などでは nil です。
+

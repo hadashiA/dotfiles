@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=wsdl.xmlSchema.simpleExtension,xsd.ns,xsd.qname,wsdl.xmlSchema.parser,wsdl.xmlSchema.complexType,wsdl.xmlSchema.importer,wsdl.xmlSchema.simpleRestriction,wsdl.xmlSchema.choice,wsdl.xmlSchema.pattern,soap.property,wsdl.xmlSchema.schema,wsdl.info,wsdl.xmlSchema.complexContent,soap.httpconfigloader,wsdl.xmlSchema.content,wsdl.xmlSchema.data,wsdl.xmlSchema.annotation,wsdl.xmlSchema.simpleType,wsdl.xmlSchema.sequence,wsdl.xmlSchema.import,wsdl.xmlSchema.attribute,wsdl.xmlSchema.unique,wsdl.xmlSchema.length,wsdl.xmlSchema.element,wsdl.xmlSchema.simpleContent,wsdl.xmlSchema.all,wsdl.xmlSchema.enumeration,xsd.xmlparser,xsd.datatypes,wsdl.xmlSchema.include,wsdl.xmlSchema.any,xsd.namedelements,xsd.charset
+classes=WSDL=XMLSchema=ParseError,WSDL=XMLSchema=FormatDecodeError,WSDL=XMLSchema=UnknownElementError,WSDL=XMLSchema=UnknownAttributeError,WSDL=XMLSchema=UnexpectedElementError,WSDL=XMLSchema=ElementConstraintError,WSDL=XMLSchema=AttributeConstraintError,WSDL=XMLSchema=ParseFrame,WSDL=XMLSchema=Parser
+is_sublibrary=true
+
+

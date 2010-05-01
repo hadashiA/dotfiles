@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=try_convert
+
+--- try_convert(obj) -> Hash | nil
+
+Try to convert obj into a hash, using to_hash method. Returns
+converted hash or nil if obj cannot be converted for any reason.
+
+   Hash.try_convert({1=>2})   # => {1=>2}
+   Hash.try_convert("1=>2")   # => nil
+

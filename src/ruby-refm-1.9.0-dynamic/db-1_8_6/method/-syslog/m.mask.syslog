@@ -1,0 +1,14 @@
+visibility=public
+kind=defined
+names=mask,mask=
+
+--- mask
+--- mask=(mask)
+
+ログの優先度のマスクを取得または設定する。
+マスクは永続的であり、
+Syslog.openやSyslog.close
+ではリセットされない。
+       例:
+         Syslog.mask = Syslog::LOG_UPTO(Syslog::LOG_ERR)
+

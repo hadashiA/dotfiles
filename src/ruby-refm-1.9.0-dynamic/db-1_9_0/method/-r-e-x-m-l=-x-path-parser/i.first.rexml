@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=first
+
+--- first(path_stack, node)
+

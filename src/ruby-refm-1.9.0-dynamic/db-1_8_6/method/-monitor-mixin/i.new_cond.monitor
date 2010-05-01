@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=new_cond
+
+--- new_cond
+
+新しい [[c:MonitorMixin::ConditionVariable]] を生成して返します。
+
+

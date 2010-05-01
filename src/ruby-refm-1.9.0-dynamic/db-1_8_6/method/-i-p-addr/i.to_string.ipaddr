@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=to_string
+
+--- to_string
+
+標準的な文字列表現に変換します。
+

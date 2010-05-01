@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=>>
+
+--- >>(num)
+
+ビットごとの右シフト演算により、新しい IPAddr オブジェクトを生成します。
+

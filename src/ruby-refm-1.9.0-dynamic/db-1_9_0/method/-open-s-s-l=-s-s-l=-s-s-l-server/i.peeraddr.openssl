@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=peeraddr
+
+--- peeraddr
+
+[[m:IPSocket#peeraddr]] と同様です。
+

@@ -1,0 +1,18 @@
+visibility=public
+kind=defined
+names=flatten
+
+--- flatten -> Array
+--- flatten(level) -> Array
+
+Returns a new array that is a one-dimensional flattening of this
+hash. That is, for every key or value that is an array, extract
+its elements into the new array. Unlike Array#flatten, this method
+does not flatten recursively by default. If the optional level
+argument determins the level of recursion to flatten.
+
+   a =  {1=> "one", 2 => [2,"two"], 3 => "three"}
+   a.flatten    # => [1, "one", 2, [2, "two"], 3, "three"]
+   a.flatten(2) # => [1, "one", 2, 2, "two", 3, "three"]
+
+

@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=try_convert
+
+--- try_convert(obj) -> String | nil
+
+Try to convert obj into a String, using to_str method. Returns
+converted regexp or nil if obj cannot be converted for any reason.
+
+   String.try_convert("str")     # => str
+   String.try_convert(/re/)      # => nil
+
+
