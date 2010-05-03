@@ -1,4 +1,4 @@
-;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
+ ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
 ;; wdired
 ;; http://www.bookshelf.jp/soft/meadow_25.html#SEC292
@@ -55,3 +55,9 @@
           (setq dired-actual-switches sw)
           (dired-sort-other dired-actual-switches)))
     ))
+
+(defun dired-app-open ()
+  (interactive)
+  (let ((file (dired-get-filename)))
+    (shell-command-to-string (concat "open " file))))
+(define-key dired-mode-map "z" 'dired-app-open)
