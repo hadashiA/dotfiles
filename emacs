@@ -103,7 +103,7 @@
 (load "init-region")
 (load "init-minibuf")
 (load "init-killring")
-(load "init-acp")
+(load "init-skelton")
 (load "init-smartchr")
 (load "init-vimlike")
 (load "init-migemo")
