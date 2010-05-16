@@ -16,8 +16,3 @@
                (c-toggle-hungry-state t)
                (c-toggle-auto-state t)               
                (setq c-basic-offset 4 indent-tabs-mode nil)))
-
-
-
-
-

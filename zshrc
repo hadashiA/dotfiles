@@ -7,6 +7,14 @@ source ~/.exports
 source ~/.aliases
 source ~/.gitrc
 
+setopt nobeep
+setopt long_list_jobs
+setopt autopushd ## 同じディレクトリを pushd しない
+setopt auto_cd # ディレクトリ名だけでcdする
+setopt pushd_ignore_dups ## 同じディレクトリを pushd しない
+#setopt expanded_glob ## ファイル名で #, ~, ^ の 3 文字を正規表現として扱う
+setopt equals # =command を command のパス名に展開する
+
 # ------------------------------------------------------------------
 # callbacks
 # ------------------------------------------------------------------
@@ -100,8 +108,7 @@ setopt hist_ignore_all_dups # 同じコマンドをヒストリに残さない
 setopt hist_save_nodups # ヒストリファイルに保存するとき、すでに重複したコマンドがあったら古い方を削除する
 setopt hist_ignore_space # スペースから始まるコマンド行はヒストリに残さない
 setopt hist_reduce_blanks # ヒストリに保存するときに余分なスペースを削除する
-setopt auto_pushd
-setopt pushd_ignore_dups
+setopt hist_verify ## ヒストリを呼び出してから実行する間に一旦編集
 
 # 履歴検索 = C-p,n で検索・補完
 autoload -U history-search-end
@@ -120,8 +127,14 @@ bindkey "^S" history-incremental-search-forward
 autoload -U compinit; compinit
 setopt list_packed  # 補完候補を詰めて表示
 setopt magic_equal_subst # = の後はパス名として補完する
-setopt correct
+setopt correct # スペルチェック
 setopt nolistbeep
+setopt list_types # 補完候補一覧でファイルの種別をマーク表示
+setopt auto_list # 補完候補を一覧表示
+setopt list_packed
+setopt hist_ignore_dups
+setopt auto_param_slash # ディレクトリ名の補完で末尾の/を自動的に負荷し、次の補完に備える
+setopt complete_aliases
 
 autoload predict-on; predict-on
 
@@ -130,13 +143,25 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
                  /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 
 # 補完の時に大文字小文字を区別しない (但し、大文字を打った場合は小文字に変換しない)
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # 一部のコマンドライン定義は、展開時に時間のかかる処理を行う -- apt-get, dpkg (Debian), rpm (Redhat), urpmi (Mandrake), perlの-Mオプション, bogofilter (zsh 4.2.1以降), fink, mac_apps (MacOS X)(zsh 4.2.2以降)
 zstyle ':completion:*' use-cache true
 # 補完候補を ←↓↑→ で選択 (補完候補が色分け表示される)
 zstyle ':completion:*:default' menu select=1
 # カレントディレクトリに候補がない場合のみ cdpath 上のディレクトリを候補
 zstyle ':completion:*:cd:*' tag-order local-directories path-directories
+
+## 補完候補の色づけ
+#eval `dircolors`
+#export LSCOLORS = ExFxCxdxBxegedabagacad
+#export LS_COLORS = 'di = 01;34:ln = 01;35:so = 01;32:ex = 01;31:bd = 46;34:cd = 43;34:su = 41;30:sg = 46;30:tw = 42;30:ow = 43;30'
+#export ZLS_COLORS = $LS_COLORS
+#zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# カッコの対応などを自動的に補完
+setopt auto_param_keys
+
+
 
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
@@ -145,9 +170,6 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # ------------------------------------------------------------------
 bindkey -e
 #bindkey -v
-setopt auto_cd # ディレクトリ名だけでcdする
-
-setopt complete_aliases
 
 # ファイル名を叩くだけで実行されるコマンド
 alias -s txt=cat
