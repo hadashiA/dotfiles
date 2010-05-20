@@ -1,4 +1,5 @@
 alias gst='git status'
+alias g='git status'
 #alias gpl='git pull --rebase'
 alias gpl='git pull'
 alias gp='git push'
