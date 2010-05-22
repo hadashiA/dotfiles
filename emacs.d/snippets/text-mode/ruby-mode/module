@@ -3,16 +3,15 @@
 # group: definitions
 # --
 module ${1:`(file-name-camelize)`}
-  $0
-${2:module ClassMethods
+  $0${2:def self.included(receiver)
+    receiver.extend         ClassMethods
+    receiver.send :include, InstanceMethods
+  end
+
+  module ClassMethods
     ${3}
   end
 
   module InstanceMethods
-  end
-
-  def self.included(receiver)
-    receiver.extend         ClassMethods
-    receiver.send :include, InstanceMethods
   end}
 end

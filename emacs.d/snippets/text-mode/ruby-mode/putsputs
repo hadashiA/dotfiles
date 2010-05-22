@@ -2,6 +2,6 @@
 # name : puts '@' * 100 .. 
 # group : debug
 # --
-puts '${1:@}' * ${2:100}
+puts${1: '-'} * ${2:100}
 p $0
-puts '$1' * $2
+puts$1 * $2
