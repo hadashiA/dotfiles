@@ -92,8 +92,8 @@
 (setq-default indent-tabs-mode nil)
 
 ;; 改行と同時にインデント
-;; (global-set-key "\C-m" 'newline-and-indent)
-(global-set-key "\C-m" 'comment-indent-new-line)
+(global-set-key "\C-m" 'newline-and-indent)
+;; (global-set-key "\C-m" 'comment-indent-new-line)
 
 ;; マクロ読み込み
 (load (expand-file-name"~/.emacs.d/conf/macros"))
