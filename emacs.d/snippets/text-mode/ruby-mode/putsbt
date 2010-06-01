@@ -1,0 +1,4 @@
+puts 'e' * 100
+puts ${1:e}.class.to_s + $1.message
+$1.backtrace.each{|bt| puts bt }
+puts 'e' * 100
