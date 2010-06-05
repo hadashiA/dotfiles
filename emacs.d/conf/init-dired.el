@@ -27,7 +27,11 @@
           ("\\.zip\\'" "unzip -l")
           ("\\.\\(g\\|\\) z\\'" "zcat")
           ("\\.\\(jpg\\|JPG\\|gif\\|GIF\\)\\'" (when run-carbon-emacs "open"))
-          )))
+          ))
+
+  (global-set-key "\C-x\C-d" 'dired-jump)
+  (global-set-key "\C-x\C-j" 'skk-auto-fill-mode)
+  )
 
 (add-hook 'dired-load-hook
           (lambda ()
