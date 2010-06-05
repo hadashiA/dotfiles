@@ -51,6 +51,32 @@
 ;; Here is Japanese translation of `anything-sources' attributes. Thanks.
 ;; http://d.hatena.ne.jp/sirocco634/20091012/1255336649
 
+;;; Bug Report:
+;;
+;; If you have problems, send a bug report via C-c C-x C-b in anything session (best)
+;; or M-x anything-send-bug-report outside anything session.
+;; I implemented bug report feature because I want to know your current state.
+;; It helps me to solve problems easily.
+;; The step is:
+;;  0) Setup mail in Emacs, the easiest way is:
+;;       (setq user-mail-address "your@mail.address")
+;;       (setq user-full-name "Your Full Name")
+;;       (setq smtpmail-smtp-server "your.smtp.server.jp")
+;;       (setq mail-user-agent 'message-user-agent)
+;;       (setq message-send-mail-function 'message-smtpmail-send-it)
+;;  1) Be sure to use the LATEST version of anything.el.
+;;  2) Enable debugger. M-x toggle-debug-on-error or (setq debug-on-error t)
+;;  3) Use Lisp version instead of compiled one: (load "anything.el")
+;;  4) Do it!
+;;  5) If you got an error, please do not close *Backtrace* buffer.
+;;  6) Type C-c C-x C-b (anything session, best!) 
+;;     or M-x anything-send-bug-report (outside)
+;;     then M-x insert-buffer *Backtrace* (if you got error)
+;;  7) Describe the bug using a precise recipe.
+;;  8) Type C-c C-c to send.
+;;  # If you are a Japanese, please write in Japanese:-)
+
+
 ;;; Commands:
 ;;
 ;; Below are complete command list:
@@ -107,6 +133,8 @@
 ;;    Scroll other window (not *Anything* window) upward.
 ;;  `anything-scroll-other-window-down'
 ;;    Scroll other window (not *Anything* window) downward.
+;;  `anything-display-all-visible-marks'
+;;    Show all `anything' visible marks strings.
 ;;  `anything-quit-and-find-file'
 ;;    Drop into `find-file' from `anything' like `iswitchb-find-file'.
 ;;  `anything-yank-selection'
@@ -115,6 +143,8 @@
 ;;    Store current selection to kill ring.
 ;;  `anything-follow-mode'
 ;;    If this mode is on, persistent action is executed everytime the cursor is moved.
+;;  `anything-migrate-sources'
+;;    Help to migrate to new `anything' way.
 ;;  `anything-isearch'
 ;;    Start incremental search within results. (UNMAINTAINED)
 ;;  `anything-isearch-printing-char'
@@ -135,6 +165,10 @@
 ;;    Cancel anything completion and return to standard iswitchb.
 ;;  `anything-describe-anything-attribute'
 ;;    Display the full documentation of ANYTHING-ATTRIBUTE (a symbol).
+;;  `anything-send-bug-report'
+;;    Send a bug report of anything.el.
+;;  `anything-send-bug-report-from-anything'
+;;    Send a bug report of anything.el in anything session.
 ;;
 ;;; Customizable Options:
 ;;
@@ -206,6 +240,24 @@
 ;;   defined.
 
 ;;; (@* "Tips")
+
+;; 
+;; `anything-enable-shortcuts' enables us to select candidate easily.
+;; If 'prefix then they can be selected using <prefix-key> <alnum>. 
+;; The prefix key is `anything-select-with-prefix-shortcut'.
+;; If the <prefix-key> is a letter, pressing twice inputs the letter itself.
+;; e.g.
+;;  (setq anything-enable-shortcuts 'prefix)
+;;  (define-key anything-map \"@\" 'anything-select-with-prefix-shortcut)
+
+;;
+;; You can edit current selection using `anything-edit-current-selection'.
+;; It is useful after persistent-action.
+
+;;
+;; For `anything' users, setting `anything-sources' directly and
+;; invoke M-x anything is obsolete way for now. Try M-x
+;; `anything-migrate-sources'!
 
 ;;
 ;; If you want to create anything sources, yasnippet would help you.
@@ -365,6 +417,10 @@
 ;; There is an unit-test by Emacs Lisp Expectations at the tail of this file.
 ;; http://www.emacswiki.org/cgi-bin/wiki/download/el-expectations.el
 ;; http://www.emacswiki.org/cgi-bin/wiki/download/el-mock.el
+
+;;
+;; If you want to create anything sources, see anything-config.el.
+;; It is huge collection of sources. You can learn from examples.
 
 
 ;; (@* "TODO")
@@ -1297,6 +1353,7 @@
 (defvar anything-version nil)
 (setq anything-version "$Id: anything.el,v 1.280 2010-04-01 02:22:22 rubikitch Exp $")
 (require 'cl)
+;; (require 'anything-match-plugin nil t)
 
 ;; (@* "User Configuration")
 
@@ -1386,9 +1443,18 @@ Attributes:
 (defvar anything-enable-shortcuts nil
   "*Whether to use digit/alphabet shortcut to select the first nine matches.
 If t then they can be selected using Ctrl+<number>.
-If 'alphabet then they can be selected using Shift+<alphabet>.
 
-Keys (digit/alphabet) are listed in `anything-digit-shortcut-index-alist'.")
+If 'prefix then they can be selected using <prefix-key> <alnum>. 
+The prefix key is `anything-select-with-prefix-shortcut'.
+If the <prefix-key> is a letter, pressing twice inputs the letter itself.
+e.g.
+ (setq anything-enable-shortcuts 'prefix)
+ (define-key anything-map \"@\" 'anything-select-with-prefix-shortcut)
+ 
+If 'alphabet then they can be selected using Shift+<alphabet> (deprecated).
+It is not recommended because you cannot input capital letters in pattern.
+
+Keys (digit/alphabet) are listed in `anything-shortcut-keys-alist'.")
 
 (defvaralias 'anything-enable-digit-shortcuts 'anything-enable-shortcuts
   "Alphabet shortcuts are usable now. Then `anything-enable-digit-shortcuts' should be renamed.
@@ -1396,6 +1462,7 @@ Keys (digit/alphabet) are listed in `anything-digit-shortcut-index-alist'.")
 
 (defvar anything-shortcut-keys-alist
   '((alphabet . "asdfghjklzxcvbnmqwertyuiop")
+    (prefix   . "asdfghjklzxcvbnmqwertyuiop1234567890")
     (t        . "123456789")))
 
 (defvar anything-display-source-at-screen-top t
@@ -1494,6 +1561,8 @@ See also `anything-set-source-filter'.")
 
     ;; Debugging command
     (define-key map "\C-c\C-x\C-d" 'anything-debug-output)
+    (define-key map "\C-c\C-x\C-m" 'anything-display-all-visible-marks)
+    (define-key map "\C-c\C-x\C-b" 'anything-send-bug-report-from-anything)
     ;; Use `describe-mode' key in `global-map'
     (dolist (k (where-is-internal 'describe-mode global-map))
       (define-key map k 'anything-help))
@@ -1606,8 +1675,15 @@ Global variables are initialized and the anything buffer is created.
 But the anything buffer has no contents. ")
 
 (defvar anything-update-hook nil
-  "Run after the anything buffer was updated according the new
-  input pattern.")
+  "Run after the anything buffer was updated according the new input pattern.
+This hook is run at the beginning of buffer.
+The first candidate is selected after running this hook.
+See also `anything-after-update-hook'.")
+
+(defvar anything-after-update-hook nil
+  "Run after the anything buffer was updated according the new input pattern.
+This is very similar to `anything-update-hook' but selection is not moved.
+It is useful to select a particular object instead of the first one. ")
 
 (defvar anything-cleanup-hook nil
   "Run after anything minibuffer is closed, IOW this hook is executed BEFORE performing action. ")
@@ -1622,6 +1698,7 @@ But the anything buffer has no contents. ")
   '( anything-candidate-number-limit
      anything-source-filter
      anything-source-in-each-line-flag
+     anything-map
      anything-sources)
   "Variables which are restored after `anything' invocation.")
 ;; `anything-saved-sources' is removed
@@ -1641,10 +1718,6 @@ But the anything buffer has no contents. ")
 
 (defvar anything-buffer-file-name nil
   "`buffer-file-name' when `anything' is invoked.")
-
-(defvar anything-current-position nil
-  "Cons of (point) and (window-start) when `anything' is invoked.
-It is needed because restoring position when `anything' is keyboard-quitted.")
 
 (defvar anything-saved-action nil
   "Saved value of the currently selected action by key.")
@@ -1704,7 +1777,7 @@ It is `anything-default-display-buffer' by default, which affects `anything-same
 
 (defvar anything-delayed-init-executed nil)
 
-(defvar anything-mode-line-string "\\<anything-map>\\[anything-help]:help \\[anything-select-action]:ActionList \\[anything-exit-minibuffer]/\\[anything-select-2nd-action-or-end-of-line]/\\[anything-select-3rd-action]:NthAction"
+(defvar anything-mode-line-string "\\<anything-map>\\[anything-help]:help \\[anything-select-action]:Acts \\[anything-exit-minibuffer]/\\[anything-select-2nd-action-or-end-of-line]/\\[anything-select-3rd-action]:NthAct \\[anything-send-bug-report-from-anything]:BugReport"
   "Help string displayed in mode-line in `anything'.
 If nil, use default `mode-line-format'.")
 
@@ -1727,10 +1800,11 @@ To enable fitting, set both `anything-inhibit-fit-frame-flag' and
   "If non-nil, add anything-source text-property in each candidate.
 experimental feature.")
 
-(defvar anything-debug-variables nil
-  "Variables to show in `anything-debug-output'.
+(defvar anything-debug-forms nil
+  "Forms to show in `anything-debug-output'.
 Otherwise all variables started with `anything-' are shown.
 It is useful for debug.")
+(defvaralias 'anything-debug-variables 'anything-debug-forms)
 
 ;; (@* "Internal Variables")
 (defvar anything-test-candidate-list nil)
@@ -1784,11 +1858,26 @@ It is useful for debug.")
 (put 'with-anything-window 'lisp-indent-function 0)
 
 (defmacro with-anything-restore-variables(&rest body)
-  "Restore variables specified by `anything-restored-variables' after executing BODY ."
-  `(let ((--orig-vars (mapcar (lambda (v) (cons v (symbol-value v))) anything-restored-variables)))
+  "Restore variables specified by `anything-restored-variables' after executing BODY .
+`post-command-hook' is handled specially."
+  `(let ((--orig-vars (mapcar (lambda (v) (cons v (symbol-value v))) anything-restored-variables))
+         (--post-command-hook-pair (cons post-command-hook
+                                         (default-value 'post-command-hook)))
+         (--pre-command-hook-pair (cons pre-command-hook
+                                         (default-value 'pre-command-hook))))
+     (setq post-command-hook '(t))
+     (setq-default post-command-hook nil)
+     ;; FIXME I'm not sure whether it is necessary.
+     ;; (setq pre-command-hook '(t))
+     ;; (setq-default pre-command-hook nil)
      (unwind-protect (progn ,@body)
        (loop for (var . value) in --orig-vars
-             do (set var value)))))
+             do (set var value))
+       (setq post-command-hook (car --post-command-hook-pair))
+       (setq-default post-command-hook (cdr --post-command-hook-pair))
+       ;; (setq pre-command-hook (car --pre-command-hook-pair))
+       ;; (setq-default pre-command-hook (cdr --pre-command-hook-pair))
+       )))
 (put 'with-anything-restore-variables 'lisp-indent-function 0)
 
 (defun* anything-attr (attribute-name &optional (src (anything-get-current-source)))
@@ -1906,7 +1995,8 @@ If FORCE-DISPLAY-PART is non-nil, return the display string."
                               (overlay-start anything-selection-overlay)
                               (1- (overlay-end anything-selection-overlay))))
                        (source (anything-get-current-source)))
-                   (anything-aif (assoc-default 'display-to-real source)
+                   (anything-aif (and (not force-display-part)
+                                      (assoc-default 'display-to-real source))
                        (anything-funcall-with-source source it disp)
                      disp)))))
         (unless (equal selection "")
@@ -2042,15 +2132,13 @@ Otherwise, return VALUE itself."
       (push spec anything-once-called-functions))))
 
 ;; (@* "Core: tools")
-(defun anything-current-frame/window-configuration ()
-  (funcall (cdr anything-save-configuration-functions)))
-
-(defun anything-set-frame/window-configuration (conf)
-  (funcall (car anything-save-configuration-functions) conf))
-
 (defun anything-funcall-with-source (source func &rest args)
-  (let ((anything-source-name (assoc-default 'name source)))
-    (apply func args)))
+  "Call FUNC with ARGS with variable `anything-source-name' and `source' is bound.
+FUNC can be function list. Return the result of last function call."
+  (let ((anything-source-name (assoc-default 'name source))
+        result)
+    (dolist (func (if (functionp func) (list func) func) result)
+      (setq result (apply func args)))))
 
 (defun anything-funcall-foreach (sym)
   "Call the sym function(s) for each source if any."
@@ -2058,8 +2146,7 @@ Otherwise, return VALUE itself."
     (when (symbolp source)
       (setq source (symbol-value source)))
     (anything-aif (assoc-default sym source)
-        (dolist (func (if (functionp it) (list it) it))
-          (anything-funcall-with-source source func)))))
+        (anything-funcall-with-source source it))))
 
 (defun anything-normalize-sources (sources)
   "If SOURCES is only one source, make a list."
@@ -2157,44 +2244,45 @@ already-bound variables. Yuck!
   ;; TODO more document
   (interactive)
   (condition-case v
-      (with-anything-restore-variables
-        (let ((frameconfig (anything-current-frame/window-configuration))
-              ;; It is needed because `anything-source-name' is non-nil
-              ;; when `anything' is invoked by action. Awful global scope.
-              anything-source-name anything-in-persistent-action
-              anything-quit
-              (case-fold-search t)
-              (anything-buffer (or any-buffer anything-buffer))
-              (anything-map (or any-keymap anything-map)))
+      (let ( ;; It is needed because `anything-source-name' is non-nil
+            ;; when `anything' is invoked by action. Awful global scope.
+            anything-source-name anything-in-persistent-action
+                                 anything-quit
+                                 (case-fold-search t)
+                                 (anything-buffer (or any-buffer anything-buffer))
+                                 ;; cua-mode ; avoid error when region is selected
+                                 )
+        (with-anything-restore-variables
+          (anything-frame/window-configuration 'save)
           (setq anything-sources (anything-normalize-sources any-sources))
           (anything-initialize-1 any-resume any-input)
           (anything-hooks 'setup)
-          (if (eq any-resume t)
-              (condition-case x
-                  (anything-window-configuration 'set)
-                (error (anything-display-buffer anything-buffer)))
-            (anything-display-buffer anything-buffer))
+          (anything-display-buffer anything-buffer)
           (unwind-protect
-              (anything-read-pattern-maybe any-prompt any-input any-preselect any-resume)
+              (anything-read-pattern-maybe any-prompt any-input any-preselect any-resume any-keymap)
             (anything-cleanup)
             (anything-hooks 'cleanup)
-            (anything-set-frame/window-configuration frameconfig))
-          (unless anything-quit
-            (anything-execute-selection-action-1))))
+            (anything-frame/window-configuration 'restore)))
+        (unless anything-quit
+          (anything-execute-selection-action-1)))
     (quit
      (anything-on-quit)
      nil)))
 
+(defun anything-resume-p (any-resume)
+  "Whethre current anything session is resumed or not."
+  (memq any-resume '(t window-only)))
+
 (defun anything-initialize-1 (any-resume any-input)
-  (setq anything-current-position (cons (point) (window-start)))
-  (if (eq any-resume t)
+  (anything-current-position 'save)
+  (if (anything-resume-p any-resume)
       (anything-initialize-overlays (anything-buffer-get))
     (anything-initialize))
   (unless (eq any-resume 'noresume)
     (anything-recent-push anything-buffer 'anything-buffers)
     (setq anything-last-buffer anything-buffer))
   (when any-input (setq anything-input any-input anything-pattern any-input))
-  (and (eq any-resume t) (anything-funcall-foreach 'resume)))
+  (and (anything-resume-p any-resume) (anything-funcall-foreach 'resume)))
 
 (defun anything-execute-selection-action-1 ()
   (unwind-protect
@@ -2205,8 +2293,7 @@ already-bound variables. Yuck!
 
 (defun anything-on-quit ()
   (setq minibuffer-history (cons anything-input minibuffer-history))
-  (goto-char (car anything-current-position))
-  (set-window-start (selected-window) (cdr anything-current-position)))
+  (anything-current-position 'restore))
 
 (defun anything-resume-select-buffer (input)
   (anything '(((name . "Resume anything buffer")
@@ -2214,7 +2301,7 @@ already-bound variables. Yuck!
                (action . identity)))
             input nil 'noresume nil "*anything resume*"))
 
-(defun* anything-resume (&optional (any-buffer anything-last-buffer) buffer-pattern)
+(defun* anything-resume (&optional (any-buffer anything-last-buffer) buffer-pattern (any-resume t))
   "Resurrect previously invoked `anything'."
   (interactive)
   (when (or current-prefix-arg buffer-pattern)
@@ -2223,26 +2310,47 @@ already-bound variables. Yuck!
   (anything
    (or (buffer-local-value 'anything-last-sources-local (get-buffer any-buffer))
        anything-last-sources anything-sources)
-   (buffer-local-value 'anything-input-local (get-buffer any-buffer)) nil t nil any-buffer))
+   (buffer-local-value 'anything-input-local (get-buffer any-buffer)) nil any-resume nil any-buffer))
 
-(defvar anything-window-configuration nil)
-;;; (set-window-configuration (buffer-local-value 'anything-window-configuration (get-buffer "*anything buffers*")))
-(defun anything-window-configuration (store-or-set)
-  (case store-or-set
-    ('store
-     (with-current-buffer anything-buffer
-       (set (make-local-variable 'anything-window-configuration)
-            (current-window-configuration))))
-    ('set
-     (with-current-buffer anything-buffer
-       (set-window-configuration anything-window-configuration))
-     (select-window (anything-window)))))
+;;; rubikitch: experimental
+;;; I use this and check it whether I am convenient.
+;;; I may introduce an option to control the behavior.
+(defun* anything-resume-window-only (&optional (any-buffer anything-last-buffer) buffer-pattern)
+  (interactive)
+  (anything-resume any-buffer buffer-pattern 'window-only))
 
 (defun anything-recent-push (elt list-var)
   "Add ELT to the value of LIST-VAR as most recently used value."
   (let ((m (member elt (symbol-value list-var))))
     (and m (set list-var (delq (car m) (symbol-value list-var))))
     (push elt (symbol-value list-var))))
+
+;;; (@* "Core: Accessors")
+(defvar anything-current-position nil
+  "Cons of (point) and (window-start) when `anything' is invoked.
+It is needed because restoring position when `anything' is keyboard-quitted.")
+(defun anything-current-position (save-or-restore)
+  (case save-or-restore
+    (save
+     (setq anything-current-position (cons (point) (window-start))))
+    (restore
+     (goto-char (car anything-current-position))
+     (set-window-start (selected-window) (cdr anything-current-position)))))
+
+;;; FIXME I want to remove them. But anything-iswitchb uses them.
+(defun anything-current-frame/window-configuration ()
+  (funcall (cdr anything-save-configuration-functions)))
+(defun anything-set-frame/window-configuration (conf)
+  (funcall (car anything-save-configuration-functions) conf))
+
+(declare-function 'anything-frame/window-configuration "anything")
+(lexical-let (conf)
+  (defun anything-frame/window-configuration (save-or-restore)
+    (case save-or-restore
+      (save    (setq conf (funcall (cdr anything-save-configuration-functions))))
+      (restore (funcall (car anything-save-configuration-functions) conf)))))
+
+
 
 ;;;###autoload
 (defun anything-at-point (&optional any-sources any-input any-prompt any-resume any-preselect any-buffer)
@@ -2262,7 +2370,7 @@ already-bound variables. Yuck!
 ;; (@* "Core: Display *anything* buffer")
 (defun anything-display-buffer (buf)
   "Display *anything* buffer."
-  (funcall anything-display-function buf))
+  (funcall (with-current-buffer buf anything-display-function) buf))
 
 (defun anything-default-display-buffer (buf)
   (funcall (if anything-samewindow 'switch-to-buffer 'pop-to-buffer) buf))
@@ -2289,12 +2397,16 @@ already-bound variables. Yuck!
   (anything-create-anything-buffer)
   (run-hooks 'anything-after-initialize-hook))
 
-(defun anything-read-pattern-maybe (any-prompt any-input any-preselect any-resume)
-  (if (eq any-resume t) (anything-mark-current-line) (anything-update))
+(defun anything-read-pattern-maybe (any-prompt any-input any-preselect any-resume any-keymap)
+  (if (anything-resume-p any-resume) (anything-mark-current-line) (anything-update))
   (select-frame-set-input-focus (window-frame (minibuffer-window)))
   (anything-preselect any-preselect)
   (let ((ncandidate (anything-approximate-candidate-number))
-        (minibuffer-local-map anything-map))
+        (minibuffer-local-map
+         (with-current-buffer (anything-buffer-get)
+           (and any-keymap (set (make-local-variable 'anything-map) any-keymap))
+
+           anything-map)))
     (cond ((and anything-execute-action-at-once-if-one
                 (= ncandidate 1))
            (ignore))
@@ -2316,6 +2428,7 @@ If TEST-MODE is non-nil, clear `anything-candidate-cache'."
     (set (make-local-variable 'inhibit-read-only) t)
     (set (make-local-variable 'anything-last-sources-local) anything-sources)
     (set (make-local-variable 'anything-follow-mode) nil)
+    (set (make-local-variable 'anything-display-function) anything-display-function)
     
     (setq cursor-type nil)
     (setq mode-name "Anything"))
@@ -2352,8 +2465,7 @@ If TEST-MODE is non-nil, clear `anything-candidate-cache'."
 
 (defun anything-hooks (setup-or-cleanup)
   (let ((hooks '((post-command-hook anything-check-minibuffer-input)
-                 (minibuffer-setup-hook anything-print-error-messages)
-                 (minibuffer-exit-hook (lambda () (anything-window-configuration 'store))))))
+                 (minibuffer-setup-hook anything-print-error-messages))))
     (if (eq setup-or-cleanup 'setup)
         (dolist (args hooks) (apply 'add-hook args))
       (dolist (args (reverse hooks)) (apply 'remove-hook args)))))
@@ -2432,9 +2544,10 @@ SOURCE."
   (let ((name (assoc-default 'name source)))
     (unless (member name anything-delayed-init-executed)
       (anything-aif (assoc-default 'delayed-init source)
-          (when (functionp it)
-            (funcall it)
-            (add-to-list 'anything-delayed-init-executed name)))))
+          (with-current-buffer anything-current-buffer
+            (anything-funcall-with-source source it)
+            (dolist (f (if (functionp it) (list it) it))
+              (add-to-list 'anything-delayed-init-executed name))))))
   (let* ((candidate-source (assoc-default 'candidates source))
          (candidates (anything-interpret-value candidate-source source)))
     (cond ((processp candidates) candidates)
@@ -2569,34 +2682,46 @@ ie. cancel the effect of `anything-candidate-number-limit'."
 
 (defun anything-process-source (source)
   "Display matches from SOURCE according to its settings."
-  (let ((matches (anything-compute-matches source)))
-    (when matches
-      (when anything-test-mode
+  (if (assq 'direct-insert-match source) ;experimental
+      (anything-process-source--direct-insert-match source)
+    (let ((matches (anything-compute-matches source)))
+      (when matches
+        (when anything-test-mode
           (setq anything-test-candidate-list
                 `(,@anything-test-candidate-list
                   (,(assoc-default 'name source)
                    ,matches))))
-      (let ((multiline (assq 'multiline source))
-            (start (point))
-            separate)
-        (anything-insert-header-from-source source)
-        (dolist (match matches)
-          (if (and multiline separate)
-              (anything-insert-candidate-separator)
-            (setq separate t))
+        (let ((multiline (assq 'multiline source))
+              (start (point))
+              separate)
+          (anything-insert-header-from-source source)
+          (dolist (match matches)
+            (if (and multiline separate)
+                (anything-insert-candidate-separator)
+              (setq separate t))
 
-          (when (and anything-enable-shortcuts
-                     (not (eq anything-digit-shortcut-count
-                              (length anything-digit-overlays))))
-            (move-overlay (nth anything-digit-shortcut-count
-                               anything-digit-overlays)
-                          (line-beginning-position)
-                          (line-beginning-position))
-            (incf anything-digit-shortcut-count))
-          (anything-insert-match match 'insert source))
+            (when (and anything-enable-shortcuts
+                       (not (eq anything-digit-shortcut-count
+                                (length anything-digit-overlays))))
+              (move-overlay (nth anything-digit-shortcut-count
+                                 anything-digit-overlays)
+                            (line-beginning-position)
+                            (line-beginning-position))
+              (incf anything-digit-shortcut-count))
+            (anything-insert-match match 'insert source))
         
-        (if multiline
-            (put-text-property start (point) 'anything-multiline t))))))
+          (if multiline
+              (put-text-property start (point) 'anything-multiline t)))))))
+
+(defun anything-process-source--direct-insert-match (source)
+  "[EXPERIMENTAL] Insert candidates from `anything-candidate-buffer'"
+  (let ((anything-source-name (assoc-default 'name source))
+        content-buf)
+    (funcall (assoc-default 'candidates source))
+    (setq content-buf (anything-candidate-buffer))
+    (unless (zerop (buffer-size content-buf))
+      (anything-insert-header-from-source source)
+      (insert-buffer-substring content-buf))))
 
 (defun anything-process-delayed-sources (delayed-sources)
   "Process delayed sources if the user is idle for
@@ -2667,30 +2792,37 @@ the current pattern."
                                    0)
                                  nil
                                  'anything-process-delayed-sources
-                                 delayed-sources)))))))
+                                 delayed-sources))
+          ;; FIXME I want to execute anything-after-update-hook
+          ;; AFTER processing delayed sources
+          (run-hooks 'anything-after-update-hook))))))
 
 (defun anything-force-update ()
   "Recalculate and update candidates.
 If current source has `update' attribute, a function without argument, call it before update."
   (interactive)
-  (anything-aif (anything-attr 'update)
-      (anything-funcall-with-source (anything-get-current-source) it))
-  ;; Remove from candidate cache to recalculate candidates
-  (setq anything-candidate-cache
-        (delete (assoc (assoc-default 'name (anything-get-current-source)) anything-candidate-cache)
-                anything-candidate-cache))
-  ;; Go to original selection after update
-  (let ((selection (anything-get-selection))
-        (source (anything-get-current-source)))
-    (anything-update)
-    (with-anything-window
-      (anything-goto-source source)
-      (forward-char -1)                 ;back to \n
-      (if (search-forward (concat "\n" selection "\n") nil t)
-          (forward-line -1)
-        (goto-char (point-min))
-        (forward-line 1))
-      (anything-mark-current-line))))
+  (let ((source (anything-get-current-source)))
+    (anything-aif (anything-funcall-with-source source 'anything-candidate-buffer)
+        (kill-buffer it))
+    (anything-aif (assoc-default 'update source)
+        (anything-funcall-with-source source it))
+    (anything-aif (assoc-default 'init source)
+        (anything-funcall-with-source source it))
+    ;; Remove from candidate cache to recalculate candidates
+    (setq anything-candidate-cache
+          (delete (assoc (assoc-default 'name source) anything-candidate-cache)
+                  anything-candidate-cache))
+    ;; Go to original selection after update
+    (let ((selection (anything-get-selection nil t)))
+      (anything-update)
+      (with-anything-window
+        (anything-goto-source source)
+        (forward-char -1)                ;back to \n
+        (if (search-forward (concat "\n" selection "\n") nil t)
+            (forward-line -1)
+          (goto-char (point-min))
+          (forward-line 1))
+        (anything-mark-current-line)))))
 
 (defun anything-insert-match (match insert-function source)
   "Insert MATCH into the anything buffer. If MATCH is a list then
@@ -2855,7 +2987,8 @@ If action buffer is selected, back to the anything buffer."
   (interactive)
   (cond ((get-buffer-window anything-action-buffer 'visible)
          (set-window-buffer (get-buffer-window anything-action-buffer) anything-buffer)
-         (kill-buffer anything-action-buffer))
+         (kill-buffer anything-action-buffer)
+         (insert anything-input))
         (t
          (setq anything-saved-selection (anything-get-selection))
          (unless anything-saved-selection
@@ -3051,7 +3184,7 @@ UNIT and DIRECTION."
 
 (defun anything-select-with-digit-shortcut ()
   (interactive)
-  (if anything-enable-shortcuts
+  (if (eq anything-enable-shortcuts 'alphabet)
       (save-selected-window
         (select-window (anything-window))          
         (let* ((index (position (anything-this-command-key) anything-shortcut-keys))
@@ -3061,6 +3194,27 @@ UNIT and DIRECTION."
             (anything-mark-current-line)
             (anything-exit-minibuffer))))
     (self-insert-command 1)))
+
+;;; EXPERIMENTAL TODO documentation 
+(defun anything-select-with-prefix-shortcut ()
+  (interactive)
+  (if (eq anything-enable-shortcuts 'prefix)
+      (save-selected-window
+        (select-window (anything-window))          
+        (let* ((key (read-event "Select shortcut key: "))
+               (index (position key anything-shortcut-keys))
+               (overlay (ignore-errors (nth index anything-digit-overlays))))
+          (if (not (and overlay (overlay-buffer overlay)))
+              (when (numberp key)
+                (select-window (minibuffer-window))
+                (self-insert-command 1))
+            (goto-char (overlay-start overlay))
+            (anything-mark-current-line)
+            (anything-exit-minibuffer))))
+    (self-insert-command 1)))
+;; (setq anything-enable-shortcuts 'prefix)
+;; (define-key anything-map "@" 'anything-select-with-prefix-shortcut)
+;; (define-key anything-map (kbd "<f18>") 'anything-select-with-prefix-shortcut)
 
 (defun anything-exit-minibuffer ()
   "Select the current candidate by exiting the minibuffer."
@@ -3123,10 +3277,10 @@ UNIT and DIRECTION."
     (select-window (anything-window))
     (delete-other-windows)
     (switch-to-buffer (get-buffer-create bufname))
-    (setq mode-line-format "%b (SPC,C-v:NextPage  b,M-v:PrevPage  other:Exit)")
-    (setq cursor-type nil)
     (erase-buffer)
     (funcall insert-content-fn)
+    (setq mode-line-format "%b (SPC,C-v:NextPage  b,M-v:PrevPage  other:Exit)")
+    (setq cursor-type nil)
     (goto-char 1)
     (ignore-errors
       (loop for event = (read-event) do
@@ -3152,10 +3306,10 @@ UNIT and DIRECTION."
 
 (defun anything-debug-output-function (&optional vars)
   (message "Calculating all anything-related values...")
-  (insert "If you debug some variables, set `anything-debug-variables'
-to a list of variable names.\n\n")
+  (insert "If you debug some variables or forms, set `anything-debug-forms'
+to a list of forms.\n\n")
   (dolist (v (or vars
-                 anything-debug-variables
+                 anything-debug-forms
                  (apropos-internal "^anything-" 'boundp)))
     (insert "** "
             (pp-to-string v) "\n"
@@ -3194,17 +3348,17 @@ You can set user options `fit-frame-max-width-percent' and
            (top . 0))))))) ; The (top . 0) shouldn't be necessary (Emacs bug).
 
 (defun anything-preselect (candidate-or-regexp)
-  (when candidate-or-regexp
-    (with-anything-window
+  (with-anything-window
+    (when candidate-or-regexp
       (goto-char (point-min))
       ;; go to first candidate of first source
       (forward-line 1)
       (let ((start (point)))
         (unless (or (re-search-forward (concat "^" (regexp-quote candidate-or-regexp) "$") nil t)
-                (progn (goto-char start)
-                       (re-search-forward candidate-or-regexp nil t)))
-          (goto-char start))
-        (anything-mark-current-line)))))
+                    (progn (goto-char start)
+                           (re-search-forward candidate-or-regexp nil t)))
+          (goto-char start))))
+    (anything-mark-current-line)))
 
 (defun anything-delete-current-selection ()
   "Delete the currently selected item."
@@ -3226,10 +3380,33 @@ You can set user options `fit-frame-max-width-percent' and
            (when (eobp) (forward-line -1))))
     (anything-mark-current-line)))
 
+(defun anything-edit-current-selection-1 (func)
+  (with-anything-window
+    (beginning-of-line)
+    (let ((realvalue (get-text-property (point) 'anything-realvalue)))
+      (funcall func)
+      (beginning-of-line)
+      (and realvalue
+           (put-text-property (point) (point-at-eol) 'anything-realvalue realvalue))
+      (anything-mark-current-line))))
+
+(defmacro anything-edit-current-selection (&rest forms)
+  "Evaluate FORMS at current selection in the anything buffer.
+You can edit the line."
+  `(anything-edit-current-selection-1
+    (lambda () ,@forms)))
+(put 'anything-edit-current-selection 'lisp-indent-function 0)
+
+(defun anything-set-pattern (pattern)
+  "Set minibuffer contents to PATTERN."
+  (with-selected-window (minibuffer-window)
+    (delete-minibuffer-contents)
+    (insert pattern)))
+
 (defun anything-delete-minibuffer-content ()
   "Same as `delete-minibuffer-contents' but this is a command."
   (interactive)
-  (delete-minibuffer-contents))
+  (anything-set-pattern ""))
 
 ;; (@* "Built-in plug-in: type")
 (defun anything-compile-source--type (source)
@@ -3590,24 +3767,11 @@ Otherwise ignores `special-display-buffer-names' and `special-display-regexps'."
 (defvar anything-visible-mark-overlays nil)
 
 (defun anything-clear-visible-mark ()
-  (mapc 'delete-overlay anything-visible-mark-overlays)
-  (setq anything-visible-mark-overlays nil))
+  (with-current-buffer (anything-buffer-get)
+    (mapc 'delete-overlay anything-visible-mark-overlays)
+    (set (make-local-variable 'anything-visible-mark-overlays)
+         nil)))
 (add-hook 'anything-after-initialize-hook 'anything-clear-visible-mark)
-
-;; (defun anything-toggle-visible-mark ()
-;;   (interactive)
-;;   (with-anything-window
-;;     (anything-aif (loop for o in anything-visible-mark-overlays
-;;                         when (equal (line-beginning-position) (overlay-start o))
-;;                         do (return o))
-;;         ;; delete
-;;         (progn (delete-overlay it)
-;;                (delq it anything-visible-mark-overlays))
-;;       (let ((o (make-overlay (line-beginning-position) (1+ (line-end-position)))))
-;;         (overlay-put o 'face anything-visible-mark-face)
-;;         (overlay-put o 'source (assoc-default 'name (anything-get-current-source)))
-;;         (overlay-put o 'string (buffer-substring (overlay-start o) (overlay-end o)))
-;;         (add-to-list 'anything-visible-mark-overlays o)))))
 
 (defvar anything-c-marked-candidate-list nil
   "[OBSOLETE] DO NOT USE!!")
@@ -3642,24 +3806,35 @@ Otherwise ignores `special-display-buffer-names' and `special-display-regexps'."
           (push (cons source selection) anything-marked-candidates)))
       (anything-next-line))))
 
+(defun anything-display-all-visible-marks ()
+  "Show all `anything' visible marks strings."
+  (interactive)
+  (lexical-let ((overlays (reverse anything-visible-mark-overlays)))
+    (anything-run-after-quit
+     (lambda ()
+       (with-output-to-temp-buffer "*anything visible marks*"
+         (dolist (o overlays) (princ (overlay-get o 'string))))))))
+
 (defun anything-marked-candidates ()
   "Marked candidates (real value) of current source if any,
 otherwise 1-element list of current selection.
 
 It is analogous to `dired-get-marked-files'."
-  (if anything-marked-candidates
-      (loop with current-src = (anything-get-current-source)
-            for (source . real) in (reverse anything-marked-candidates)
-            when (eq current-src source)
-            collect real)
-    (list (anything-get-selection))))
+  (with-current-buffer (anything-buffer-get)
+    (if anything-marked-candidates
+        (loop with current-src = (anything-get-current-source)
+              for (source . real) in (reverse anything-marked-candidates)
+              when (equal current-src source)
+              collect real)
+      (list (anything-get-selection)))))
 
 (defun anything-reset-marked-candidates ()
-  (setq anything-c-marked-candidate-list nil)
-  (setq anything-marked-candidates nil))
+  (with-current-buffer (anything-buffer-get)
+    (set (make-local-variable 'anything-c-marked-candidate-list) nil)
+    (set (make-local-variable 'anything-marked-candidates) nil)))
 
 (add-hook 'anything-after-initialize-hook 'anything-reset-marked-candidates)
-(add-hook 'anything-after-action-hook 'anything-reset-marked-candidates)
+;; (add-hook 'anything-after-action-hook 'anything-reset-marked-candidates)
 
 (defun anything-revive-visible-mark ()
   (interactive)
@@ -3723,8 +3898,7 @@ If current selection is a buffer or a file, `find-file' from its directory."
 (defun anything-yank-selection ()
   "Set minibuffer contents to current selection."
   (interactive)
-  (delete-minibuffer-contents)
-  (insert (anything-get-selection nil t)))
+  (anything-set-pattern (anything-get-selection nil t)))
 
 (defun anything-kill-selection-and-quit ()
   "Store current selection to kill ring.
@@ -3756,6 +3930,40 @@ You can paste it by typing C-y."
        (anything-get-selection)
        (save-excursion
          (anything-execute-persistent-action))))
+
+;; (@* "Utility: Migrate `anything-sources' to my-anything command")
+(defun anything-migrate-sources ()
+  "Help to migrate to new `anything' way."
+  (interactive)
+  (with-current-buffer (get-buffer-create "*anything migrate*")
+    (erase-buffer)
+    (insert (format "\
+Setting `anything-sources' directly is not good because
+`anything' is not for one command.  For now, interactive use of
+`anything' (M-x anything) is only for demonstration purpose.
+So you should define commands calling `anything'.
+I help you to migrate to the new way.
+
+The code below is automatically generated from current
+`anything-sources' value. You can use the `my-anything' command
+now!
+
+Copy and paste it to your .emacs. Then substitute `my-anything'
+for `anything' bindings in all `define-key', `local-set-key' and
+`global-set-key' calls.
+
+\(defun my-anything ()
+  \"Anything command for you.
+
+It is automatically generated by `anything-migrate-sources'.\"
+  (interactive)
+  (anything-other-buffer
+    '%S
+    \"*my-anything*\"))
+" anything-sources))
+    (eval-last-sexp nil)
+    (substitute-key-definition 'anything 'my-anything global-map)
+    (pop-to-buffer (current-buffer))))
 
 ;; (@* "Utility: Incremental search within results (unmaintained)")
 
@@ -4226,6 +4434,15 @@ buffer as BUFFER."
           (length buffer-undo-list)
         (buffer-modified-tick)))))
 
+;; (@* "CUA workaround")
+(defadvice cua-delete-region (around anything-avoid-cua activate)
+  (ignore-errors ad-do-it))
+(defadvice copy-region-as-kill (around anything-avoid-cua activate)
+  (if cua-mode
+      (ignore-errors ad-do-it)
+    ad-do-it))
+
+
 ;;(@* "Attribute Documentation")
 (defun anything-describe-anything-attribute (anything-attribute)
   "Display the full documentation of ANYTHING-ATTRIBUTE (a symbol)."
@@ -4501,6 +4718,57 @@ buffer as BUFFER."
   "  source local `header-line-format'.
   It accepts also variable/function name. ")
 (anything-document-attribute 'resume "optional" "  Function called with no parameters when `anything-resume' is started.")
+
+;; (@* "Bug Report")
+(defvar anything-maintainer-mail-address
+  (concat "rubiki" "tch@ru" "by-lang.org"))
+(defvar anything-bug-report-salutation
+  "Describe bug below, using a precise recipe.
+
+When I executed M-x ...
+
+How to send a bug report:
+  1) Be sure to use the LATEST version of anything.el.
+  2) Enable debugger. M-x toggle-debug-on-error or (setq debug-on-error t)
+  3) Use Lisp version instead of compiled one: (load \"anything.el\")
+  4) If you got an error, please paste *Backtrace* buffer.
+  5) Type C-c C-c to send.
+# If you are a Japanese, please write in Japanese:-)")
+(defvar anything-no-dump-variables
+  '(anything-candidate-buffer-alist
+    anything-digit-overlays
+    anything-help-message
+    anything-candidate-cache
+    )
+  "Variables not to dump in bug report.")
+
+(defun anything-dumped-variables-in-bug-report ()
+  (let ((hash (make-hash-table)))
+    (loop for var in (apropos-internal "anything-" 'boundp)
+          for vname = (symbol-name var)
+          unless (or (string-match "-map$" vname)
+                     (string-match "^anything-c-source-" vname)
+                     (string-match "-hash$" vname)
+                     (string-match "-face$" vname)
+                     (memq var anything-no-dump-variables))
+          collect var)))
+
+(defun anything-send-bug-report ()
+  "Send a bug report of anything.el."
+  (interactive)
+  (with-current-buffer (or anything-last-buffer
+                           (current-buffer))
+    (reporter-submit-bug-report
+     anything-maintainer-mail-address
+     "anything.el"
+     (anything-dumped-variables-in-bug-report)
+     nil nil
+     anything-bug-report-salutation)))
+
+(defun anything-send-bug-report-from-anything ()
+  "Send a bug report of anything.el in anything session."
+  (interactive)
+  (anything-run-after-quit 'anything-send-bug-report))
 
 ;; (@* "Unit Tests")
 
@@ -5962,6 +6230,26 @@ Given pseudo `anything-sources' and `anything-pattern', returns list like
                                        (requires-pattern . 2)))
                                     "abc")
           value))
+      (expect 2
+        (let ((value 0))
+          (anything-test-candidates '(((name . "test")
+                                       (delayed-init (lambda () (incf value))
+                                                     (lambda () (incf value)))
+                                       (candiates "abc")
+                                       (requires-pattern . 2)))
+                                    "abc")
+          value))
+      (expect t
+        (let (value)
+          (with-temp-buffer
+            (anything-test-candidates '(((name . "test")
+                                         (delayed-init
+                                          . (lambda () (setq value
+                                                             (eq anything-current-buffer (current-buffer)))))
+                                         (candiates "abc")
+                                         (requires-pattern . 2)))
+                                      "abc")
+            value)))
       (desc "pattern-transformer attribute")
       (expect '(("test2" ("foo")) ("test3" ("bar")))
         (anything-test-candidates '(((name . "test1")
@@ -6058,6 +6346,7 @@ Given pseudo `anything-sources' and `anything-pattern', returns list like
                 `((,source . "mark1")
                   (((name . "other")) . "mark2")
                   (,source . "mark3"))))
+          (stub anything-buffer-get => (current-buffer))
           (stub anything-get-current-source => source)
           (anything-marked-candidates)))
       (expect '("current")
