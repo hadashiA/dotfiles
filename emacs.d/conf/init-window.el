@@ -11,10 +11,10 @@
 ;; http://hovav.net/elisp/
 (require 'windmove)
 (setq windmove-wrap-around t)
-(global-set-key "\C-\M-h" 'windmove-left)
-(global-set-key "\C-\M-j" 'windmove-down)
-(global-set-key "\C-\M-k" 'windmove-up)
-(global-set-key "\C-\M-l" 'windmove-right)
+(global-set-key (kbd "S-C-h") 'windmove-left)
+(global-set-key (kbd "S-C-j") 'windmove-down)
+(global-set-key (kbd "S-C-k") 'windmove-up)
+(global-set-key (kbd "S-C-l") 'windmove-right)
 
 ;; C-x p/C-x oでウィンドウ間を移動する。
 ;; http://www.fan.gr.jp/~ring/Meadow/meadow.html#previous-window
