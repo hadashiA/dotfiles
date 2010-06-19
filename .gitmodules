@@ -4,3 +4,6 @@
 [submodule "emacs.d/elisp/rinari"]
 	path = emacs.d/elisp/rinari
 	url = git://github.com/eschulte/rinari.git
+[submodule "zsh/modules/auto-fu"]
+	path = zsh/modules/auto-fu
+	url = http://github.com/hchbaw/auto-fu.zsh.git

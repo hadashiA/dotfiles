@@ -1,0 +1,1 @@
+source ~/.zsh/display.zsh
