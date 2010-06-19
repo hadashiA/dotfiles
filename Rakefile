@@ -27,7 +27,7 @@ namespace :install do
   file '.emacs'        => ['.emacs.d', 'gems:rcodetools', 'devel/which', :rurema, :rsense, :cmigemo]
   file '.vimrc'        => ['.vim', '.gvimrc']
   file '.irbrc'        => ['gems:hirb', 'gems:wirble']
-  file '.zshrc'        => ['.aliases', '.exports','.gitrc']
+  file '.zshrc'        => ['.zsh', '.aliases', '.exports','.gitrc']
   file '.vimperatorrc' => ['.vimperator']
   file '.autotest'     => ['.autotest_icons', 'gems:rspec', 'gems:ZenTest', 'gems:RedGreen', 'gems:autotest-growl']
 

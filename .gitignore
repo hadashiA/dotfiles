@@ -2,6 +2,7 @@
 ._.DS_Store
 *.swp
 history-*
+zsh/history
 fish_history
 fish_read_history
 fishd.*
