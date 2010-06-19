@@ -1,8 +1,8 @@
 export LANGUAGE=ja
 export LANG=ja_JP.UTF-8
-export EDITOR='/usr/bin/vim'
-export MANPAGER='less -s'
-export PAGER='v'
+export EDITOR='vim'
+# export MANPAGER='/usr/share/vim/vim72/macros/less.sh'
+# export PAGER='/usr/share/vim/vim72/macros/less.sh'
 
 export PATH="~/bin:$PATH"
 export PATH="/usr/local/git/bin/:$PATH"
