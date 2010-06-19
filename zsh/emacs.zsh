@@ -1,14 +1,21 @@
-# alias emacsclient='emacsclient.emacs-snapshot'
 alias emacsc='emacsclient -nw'
-# alias emacsd='emacs-snapshot --daemon'
-# alias emacs22='env emacs22'
-# alias emacs23='env emacs-snapshot'
-# alias emacs-standalone='emacs23'
+alias emacsd='emacs --daemon'
 
 function emacsb {
     env emacs-snapshot --batch $@
 }
 alias emacs-compile="emacsb -f batch-byte-compile"
+
+function stop-emacsd() {
+    if [[ -n `pgrep emacs -u $USER` ]]; then
+        emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))' $@
+    fi
+}
+function restart-emacsd() {
+    stop-emacsd $@
+    emacsd $@
+}
+
 
 # See: http://d.hatena.ne.jp/rubikitch/20091208/anythingzsh
 
