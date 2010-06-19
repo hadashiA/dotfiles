@@ -22,7 +22,6 @@
   (equal system-type 'berkeley-unix))
 (defvar run-cygwin ;; cygwinもunixグループにしておく
   (equal system-type 'cygwin))
-
 (defvar run-w32
   (and (null run-unix)
        (or (equal system-type 'windows-nt)

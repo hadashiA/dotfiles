@@ -22,8 +22,10 @@ alias emacs-compile="emacsb -f batch-byte-compile"
 # }
 
 function anything-history() {
+    # tmpfile=/tmp/.azh-tmp-file
     local tmpfile
-    tmpfile=`mktemp temp.XXXXXX`
+    tmpfile=`mktemp azh-tmp.XXXXXX`
+
     emacsclient -nw --eval \
         "(anything-zsh-history-from-zle \"$tmpfile\" \"$BUFFER\")"
     if [[ -n "$STY" ]]; then
