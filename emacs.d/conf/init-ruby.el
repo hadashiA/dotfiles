@@ -27,6 +27,7 @@
   (add-to-list 'auto-mode-alist '("\\.rhtml$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
+  (add-to-list 'auto-mode-alist '(".\\?irbrc" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rash$" . ruby-mode))
  
   (define-key ruby-mode-map "\C-m" 'reindent-then-newline-and-indent)

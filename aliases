@@ -1,4 +1,3 @@
-# basic commands
 alias ls='ls -pGF'
 alias la='ls -palGFwc'
 alias del='rm -rf'
@@ -6,21 +5,11 @@ alias cp='cp -irf'
 alias mv='mv -i'
 alias grep='grep -i -r -H -n -I --color=auto'
 
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias -- +='pushd .'
-alias -- -='popd'
-
 function cd() {builtin cd $@ && la}
-
-alias G='| grep '  # e.x. dmesg lG CPU
-alias L='| $PAGER '
-alias W='| wc'
-alias H='| head'
-alias T='| tail'
 
 alias b='cd -'
 alias c='clear' # shortcut to clear your terminal
+alias e='exit'
 function f() { find * -name $1; }
 
 alias ducks='du -cks * | sort -rn|head -11' # Lists the size of all the folders

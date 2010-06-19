@@ -102,7 +102,7 @@ typeset -ga precmd_functions
 typeset -ga preexec_functions
 
 # source ~/.zsh/env.zsh
-# source ~/.zsh/alias.zsh
+source ~/.zsh/alias.zsh
 source ~/.zsh/function.zsh
 source ~/.zsh/emacs.zsh
 # source ~/.zsh/cdd.zsh

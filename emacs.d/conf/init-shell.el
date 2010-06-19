@@ -22,8 +22,8 @@
 (add-hook 'comint-output-filter-functions
           'comint-watch-for-password-prompt)
 
-(setq explicit-shell-file-name "/opt/local/bin/fish")
-;; (setq explicit-shell-file-name "/opt/local/bin/zsh")
+;; (setq explicit-shell-file-name "/opt/local/bin/fish")
+(setq explicit-shell-file-name "/opt/local/bin/zsh")
 ;; (setq explicit-shell-file-name "/bin/bash")
 
 ;; エスケープシーケンスを正しく処理する
@@ -50,3 +50,10 @@
 ;; ;; http://www.bookshelf.jp/pukiwiki/pukiwiki.php?Eshell%A4%F2%BB%C8%A4%A4%A4%B3%A4%CA%A4%B9#content_1_31
 ;; (setq eshell-ask-to-save-history (quote always))
 ;; (setq eshell-history-size 100000)
+
+
+(require 'shell-history)
+(setq shell-history-file "~/.zsh_history")
+
+(add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
+
