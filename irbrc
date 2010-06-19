@@ -1,5 +1,5 @@
 $KCODE = 'u'
-require 'irb/completion
+require 'irb/completion'
 require 'kconv
 require 'pp'
 require 'rubygems'

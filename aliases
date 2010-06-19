@@ -1,6 +1,6 @@
 # basic commands
-alias ls='ls -pG'
-alias la='ls -palGwc'
+alias ls='ls -pGF'
+alias la='ls -palGFwc'
 alias del='rm -rf'
 alias cp='cp -irf'
 alias mv='mv -i'
@@ -27,10 +27,10 @@ alias ducks='du -cks * | sort -rn|head -11' # Lists the size of all the folders
 alias top='top -o cpu'
 alias o='open .'
 
-alias od='od -A x -t xCz'
-alias apt='LANG=C aptitude'
-alias sapt='LANG=C sudo aptitude'
-alias wcat='wget -q -O -'
+# alias od='od -A x -t xCz'
+# alias apt='LANG=C aptitude'
+# alias sapt='LANG=C sudo aptitude'
+# alias wcat='wget -q -O -'
 
 
 # log
