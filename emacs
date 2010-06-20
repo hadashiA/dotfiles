@@ -108,7 +108,6 @@
 (load "init-migemo")
 (load "init-skk")
 (load "init-flymake")
-(load "init-snippet")
 (load "init-occur")
 ;; (load "init-woman") [2010-04-14 別に見易くないような。何が良いんだろう]
 (load "init-autocomplete")
@@ -135,6 +134,7 @@
 ;;(load "init-haskell")
 ;;(load "init-scheme")
 (load "init-yaml")
+(load "init-snippet")
 ;;(load "init-hatena")
 ;;(load "init-elscreen")
 ;;(load "init-taskpaper")

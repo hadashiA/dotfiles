@@ -2,7 +2,14 @@
 # name: each(&:method_name)
 # group : enumerable
 # --
-\section{${1:"Titel der Tour"}}%
-\index{$1}%
-\label{{2:"waiting for reftex-label call..."$(unless yas/modified-p (reftex-label nil 'dont-
-insert))}}%
+- (${1:id})${2:foo}
+{
+    return $2;
+}
+
+- (void)set${2:$(capitalize text)}:($1)aValue
+{
+    [$2 autorelease];
+    $2 = [aValue retain];
+}
+$0
