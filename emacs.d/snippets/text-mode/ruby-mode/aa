@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: attr_accessor :key
+# group: dsl
+# --
+attr_accessor :${1:attr_names}

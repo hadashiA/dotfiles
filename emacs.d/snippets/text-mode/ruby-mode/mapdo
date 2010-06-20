@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : map do |v| ...  end
+# group : enumerable
+# --
+map do |${1:v}|
+  $0
+end
