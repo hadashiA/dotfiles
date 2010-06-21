@@ -32,7 +32,7 @@
 
   ;; 補完対象に大文字が含まれる場合のみ区別する
   ;; (setq ac-ignore-case 'smart)
-  (setq ac-ignore-case t
+  (setq ac-ignore-case 'smart
         ac-use-menu-map t)
   
   (define-key ac-completing-map (kbd "C-c /") 'ac-complete-filename)
