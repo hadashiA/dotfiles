@@ -1,6 +1,6 @@
 $KCODE = 'u'
 require 'irb/completion'
-require 'kconv
+require 'kconv'
 require 'pp'
 require 'rubygems'
 IRB.conf[:SAVE_HISTORY] = 100000
