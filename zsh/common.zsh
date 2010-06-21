@@ -32,6 +32,15 @@ unsetopt prompt_cr
 ## Zle
 unsetopt beep
 
+# Meta-BS
+bindkey -e
+tcsh-backward-delete-word () {
+  local WORDCHARS=
+    zle backward-delete-word
+}
+zle -N tcsh-backward-delete-word
+bindkey '^[^?' tcsh-backward-delete-word 
+
 # completion
 setopt   auto_list auto_param_slash list_packed rec_exact
 unsetopt list_beep
