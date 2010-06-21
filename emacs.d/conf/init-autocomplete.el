@@ -32,9 +32,12 @@
 
   ;; 補完対象に大文字が含まれる場合のみ区別する
   ;; (setq ac-ignore-case 'smart)
-  (setq ac-ignore-case t)
-
-  (global-set-key (kbd "C-c /") 'ac-complete-filename)
+  (setq ac-ignore-case t
+        ac-use-menu-map t)
+  
+  (define-key ac-completing-map (kbd "C-c /") 'ac-complete-filename)
+  (define-key ac-menu-map "\C-n" 'ac-next)
+  (define-key ac-menu-map "\C-p" 'ac-previous)
 
   ;; ツールチップすごいけど、あんまり見てないので無効
   ;; (when (require 'pos-tip nil t)
