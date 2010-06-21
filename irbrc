@@ -48,6 +48,7 @@ end
 begin
   require 'hirb'
   Hirb.enable
+  extend Hirb::Console
 rescue LoadError
 #  puts "please run: `sudo gem install cldwalker-hirb --source http://gems.github.com`"
   puts "please run: `sudo gem install hirb"

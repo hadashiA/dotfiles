@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name : concat %Q{<span style="color:red">...</span>}
+# group : debug
+# --
+concat %Q{<span style="color:red">#{$0}</span>}
