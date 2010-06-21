@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name : reject{|v| ...  }
+# group : enumerable
+# --
+rej{|${1:v}| $0 }

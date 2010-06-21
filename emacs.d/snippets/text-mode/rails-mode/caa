@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: cattr_accessor :key
+# group: dsl
+# --
+cattr_accessor :${1:class_attr_names}

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name : map{|v| ...  }
+# group : enumerable
+# --
+map${1:!}{|${2:v}| $0 }

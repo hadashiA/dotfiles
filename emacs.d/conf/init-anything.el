@@ -1,6 +1,6 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-(add-to-load-path "~/.emacs.d/elisp/anything/")
+;; (add-to-load-path "~/.emacs.d/elisp/anything/")
 
 (require 'info)
 (require 'anything-config)
@@ -10,6 +10,7 @@
 (define-key anything-map (kbd "C-v") 'anything-next-source)
 (define-key anything-map (kbd "M-v") 'anything-previous-source)
 (global-set-key (kbd "C-;") 'anything)
+(setq anything-enable-shortcuts 'alphabet)
 
 (setq anything-sources
       '(anything-c-source-buffers
@@ -59,3 +60,5 @@
   ;; (define-key ruby-mode-map "\C-cum" 'anything-rurima-at-point)
     (global-set-key "\C-cue" 'anything-rurima)
     (global-set-key "\C-cum" 'anything-rurima-at-point))
+
+(require 'anything-zsh-history)

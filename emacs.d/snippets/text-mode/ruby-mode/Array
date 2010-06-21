@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name : =begin rdoc ... end
+# group : Array
+# --
+Array.new(${1:10})${2:{|${i}| $0 }}

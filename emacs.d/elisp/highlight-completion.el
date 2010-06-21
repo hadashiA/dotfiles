@@ -1278,11 +1278,12 @@ if non-nil")
   (interactive)
   (let ((pred minibuffer-completion-predicate)
 	complete-p message table display)
+
     (cond ((eq minibuffer-history-variable 'file-name-history)
 	   (setq complete-p (hc-complete-p 'files)
 		 message "file names"
 		 table 'hc-read-file-name-internal
-		 pred (hc-expand-file-name pred)
+		 pred (hc-expand-file-name (if (eq (type-of pred) 'string) pred ""))
 		 display 'hc-file-display-filter))
 	  ((eq 'fboundp minibuffer-completion-predicate)
 	   (setq complete-p (hc-complete-p 'functions)

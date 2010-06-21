@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : lambda{ .. }.should_not change(..)
+# group : rspec
+# --
+lambda {
+  $1
+}.should_not change$0

@@ -1,0 +1,11 @@
+alias -g L="| $PAGER"
+alias -g M="| $PAGER"
+alias -g G='| grep'
+alias -g C='| cat -n'
+alias -g W='| wc'
+alias -g H='| head'
+alias -g T='| tail'
+alias -g ....='../..'
+alias -g W='| wc'
+alias -g H='| head'
+alias -g T='| tail'

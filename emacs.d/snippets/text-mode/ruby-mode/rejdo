@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : reject do |v| ...  end
+# group : enumerable
+# --
+reject do |${1:v}|
+  $0
+end

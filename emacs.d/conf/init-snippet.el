@@ -11,8 +11,9 @@
 
 (when (require 'yasnippet nil t)
   (setq yas/use-menu nil
-        yas/trigger-key "SPC"    ; default => "TAB"
-        yas/next-field-key "TAB" ; default => "TAB"
+        yas/trigger-key "C-o"    ; default => "TAB"
+        yas/next-field-key "M-n" ; default => "TAB"
+        yas/prev-field-key "M-p"  ; default => "S-TAB"
         yas/buffer-local-condition
         '(or (not (or (string= "font-lock-comment-face"
                                (get-char-property (point) 'face))

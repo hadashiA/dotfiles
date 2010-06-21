@@ -39,7 +39,10 @@
 (setq inhibit-startup-message t)
 
 ;; emacs-serverを起動(emacsclientで使用)
-(server-start)
+;; [2010-06-19]
+;; これだとanything-historyのウインドウにも色がついちゃうので、
+;; emacs --daemonのほうを使う
+;; (server-start)
 
 ;; エンコーディングは基本的にUTF-8
 (set-language-environment "Japanese")

@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name : ???ect{|v| ...  }
-# group : enumerable
-# --
-${1:$$(yas/choose-value '("collect" "detect" "select" "reject"))}{|${2:v}| $0  }

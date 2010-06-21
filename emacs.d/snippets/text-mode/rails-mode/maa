@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: mattr_accessor :key
+# group: dsl
+# --
+mattr_accessor :${1:module_attr_names}
