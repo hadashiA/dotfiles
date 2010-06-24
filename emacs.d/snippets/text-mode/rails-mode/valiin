@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: validates_inclusion_of *attr_names
+# group : dsl
+# --
+validates_inclusion_of :${1:attr_name}, :in => $2
