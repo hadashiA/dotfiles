@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: options[:key]
+# group: part
+# --
+options[:${1:key}]

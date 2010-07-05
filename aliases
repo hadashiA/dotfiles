@@ -63,3 +63,19 @@ function sca () {
 function scd () {
     [[ -n "$STY" ]] && screen -d $STY >/dev/null
 }
+
+# alias fish='cd ~/dev/fish'
+alias takara='cd ~/dev/takara'
+alias flower='cd ~/dev/flower'
+alias piklib='cd ~/dev/takara/vendor/plugins/piklib'
+alias jpsns='cd ~/dev/takara/vendor/plugins/japan_sns'
+alias pj=takara
+
+
+
+
+
+
+
+
+

@@ -10,7 +10,7 @@
 ;; windmove
 ;; http://hovav.net/elisp/
 (require 'windmove)
-(setq windmove-wrap-around t)
+(setq windmove-wrap-around nil)
 (global-set-key (kbd "S-C-h") 'windmove-left)
 (global-set-key (kbd "S-C-j") 'windmove-down)
 (global-set-key (kbd "S-C-k") 'windmove-up)

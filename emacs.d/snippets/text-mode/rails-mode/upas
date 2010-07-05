@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: update_attributes :attr => value
+# group : model
+# --
+update_attributes :$0
