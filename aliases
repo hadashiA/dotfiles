@@ -31,6 +31,7 @@ alias apachelog='tail -f -n0 /var/log/apache*/*log'
 alias ss='ruby ./script/server'
 alias sc='ruby ./script/console'
 alias sp='ruby ./script/prep'
+alias rs='rake spec'
 
 # Only MacOSX
 #if [ $system_name  == 'Darwin' ]; then

@@ -23,8 +23,8 @@
           'comint-watch-for-password-prompt)
 
 ;; (setq explicit-shell-file-name "/opt/local/bin/fish")
-(setq explicit-shell-file-name "/opt/local/bin/zsh")
-;; (setq explicit-shell-file-name "/bin/bash")
+;; (setq explicit-shell-file-name "/opt/local/bin/zsh")
+(setq explicit-shell-file-name "/bin/bash")
 
 ;; エスケープシーケンスを正しく処理する
 ;; http://www.namazu.org/~tsuchiya/elisp/#shell-mode
