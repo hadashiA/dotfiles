@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: @implementation Definition
+# --
+@implementation ${1:class}
+
+${2:methods}$0
+
+@end

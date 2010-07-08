@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: @interface Definition
+# --
+@interface ${1:class} : ${2:superclass} {
+    ${3:ivars}
+}
+
+${4:methods}$0
+
+@end

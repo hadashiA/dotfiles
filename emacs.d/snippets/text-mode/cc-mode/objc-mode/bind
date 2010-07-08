@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: bind: Definition
+# --
+- (void) bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options {
+    if ([binding isEqualToString:${1:bindingName}]) {
+        [observable addObserver:self forKeyPath:keyPath options:0 context:${2:context}];
+        $3$0
+    }
+    else {
+        [super bind:binding toObject:observable withKeyPath:keyPath options:options];
+    }
+}
