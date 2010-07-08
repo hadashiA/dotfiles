@@ -125,6 +125,7 @@
 ;;(load "init-css")
 ;;(load "init-javascript")
 (load "init-c")
+(load "init-objc")
 ;;(load "init-perl")
 ;;(load "init-perlysense")
 (load "init-ruby")
