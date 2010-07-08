@@ -55,4 +55,13 @@
               (add-to-list 'ac-sources 'ac-source-rsense-method)
               (add-to-list 'ac-sources 'ac-source-rsense-constant)))
 
+  (add-to-list 'load-path "~/.emacs.d/elisp/company")
+  (require 'ac-company)
+  (add-hook 'objc-mode-hook
+            (lambda ()
+              (add-to-list 'ac-sources 'ac-source-company-xcode)
+              (add-to-list 'ac-sources 'ac-source-c++-keywords)
+              )
+            )
+
   (ac-config-default))
