@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: @implementation ... @end
+# group: definitions
+# --
+@implementation ${1:`(file-name-camelize)`} : ${2:NSObjet}
+    $0
+@end
