@@ -29,6 +29,7 @@
 
 (add-hook 'html-mode-hook 'skelton-setup-default)
 (add-hook 'c-common-mode-hook 'skelton-setup-default)
+(add-hook 'objc-mode-hook 'skelton-setup-default)
 (add-hook 'c-mode-hook 'skelton-setup-default)
 (add-hook 'ruby-mode-hook 'skelton-setup-default)
 (add-hook 'python-mode-hook 'skelton-setup-default)
