@@ -31,9 +31,9 @@ set activate=homepage,quickmark,tabopen,paste
 set hintstyle+= font-family: Verdana , monospace; font-size:20px; color:white; background-color:blue; border-color:ButtonShadow;
 
 " Mappings
-"j/kの移動量を8倍に
-noremap j 8<C-e>
-noremap k 8<C-y>
+"j/kの移動量を5倍に
+noremap j 5<C-e>
+noremap k 5<C-y>
 "J/KにPageDown,PageUpを割り当て(LDRizeが効いている場合でも指のポジションを動かさずに済む
 noremap J <PageDown>
 noremap K <PageUp>
