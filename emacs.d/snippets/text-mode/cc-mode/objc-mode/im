@@ -2,6 +2,6 @@
 # name: @implementation ... @end
 # group: definitions
 # --
-@implementation ${1:`(file-name-camelize)`} : ${2:NSObjet}
+@implementation ${1:`(file-name-camelize)`} : ${2:NSObject}
     $0
 @end
