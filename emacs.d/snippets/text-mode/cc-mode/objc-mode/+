@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: + (id)method;
+# group: definitions
+# --
++ (${1:id})${2:method$(if (string-equal (substring text -1) "{") (concat (substring text 0 -1) "\n{\n") text)}$>$0${2:$(if (string-match "{" text) "\n}" "")}

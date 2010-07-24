@@ -1,3 +1,7 @@
 #name : FILE *fp = fopen(..., ...);
 # --
-FILE *${fp} = fopen(${"file"}, "${r}");
+if ( (${fp} = fopen(${"file"}, "${r}")) == NULL ) {
+    perror(NULL);
+    exit(1);
+}
+

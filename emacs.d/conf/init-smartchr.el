@@ -4,13 +4,7 @@
   ;; (global-set-key (kbd "|") (smartchr '("|" " || " " ||= ")))
   (global-set-key (kbd "+") (smartchr '("+" " + " " += ")))
 
-  (add-hook 'c-common-mode-hook
-            (lambda ()
-              (global-set-key (kbd "+") (smartchr '("+" " + " "++" " += ")))
-              (global-set-key (kbd ">") (smartchr '(">" " >> " "->")))
-              ))
-
-  (add-hook 'c-mode-hook
+  (add-hook 'cc-mode-hook
             (lambda ()
               (global-set-key (kbd "+") (smartchr '("+" " + " "++" " += ")))
               (global-set-key (kbd ">") (smartchr '(">" " >> " "->")))
