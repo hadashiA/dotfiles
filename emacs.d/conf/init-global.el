@@ -98,6 +98,13 @@
 (global-set-key "\C-m" 'newline-and-indent)
 ;; (global-set-key "\C-m" 'comment-indent-new-line)
 
+;; バッファにファイルをドラッグドロップした際のファイルをinsertする動作に変更されている。
+;; (define-key global-map [ns-drag-file] 'ns-insert-file)
+;; Emacs22の時の動作は find-fileですので同じにするには以下を .emacs に記述します
+(define-key global-map [ns-drag-file] 'ns-find-file)
+
+(setq dnd-open-file-other-window nil)
+
 ;; マクロ読み込み
 (load (expand-file-name"~/.emacs.d/conf/macros"))
 

@@ -2,6 +2,9 @@
 # name: @implementation ... @end
 # group: definitions
 # --
-@implementation ${1:`(file-name-nondirectory)`} : ${2:NSObject}
+@implementation ${1:`(file-name-nondirectory
+                       (file-name-sans-extension
+                         (or (buffer-file-name)
+                             (buffer-name (current-buffer)))))`}
     $0
 @end

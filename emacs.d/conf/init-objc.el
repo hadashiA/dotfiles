@@ -35,3 +35,13 @@
           (lambda ()
             (define-key c-mode-base-map (kbd "C-c o") 'ff-find-other-file)
             ))
+
+;; ドキュメントの参照
+(when (require 'xcode-document-viewer) nil t
+      (setq xcdoc:document-path "/Developer/Platforms/iPhoneOS.platform/Developer/Documentation/DocSets/com.apple.adc.documentation.AppleiPhone4_0.iPhoneLibrary.docset")
+      (setq xcdoc:open-w3m-other-buffer t)
+      ;; hook の設定
+      (add-hook 'objc-mode-hook
+                (lambda ()
+                  ;; C-c w で確認してからドキュメントの検索
+                  (define-key objc-mode-map (kbd "C-c w") 'xcdoc:ask-search))))

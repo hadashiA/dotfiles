@@ -57,6 +57,9 @@
 
   (add-to-list 'load-path "~/.emacs.d/elisp/company")
   (require 'ac-company)
+  (setq ac-modes (append ac-modes '(objc-mode)))
+  (ac-company-define-source ac-source-company-xcode company-xcode)
+  ;; (ac-company-define-source ac-source-company-gtags company-gtags)
   (add-hook 'objc-mode-hook
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-company-xcode)
