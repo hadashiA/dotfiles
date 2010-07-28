@@ -32,7 +32,7 @@
 
   ;; 補完対象に大文字が含まれる場合のみ区別する
   ;; (setq ac-ignore-case 'smart)
-  (setq ac-ignore-case 'smart
+  (setq ac-ignore-case t
         ac-use-menu-map t)
   
   (define-key ac-completing-map (kbd "C-c /") 'ac-complete-filename)
@@ -59,11 +59,16 @@
   (require 'ac-company)
   (setq ac-modes (append ac-modes '(objc-mode)))
   (ac-company-define-source ac-source-company-xcode company-xcode)
-  ;; (ac-company-define-source ac-source-company-gtags company-gtags)
+  (ac-company-define-source ac-source-company-gtags company-gtags)
   (add-hook 'objc-mode-hook
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-company-xcode)
-              (add-to-list 'ac-sources 'ac-source-c++-keywords)
+              (add-to-list 'ac-sources 'ac-source-company-gtags)
+              ;; (add-to-list 'ac-sources 'ac-source-c++-keywords)
+              (add-to-list 'ac-sources 'ac-source-filename)
+              ;; (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
+              (add-to-list 'ac-sources 'ac-source-yasnippet)
+              (auto-complete)
               )
             )
 

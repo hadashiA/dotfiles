@@ -30,8 +30,8 @@
   (defvar xcode:sdkpath "/Developer/Platforms/iPhoneSimulator.platform/Developer")
   (defvar xcode:sdk (concat xcode:sdkpath "/SDKs/iPhoneSimulator" xcode:sdkver ".sdk"))
   ;; (defvar flymake-objc-compiler (concat xcode:sdkpath "/usr/bin/gcc-" xcode:gccver))
-  (defvar flymake-objc-compiler (concat xcode:sdkpath "/usr/bin/gcc"))
-  (defvar flymake-objc-compile-default-options (list "-Wall" "-Wextra" "-fsyntax-only" "-ObjC" "-std=c99" "-isysroot" xcode:sdk))
+  (defvar flymake-objc-compiler (concat xcode:sdkpath "/usr/bin/gcc-" xcode:gccver))
+  (defvar flymake-objc-compile-default-options (list "-arch" "i386" "-Wall" "-Wextra" "-fsyntax-only" "-ObjC" "-std=c99" "-isysroot" xcode:sdk))
   (defvar flymake-objc-compile-options '("-I."))
   (defvar flymake-last-position nil)
   (defun flymake-objc-init ()
@@ -42,15 +42,16 @@
                         (file-name-directory buffer-file-name))))
       (list flymake-objc-compiler (append flymake-objc-compile-default-options flymake-objc-compile-options (list local-file)))))
 
-  (add-hook 'objc-mode-hook
-         (lambda ()
-           ;; 拡張子 m と h に対して flymake を有効にする設定 flymake-mode t の前に書く必要があります
-           (push '("\\.m$" flymake-objc-init) flymake-allowed-file-name-masks)
-           (push '("\\.h$" flymake-objc-init) flymake-allowed-file-name-masks)
-           ;; 存在するファイルかつ書き込み可能ファイル時のみ flymake-mode を有効にします
-           (if (and (not (null buffer-file-name)) (file-writable-p buffer-file-name))
-               ;; (flymake-mode t)
-               )))
+  ;; (add-hook 'objc-mode-hook
+  ;;        (lambda ()
+  ;;          ;; 拡張子 m と h に対して flymake を有効にする設定 flymake-mode t の前に書く必要があります
+  ;;          (push '("\\.m$" flymake-objc-init) flymake-allowed-file-name-masks)
+  ;;          (push '("\\.h$" flymake-objc-init) flymake-allowed-file-name-masks)
+  ;;          存在するファイルかつ書き込み可能ファイル時のみ flymake-mode を有効にします
+  ;;          (if (and (not (null buffer-file-name)) (file-writable-p buffer-file-name))
+  ;;              (flymake-mode t)
+  ;;              )
+  ;;          ))
 
   (defun flymake-display-err-minibuffer ()
   "現在行の error や warinig minibuffer に表示する"
