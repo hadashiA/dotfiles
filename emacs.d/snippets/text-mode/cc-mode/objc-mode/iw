@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: + (id)method;
+# name: initWith
 # group: definitions
 # --
-+ (${1:id})${2:method}
+initWith

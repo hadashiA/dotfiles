@@ -47,7 +47,7 @@
   ;;          ;; 拡張子 m と h に対して flymake を有効にする設定 flymake-mode t の前に書く必要があります
   ;;          (push '("\\.m$" flymake-objc-init) flymake-allowed-file-name-masks)
   ;;          (push '("\\.h$" flymake-objc-init) flymake-allowed-file-name-masks)
-  ;;          存在するファイルかつ書き込み可能ファイル時のみ flymake-mode を有効にします
+  ;;          ;; 存在するファイルかつ書き込み可能ファイル時のみ flymake-mode を有効にします
   ;;          (if (and (not (null buffer-file-name)) (file-writable-p buffer-file-name))
   ;;              (flymake-mode t)
   ;;              )
