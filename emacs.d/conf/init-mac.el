@@ -24,3 +24,6 @@
 
 ;; ¥の代わりにバックスラッシュを入力する
 (define-key global-map [?¥] [?\\])
+
+;; バッファにファイルをドラッグドロップした際のファイルをfind-file
+(define-key global-map [ns-drag-file] 'ns-find-file)
