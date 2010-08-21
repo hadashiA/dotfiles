@@ -105,6 +105,7 @@
 (load "init-skelton")
 (load "init-smartchr")
 (load "init-vimlike")
+(load "init-matelike")
 (load "init-migemo")
 (load "init-skk")
 (load "init-flymake")
