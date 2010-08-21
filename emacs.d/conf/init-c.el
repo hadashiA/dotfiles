@@ -36,9 +36,21 @@
         
         ("\\.hpp$" (".cpp" ".c"))))
 
+
+(autoload 'gtags-mode "gtags" "" t)
+(setq gtags-mode-hook
+      '(lambda ()
+         (local-set-key "\M-t" 'gtags-find-tag)
+         (local-set-key "\M-r" 'gtags-find-rtag)
+         (local-set-key "\M-s" 'gtags-find-symbol)
+         (local-set-key "\C-t" 'gtags-pop-stack)
+         ))
+
 (add-hook 'cc-mode-hook
           (lambda ()
             (define-key c-mode-base-map (kbd "C-c o") 'ff-find-other-file)
+            (gtags-mode 1)
+            (gtags-make-complete-list)
             ))
 
 (add-hook 'objc-mode-hook
