@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: globreplace
+# group: work
+# --
+Dir[File.expand_path("$1")].each do |path|
+  content = open(path){|f| f.read }
+  $0
+  open(path, 'w'){|f| f.puts(content) }
+end
+

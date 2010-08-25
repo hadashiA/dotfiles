@@ -43,7 +43,7 @@
          (local-set-key "\M-t" 'gtags-find-tag)
          (local-set-key "\M-r" 'gtags-find-rtag)
          (local-set-key "\M-s" 'gtags-find-symbol)
-         (local-set-key "\C-t" 'gtags-pop-stack)
+         ;; (local-set-key "\C-t" 'gtags-pop-stack)
          ))
 
 (add-hook 'cc-mode-hook
@@ -56,11 +56,22 @@
 (add-hook 'objc-mode-hook
           (lambda ()
             (define-key c-mode-base-map (kbd "C-c o") 'ff-find-other-file)
+            (gtags-mode 1)
+            (gtags-make-complete-list)
             ))
 
-
-
-
+(add-hook 'align-load-hook
+            (lambda ()
+              (add-to-list 'align-rules-list
+                           '(c-assignment-literal
+                             (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
+                             (repeat . t)
+                             (modes  . '(cc-mode))))
+              (add-to-list 'align-rules-list
+                           '(objc-assignment-literal
+                             (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
+                             (repeat . t)
+                             (modes  . '(objc-mode))))))
 
 
 
