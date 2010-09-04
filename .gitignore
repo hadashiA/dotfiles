@@ -5,6 +5,8 @@ history-*
 zsh/history
 zsh/modules/auto-fu/auto-fu
 zsh/modules/auto-fu/auto-fu.zwc
+zsh/cdd_pwd_list
+zsh/cdd_pwd_list.t
 fish_history
 fish_read_history
 fishd.*

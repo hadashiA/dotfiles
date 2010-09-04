@@ -114,6 +114,6 @@ typeset -ga preexec_functions
 source ~/.zsh/alias.zsh
 source ~/.zsh/function.zsh
 source ~/.zsh/emacs.zsh
-# source ~/.zsh/cdd.zsh
+source ~/.zsh/cdd.zsh
 source ~/.zsh/term.compat.zsh
 [[ $ZSH_VERSION == (<5->|4.<4->|4.3.<10->)* ]] && source ~/.zsh/term.zsh
