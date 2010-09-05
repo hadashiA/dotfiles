@@ -1,0 +1,4 @@
+#!/bin/sh
+
+awk '{print $1}' ~/.screen/.temp
+~/.screen/tempmonitor > ~/.screen/.temp &
