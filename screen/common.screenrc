@@ -7,6 +7,15 @@ escape          ^z^z
 # escape          ^Jj             # MacのCommand
 bind            ^X
 bind            x
+## emacsの操作方法とできる限り近づけるため
+bind -c REGION 2 split
+bind -c REGION 1 only
+bind -c REGION 0 remove
+bind -c REGION o focus
+bind -c REGION \^ resize
+bind ^X command -c REGION
+markkeys h=^B:l=^F:$=^E:^D=^V
+
 startup_message off
 nethack         on
 autodetach      on
