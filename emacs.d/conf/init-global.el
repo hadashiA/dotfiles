@@ -156,7 +156,6 @@
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (self-insert-command (or arg 1)))))
 
-
 (when (require 'point-undo nil t)
   (global-set-key (kbd "C-c C-/") 'point-undo)
   (global-set-key (kbd "C-c C-c C-/") 'point-redo)
