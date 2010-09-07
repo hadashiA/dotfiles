@@ -98,7 +98,8 @@ precmd_functions+=precmd_screen_window_title
 preexec_functions+=preexec_screen_window_title
 
 # prompt
-PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)%(!.#.>) "
+# PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)%(!.#.>) "
+PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)${WINDOW:+"[$WINDOW]"}%(!.#.>) "
 local psdirs='[%F{yellow}%3(v|%32<..<%3v%<<|%60<..<%~%<<)%f]'
 local psvcs='%3(v|[%25<\<<%F{yellow}%2v%f@%F{blue}%1v%f%<<]|)'
 RPROMPT="$psdirs$psvcs"
