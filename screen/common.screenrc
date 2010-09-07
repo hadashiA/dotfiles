@@ -1,28 +1,26 @@
-source $HOME/.screen/local.screenrc
+# source $HOME/.screen/local.screenrc
 
 msgwait         0
 maptimeout      0
 defscrollback   8192
-escape          ^z^z
-# escape          ^Jj             # MacのCommand
-bind            ^X
-bind            x
-## emacsの操作方法とできる限り近づけるため
-bind -c REGION 2 split
-bind -c REGION 1 only
-bind -c REGION 0 remove
-bind -c REGION o focus
-bind -c REGION \^ resize
-bind ^X command -c REGION
-markkeys h=^B:l=^F:$=^E:^D=^V
-
 startup_message off
 nethack         on
 autodetach      on
 defencoding     utf-8
 encoding        utf-8 utf-8
-cjkwidth        on
+# cjkwidth        on
 altscreen       on
+
+# escape          ^t^t
+escape          ^z^z
+# escape          ^Jj
+bind            ^X
+bind            x
+bind -c REGION 2 split
+bind -c REGION 1 only
+bind -c REGION 0 remove
+bind -c REGION o focus
+
 caption splitonly "%?%F%{= Wk}%:%{= wk}%?%3n %t"
 # hardstatus alwayslastline "$SCRHSTCLR%H%{-} %-w%{=b bw}%n %t%{-}%+w"
 # hardstatus alwayslastline "%{= db} %-w%{=b dr}%n %t%{-}%+w %= [Mem:%0`%%] [CPU:%1`%% %2`C] [%3`] %y/%m/%d %c "
@@ -40,7 +38,7 @@ acladd    $USER
 # term xterm-256color
 # termcapinfo xterm* 'Co#256:pa#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm:'
 # attrcolor b ".I"
-hell zsh
+# hell zsh
 
 # J/K for half page donw/up
 markkeys ^D=J:^U=K
@@ -73,3 +71,8 @@ unsetenv SCRPASTE
 
 # initial screen
 screen -t main  0
+
+# default windows
+# screen 0 pj
+# screen 1 emacsd
+# select 0
