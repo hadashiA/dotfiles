@@ -5,10 +5,11 @@ stty stop undef
 typeset -gxU PATH=$PATH
 
 # history
-HISTFILE=~/.zsh/history
+HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 setopt   share_history append_history
+unsetopt extended_history
 # setopt   hist_ignore_space hist_ignore_dups hist_expire_dups_first
 autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
