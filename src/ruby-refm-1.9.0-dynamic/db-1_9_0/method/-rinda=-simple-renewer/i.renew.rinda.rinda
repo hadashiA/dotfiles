@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=renew
+
+--- renew
+
+Called by the TupleSpace to check if the object is still alive.
+
+

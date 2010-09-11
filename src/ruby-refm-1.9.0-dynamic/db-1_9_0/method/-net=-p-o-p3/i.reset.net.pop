@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=reset
+
+--- reset
+
+セッションをリセットします。
+具体的には [[m:Net::POPMail#delete]] で消去したメールが全て復活します。
+
+POP3 ではメール一個だけを復活する方法はありません。
+
+

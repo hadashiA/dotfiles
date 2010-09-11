@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=_is_master_of?
+
+--- _is_master_of?(tcltkip_obj)
+

@@ -1,0 +1,22 @@
+#@since 1.8.1
+= class OpenSSL::ASN1::Constructive < OpenSSL::ASN1::ASN1Data
+
+include Enumerable
+
+== Class Methods
+--- new(value, tag, tagging, tag_class)
+#@todo
+
+Constructive オブジェクトを生成します。
+
+== Instance Methods
+
+--- tagging
+--- tagging=(tag)
+#@todo
+
+[[c:Symbol]] オブジェクト :IMPLICIT または :EXPLICIT のいずれかをとります。
+
+= class OpenSSL::ASN1::Set < OpenSSL::ASN1::Constructive
+= class OpenSSL::ASN1::Sequence < OpenSSL::ASN1::Constructive
+#@end

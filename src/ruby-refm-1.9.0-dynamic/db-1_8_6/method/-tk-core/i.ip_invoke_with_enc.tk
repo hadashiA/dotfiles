@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=ip_invoke_with_enc
+
+--- ip_invoke_with_enc(*args)
+

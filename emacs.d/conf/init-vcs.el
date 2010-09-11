@@ -1,5 +1,10 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
+;; なんか重いし使いずらいから全部ターミナルからやってる
+;; ma-git はとりあえず有効にしといてみる
+;; vc-gitとかのバックエンドの処理を無効にする
+(setq vc-handled-backends nil)
+
 ;; vc-mode
 ;;(require 'vc)
 

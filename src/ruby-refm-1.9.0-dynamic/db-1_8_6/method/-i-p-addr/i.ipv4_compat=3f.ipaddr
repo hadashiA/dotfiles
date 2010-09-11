@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=ipv4_compat?
+
+--- ipv4_compat?
+
+IPv4 互換 IPv6 アドレスなら 真を返します。
+

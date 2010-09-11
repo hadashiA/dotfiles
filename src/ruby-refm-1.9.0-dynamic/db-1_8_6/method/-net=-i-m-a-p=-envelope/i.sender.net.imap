@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=sender
+
+--- sender
+
+Retunns an array of [[c:Net::IMAP::Address]] that represents the sender.
+

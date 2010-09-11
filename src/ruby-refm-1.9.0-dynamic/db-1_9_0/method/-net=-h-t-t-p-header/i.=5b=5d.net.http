@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=[]
+
+--- [](key)
+
+key ヘッダフィールド (文字列) を返します。
+たとえばキー 'content-length' に対しては '2048' のような文字列が得られます。
+key は大文字小文字を区別しません。
+

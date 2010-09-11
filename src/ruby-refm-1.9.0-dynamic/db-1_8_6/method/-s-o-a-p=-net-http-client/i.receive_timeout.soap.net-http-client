@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=receive_timeout,receive_timeout=
+
+--- receive_timeout
+--- receive_timeout=(value)
+

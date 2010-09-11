@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=comment=
+
+--- comment=(string)
+
+gzip ファイルのヘッダーに記録するコメントを指定します。
+[[m:Zlib::GzipWriter#write]] 等の書き込み系メソッドを
+呼んだ後で指定しようとすると [[c:Zlib::GzipFile::Error]] 例外が
+発生します。

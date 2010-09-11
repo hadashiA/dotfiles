@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=system
+
+--- system(command, *opts)
+
+commandを実行する.
+
+例:
+
+  print sh.system("ls", "-l")
+  sh.system("ls", "-l") | sh.head > STDOUT
+

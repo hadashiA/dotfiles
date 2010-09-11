@@ -1,0 +1,11 @@
+visibility=public
+kind=added
+names=isutf8
+
+--- isutf8
+
+((<ruby 1.8.2 feature>))
+
+
+Kconv.isutf8(self) と同じです。
+

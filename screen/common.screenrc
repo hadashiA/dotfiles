@@ -1,0 +1,78 @@
+# source $HOME/.screen/local.screenrc
+
+msgwait         0
+maptimeout      0
+defscrollback   8192
+startup_message off
+nethack         on
+autodetach      on
+defencoding     utf-8
+encoding        utf-8 utf-8
+# cjkwidth        on
+altscreen       on
+
+# escape          ^t^t
+escape          ^z^z
+# escape          ^Jj
+bind            ^X
+bind            x
+bind -c REGION 2 split
+bind -c REGION 1 only
+bind -c REGION 0 remove
+bind -c REGION o focus
+
+caption splitonly "%?%F%{= Wk}%:%{= wk}%?%3n %t"
+# hardstatus alwayslastline "$SCRHSTCLR%H%{-} %-w%{=b bw}%n %t%{-}%+w"
+# hardstatus alwayslastline "%{= db} %-w%{=b dr}%n %t%{-}%+w %= [Mem:%0`%%] [CPU:%1`%% %2`C] [%3`] %y/%m/%d %c "
+hardstatus alwayslastline "%{= db} %-w%{=b dr}%n %t%{-}%+w %= [Mem:%0`%%] [CPU:%1`%% %2`C] %y/%m/%d %c "
+backtick 0 10 10 $HOME/.screen/mempct
+backtick 1 1 1   $HOME/.screen/cpupct
+backtick 2 5 5 $HOME/.screen/cputemp
+# backtick 3 10 10 $HOME/.screen/battery.sh
+
+
+multiuser on
+acladd    $USER
+
+# defbce on
+# term xterm-256color
+# termcapinfo xterm* 'Co#256:pa#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm:'
+# attrcolor b ".I"
+# hell zsh
+
+# J/K for half page donw/up
+markkeys ^D=J:^U=K
+
+# set copy buffer
+setenv SCRCOPYBUFFER $HOME/.screen/exchange
+setenv SCRCOPYCMD "cat $SCRCOPYBUFFER | xsel -i"
+bufferfile $SCRCOPYBUFFER
+
+# pass copy buffer to xclip
+bindkey -m ' ' eval 'stuff \040' writebuf "exec !!! zsh -c '$SCRCOPYCMD'"
+bindkey -m Y eval 'stuff Y' writebuf "exec !!! zsh -c '$SCRCOPYCMD'"
+bindkey -m y eval 'stuff y' writebuf "exec !!! zsh -c '$SCRCOPYCMD'"
+bindkey -m W eval 'stuff W' writebuf "exec !!! zsh -c '$SCRCOPYCMD'"
+
+# paste from xclip
+setenv SCRYANKCMD "xsel -o > $SCRCOPYBUFFER"
+setenv SCRPASTE 'screen -X eval "readbuf" "paste ."'
+bind P eval "exec !!! zsh -c '$SCRYANKCMD; $SCRPASTE'"
+
+# automatically set title
+setenv SCREENTITLE auto
+
+# reset env
+unsetenv SCRHSTCLR
+unsetenv SCRCOPYBUFFER
+unsetenv SCRCOPYCMD
+unsetenv SCRYANKCMD
+unsetenv SCRPASTE
+
+# initial screen
+screen -t main  0
+
+# default windows
+# screen 0 pj
+# screen 1 emacsd
+# select 0

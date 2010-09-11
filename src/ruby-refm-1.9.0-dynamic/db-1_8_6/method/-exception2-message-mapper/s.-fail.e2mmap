@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=Fail,Raise
+
+--- Raise(klass = E2MM, err = nil, *rest)
+--- Fail(klass = E2MM, err = nil, *rest)
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=added
+names=ready?
+
+--- ready?
+
+ブロックせずに読み込み可能なら真を返します。そうでなければ nil を返します。
+self が EOF に達していれば false を返します。
+

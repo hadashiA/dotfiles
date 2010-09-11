@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=bigdecimal.ludcmp,bigdecimal.jacobian
+classes=Newton
+is_sublibrary=true
+
+

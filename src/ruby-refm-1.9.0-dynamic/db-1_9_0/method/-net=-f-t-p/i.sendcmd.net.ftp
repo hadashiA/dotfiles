@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=sendcmd
+
+--- sendcmd(cmd)
+
+cmd で指定されたコマンドをサーバーに送り、 サーバーからの応答を返します。
+
+応答コードが 4xx の場合は例外 FTPTermError が、5xx の場合は
+例外 FTPPermError が発生します。
+応答コードの最初の数字が 1 から 5 のどれでもない場合は
+例外 FTPProtoError が発生します。
+

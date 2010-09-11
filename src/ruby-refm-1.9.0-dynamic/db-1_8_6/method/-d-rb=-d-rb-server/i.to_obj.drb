@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=to_obj
+
+--- to_obj(ref)
+
+Convert a dRuby reference to the local object it refers to.
+

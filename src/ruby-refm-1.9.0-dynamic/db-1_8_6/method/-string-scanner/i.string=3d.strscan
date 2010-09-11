@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=string=
+
+--- string=(str)
+スキャン対象の文字列を str に変更して、マッチ記録を捨てます。
+str を返します。
+
+      str = '0123'
+      s = StringScanner.new('test string')
+      s.string = str     # => "0123"
+      s.scan(/\w+/)      # => "0123"
+

@@ -1,0 +1,7 @@
+superclass=XSD=XSDUnsignedShort
+type=class
+library=soap.baseData
+extended=SOAPModuleUtils
+included=SOAPBasetype
+
+

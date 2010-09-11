@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=NO_ARGUMENT,OPTIONAL_ARGUMENT,REQUIRED_ARGUMENT
+
+--- NO_ARGUMENT
+--- REQUIRED_ARGUMENT
+--- OPTIONAL_ARGUMENT
+オプションへの引数のフラグです。
+

@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=which_command
+
+--- which_command(name)
+

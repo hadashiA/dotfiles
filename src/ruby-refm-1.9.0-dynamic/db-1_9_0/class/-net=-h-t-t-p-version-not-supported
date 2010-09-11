@@ -1,0 +1,7 @@
+superclass=Net=HTTPServerError
+type=class
+library=net.http
+extended=
+included=
+
+505

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=WRITER
+
+--- WRITER
+
+[[m:GDBM.open]] の第3引数に指定します。
+書き込みモードでオープンします。
+

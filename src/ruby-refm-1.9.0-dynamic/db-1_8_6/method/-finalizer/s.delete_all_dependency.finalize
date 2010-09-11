@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=delete_all_dependency
+
+--- delete_all_dependency(id, dependant)
+

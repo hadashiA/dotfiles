@@ -1,0 +1,15 @@
+visibility=public
+kind=defined
+names=min_by
+
+--- min_by {|item| ... } -> Object
+
+各要素を順番にブロックに渡して実行し、
+その評価結果を <=> で比較して、
+最大であった値に対応する元の要素を返します。
+
+要素が存在しないときは nil を返します。
+
+min と min_by の違いは sort と sort_by の違いと同じです。
+詳細は[[m:Enumerable#sort_by]] を参照してください。
+

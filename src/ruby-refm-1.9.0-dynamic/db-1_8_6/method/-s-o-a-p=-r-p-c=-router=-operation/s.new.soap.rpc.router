@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(soapaction, name, param_def, opt)
+

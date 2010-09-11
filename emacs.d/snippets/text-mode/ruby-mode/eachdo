@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : each do |v| ... end
+# group : enumerable
+# --
+each do |${1:v}|
+  $0
+end

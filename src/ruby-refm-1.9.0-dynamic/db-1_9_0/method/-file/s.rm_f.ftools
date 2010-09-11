@@ -1,0 +1,10 @@
+visibility=public
+kind=added
+names=rm_f,safe_unlink
+
+--- safe_unlink(files[, ...][, verbose = false])
+--- rm_f(files[, ...][, verbose = false])
+
+(複数の)ファイルを可能な限り削除します。削除できたファイルの数を
+返します。rm -f([[man:rm(1)]]) に相当します。
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(socket)
+--- new(socket, context)
+
+SSLSocket オブジェクトを生成します。socket には [[c:TCPSocket]] オブジェクトを与えます。context には [[c:OpenSSL::SSL::SSLContext]] オブジェクトを与えます。
+

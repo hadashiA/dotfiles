@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=[],mc,translate
+
+--- translate(*args)
+--- mc(*args)
+--- [](*args)
+

@@ -1,0 +1,19 @@
+visibility=public
+kind=defined
+names=summarize
+
+--- summarize(to = [], width = @summary_width, max = width - 1, indent= @summary_indent)
+--- summarize(to = [], width = @summary_width, max = width - 1, indent= @summary_indent) {|line| ... }
+
+サマリを to へと加えていきます。
+to には << メソッドが定義されたオブジェクトを与えます。
+デフォルトは [] です。
+width にはサマリの幅を数値で与えます。デフォルトは self.summary_width です。
+サマリの最大幅を数値で与えます。デフォルトは self.summary_width - 1です。
+indent にはサマリのインデントを文字列で与えます。デフォルトは
+self.summary_indent です。
+
+ブロックが与えられた場合、サマリの各行を引数としてブロックを評価します。
+この場合、ブロックの中で明示的に to へと加えていかない限り、
+to にサマリが加えられることはありません。
+

@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=use_numeric_character_reference,use_numeric_character_reference=
+
+--- use_numeric_character_reference
+--- use_numeric_character_reference=(value)
+

@@ -1,0 +1,32 @@
+visibility=public
+kind=defined
+names=-v,-w,VERBOSE
+
+--- $VERBOSE
+--- $-v
+--- $-w
+冗長メッセージフラグです。Rubyインタプリタへの
+[[unknown:Rubyの起動/-v]] オプションでセットされます。
+
+警告レベルは三段階あり、それぞれ以下の通りです。
+
+: nil
+    警告を出力しない
+: false
+    重要な警告のみ出力 (デフォルト)
+: true
+    すべての警告を出力する
+
+$VERBOSE に nil, false 以外を代入すると値は true になります。
+
+$VERBOSE の値はコマンドラインオプション
+[[unknown:Rubyの起動/-W[level]]] でも設定できます。
+-W0 オプションで nil、
+-W1 オプションで false、
+-W2, -W オプションで true が設定されます。
+[[unknown:Rubyの起動/-v]] オプションや
+[[unknown:Rubyの起動/-w]] オプションを指定した場合は
+true が設定されます。
+
+$VERBOSE はグローバルスコープです。
+

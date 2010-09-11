@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/canvas
+END
+TkCanvasItemConfig
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/1440/doctree/trunk/refm/api/src/tk/canvas/TkCanvasItemConfig
+END
+TkcItem
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/canvas/TkcItem
+END
+TkcOval
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/canvas/TkcOval
+END
+TkcImage
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/canvas/TkcImage
+END
+TkcRectangle
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/canvas/TkcRectangle
+END
+TkcText
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/canvas/TkcText
+END
+TkcArc
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/canvas/TkcArc
+END
+TkcLine
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/canvas/TkcLine
+END
+TkcPolygon
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/canvas/TkcPolygon
+END
+TkcWindow
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/canvas/TkcWindow
+END
+TkCanvas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/canvas/TkCanvas
+END
+TkcBitmap
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/canvas/TkcBitmap
+END

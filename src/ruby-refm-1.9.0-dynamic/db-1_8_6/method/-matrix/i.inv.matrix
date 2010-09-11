@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=inv,inverse
+
+--- inverse
+--- inv
+
+逆行列を返す。
+

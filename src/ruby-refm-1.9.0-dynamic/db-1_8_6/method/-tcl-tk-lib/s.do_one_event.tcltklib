@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=do_one_event
+
+--- do_one_event(*args)
+

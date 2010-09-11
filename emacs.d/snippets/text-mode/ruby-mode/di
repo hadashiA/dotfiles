@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: def initialize .. end
+# group: definitions
+# --
+def initialize${1:($2)}
+  ${2:$(when (< 0 (length yas/text))
+         (concat
+           (mapconcat '(lambda (var) (concat "@" var))
+                      (split-string yas/text " \*, \*") ", ")
+           " = " yas/text))}
+end

@@ -1,0 +1,3 @@
+= class LoadError < ScriptError
+
+[[m:Kernel.#require]] や [[m:Kernel.#load]] が失敗したときに発生します。

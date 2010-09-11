@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=reverse_each
+
+--- reverse_each {|item| ... }    -> self
+
+各要素に対して逆順にブロックを評価します。
+

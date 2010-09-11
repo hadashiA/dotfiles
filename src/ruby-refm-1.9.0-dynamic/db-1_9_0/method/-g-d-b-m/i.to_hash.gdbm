@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=to_hash
+
+--- to_hash
+
+DBM の各要素を格納したハッシュを返します。
+

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: {|v| .. }
+# group: block
+# binding: "C-c C-c C-v"
+# --
+{|${1:v}| $0 }

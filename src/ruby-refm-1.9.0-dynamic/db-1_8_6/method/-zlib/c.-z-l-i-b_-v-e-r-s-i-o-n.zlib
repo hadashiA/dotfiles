@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=ZLIB_VERSION
+
+--- ZLIB_VERSION
+
+zlib.h のバージョンを表す文字列。
+

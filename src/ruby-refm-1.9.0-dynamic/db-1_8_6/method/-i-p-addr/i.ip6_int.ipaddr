@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=ip6_int
+
+--- ip6_int
+
+IPv6 なら RFC1886 互換形式で DNS 逆引きのための文字列を返します。
+IPv4 の場合は例外を発生します。
+

@@ -1,0 +1,24 @@
+visibility=public
+kind=added
+names=each_char
+
+--- each_char
+--- each_char {|char| ... }
+
+文字列中の各文字に対して繰り返します。
+ブロックを指定せずに呼び出された時には、各文字の配列を返します。
+
+例：
+
+  #!/usr/bin/env ruby
+
+  $KCODE = 'EUC'
+
+  require 'jcode'
+
+  zstr = 'ＡＢＣＤＥＦ'
+  zstr.each_char do |x|
+    print "+#{x}+"
+  end                     # => +Ａ++Ｂ++Ｃ++Ｄ++Ｅ++Ｆ+
+
+

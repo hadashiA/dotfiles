@@ -1,0 +1,7 @@
+superclass=Object
+type=class
+library=openssl
+extended=
+included=
+
+CRL(証明書失効リスト) クラス。

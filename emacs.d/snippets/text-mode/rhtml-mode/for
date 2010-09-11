@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : <% for obj in collection. %> ... <% end %>
+# group: block
+# --
+<% for $1 in ${2:`(file-name-nondirectory default-directory)`} %>
+  $0
+<% end %>

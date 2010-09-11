@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=value
+
+--- value
+
+Return the object which makes up the tuple itself: the Array or
+Hash.
+
+

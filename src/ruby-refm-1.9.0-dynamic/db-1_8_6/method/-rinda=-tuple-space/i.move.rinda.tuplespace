@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=move
+
+--- move(port, tuple, sec = nil)
+
+Moves +tuple+ to +port+.
+

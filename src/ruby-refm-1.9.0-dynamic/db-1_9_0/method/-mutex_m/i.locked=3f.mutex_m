@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=locked?,mu_locked?
+
+--- mu_locked?
+--- locked?
+Mutex_m がロックされている時、真を返します。
+

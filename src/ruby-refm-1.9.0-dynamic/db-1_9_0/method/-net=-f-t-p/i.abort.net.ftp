@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=abort
+
+--- abort
+
+データの転送を中止します。
+

@@ -1,0 +1,61 @@
+superclass=Object
+type=class
+library=strscan
+extended=
+included=
+
+strscan は文字列スキャナライブラリです。
+簡単に高速なスキャナを記述できます。
+
+    s = StringScanner.new('This is an example string')
+    s.eos?            #=> false
+
+    p s.scan(/\w+/)   #=> "This"
+    p s.scan(/\w+/)   #=> nil
+    p s.scan(/\s+/)   #=> " "
+    p s.scan(/\s+/)   #=> nil
+    p s.scan(/\w+/)   #=> "is"
+    s.eos?            #=> false
+
+    p s.scan(/\s+/)   #=> " "
+    p s.scan(/\w+/)   #=> "an"
+    p s.scan(/\s+/)   #=> " "
+    p s.scan(/\w+/)   #=> "example"
+    p s.scan(/\s+/)   #=> " "
+    p s.scan(/\w+/)   #=> "string"
+    s.eos?            #=> true
+
+    p s.scan(/\s+/)   #=> nil
+    p s.scan(/\w+/)   #=> nil
+
+StringScanner オブジェクトはスキャンする文字列と「スキャンポインタ」のセットです。
+スキャンポインタとはスキャンしおわったところを示すインデックスのことです。
+オブジェクト作成直後にはスキャンポインタは文字列先頭にあり、
+その地点でのみマッチを試します。マッチしたらその後ろにポインタを進めます。
+
+    ## a string and a scan pointer   ("_" = scan pointer)
+
+    s = StringScanner.new('This is an example string')
+    _This is an example string     s.eos? = false
+    s.scan(/\w+/)
+    This_ is an example string     s.eos? = false
+    s.scan(/\s+/)
+    This _is an example string     s.eos? = false
+    s.scan(/\w+/)
+    This is_ an example string     s.eos? = false
+    s.scan(/\s+/)
+    This is _an example string     s.eos? = false
+    s.scan(/\w+/)
+    This is an_ example string     s.eos? = false
+    s.scan(/\s+/)
+    This is an _example string     s.eos? = false
+    s.scan(/\w+/)
+    This is an example_ string     s.eos? = false
+    s.scan(/\s+/)
+    This is an example _string     s.eos? = false
+    s.scan(/\w+/)
+    This is an example string_     s.eos? = true
+
+StringScanner は $~ $& $1 $2 …… などの正規表現関連変数を
+セットしません。代わりに StringScanner#[], #matched? などの
+マッチデータ関連メソッドを使ってください。

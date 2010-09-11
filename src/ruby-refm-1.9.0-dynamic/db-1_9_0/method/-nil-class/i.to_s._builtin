@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=to_s
+
+--- to_s -> String
+
+空文字列 "" を返します。

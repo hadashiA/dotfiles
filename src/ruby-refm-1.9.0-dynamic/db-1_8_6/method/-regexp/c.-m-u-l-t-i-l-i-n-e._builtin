@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=MULTILINE
+
+--- MULTILINE
+
+複数行モード。正規表現 "." が改行にマッチするようになります。
+[[unknown:リテラル/正規表現リテラル]] の //m オプションと同じです。

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=install
+
+--- install(filename_from, filename_to, mode)
+
+FileToolsクラスにある同名のクラスメソッドと同じです.
+

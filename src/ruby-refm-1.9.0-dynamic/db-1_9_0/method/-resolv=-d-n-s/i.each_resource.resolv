@@ -1,0 +1,28 @@
+visibility=public
+kind=defined
+names=each_resource,getresource,getresources
+
+--- getresource(name, typeclass)
+--- getresources(name, typeclass)
+--- each_resource(name, typeclass) {|resource| ...}
+
+They lookup DNS resources of name.
+name は Resolv::Name または String でなければなりません。
+
+typeclass は以下のいずれかです。
+  * Resolv::DNS::Resource::IN::ANY
+  * Resolv::DNS::Resource::IN::NS
+  * Resolv::DNS::Resource::IN::CNAME
+  * Resolv::DNS::Resource::IN::SOA
+  * Resolv::DNS::Resource::IN::HINFO
+  * Resolv::DNS::Resource::IN::MINFO
+  * Resolv::DNS::Resource::IN::MX
+  * Resolv::DNS::Resource::IN::TXT
+  * Resolv::DNS::Resource::IN::ANY
+  * Resolv::DNS::Resource::IN::A
+  * Resolv::DNS::Resource::IN::WKS
+  * Resolv::DNS::Resource::IN::PTR
+  * Resolv::DNS::Resource::IN::AAAA
+
+ルックアップ結果は Resolv::DNS::Resource （のサブクラス）のインスタンスとなります。
+

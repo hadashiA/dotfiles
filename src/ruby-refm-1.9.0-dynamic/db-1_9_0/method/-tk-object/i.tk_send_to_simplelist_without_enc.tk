@@ -1,0 +1,7 @@
+visibility=public
+kind=added
+names=tk_send_to_simplelist_without_enc
+
+--- tk_send_to_simplelist_without_enc(cmd, *rest)
+
+

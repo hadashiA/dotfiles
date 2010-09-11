@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=split
+
+--- split(file)
+
+Fileクラスにある同名のクラスメソッドと同じです.
+

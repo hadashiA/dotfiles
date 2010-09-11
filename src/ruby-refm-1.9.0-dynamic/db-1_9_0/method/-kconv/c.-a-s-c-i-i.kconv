@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=ASCII
+
+--- ASCII
+
+((<ruby 1.8.2 feature>)):
+ASCII を表します。
+

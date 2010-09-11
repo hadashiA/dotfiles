@@ -1,0 +1,19 @@
+visibility=public
+kind=defined
+names=each
+
+--- each {|item| ... }    -> self
+
+ディレクトリの各エントリを表す文字列を引数として、ブロックを評価します。
+
+@raise IOError 既に自身が close している場合に発生します。
+
+  Dir.open('.').each{|f|
+    p f
+  }
+  #=> 
+  "."
+  ".."
+  "bar"
+  "foo"
+

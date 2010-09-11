@@ -1,0 +1,71 @@
+visibility=public
+kind=defined
+names=DATA
+
+--- DATA
+スクリプトの __END__
+([[unknown:スクリプトの終り|プログラム/プログラムの終り]])
+以降をアクセスする [[c:File]] オブジェクト。
+
+==== 注意
+
+    * DATA.rewind で移動する読みとり位置は __END__ 直後ではなく、
+      スクリプトファイルの先頭です。
+    * スクリプトが標準入力から読みこまれた場合は標準入力になります。
+    * スクリプトがファイルや標準入力から読みこまれなかった場合や、
+      __END__ で終っていない場合には定義されません。
+    * [[m:Kernel.#require]] や [[m:Kernel.#load]] で
+      読み込まれたファイルの中であってもそのファイル (__FILE__)
+      ではなく実行されたファイル ($0) を指します。
+
+==== 例1
+    print DATA.gets # => 故人西辞黄鶴楼
+    print DATA.gets # => 烟花三月下揚州
+    print DATA.gets # => 孤帆遠影碧空尽
+    print DATA.gets # => 唯見長江天際流
+    DATA.gets       # => nil
+    
+    __END__
+    故人西辞黄鶴楼
+    烟花三月下揚州
+    孤帆遠影碧空尽
+    唯見長江天際流
+
+==== 例2
+    sum = 0
+    DATA.each_line do |line|
+      sum += line.to_i
+    end
+    
+    DATA.rewind
+    p DATA.gets    # => "sum = 0￥n"
+    
+    __END__
+    17
+    19
+    23
+    29
+    31
+
+==== 例3
+    DATA.gets    # => uninitialized constant DATA (NameError)
+
+==== 例4
+library.rb:
+    print DATA.gets
+    
+    __END__
+    data from library
+
+app.rb:
+    require 'library.rb'
+
+    __END__
+    data from app
+
+このときシェルから次を実行すると
+    ruby app.rb
+結果は
+    data from app
+
+

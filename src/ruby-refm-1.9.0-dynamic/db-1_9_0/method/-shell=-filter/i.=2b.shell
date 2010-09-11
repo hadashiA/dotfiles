@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=+
+
+--- +(filter)
+
+filter1 + filter2 は filter1の出力の後, filter2の出力を行う.
+

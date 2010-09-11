@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=retrlines
+
+--- retrlines(cmd, callback = nil)
+
+サーバーに cmd で指定されたコマンドを送り、テキストデータを
+取り寄せます。一行ずつテキストを読み込み、callback で指定された
+Proc オブジェクトまたはブロックに読み込んだ行を渡します。
+
+callback もブロックも省略された場合は読み込んだ行を print します。
+

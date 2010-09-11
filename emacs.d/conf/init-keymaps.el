@@ -35,3 +35,7 @@
 ;;(define-key comint-mode-map "\C-p" 'comint-previous-input)
 ;;(define-key comint-mode-map  "\C-n" 'comint-next-input)
 
+(global-set-key "\M-n" 'forward-list)
+(global-set-key "\M-p" 'backward-list)
+
+(global-set-key "\C-c\C-a" 'align)

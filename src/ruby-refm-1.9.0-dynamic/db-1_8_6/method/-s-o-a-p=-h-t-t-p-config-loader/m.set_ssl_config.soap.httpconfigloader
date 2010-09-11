@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=set_ssl_config
+
+--- set_ssl_config(client, ssl_config)
+

@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=webrick.log,webrick.config,webrick.httputils,webrick.httpversion,webrick.version,webrick.utils
+classes=WEBrick=ServerError,WEBrick=SimpleServer,WEBrick=Daemon,WEBrick=GenericServer
+is_sublibrary=true
+
+

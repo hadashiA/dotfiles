@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=det,determinant
+
+--- determinant
+--- det
+
+行列式 (determinant) を返す。
+
+

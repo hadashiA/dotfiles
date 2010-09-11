@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=atan2
+
+--- atan2(x, y) -> Float
+
+x / y の逆正接関数の値を返します。
+
+@param x 実数
+@param y 実数
+
+@return 返される値の範囲は [-π, π] です。
+

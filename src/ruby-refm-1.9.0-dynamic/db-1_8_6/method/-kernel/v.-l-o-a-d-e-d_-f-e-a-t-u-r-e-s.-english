@@ -1,0 +1,13 @@
+visibility=public
+kind=added
+names=LOADED_FEATURES
+
+--- $LOADED_FEATURES
+
+[[m:$"]] ¤ÎÊÌÌ¾
+
+  require "English"
+  require "find"
+
+  p $LOADED_FEATURES #=> ["English.rb", "find.rb"]
+

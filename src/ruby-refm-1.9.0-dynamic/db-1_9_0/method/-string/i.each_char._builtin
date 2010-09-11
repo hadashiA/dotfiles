@@ -1,0 +1,14 @@
+visibility=public
+kind=defined
+names=each_char
+
+--- each_char {|cstr| block }    -> String
+
+Passes each character in str to the given block.
+
+   "hello".each_char {|c| print c, ' ' }
+
+produces:
+
+   h e l l o
+

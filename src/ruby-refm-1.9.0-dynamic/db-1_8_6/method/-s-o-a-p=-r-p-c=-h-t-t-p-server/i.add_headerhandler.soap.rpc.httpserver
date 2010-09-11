@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=add_headerhandler,add_rpc_headerhandler
+
+--- add_headerhandler(obj)
+--- add_rpc_headerhandler(obj)
+

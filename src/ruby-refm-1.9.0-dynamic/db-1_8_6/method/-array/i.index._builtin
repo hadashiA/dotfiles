@@ -1,0 +1,18 @@
+visibility=public
+kind=defined
+names=index
+
+--- index(val)           -> Integer | nil
+
+指定された val と == で等しい最初の要素の位置を返します。
+等しい要素がひとつもなかった時には nil を返します。
+
+
+@param val インデックスを知りたいオブジェクトを指定します。
+
+    p [1, 0, 0, 1, 0].index(1)   #=> 0
+    p [1, 0, 0, 0, 0].index(1)   #=> 0
+    p [0, 0, 0, 0, 0].index(1)   #=> nil
+
+@see [[m:Array#rindex]]
+

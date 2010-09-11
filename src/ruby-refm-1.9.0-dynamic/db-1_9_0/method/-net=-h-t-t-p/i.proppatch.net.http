@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=proppatch
+
+--- proppatch(path, body, initheader = nil)
+

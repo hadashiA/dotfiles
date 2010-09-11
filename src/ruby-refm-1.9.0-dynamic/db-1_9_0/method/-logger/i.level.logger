@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=level,level=
+
+--- level
+--- level=(level)
+
+Logger オブジェクトの重要度を設定します。重要度がこれより低いメッセージは
+記録されません。
+

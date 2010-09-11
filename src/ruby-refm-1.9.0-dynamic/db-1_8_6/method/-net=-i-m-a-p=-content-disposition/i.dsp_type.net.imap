@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=dsp_type
+
+--- dsp_type
+
+Returns the disposition type.
+

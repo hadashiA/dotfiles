@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=sunday?
+
+--- sunday? -> bool
+日曜日なら真を返します。
+

@@ -1,0 +1,7 @@
+superclass=Net=FTP
+type=class
+library=net.ftptls
+extended=
+included=
+
+

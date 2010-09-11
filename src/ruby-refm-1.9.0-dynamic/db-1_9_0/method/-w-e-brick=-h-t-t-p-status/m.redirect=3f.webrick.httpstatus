@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=redirect?
+
+--- redirect?(code)    -> bool
+
+指定された整数が表すステータスコードが 3XX である場合に
+true を返します。そうでない場合に false を返します。
+
+@param code HTTP のステータスコードを表す整数か文字列を指定します。
+

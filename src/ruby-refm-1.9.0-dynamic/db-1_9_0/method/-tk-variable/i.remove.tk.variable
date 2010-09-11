@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=remove,unset
+
+--- unset(elem=nil)
+--- remove(elem=nil)
+
+値がTcl配列であるとき、elemの値を削除します。
+

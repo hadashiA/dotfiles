@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=getwd,pwd
+
+--- getwd -> Pathname
+--- pwd   -> Pathname
+カレントディレクトリを元に Pathname オブジェクトを生成します。
+Pathname.new(Dir.getwd) と同じです。
+

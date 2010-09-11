@@ -1,0 +1,9 @@
+superclass=Object
+type=class
+library=test.unit.ui.fox.testrunner
+extended=Test=Unit=UI=TestRunnerUtilities
+included=
+
+Runs a Test::Unit::TestSuite in a Fox UI. 
+Obviously, this one requires you to have Fox (www.fox-toolkit.org/fox.html) and 
+the Ruby Fox extension (fxruby.sourceforge.net/) installed.

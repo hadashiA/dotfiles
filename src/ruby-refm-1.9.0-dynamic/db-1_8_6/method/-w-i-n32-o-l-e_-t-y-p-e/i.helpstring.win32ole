@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=helpstring
+
+--- helpstring #-> help String.
+
+Returns help string.
+
+  tobj = WIN32OLE_TYPE.new('Microsoft Internet Controls', 'IWebBrowser')
+  puts tobj.helpstring # => Web Browser interface
+

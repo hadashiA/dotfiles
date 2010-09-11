@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=on
+
+--- on
+--- on {...}
+
+トレース出力を開始。
+ブロックを与えられた場合はそのブロック内のみトレース出力を行う。
+

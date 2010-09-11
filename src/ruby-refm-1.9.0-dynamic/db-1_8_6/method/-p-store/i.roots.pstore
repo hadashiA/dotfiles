@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=roots
+
+--- roots
+
+ルートの集合を配列で返す。
+[[m:Hash#keys]]に相当。
+

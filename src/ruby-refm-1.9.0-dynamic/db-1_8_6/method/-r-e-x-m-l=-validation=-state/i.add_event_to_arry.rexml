@@ -1,0 +1,6 @@
+visibility=protected 
+kind=defined
+names=add_event_to_arry
+
+--- add_event_to_arry(arry, evt)
+

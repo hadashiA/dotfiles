@@ -1,6 +1,9 @@
 $KCODE = 'u'
+require 'irb/completion'
+require 'kconv'
 require 'pp'
 require 'rubygems'
+IRB.conf[:SAVE_HISTORY] = 100000
 
 begin
   require 'wirble'
@@ -48,6 +51,7 @@ end
 begin
   require 'hirb'
   Hirb.enable
+  extend Hirb::Console
 rescue LoadError
 #  puts "please run: `sudo gem install cldwalker-hirb --source http://gems.github.com`"
   puts "please run: `sudo gem install hirb"

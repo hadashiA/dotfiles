@@ -1,0 +1,8 @@
+superclass=Net=IMAP=Error
+type=class
+library=net.imap
+extended=
+included=
+
+Superclass of all errors used to encapsulate "fail" responses
+from the server.

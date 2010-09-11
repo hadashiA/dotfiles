@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: validates_exclusion_of *attr_names
+# group : model
+# --
+validates_exclusion_of :${1:attr_name}, :in => $2

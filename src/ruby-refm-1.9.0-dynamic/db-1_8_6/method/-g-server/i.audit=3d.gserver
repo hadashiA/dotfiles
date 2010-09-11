@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=audit=
+
+--- audit=(bool)
+
+true なら GServer はログを取るためのメソッド
+starting, connecting, disconnecting, stoppingを
+それぞれ定められた時に呼びます。
+

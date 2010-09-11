@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=store
+
+--- store(key, val)
+
+self[key]=val と同じです。key に対して val を格納します。
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=clear
+
+--- clear
+
+要素をすべて削除します。
+

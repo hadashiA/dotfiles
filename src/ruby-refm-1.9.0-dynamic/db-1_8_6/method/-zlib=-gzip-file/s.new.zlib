@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(args...)
+
+[[m:Zlib::GzipReader.new]] 及び [[m:Zlib::GzipWriter.new]] を参照。
+

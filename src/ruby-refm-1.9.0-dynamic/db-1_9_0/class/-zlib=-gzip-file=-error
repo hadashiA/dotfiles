@@ -1,0 +1,10 @@
+superclass=Zlib=Error
+type=class
+library=zlib
+extended=
+included=
+
+gzip ファイルを処理している間にエラーが生じた時に発生する全ての例外の
+スーパークラスです。
+
+次の例外が Zlib::GzipFile::Error のサブクラスとして定義されています。

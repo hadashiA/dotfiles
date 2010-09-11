@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=mjd
+
+--- mjd -> Integer
+修正ユリウス日を返します。
+時刻の情報を含みません。
+
+[[m:Date#amjd]] も参照してください。
+

@@ -1,0 +1,11 @@
+visibility=public
+kind=added
+names=iseuc
+
+--- iseuc
+
+((<ruby 1.8.2 feature>))
+
+
+Kconv.iseuc(self) と同じです。
+

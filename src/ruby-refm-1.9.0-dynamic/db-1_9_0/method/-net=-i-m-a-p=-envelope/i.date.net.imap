@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=date
+
+--- date
+
+Retunns a string that represents the date.
+

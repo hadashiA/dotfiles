@@ -1,0 +1,8 @@
+visibility=public
+kind=added
+names=EncodedString
+
+--- Tk.EncodedString(str, enc = nil)
+
+[[m:Tk::EncodedString.new]] ¤ÈÆ±¤¸
+

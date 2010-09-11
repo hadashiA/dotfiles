@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=DEFAULT_STRATEGY,FILTERED,HUFFMAN_ONLY
+
+--- FILTERED
+--- HUFFMAN_ONLY
+--- DEFAULT_STRATEGY
+
+[[m:Zlib::Deflate.new]] や [[m:Zlib::Deflate#params]] に渡す、
+圧縮方法を表す整数。
+

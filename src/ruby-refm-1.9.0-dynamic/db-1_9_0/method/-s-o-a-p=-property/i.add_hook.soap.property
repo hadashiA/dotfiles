@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=add_hook
+
+--- add_hook(name = nil, cascade = false, &hook)
+

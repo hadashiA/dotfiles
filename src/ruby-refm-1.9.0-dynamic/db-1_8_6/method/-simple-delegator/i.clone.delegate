@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=clone,dup
+
+--- clone(obj)
+--- dup(obj)
+
+
+

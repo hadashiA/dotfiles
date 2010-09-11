@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=eof,eof?
+
+--- eof
+--- eof?
+
+圧縮データの終端に達した場合真を返します。
+フッターが読み込まれていなくても真を返すことに注意して下さい。
+

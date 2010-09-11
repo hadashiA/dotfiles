@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=proxy_address,proxyaddr
+
+--- proxy_address
+--- proxyaddr
+
+プロクシ経由で接続する HTTP オブジェクトならプロクシのアドレス。
+そうでないなら nil。
+

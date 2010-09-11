@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=executable_real?
+
+--- executable_real?(path)    -> bool
+
+[[m:FileTest.#executable_real?]] と同じです。
+
+@param path パスを表す文字列を指定します。
+

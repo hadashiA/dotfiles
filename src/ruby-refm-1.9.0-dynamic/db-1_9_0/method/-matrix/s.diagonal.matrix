@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=diagonal
+
+--- diagonal(values)
+
+対角要素がvalues(オブジェクトの並び)で、非対角要素が全て0であるような
+正方行列を生成する。
+
+(注:) valuesに一次元Arrayを1個指定すると、そのArrayを唯一の要素とした1×1の
+行列ができる。
+

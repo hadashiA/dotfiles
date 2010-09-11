@@ -1,0 +1,15 @@
+methods=TclTkIp/i.__eval.tk,TclTkIp/i.__invoke.tk,TclTkIp/i.__fromUTF8.tk,TclTkIp/i.__toUTF8.tk,TclTkIp/i._ip_id_.tk,TclTkIp/i.encoding.tk,TclTkIp/i.encoding=3d.tk,TclTkLib/s._encoding.tk,TclTkLib/s._encoding=3d.tk,TclTkLib/s.encoding.tk,TclTkLib/s.encoding=3d.tk,TkObject/i.destroy.tk,TkObject/i.epath.tk,TkObject/i.event_generate.tk,TkObject/i.method_missing.tk,TkObject/i.tk_send.tk,TkObject/i.tk_send_to_list.tk,TkObject/i.tk_send_to_list_with_enc.tk,TkObject/i.tk_send_to_list_without_enc.tk,TkObject/i.tk_send_to_simplelist.tk,TkObject/i.tk_send_to_simplelist_with_enc.tk,TkObject/i.tk_send_to_simplelist_without_enc.tk,TkObject/i.tk_send_with_enc.tk,TkObject/i.tk_send_without_enc.tk,TkObject/i.to_eval.tk
+sublibraries=tcltklib,tkutil,remote=2dtk,multi=2dtk,tkafter,tkbgerror,tkcanvas,tkclass,tkconsole,tkdialog,tkentry,tkfont,tkmacpkg,tkmenubar,tkmngfocus,tkpalette,tkscrollbox,tktext,tkvirtevent,tkwinpkg,tkextlib.ICONS,tkextlib.blt,tkextlib.bwidget,tkextlib.itcl,tkextlib.itk,tkextlib.iwidgets,tkextlib.pkg_checker,tkextlib.tcllib,tkextlib.tclx,tkextlib.tile,tkextlib.tkDND,tkextlib.tkHTML,tkextlib.tkimg,tkextlib.tktable,tkextlib.tktrans,tkextlib.treectrl,tkextlib.vu,tkextlib.winico,tk.canvas,tk.winpkg,tk.entry,tk.spinbox,tk.textmark,tk.itemfont,tk.labelframe,tk.place,tk.palette,tk.frame,tk.grid,tk.timer,tk.scrollbox,tk.macpkg,tk.txtwin_abst,tk.package,tk.message,tk.radiobutton,tk.image,tk.checkbutton,tk.bgerror,tk.kinput,tk.textwindow,tk.scale,tk.itemconfig,tk.menubar,tk.texttag,tk.bindtag,tk.virtevent,tk.button,tk.msgcat,tk.validation,tk.clock,tk.panedwindow,tk.scrollbar,tk.encodedstr,tk.console,tk.font,tk.selection,tk.winfo,tk.textimage,tk.label,tk.canvastag,tk.namespace,tk.pack,tk.xim,tk.mngfocus,tk.optiondb,tk.wm,tk.optionobj,tk.root,tk.event,tk.composite,tk.listbox,tk.menu,tk.menuspec,tk.toplevel,tk.after,tk.scrollable,tk.variable,tk.clipboard,tk.autoload,tk.dialog,tk.text,tk.tagfont
+requires=tk.optionobj,tk.tagfont,tk.button,tk.virtevent,tcltklib,tk.mngfocus,tk.scrollbox,tk.spinbox,tk.autoload,tk.optiondb,tk.txtwin_abst,tk.scrollbar,tk.event,tk.menu,tk.canvastag,tk.itemconfig,tk.dialog,tk.canvas,tk.macpkg,tk.msgcat,tk.scrollable,tk.clipboard,tk.texttag,tk.root,tkutil,tk.console,tk.text,tk.encodedstr,tk.winfo,tk.textmark,tk.frame,tk.place,tk.radiobutton,tk.winpkg,tk.bgerror,tk.menuspec,tk.itemfont,tk,tk.menubar,tk.listbox,tk.label,tk.toplevel,tk.composite,tk.wm,tk.font,tk.timer,tk.entry,tk.image,tk.kinput,tk.selection,tk.namespace,tk.palette,tk.scale,tk.pack,tk.bindtag,tk.xim,tk.textwindow,tk.package,tk.labelframe,tk.message,tk.variable,tk.clock,tk.textimage,tk.panedwindow,tk.grid,tk.validation,tk.checkbutton
+classes=TkComm,TkCore,TkCore=Tk_OBJECT_TABLE,TkCore=INTERP,Tk,TkBindCore,TkConfigMethod,TkTreatFont,TkWindow
+is_sublibrary=false
+
+ * multi-tk 複数の Tcl インタープリタをサポートする
+ Ruby/Tk [[ruby-dev:20949]]
+ * tcltk Tcl/Tk ライブラリ tk とは異なり直接 Tcl/Tk を呼び出すインタフェース)
+ * tk    Ruby/Tk [[url:http://ns103.net/~arai/ruby/rubytk.html.gz]] を参照のこと
+
+=== 参考
+
+ * [[unknown:RubyTkFAQ]]
+ * "Rubyist Magazine - 0003-Ruby/Tk の動向"[[url:http://jp.rubyist.net/magazine/?0003-RubyTkMovement]]

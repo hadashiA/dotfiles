@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=each_value
+
+--- each_value {|value| ... } -> self
+
+value を引数としてブロックを評価します。
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=WRITER
+
+--- WRITER
+
+書き込みモードでオープンします．
+

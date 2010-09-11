@@ -1,0 +1,7 @@
+superclass=Object
+type=class
+library=uri
+extended=
+included=URI
+
+すべての URI クラスの基底クラスです。

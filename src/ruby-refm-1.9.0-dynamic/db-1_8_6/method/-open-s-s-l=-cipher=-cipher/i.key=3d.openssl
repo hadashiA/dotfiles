@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=key=
+
+--- key=(key)
+
+暗号鍵を設定します。
+なお、ここでいう「暗号鍵」は AES のアルゴリズムに渡される鍵であって、「パスワード」ではありません。
+

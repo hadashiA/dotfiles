@@ -1,0 +1,84 @@
+visibility=public
+kind=added
+names=scanf
+
+--- scanf(format)
+--- scanf(format) {|*ary| ...}
+
+ブロックを指定しない場合、見つかった文字列を format に従って変
+換し、そのオブジェクトの配列を返します。
+format で指定した文字列が見つからない場合は空の配列を
+生成して返します。
+
+  str = "123 abc 456 def 789 ghi"
+  p str.scanf("%d%s") #=> [123, "abc"]
+
+ブロックを指定した場合は scanf を継続して実行し、順次
+見つかった文字列を変換したオブジェクトの配列を引数に、ブロックを
+実行します。このとき、ブロックの実行結果を要素とする配列を返します。
+
+  str = "123 0x45 678 0x90"
+  p str.scanf("%d%x"){|n, s| [n, s]}
+  #=> [[123, 69], [678, 144]]
+
+formatに完全にマッチしていなくても、部分的にマッチしていれば、
+ブロックは実行されます。
+
+  str = "123 abc 456 def"
+  ret = str.scanf("%s%d") { |s, n| [s, n] }
+  p ret #=> [["123", nil], ["abc", 456], ["def", nil]]
+
+==== scanfフォーマット文字列
+
+There may be an optional maximum field width, expressed as a decimal
+integer, between the % and the conversion. If no width is given, a
+default of `infinity' is used (with the exception of the %c specifier;
+see below).  Otherwise, given a field width of <em>n</em> for a given
+conversion, at most <em>n</em> characters are scanned in processing
+that conversion.  Before conversion begins, most conversions skip
+white space in the input string; this white space is not counted
+against the field width.
+
+
+  str = "1234"
+  p str.scanf("%1s%3d")  #=> [["1", 234]]
+
+: space
+ フォーマット中の空白は(0個を含む)任意の数の空白にマッチします。
+//emlist{
+  p "a           10".scanf("%s %d")  # => ["a", 10]
+  p "a10".scanf("%1s %d")            # => ["a", 10]
+//}
+: %%
+ % そのもの
+
+: %d
+: %u
+ 符号付き10進数
+
+: %i
+ [[m:Kernel#Integer]]のように接頭辞を受け付ける符号付き整数
+
+: %o
+ 符号付き8進数
+
+: %x
+: %X
+ 符号付き16進数
+
+: %f
+: %g
+: %e
+: %E
+ 符号付き浮動小数点数
+
+: %s
+ 空白文字を含まない文字列
+ (幅が指定されているときは指定された文字数か空白文字の直前までの短い方)
+
+: %c
+ 1文字(幅が指定されているときは指定された文字数)
+
+: [...]
+ [[unknown:正規表現/文字クラス]]
+

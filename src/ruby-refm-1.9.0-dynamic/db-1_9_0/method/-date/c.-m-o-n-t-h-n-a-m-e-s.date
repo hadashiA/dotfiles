@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=MONTHNAMES
+
+--- MONTHNAMES
+月の名称(January, February ... )
+
+MONTHNAMES[0] == nil で MONTHNAMES[1] == "January" です。
+

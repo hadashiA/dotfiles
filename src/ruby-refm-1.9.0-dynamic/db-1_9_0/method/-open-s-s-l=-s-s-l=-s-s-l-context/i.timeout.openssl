@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=timeout,timeout=
+
+--- timeout
+--- timeout=(seconds)
+
+タイムアウトするまでの時間です。単位は秒です。
+

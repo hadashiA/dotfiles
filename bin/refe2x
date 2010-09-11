@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require 'tempfile'
+COLUMNS = 50
+ENV['COLUMNS'] = COLUMNS.to_s
+BITCLUST_DIR = File.expand_path "~/src/rurema/bitclust/"
+OPTIONS = { 'm' => '--method', 'c' => '--class', 'l' => '--library' }
+
+def escape(kw)
+  #  kw.gsub(/'/, "'''")
+  kw.dump.gsub(/\$/) { '\\' + "$" }
+end
+
+def do_bitclust(desc, db, arg, outputs)
+  puts "#"*COLUMNS
+  puts "# #{desc.ljust(COLUMNS-4)} #"
+  puts "#"*COLUMNS
+
+  kind, keyword = arg.split %r!/!
+  Dir.chdir(BITCLUST_DIR) do
+    # system "ruby -Ke -Ilib bin/bitclust.rb -d #{db} lookup #{OPTIONS[kind]} #{escape keyword} #{outputs}"
+    system "ruby -Ke -Ilib bin/bitclust.rb -d #{db} lookup #{OPTIONS[kind]} #{escape keyword} #{outputs}"
+  end
+end
+
+arg = ARGV.first or raise "Must specify keyword for refe"
+old = Tempfile.new "old"
+new = Tempfile.new "new"
+
+do_bitclust "Ruby 1.9.0", "../db-1_9_0", arg, " | tee #{new.path}"
+do_bitclust "changes from ruby 1.8.6", "../db-1_8_6", arg, " > #{old.path} 2> /dev/null"
+system "diff -u #{old.path} #{new.path}"

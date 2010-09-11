@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(addr = '::', family = Socket::AF_UNSPEC)
+
+新しい IPAddr オブジェクトを生成します。
+addr は `address/prefixlen' や 'address/mask' などの形式も受け付けます。
+プリフィックス長やマスクが指定されると、
+マスクされた IPAddr オブジェクトを返します。
+IPv6 アドレスの場合は、[ ] で囲まれていてもかまいません。
+family は自動的に判定されますが、明示的に指定することもできます。
+

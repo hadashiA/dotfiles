@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=new,new_master
+
+--- new_master(safe = nil, keys = {})
+--- new(safe=nil, keys={})
+

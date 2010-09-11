@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=max_size
+
+--- max_size
+現在のmax_sizeの値を取得します．デフォルトでは
+-1になっています．
+

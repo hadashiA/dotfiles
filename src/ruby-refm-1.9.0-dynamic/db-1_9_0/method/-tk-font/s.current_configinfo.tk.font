@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=current_configinfo
+
+--- current_configinfo(fnt, slot = nil)
+

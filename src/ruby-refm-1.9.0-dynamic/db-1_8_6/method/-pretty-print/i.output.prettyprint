@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=output
+
+--- output    -> object
+
+自身の output を返します。
+

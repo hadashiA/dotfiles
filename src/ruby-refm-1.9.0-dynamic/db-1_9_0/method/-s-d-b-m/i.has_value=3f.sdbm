@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=has_value?,value?
+
+--- has_value?(value)
+--- value?(value)
+
+value を値とする組がデータベース中に存在する時、真を返します。
+
+

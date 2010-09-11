@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=body,entity
+
+--- body
+--- entity
+
+エンティティボディです。
+[[m:Net::HTTPResponse#read_body]] を呼んでいればその引数 dest、
+呼んでいなければエンティティボディを文字列として読みこんで返します。
+

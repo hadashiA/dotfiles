@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=encode_data
+
+--- encode_data(ns, obj, parent)
+

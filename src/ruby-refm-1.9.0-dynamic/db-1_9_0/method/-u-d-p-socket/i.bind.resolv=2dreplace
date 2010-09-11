@@ -1,0 +1,9 @@
+visibility=public
+kind=redefined
+names=bind
+
+--- bind(host, port)
+
+[[m:UDPSocket#bind]]のパラメータ host の名前解決に [[lib:resolv]] 
+ライブラリを使います。
+

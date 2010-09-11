@@ -1,0 +1,22 @@
+visibility=public
+kind=defined
+names=step
+
+--- step(limit, step) {|n| ... } -> Fixnum | Bignum
+
+self からはじめ step を足しながら limit を越える
+前までブロックを繰り返します。step は負の数も指定できます。
+また、limit や step には [[c:Float]] なども指定できます。
+
+step に 0 を指定した場合は例外 [[c:ArgumentError]] が発生します。
+
+self を返します。
+
+[[m:Integer#upto]], [[m:Integer#downto]], [[m:Integer#times]] も参照。
+
+[[m:Numeric#step]] も参照。
+
+@param limit 数値
+@param step  数値
+@return      数値
+

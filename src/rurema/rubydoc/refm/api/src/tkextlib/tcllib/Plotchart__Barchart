@@ -1,0 +1,20 @@
+#@since 1.8.4
+
+= class Tk::Tcllib::Plotchart::Barchart < TkCanvas
+include ChartMethod
+
+== Class Methods
+--- new(*args)
+#@todo
+
+== Instance Methods
+--- plot(series, dat, col = None)
+#@todo
+
+--- colours(*cols)
+--- colour(*cols)
+--- colors(*cols)
+--- color(*cols)
+#@todo
+
+#@end

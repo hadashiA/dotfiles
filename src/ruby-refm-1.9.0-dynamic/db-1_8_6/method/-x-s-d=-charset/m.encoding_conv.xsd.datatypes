@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=encoding_conv
+
+--- encoding_conv(str, enc_from, enc_to)
+

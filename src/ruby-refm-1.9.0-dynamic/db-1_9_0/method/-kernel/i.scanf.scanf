@@ -1,0 +1,9 @@
+visibility=private 
+kind=added
+names=scanf
+
+--- scanf(format)
+--- scanf(format) {|*ary| ...}
+
+STDIN.scanf と同じです。
+[[m:IO#scanf]]、[[m:Stdin#scanf]]も参照してください。

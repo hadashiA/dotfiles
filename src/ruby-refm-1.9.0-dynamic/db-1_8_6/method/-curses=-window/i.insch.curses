@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=insch
+
+--- insch(ch)
+
+ウィンドウのカーソル位置に ch (1 バイト) を挿入します。
+

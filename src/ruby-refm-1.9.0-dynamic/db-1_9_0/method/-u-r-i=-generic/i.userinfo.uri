@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=userinfo
+
+--- userinfo    -> String | nil
+
+自身の userinfo を返します。設定されていない場合は nil を返します。
+

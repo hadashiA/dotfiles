@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=SJIS
+
+--- SJIS
+
+shift_jis (シフト JIS / MS 漢字コードとも言う) を表します。
+

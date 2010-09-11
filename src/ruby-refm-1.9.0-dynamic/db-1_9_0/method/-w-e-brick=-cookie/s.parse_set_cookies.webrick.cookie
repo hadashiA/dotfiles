@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=parse_set_cookies
+
+--- parse_set_cookies(str)    -> [WEBrick::Cookie]
+
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=cert,cert=
+
+--- cert
+--- cert=(certificate)
+
+所有している証明書です。 [[c:OpenSSL::X509::Certificate]] オブジェクトです。
+

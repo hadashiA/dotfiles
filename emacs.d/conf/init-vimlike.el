@@ -28,7 +28,7 @@
       (funcall vimlike-f-recent-search-func vimlike-f-recent-search-char)
     (message "Empty recent search char.")))
 
-(global-set-key "\M-s" 'vimlike-f)
-(global-set-key "\M-r" 'vimlike-F)
-(global-set-key "\M-j" 'vimlike-semicolon)
+(global-set-key "\M-j" 'vimlike-f)
+(global-set-key "\M-k" 'vimlike-F)
+(global-set-key "\M-u" 'vimlike-semicolon)
 

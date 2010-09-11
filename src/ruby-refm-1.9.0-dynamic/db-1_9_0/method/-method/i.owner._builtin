@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=owner
+
+--- owner    -> class_or_module
+
+Returns the class or module that defines the method.
+

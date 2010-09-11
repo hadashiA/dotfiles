@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=user
+
+--- user
+
+Login name that has certain rights to the mailbox
+that was specified with the getacl command.
+

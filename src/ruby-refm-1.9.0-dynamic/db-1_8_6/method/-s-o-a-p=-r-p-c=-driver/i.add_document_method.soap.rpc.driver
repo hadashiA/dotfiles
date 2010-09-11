@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=add_document_method
+
+--- add_document_method(name, soapaction, req_qname, res_qname)
+

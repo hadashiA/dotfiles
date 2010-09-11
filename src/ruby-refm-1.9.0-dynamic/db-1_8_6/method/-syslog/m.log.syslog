@@ -1,0 +1,20 @@
+visibility=public
+kind=defined
+names=log
+
+--- log(priority, format, ...)
+
+syslogにメッセージを書き込む。
+
+priority は優先度を示す定数[[c:Syslog::Constants]]参照)。
+また、facility([[c:Syslog::Constants]]参照)を論理和で指定す
+ることで open で指定した facility を切替えることもできる。
+
+format 以降は [[m:Kernel#sprintf]] と同じ形式の引数を指定する。
+メッセージに改行を含める必要はない。
+
+       例:
+         Syslog.log(Syslog::LOG_CRIT, "the sky is falling in %d seconds!", 10)
+
+注： [[man:syslog(3)]] のように format に %m は使用できない。
+

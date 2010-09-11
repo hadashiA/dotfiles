@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=thread
+
+--- thread
+
+Get the thread of the primary server.
+
+This returns nil if there is no primary server. See #primary_server.
+

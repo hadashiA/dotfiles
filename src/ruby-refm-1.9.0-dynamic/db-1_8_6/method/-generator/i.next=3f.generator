@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=next?
+
+--- next?
+
+次の要素が存在するなら真を返します。
+

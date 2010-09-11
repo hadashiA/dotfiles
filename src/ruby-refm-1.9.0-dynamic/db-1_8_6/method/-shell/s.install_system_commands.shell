@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=install_system_commands
+
+--- install_system_commands(pre = "sys_")
+
+system_path上にある全ての実行可能ファイルをShellに定義する. メソッ
+ド名は元のファイル名の頭にpreをつけたものとなる.
+

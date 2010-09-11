@@ -1,0 +1,15 @@
+visibility=public
+kind=defined
+names=each,each_line
+
+--- each(rs = $/) {|line| ... }         -> self
+--- each_line(rs = $/) {|line| ... }    -> self
+
+IO の現在位置から 1 行ずつ文字列として読み込み、それを引数として与えられたブロックを実行します。
+
+@param rs 行の区切りを文字列で指定します。rs に nil を指定すると行区切りなしとみなします。空文字列 "" を指定すると連続する改行を行の区切りとみなします(パラグラフモード)。
+
+@raise IOError 自身が読み込み用にオープンされていなければ発生します。
+
+@see [[m:$/]]
+

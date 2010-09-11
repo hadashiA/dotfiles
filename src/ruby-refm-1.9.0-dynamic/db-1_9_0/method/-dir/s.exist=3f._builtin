@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=exist?
+
+--- exist?    -> bool
+Returns +true+ if the named file is a directory, +false+ otherwise.
+
+  Dir.exist?(".")
+
+

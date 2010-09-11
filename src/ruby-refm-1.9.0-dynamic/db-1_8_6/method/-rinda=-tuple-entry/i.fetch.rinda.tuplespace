@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=fetch
+
+--- fetch(key)
+
+Fetches key from the tuple.
+
+

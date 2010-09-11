@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=each_address,getaddress,getaddresses
+
+--- getaddress(name)
+--- getaddresses(name)
+--- each_address(name) {|name| ...}
+
+String のホスト名 name の IP アドレスをルックアップします。
+
+それぞれ[[m:Resolv.getaddress]], [[m:Resolv.getaddresses]], 
+[[m:Resolv.each_address]] と同じ機能です。
+

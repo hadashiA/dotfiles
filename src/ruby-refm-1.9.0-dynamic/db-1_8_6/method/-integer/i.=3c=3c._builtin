@@ -1,0 +1,24 @@
+visibility=public
+kind=defined
+names=<<,>>
+
+--- <<(bits) -> Fixnum | Bignum
+--- >>(bits) -> Fixnum | Bignum
+シフト演算子。bits だけビットを右(左)にシフトします。
+
+右シフトは、符号ビット(最上位ビット(MSB))が保持されます。
+bitsが実数の場合、小数点以下を切り捨てた値でシフトします。
+
+@param bits 数値
+@return     数値
+
+    printf("%#b\n", 0b0101 << 1)
+    printf("%#b\n", 0b0101 >> 1)
+    
+    => 0b1010
+       0b10
+    
+    p -1 >> 1
+    
+    => -1
+

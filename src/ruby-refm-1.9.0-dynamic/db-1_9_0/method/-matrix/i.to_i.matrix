@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=to_i
+
+--- to_i
+
+各要素を整数 [[c:Integer]] に変換する。
+

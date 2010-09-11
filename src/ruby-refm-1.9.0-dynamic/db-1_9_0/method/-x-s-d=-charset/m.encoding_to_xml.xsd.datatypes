@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=encoding_to_xml
+
+--- encoding_to_xml(str, charset)
+

@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=to_i
+
+--- to_i
+
+整数に変換します。
+
+例:
+
+  require "ipaddr"
+  p IPAddr.new("0.0.1.0").to_i   # => 256
+

@@ -1,0 +1,60 @@
+= class DRb::DRbObject < Object
+
+alias DRb::DRbObject < Object
+
+Object wrapping a reference to a remote drb object.
+
+Method calls on this object are relayed to the remote object 
+that this object is a stub for.
+
+== Class Methods
+#@# bc-rdoc: detected missing name: _load
+--- _load(s)
+#@todo
+
+Unmarshall a marshalled DRbObject.
+
+If the referenced object is located within the local server,
+then the object itself is returned. Otherwise, a new DRbObject
+is created to act as a stub for the remote referenced object.
+
+#@# bc-rdoc: detected missing name: new
+--- new(obj, uri=nil)
+#@todo
+
+Create a new remote object stub.
+
+obj is the (local) object we want to create a stub for. Normally
+this is nil. uri is the URI of the remote object that this will
+be a stub for.
+
+#@# bc-rdoc: detected missing name: new_with_uri
+--- new_with_uri(uri)
+#@todo
+
+Create a new DRbObject from a URI alone.
+
+== Instance Methods
+
+#@# bc-rdoc: detected missing name: method_missing
+--- method_missing(msg_id, *a, &b)
+#@todo
+
+Routes method calls to the referenced object.
+
+--- ==(other)
+--- eql?(other)
+#@todo
+
+[[c:DRb::DRbObject]] オブジェクト同士の同値判定は、
+オブジェクトが参照している URI と識別子が等しいかどうかでします。
+
+--- __drburi 
+#@todo
+
+Get the URI of the remote object.
+
+--- __drbref
+#@todo
+
+Get the reference of the object, if local.

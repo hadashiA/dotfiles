@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=__getobj__
+
+--- __getobj__
+
+委譲先のオブジェクトを返す。
+デフォルトでは [[c:NotImplementError]] を発生するので、
+サブクラスで再定義する必要がある。
+
+

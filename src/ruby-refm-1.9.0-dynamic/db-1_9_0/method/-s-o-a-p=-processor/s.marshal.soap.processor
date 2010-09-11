@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=marshal
+
+--- marshal(env, opt = {}, io = nil)
+

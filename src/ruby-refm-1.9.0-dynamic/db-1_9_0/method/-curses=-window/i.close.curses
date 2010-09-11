@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=close
+
+--- close
+
+ウィンドウを閉じます。
+以降のこのウィンドウオブジェクトに対する操作は例外を発生します。
+

@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/rurema/!svn/ver/3284/doctree/trunk/refm/api/src/rinda
+END
+Rinda__RequestExpiredError
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/rurema/!svn/ver/1002/doctree/trunk/refm/api/src/rinda/Rinda__RequestExpiredError
+END
+Rinda__TupleSpace
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/2277/doctree/trunk/refm/api/src/rinda/Rinda__TupleSpace
+END
+rinda.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/2764/doctree/trunk/refm/api/src/rinda/rinda.rd
+END
+Rinda__RindaError
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1002/doctree/trunk/refm/api/src/rinda/Rinda__RindaError
+END
+Rinda__TupleSpaceProxy
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/3162/doctree/trunk/refm/api/src/rinda/Rinda__TupleSpaceProxy
+END
+Rinda__Tuple
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rinda/Rinda__Tuple
+END
+Rinda__DRbObjectTemplate
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rinda/Rinda__DRbObjectTemplate
+END
+Rinda__Template
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/3284/doctree/trunk/refm/api/src/rinda/Rinda__Template
+END
+Rinda__TupleEntry
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/2277/doctree/trunk/refm/api/src/rinda/Rinda__TupleEntry
+END
+Rinda__InvalidHashTupleKey
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/rurema/!svn/ver/1002/doctree/trunk/refm/api/src/rinda/Rinda__InvalidHashTupleKey
+END
+tuplespace.rd
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/2764/doctree/trunk/refm/api/src/rinda/tuplespace.rd
+END
+Rinda__RequestCanceledError
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/rurema/!svn/ver/1002/doctree/trunk/refm/api/src/rinda/Rinda__RequestCanceledError
+END
+Rinda__SimpleRenewer
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/2277/doctree/trunk/refm/api/src/rinda/Rinda__SimpleRenewer
+END

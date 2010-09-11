@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=<<,update
+
+--- update(str)
+--- <<(str)
+
+文字列を追加します。複数回 update を呼ぶことは文字列を連結して update を呼ぶことと同じです。
+

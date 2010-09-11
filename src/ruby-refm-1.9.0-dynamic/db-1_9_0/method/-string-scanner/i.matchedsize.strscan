@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=matchedsize
+
+--- matchedsize
+
+Equivalent to #matched_size. This method is obsolete; use #matched_size
+instead.
+
+

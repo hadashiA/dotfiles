@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=back_trace_limit
+
+--- back_trace_limit
+
+バックトレース表示をバックトレースの頭から n,
+後ろから n だけ行なう.
+デフォルトは 16.
+    

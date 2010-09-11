@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=each
+
+--- each
+
+フィルタの一行ずつをblockに渡す.
+

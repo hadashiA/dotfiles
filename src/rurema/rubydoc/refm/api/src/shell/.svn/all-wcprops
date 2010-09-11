@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/rurema/!svn/ver/4051/doctree/trunk/refm/api/src/shell
+END
+command-processor.rd
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/4051/doctree/trunk/refm/api/src/shell/command-processor.rd
+END
+process-controller.rd
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/rurema/!svn/ver/4021/doctree/trunk/refm/api/src/shell/process-controller.rd
+END
+system-command.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/4021/doctree/trunk/refm/api/src/shell/system-command.rd
+END
+builtin-command.rd
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/4021/doctree/trunk/refm/api/src/shell/builtin-command.rd
+END
+builtincommands
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/4044/doctree/trunk/refm/api/src/shell/builtincommands
+END
+filter.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/4021/doctree/trunk/refm/api/src/shell/filter.rd
+END
+error.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/4021/doctree/trunk/refm/api/src/shell/error.rd
+END

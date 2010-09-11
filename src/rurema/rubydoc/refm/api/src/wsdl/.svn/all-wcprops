@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/rurema/!svn/ver/3284/doctree/trunk/refm/api/src/wsdl
+END
+definitions.rd
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/definitions.rd
+END
+port.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/port.rd
+END
+message.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/message.rd
+END
+port_type.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/port_type.rd
+END
+operation_binding.rd
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/operation_binding.rd
+END
+info.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/info.rd
+END
+parser.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/2856/doctree/trunk/refm/api/src/wsdl/parser.rd
+END
+service.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/service.rd
+END
+param.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/param.rd
+END
+operation.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/operation.rd
+END
+importer.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/3284/doctree/trunk/refm/api/src/wsdl/importer.rd
+END
+types.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/types.rd
+END
+part.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/part.rd
+END
+wsdl.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/wsdl.rd
+END
+data.rd
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/data.rd
+END
+documentation.rd
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/documentation.rd
+END
+import.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/import.rd
+END
+binding.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/wsdl/binding.rd
+END

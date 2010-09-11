@@ -1,0 +1,8 @@
+visibility=public
+kind=added
+names=denominator
+
+--- denominator
+In an integer, the denominator is 1.  Therefore, this method returns 1.
+
+

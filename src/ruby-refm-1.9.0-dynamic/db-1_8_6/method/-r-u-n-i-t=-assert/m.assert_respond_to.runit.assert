@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=assert_respond_to
+
+--- assert_respond_to(method, obj[, message])
+
+オブジェクト obj にメソッド method が定義されていると表明します。
+
+message はアサート失敗時のエラーメッセージです。
+

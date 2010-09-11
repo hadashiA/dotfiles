@@ -1,0 +1,13 @@
+visibility=public
+kind=added
+names=prime_division
+
+--- prime_division
+
+self の素因数分解(の配列)を求めます。
+
+例:
+
+  72.prime_division
+  # => [[2, 3], [3, 2]]
+

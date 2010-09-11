@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=cat,echo,glob,tee
+
+--- echo(*strings)
+--- cat(*files)
+--- glob(patten)
+--- tee(file)
+
+実行すると, それらを内容とする Filter オブジェクトを返します.
+
+

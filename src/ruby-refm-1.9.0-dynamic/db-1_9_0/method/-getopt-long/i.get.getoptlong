@@ -1,0 +1,41 @@
+visibility=public
+kind=defined
+names=get,get_option
+
+--- get
+--- get_option
+ARGV から、次のオプションの名前と、もしあればその引数の組を取
+得します。メソッドは 2 つの値を返し、1 つ目の値がオプション名
+(例: --max-size) で、2 つ目がオプションの引数 (例: 20K) で
+す。get の通常の呼び出し方は次の通りです。
+
+    optname, optarg = option_parser.get
+
+get と get_option は常にオプション名を正式名 (canonical
+name) で返します。与えられたオプションが引数を取らないときは、
+空の文字列 ('') が optarg にセットされます。オプションが
+ARGV に残っていないときは、optname, optarg ともに nil に
+セットされます。メソッドから戻る際に、取得したオプションと引数
+は自動的に ARGV から取り除かれます。
+
+与えられたコマンド行引数があなたのプログラムのオプションの設定
+に合わない場合は、エラーとなって、以下のいずれかの例外が発生し
+ます。
+
+: GetoptLong::AmbigousOption
+    与えられたオプションは名前の後方が省略されていると思われる
+    が、一意に決まらない。
+
+: GetoptLong::InvalidOption
+    知らないオプションが与えられた。
+
+: GetoptLong::MissingArgument
+    与えられたオプションには引数が欠けている。
+
+: GetoptLong::NeedlessArgument
+    与えられたオプションは引数を伴っているが、そのオプションは
+    引数をとらない。
+
+加えて、静粛 (quiet) フラグが有効になっていない限り、エラーメッ
+セージを標準エラー出力に出力します。
+

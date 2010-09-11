@@ -1,0 +1,17 @@
+visibility=public
+kind=defined
+names=set_eoutvar
+
+--- set_eoutvar(compiler, eoutvar = '_erbout') -> ??
+
+eRubyスクリプトの中で出力をためていく変数を設定します。
+
+Can be used to set eoutvar as described in ERB#new. It's probably
+easier to just use the constructor though, since calling this
+method requires the setup of an ERB compiler object.
+
+@param compiler eRubyコンパイラ
+
+@param eoutvar eRubyスクリプトの中で出力をためていく変数
+
+

@@ -1,0 +1,17 @@
+visibility=public
+kind=defined
+names=def_exception
+
+--- def_exception(exception_name, message_form, superclass)
+
+exception_name という名前の例外クラスを作ります。
+exception_name はシンボルで与えられます。
+
+このクラスは、superclass が設定されていれば
+そのクラスのサブクラスに、
+設定されていない場合は StandardError のサブクラスになります。
+
+そして、そのクラスに message_form で指定された
+フォーマットを関連づけます。
+これは Raise (またはその別名の Fail) で使われます。
+

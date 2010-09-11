@@ -1,0 +1,15 @@
+visibility=public
+kind=defined
+names=get_bytes,get_label,get_labels,get_length16,get_name,get_question,get_rr,get_string,get_string_list,get_unpack
+
+--- get_bytes(len)
+--- get_length16
+--- get_label
+--- get_labels(limit = nil)
+--- get_name
+--- get_question
+--- get_rr
+--- get_string
+--- get_string_list
+--- get_unpack(template)
+

@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(resolvers = [Hosts.new, DNS.new])
+
+

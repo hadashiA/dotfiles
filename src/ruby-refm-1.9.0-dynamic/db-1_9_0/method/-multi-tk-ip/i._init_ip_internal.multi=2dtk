@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=_init_ip_internal
+
+--- _init_ip_internal(init_ip_env, add_tk_procs)
+

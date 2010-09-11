@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=scan
+
+--- scan(pattern, cons = false)
+

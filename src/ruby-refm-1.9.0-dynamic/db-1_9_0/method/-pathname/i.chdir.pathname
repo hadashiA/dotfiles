@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=chdir
+
+--- chdir(&block)
+Dir.chdir(self.to_s, &block) と同じです。 (cf. [[m:Dir.chdir]])
+

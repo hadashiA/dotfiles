@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=
+classes=Syslog,Syslog=Constants
+is_sublibrary=false
+
+

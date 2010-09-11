@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=status
+
+--- status    -> [String]
+
+対象となるリソースのステータスコードと reason phrase を文字列の配列として返します。
+

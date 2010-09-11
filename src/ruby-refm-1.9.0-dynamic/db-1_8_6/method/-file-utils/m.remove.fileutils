@@ -1,0 +1,18 @@
+visibility=public
+kind=defined
+names=remove,rm
+
+--- rm(list, options = {})
+--- remove(list, options = {})
+
+list[0], list[1], ... を消去します。:force オプションが
+セットされた場合は作業中すべての StandardError を無視します。
+
+options には :force, :noop, :verbose が指定できます。
+
+例:
+
+  FileUtils.rm('junk.txt')
+  FileUtils.rm(Dir.glob('*~'))
+  FileUtils.rm('NotExistFile', {:force => true})    # never raises exception
+

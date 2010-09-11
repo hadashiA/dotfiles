@@ -1,0 +1,13 @@
+visibility=public
+kind=added
+names=httpdate
+
+--- httpdate(date)
+
+[[RFC:2616]]で定義されているHTTP-dateとしてdateをパースして
+[[c:Time]]オブジェクトに変換します。
+
+dateが[[RFC:2616]]に準拠していない、または
+[[c:Time]]クラスが指定された日時を表現できないときに[[c:ArgumentError]]が
+発生します。
+

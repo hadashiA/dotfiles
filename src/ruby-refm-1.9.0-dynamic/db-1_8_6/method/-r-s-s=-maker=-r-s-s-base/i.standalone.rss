@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=standalone
+
+--- standalone
+作成するXMLのstandaloneを返します．
+

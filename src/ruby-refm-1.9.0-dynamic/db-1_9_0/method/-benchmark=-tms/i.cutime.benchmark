@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=cutime
+
+--- cutime
+User CPU time of children
+

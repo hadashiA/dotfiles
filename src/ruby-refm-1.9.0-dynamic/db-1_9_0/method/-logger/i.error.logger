@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=error
+
+--- error(progname = nil) { ... }
+--- error(message = nil)
+--- error { ... }
+
+ERROR 情報を記録します。debug を参照して下さい。
+

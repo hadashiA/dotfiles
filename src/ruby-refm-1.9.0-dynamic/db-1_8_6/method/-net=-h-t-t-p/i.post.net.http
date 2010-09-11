@@ -1,0 +1,50 @@
+visibility=public
+kind=defined
+names=post
+
+--- post(path, data, header = nil, dest = nil)
+--- post(path, data, header = nil) {|str| .... }
+
+サーバ上の path にあるエンティティに対し文字列 data を
+送ります。
+
+戻り値は get と同じように、net/http バージョン 1.1 では HTTPResponse と
+エンティティボディ文字列の二要素の配列です。
+net/http 1.2 では HTTPResponse ただひとつのみです。
+この場合、エンティティボディは response.body で得られます。
+
+header は get メソッドと同じです。
+
+dest を与えた場合には、レスポンスは << メソッドを使って dest に書きこまれます。
+dest には << メソッドが定義されたオブジェクト、通常 [[c:String]] オブジェクトか
+[[c:Array]] オブジェクトを与えます。
+この dest は戻り値の HTTPResponse オブジェクトの body にもなります。
+
+ブロックと一緒に呼びだされたときはエンティティボディを少しづつ文字列として
+ブロックに与えます。このとき戻り値の HTTPResponse オブジェクトは有効な body を
+持ちません。
+
+dest とブロックを同時に与えてはいけません。
+同時に与えた場合は例外 ArgumentError を発生します。
+
+net/http version 1.1 では 3xx (再試行可能なエラー)に対しても例外を発生します。
+この場合、HTTPResponse は例外オブジェクトから
+err.response で得ることができます。
+一方 net/http version 1.2 では全く例外を発生しません。
+
+  # net/http version 1.1 (Ruby 1.6.x)
+  response, body = http.post('/cgi-bin/search.rb', 'query=subject&target=ruby')
+  
+  # version 1.2 (Ruby 1.8.x or later)
+  response = http.post('/cgi-bin/search.rb', 'query=subject&target=ruby')
+  
+  # compatible in both version
+  response , = http.post('/cgi-bin/search.rb', 'query=subject&target=ruby')
+  
+  # compatible, using block
+  File.open('save.html', 'w') {|f|
+    http.post('/cgi-bin/search.rb', 'query=subject&target=ruby') do |str|
+      f.write str
+    end
+  }
+

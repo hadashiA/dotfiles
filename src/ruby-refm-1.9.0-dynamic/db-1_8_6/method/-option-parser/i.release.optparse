@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=release,release=
+
+--- release       -> Integer
+--- release=(rel)
+Release code.
+

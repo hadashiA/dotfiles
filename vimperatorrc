@@ -149,6 +149,9 @@ let g:styles = "vimperator"
 autocmd LocationChange .* js modes.passAllKeys = false
 autocmd LocationChange www\\.google\\.(co\\.jp|com)/reader js modes.passAllKeys = true
 
+" char-hint-mod2.js
+let g:hintsio="iO"    
+
 " Abbreviations
 " ======================================================================
 "読み込み終了のお知らせ

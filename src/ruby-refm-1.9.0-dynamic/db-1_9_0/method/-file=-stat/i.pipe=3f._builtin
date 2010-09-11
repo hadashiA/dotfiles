@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=pipe?
+
+--- pipe? -> bool
+無名パイプおよび名前つきパイプ(FIFO)の時に真を返します。
+
+  system("mkfifo /tmp/pipetest")
+  p File::Stat.new("/tmp/pipetest").pipe? #=> true
+

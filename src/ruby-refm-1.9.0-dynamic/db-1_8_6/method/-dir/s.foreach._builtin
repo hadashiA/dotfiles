@@ -1,0 +1,21 @@
+visibility=public
+kind=defined
+names=foreach
+
+--- foreach(path) {|file| ...}    -> nil
+
+ディレクトリ path の各エントリを表す文字列を引数として、ブロックを評価します。
+
+@param path ディレクトリのパスを文字列で指定します。
+
+@raise Errno::EXXX 失敗した場合に発生します。
+
+  Dir.foreach('.'){|f|
+    p f
+  }
+  #=> 
+  "."
+  ".."
+  "bar"
+  "foo"
+

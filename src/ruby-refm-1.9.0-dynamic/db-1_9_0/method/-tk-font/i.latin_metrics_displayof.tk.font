@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=latin_metrics_displayof
+
+--- latin_metrics_displayof(win, option = nil)
+

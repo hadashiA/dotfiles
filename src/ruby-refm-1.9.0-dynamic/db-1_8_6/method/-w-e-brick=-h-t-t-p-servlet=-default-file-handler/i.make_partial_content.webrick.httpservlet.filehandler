@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=make_partial_content
+
+--- make_partial_content(req, res, filename, filesize)
+

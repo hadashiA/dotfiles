@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=range
+
+--- range
+
+Range: ヘッダの示す範囲を Range オブジェクトで返します。
+

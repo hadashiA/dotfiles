@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: :conditions => {:attr => :val}
+# group : model
+# --
+:conditions => {:${1:attr} => ${2:value}}

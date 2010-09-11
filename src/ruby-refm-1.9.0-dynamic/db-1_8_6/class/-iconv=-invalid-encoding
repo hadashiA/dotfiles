@@ -1,0 +1,7 @@
+superclass=ArgumentError
+type=class
+library=iconv
+extended=
+included=Iconv=Failure
+
+

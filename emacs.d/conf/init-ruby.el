@@ -1,4 +1,3 @@
-
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 ;; ruby-mode
 ;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs 
@@ -28,6 +27,7 @@
   (add-to-list 'auto-mode-alist '("\\.rhtml$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
+  (add-to-list 'auto-mode-alist '(".\\?irbrc" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rash$" . ruby-mode))
  
   (define-key ruby-mode-map "\C-m" 'reindent-then-newline-and-indent)
@@ -112,48 +112,86 @@ print(which_library(%%[%s]))'"
   (require 'ffap)
   (add-to-list 'ffap-alist '(ruby-mode . ffap-ruby-mode))
  
+  ;; ;; Ruby リファレンスマニュアルを Emacs で参照・ anything.el との連携（改訂版） - (rubikitch loves (Emacs Ruby CUI))
+  ;; ;; http://d.hatena.ne.jp/rubikitch/20080102/rubyrefm
+  ;; (defun refe2x (kw)
+  ;;   (interactive "sReFe2x: ")
+  ;;   (let ((coding-system-for-read 'euc-japan))
+  ;;     (with-current-buffer (get-buffer-create (concat "*refe2x:" kw "*"))
+  ;;       (when (zerop (buffer-size))
+  ;;         (call-process "refe2x" nil t t kw)
+  ;;         (diff-mode))
+  ;;       (setq minibuffer-scroll-window (get-buffer-window (current-buffer) t))
+  ;;       (goto-char (point-min))
+  ;;       (display-buffer (current-buffer)))))
+
+  ;; (defun anything-c-source-static-escript (symbol desc filename &rest other-attrib)
+  ;;   `((name . ,desc)
+  ;;     (candidates . ,symbol)
+  ;;     ,@other-attrib
+  ;;     (init
+  ;;      . (lambda ()
+  ;;          (unless (and (boundp ',symbol) ,symbol)
+  ;;            (with-current-buffer (find-file-noselect ,filename)
+  ;;              (setq ,symbol (split-string (buffer-string) "\n" t))))))
+  ;;     (action
+  ;;      ("Eval it"
+  ;;       . (lambda (cand)
+  ;;           (with-temp-buffer
+  ;;             (insert cand)
+  ;;             (cd ,(file-name-directory filename))
+  ;;             (backward-sexp 1)
+  ;;             (eval (read (current-buffer)))))))))
+  ;; (setq anything-c-source-refe2x
+  ;;       (anything-c-source-static-escript
+  ;;        'anything-c-refe2x-candidates "ReFe2x"
+  ;;        "~/rurema/bitclust/refe2x.e"
+  ;;        '(delayed)
+  ;;        '(requires-pattern . 3)))
+  ;; (add-to-list 'anything-sources 'anything-c-source-refe2x t)
+
   ;; Software Design 2008-02 P153
   ;; ri
-  (and
-   (executable-find "fastri-server")
-   (executable-find "fri")
-   (setq ri-ruby-script (executable-find "ri-emacs"))
-   (load "ri-ruby" t)
+  ;; (and
+  ;;  (executable-find "fastri-server")
+  ;;  (executable-find "fri")
+  ;;  (setq ri-ruby-script (executable-find "ri-emacs"))
+  ;;  (load "ri-ruby" t)
  
-   (defun fastri-server-alive-p ()
-     (with-temp-buffer
-       (let
-           ((progname "fastri-server")
-            (wmic-tmp-file "TempWmicBatchFile.bat"))
-         (cond
-          ((and run-w32 run-meadow)
-           (call-process "wmic" nil t t "process")
-           (when (file-exists-p wmic-tmp-file)
-             (delete-file wmic-tmp-file)))
-          (t
-           (call-process "ps" nil t t "uxww")))
-         (goto-char (point-min))
-         (not (not (re-search-forward progname nil t))))))
+  ;;  (defun fastri-server-alive-p ()
+  ;;    (with-temp-buffer
+  ;;      (let
+  ;;          ((progname "fastri-server")
+  ;;           (wmic-tmp-file "TempWmicBatchFile.bat"))
+  ;;        (cond
+  ;;         ((and run-w32 run-meadow)
+  ;;          (call-process "wmic" nil t t "process")
+  ;;          (when (file-exists-p wmic-tmp-file)
+  ;;            (delete-file wmic-tmp-file)))
+  ;;         (t
+  ;;          (call-process "ps" nil t t "uxww")))
+  ;;        (goto-char (point-min))
+  ;;        (not (not (re-search-forward progname nil t))))))
  
-   (defun fastri-server-start ()
-     (unless (fastri-server-alive-p)
-       (message "starting fastri-server. please wait...")
-       (let*
-           ((progname "fastri-server")
-            (buffname (format "*%s*" progname)))
+  ;;  (defun fastri-server-start ()
+  ;;    (unless (fastri-server-alive-p)
+  ;;      (message "starting fastri-server. please wait...")
+  ;;      (let*
+  ;;          ((progname "fastri-server")
+  ;;           (buffname (format "*%s*" progname)))
  
-         (start-process progname buffname progname)
-         (while (not
-                 (with-temp-buffer
-                   (sit-for 0.5)
-                   (call-process
-                    "fri" nil t t "Kernel#lambda")
-                   (goto-char (point-min))
-                   (re-search-forward "lambda" nil t)))))))
+  ;;        (start-process progname buffname progname)
+  ;;        (while (not
+  ;;                (with-temp-buffer
+  ;;                  (sit-for 0.5)
+  ;;                  (call-process
+  ;;                   "fri" nil t t "Kernel#lambda")
+  ;;                  (goto-char (point-min))
+  ;;                  (re-search-forward "lambda" nil t)))))))
  
-   (defadvice ri-ruby-get-process (before ri/force-start-fastri-server
-                                          activate)
-     (fastri-server-start)))
+  ;;  (defadvice ri-ruby-get-process (before ri/force-start-fastri-server
+  ;;                                         activate)
+  ;;    (fastri-server-start)))
 
   ;; Rsense
   ;;   RSense - ユーザーマニュアル
@@ -215,4 +253,59 @@ print(which_library(%%[%s]))'"
   (add-to-load-path "~/.emacs.d/elisp/rhtml-mode/")
   (when (require 'rhtml-mode nil t)
     (add-hook 'rhtml-mode-hook
-              (lambda () (rinari-launch))))))
+              (lambda () (rinari-launch)))))
+
+
+  (defvar ruby-elect-keyword
+    '("def" "if" "class" "module" "unless" "case"
+      "while" "do" "until" "for" "begin" "end"))
+
+  (defvar ruby-elect-regex (mapconcat (lambda (x) (format "\\<%s\\>" x)) ruby-elect-keyword "\\|"))
+
+  (defun ruby-elect-end ()
+    (interactive)
+    (insert "d")
+    (when (and (char-equal (char-before (1- (point))) ?n)
+               (char-equal (char-before (- (point) 2)) ?e))
+      (ruby-indent-command)
+      (let ((orig (point)) open)
+        (forward-char -3)
+        (when (looking-at "\\<end\\>")
+          (setq open (ruby-elect-begin))
+          (when open
+            (goto-char open)
+            (sit-for 0.3)))
+        (goto-char orig))))
+
+  (defun ruby-elect-begin ()
+    (let ((level 0) pos)
+      (catch 'loop
+        (while (re-search-backward ruby-elect-regex nil t)
+          (setq pos (match-beginning 0))
+          (cond
+           ((string= (match-string 0) "end")
+            (setq level (1+ level)))
+           ((member (match-string 0) '("if" "unless" "while" "until"))
+            (when (ruby-elect-if)
+              (if (= level 0) (throw 'loop pos))
+              (setq level (1- level))))
+           (t
+            (if (= level 0) (throw 'loop pos))
+            (setq level (1- level))))
+          (if (< level 0) (throw 'loop nil))))))
+
+  (defun ruby-elect-if ()
+    (save-excursion
+      (catch 'loop
+        (while (/= (point) (point-min))
+          (forward-char -1)
+          (let ((c (char-after)))
+            (cond
+             ((or (char-equal c ?\n) (char-equal c ?\()) (throw 'loop t))
+             ((or (char-equal c 32) (char-equal c ?\t)) ())
+             (t (throw 'loop nil))))))))
+
+  (add-hook 'ruby-mode-hook
+            (lambda ()
+              (define-key ruby-mode-map "d" 'ruby-elect-end)))
+  )

@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=uid
+
+--- uid        -> Integer
+
+プロセスの実ユーザ ID を返します。
+
+@see [[man:getuid(2)]]
+

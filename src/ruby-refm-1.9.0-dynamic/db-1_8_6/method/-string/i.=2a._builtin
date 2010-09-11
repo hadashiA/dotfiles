@@ -1,0 +1,19 @@
+visibility=public
+kind=defined
+names=*
+
+--- *(times) -> String
+
+文字列の内容を times 回だけ繰り返した新しい文字列を作成して返します。
+
+@param times	整数
+@return		self を times 回繰り返した新しい文字列
+
+例:
+
+  p "str" * 3   # => "strstrstr"
+
+  str = "abc"
+  p str * 4   # => "abcabcabcabc"
+  p str       # => "abc"  (変化なし)
+

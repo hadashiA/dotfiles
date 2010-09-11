@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(obj)
+
+Pass in the obj to delegate method calls to. All methods supported
+by obj will be delegated to.
+

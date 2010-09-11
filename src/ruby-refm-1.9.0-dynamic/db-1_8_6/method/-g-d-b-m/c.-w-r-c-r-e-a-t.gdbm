@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=WRCREAT
+
+--- WRCREAT
+
+[[m:GDBM.open]] の第3引数に指定します。
+書き込みモードで、すでにファイルが存在しなかったら作ります。
+

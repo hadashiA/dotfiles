@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=cachesize=
+
+--- cachesize=(size)
+
+内部のキャッシュのサイズを指定します。詳しくは [[man:gdbm]] の GDBM_CACHESIZE の項を参照ください。
+

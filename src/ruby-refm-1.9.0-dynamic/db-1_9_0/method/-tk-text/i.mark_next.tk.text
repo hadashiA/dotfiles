@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=mark_next,next_mark
+
+--- mark_next(index)
+--- next_mark(index)
+

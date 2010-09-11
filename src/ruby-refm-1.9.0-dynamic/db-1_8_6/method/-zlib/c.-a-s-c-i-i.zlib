@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=ASCII,BINARY,UNKNOWN
+
+--- BINARY
+--- ASCII
+--- UNKNOWN
+
+[[m:Zlib::ZStream#data_type]] の返す、データタイプを表す整数。
+

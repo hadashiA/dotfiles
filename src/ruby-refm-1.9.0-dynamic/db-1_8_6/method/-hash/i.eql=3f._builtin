@@ -1,0 +1,17 @@
+visibility=public
+kind=defined
+names=eql?,equal?
+
+--- eql?(other) -> bool
+--- equal?(other) -> bool
+
+指定された other が self 自身である場合のみ真を返します。
+
+@param other 自身と比較したい Hash オブジェクトを指定します。
+
+ p({}.eql?({}))     #=> false 
+ a = {}
+ p a.eql?(a)        #=> true
+
+@see [[m:Hash#==]]
+

@@ -7,4 +7,5 @@
       (append '(("\\.ya?ml$" . yaml-mode)) auto-mode-alist))
 (add-hook 'yaml-mode-hook
           '(lambda ()
-             (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+             (define-key yaml-mode-map "\C-m" 'newline-and-indent)
+             (turn-off-auto-fill)))

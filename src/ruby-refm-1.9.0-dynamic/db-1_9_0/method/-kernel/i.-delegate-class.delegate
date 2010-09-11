@@ -1,0 +1,11 @@
+visibility=private 
+kind=added
+names=DelegateClass
+
+--- DelegateClass(superclass)
+
+クラス superclass のインスタンスへメソッドを委譲するクラスを
+定義し、そのクラスを返す。
+
+
+

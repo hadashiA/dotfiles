@@ -61,6 +61,8 @@
                      skk-auto-save-jisyo-interval
                      'skk-auto-save-jisyo)
 
+(setq skk-use-jisx0201-input-method t)
+
 ;; 入力設定
 (setq skk-rom-kana-rule-list
   '(("z," nil "……")

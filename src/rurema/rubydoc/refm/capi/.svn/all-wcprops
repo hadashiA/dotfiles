@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/rurema/!svn/ver/4071/doctree/trunk/refm/capi
+END
+config
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/rurema/!svn/ver/1778/doctree/trunk/refm/capi/config
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/rurema/!svn/ver/1778/doctree/trunk/refm/capi/.htaccess
+END
+view.cgi
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/rurema/!svn/ver/1778/doctree/trunk/refm/capi/view.cgi
+END

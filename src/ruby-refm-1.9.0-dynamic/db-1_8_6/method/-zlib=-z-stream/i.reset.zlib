@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=reset
+
+--- reset
+
+ストリームの状態をリセットします。
+入力/出力バッファ内に残っていたデータは破棄されます。
+

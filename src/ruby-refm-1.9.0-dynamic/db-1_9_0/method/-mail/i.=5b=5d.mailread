@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=[]
+
+--- [](field)
+
+ヘッダの field の値を返します。
+m.header[field.capitalize] と同じですので値取得の際は、
+フィールド名のアルファベットの大小を気にする必要はありません。

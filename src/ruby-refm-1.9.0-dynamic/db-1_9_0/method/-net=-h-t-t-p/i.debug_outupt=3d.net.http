@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=debug_outupt=,set_debug_output
+
+--- set_debug_output(io)
+--- debug_outupt=(io)
+

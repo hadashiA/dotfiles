@@ -1,0 +1,9 @@
+visibility=private 
+kind=added
+names=CPP
+
+--- CPP
+
+プリプロセッサを起動するときのコマンドラインのフォーマットです。
+[[m:Kernel#try_cpp]] などが使用します。
+

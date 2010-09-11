@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=getsockopt
+
+--- getsockopt(level, optname)
+
+[[m:BasicSocket#getsockopt]] と同様です。
+

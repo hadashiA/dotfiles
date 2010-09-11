@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=absolute,absolute?
+
+--- absolute     -> boolean
+--- absolute?    -> boolean
+
+自身に scheme が設定されているなら true を返します。そうでない場合は false を返します。
+

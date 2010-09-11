@@ -1,0 +1,18 @@
+visibility=public
+kind=defined
+names=to_mailtext,to_rfc822text
+
+--- to_mailtext
+--- to_rfc822text
+
+URI オブジェクトからメールテキスト文字列を生成します。
+
+      require 'uri'
+      p mailto = URI.parse("mailto:ruby-list@ruby-lang.org?subject=subscribe&cc=myaddr")
+      print mailto.to_mailtext
+
+      => #<URI::MailTo:0x20104a0e URL:mailto:ruby-list@ruby-lang.org?subject=subscribe&cc=myaddr>
+         To: ruby-list@ruby-lang.org
+         Subject: subscribe
+         Cc: myaddr
+

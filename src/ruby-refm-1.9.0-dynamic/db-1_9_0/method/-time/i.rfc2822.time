@@ -1,0 +1,16 @@
+visibility=public
+kind=added
+names=rfc2822,rfc822
+
+--- rfc2822
+--- rfc822
+
+[[RFC:2822]] で定義されている date-time として表現される
+以下の形式の文字列を返します:
+
+ day-of-week, DD month-name CCYY hh:mm:ss zone
+
+ただし zone は [+-]hhmm です。
+
+self が UTC time の場合、zone は +0000 になります。
+

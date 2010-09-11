@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=slice
+
+--- slice(nth) -> Integer
+--- slice(pos, len) -> String
+--- slice(substr) -> String
+--- slice(regexp, nth = 0) -> String
+--- slice(first..last) -> String
+--- slice(first...last) -> String
+
+[[m:String#[] ]] と同じです。
+

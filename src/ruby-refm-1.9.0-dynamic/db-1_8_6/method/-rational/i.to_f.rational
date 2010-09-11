@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=to_f
+
+--- to_f
+
+[[c:Float]] に変換します。
+

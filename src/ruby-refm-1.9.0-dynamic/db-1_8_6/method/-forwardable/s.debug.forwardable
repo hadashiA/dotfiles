@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=debug,debug=
+
+--- debug
+--- debug=
+
+委譲したメソッドをバックトレースに含めるかどうかを設定します。
+(デフォルトは表示しません。)
+

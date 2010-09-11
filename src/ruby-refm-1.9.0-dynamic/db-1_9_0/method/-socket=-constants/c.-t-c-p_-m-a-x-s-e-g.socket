@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=TCP_MAXSEG,TCP_NODELAY
+
+--- TCP_MAXSEG
+--- TCP_NODELAY

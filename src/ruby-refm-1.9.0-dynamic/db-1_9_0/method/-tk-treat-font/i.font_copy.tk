@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=font_copy
+
+--- font_copy(win, wintag = nil, winkey = nil, targetkey = nil)
+
+

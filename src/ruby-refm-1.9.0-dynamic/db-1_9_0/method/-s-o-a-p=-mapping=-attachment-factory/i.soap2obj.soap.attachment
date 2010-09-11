@@ -1,0 +1,5 @@
+visibility=public
+kind=defined
+names=soap2obj
+
+--- soap2obj(obj_class, node, info, map)

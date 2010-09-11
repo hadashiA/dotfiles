@@ -1,0 +1,243 @@
+= class Struct < Object
+
+include Enumerable
+
+構造体クラス。Struct.new はこのクラスのサブクラスを新たに生成します。
+
+個々の構造体はサブクラスから [[m:Struct.new]] を使って生成します。個々
+の構造体サブクラスでは構造体のメンバに対するアクセスメソッドが定義され
+ています。
+
+== Class Methods
+
+--- new(*args) -> Class
+
+[[c:Struct]] クラスに新しいサブクラスを作って、それを返します。
+
+サブクラスでは構造体のメンバに対するアクセスメソッドが定義されています。
+
+  dog = Struct.new("Dog", :name, :age)
+  fred = dog.new("fred", 5)
+  fred.age = 6
+  printf "name:%s age:%d", fred.name, fred.age
+  #=> "name:fred age:6" を出力します
+
+実装の都合により、クラス名の省略は後づけの機能でした。
+メンバ名に [[c:String]] を指定できるのは後方互換性のためだと考えた方が良いでしょう。
+したがって、メンバ名は [[c:Symbol]] で指定するのが無難です。
+
+@param args 構造体を定義するための可変長引数。[[c:String]] または [[c:Symbol]] を指定します。
+
+==== 第一引数が String の場合
+args[0] が [[c:String]] の場合、クラス名になるので、大文字で始まる必要
+があります。つまり、以下のような指定はエラーになります。
+
+    p Struct.new('foo', 'bar')
+    # => -:1:in `new': identifier foo needs to be constant (NameError)
+
+また args[1..-1] は、[[c:Symbol]] か [[c:String]] で指定します。
+
+    p Struct.new("Foo", :foo, :bar)   # => Struct::Foo
+
+==== 第一引数が Symbol の場合
+args[0] が [[c:Symbol]] の場合、生成した構造体クラスは名前の無い
+クラスになります。名前の無いクラスは最初に名前を求める際に代入され
+ている定数名を検索し、見つかった定数名をクラス名とします。
+
+    Foo = Struct.new(:foo, :bar)
+    p Foo                             # => Foo
+
+@see [[m:Class.new]]
+
+--- new(*args) -> Struct
+--- [](*args) -> Struct
+(このメソッドは Struct の下位クラスにのみ定義されています)
+構造体オブジェクトを生成して返します。
+
+@param args 構造体の初期値を指定します。メンバの初期値は指定されなければ nil です。
+
+@return 構造体クラスのインスタンス。
+
+@raise ArgumentError 構造体のメンバの数よりも多くの引数を指定した場合に発生します。
+
+    Foo = Struct.new(:foo, :bar)
+    foo = Foo.new(1)
+    p foo.values      # => [1, nil]
+
+#@since 1.9.1
+--- members -> [Symbol]
+#@else
+--- members -> [String]
+#@end
+(このメソッドは Struct の下位クラスにのみ定義されています)
+#@since 1.9.1
+構造体のメンバの名前([[c:Symbol]])の配列を返します。
+
+    Foo = Struct.new(:foo, :bar)
+    p Foo.members      # => [:foo, :bar]
+
+#@else
+構造体のメンバの名前([[c:String]])の配列を返します。
+
+    Foo = Struct.new(:foo, :bar)
+    p Foo.members      # => ["foo", "bar"]
+
+#@end
+== Instance Methods
+
+--- [](member) -> object
+(このメソッドは Struct の下位クラスにのみ定義されています)
+構造体のメンバの値を返します。
+
+@param member [[c:Fixnum]] でメンバのインデックスを指定します。
+              [[c:Symbol]], [[c:String]] でメンバの名前を指定します。
+
+@raise IndexError member が整数で存在しないメンバを指定した場合に発生します。
+
+@raise NameError member が [[c:String]], [[c:Symbol]] で存在しないメンバを指定した場合に発生します。
+
+    Foo = Struct.new(:foo, :bar)
+    obj = Foo.new('FOO', 'BAR')
+    p obj[:foo]     # => "FOO"
+    p obj['bar']    # => "BAR"
+    # p obj[:baz]     # => in `[]': no member 'baz' in struct (NameError)
+    p obj[0]        # => "FOO"
+    p obj[1]        # => "BAR"
+    p obj[-1]       # => "BAR"    # Array のように負のインデックスも指定できます。
+    p obj[2]        # => in `[]': offset 2 too large for struct(size:2) (IndexError)
+
+--- []=(member, value)
+(このメソッドは Struct の下位クラスにのみ定義されています)
+構造体の member で指定されたメンバの値を value にして value を返します。
+
+@param member [[c:Fixnum]] でメンバのインデックスを指定します。
+              [[c:Symbol]], [[c:String]] でメンバの名前を指定します。
+
+@param value メンバに設定する値を指定します。
+
+@raise IndexError member が整数で存在しないメンバを指定した場合に発生します。
+
+@raise NameError member が [[c:String]], [[c:Symbol]] で存在しないメンバを指定した場合に発生します。
+
+--- each {|value| ... } -> self
+#@since 1.8.7
+#@since 1.8.8
+--- each -> Enumerator
+#@else
+--- each -> Enumerable::Enumerator
+#@end
+#@end
+(このメソッドは Struct の下位クラスにのみ定義されています)
+構造体の各メンバに対して繰り返します。
+
+#@since 1.8.0
+--- each_pair {|member, value| ... } -> self
+#@since 1.8.7
+#@since 1.8.8
+--- each_pair -> Enumerator
+#@else
+--- each_pair -> Enumerable::Enumerator
+#@end
+#@end
+(このメソッドは Struct の下位クラスにのみ定義されています)
+構造体のメンバ名([[c:Symbol]])と値の組を引数にブロックを繰り返し実行します。
+
+    Foo = Struct.new(:foo, :bar)
+    Foo.new('FOO', 'BAR').each_pair {|m, v| p [m,v]}
+    # => [:foo, "FOO"]
+         [:bar, "BAR"]
+#@end
+
+--- length -> Fixnum
+--- size -> Fixnum
+(このメソッドは Struct の下位クラスにのみ定義されています)
+構造体のメンバの数を返します。
+
+--- members -> [String]
+(このメソッドは Struct の下位クラスにのみ定義されています)
+構造体のメンバの名前(文字列)の配列を返します。
+
+    Foo = Struct.new(:foo, :bar)
+    p Foo.new.members  # => ["foo", "bar"]
+
+--- values -> [object]
+--- to_a -> [object]
+(このメソッドは Struct の下位クラスにのみ定義されています)
+構造体のメンバの値を配列にいれて返します。
+
+例えば以下のようにして passwd のエントリを出力できます。
+
+  require 'etc'
+  print Etc.getpwuid.values.join(":"), "\n"
+
+#@since 1.8.0
+--- values_at(*members) -> [object]
+(このメソッドは Struct の下位クラスにのみ定義されています)
+引数で指定されたメンバの値の配列を返します。
+
+@param members [[c:Fixnum]] でメンバのインデックスを指定します。
+               [[c:Symbol]], [[c:String]] でメンバの名前を指定します。
+
+@raise IndexError member が整数で存在しないメンバを指定した場合に発生します。
+
+@raise NameError member が [[c:String]], [[c:Symbol]] で存在しないメンバを指定した場合に発生します。
+
+    Foo = Struct.new(:foo, :bar, :baz)
+    obj = Foo.new('FOO', 'BAR', 'BAZ')
+    p obj.values_at(0, :bar, 'baz')    # => ["FOO", "BAR", "BAZ"]
+
+#@end
+
+--- ==(other)    -> bool
+
+自身と other のクラスが同じであり、各メンバが == メソッドで比較して等しい場合に
+true を返します。そうでない場合に false を返します。
+
+@param other 自身と比較したいオブジェクトを指定します。
+
+  Dog = Struct.new(:name, :age)
+  dog1 = Dog.new("fred", 5)
+  dog2 = Dog.new("fred", 5)
+
+  p dog1 == dog2                #=> true
+  p dog1.eql?(dog2)             #=> true
+  p dog1.equal?(dog2)           #=> false
+
+@see [[m:Struct#eql?]]
+
+--- eql?(other)    -> bool
+
+自身と other のクラスが同じであり、各メンバが eql? メソッドで比較して等しい場合に
+true を返します。そうでない場合に false を返します。
+
+@param other 自身と比較したいオブジェクトを指定します。
+
+  Dog = Struct.new(:name, :age)
+  dog1 = Dog.new("fred", 5)
+  dog2 = Dog.new("fred", 5)
+
+  p dog1 == dog2                #=> true
+  p dog1.eql?(dog2)             #=> true
+  p dog1.equal?(dog2)           #=> false
+
+@see [[m:Struct#==]]
+
+--- equal?(other)   -> bool
+
+指定された other が self 自身である場合のみ真を返します。
+これは [[c:Object]] クラスで定義されたデフォルトの動作で
+す。
+
+@see [[m:Struct#eql?]], [[m:Struct#==]]
+
+--- hash    -> Integer
+
+自身が保持するメンバのハッシュ値を元にして算出した整数を返します。
+自身が保持するメンバの値が変化すればこのメソッドが返す値も変化します。
+
+  Dog = Struct.new(:name, :age)
+  dog = Dog.new("fred", 5)
+  p dog.hash                    #=> 7917421
+  dog.name = "john"
+  p dog.hash                    #=> -38913223
+

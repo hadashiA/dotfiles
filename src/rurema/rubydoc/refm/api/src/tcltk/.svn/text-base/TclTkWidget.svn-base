@@ -1,0 +1,7 @@
+= class TclTkWidget < TclTkCommand
+
+== Class Methods
+
+--- new(*args)
+#@todo
+

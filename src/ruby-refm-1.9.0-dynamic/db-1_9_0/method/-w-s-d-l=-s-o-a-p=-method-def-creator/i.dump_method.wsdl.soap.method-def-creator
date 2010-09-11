@@ -1,0 +1,6 @@
+visibility=private 
+kind=defined
+names=dump_method
+
+--- dump_method(operation, binding)
+

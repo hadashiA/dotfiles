@@ -1,0 +1,9 @@
+superclass=
+type=module
+library=openssl
+extended=
+included=
+
+PKCS #7 モジュール
+
+[[c:OpenSSL::PKCS7::PKCS7]] も参照してください。

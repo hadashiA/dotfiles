@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=getservername
+
+--- getservername    -> String
+
+プロセスが動いているマシンのホスト名を文字列で返します。
+
+  p WEBrick::Utils.getservername   #=> "localhost"
+

@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=mask
+
+--- mask(a)
+
+マスクされた新しい IPAddr オブジェクトを返します。
+引数にはプリフィックス長とマスクの両方を受け付けます
+(e.g. 8, 64, "255.255.255.0")。
+

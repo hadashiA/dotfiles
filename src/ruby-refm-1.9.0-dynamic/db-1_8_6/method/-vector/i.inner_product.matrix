@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=inner_product
+
+--- inner_product(v)
+
+ベクトル v との内積を返します。
+

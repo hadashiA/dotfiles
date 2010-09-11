@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=[],absolute?,length,subdomain_of?,to_a,to_s
+
+--- to_a
+--- to_s
+--- []
+--- absolute?
+--- length
+--- subdomain_of?(other)
+

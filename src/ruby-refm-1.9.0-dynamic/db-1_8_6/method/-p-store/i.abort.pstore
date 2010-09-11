@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=abort
+
+--- abort
+
+データベースの読み書きを終了する。
+transaction ブロックから抜けるが、データベースの変更は反映されない。
+

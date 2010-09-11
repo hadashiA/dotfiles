@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: @interface ... @end
+# group: definitions
+# --
+@interface ${1:`(file-name-nondirectory
+                  (file-name-sans-extension
+                    (or (buffer-file-name)
+                        (buffer-name (current-buffer)))))`} : ${2:NSObject}
+    $0
+@end

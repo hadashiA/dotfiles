@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=encode_name
+
+--- encode_name(ns, data, attrs)
+

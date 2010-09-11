@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(test_name, suite_name = Test::Unit::TestCase.name)
+

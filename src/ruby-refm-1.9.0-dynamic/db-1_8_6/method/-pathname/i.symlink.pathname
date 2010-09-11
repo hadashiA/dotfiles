@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=symlink
+
+--- symlink(old)
+File.symlink(old, self.to_s) と同じです。 (cf. [[m:File.symlink]])
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=content_encoding
+
+--- content_encoding    -> [String]
+
+対象となるリソースの Content-Encoding を文字列の配列として返します。
+Content-Encoding ヘッダがない場合は、空の配列を返します。
+

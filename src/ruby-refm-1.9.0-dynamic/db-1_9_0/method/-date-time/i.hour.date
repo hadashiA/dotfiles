@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=hour
+
+--- hour -> Integer
+時間を返します (0-23)。
+

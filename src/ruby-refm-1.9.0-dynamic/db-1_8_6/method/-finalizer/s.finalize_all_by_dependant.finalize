@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=finalize_all_by_dependant
+
+--- finalize_all_by_dependant(dependant)
+

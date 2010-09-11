@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=symbol,to_sym
+
+--- symbol
+--- to_sym
+

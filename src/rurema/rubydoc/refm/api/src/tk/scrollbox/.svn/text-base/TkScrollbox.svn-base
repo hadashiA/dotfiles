@@ -1,0 +1,7 @@
+= class TkScrollbox < TkListbox
+include TkComposite
+
+== Private Instance Methods
+
+--- initialize_composite(keys = nil)
+#@todo

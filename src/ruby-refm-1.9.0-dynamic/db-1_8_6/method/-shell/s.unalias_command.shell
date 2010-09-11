@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=unalias_command
+
+--- unalias_command(ali)
+
+commandのaliasを削除します.
+

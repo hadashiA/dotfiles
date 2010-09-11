@@ -1,0 +1,8 @@
+visibility=private 
+kind=defined
+names=in_transaction
+
+--- in_transaction
+
+トランザクションの中でなければ例外を発生させる。
+

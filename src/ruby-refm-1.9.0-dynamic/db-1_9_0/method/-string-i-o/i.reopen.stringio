@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=reopen
+
+--- reopen    -> ()
+
+例外 [[c:NotImplementedError]] が常に発生します。
+
+@raise NotImplementedError 常に発生します。
+

@@ -1,0 +1,39 @@
+visibility=public
+kind=defined
+names=peek,peep
+
+--- peek(bytes)
+--- peep(bytes)
+スキャンポインタから長さ bytes バイト分だけ文字列を返します。
+
+      s = StringScanner.new('test string')
+      s.peek(4)   # => "test"
+
+bytes は 0 以上の整数です。
+ただし、スキャン対象の文字列の長さを超える分は無視されます。
+また、負数を与えると例外 ArgumentError が発生します。
+bytes が 0 のとき、またはスキャンポインタが文字列の末尾を
+指しているときは空文字列 ("") を返します。
+
+      s = StringScanner.new('test string')
+      s.peek(4)     # => "test"
+      s.peek(20)    # => "test string"
+      s.peek(0)     # => ""
+      s.peek(-1)    # ArgumentError: negative string size (or size too big)
+      s.scan(/\w+/) # => "test"
+      s.scan(/\s+/) # => " "
+      s.scan(/\w+/) # => "string"
+      s.peek(4)     # => ""
+
+このメソッドを実行してもスキャンポインタは移動しません。
+
+      s = StringScanner.new('test string')
+      s.peek(4)     # => "test"
+      s.peek(4)     # => "test"
+      s.scan(/\w+/) # => "test"
+      s.peek(4)     # => " str"
+      s.peek(4)     # => " str"
+
+[[m:StringScanner#peep]] は将来のバージョンでは削除される予定です。
+代わりに [[m:StringScanner#peek]] を使ってください。
+

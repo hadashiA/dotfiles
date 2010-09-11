@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=force_encoding
+
+--- force_encoding(encoding)   -> String
+
+Changes the encoding to encoding and returns self.
+

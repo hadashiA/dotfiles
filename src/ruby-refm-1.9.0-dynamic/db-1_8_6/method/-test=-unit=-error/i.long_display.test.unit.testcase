@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=long_display
+
+--- long_display
+
+Returns a verbose version of the error description.
+

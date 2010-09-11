@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=passive
+
+--- passive
+
+passive モードの状態を真偽値で返します。
+

@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=cb_error
+
+--- cb_error(e)
+

@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=close_on_exec=
+
+--- close_on_exec= bool    -> bool
+
+Sets a close-on-exec flag.
+
+   f = open("/dev/null")
+   f.close_on_exec = true
+   system("cat", "/proc/self/fd/#{f.fileno}") # cat: /proc/self/fd/3: No such file or directory
+   f.closed?                #=> false
+

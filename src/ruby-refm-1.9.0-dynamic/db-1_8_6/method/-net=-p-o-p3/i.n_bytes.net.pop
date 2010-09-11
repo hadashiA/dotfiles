@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=n_bytes
+
+--- n_bytes
+
+サーバにあるメールの総バイト数を返します。
+

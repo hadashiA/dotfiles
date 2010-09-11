@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=length,size
+
+--- size
+--- length
+
+要素の個数を返します。
+

@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(uri = nil, ref = nil)
+
+Creates a new DRbObjectTemplate that will match against +uri+ and
++ref+.
+
+

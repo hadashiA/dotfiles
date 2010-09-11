@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=V_ERR_SELF_SIGNED_CERT_IN_CHAIN
+
+--- V_ERR_SELF_SIGNED_CERT_IN_CHAIN
+

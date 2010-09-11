@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=parse
+
+--- parse(str_or_readable[, fs = nil[, rs = nil]])
+

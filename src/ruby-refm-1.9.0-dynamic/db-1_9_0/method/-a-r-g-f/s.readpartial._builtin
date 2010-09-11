@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=readpartial
+
+--- readpartial(length, str = nil)
+[[m:IO#readpartial]]¤ò»²¾È
+
+@see [[m:IO#readpartial]]
+
+
+

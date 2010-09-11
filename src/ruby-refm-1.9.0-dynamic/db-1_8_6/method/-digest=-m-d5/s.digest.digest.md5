@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=digest,hexdigest,new
+
+--- new([str])
+--- digest(str)
+--- hexdigest(str)
+
+[[c:Digest::Base]] のページを参照のこと。
+

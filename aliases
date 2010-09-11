@@ -1,6 +1,5 @@
-# basic commands
-alias ls='ls -pG'
-alias la='ls -palGwc'
+alias ls='ls -pGF'
+alias la='ls -palGFwc'
 alias del='rm -rf'
 alias cp='cp -irf'
 alias mv='mv -i'
@@ -8,19 +7,19 @@ alias grep='grep -i -r -H -n -I --color=auto'
 
 function cd() {builtin cd $@ && la}
 
-alias G='| grep '  # e.x. dmesg lG CPU
-alias L='| $PAGER '
-alias W='| wc'
-alias H='| head'
-alias T='| tail'
-
 alias b='cd -'
 alias c='clear' # shortcut to clear your terminal
+alias e='exit'
 function f() { find * -name $1; }
 
 alias ducks='du -cks * | sort -rn|head -11' # Lists the size of all the folders
 alias top='top -o cpu'
 alias o='open .'
+
+# alias od='od -A x -t xCz'
+# alias apt='LANG=C aptitude'
+# alias sapt='LANG=C sudo aptitude'
+alias wcat='wget -q -O -'
 
 # log
 alias log='tail -f -0 ./log/*.log'
@@ -31,6 +30,7 @@ alias apachelog='tail -f -n0 /var/log/apache*/*log'
 alias ss='ruby ./script/server'
 alias sc='ruby ./script/console'
 alias sp='ruby ./script/prep'
+alias rs='rake spec'
 
 # Only MacOSX
 #if [ $system_name  == 'Darwin' ]; then
@@ -56,3 +56,27 @@ alias sp='ruby ./script/prep'
 #else
 #  alias ls='ls --color=auto'
 #fi
+alias sn='screen'
+function sca () {
+    [[ -z "$STY" ]] && screen -xR
+}
+function scd () {
+    [[ -n "$STY" ]] && screen -d $STY >/dev/null
+}
+
+# alias fish='cd ~/dev/fish'
+export CURPROJ="takara"
+alias takara='cd ~/dev/takara'
+alias flower='cd ~/dev/flower'
+alias piklib="cd ~/dev/$CURPROJ/vendor/plugins/piklib"
+alias jpsns="cd ~/dev/$CURPROJ/vendor/plugins/japan_sns"
+alias pj=$CURPROJ
+
+
+
+
+
+
+
+
+

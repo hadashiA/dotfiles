@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=abs
+
+--- abs
+
+self が正なら self、負なら -1 * self を返します。
+

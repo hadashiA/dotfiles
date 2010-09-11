@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=name
+
+--- name
+
+Returns the name such as "ALERT", "PERMANENTFLAGS", "UIDVALIDITY"....
+

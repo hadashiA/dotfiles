@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=progname,progname=
+
+--- progname
+--- progname=(name)
+
+ログに記録するプログラム名を設定します。
+

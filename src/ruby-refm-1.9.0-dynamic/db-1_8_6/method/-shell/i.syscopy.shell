@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=syscopy
+
+--- syscopy(filename_from, filename_to)
+
+FileToolsクラスにある同名のクラスメソッドと同じです.
+

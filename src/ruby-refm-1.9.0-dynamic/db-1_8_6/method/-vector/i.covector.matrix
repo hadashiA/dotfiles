@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=covector
+
+--- covector
+
+列ベクトル (行列)、すなわち、(n,1) 型の行列に変換します。
+実際には [[m:Matrix#row_vector]](self) を適用します。
+

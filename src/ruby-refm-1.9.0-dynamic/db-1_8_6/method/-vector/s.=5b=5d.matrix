@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=[]
+
+--- [](a)
+
+配列 a を要素とするベクトルを生成します。
+

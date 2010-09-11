@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=os_code
+
+--- os_code
+
+gzip ファイルのヘッダーに記録されている OS コード番号を返します。
+

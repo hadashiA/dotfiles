@@ -1,0 +1,8 @@
+visibility=public
+kind=added
+names=arg
+
+--- arg
+偏角を[-π,π]の範囲で返します。実数の場合、
+非負なら0、負なら[[c:Math::PI]]を返します。
+

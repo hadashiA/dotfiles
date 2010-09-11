@@ -1,0 +1,7 @@
+superclass=Net=HTTPRedirection
+type=class
+library=net.http
+extended=
+included=
+
+305

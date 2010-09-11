@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/event
+END
+TkEvent
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/event/TkEvent
+END
+TkEvent__Event
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/event/TkEvent__Event
+END
+TkEvent__Event__TypeNum
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/event/TkEvent__Event__TypeNum
+END
+TkEvent__Event__Grp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/event/TkEvent__Event__Grp
+END
+TkEvent__Event__StateMask
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/tk/event/TkEvent__Event__StateMask
+END

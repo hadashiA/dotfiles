@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=delete
+
+--- delete(o)
+
+集合からオブジェクト o を削除し、その集合自身を返します。
+

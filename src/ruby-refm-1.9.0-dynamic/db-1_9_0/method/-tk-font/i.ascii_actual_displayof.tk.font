@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=ascii_actual_displayof,latin_actual_displayof
+
+--- latin_actual_displayof(win, option = nil)
+--- ascii_actual_displayof(win, option = nil)
+

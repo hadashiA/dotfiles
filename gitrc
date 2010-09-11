@@ -1,4 +1,5 @@
 alias gst='git status'
+alias g='git status'
 #alias gpl='git pull --rebase'
 alias gpl='git pull'
 alias gp='git push'
@@ -8,6 +9,7 @@ alias ga='git add'
 alias gcl='git config --list'
 alias gc='git commit -v'
 alias gca='git commit -v -a'
+alias gcm='git commit -v -m'
 alias gb='git branch'
 alias gbc='git branch --color'
 alias gba='git branch -a'
@@ -15,6 +17,7 @@ alias gco='git checkout'
 alias gdc='git-svn dcommit'
 alias gk='gitk --all &'
 alias gog='git log --stat'
+alias gogp='git log --stat -p'
 # alias gogl='git log --stat'
 
 alias gpatch='git diff master -p'
@@ -23,7 +26,7 @@ function gpall() {
   git push rubyforge master --tags
   git push origin master --tags
 }
-alias gitrm="git stat | grep deleted | awk '{print $3}' | xargs git rm"
+alias gitrm="git status | grep deleted | awk '{print $3}' | xargs git rm"
 alias gitx="open -b nl.frim.GitX"
                                 
 # End Dr Nic Compatibility Mode

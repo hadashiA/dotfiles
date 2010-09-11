@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=decode_text
+
+--- decode_text(ns, text)
+

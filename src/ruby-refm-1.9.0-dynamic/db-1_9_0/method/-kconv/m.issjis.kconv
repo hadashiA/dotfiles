@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=issjis
+
+--- issjis(str)
+
+((<ruby 1.8.2 feature>)):
+以下と同じです。
+
+  Kconv::RegexpShiftjis.match(str)
+

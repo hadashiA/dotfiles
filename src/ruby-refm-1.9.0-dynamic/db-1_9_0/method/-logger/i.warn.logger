@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=warn
+
+--- warn(progname = nil) { ... }
+--- warn(message = nil)
+--- warn { ... }
+
+WARN 情報を記録します。debug を参照して下さい。
+

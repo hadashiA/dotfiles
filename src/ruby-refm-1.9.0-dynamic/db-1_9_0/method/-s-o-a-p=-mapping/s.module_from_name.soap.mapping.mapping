@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=module_from_name
+
+--- module_from_name(name, lenient = false)
+

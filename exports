@@ -1,5 +1,8 @@
+export LANGUAGE=ja
 export LANG=ja_JP.UTF-8
-export EDITOR='/usr/bin/vim'
+export EDITOR='vim'
+# export MANPAGER='/usr/share/vim/vim72/macros/less.sh'
+# export PAGER='/usr/share/vim/vim72/macros/less.sh'
 
 export PATH="~/bin:$PATH"
 export PATH="/usr/local/git/bin/:$PATH"
@@ -7,6 +10,8 @@ export PATH="/usr/local/mysql/bin/:$PATH"
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="/opt/local/lib/mysql5/bin:$PATH"
 export PATH="/opt/local/lib/postgresql84/bin:$PATH"
+export PATH="/Applications/MacPorts/Emacs.app/Contents/MacOS/bin:$PATH"
+export PATH="/Developer/usr/bin:$PATH"
 export PATH="$PATH:/usr/local/jruby/bin"
 export PATH="$HOME/local/bin:$PATH"
 export PATH="$HOME/local/ruby/bin:$PATH"
@@ -19,3 +24,25 @@ export RSPEC=true
 # PostgreSQL
 #exports POSTGRES_INCLUDE=/opt/local/include/postgresql84/
 #exports POSTGRES_LIB=/opt/local/lib/postgresql84/
+
+if test -x /usr/bin/dircolors ; then
+    if test -f $HOME/.dir_colors ; then
+        eval "`direcolors -b $HOME/.dir_colors`"
+    elif test -f /etc/DIR_COLORS ; then
+        eval "`dircolors -b /etc/DIR_COLORS`"
+    fi
+fi
+#LS_OPTIONS=--color=tty
+#LS_OPTIONS="$LS_OPTIONS -T 0"
+#if test "$EMACS" = "t" ; then
+#    LS_OPTIONS='--color=none -T 0';
+#    test -I -Q
+#    stty coocked pass8 dec nl -echo
+#fi
+# LS_OPTIONS=""
+# export LS_OPTIONS
+
+export PLATFORM=iPhoneOS
+# export VERSION=3.2
+export VERSION=4.0
+export SDK=/Developer/Platforms/${PLATFORM}.platform/Developer/SDKs/${PLATFORM}${VERSION}.sdk/System/Library/Frameworks

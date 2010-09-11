@@ -1,0 +1,10 @@
+= class TkLabelFrame < TkFrame
+alias TkLabelframe
+
+== Constants
+
+--- TkCommandNames
+#@todo
+
+--- WidgetClassName
+#@todo

@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=writable?
+
+--- writable?
+FileTest.writable?(self.to_s) と同じです。 (cf. [[m:FileTest.#writable?]])
+

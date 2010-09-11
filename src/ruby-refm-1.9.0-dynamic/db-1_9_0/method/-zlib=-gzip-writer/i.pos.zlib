@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=pos,tell
+
+--- pos
+--- tell
+
+現在までに圧縮したデータの長さの合計を返します。
+ファイルポインタの位置ではないことに注意して下さい。
+

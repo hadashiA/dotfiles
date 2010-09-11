@@ -1,0 +1,27 @@
+superclass=Object
+type=class
+library=openssl
+extended=
+included=
+
+X.509 v3 証明書の拡張領域のためのクラスです。[[c:OpenSSL::X509::Certificate]] オブジェクトは
+その拡張領域を Extension オブジェクトの配列として保持しています。
+
+  * [[c:OpenSSL::X509::ExtensionFactory]]
+
+=== 例
+
+  require 'openssl'
+  require 'open-uri'
+  
+  der = open('http://csrc.nist.gov/pki/pkixtools/cert1.der').read
+  cert = OpenSSL::X509::Certificate.new(der)
+  p cert.extensions.class # => Array
+  p cert.extensions
+  # => [subjectKeyIdentifier = 86:CA:A5:22:81:62:EF:AD:0A:89:BC:AD:72:41:2C:29:49:F4:86:56,
+        basicConstraints = critical, CA:TRUE]
+  p cert.extensions[0].class # => OpenSSL::X509::Extension
+
+=== 参照
+
+  *[RFC 3280] [[unknown:Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile|URL:http://www.ipa.go.jp/security/rfc/RFC3280-04EN.html#42]]

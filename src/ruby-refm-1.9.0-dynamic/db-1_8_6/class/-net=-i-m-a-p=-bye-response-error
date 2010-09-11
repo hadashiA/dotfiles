@@ -1,0 +1,9 @@
+superclass=Net=IMAP=ResponseError
+type=class
+library=net.imap
+extended=
+included=
+
+Error raised upon a "BYE" response from the server, indicating 
+that the client is not being allowed to login, or has been timed
+out due to inactivity.

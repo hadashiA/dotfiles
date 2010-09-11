@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=O_NDELAY,O_NONBLOCK
+
+--- O_NONBLOCK
+--- O_NDELAY
+open in non-blocking mode.
+

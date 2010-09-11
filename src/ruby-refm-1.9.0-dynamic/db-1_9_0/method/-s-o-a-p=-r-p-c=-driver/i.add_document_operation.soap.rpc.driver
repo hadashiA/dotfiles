@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=add_document_operation
+
+--- add_document_operation(soapaction, name, param_def, opt = {})
+

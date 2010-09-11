@@ -1,0 +1,15 @@
+visibility=public
+kind=defined
+names=inflate
+
+--- inflate(string)
+
+string を展開ストリームに入力します。処理後、ストリームからの
+出力を返します。このメソッドを呼ぶと出力バッファ及び入力バッファは
+空になります。string が nil の場合はストリームへの入力を
+終了します。([[m:Zlib::ZStream#finish]] と同じ)。
+
+展開に辞書が必要な場合には Zlib::NeedDict 例外が発生します。
+[[m:Zlib::Inflate#set_dictionary]] メソッドで辞書をセットした
+後で、空文字列と共にこのメソッドを再度呼び出して下さい。
+

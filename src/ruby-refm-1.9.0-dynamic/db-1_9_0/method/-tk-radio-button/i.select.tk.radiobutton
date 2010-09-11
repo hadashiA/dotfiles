@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=select
+
+--- select
+
+ラジオボタンをチェックした状態にします。
+
+

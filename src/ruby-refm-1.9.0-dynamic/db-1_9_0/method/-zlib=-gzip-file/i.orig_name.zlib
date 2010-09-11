@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=orig_name
+
+--- orig_name
+
+gzip ファイルのヘッダーに記録されている元ファイル名を返します。
+ファイル名が記録されていない場合は nil を返します。
+

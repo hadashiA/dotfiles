@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=DAYNAMES
+
+--- DAYNAMES
+曜日の名称(Sunday, Monday ... )
+
+DAYNAMES[0] == "Sunday" です。
+

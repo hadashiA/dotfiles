@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=set_element_value_type
+
+--- set_element_value_type(idxs, val)
+
+

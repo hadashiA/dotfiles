@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=deleteln
+
+--- deleteln
+
+ウィンドウの、カーソルがある行を消去します。
+
+
+

@@ -1,0 +1,14 @@
+visibility=public
+kind=defined
+names=find_index
+
+--- find_index   {| obj | block }  -> Integer
+
+Passes each entry in enum to block. Returns the index for the
+first for which block is not false. If no object matches, returns
+nil
+
+   (1..10).find_index  {|i| i % 5 == 0 and i % 7 == 0 }   #=> nil
+   (1..100).find_index {|i| i % 5 == 0 and i % 7 == 0 }   #=> 34
+
+

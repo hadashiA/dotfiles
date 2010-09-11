@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=iv=
+
+--- iv=(iv)
+
+初期ベクトル (initialization vector)。
+

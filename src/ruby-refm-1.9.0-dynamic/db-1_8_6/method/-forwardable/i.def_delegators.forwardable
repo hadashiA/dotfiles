@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=def_delegators,def_instance_delegators
+
+--- def_instance_delegators(accessor, *methods)
+--- def_delegators(accessor, *methods)
+
+methods で渡されたメソッドのリストを accessor に委譲する
+ようにします。
+

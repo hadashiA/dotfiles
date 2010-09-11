@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=writable_real?
+
+--- writable_real?(file)
+
+FileTestクラスにある同名のクラスメソッドと同じです.
+

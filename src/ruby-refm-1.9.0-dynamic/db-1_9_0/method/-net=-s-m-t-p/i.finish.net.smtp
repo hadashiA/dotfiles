@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=finish
+
+--- finish
+
+SMTP セッションを終了します。
+
+セッション開始前にこのメソッドが呼ばれた場合は例外 IOError を発生します。
+

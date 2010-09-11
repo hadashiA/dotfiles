@@ -39,7 +39,10 @@
 (setq inhibit-startup-message t)
 
 ;; emacs-serverを起動(emacsclientで使用)
-(server-start)
+;; [2010-06-19]
+;; これだとanything-historyのウインドウにも色がついちゃうので、
+;; emacs --daemonのほうを使う
+;; (server-start)
 
 ;; エンコーディングは基本的にUTF-8
 (set-language-environment "Japanese")
@@ -92,8 +95,15 @@
 (setq-default indent-tabs-mode nil)
 
 ;; 改行と同時にインデント
-;; (global-set-key "\C-m" 'newline-and-indent)
-(global-set-key "\C-m" 'comment-indent-new-line)
+(global-set-key "\C-m" 'newline-and-indent)
+;; (global-set-key "\C-m" 'comment-indent-new-line)
+
+;; バッファにファイルをドラッグドロップした際のファイルをinsertする動作に変更されている。
+;; (define-key global-map [ns-drag-file] 'ns-insert-file)
+;; Emacs22の時の動作は find-fileですので同じにするには以下を .emacs に記述します
+(define-key global-map [ns-drag-file] 'ns-find-file)
+
+(setq dnd-open-file-other-window nil)
 
 ;; マクロ読み込み
 (load (expand-file-name"~/.emacs.d/conf/macros"))
@@ -145,3 +155,8 @@
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (self-insert-command (or arg 1)))))
+
+(when (require 'point-undo nil t)
+  (global-set-key (kbd "C-c C-/") 'point-undo)
+  (global-set-key (kbd "C-c C-c C-/") 'point-redo)
+  )

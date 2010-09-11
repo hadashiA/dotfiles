@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=crc_table
+
+--- crc_table
+
+CRC チェックサムの計算に用いるテーブルを配列で返します。
+

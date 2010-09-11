@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=include?,member?
+
+--- include?(o)
+--- member?(o)
+
+オブジェクト o がその集合に属す場合に true を返します。
+

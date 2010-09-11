@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=MAX,MIN
+
+--- MAX
+--- MIN
+
+Float が取り得る最大値、最小値
+

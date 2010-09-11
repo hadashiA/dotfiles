@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=puts
+
+--- puts([obj[, ...]])
+
+[[m:IO#puts]] と同様です。
+

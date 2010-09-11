@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=r
+
+--- r
+
+ベクトルの絶対値を返します。
+ベクトルの絶対値は、各要素の２乗の和の平方根を取ったものです。
+

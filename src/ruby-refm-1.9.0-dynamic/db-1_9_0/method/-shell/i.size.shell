@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=size,size?
+
+--- size(file)
+--- size?(file)
+
+FileTestクラスにある同名のクラスメソッドと同じです.
+

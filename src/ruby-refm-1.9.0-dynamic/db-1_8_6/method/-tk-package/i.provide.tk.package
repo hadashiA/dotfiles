@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=provide
+
+--- provide(package, version=nil)
+

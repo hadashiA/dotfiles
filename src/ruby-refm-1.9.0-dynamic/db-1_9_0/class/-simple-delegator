@@ -1,0 +1,8 @@
+superclass=Delegator
+type=class
+library=delegate
+extended=
+included=
+
+Delegator クラスをそのまま利用した、
+指定したオブジェクトにメソッドを委譲するクラス。

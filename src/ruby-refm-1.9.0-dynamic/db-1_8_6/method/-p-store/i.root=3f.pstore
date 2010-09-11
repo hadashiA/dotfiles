@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=root?
+
+--- root?(name)
+
+nameがルートであるかどうか。
+[[m:Hash#key?]]に相当。
+

@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=dump_mark
+
+--- dump_mark(*index) { ... }
+

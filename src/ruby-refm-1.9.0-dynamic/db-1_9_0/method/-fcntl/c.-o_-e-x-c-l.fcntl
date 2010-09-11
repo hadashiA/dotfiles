@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=O_EXCL
+
+--- O_EXCL
+used with O_CREAT, fail if file exists.
+

@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=numlist_type=,set_numlist_type
+
+--- set_numlist_type(val)
+--- numlist_type=
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=[]=
+
+--- []=(key, value)
+
+key をキーとして、value を格納します。
+

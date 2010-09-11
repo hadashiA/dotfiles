@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=__getobj__
+
+--- __getobj__
+
+委譲先のオブジェクトを返す。
+

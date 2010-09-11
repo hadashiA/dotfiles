@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=__drburi
+
+--- __drburi 
+
+Get the URI of the remote object.
+

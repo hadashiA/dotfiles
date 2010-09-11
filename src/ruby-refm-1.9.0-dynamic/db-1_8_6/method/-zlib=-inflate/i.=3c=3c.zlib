@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=<<
+
+--- << string
+
+[[m:Zlib::Inflate#inflate]] と同じように string を
+展開ストリームに入力しますが、Zlib::Inflate オブジェクト
+そのものを返します。展開ストリームからの出力は、
+出力バッファに保存されます。
+

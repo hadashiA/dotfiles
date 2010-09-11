@@ -1,0 +1,7 @@
+visibility=public
+kind=redefined
+names=debug
+
+--- debug(msg = nil)
+--- debug(msg = nil) {|msg| ... }
+

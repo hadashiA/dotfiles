@@ -1,0 +1,7 @@
+#@since 1.8.1
+= class XSD::XSDInteger < XSD::XSDDecimal
+== class methods
+--- new(value = nil)
+#@todo
+
+#@end

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=superset?
+
+--- superset?(set)
+
+集合が与えられた集合 set を含む場合に true を返します。
+

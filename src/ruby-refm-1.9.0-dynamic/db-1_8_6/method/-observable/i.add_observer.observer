@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=add_observer
+
+--- add_observer(observer)
+
+オブザーバを追加します。
+オブザーバは update メソッドを備えている必要があります。
+
+observer が update メソッドを持たないときは
+例外 NoMethodError が発生します。
+

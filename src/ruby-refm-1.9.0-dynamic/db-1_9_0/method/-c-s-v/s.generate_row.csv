@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=generate_row
+
+--- generate_row(src, cells, out_dev[, fs = nil[, rs = nil]])
+

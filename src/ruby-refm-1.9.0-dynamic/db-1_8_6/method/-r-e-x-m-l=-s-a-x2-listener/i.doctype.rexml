@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=doctype
+
+--- doctype(name, pub_sys, long_name, uri)
+

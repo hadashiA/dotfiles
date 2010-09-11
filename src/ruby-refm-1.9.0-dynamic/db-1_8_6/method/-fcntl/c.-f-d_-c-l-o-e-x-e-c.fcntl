@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=FD_CLOEXEC
+
+--- FD_CLOEXEC
+the value of the close-on-exec flag.
+

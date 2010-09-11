@@ -1,0 +1,13 @@
+visibility=public
+kind=added
+names=httpdate
+
+--- httpdate
+
+[[RFC:2616]]で定義されているHTTP-dateのrfc1123-dateとして
+表現される以下の形式の文字列を返します:
+
+  day-of-week, DD month-name CCYY hh:mm:ss GMT
+
+注意: 結果はいつも UTC (GMT) です。
+

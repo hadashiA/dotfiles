@@ -1,0 +1,7 @@
+superclass=Object
+type=class
+library=test.unit.testcase
+extended=
+included=
+
+Encapsulates a test failure. Created by [[c:Test::Unit::TestCase]] when an assertion fails.

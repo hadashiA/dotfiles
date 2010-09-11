@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=tag_configinfo
+
+--- tag_configinfo(tagOrId, slot = nil)
+

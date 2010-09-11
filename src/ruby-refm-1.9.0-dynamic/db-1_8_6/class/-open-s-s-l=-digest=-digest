@@ -1,0 +1,25 @@
+superclass=Object
+type=class
+library=openssl
+extended=
+included=
+
+ハッシュ関数のための抽象的なインターフェースを提供するクラスです。
+[[lib:digest]] も参照してください。
+
+実装されているクラスは以下の通りです。
+
+  * OpenSSL::Digest::DSS1
+  * OpenSSL::Digest::MD2
+  * OpenSSL::Digest::MD4
+  * OpenSSL::Digest::MD5
+  * OpenSSL::Digest::MDC2
+  * OpenSSL::Digest::RIPEMD160
+  * OpenSSL::Digest::SHA
+
+((<ruby 1.8.3 feature>)):
+システムにインストールされている openssl が 0.9.8 以降ならば以下のアルゴリズムも利用できます。
+  * OpenSSL::Digest::SHA224
+  * OpenSSL::Digest::SHA256
+  * OpenSSL::Digest::SHA384
+  * OpenSSL::Digest::SHA512

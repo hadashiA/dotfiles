@@ -1,0 +1,16 @@
+visibility=public
+kind=defined
+names=rest_size,restsize
+
+--- rest_size
+--- restsize
+文字列の残りの長さを返します。
+stringscanner.rest.size と同じです。
+
+      s = StringScanner.new('test string')
+      s.rest_size # => 11
+      s.rest.size # => 11
+
+[[m:StringScanner#restsize]] は将来のバージョンで削除される予定です。
+代わりに[[m:StringScanner#rest_size]] を使ってください。
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=denominator
+
+--- denominator
+
+分母を Fixnum として返します。
+

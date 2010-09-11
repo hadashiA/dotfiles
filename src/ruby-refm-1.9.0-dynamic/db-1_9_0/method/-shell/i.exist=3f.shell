@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=exist?,exists?
+
+--- exist?(file)
+--- exists?(file)
+
+FileTestクラスにある同名のクラスメソッドと同じです.
+

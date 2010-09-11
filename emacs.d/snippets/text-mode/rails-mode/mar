@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: mattr_reader :key
+# group: dsl
+# --
+mattr_reader :${1:module_attr_names}

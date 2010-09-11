@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=hash_kv
+
+--- hash_kv(*args)
+

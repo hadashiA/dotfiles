@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names===
+
+--- ==(other)
+
+値がotherと同じである場合に真です。otherは、
+TkVariable, String, Integer, Float, Arrayのいずれかです。
+

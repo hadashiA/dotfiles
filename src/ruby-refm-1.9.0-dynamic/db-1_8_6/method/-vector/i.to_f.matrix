@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=to_f
+
+--- to_f
+
+各要素を浮動小数点数 ([[c:Float]]) に変換します。
+

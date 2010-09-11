@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=new
+
+--- new(parent = nil, screen = nil, classname = nil, keys = nil)
+

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: while ( (o = getopt(argc, argv, "..") != -1 ){ .. }
+# --
+while ( (o = getopt(argc, argv, "$1")) != -1 ) {
+    switch(o) {
+    case '':
+        $0
+        break;
+    }
+}
+

@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=
+classes=PTY,PTY=ChildExited
+is_sublibrary=false
+
+

@@ -1,0 +1,7 @@
+visibility=public
+kind=added
+names=ssl_timeout=,timeout=
+
+--- ssl_timeout=(sec)
+--- timeout=(sec)
+

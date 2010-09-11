@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=def_delegator,def_singleton_delegator
+
+--- def_singleton_delegator(accessor, method, ali = method)
+--- def_delegator(accessor, method, ali = method)
+
+method で渡されたメソッドを accessor に委譲するようにしま
+す。ali が引数として渡されたときは, メソッド ali が呼ばれ
+たときには、accessor に対し method を呼び出します。
+

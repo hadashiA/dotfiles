@@ -1,0 +1,11 @@
+visibility=private 
+kind=added
+names=rmdir
+
+--- rmdir -> ()
+Remove the DIR.
+
+  ruby -run -e rmdir -- [OPTION] DIR
+
+  -v          verbose
+

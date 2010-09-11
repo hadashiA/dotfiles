@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=PI
+
+--- PI -> Float
+
+±ß¼þÎ¨
+
+    p Math::PI
+    # => 3.141592654

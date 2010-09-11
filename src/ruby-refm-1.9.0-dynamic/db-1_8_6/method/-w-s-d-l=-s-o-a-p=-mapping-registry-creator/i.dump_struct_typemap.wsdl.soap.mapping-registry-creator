@@ -1,0 +1,6 @@
+visibility=private 
+kind=defined
+names=dump_struct_typemap
+
+--- dump_struct_typemap(definedtype)
+

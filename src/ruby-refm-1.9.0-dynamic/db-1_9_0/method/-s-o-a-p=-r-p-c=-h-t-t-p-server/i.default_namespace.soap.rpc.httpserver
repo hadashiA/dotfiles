@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=default_namespace,default_namespace=
+
+--- default_namespace
+--- default_namespace=(value)
+

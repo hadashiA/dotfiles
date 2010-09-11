@@ -1,0 +1,9 @@
+= class Tk::BLT::Treeview::OpenCloseCommand::ValidateArgs < TkUtil::CallbackSubst
+
+== Class Methods
+
+--- ret_val(val)
+#@todo
+
+
+

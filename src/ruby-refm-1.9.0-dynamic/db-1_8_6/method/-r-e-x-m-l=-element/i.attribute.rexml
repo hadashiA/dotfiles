@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=attribute
+
+--- attribute(name, namespace = nil)
+

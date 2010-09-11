@@ -1,0 +1,222 @@
+= class BasicSocket < IO
+
+ソケットを表す抽象クラスです。具体的なソケット操作はサブクラスで
+定義されます。
+例えばインターネットドメインストリームソケットの場合は
+[[c:TCPSocket]] を用います。
+
+== Class Methods
+
+--- do_not_reverse_lookup -> bool
+--- do_not_reverse_lookup=(bool)
+
+この値が真ならアドレスからホスト名への逆引きを行わなくなります。
+#@since 1.9.2
+デフォルトは true です。
+#@else
+デフォルトは false です。
+#@end
+この設定は大域的に作用します。
+
+以下のメソッドの動作に影響します。
+
+  * [[m:BasicSocket#recv]]
+  * [[m:IPSocket#recvfrom]]
+  * [[m:UNIXSocket#recvfrom]]
+  * [[m:Socket#recvfrom]]
+  * [[m:IPSocket#addr]]
+  * [[m:IPSocket#peeraddr]]
+  * [[m:Socket.getaddrinfo]]
+
+@param bool この値が真ならアドレスからホスト名への逆引きを行わなくなります。
+
+例:
+
+  require 'socket'
+  
+  p TCPSocket.new('localhost', 'telnet').addr
+  TCPSocket.do_not_reverse_lookup = true
+  p TCPSocket.new('localhost', 'telnet').addr
+  
+  => ["AF_INET", 2253, "localhost", "127.0.0.1"]
+     ["AF_INET", 2254, "127.0.0.1", "127.0.0.1"]
+
+#@since 1.8.0
+--- for_fd(fd) -> Object
+
+ファイルディスクリプタ fd に対する新しいソケットを生成します。
+このメソッドは [[c:Socket]] クラスからこのクラスに移動しました。
+これにより、任意のソケットである fd から対応するソケッ
+トクラスを作ることができます。
+
+@param   fd ファイルディスクリプタ を指定します。
+
+@return  任意のソケットである fd から対応するソケットクラスを作り、それを返します。
+
+#@end
+
+== Instance Methods
+
+#@since 1.9.1
+--- do_not_reverse_lookup
+--- do_not_reverse_lookup=(bool)
+#@todo
+
+アドレスからホスト名への逆引きの設定をソケットごとに設定します。
+初期値はソケットを生成したときの
+BasicSocket.do_not_reverse_lookup になります。
+#@end
+
+--- getpeername -> String
+
+接続の相手先のソケットの情報を取得します。sockaddr 構造体をパッ
+クした文字列を返します。[[man:getpeername(2)]] を参照してください。
+
+例:
+
+  serv = TCPServer.open("", 0)
+  c = TCPSocket.open(*Socket.unpack_sockaddr_in(serv.getsockname).reverse)
+  s = serv.accept
+  addr = c.getpeername
+  p addr      #=> "\002\000\267\214\177\000\000\001\000\000\000\000\000\000\000\000"
+  p Socket.unpack_sockaddr_in(addr)   #=> [46988, "127.0.0.1"]
+  p addr == s.getsockname     #=> true
+
+--- getsockname -> String
+
+ソケットの情報を取得します。sockaddr 構造体をパックした
+文字列を返します。[[man:getsockname(2)]] を参照してください。
+
+例:
+
+  serv = TCPServer.open("", 0)
+  p serv.getsockname        #=> "\002\000\236C\000\000\000\000\000\000\000\000\000\000\000\000"
+  p Socket.unpack_sockaddr_in(serv.getsockname)     #=> [40515, "0.0.0.0"]
+  c = TCPSocket.open(*Socket.unpack_sockaddr_in(serv.getsockname).reverse)
+  s = serv.accept
+
+--- getsockopt(level, optname) -> String
+
+ソケットのオプションを取得します。[[man:getsockopt(2)]]
+を参照してください。取得したオプションのデータをパックした文字列を
+返します。
+
+@param level    [[man:getsockopt(2)]] の 第二引数のlevel に相当する整数を指定します。
+@param optname  [[man:getsockopt(2)]] の 第三引数のoption_name に相当する整数を指定します。
+
+例:
+
+  serv = TCPServer.open("", 0)
+  c = TCPSocket.open(*Socket.unpack_sockaddr_in(serv.getsockname).reverse)
+  s = serv.accept
+  p c.getsockopt(Socket::IPPROTO_TCP, Socket::TCP_NODELAY)  #=> "\000\000\000\000"
+  p opt.unpack("i")[0]                                      #=> 0   (Nagle アルゴリズム有効)
+
+--- recv(maxlen, flags = 0) -> String
+
+ソケットからデータを受け取り、文字列として返します。
+maxlen は受け取る最大の長さを指定します。
+flags については [[man:recv(2)]] を参照してください。flags の
+デフォルト値は 0 です。flags の指定に必要な定数は
+Socket クラスで定義されています。(例: Socket::MSG_PEEK)
+
+内部で呼び出す [[man:recv(2)]] が 0 を返した場合、このメソッドは "" を返します。
+この意味はソケットによって異なります。
+たとえば TCP では EOF を意味しますし、
+UDP では空のパケットを読み込んだことを意味します。
+
+@param maxlen 受け取る文字列の最大の長さを指定します。
+
+@param flags [[man:recv(2)]] を参照してください。
+
+@raise IOError
+
+@raise Errno::EXXX [[man:recvfrom(2)]] がエラーになった場合などに発生します。
+
+例:
+
+  s1, s2 = UNIXSocket.pair
+  s1.write "a"
+  s1.close
+  p s2.recv(10, Socket::MSG_PEEK)   #=> "a"
+  p s2.recv(10)                     #=> "a"
+  p s2.recv(10)                     #=> ""
+
+#@if (version >= "1.8.5")
+--- recv_nonblock(maxlen, flags = 0) -> String
+
+ソケットをノンブロッキングモードに設定した後、
+[[man:recvfrom(2)]] でソケットからデータを受け取ります。
+
+引数、返り値は [[m:BasicSocket#recv]] と同じです。
+
+[[man:recvfrom(2)]] がエラーになった場合、
+EAGAIN, EINTR を含め例外 [[c:Errno::EXXX]] が発生します。
+
+@param maxlen 受け取る文字列の最大の長さを指定します。
+
+@param flags [[man:recv(2)]] を参照してください。
+
+@raise IOError
+
+@raise Errno::EXXX [[man:recvfrom(2)]] がエラーになった場合などに発生します。
+
+#@end
+
+--- send(mesg, flags, dest_sockaddr = nil) -> Fixnum
+
+ソケットを介してデータを送ります。flags に関しては
+[[man:send(2)]] を参照してください。connect していないソケット
+に対しては送り先である dest_sockaddr を指定する必要があります。実際に送っ
+たデータの長さを返します。
+
+dest_sockaddr には「ソケットアドレス構造体を pack した文字列」
+を指定します。
+
+データの送信に失敗した場合は例外 [[c:Errno::EXXX]] が発生します。
+
+@param mesg       送信するデータを文字列で指定します。
+
+@param flags      [[man:send(2)]] の flags を参照してください。
+
+@param dest_sockaddr  「ソケットアドレス構造体を pack した文字列」を指定します。
+
+@raise Errno::EXXX データの送信に失敗した場合に発生します。
+
+例:
+
+  s = UDPSocket.new
+  sockaddr = Socket.sockaddr_in("discard", "localhost")
+  s.send("The king has donkey ears!", 0, sockaddr)
+
+--- setsockopt(level, optname, optval) -> 0
+
+ソケットのオプションを設定します。[[man:setsockopt(2)]]
+を参照してください。
+
+@param level    [[man:setsockopt(2)]] の level を参照してください。
+@param optname  [[man:setsockopt(2)]] の option_name を参照してください。
+@param optval  設定される値を文字列で指定します。
+
+@raise Errno::EXXX  オプションの設定に失敗した場合発生します。
+
+#@# より高レベルなものとして[[c:RAA:Sockopt]]があります
+
+--- shutdown(how = Socket::SHUT_RDWR) -> 0
+
+ソケットの以降の接続を終了させます。
+how の値によって以下のように接続が終了します。
+
+  * Socket::SHUT_RD: それ以降の受信が拒否されます
+  * Socket::SHUT_WR: それ以降の送信が拒否されます
+  * Socket::SHUT_RDWR: それ以降の送信、受信ともに拒否されます
+
+how を省略すると Socket::SHUT_RDWR を指定したことになります。
+[[man:shutdown(2)]] を参照してください。
+
+@param how 接続の終了の仕方を Socket::SHUT_RD, Socket::SHUT_WR, Socket::SHUT_RDWR などで指定します。
+
+@raise Errno::EXXX ソケットの以降の接続を終了操作が失敗した場合に発生します。
+@raise ArgumentError how に範囲外の整数を入力した場合に発生します。
+@raise SecurityError セーフレベルが 4 以上で、ソケットに汚染マークがついていない場合発生します。
+

@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=ascii_configinfo,latin_configinfo
+
+--- latin_configinfo(slot = nil)
+--- ascii_configinfo(slot = nil)
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=vi_editing_mode
+
+--- vi_editing_mode
+編集モードを vi モードにします。詳細は、GNU Readline のマニュアル
+を参照してください。
+

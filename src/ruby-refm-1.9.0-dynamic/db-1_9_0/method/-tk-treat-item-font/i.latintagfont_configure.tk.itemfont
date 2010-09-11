@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=latintagfont_configure
+
+--- latintagfont_configure(tagOrId, ltn, keys = nil)
+alias asciitagfont_configure
+
+
+

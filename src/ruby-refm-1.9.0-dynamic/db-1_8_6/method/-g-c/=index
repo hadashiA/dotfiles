@@ -1,0 +1,4 @@
+.disable	GC.disable
+.enable	GC.enable
+.start	GC.start
+#garbage_collect	GC#garbage_collect

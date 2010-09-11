@@ -1,0 +1,5 @@
+:IQuery	Resolv::DNS::OpCode::IQuery
+:Notify	Resolv::DNS::OpCode::Notify
+:Query	Resolv::DNS::OpCode::Query
+:Status	Resolv::DNS::OpCode::Status
+:Update	Resolv::DNS::OpCode::Update

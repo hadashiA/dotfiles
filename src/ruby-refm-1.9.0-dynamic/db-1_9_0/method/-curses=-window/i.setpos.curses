@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=setpos
+
+--- setpos(y, x)
+
+ウィンドウ内の (x,y) にカーソルを移動します。
+

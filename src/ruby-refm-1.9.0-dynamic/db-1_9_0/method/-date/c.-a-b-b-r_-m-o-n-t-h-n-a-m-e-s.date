@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=ABBR_MONTHNAMES
+
+--- ABBR_MONTHNAMES
+月の省略名(Jan, Feb ... )
+
+ABBR_MONTHNAMES[0] == nil で ABBR_MONTHNAMES[1] == "Jan" です。
+

@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=
+classes=Resolv,Resolv=ResolvError,Resolv=ResolvTimeout,Resolv=Hosts,Resolv=DNS,Resolv=DNS=Requester,Resolv=DNS=Requester=Sender,Resolv=DNS=Requester=UnconnectedUDP,Resolv=DNS=Requester=UnconnectedUDP=Sender,Resolv=DNS=Requester=ConnectedUDP,Resolv=DNS=Requester=ConnectedUDP=Sender,Resolv=DNS=Requester=TCP,Resolv=DNS=Requester=TCP=Sender,Resolv=DNS=Requester=RequestError,Resolv=DNS=Resource=Generic,Resolv=DNS=Resource=DomainName,Resolv=DNS=Resource=NS,Resolv=DNS=Resource=CNAME,Resolv=DNS=Resource=SOA,Resolv=DNS=Resource=PTR,Resolv=DNS=Resource=HINFO,Resolv=DNS=Resource=MINFO,Resolv=DNS=Resource=MX,Resolv=DNS=Resource=TXT,Resolv=DNS=Resource=ANY,Resolv=DNS=Resource=IN,Resolv=DNS=Resource=IN=NS,Resolv=DNS=Resource=IN=CNAME,Resolv=DNS=Resource=IN=SOA,Resolv=DNS=Resource=IN=HINFO,Resolv=DNS=Resource=IN=MINFO,Resolv=DNS=Resource=IN=MX,Resolv=DNS=Resource=IN=TXT,Resolv=DNS=Resource=IN=ANY,Resolv=DNS=Resource=IN=A,Resolv=DNS=Resource=IN=WKS,Resolv=DNS=Resource=IN=PTR,Resolv=DNS=Resource=IN=AAAA,Resolv=DNS=Resource=IN=SRV,Resolv=DNS=OpCode,Resolv=DNS=RCode,Resolv=DNS=DecodeError,Resolv=DNS=EncodeError,Resolv=DNS=Config,Resolv=DNS=Config=NXDomain,Resolv=DNS=Config=OtherResolvError,Resolv=DNS=Message,Resolv=DNS=Message=MessageDecoder,Resolv=DNS=Message=MessageEncoder,Resolv=DNS=Query,Resolv=DNS=Label,Resolv=DNS=Label=Str,Resolv=DNS=Name,Resolv=DNS=Resource,Resolv=IPv4,Resolv=IPv6
+is_sublibrary=false
+
+

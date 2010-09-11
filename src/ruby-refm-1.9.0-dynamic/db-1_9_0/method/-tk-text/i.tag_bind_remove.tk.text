@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=tag_bind_remove
+
+--- tag_bind_remove(tag, seq)
+

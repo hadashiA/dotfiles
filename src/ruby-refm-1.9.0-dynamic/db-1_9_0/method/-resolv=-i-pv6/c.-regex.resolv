@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=Regex
+
+--- Regex
+IPv6のアドレスの正規表現です。
+

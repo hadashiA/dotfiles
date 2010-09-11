@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=generate
+
+--- generate(str_or_writable[, fs = ','[, rs = nil]]) { ... }
+

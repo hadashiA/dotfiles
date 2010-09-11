@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names===
+
+--- ==(obj)
+
+Returns true if two objects are considered same.
+

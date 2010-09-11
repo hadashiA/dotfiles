@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=method
+
+--- method
+
+リクエストの HTTP メソッドを文字列で返します。
+

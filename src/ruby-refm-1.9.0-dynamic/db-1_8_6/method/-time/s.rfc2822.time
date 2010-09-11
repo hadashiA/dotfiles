@@ -1,0 +1,16 @@
+visibility=public
+kind=added
+names=rfc2822,rfc822
+
+--- rfc2822(date)
+--- rfc822(date)
+
+[[RFC:2822]]で定義されているdate-timeとしてdateをパースして
+[[c:Time]]オブジェクトに変換します。
+この形式は[[RFC:822]]で定義されて[[RFC:1123]]で更新された形式と
+同じです。
+
+dateが[[RFC:2822]]に準拠していない、または
+[[c:Time]]クラスが指定された日時を表現できないときに[[c:ArgumentError]]が
+発生します。
+

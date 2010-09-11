@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=SEEK_SET
+
+--- SEEK_SET
+
+[[m:IO#seek]] を参照してください。

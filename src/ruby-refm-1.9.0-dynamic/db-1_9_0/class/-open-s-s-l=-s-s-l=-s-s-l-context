@@ -1,0 +1,11 @@
+superclass=Object
+type=class
+library=openssl
+extended=
+included=
+
+SSL コンテクストクラス
+
+
+=== Constants
+verify_mode= と options= で指定できる定数に関しては [[c:OpenSSL::SSL]] を参照してください。

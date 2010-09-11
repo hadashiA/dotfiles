@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=public?
+
+--- public?
+
+公開鍵を持っているかどうか判定します。
+

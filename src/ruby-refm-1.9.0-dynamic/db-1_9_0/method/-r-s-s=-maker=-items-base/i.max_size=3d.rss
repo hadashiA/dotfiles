@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=max_size=
+
+--- max_size=()
+出力するitemの数の最大値を設定します．
+
+

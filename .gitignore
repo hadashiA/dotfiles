@@ -2,6 +2,11 @@
 ._.DS_Store
 *.swp
 history-*
+zsh/history
+zsh/modules/auto-fu/auto-fu
+zsh/modules/auto-fu/auto-fu.zwc
+zsh/cdd_pwd_list
+zsh/cdd_pwd_list.t
 fish_history
 fish_read_history
 fishd.*
@@ -9,4 +14,6 @@ vim/.netrwhist
 vimperator/info
 emacs.d/auto-save-list
 emacs.d/anything-c-adaptive-history
+screen/.temp
+screen/exchange
 .#*

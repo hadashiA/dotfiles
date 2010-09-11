@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/rurema/!svn/ver/1734/doctree/trunk/refm/api/src/drb
+END
+extservm.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/drb/extservm.rd
+END
+gw.rd
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/drb/gw.rd
+END
+acl.rd
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/drb/acl.rd
+END
+extserv.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/drb/extserv.rd
+END
+ssl.rd
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/drb/ssl.rd
+END
+DRbUnknown
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/drb/DRbUnknown
+END
+timeridconv.rd
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/drb/timeridconv.rd
+END
+unix.rd
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rurema/!svn/ver/832/doctree/trunk/refm/api/src/drb/unix.rd
+END
+DRbProtocol
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/drb/DRbProtocol
+END
+DRbUndumped
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1734/doctree/trunk/refm/api/src/drb/DRbUndumped
+END
+DRbIdConv
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/drb/DRbIdConv
+END
+observer.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/832/doctree/trunk/refm/api/src/drb/observer.rd
+END
+DRbObject
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/drb/DRbObject
+END
+DRbServer
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/drb/DRbServer
+END

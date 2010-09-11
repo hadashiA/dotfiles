@@ -1,0 +1,13 @@
+superclass=
+type=module
+library=syslog
+extended=
+included=Syslog=Constants
+
+UNIXのsyslogのラッパーモジュール。
+
+        require 'syslog'
+
+        Syslog.open("syslogtest")
+        Syslog.log(Syslog::LOG_WARNING, "the sky is falling in %d seconds!", 100)
+        Syslog.close

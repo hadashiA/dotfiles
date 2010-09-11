@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=public,public=
+
+--- public
+--- public=(value)
+

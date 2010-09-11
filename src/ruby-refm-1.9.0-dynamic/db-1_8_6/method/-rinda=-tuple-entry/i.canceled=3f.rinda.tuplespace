@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=canceled?
+
+--- canceled?
+
+Returns the canceled status.
+

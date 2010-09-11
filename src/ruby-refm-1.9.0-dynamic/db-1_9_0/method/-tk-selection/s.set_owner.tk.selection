@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=set_owner
+
+--- set_owner(win, keys = nil)
+

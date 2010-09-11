@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=sender
+
+--- sender
+
+センダになっているオブジェクトを取り出します.
+センダとは, そのメソッドを呼び出した側の self のことです.

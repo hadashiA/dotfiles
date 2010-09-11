@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=row_vectors
+
+--- row_vectors
+
+列ベクトルの配列を返す。
+

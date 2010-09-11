@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=def_protectedmethod
+
+--- def_protectedmethod(name, *params) { ... }
+

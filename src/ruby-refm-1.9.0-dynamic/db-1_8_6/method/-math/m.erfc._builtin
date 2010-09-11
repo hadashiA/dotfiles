@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=erfc
+
+--- erfc(x) -> Float
+x の相補誤差関数の値を返します。
+
+@param x 実数
+
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=width
+
+--- width
+Length of the widest label in the #list, plus one.  
+
+

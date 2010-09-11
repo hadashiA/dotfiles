@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=each_key,each_name
+
+--- each_name {|name| ... }
+--- each_key {|name| ... }
+

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=new
+
+--- new
+
+Monitor オブジェクトを生成します。
+

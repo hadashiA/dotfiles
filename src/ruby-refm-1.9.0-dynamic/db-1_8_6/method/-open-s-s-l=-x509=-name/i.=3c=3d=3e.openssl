@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=<=>,cmp
+
+--- cmp(name)
+--- <=>
+
+他の Name オブジェクトと比較します。
+

@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=attr
+
+--- attr
+
+Returns a hash. Each key is one of "MESSAGES", "RECENT", "UIDNEXT",
+"UIDVALIDITY", "UNSEEN". Each value is a number.
+
+
+

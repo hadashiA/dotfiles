@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=load_tcllibrary
+
+--- load_tcllibrary(file, pkg_name = Tk::None, interp = Tk::None)
+

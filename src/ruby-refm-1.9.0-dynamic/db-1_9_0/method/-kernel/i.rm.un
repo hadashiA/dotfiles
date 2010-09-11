@@ -1,0 +1,13 @@
+visibility=private 
+kind=added
+names=rm
+
+--- rm -> ()
+Remove the FILE
+
+  ruby -run -e rm -- [OPTION] FILE
+
+  -f          ignore nonexistent files
+  -r          remove the contents of directories recursively
+  -v          verbose
+

@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=test.unit.assertions,test.unit.testsuite
+classes=Test=Unit=TestCase,Test=Unit=Error,Test=Unit=Failure
+is_sublibrary=true
+
+

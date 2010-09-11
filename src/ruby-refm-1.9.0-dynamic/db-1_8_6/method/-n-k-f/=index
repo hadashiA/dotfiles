@@ -1,0 +1,16 @@
+.guess	NKF.#guess
+.guess1	NKF.#guess1
+.guess2	NKF.#guess2
+.nkf	NKF.#nkf
+#guess	NKF.#guess
+#guess1	NKF.#guess1
+#guess2	NKF.#guess2
+#nkf	NKF.#nkf
+:ASCII	NKF::ASCII
+:BINARY	NKF::BINARY
+:EUC	NKF::EUC
+:JIS	NKF::JIS
+:SJIS	NKF::SJIS
+:UNKNOWN	NKF::UNKNOWN
+:UTF16	NKF::UTF16
+:UTF8	NKF::UTF8

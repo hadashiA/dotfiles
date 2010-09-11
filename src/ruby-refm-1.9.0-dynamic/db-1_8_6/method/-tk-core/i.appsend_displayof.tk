@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=appsend_displayof
+
+--- appsend_displayof(interp, win, async, *args)
+

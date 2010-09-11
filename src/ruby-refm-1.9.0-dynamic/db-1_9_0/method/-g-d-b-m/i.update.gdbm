@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=update
+
+--- update(other)
+
+DBM と other の内容をマージします。重複するキーに対応する値は
+other の内容で上書きされます。
+
+other は each_pair メソッドを持つオブジェクトでなければなりま
+せん。
+

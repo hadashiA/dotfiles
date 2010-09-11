@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name : #{..}
+# binding: "C-c C-s"
+# group : syntax
+# --
+#{$0}

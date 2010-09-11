@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: cattr_reader :key
+# group: dsl
+# --
+cattr_reader :${1:class_attr_names}

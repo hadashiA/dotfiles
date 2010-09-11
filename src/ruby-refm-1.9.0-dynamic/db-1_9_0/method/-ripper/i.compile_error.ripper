@@ -1,0 +1,6 @@
+visibility=private 
+kind=defined
+names=compile_error
+
+--- compile_error(msg)
+

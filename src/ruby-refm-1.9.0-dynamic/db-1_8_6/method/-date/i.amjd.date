@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=amjd
+
+--- amjd -> Rational
+このメソッドは [[m:Date#mjd]] と似ていますが、天文学的な修正ユリウス日を返します。
+時刻を含みます。
+

@@ -1,0 +1,14 @@
+visibility=public
+kind=defined
+names=select
+
+--- select {|key, value| block}   -> Hash
+
+Returns a new hash consisting of entries which the block returns
+true.
+
+   h = { "a" => 100, "b" => 200, "c" => 300 }
+   h.select {|k,v| k > "a"}  #=> {"b" => 200, "c" => 300}
+   h.select {|k,v| v < 200}  #=> {"a" => 100}
+
+

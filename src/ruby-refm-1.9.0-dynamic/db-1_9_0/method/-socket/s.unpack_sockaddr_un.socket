@@ -1,0 +1,15 @@
+visibility=public
+kind=defined
+names=unpack_sockaddr_un
+
+--- unpack_sockaddr_un(sockaddr)
+
+[[m:socket#ソケットアドレス構造体を pack した文字列]]を
+unpack したソケットパス名をを返します。
+
+例:
+
+  require 'socket'
+  p Socket.unpack_sockaddr_un(Socket.sockaddr_un("/tmp/.X11-unix/X0"))
+  => "/tmp/.X11-unix/X0"
+

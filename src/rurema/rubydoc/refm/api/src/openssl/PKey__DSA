@@ -1,0 +1,99 @@
+#@if (version >= "1.8.0")
+= class OpenSSL::PKey::DSA < OpenSSL::PKey::PKey
+
+以下は、data に署名し、署名をもとに data を検証する簡単な例です。
+
+  require "openssl"
+  dsa512 = OpenSSL::PKey::DSA.new(512)
+  dss1 = OpenSSL::Digest::DSS1.new
+  data = 'hoge'
+  sign = dsa512.sign(dss1, data)
+  p dsa512.verify(dss1, sign, data)
+
+== Class Methods
+
+--- generate(size)
+--- new(size)
+#@todo
+
+DSA オブジェクトを生成します。size は鍵長です。
+
+--- new
+--- new(str)
+--- new(io)
+#@todo
+
+DSA オブジェクトを生成します。
+
+== Instance Methods
+
+--- export
+--- to_pem
+--- to_s
+#@todo
+
+PEM 形式に変換して返します。
+
+--- private?
+#@todo
+
+秘密鍵をもっている場合に true を返します。
+
+--- public?
+#@todo
+
+公開鍵をもっている場合に true を返します。
+
+--- public_key
+#@todo
+
+公開鍵を返します。
+
+#@since 1.8.2
+--- to_der
+#@todo
+
+DER 形式にして返します。
+#@end
+
+--- to_text
+#@todo
+
+人間が読める形式にして返します。
+
+--- sign(digest, data)
+#@todo
+
+data に関して digest を使って署名を作成して文字列として返します。
+digest は OpenSSL::PKey::DSS1 のインスタンスです。
+
+--- verify(digest, sign, data)
+#@todo
+
+digest には DSA の性質から OpenSSL::PKey::DSS1 のインスタンスのみ受け付けます。他は
+例外 OpenSSL::PKey::PKeyError を投げます。
+
+#@since 1.8.2
+--- p
+--- p=(p)
+#@todo
+
+--- q
+--- q=(q)
+#@todo
+
+--- g
+--- g=(g)
+#@todo
+
+--- pub_key
+--- pub_key=(public_key)
+#@todo
+
+--- priv_key
+--- priv_key=(private_key)
+#@todo
+    パラメータ。
+#@end
+
+#@end

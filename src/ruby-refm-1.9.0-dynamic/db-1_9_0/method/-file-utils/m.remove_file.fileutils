@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=remove_file
+
+--- remove_file(path, force = false)
+
+ファイル path を削除します。
+
+force が真のときは削除中に発生した StandardError を無視します。
+

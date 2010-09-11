@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=[]
+
+--- [](*item)    -> Array
+
+引数 item を要素として持つ配列を生成して返します。
+
+@param item 配列の要素を指定します。
+
+  Array[1, 2, 3] #=> [1, 2, 3]
+

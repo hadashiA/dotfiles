@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=assert_raises
+
+--- assert_raises(*args, &block)    -> object
+
+Alias of assert_raise.
+
+Will be deprecated in 1.9, and removed in 2.0.
+
+@raise Test::Unit::AssertionFailedError assert が失敗した時に発生します。
+

@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/rurema/!svn/ver/3004/doctree/trunk/refm/api/src/rexml
+END
+attlistdecl.rd
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/attlistdecl.rd
+END
+entity.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/entity.rd
+END
+cdata.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/cdata.rd
+END
+document.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/document.rd
+END
+syncenumerator.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/syncenumerator.rd
+END
+instruction.rd
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/instruction.rd
+END
+child.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/child.rd
+END
+sax2listener.rd
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/sax2listener.rd
+END
+xmltokens.rd
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/xmltokens.rd
+END
+xpath.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/xpath.rd
+END
+text.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/3004/doctree/trunk/refm/api/src/rexml/text.rd
+END
+node.rd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/node.rd
+END
+encoding.rd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/encoding.rd
+END
+rexml.rd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/rexml.rd
+END
+xmldecl.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/xmldecl.rd
+END
+element.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/element.rd
+END
+parent.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/parent.rd
+END
+parseexception.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/parseexception.rd
+END
+quickpath.rd
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/quickpath.rd
+END
+namespace.rd
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/namespace.rd
+END
+output.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/output.rd
+END
+source.rd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/source.rd
+END
+xpath_parser.rd
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/xpath_parser.rd
+END
+streamlistener.rd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/streamlistener.rd
+END
+comment.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/comment.rd
+END
+attribute.rd
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/attribute.rd
+END
+doctype.rd
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/doctype.rd
+END
+functions.rd
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/rexml/functions.rd
+END

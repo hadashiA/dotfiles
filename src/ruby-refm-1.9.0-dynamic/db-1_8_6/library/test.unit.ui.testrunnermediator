@@ -1,0 +1,10 @@
+methods=
+sublibraries=
+requires=test.unit.testresult,test.unit,test.unit.assertions,test.unit.util.observable,test.unit.autorunner,test.unit.testsuite,test.unit.ui.testrunnerutilities,test.unit.testcase
+classes=Test=Unit=UI=TestRunnerMediator
+is_sublibrary=true
+
+各種 TestRunner を実装するために使われます。
+
+Unit テストを行いたいだけのユーザが、このライブラリを require する
+必要はありません。

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=flush_next_out
+
+--- flush_next_out
+
+出力バッファに残っているデータを強制的に取り出します。
+

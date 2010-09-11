@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=
+classes=Net=FTP,FTPError,FTPReplyError,FTPTempError,FTPPermError,FTPProtoError
+is_sublibrary=false
+
+

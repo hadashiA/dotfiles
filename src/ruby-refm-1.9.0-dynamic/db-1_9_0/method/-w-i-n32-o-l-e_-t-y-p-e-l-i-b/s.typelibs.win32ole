@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=typelibs
+
+--- typelibs
+
+Returns the array of WIN32OLE_TYPELIB object.
+
+   tlibs = WIN32OLE_TYPELIB.typelibs
+

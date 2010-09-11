@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=to_f
+
+--- to_f -> self
+self を返します。
+
+  p 3.14.to_f   #=> 3.14
+

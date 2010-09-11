@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=mode
+
+--- mode -> Integer
+ファイルモードを返します。
+
+  fs = File::Stat.new($0)
+  printf "%o\n", fs.mode 
+  #例
+  #=> 100644
+

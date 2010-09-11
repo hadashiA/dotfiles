@@ -1,0 +1,542 @@
+= class Regexp < Object
+
+正規表現のクラス。正規表現のリテラルはスラッシュで囲んだ形式
+で記述します。
+
+  /^this is regexp/
+
+Regexp.new(string) を使って正規表現オブジェクトを動的に生成する
+こともできます。
+
+  str = "this is regexp"
+  rp1 = Regexp.new("^this is regexp")
+  p rp1 =~ str           #=> 0
+  p Regexp.last_match[0] #=> "this is regexp"
+
+[[d:spec/regexp]] や [[ref:d:spec/literal#regexp]] も参照してください。
+
+== Class Methods
+
+--- compile(string, option = nil, code = nil) -> Regexp
+--- new(string, option = nil, code = nil) -> Regexp
+
+文字列 string をコンパイルして正規表現オブジェクトを生成して
+返します。
+
+第二引数が [[c:Fixnum]] であった場合、その値は
+
+  * [[m:Regexp::IGNORECASE]]
+  * [[m:Regexp::MULTILINE]]
+  * [[m:Regexp::EXTENDED]]
+
+の論理和でなければなりません。
+
+第二引数が [[c:Fixnum]] 以外であれば真偽値の指定として見なされ、真
+(nil, false 以外)であれば [[m:Regexp::IGNORECASE]]
+の指定と同じになります。
+
+第三引数が与えられた時には、[[m:$KCODE]] の値にかかわ
+らず、指定された文字コードでマッチを行います。文字コードは
+[[m:$KCODE]] への代入と同様に文字列引数の最初の一文字で決定されま
+す。
+
+第一引数が正規表現であれば内容が同じ(ただし、上記フラグの内容はク
+リアされた)正規表現を複製して返します。このとき、複製した正規表現
+に対して、第二、第三引数の指定が設定されます。
+
+#@since 1.8.0
+第一引数が正規表現であれば第一引数を複製し
+て返します。第二、第三引数は警告の上無視されます。
+#@end
+
+正規表現のコンパイルに失敗した場合、例外 [[c:RegexpError]] が発生
+します。
+
+@param string 正規表現を文字列として与えます。
+
+@param option [[m:Regexp::IGNORECASE]], [[m:Regexp::MULTILINE]],  [[m:Regexp::EXTENDED]] の論理和を指定します。
+
+@param code 文字コードを[[m:$KCODE]] への代入と同様の文字列で指定します。
+
+@raise  RegexpError 正規表現のコンパイルに失敗した場合発生します。
+
+  str = "This is Regexp"
+  t1 = Regexp.compile("this is regexp", Regexp::IGNORECASE)
+  t1.match(str)
+  puts $~ #=> This is Regexp 
+
+  t2 = Regexp.compile('
+	this         # ここは使用されない
+	\ is
+	\ regexp     # ここも使用されない
+  ', Regexp::EXTENDED | Regexp::IGNORECASE)
+  t2.match(str)
+  puts Regexp.last_match #=> This is Regexp
+
+  str = "ふるいけや\nかわずとびこむ\nみずのおと"
+  t2 = Regexp.compile("ふる.*?と", Regexp::MULTILINE)
+  puts t2.match(str)[0]  #=> ふるいけや
+                         #=> かわずと
+
+@see [[m:$KCODE]]
+
+--- escape(string, kcode = $KCODE) -> String
+--- quote(string, kcode = $KCODE) -> String
+
+string の中で正規表現において特別な意味を持つ文字の直前にエ
+スケープ文字(バックスラッシュ)を挿入した文字列を返します。省略可能
+な引数 kcode で文字列の文字コードを指定します
+(省略時は [[m:$KCODE]] の値が使用されます)。
+
+文字コードの指定は [[m:$KCODE]] と同様に行います。
+
+@param string 正規表現において特別な意味をもつ文字をもつ文字列を指定します。
+
+@param kcode 文字コードを文字列で指定します。文字コードの指定は [[m:$KCODE]] と同様に行います。
+
+  rp = Regexp.escape("$bc^")
+  puts rp #=> \$bc\^
+
+--- last_match -> MatchData
+
+カレントスコープで最後に行った正規表現マッチの [[c:MatchData]] オ
+ブジェクトを返します。このメソッドの呼び出しは [[m:$~]]
+の参照と同じです。
+
+  /(.)(.)/ =~ "ab"
+  p Regexp.last_match      # => #<MatchData:0x4599e58>
+  p Regexp.last_match[0]   # => "ab"
+  p Regexp.last_match[1]   # => "a"
+  p Regexp.last_match[2]   # => "b"
+  p Regexp.last_match[3]   # => nil
+
+--- last_match(nth) -> String | nil
+
+整数 nth が 0 の場合、マッチした文字列を返します
+([[m:$&]])。それ以外では、nth 番目の括弧にマッチ
+した部分文字列を返します([[m:$1]],[[m:$2]],...)。
+対応する括弧がない場合やマッチしなかった場合には nil を返し
+ます。
+
+  /(.)(.)/ =~ "ab"
+  p Regexp.last_match      # => #<MatchData:0x4599e58>
+  p Regexp.last_match(0)   # => "ab"
+  p Regexp.last_match(1)   # => "a"
+  p Regexp.last_match(2)   # => "b"
+  p Regexp.last_match(3)   # => nil
+
+正規表現全体がマッチしなかった場合、引数なしの
+Regexp.last_match はnil を返すため、
+last_match[1] の形式では例外 [[c:NameError]] が発生します。
+対して、last_match(1) は nil を返します。
+
+  str = "This is Regexp"
+  /That is Regexp/ =~ str
+  p Regexp.last_match #=> nil
+  begin
+    p Regexp.last_match[1] # 例外が発生する
+  rescue 
+    puts $! #=> undefined method `[]' for nil:NilClass
+  end
+  p Regexp.last_match(1) #=> nil
+
+@param nth 整数を指定します。
+	整数 nth が 0 の場合、マッチした文字列を返します。それ以外では、nth 番目の括弧にマッチした部分文字列を返します。
+
+
+#@since 1.8.1
+--- union(*pattern) -> Regexp
+
+引数として与えた pattern を選択 | で連結し、Regexp として返します。
+結果の Regexp は与えた pattern のどれかにマッチする場合にマッチするものになります。
+
+  p Regexp.union(/a/, /b/, /c/) #=> /(?-mix:a)|(?-mix:b)|(?-mix:c)/
+
+#@since 1.8.7
+引数を一つだけ与える場合は、[[c:Array]] を与えても Regexp を生成します。
+つまり、以下のように書くことができます。
+
+  arr = [/a/, /b/, /c/]
+  p Regexp.union(arr)  #=> /(?-mix:a)|(?-mix:b)|(?-mix:c)/
+  # 1.8.7 より前は、以下のように書く必要があった
+  p Regexp.union(*arr) #=> /(?-mix:a)|(?-mix:b)|(?-mix:c)/
+
+#@end
+
+pattern は Regexp または String で与えます。
+String で与えた場合、それ自身と等しい文字列にマッチするものと解釈され、
+エスケープされて結果の Regexp に組み込まれます。
+
+  p Regexp.union("a", "?", "b") # => /a|\?|b/
+  p Regexp.union(/a/, "*") # => /(?-mix:a)|\*/
+
+引数をひとつも与えなかった場合、決してマッチしない Regexp を返します。
+
+  p Regexp.union() # => /(?!)/
+
+結果の Regexp が対応する文字コードは引数として与えた Regexp が扱う文字コードに
+一致します。
+固定コードに対してコンパイルされている Regexp を複数与える場合、
+それらのコードは一致していなければなりません。
+異なる固定コードに対してコンパイルされている Regexp が存在する場合、
+[[c:ArgumentError]] が発生します。
+
+  p Regexp.union(/a/e, /b/e) # => /(?-mix:a)|(?-mix:b)/e
+  p Regexp.union(/a/e, /b/s) # => ArgumentError
+
+コードが固定されている Regexp とコードが固定されていない Regexp を混ぜた場合、
+結果の Regexp は固定されているコードに対応するものになります。
+
+  p Regexp.union(/a/e, /b/) # => /(?-mix:a)|(?-mix:b)/e
+
+@param pattern | で連結したい正規表現を指定します
+
+
+  # オプションは合成されない
+  p Regexp.union(/foo/i, /bar/x, /hoge/m) #=> /(?i-mx:foo)|(?x-mi:bar)|(?m-ix:hoge)/
+
+  # 文字列そのものにマッチする
+  rep1 = [ "foo", "bar", "hoge"] 
+  p Regexp.union(*rep1) #=> /foo|bar|hoge/
+#@since 1.8.7
+  p Regexp.union(rep1)  #=> /foo|bar|hoge/
+#@end
+
+  # 下記の場合オプションがつくのは最初だけ
+  rep2 = [ /foo/x, "bar", "hoge"] 
+  p Regexp.union(*rep2) #=> /(?x-mi:foo)|bar|hoge/
+#@since 1.8.7
+  p Regexp.union(rep2)  #=> /(?x-mi:foo)|bar|hoge/
+#@end
+
+
+#@end
+
+#@since 1.9.1
+--- try_convert(obj) -> re | nil
+#@todo
+
+Try to convert obj into a Regexp, using to_regexp method. Returns
+converted regexp or nil if obj cannot be converted for any reason.
+
+   Regexp.try_convert(/re/)      # => /re/
+   Regexp.try_convert("re")      # => nil
+#@end
+
+== Instance Methods
+
+--- =~(string) -> Fixnum | nil
+--- ===(string) -> bool
+
+文字列 string との正規表現マッチを行います。マッチした場合、
+マッチした位置のインデックスを返します(先頭は0)。マッチしなかった
+場合、あるいは string が nil の場合には nil を返
+します。
+
+  p /foo/ =~ "foo"  #=> 0
+  p /foo/ =~ "afoo" #=> 1
+  p /foo/ =~ "bar"  #=> nil
+
+組み込み変数 [[m:$~]] もしくは [[m:Regexp.last_match]] にマッチに関する情報 [[c:MatchData]] が設定されます。
+
+string がnil でも [[c:String]] オブジェクトでもなけれ
+ば例外 [[c:TypeError]] が発生します。
+
+#@since 1.8.0
+Regexp#=== は、真偽値を返します。引数が文
+字列でないか、マッチしなければ false を、マッチすれば
+true を返します。
+#@end
+
+@param string 文字列を指定します。
+
+@raise TypeError string がnil でも [[c:String]] オブジェクトでもない
+                 場合発生します。
+
+  p /foo/ =~ "foo"        #=> 0
+  p Regexp.last_match(0)  #=> "foo"
+  p /foo/ =~ "afoo"       #=> 1
+  p $~[0]                 #=> "foo"
+  p /foo/ =~ "bar"        #=> nil
+
+#@since 1.8.0
+  unless /foo/ === "bar"
+    puts "not match " #=> not match
+  end
+#@end
+
+  str = []
+  begin
+    /ugo/ =~ str
+  rescue TypeError
+    printf "! %s\t%s\n", $!, $@ #=> ! can't convert Array into String       r5.rb:15
+  end
+
+--- ~ -> Fixnum | nil
+
+変数 [[m:$_]] の値との間でのマッチをとります。ちょうど以下と同じ意
+味です。
+
+  self =~ $_
+
+使用例
+  $_ = "hogehoge"
+
+  if  /foo/
+    puts "match"
+  else
+    puts "no match"
+  end
+  #=> no match
+  # ただし、警告がでる。warning: regex literal in condition
+
+  reg = Regexp.compile("foo")
+
+  if ~ reg
+    puts "match" 
+  else
+    puts "no match" 
+  end
+  #=> no match 
+
+  if reg
+    puts "match" 
+  else
+    puts "no match"
+  end
+  #=> match
+  # reg は nil でも false でも無いので常にtrue
+
+
+--- casefold? -> bool
+
+正規表現が大文字小文字の判定をしないようにコンパイルされている時、
+真を返します。
+
+  reg = Regexp.new("foobar", Regexp::IGNORECASE)
+  p reg.casefold? #=> true
+
+  reg = Regexp.new("hogehoge")
+  p reg.casefold? #=> false
+
+#@since 1.9.1
+--- fixed_encoding? -> bool
+
+正規表現が任意の ASCII 互換エンコーディングとマッチ可能な時に false を返します。
+#@end
+
+#@until 1.9.1
+--- kcode -> String | nil
+
+その正規表現が対応するようにコンパイルされている文字コードを
+[[m:$KCODE]] と同じ形式で返します。もし、正規表現が固定
+コードに対してコンパイルされていない(マッチ時点での [[m:$KCODE]]
+の値を用いる)場合には、nil を返します。
+
+  reg = Regexp.new("hogehoge", nil, "u")
+  p reg.kcode #=> "utf8"
+
+  reg = Regexp.new("hogehoge", nil)
+  p reg.kcode #=> "nil"
+#@end
+
+#@since 1.9.1
+--- match(str, pos = 0) -> MatchData | nil
+#@else
+--- match(str) -> MatchData | nil
+#@end
+
+指定された文字列 str に対して
+#@since 1.9.1
+位置 pos から
+#@end
+自身が表す正規表現によるマッチングを行います。マッチした場合には結果を MatchData オブジェクトで返します。
+マッチしなかった場合 nil を返します。
+
+#@since 1.9.1
+省略可能な第二引数 pos を指定すると、マッチの開始位置を pos から行
+うよう制御できます(pos のデフォルト値は 0)。
+
+  p(/(.).(.)/.match("foobar", 3).captures)   # => ["b", "r"]
+  p(/(.).(.)/.match("foobar", -3).captures)  # => ["b", "r"]
+
+pos を指定しても [[m:MatchData#offset]] 等の結果
+には影響しません。つまり、
+  re.match(str[pos..-1])
+と
+  re.match(str, pos)
+は異なります。
+#@end
+
+@param str 文字列を指定します。str との正規表現マッチを行います。
+
+#@since 1.9.1
+@param pos 整数を指定します。マッチの開始位置を pos から行うよう制御できます(pos のデフォルト値は 0)。
+#@end
+
+使用例
+
+  reg = Regexp.new("foo")
+
+  if reg.match("foobar")
+    print "match\n" #=> match
+  end
+
+  p reg.match("foobar") #=> #<MatchData:0x29403fc>
+  p reg.match("bar")    #=> nil
+
+  p /(foo)(bar)(baz)/.match("foobarbaz").to_a.values_at(1,2,3) #=> ["foo", "bar", "baz"]
+
+==== 便利な使いかた
+正規表現にマッチした部分文字列だけが必要な場合に、
+
+  bar = /foo(.*)baz/.match("foobarbaz").to_a[1]
+  
+  foo, bar, baz = /(foo)(bar)(baz)/.match("foobarbaz").to_a.values_at(1,2,3)
+
+のように使用できます。(to_a は、マッチに失敗した場合を考慮しています。)
+
+#@since 1.8.0
+多重代入の規則では右辺が配列でない一つのオブジェクトで to_a
+メソッドを持つ場合、右辺に * を付けることで to_a の結果を利用でき
+ます。つまり、上記は以下のように書くことができます。(ここでの
+`_' は、[[m:$&]] を捨てるために適当に選んだ変数名)
+
+  _, foo, bar, baz = */(foo)(bar)(baz)/.match("foobarbaz")
+  p [foo, bar, baz]
+
+  # => ["foo", "bar", "baz"]
+
+このような用途に [[m:MatchData#captures]] が使
+えると考えるかも知れませんが、captures では、マッチに失敗した場合、
+nil.captures を呼び出そうとして例外 [[c:NoMethodError]] が発生して
+しまいます。
+
+  foo, bar, baz = /(foo)(bar)(baz)/.match("foobar").captures
+
+  # => -:1: undefined method `captures' for nil:NilClass (NoMethodError)
+#@end
+
+--- options -> Integer
+
+正規表現の生成時に指定されたオプションを返します。戻り値は、
+[[m:Regexp::EXTENDED]], [[m:Regexp::IGNORECASE]],
+#@since 1.9.2
+[[m:Regexp::MULTILINE]], [[m:Regexp::FIXEDENCODING]] の論理和です。
+#@else
+[[m:Regexp::MULTILINE]] の論理和です。
+#@end
+
+#@since 1.9.1
+#@todo
+
+Note that additional bits
+may be set in the returned options: these are used internally by the regular
+expression code. These extra bits are ignored if the options are passed to
+Regexp::new.
+#@end
+
+  p Regexp::IGNORECASE # => 1
+  p //i.options        # => 1
+
+  p Regexp.new("foo", Regexp::IGNORECASE ).options #=> 1
+  p Regexp.new("foo", Regexp::EXTENDED).options    #=> 2
+  p Regexp.new("foo", Regexp::IGNORECASE | Regexp::EXTENDED).options #=> 3
+  p Regexp.new("foo", Regexp::MULTILINE).options #=> 4
+  p Regexp.new("foo", Regexp::IGNORECASE | Regexp::MULTILINE ).options #=> 5
+  p Regexp.new("foo", Regexp::MULTILINE | Regexp::EXTENDED).options #=>6
+  p Regexp.new("foo", Regexp::IGNORECASE | Regexp::MULTILINE | Regexp::EXTENDED).options #=> 7
+
+--- source -> String
+
+その正規表現のもととなった文字列表現を生成して返します。
+
+  re = /foo|bar|baz/i
+  p re.source     # => "foo|bar|baz"
+
+--- to_s -> String
+
+正規表現の文字列表現を生成して返します。返される文字列は他の正規表
+現に埋め込んでもその意味が保持されるようになっています。
+
+  re = /foo|bar|baz/i
+  p re.to_s       # => "(?i-mx:foo|bar|baz)"
+  p /#{re}+/o     # => /(?i-mx:foo|bar|baz)+/
+
+ただし、後方参照を含む正規表現は意図通りにはならない場合があります。
+これは現状、後方参照を番号でしか指定できないためです。
+
+  re = /(foo|bar)\1/      # \1 は、foo か bar
+  p /(baz)#{re}/          # \1 は、baz
+  
+  # => /(baz)(?-mix:(foo|bar)\1)/
+
+使用例
+
+  re = /foo|bar|baz/i
+  p re.to_s       # => "(?i-mx:foo|bar|baz)"
+  p /#{re}+/o     # => /(?i-mx:foo|bar|baz)+/
+
+@see [[m:Regexp#inspect]]
+
+--- ==(other) -> bool
+--- eql?(other) -> bool
+otherが同じパターン、オプション、文字コードの正規表現であったらtrueを返します。
+
+@param other 正規表現を指定します。
+
+  p /^eee$/   == /~eee$/x   #=> false
+  p /^eee$/   == /~eee$/i   #=> false
+  p /^eee$/e  == /~eee$/u   #=> false
+  p /^eee$/ == Regexp.new("^eee$") #=> true
+  p /^eee$/.eql?(/^eee$/)          #=> true
+
+--- hash -> Fixnum
+正規表現のオプションやテキストに基づいたハッシュ値を返します。
+
+  p /abc/i.hash #=> 4893115
+  p /abc/.hash  #=> 4856055
+
+--- inspect -> String
+[[m:Regexp#to_s]] より自然な文字列を返します。
+
+  p /^ugou.*?/i.to_s    #=> "(?i-mx:^ugou.*?)"
+  p /^ugou.*?/i.inspect #=> "/^ugou.*?/i"
+
+@see [[m:Regexp#to_s]]
+
+#@since 1.9.1
+--- encoding   -> Encoding
+#@todo
+
+Returns the Encoding object that represents the encoding of obj.
+
+#@end
+
+== Constants
+
+--- EXTENDED -> Fixnum
+
+バックスラッシュでエスケープされていない空白と # から改行までを無
+視します。正規表現リテラルの //x オプションと同じ
+です。(空白を入れる場合は\でエスケープして\ (<-空白)と
+指定します)
+
+--- IGNORECASE -> Fixnum
+
+文字の大小の違いを無視します。
+正規表現リテラルの //i オプションと同じです。
+
+--- MULTILINE -> Fixnum
+
+複数行モード。正規表現 "." が改行にマッチするようになります。
+正規表現リテラルの //m オプションと同じです。
+
+#@since 1.9.2
+
+--- FIXEDENCODING
+#@todo
+
+@see [[m:Regexp#fixed_encoding?]]
+
+#@end

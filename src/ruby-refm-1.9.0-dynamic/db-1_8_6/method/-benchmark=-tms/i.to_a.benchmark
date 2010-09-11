@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=to_a
+
+--- to_a()
+
+Returns a new 6-element array, consisting of the label, user CPU time, system CPU time, children¡Çs user CPU time, children¡Çs system CPU time and elapsed real time.
+

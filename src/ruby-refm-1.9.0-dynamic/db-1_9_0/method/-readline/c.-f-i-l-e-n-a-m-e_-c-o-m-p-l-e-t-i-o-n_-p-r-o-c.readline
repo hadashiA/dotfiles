@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=FILENAME_COMPLETION_PROC,USERNAME_COMPLETION_PROC
+
+--- FILENAME_COMPLETION_PROC
+--- USERNAME_COMPLETION_PROC
+ライブラリに組み込みで用意された補完用 [[c:Proc]] オブジェクトです。
+それぞれファイル名、ユーザ名の補完を行います。
+[[m:Readline.completion_proc=]] で使用します。
+

@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=each_path
+
+--- each_path(str) {|YPath.new(path)| ...}
+

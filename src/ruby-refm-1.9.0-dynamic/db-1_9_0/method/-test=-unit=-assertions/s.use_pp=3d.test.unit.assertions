@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=use_pp=
+
+--- use_pp=(value)
+
+Select whether or not to use the pretty-printer. If this option
+is set to false before any assertions are made, pp.rb will not
+be required.
+
+

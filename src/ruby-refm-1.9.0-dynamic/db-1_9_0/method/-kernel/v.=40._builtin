@@ -1,0 +1,24 @@
+visibility=public
+kind=defined
+names=@
+
+--- $@
+
+最後に例外が発生した時のバックトレースを表す配列です。
+
+配列の各要素はメソッドの呼び出し位置を示す文字列で形式は
+
+  "filename:line"
+
+または
+
+  "filename:line:in `methodname'"
+
+です。これは [[m:Kernel.#caller]] が返す値と同じ形式です。
+
+$@ へ値を代入するときは、[[m:$!]] が nil であってはいけません。
+$@ の値は、[[m:$!]].backtrace の値と同じです。
+また、$@ への代入は [[m:$!]].set_backtrace 呼び出しと同じです。
+
+この変数はスレッドローカルです。
+

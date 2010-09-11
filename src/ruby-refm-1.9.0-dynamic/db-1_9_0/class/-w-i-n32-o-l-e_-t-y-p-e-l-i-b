@@ -1,0 +1,7 @@
+superclass=Object
+type=class
+library=win32ole
+extended=
+included=
+
+WIN32OLE_TYPELIB objects represent OLE tyblib information.

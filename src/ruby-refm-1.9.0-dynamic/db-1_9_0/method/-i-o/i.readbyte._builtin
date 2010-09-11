@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=readbyte
+
+--- readbyte   -> Integer
+
+Reads a character as with IO#getc, but raises an EOFError on
+end of file.
+

@@ -1,0 +1,7 @@
+methods=
+sublibraries=
+requires=soap.encodingstyle.aspDotNetHandler,soap.baseData,soap.encodingstyle.soapHandler,soap.mapping,soap.element,soap.mapping.rubytypeFactory,soap.mapping.registry,soap.processor,soap.mapping.typeMap,soap.generator,soap.soap,soap.encodingstyle.literalHandler,soap.mapping.factory,soap.mapping.mapping,soap.encodingstyle.handler
+classes=SOAP=Marshal
+is_sublibrary=true
+
+

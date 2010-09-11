@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=rmdir
+
+--- rmdir(*path)
+
+Dir.rmdirと同じ (複数可)
+

@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=sender
+
+--- sender(msg, data, queue, host = @host, port = @port)
+

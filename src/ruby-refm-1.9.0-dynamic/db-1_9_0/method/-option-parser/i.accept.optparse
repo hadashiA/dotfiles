@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=accept
+
+--- accept(klass, pat = /.*/){|str| ...}    -> ()
+
+[[m:OptionParser.accept]] と同様ですが、
+登録したブロックはレシーバーに限定されます。
+

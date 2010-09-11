@@ -1,0 +1,12 @@
+visibility=public
+kind=defined
+names=*
+
+--- *(a)
+
+数 a を乗じたベクトルを返します。
+
+--- *(m)
+
+列ベクトル(行列)に変換して (実際には [[m:Matrix#column_vector]](self) を適用) から、行列 m を右から乗じた行列 ([[c:Matrix]] クラス) を返します。
+

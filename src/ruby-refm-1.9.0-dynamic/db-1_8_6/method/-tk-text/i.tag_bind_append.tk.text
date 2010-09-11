@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=tag_bind_append
+
+--- tag_bind_append(tag, seq, *args)
+

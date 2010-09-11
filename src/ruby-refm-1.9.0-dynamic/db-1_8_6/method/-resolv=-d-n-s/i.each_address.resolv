@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=each_address,getaddress,getaddresses
+
+--- getaddress(name)
+--- getaddresses(name)
+--- each_address(name) {|address| ...}
+
+address lookup methods.
+
+name は Resolv::Name または String でなければなりません。
+ルックアップ結果は Resolv::IPv4 または Resolv::IPv6 のインスタンスとなります。
+

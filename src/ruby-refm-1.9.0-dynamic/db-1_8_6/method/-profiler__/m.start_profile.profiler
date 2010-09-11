@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=start_profile
+
+--- start_profile
+
+プロファイルの取得を開始します。
+

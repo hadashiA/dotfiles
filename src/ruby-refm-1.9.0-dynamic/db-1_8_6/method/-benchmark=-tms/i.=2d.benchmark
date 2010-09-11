@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=-
+
+--- -(other)
+
+Returns a new Tms object obtained by memberwise subtraction of
+the individual times for the other Tms object from those of this
+Tms object.
+

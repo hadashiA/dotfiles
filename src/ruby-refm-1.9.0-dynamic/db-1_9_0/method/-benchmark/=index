@@ -1,0 +1,13 @@
+.benchmark	Benchmark.#benchmark
+.bm	Benchmark.#bm
+.bmbm	Benchmark.#bmbm
+.measure	Benchmark.#measure
+.realtime	Benchmark.#measure
+#benchmark	Benchmark.#benchmark
+#bm	Benchmark.#bm
+#bmbm	Benchmark.#bmbm
+#measure	Benchmark.#measure
+#realtime	Benchmark.#measure
+:BENCHMARK_VERSION	Benchmark::BENCHMARK_VERSION
+:CAPTION	Benchmark::CAPTION
+:FMTSTR	Benchmark::FMTSTR

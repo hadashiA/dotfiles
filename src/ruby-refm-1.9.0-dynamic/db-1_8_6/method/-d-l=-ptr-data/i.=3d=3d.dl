@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names===,eql?
+
+--- ==(other)     -> bool
+--- eql?(other)   -> bool
+
+ポインタの指すアドレスが同一かどうかを判定します。
+

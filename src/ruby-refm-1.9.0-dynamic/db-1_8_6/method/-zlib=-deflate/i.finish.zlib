@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=finish
+
+--- finish
+
+圧縮ストリームを終了します。deflate('', Zlib::FINISH) と同じです。
+

@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=is_sjis
+
+--- is_sjis(str)
+

@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=mailbox
+
+--- mailbox
+
+nil indicates end of [[RFC:822]] group.
+If non-nil and host is nil, returns [[RFC:822]] group name.
+Otherwise, returns [[RFC:822]] local-part
+

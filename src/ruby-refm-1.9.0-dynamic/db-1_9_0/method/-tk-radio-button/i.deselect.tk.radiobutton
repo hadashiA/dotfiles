@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=deselect
+
+--- deselect
+
+ラジオボタンをチェックしない状態にします。
+

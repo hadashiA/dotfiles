@@ -1,0 +1,33 @@
+visibility=public
+kind=defined
+names=link,ln
+
+--- ln(src, dest, options = {})
+--- link(src, dest, options = {})
+
+src へのハードリンク dest を作成します。
+dest がすでに存在しディレクトリであるときは dest/src を作成します。
+dest がすでに存在しディレクトリでないならば例外 Errno::ENOTDIR が発生します。
+ただし :force オプションを指定したときは new を上書きします。
+
+options には :force, :noop, :verbose が指定できます。
+
+例:
+
+  FileUtils.ln('gcc', 'cc', {:verbose => true})
+  FileUtils.ln('/usr/bin/emacs21', '/usr/bin/emacs')
+
+--- ln(list, destdir, options = {})
+--- link(list, destdir, options = {})
+
+list[0] へのハードリンク destdir/list[0]、list[1] への
+ハードリンク destdir/list[1] …を作成します。
+destdir がディレクトリでない場合は例外 Errno::ENOTDIR が発生します。
+
+options には :force, :noop, :verbose が指定できます。
+
+例:
+
+  FileUtils.cd('/bin')
+  FileUtils.ln(%w(cp mv mkdir), '/usr/bin')
+

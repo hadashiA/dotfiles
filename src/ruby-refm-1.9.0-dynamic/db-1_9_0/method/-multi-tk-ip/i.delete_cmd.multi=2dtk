@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=delete_cmd
+
+--- delete_cmd(slave, cmd)
+

@@ -1,6 +1,6 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-(add-to-load-path "~/.emacs.d/elisp/anything/")
+;; (add-to-load-path "~/.emacs.d/elisp/anything/")
 
 (require 'info)
 (require 'anything-config)
@@ -10,13 +10,14 @@
 (define-key anything-map (kbd "C-v") 'anything-next-source)
 (define-key anything-map (kbd "M-v") 'anything-previous-source)
 (global-set-key (kbd "C-;") 'anything)
+(setq anything-enable-shortcuts 'alphabet)
 
 (setq anything-sources
       '(anything-c-source-buffers
         anything-c-source-files-in-current-dir       ;; カレントディレクトディレクトリにあるファイル
         anything-c-source-file-name-history          ;; ファイル開いた履歴
         anything-c-source-recentf                    ;; 最近開いたファイル
-        ;; anything-c-source-locate
+        anything-c-source-locate
         anything-c-source-bookmarks                  ;; bookmark
 ;;        anything-c-source-info-pages               ;; infoマニュアルを参照する
         ;; anything-c-source-man-pages                  ; manページ。なんかすげー重いんだけど
@@ -42,7 +43,7 @@
 
 (global-set-key "\M-y" 'anything-show-kill-ring)
 
-(when (require 'anything-c-moccur)
+(when (require 'anything-c-moccur nil t)
   (global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur)
   ;; (global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur)
   (add-hook 'dired-mode-hook
@@ -52,3 +53,12 @@
         anything-c-moccur-higligt-info-line-flag t
         anything-c-moccur-enable-auto-look-flag t
         anything-c-moccur-enable-initial-pattern t))
+
+(when (require 'anything-rurima nil t)
+  (setq anything-rurima-index-file "~/src/rurema/rubydoc/rurema.e")
+  ;; (define-key ruby-mode-map "\C-cue" 'anything-rurima)
+  ;; (define-key ruby-mode-map "\C-cum" 'anything-rurima-at-point)
+    (global-set-key "\C-cue" 'anything-rurima)
+    (global-set-key "\C-cum" 'anything-rurima-at-point))
+
+(require 'anything-zsh-history)

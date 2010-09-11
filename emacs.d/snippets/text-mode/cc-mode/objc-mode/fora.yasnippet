@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Array For Loop
+# --
+NSUInteger i, count = [${1:array} count];
+for (i = 0; i < count; i++) {
+    NSObject * obj = [$1 objectAtIndex:i];
+    $2$0
+}

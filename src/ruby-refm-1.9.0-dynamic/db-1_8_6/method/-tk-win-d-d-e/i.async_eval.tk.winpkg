@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=async_eval
+
+--- async_eval(topic, cmd, *args)
+
+

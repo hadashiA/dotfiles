@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=owned?
+
+--- owned?(file)
+
+FileTestクラスにある同名のクラスメソッドと同じです.
+

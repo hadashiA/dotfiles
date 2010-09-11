@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=pub_key,pub_key=
+
+--- pub_key
+--- pub_key=(public_key)
+

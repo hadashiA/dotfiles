@@ -1,0 +1,10 @@
+visibility=public
+kind=defined
+names=export,to_pem,to_s
+
+--- export
+--- to_pem
+--- to_s
+
+鍵ペアを PEM 形式で出力します。
+

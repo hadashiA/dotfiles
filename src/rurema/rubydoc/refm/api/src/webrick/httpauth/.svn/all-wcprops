@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/3153/doctree/trunk/refm/api/src/webrick/httpauth
+END
+htdigest.rd
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/webrick/httpauth/htdigest.rd
+END
+htpasswd.rd
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/webrick/httpauth/htpasswd.rd
+END
+digestauth.rd
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/rurema/!svn/ver/1441/doctree/trunk/refm/api/src/webrick/httpauth/digestauth.rd
+END
+basicauth.rd
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/rurema/!svn/ver/1441/doctree/trunk/refm/api/src/webrick/httpauth/basicauth.rd
+END
+userdb.rd
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/webrick/httpauth/userdb.rd
+END
+htgroup.rd
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/rurema/!svn/ver/1489/doctree/trunk/refm/api/src/webrick/httpauth/htgroup.rd
+END
+authenticator.rd
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/rurema/!svn/ver/1441/doctree/trunk/refm/api/src/webrick/httpauth/authenticator.rd
+END

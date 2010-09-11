@@ -1,0 +1,20 @@
+visibility=public
+kind=defined
+names=class,type
+
+--- class -> Class
+--- type -> Class
+
+レシーバのクラスを返します。
+
+type は obsolete です。 class を使用してください。
+
+  p "ruby".class #=> String
+  p 999999999999999.class #=> Bignum
+  p ARGV.class #=> Array
+  p self.class #=> Object
+  p Class.class #=> Class
+  p Kernel.class #=> Module
+
+@see [[m:Class#superclass]],[[m:Object#kind_of?]],[[m:Object#instance_of?]]
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=to_r
+
+--- to_r
+
+各要素を有理数 [[c:Rational]] に変換する。
+
+

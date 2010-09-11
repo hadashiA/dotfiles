@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=active?,started?
+
+--- started?
+--- active?
+
+HTTP セッションが開始されていたら真。
+

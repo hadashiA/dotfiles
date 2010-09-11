@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=echo
+
+--- echo
+
+入力のエコーを有効にします。
+

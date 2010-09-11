@@ -18,6 +18,7 @@ set PATH /opt/local/lib/postgresql84/bin $PATH
 
 set ARCHFLAGS='-arch x86'
 set RSPEC=true
+set LANGUAGE=ja
 
 # PostgreSQL
 # set POSTGRES_INCLUDE=/opt/local/include/postgresql84/

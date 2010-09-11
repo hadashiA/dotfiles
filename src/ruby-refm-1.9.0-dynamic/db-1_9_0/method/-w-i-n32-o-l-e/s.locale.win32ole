@@ -1,0 +1,18 @@
+visibility=public
+kind=defined
+names=locale
+
+--- locale -> locale id.
+
+Returns current locale id (lcid). The default locale is LOCALE_SYSTEM_DEFAULT.
+
+   lcid = WIN32OLE.locale
+
+--- locale = lcid
+
+Sets current locale id (lcid).
+
+   WIN32OLE.locale = 1033 # set locale English(U.S)
+   obj = WIN32OLE_VARIANT.new("$100,000", WIN32OLE::VARIANT::VT_CY)
+
+

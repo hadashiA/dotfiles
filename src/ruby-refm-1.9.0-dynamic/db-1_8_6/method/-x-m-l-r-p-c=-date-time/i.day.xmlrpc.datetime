@@ -1,0 +1,13 @@
+visibility=public
+kind=defined
+names=day,hour,min,month,sec,year
+
+--- year
+--- month
+--- day
+--- hour
+--- min
+--- sec
+
+Return the value of the specified date/time component.
+

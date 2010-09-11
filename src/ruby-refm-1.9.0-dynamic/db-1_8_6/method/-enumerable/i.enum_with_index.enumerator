@@ -1,0 +1,11 @@
+visibility=public
+kind=added
+names=enum_with_index
+
+--- enum_with_index -> Enumerable::Enumerator
+
+要素とそのインデックスに対して繰り返す Enumerator を返します。
+Enumerable::Enumerator.new(self, :each_with_index) と同じです。
+
+@see [[m:Enumerable#each_with_index]]
+

@@ -1,0 +1,17 @@
+visibility=public
+kind=defined
+names=none?
+
+--- none? [{|obj| block }]   -> bool
+
+Passes each element of the collection to the given block. The
+method returns true if the block never returns true for all elements.
+If the block is not given, none? will return true only if none
+of the collection members is true.
+
+   %w{ant bear cat}.none? {|word| word.length == 5}  #=> true
+   %w{ant bear cat}.none? {|word| word.length >= 4}  #=> false
+   [].none?                                          #=> true
+   [nil].none?                                       #=> true
+   [nil,false].none?                                 #=> true
+

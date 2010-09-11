@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=<
+
+--- $<
+
+すべての引数または標準入力で構成される仮想ファイルです。
+定数 [[m:Kernel::ARGF]] の別名です。
+
+この変数はグローバルスコープです。
+

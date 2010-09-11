@@ -1,0 +1,8 @@
+visibility=public
+kind=added
+names=URI
+
+--- URI(uri_str)
+
+[[m:URI.parse]]と同じです。
+

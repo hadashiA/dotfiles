@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=tag_prevrange
+
+--- tag_prevrange(tag, first, last = Tk::None)
+

@@ -1,0 +1,206 @@
+= class Proc < Object
+
+ブロックをコンテキスト(ローカル変数のスコープやスタックフ
+レーム)とともにオブジェクト化した手続きオブジェクトです。
+
+Proc は ローカル変数のスコープを導入しないことを除いて
+名前のない関数のように使えます。ダイナミックローカル変数は
+Proc ローカルの変数として使えます。
+
+Proc がローカル変数のスコープを保持していることは以下の例で
+変数 var を参照できていることからわかります。
+
+  var = 1
+  $foo = Proc.new { var }
+  var = 2
+  
+  def foo
+    $foo.call
+  end
+  
+  p foo       # => 2
+
+#@include(lambda_proc)
+
+== Class Methods
+
+--- new -> Proc
+--- new { ... } -> Proc
+
+ブロックをコンテキストとともにオブジェクト化して返します。
+
+ブロックを指定しなければ、このメソッドを呼び出したメソッドが
+ブロックを伴うときに、それを Proc オブジェクトとして生成して返します。
+
+  def foo
+    pr = Proc.new
+    pr.call(1)
+  end
+  foo {|arg| p arg }
+  # => 1
+
+これは以下と同じです。
+
+  def foo
+    yield(1)
+  end
+  foo {|arg| p arg }
+  # => 1
+
+呼び出し元のメソッドがブロックを伴わなければ、例外
+[[c:ArgumentError]] が発生します。
+
+  def foo
+    Proc.new
+  end
+  foo
+  # => -:2:in `new': tried to create Proc object without a block (ArgumentError)
+          from -:2:in `foo'
+          from -:4
+
+Proc.new は、Proc#initialize が定義されていれば
+オブジェクトの初期化のためにこれを呼び出します。このことを
+除けば、[[m:Kernel.#proc]] と同じです。
+
+== Instance Methods
+
+--- [](*arg) -> ()
+--- call(*arg) -> ()
+
+手続きオブジェクトを実行してその結果を返します。
+
+引数はブロックの引数にそのまま(多重代入のルールに従い)代入されます。
+
+@param arg 手続きオブジェクトに与える引数を指定します。
+
+@raise LocalJumpError Procを生成したメソッドからリターンしてしまった場合に発生します。
+
+#@since 1.8.8
+--- ===(obj) -> ()
+#@todo
+
+@see [[m:Proc#call]]
+#@end
+--- arity -> Fixnum
+
+Proc オブジェクトが受け付ける引数の数を返します。
+
+ただし、可変長引数を受け付ける場合、負の整数
+
+  -(必要とされる引数の数 + 1)
+
+を返します。
+
+例:
+
+ lambda{           }.arity   # => -1
+ lambda{||         }.arity   # =>  0
+ lambda{|x|        }.arity   # =>  1
+ lambda{|*x|       }.arity   # => -1
+ lambda{|x, y|     }.arity   # =>  2
+ lambda{|x, *y|    }.arity   # => -2
+ lambda{|(x, y)|   }.arity   # =>  2
+ lambda{|(x, y), z|}.arity   # =>  2
+
+--- binding -> Binding
+
+Proc オブジェクトが保持するコンテキストを 
+[[c:Binding]] オブジェクトで返します。
+
+--- to_proc -> self
+
+self を返します。
+
+--- to_s -> String
+
+self の文字列表現を返します。
+
+可能なら self を生成したソースファイル名、行番号を含みます。
+
+  p Proc.new {
+     true
+  }.to_s
+
+  => "#<Proc:0x0x401a880c@-:3>"
+
+#@since 1.9.1
+--- yield(*arg) -> ()
+
+[[m:Proc#call]] と同じですが、引数の数のチェックを行いません。
+
+  pr = Proc.new {|a,b,c| p [a,b,c]}
+  pr.yield(1)        #=> [1, nil, nil]
+  pr.yield(1,2,3,4)  #=> [1, 2, 3]
+  pr.call(1)         #=> wrong # of arguments (4 for 3) (ArgumentError)
+
+これは yield と同じ動作です。
+
+  def foo
+    yield(1)
+  end
+  foo {|a,b,c| p [a,b,c]}
+
+@param arg 手続きオブジェクトに与える引数を指定します。
+
+@raise LocalJumpError Procを生成したメソッドからリターンしてしまった場合に発生します。
+
+@see [[ref:d:spec/call#yield]]
+
+#@end
+
+#@since 1.9.1
+--- curry         -> Proc
+--- curry(arity)  -> Proc
+Procをカリー化します
+
+カリー化したProcはいくつかの引数をとります。十分な数の引数が与えられると、元のProcに引数を渡し
+て実行し、結果を返します。引数の個数が足りないときは、部分適用したカリー化Procを返します。
+
+@param arity 引数の個数を指定します
+@return カリー化したProcオブジェクトを返します
+
+  b = proc {|x, y, z| (x||0) + (y||0) + (z||0) }
+  p b.curry[1][2][3]           #=> 6
+  p b.curry[1, 2][3, 4]        #=> 6
+  p b.curry(5)[1][2][3][4][5]  #=> 6
+  p b.curry(5)[1, 2][3, 4][5]  #=> 6
+  p b.curry(1)[1]              #=> 1
+
+  b = proc {|x, y, z, *w| (x||0) + (y||0) + (z||0) + w.inject(0, &:+) }
+  p b.curry[1][2][3]           #=> 6
+  p b.curry[1, 2][3, 4]        #=> 10
+  p b.curry(5)[1][2][3][4][5]  #=> 15
+  p b.curry(5)[1, 2][3, 4][5]  #=> 15
+  p b.curry(1)[1]              #=> 1
+
+  b = lambda {|x, y, z| (x||0) + (y||0) + (z||0) }
+  p b.curry[1][2][3]           #=> 6
+  p b.curry[1, 2][3, 4]        #=> wrong number of arguments (4 or 3)
+  p b.curry(5)                 #=> wrong number of arguments (5 or 3)
+  p b.curry(1)                 #=> wrong number of arguments (1 or 3)
+
+  b = lambda {|x, y, z, *w| (x||0) + (y||0) + (z||0) + w.inject(0, &:+) }
+  p b.curry[1][2][3]           #=> 6
+  p b.curry[1, 2][3, 4]        #=> 10
+  p b.curry(5)[1][2][3][4][5]  #=> 15
+  p b.curry(5)[1, 2][3, 4][5]  #=> 15
+  p b.curry(1)                 #=> wrong number of arguments (1 or 3)
+
+  b = proc { :foo }
+  p b.curry[]                  #=> :foo
+
+--- lambda? -> bool
+#@todo
+
+--- source_location -> [String, Fixnum] | nil
+#@todo
+
+returns the ruby source filename and line number containing this proc
+or nil if this proc was not defined in ruby (i.e. native)
+#@end
+#@since 1.9.2
+--- parameters -> [object]
+#@todo
+
+Proc オブジェクトの引数の情報を返します。
+#@end

@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=BIT_STRING
+
+--- BIT_STRING
+
+BIT_STRING のタグ番号 3 を表す定数です。
+

@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=group
+
+--- group
+--- group {|group| ... }
+
+全てのグループエントリを順にアクセスするためのイテレータです。
+

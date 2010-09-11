@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=content_range
+
+--- content_range
+
+Content-Range: ヘッダフィールドの値を Range で返します。
+Range の表わす長さは [[m:Net::HTTPHeader#range_length]] で得られます。
+

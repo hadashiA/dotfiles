@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=deep_map
+
+--- deep_map(ary) {|ele| ... }
+

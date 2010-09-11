@@ -1,0 +1,9 @@
+visibility=public
+kind=defined
+names=each,each_pair
+
+--- each {|key, value| ... } -> self
+--- each_pair {|key, value| ... } -> self
+
+key と value を引数としてブロックを評価します。
+

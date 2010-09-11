@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=transfer_stdout
+
+--- transfer_stdout(dist, src = '')
+
+

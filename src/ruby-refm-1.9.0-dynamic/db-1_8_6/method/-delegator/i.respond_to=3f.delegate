@@ -1,0 +1,8 @@
+visibility=public
+kind=defined
+names=respond_to?
+
+--- respond_to?(m)
+
+
+

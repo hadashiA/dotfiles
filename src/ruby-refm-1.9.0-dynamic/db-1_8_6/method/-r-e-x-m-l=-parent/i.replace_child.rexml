@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=replace_child
+
+--- replace_child(to_replace, replacement)
+

@@ -1,0 +1,200 @@
+= class Range < Object
+
+include Enumerable
+
+範囲オブジェクトのクラス。範囲オブジェクトは範囲演算子 .. または
+... によって生成されます。.. 演算子によって生成された範囲
+オブジェクトは終端を含み、... 演算子によって生成された範囲オブジェ
+クトは終端を含みません。
+
+=== 例
+
+  for i in 1..5
+     # 処理
+  end
+
+これは 1 から 5 までの範囲オブジェクトを生成して、それぞれの値に対して
+繰り返すと言う意味です。
+
+範囲演算子のオペランドは互いに <=> で比較できる必要があります。
+さらに [[m:Range#each]] を実行するためには succ メソッ
+ドを実行できるものでなければいけません。
+
+=== 破壊的な変更
+
+Ruby の Range クラスは immutable です。
+つまり、オブジェクト自体を破壊的に変更することはできません。
+ですので、一度生成された Range のオブジェクトの指し示す範囲は
+決して変更することはできません。
+
+  range = 1..10
+  range.first     #=> 1
+  range.first = 1 #=> NoMethodError
+
+== Class Methods
+
+--- new(first, last, exclude_end = false) -> Range
+
+first から last までの範囲オブジェクトを生成して返しま
+す。
+
+exclude_end が真ならば終端を含まない範囲オブジェクトを生
+成します。exclude_end 省略時には終端を含みます。
+
+@param first 最初のオブジェクト
+@param last 最後のオブジェクト
+@param exclude_end 真をセットした場合終端を含まない範囲オブジェクトを生成します
+
+@raise ArgumentError first <=> last が nil の場合に発生します
+
+== Instance Methods
+
+--- ===(obj) -> bool
+--- include?(obj) -> bool
+--- member?(obj) -> bool
+
+obj が範囲内に含まれている時に真を返します。
+
+[[m:Range#===]] は主に case 文での比較に用いられます。
+
+#@since 1.8.8
+#@todo
+
+<=> メソッドによる演算により範囲内かどうかを判定するには [[m:Range#cover?]] を使用してください。
+#@else
+include? が、[[m:Enumerable#include?]],[[m:Enumerable#member?]]
+と異なり <=> メソッドによる演算により範囲内かどうかを判定することに注意する必要があります。
+#@end
+
+@param obj 比較対象のオブジェクト
+
+  p (0.1 .. 0.2).include?(0.15) # => true
+  # 1.8.1 以前
+  p (0.1 .. 0.2).member?(0.15)  # => cannot iterate from Float (TypeError)
+  # 1.8.2 以降
+  p (0.1 .. 0.2).member?(0.15)  # => true
+  
+  # 文字列の場合、include? は辞書順の比較になる
+  p ("a" .. "c").include?("ba") # => true
+  # 1.8.1 以前
+  p ("a" .. "c").member?("ba")  # => false
+  # 1.8.2 以降
+  p ("a" .. "c").member?("ba")  # => true
+  # 1.9.1 以降
+  p ("a" .. "c").include?("ba") # => false
+  p ("a" .. "c").member?("ba")  # => false
+
+@see [[ref:d:spec/control#case]]
+#@since 1.8.8
+@see [[m:Range#cover?]]
+
+--- cover?(obj) -> bool
+#@todo
+
+obj が範囲内に含まれている時に真を返します。
+
+[[m:Range#include?]] と異なり <=> メソッドによる演算により範囲内かどうかを判定します。
+
+@see [[m:Range#include?]]
+#@end
+
+--- begin -> object
+--- first -> object
+
+最初の要素を返します。
+
+--- each {|item|  ... } -> self
+#@since 1.8.7
+#@since 1.8.8
+--- each -> Enumerator
+#@else
+--- each -> Enumerable::Enumerator
+#@end
+#@end
+
+範囲内の要素に対して繰り返します。
+
+#@since 1.8.0
+Range#each は各要素の succ メソッドを使用してイテレーションするようになりました。
+
+@raise TypeError succ メソッドを持たないクラスの範囲オブジェクトに対してこのメソッドを呼んだ場合に発生します。
+
+#@end
+
+--- end -> object
+--- last -> object
+
+終端を返します。範囲オブジェクトが終端を含むかどうかは関係ありませ
+ん。
+
+  p (1..5).end   # => 5
+  p (1...5).end  # => 5
+
+--- exclude_end? -> bool
+
+範囲オブジェクトが終端を含まないとき真を返します。
+
+#@since 1.8.0
+--- step(s = 1) {|item| ... } -> self
+#@since 1.8.7
+#@since 1.8.8
+--- step(s = 1) -> Enumerator
+#@else
+--- step(s = 1) -> Enumerable::Enumerator
+#@end
+#@end
+
+範囲内の要素を s おきに繰り返します。
+
+@param s 正の整数を指定します。
+
+@raise ArgumentError s に 0 または負の数を指定した場合に発生します
+
+  ("a" .. "f").step(2) {|v| p v}
+  # => "a"
+       "c"
+       "e"
+#@end
+
+--- ==(other)     -> bool
+
+指定された other が Range クラスのインスタンスであり、
+始点と終点が == メソッドで比較して等しく、[[m:Range#exclude_end?]] が同じ場合に
+true を返します。そうでない場合に false を返します。
+
+@param other 自身と比較したいオブジェクトを指定します。
+
+  p (1..2) == (1..2)               #=> true
+  p (1..2) == (1...2)              #=> false
+  p (1..2) == Range.new(1.0, 2.0)  #=> true
+
+--- eql?(other)   -> bool
+
+指定された other が Range クラスのインスタンスであり、
+始点と終点が eql? メソッドで比較して等しく、[[m:Range#exclude_end?]] が同じ場合に
+true を返します。そうでない場合に false を返します。
+
+@param other 自身と比較したいオブジェクトを指定します。
+
+  p (1..2).eql?(1..2)                 #=> true
+  p (1..2).eql?(1...2)                #=> false
+  p (1..2).eql?(Range.new(1.0, 2.0))  #=> false
+
+--- equal?(other)    -> bool
+
+指定された other が self 自身である場合のみ真を返します。
+これは [[c:Object]] クラスで定義されたデフォルトの動作で
+す。
+
+@param other 自身と比較したいオブジェクトを指定します。
+
+  r = (1..2)
+  p r.equal?(1..2)      #=> false
+  p r.equal?(r)         #=> true
+
+--- hash    -> Integer
+
+始点と終点のハッシュ値と [[m:Range#exclude_end?]] の値からハッシュ値を計算して整数として返します。
+
+  p (1..2).hash    #=> 5646
+  p (1...2).hash   #=> 16782863

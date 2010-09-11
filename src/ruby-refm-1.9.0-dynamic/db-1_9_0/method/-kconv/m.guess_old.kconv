@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=guess_old
+
+--- guess_old(str)
+

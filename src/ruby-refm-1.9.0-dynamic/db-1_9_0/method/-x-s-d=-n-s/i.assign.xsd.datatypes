@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=assign
+
+--- assign(ns, tag = nil)
+

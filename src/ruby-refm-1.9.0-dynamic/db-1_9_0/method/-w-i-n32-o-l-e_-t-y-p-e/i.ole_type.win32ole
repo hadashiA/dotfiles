@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=ole_type
+
+--- ole_type #-> OLE type String.
+
+returns type of OLE class.
+
+  tobj = WIN32OLE_TYPE.new('Microsoft Excel 9.0 Object Library', 'Application')
+  puts tobj.ole_type  # => Class
+

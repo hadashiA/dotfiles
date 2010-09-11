@@ -1,0 +1,7 @@
+methods=
+sublibraries=webrick.httpauth.userdb,webrick.httpauth.htgroup,webrick.httpauth.basicauth,webrick.httpauth.htdigest,webrick.httpauth.htpasswd,webrick.httpauth.digestauth,webrick.httpauth.authenticator
+requires=webrick.httpstatus,webrick.httpauth.htdigest,webrick.httpauth.userdb,webrick.log,webrick.config,webrick.httpauth.basicauth,webrick.httpauth.htpasswd,webrick.httpauth.digestauth,webrick.httputils,webrick.httpauth.htgroup,webrick.httpauth.authenticator,webrick.httpversion,webrick.version,webrick.utils
+classes=WEBrick=HTTPAuth
+is_sublibrary=true
+
+

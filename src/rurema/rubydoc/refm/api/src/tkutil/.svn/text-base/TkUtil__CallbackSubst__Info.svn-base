@@ -1,0 +1,7 @@
+= class Tkutil::CallbackSubst::Info < Object
+
+== Class Methods
+
+--- inspect
+#@todo
+

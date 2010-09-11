@@ -1,0 +1,15 @@
+visibility=public
+kind=defined
+names=succ
+
+--- succ    -> Time
+
+self に 1 秒足した Time オブジェクトを生成して返します。
+タイムゾーンは地方時になります。
+
+  t = Time.now
+  p t
+  p t.succ
+  # => Sun Jul 18 01:41:22 JST 2004
+       Sun Jul 18 01:41:23 JST 2004
+

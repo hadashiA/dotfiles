@@ -1,0 +1,593 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/rurema/!svn/ver/4090/doctree/trunk/refm/api/src/_builtin
+END
+File
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/3899/doctree/trunk/refm/api/src/_builtin/File
+END
+IndexError
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/1409/doctree/trunk/refm/api/src/_builtin/IndexError
+END
+ObjectSpace
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/3586/doctree/trunk/refm/api/src/_builtin/ObjectSpace
+END
+NoMethodError
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/2348/doctree/trunk/refm/api/src/_builtin/NoMethodError
+END
+fatal
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/2002/doctree/trunk/refm/api/src/_builtin/fatal
+END
+LoadError
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/2220/doctree/trunk/refm/api/src/_builtin/LoadError
+END
+Regexp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/4058/doctree/trunk/refm/api/src/_builtin/Regexp
+END
+Integer
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/3518/doctree/trunk/refm/api/src/_builtin/Integer
+END
+RuntimeError
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/2220/doctree/trunk/refm/api/src/_builtin/RuntimeError
+END
+RegexpError
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/1409/doctree/trunk/refm/api/src/_builtin/RegexpError
+END
+Class
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/3302/doctree/trunk/refm/api/src/_builtin/Class
+END
+Symbol
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/3528/doctree/trunk/refm/api/src/_builtin/Symbol
+END
+Object
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/4046/doctree/trunk/refm/api/src/_builtin/Object
+END
+String
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/4043/doctree/trunk/refm/api/src/_builtin/String
+END
+Struct__Tms
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/2078/doctree/trunk/refm/api/src/_builtin/Struct__Tms
+END
+Complex
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/3522/doctree/trunk/refm/api/src/_builtin/Complex
+END
+UnboundMethod
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/3315/doctree/trunk/refm/api/src/_builtin/UnboundMethod
+END
+specialvars
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/3895/doctree/trunk/refm/api/src/_builtin/specialvars
+END
+ScriptError
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/3313/doctree/trunk/refm/api/src/_builtin/ScriptError
+END
+NoMemoryError
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1409/doctree/trunk/refm/api/src/_builtin/NoMemoryError
+END
+Enumerable__Enumerator
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/rurema/!svn/ver/3421/doctree/trunk/refm/api/src/_builtin/Enumerable__Enumerator
+END
+Kernel
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/2150/doctree/trunk/refm/api/src/_builtin/Kernel
+END
+FalseClass
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/2292/doctree/trunk/refm/api/src/_builtin/FalseClass
+END
+ThreadError
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/2879/doctree/trunk/refm/api/src/_builtin/ThreadError
+END
+Hash
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/3963/doctree/trunk/refm/api/src/_builtin/Hash
+END
+ThreadGroup
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/3882/doctree/trunk/refm/api/src/_builtin/ThreadGroup
+END
+Math
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/3308/doctree/trunk/refm/api/src/_builtin/Math
+END
+GC__Profiler
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/4028/doctree/trunk/refm/api/src/_builtin/GC__Profiler
+END
+Range
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/3965/doctree/trunk/refm/api/src/_builtin/Range
+END
+Interrupt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/2056/doctree/trunk/refm/api/src/_builtin/Interrupt
+END
+Exception
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/3537/doctree/trunk/refm/api/src/_builtin/Exception
+END
+ZeroDivisionError
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/rurema/!svn/ver/2485/doctree/trunk/refm/api/src/_builtin/ZeroDivisionError
+END
+LocalJumpError
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/rurema/!svn/ver/2308/doctree/trunk/refm/api/src/_builtin/LocalJumpError
+END
+StopIteration
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/2761/doctree/trunk/refm/api/src/_builtin/StopIteration
+END
+Comparable
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/3698/doctree/trunk/refm/api/src/_builtin/Comparable
+END
+IO
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/3960/doctree/trunk/refm/api/src/_builtin/IO
+END
+NilClass
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1802/doctree/trunk/refm/api/src/_builtin/NilClass
+END
+BasicObject
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/3891/doctree/trunk/refm/api/src/_builtin/BasicObject
+END
+Data
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/3437/doctree/trunk/refm/api/src/_builtin/Data
+END
+Continuation
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/3512/doctree/trunk/refm/api/src/_builtin/Continuation
+END
+StandardError
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/2002/doctree/trunk/refm/api/src/_builtin/StandardError
+END
+Process__Sys
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/3422/doctree/trunk/refm/api/src/_builtin/Process__Sys
+END
+constants
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/3893/doctree/trunk/refm/api/src/_builtin/constants
+END
+Dir
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/3518/doctree/trunk/refm/api/src/_builtin/Dir
+END
+SystemExit
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/2220/doctree/trunk/refm/api/src/_builtin/SystemExit
+END
+Enumerable
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/3997/doctree/trunk/refm/api/src/_builtin/Enumerable
+END
+FileTest
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/3305/doctree/trunk/refm/api/src/_builtin/FileTest
+END
+thread.inc
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/4003/doctree/trunk/refm/api/src/_builtin/thread.inc
+END
+Random
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/4090/doctree/trunk/refm/api/src/_builtin/Random
+END
+Enumerator
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/4046/doctree/trunk/refm/api/src/_builtin/Enumerator
+END
+SecurityError
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/2879/doctree/trunk/refm/api/src/_builtin/SecurityError
+END
+Struct
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/3960/doctree/trunk/refm/api/src/_builtin/Struct
+END
+Module
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/4059/doctree/trunk/refm/api/src/_builtin/Module
+END
+pack-template
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/3548/doctree/trunk/refm/api/src/_builtin/pack-template
+END
+SystemCallError
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/3314/doctree/trunk/refm/api/src/_builtin/SystemCallError
+END
+Precision
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/2570/doctree/trunk/refm/api/src/_builtin/Precision
+END
+TypeError
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/2499/doctree/trunk/refm/api/src/_builtin/TypeError
+END
+NotImplementedError
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/1409/doctree/trunk/refm/api/src/_builtin/NotImplementedError
+END
+Process__GID
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/3153/doctree/trunk/refm/api/src/_builtin/Process__GID
+END
+SyntaxError
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/1409/doctree/trunk/refm/api/src/_builtin/SyntaxError
+END
+KeyError
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/3308/doctree/trunk/refm/api/src/_builtin/KeyError
+END
+lambda_proc
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rurema/!svn/ver/3317/doctree/trunk/refm/api/src/_builtin/lambda_proc
+END
+Float
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/3907/doctree/trunk/refm/api/src/_builtin/Float
+END
+TrueClass
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/2298/doctree/trunk/refm/api/src/_builtin/TrueClass
+END
+Fixnum
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/3849/doctree/trunk/refm/api/src/_builtin/Fixnum
+END
+FloatDomainError
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/1409/doctree/trunk/refm/api/src/_builtin/FloatDomainError
+END
+Binding
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/2879/doctree/trunk/refm/api/src/_builtin/Binding
+END
+Encoding__Converter
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/rurema/!svn/ver/3939/doctree/trunk/refm/api/src/_builtin/Encoding__Converter
+END
+Process__UID
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rurema/!svn/ver/2062/doctree/trunk/refm/api/src/_builtin/Process__UID
+END
+Process
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/4063/doctree/trunk/refm/api/src/_builtin/Process
+END
+Array
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/4055/doctree/trunk/refm/api/src/_builtin/Array
+END
+ARGF
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/3960/doctree/trunk/refm/api/src/_builtin/ARGF
+END
+Process__Status
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/3612/doctree/trunk/refm/api/src/_builtin/Process__Status
+END
+Method
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/3512/doctree/trunk/refm/api/src/_builtin/Method
+END
+IOError
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/1409/doctree/trunk/refm/api/src/_builtin/IOError
+END
+Bignum
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/1673/doctree/trunk/refm/api/src/_builtin/Bignum
+END
+EOFError
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/1409/doctree/trunk/refm/api/src/_builtin/EOFError
+END
+SystemStackError
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/rurema/!svn/ver/3314/doctree/trunk/refm/api/src/_builtin/SystemStackError
+END
+MatchData
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/3308/doctree/trunk/refm/api/src/_builtin/MatchData
+END
+Encoding
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/4045/doctree/trunk/refm/api/src/_builtin/Encoding
+END
+Marshal
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/3881/doctree/trunk/refm/api/src/_builtin/Marshal
+END
+Fiber
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rurema/!svn/ver/3305/doctree/trunk/refm/api/src/_builtin/Fiber
+END
+ENV
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/rurema/!svn/ver/3973/doctree/trunk/refm/api/src/_builtin/ENV
+END
+printf-format
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/4008/doctree/trunk/refm/api/src/_builtin/printf-format
+END
+GC
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rurema/!svn/ver/3593/doctree/trunk/refm/api/src/_builtin/GC
+END
+NameError
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/2347/doctree/trunk/refm/api/src/_builtin/NameError
+END
+ArgumentError
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/rurema/!svn/ver/1409/doctree/trunk/refm/api/src/_builtin/ArgumentError
+END
+SignalException
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/1409/doctree/trunk/refm/api/src/_builtin/SignalException
+END
+Time
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/3959/doctree/trunk/refm/api/src/_builtin/Time
+END
+Numeric
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rurema/!svn/ver/3739/doctree/trunk/refm/api/src/_builtin/Numeric
+END
+Proc
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rurema/!svn/ver/3422/doctree/trunk/refm/api/src/_builtin/Proc
+END
+RangeError
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/2002/doctree/trunk/refm/api/src/_builtin/RangeError
+END
+Thread
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/4003/doctree/trunk/refm/api/src/_builtin/Thread
+END
+functions
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rurema/!svn/ver/3957/doctree/trunk/refm/api/src/_builtin/functions
+END
+File__Stat
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/rurema/!svn/ver/3305/doctree/trunk/refm/api/src/_builtin/File__Stat
+END
+Rational
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rurema/!svn/ver/4077/doctree/trunk/refm/api/src/_builtin/Rational
+END
+File__Constants
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/rurema/!svn/ver/3154/doctree/trunk/refm/api/src/_builtin/File__Constants
+END
+Signal
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/rurema/!svn/ver/3337/doctree/trunk/refm/api/src/_builtin/Signal
+END

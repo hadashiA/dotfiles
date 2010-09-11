@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=set_numeric_element
+
+--- set_numeric_element(idxs, val)
+

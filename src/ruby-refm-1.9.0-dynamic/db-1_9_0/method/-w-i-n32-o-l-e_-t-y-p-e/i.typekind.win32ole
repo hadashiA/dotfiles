@@ -1,0 +1,11 @@
+visibility=public
+kind=defined
+names=typekind
+
+--- typekind #-> number of type.
+
+Returns number which represents type.
+
+  tobj = WIN32OLE_TYPE.new('Microsoft Word 10.0 Object Library', 'Documents')
+  puts tobj.typekind # => 4
+

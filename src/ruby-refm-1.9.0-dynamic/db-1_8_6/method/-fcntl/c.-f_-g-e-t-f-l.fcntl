@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=F_GETFL
+
+--- F_GETFL
+get file descriptor flags.
+

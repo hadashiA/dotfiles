@@ -1,0 +1,7 @@
+visibility=public
+kind=defined
+names=cstime
+
+--- cstime
+System CPU time of children
+

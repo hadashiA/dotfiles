@@ -1,0 +1,6 @@
+visibility=public
+kind=defined
+names=coords
+
+--- coords(value = Tk::None)
+
