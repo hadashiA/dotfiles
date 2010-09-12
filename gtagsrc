@@ -1,0 +1,30 @@
+default:\
+        :tc=ctags:tc=htags:
+# common
+common:\
+        :skip=GPATH,GTAGS,GRTAGS,GSYMS,HTML/,HTML.pub/,html/,tags,TAGS,\
+ID,y.tab.c,y.tab.h,.notfunction,cscope.out,.gdbinit,SCCS/,RCS/,\
+CVS/,CVSROOT/,{arch}/,.svn/,.git/,.cvsrc,.cvsignore,.gitignore,\
+.cvspass,.cvswrappers,.deps/,autom4te.cache/,.snprj/:\
+        :langmap=c\:.c,yacc\:.y,asm\:.asm.ASM.s.S,java\:.java.hx,\
+cpp\:.c++.cc.cpp.cxx.hxx.hpp.C.H.h,php\:.php.php3.phtml,\
+other\:asp.asa.awk.gawk.mawk.bas.bi.bb.pb.bet.cs.cbl.cob.CBL.COB\
+.e.erl.ERL.hrl.HRL.f.for.ftn.f77.f90.f95.F.FOR.FTN.F77.F90.F95.htm\
+.html.js.cl.clisp.el.l.lisp.lsp.ml.lua.mak.mk.p.pas.pl.pm.plx.perl\
+.py.pyx.pxd.scons.cmd.rexx.rx.rb.ruby.SCM.SM.sch.scheme.scm.sm\
+.sh.SH.bsh.bash.ksh.zsh.sl.sml.sig.sql.tcl.tk.wish.itcl.vr.vri.vrh.v.vim:
+
+# ctags
+ctags:\
+        :tc=common:\
+        :format=compact:
+        :suffixes=,asm,ASM,s,S,asp,asa,awk,gawk,mawk,bas,bi,bb,pb,bet,\
+c,c++,cc,cp,cpp,cxx,h,h++,hh,hp,hpp,hxx,C,H,cs,cbl,cob,CBL,COB,e,erl,ERL,\
+hrl,HRL,f,for,ftn,f77,f90,f95,F,FOR,FTN,F77,F90,F95,htm,html,java,js,hx,\
+cl,clisp,el,l,lisp,lsp,ml,lua,mak,mk,p,pas,pl,pm,plx,perl,php,php3,phtml,\
+py,pyx,pxd,scons,cmd,rexx,rx,rb,ruby,SCM,SM,sch,scheme,scm,sm,sh,SH,bsh,\
+bash,ksh,zsh,sl,sml,sig,sql,tcl,tk,wish,itcl,vr,vri,vrh,v,vim,y:\
+        :extractmethod:\
+        :GTAGS=ctags --sort=no --langmap=java\:+.hx -xu --format=1 %s:\
+        :GRTAGS=gtags-parser -dtr %s:\
+        :GSYMS=gtags-parser -dts %s:
