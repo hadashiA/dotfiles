@@ -1,8 +1,0 @@
-visibility=public
-kind=added
-names=&
-
---- &(other)
-
-[[m:RegAnd.new]](self, other) を返します。
-

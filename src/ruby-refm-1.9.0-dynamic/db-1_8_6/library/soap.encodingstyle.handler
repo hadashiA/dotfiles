@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=soap.baseData,soap.element,soap.mapping.typeMap,soap.soap
-classes=SOAP=EncodingStyle=Handler,SOAP=EncodingStyle=Handler=EncodingStyleError
-is_sublibrary=true
-
-

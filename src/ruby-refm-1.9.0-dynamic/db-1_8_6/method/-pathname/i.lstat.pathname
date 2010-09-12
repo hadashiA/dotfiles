@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=lstat
-
---- lstat
-File.lstat(self.to_s) と同じです。 (cf. [[m:File.lstat]])
-

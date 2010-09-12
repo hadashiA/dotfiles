@@ -1,5 +1,0 @@
-visibility=public
-kind=defined
-names=get_attribute_ns
-
---- get_attribute_ns(namespace, name)

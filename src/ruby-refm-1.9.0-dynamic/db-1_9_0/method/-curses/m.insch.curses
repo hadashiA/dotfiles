@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=insch
-
---- insch(ch)
-
-stdscr のカーソルの位置に ch (1 バイト) を挿入します。
-

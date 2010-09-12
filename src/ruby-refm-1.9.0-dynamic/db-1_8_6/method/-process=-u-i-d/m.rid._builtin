@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=rid
-
---- rid    -> Integer
-
-現在の実ユーザ ID を返します。
-

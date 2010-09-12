@@ -1,7 +1,0 @@
-superclass=IOError
-type=class
-library=readbytes
-extended=
-included=
-
-IO#readbytes が発生させる例外

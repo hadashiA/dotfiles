@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=_set_variable2
-
---- _set_variable2(var, idx, value, flag)
-

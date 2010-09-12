@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=~
-
---- ~
-
-ビットごとの論理否定により、新しい IPAddr オブジェクトを生成します。
-生成します。
-

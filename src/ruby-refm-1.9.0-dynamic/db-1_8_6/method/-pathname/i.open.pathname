@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=open
-
---- open(*args, &block)
-File.open(self.to_s, *args, &block) と同じです。 (cf. [[m:File.open]])
-

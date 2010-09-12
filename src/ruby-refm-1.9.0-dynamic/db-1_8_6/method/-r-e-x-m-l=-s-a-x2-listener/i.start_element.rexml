@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=start_element
-
---- start_element(uri, localname, qname, attributes)
-

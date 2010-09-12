@@ -1,6 +1,0 @@
-visibility=protected 
-kind=defined
-names=local_assign_hook
-
---- local_assign_hook(key, cascade, &hook)
-

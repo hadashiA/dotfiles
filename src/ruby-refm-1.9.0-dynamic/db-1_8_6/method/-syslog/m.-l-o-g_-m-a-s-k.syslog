@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=LOG_MASK
-
---- LOG_MASK(priority)
-
-1つの優先度に対するマスクを作成する。
-

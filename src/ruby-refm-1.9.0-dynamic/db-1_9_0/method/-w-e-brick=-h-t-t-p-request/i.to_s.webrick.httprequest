@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=to_s
-
---- to_s    -> String
-
-リクエストのヘッダとボディをまとめて文字列として返します。
-

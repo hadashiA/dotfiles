@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=broadcast
-
---- broadcast
-
-待っている全てのスレッドの実行を再開します。nil を返します。
-

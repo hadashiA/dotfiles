@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=code
-
---- code
-
-HTTP のリザルトコードです。例えば '302' などです。
-

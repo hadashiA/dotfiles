@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=bind_remove
-
---- bind_remove(tag_or_class, context)
-

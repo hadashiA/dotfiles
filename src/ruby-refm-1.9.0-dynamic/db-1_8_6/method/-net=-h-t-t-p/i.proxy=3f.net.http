@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=proxy?
-
---- proxy?
-
-プロクシを介して接続するなら真を返します。
-

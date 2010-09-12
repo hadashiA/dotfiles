@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=media_subtype
-
---- media_subtype
-
-obsolete. use #subtype instead.
-

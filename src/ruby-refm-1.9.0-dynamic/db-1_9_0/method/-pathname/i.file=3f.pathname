@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=file?
-
---- file?
-FileTest.file?(self.to_s) と同じです。 (cf. [[m:FileTest.#file?]])
-

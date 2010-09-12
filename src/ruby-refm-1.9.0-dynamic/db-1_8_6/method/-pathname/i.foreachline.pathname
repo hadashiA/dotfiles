@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=foreachline
-
---- foreachline(*args, &block)
-IO.foreach(self.to_s, *args, &block) と同じです。 (cf. [[m:IO.foreach]])
-
-このメソッドは obsolete です。 each_line をかわりに使ってください。
-

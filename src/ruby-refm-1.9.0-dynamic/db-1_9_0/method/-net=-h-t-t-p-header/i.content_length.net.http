@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=content_length,content_length=
-
---- content_length
---- content_length=(len)
-
-Content-Length: ヘッダの値 (整数)。
-

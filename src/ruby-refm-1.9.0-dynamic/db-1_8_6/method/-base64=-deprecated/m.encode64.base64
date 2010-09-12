@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=encode64
-
---- encode64(str) -> String
-
-[[m:Base64.#encode64]] と同じです。
-

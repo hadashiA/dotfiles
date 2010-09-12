@@ -1,6 +1,0 @@
-kind=defined
-names=close
-visibility=public 
-
---- Gem::Package::TarReader#close
-

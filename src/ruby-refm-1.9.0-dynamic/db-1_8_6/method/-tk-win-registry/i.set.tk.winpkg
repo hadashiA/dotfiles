@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=set
-
---- set(keynam, valnam = Tk::None, data = Tk::None, dattype = Tk::None)
-
-

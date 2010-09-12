@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=symlink
-
---- symlink(file_from, file_to)
-
-Fileクラスにある同名のクラスメソッドと同じです.
-

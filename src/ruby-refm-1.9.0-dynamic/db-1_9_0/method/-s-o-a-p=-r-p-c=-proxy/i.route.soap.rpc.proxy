@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=route
-
---- route(req_header, req_body, reqopt, resopt)
-

@@ -1,8 +1,0 @@
-kind=defined
-names=default_tls_port
-visibility=public
-
---- default_tls_port
-
-The default SMTP/TLS port number, 587.
-

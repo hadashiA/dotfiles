@@ -1,6 +1,0 @@
-kind=defined
-names=print
-visibility=public
-
---- print(*options)
-

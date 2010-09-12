@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=error_count
-
---- error_count    -> Integer
-
-今までに記録したテストのエラーの数を返します。
-

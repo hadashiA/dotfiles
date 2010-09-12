@@ -1,8 +1,0 @@
-kind=defined
-names=puts
-visibility=public
-
---- puts([obj[, ...]])
-
-[[m:IO#puts]] と同様です。
-

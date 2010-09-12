@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=do_one_evant
-
---- do_one_evant(flag = nil)
-

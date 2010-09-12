@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=add_rpc_request_operation
-
---- add_rpc_request_operation(factory, qname, soapaction, name, param_def, opt = {})
-

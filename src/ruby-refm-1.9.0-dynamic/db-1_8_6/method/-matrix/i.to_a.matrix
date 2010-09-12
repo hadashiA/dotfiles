@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=to_a
-
---- to_a
-
-[[c:Array]]に変換する。
-結果は、ネストした配列(配列の配列)となる。
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=makedirs
-
---- makedirs(*filenames)
-
-FileToolsクラスにある同名のクラスメソッドと同じです.
-

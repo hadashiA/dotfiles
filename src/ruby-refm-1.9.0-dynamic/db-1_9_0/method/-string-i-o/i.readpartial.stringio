@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=readpartial
-
---- readpartial([integer [, buffer]])
-[[m:IO#readpartial]] と同様です。
-

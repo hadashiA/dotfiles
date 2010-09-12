@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=ln_sf
-
---- ln_sf(src, dest, options = {})
-
-ln_s(src, dest, :force => true) と同じです。
-

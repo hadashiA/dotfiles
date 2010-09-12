@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=add_rpc_servant,add_servant
-
---- add_rpc_servant(obj, namespace = @default_namespace)
---- add_servant
-

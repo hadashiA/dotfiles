@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=stop_profile
-
---- stop_profile
-
-プロファイルの取得を停止します。
-

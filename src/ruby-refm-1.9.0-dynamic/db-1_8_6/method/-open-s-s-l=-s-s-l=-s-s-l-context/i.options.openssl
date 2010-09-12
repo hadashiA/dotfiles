@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=options,options=
-
---- options
---- options=(options)
-
-オプション。定数 OP_* のビットマスクで指定します。
-

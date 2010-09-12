@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=beep
-
---- beep
-
-音を出します。
-この機能がないところでは単に無視されます。
-

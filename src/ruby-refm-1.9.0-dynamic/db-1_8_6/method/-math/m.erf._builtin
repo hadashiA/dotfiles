@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=erf
-
---- erf(x) -> Float
-x の誤差関数の値を返します。
-
-@param x 実数
-

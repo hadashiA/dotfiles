@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=join_nowait
-
---- join_nowait(threa1, ...)
-
-specifies thread(s) to wait.  non-blocking.
-

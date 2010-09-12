@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=uninstall_cmd
-
---- uninstall_cmd(cmd_id)
-
-

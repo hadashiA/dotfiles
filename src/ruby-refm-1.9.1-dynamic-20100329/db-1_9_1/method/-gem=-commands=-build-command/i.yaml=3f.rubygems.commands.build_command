@@ -1,9 +1,0 @@
-kind=defined
-names=yaml?
-visibility=public 
-
---- yaml?(filename) -> bool
-
-引数が yaml ファイルである場合に真を返します。
-
-@param filename ファイル名を指定します。

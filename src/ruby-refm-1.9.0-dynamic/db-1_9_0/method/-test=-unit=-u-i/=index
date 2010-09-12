@@ -1,4 +1,0 @@
-:NORMAL	Test::Unit::UI::NORMAL
-:PROGRESS_ONLY	Test::Unit::UI::NORMAL
-:SILENT	Test::Unit::UI::NORMAL
-:VERBOSE	Test::Unit::UI::NORMAL

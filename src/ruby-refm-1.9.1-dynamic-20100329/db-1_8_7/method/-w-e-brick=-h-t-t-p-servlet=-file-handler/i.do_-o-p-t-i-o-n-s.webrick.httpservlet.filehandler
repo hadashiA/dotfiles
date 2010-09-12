@@ -1,6 +1,0 @@
-kind=defined
-names=do_OPTIONS
-visibility=public
-
---- do_OPTIONS(req, res)
-

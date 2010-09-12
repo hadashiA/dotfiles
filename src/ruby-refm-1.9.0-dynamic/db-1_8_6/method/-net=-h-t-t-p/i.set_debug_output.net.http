@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=set_debug_output
-
---- set_debug_output(io)
-

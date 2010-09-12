@@ -1,8 +1,0 @@
-superclass=Object
-type=class
-library=shell
-extended=
-included=
-
-Shellオブジェクトはカレントディレクトリを持ち, 
-コマンド実行はそこからの相対パスになります.

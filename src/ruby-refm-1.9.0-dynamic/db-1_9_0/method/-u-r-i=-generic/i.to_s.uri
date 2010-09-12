@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=to_s,to_str
-
---- to_s      -> String
---- to_str    -> String
-
-URI を返します。
-

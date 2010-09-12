@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=prune
-
---- prune
-
-[[m:Find.#find]] メソッドのブロックにディレクトリが渡されたときにこ
-のメソッドを実行すると、そのディレクトリ配下の探索を無視します。

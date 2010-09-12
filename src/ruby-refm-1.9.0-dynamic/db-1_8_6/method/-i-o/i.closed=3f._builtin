@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=closed?
-
---- closed?    -> bool
-
-ポートがクローズされている時に真を返します。
-

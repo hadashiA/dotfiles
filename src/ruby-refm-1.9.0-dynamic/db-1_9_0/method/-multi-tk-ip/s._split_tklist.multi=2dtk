@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=_split_tklist
-
---- _split_tklist(str)
-

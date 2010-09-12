@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=stand_alone?,standalone,standalone=
-
---- standalone
---- standalone=(value)
---- stand_alone?
-

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(obj)
-
-obj がもつメソッドについて、実行を obj に委譲する
-オブジェクトを生成する。
-

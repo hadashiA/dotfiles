@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=quit
-
---- quit
-
-Dispatch QUIT command.
-

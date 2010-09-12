@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=clear
-
---- clear
-
-stdscr の文字を消去します。
-この消去は refresh を待たずにすぐ実行されます。
-

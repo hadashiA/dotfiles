@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=irb
-
---- irb([obj])
-
-新しいサブ irb インタプリタを起動します。
-オブジェクト obj が指定された時はその obj を self にします。
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=remove_tk_procs
-
---- remove_tk_procs(*names)
-

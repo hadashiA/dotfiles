@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=*
-
---- *(x)
-
-Returns a new Tms object obtained by memberwise multiplication
-of the individual times for this Tms object by x.
-

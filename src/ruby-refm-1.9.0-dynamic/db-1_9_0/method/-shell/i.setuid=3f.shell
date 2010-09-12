@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=setuid?
-
---- setuid?(file)
-
-FileTestクラスにある同名のクラスメソッドと同じです.
-

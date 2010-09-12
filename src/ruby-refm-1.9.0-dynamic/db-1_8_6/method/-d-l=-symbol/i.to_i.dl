@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=to_i
-
---- to_i    -> Integer
-
-ダイナミックライブラリの関数のアドレスを返します。
-

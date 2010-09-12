@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=F_GETLK
-
---- F_GETLK
-determine whether a given region of a file is locked.
-

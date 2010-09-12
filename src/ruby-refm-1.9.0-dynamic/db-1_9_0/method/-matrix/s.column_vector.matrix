@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=column_vector
-
---- column_vector(column)
-
-要素がcolumnの(n,1)型の行列(列ベクトル)を生成する。
-ここで、引数columnは、[[c:Vector]] または [[c:Array]] で与えられる。
-

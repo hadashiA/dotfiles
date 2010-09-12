@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(real_IO, encd = "iso-8859-1")
-

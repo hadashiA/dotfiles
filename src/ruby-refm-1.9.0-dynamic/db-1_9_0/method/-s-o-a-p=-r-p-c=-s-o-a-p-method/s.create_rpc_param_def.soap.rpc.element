@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=create_rpc_param_def
-
---- create_rpc_param_def(param_names)
-

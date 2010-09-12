@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=stime
-
---- stime
-System CPU time
-

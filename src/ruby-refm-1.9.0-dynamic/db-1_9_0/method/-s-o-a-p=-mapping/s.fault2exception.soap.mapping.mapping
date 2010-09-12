@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=fault2exception
-
---- fault2exception(fault, registry = nil)
-

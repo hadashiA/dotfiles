@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=nonl
-
---- nonl
-
-cooked モードのとき、return キーの入力に対して
-CR (Ctrl-m) を返すようにします。
-

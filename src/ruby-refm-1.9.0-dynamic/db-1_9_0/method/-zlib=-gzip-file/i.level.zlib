@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=level
-
---- level
-
-圧縮レベルを返します。
-

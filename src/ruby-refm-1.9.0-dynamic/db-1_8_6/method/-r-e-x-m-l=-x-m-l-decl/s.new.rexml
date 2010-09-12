@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(version = REXML::XMLDecl::DEFAULT_VERSION, encoding = nil, standalone = nil)
-

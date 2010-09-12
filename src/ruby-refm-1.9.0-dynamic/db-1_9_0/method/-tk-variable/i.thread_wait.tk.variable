@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=thread_wait
-
---- thread_wait(check_root = false)
-

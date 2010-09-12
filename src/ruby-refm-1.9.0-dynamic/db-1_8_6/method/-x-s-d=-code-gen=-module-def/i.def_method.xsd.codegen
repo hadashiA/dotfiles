@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=def_method
-
---- def_method(name, *params) { ... }
-

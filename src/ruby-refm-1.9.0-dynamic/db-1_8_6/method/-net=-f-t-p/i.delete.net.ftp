@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=delete
-
---- delete(filename)
-
-ファイルを削除します。
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=help
-
---- help(arg = nil)
-
-help 情報を返します。
-

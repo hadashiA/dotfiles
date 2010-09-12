@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=extract_resources
-
---- extract_resources(msg, name, typeclass)
-

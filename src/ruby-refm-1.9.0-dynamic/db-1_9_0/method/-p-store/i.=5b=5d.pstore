@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=[]
-
---- [](name)
-
-ルートnameに対応する値を得る。
-[[m:Hash#[] ]]に相当。
-

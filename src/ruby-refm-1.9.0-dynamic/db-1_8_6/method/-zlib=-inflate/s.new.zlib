@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new([windowBits])
-
-展開ストリームを作成します。引数の詳細は zlib.h を参照して下さい。
-nil の場合はデフォルトの値を使用します。
-

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=sev_threshold,sev_threshold=
-
---- sev_threshold
---- sev_threshold=(level)
-
-level の別名です。
-

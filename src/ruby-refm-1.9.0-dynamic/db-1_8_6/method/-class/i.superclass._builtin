@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=superclass
-
---- superclass    -> Class
-
-自身のスーパークラスを返します。
-

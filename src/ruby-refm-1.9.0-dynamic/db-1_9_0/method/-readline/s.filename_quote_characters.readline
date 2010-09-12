@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=filename_quote_characters,filename_quote_characters=
-
---- filename_quote_characters=(s)
---- filename_quote_characters
-補完時のファイル名の引用符を指定します。デフォルトでは nil です。
-

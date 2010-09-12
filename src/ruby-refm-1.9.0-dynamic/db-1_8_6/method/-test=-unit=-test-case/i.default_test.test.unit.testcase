@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=default_test
-
---- default_test     -> ()
-
-常に失敗するテストです。
-

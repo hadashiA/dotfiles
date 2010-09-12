@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=owner
-
---- owner    -> Class | Module
-
-Returns the class or module that defines the method.
-

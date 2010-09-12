@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=hton
-
---- hton
-
-ネットワークオーダーのバイト列に変換します。
-

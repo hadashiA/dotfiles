@@ -1,8 +1,0 @@
-kind=defined
-names=rcptto_list
-visibility=public
-
---- rcptto_list(to_addrs)
-
-Dispatch multiple RCPTTO commands.
-

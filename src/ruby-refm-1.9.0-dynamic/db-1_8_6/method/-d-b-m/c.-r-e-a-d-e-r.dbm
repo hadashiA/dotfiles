@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=READER
-
---- READER
-
-読み込みモードでオープンします．
-

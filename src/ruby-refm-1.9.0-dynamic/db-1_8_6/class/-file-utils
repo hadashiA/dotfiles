@@ -1,7 +1,0 @@
-superclass=
-type=module
-library=fileutils
-extended=
-included=
-
-基本的なファイル操作を集めたモジュールです。

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=default_port
-
---- default_port
-
-The default SMTP port number, 25.
-
-

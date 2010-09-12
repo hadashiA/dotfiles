@@ -1,8 +1,0 @@
-kind=defined
-names=printf
-visibility=public
-
---- printf(format[, arg[, ...]])
-
-[[m:IO#printf]] と同様です。
-

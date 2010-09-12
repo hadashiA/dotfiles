@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=top
-
---- top(lines)
-
-メールヘッダと lines 行ぶんの本文を取得し文字列で返します。
-

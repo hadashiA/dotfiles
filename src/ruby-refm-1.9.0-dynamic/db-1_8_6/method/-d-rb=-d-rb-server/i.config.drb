@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=config
-
---- config 
-The configuration of this DRbServer
-

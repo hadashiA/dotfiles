@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=adler
-
---- adler
-
-alder-32 チェックサムを返します。
-

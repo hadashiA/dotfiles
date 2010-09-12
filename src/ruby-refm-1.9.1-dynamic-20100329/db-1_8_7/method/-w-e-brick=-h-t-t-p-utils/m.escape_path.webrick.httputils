@@ -1,6 +1,0 @@
-kind=defined
-names=escape_path
-visibility=public
-
---- escape_path(str)
-

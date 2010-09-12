@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=grpowned?
-
---- grpowned?(file)
-
-FileTestクラスにある同名のクラスメソッドと同じです.
-

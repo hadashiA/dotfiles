@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=start
-
---- start -> Integer
-改暦日をあらわすユリウス日を返します。
-
-[[m:Date.new]] も参照してください。
-

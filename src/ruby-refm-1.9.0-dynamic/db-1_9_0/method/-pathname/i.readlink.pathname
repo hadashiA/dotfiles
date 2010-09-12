@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=readlink
-
---- readlink
-Pathname.new(File.readlink(self.to_s)) と同じです。 (cf. [[m:File.readlink]])
-

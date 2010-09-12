@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=relative?
-
---- relative? -> bool
-self が相対パス指定であれば真を返す。
-

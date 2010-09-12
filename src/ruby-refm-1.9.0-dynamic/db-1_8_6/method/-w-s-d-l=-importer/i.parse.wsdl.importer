@@ -1,5 +1,0 @@
-visibility=private 
-kind=defined
-names=parse
-
---- parse(content, location, originalroot)

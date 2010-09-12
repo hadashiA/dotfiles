@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=flush_next_in
-
---- flush_next_in
-
-入力バッファに残っているデータを強制的に取り出します。
-

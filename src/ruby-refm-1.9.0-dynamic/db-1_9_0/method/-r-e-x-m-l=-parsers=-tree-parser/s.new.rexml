@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(source, build_context = REXML::Document.new)
-

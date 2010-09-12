@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=all_waits
-
---- all_waits
-
-waits until all of specified threads are terminated.
-if a block is supplied for the method, evaluates it for
-each thread termination.

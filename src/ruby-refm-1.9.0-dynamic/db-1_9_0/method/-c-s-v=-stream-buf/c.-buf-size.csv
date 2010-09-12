@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=BufSize
-
---- BufSize
-1024 * 8
-

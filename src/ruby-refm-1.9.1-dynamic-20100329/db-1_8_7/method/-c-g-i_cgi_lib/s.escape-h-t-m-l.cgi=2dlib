@@ -1,6 +1,0 @@
-kind=defined
-names=escapeHTML
-visibility=public
-
---- escapeHTML(str)
-

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=key?
-
---- key?(key)
-
-key というヘッダフィールドがあれば真を返します。
-key は大文字小文字を区別しません。
-

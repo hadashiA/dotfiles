@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(path, initheader = nil)
-
-HTTP リクエストオブジェクトを生成します。
-リクエストする path を文字列で与えます。
-

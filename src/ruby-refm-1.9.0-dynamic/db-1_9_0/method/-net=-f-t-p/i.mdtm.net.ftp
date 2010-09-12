@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=mdtm
-
---- mdtm(filename)
-
-MDTM コマンドを送信し、結果を返します。
-

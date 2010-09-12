@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=size
-
---- size
-
-Returns a number giving the size of the body in octets.
-

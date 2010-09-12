@@ -1,7 +1,0 @@
-kind=defined
-names=EXT
-visibility=public 
-
---- EXT -> Array
-
-拡張子を表す配列です。

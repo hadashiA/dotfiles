@@ -1,9 +1,0 @@
-methods=
-sublibraries=
-requires=
-classes=ARGF,ArgumentError,Array,Bignum,Binding,Class,Comparable,Continuation,Data,Dir,ENV,EOFError,Enumerable,Exception,FalseClass,File,FileTest,File=Constants,File=Stat,Fixnum,Float,FloatDomainError,GC,Hash,IO,IOError,IndexError,Integer,Interrupt,Kernel,LoadError,LocalJumpError,Marshal,MatchData,Math,Method,Module,NameError,NilClass,NoMemoryError,NoMethodError,NotImplementedError,Numeric,Object,ObjectSpace,Precision,Proc,Process,Process=GID,Process=Status,Process=Sys,Process=UID,Range,RangeError,Regexp,RegexpError,RuntimeError,ScriptError,SecurityError,Signal,SignalException,StandardError,String,Struct,Struct=Tms,Symbol,SyntaxError,SystemCallError,Errno,Errno=EXXX,SystemExit,SystemStackError,Thread,ThreadError,ThreadGroup,Time,TrueClass,TypeError,UnboundMethod,ZeroDivisionError,fatal
-is_sublibrary=false
-
-組み込みライブラリは Ruby 本体に組み込まれているライブラリです。
-このライブラリに含まれるクラスやモジュールは、
-require を書かなくても使うことができます。

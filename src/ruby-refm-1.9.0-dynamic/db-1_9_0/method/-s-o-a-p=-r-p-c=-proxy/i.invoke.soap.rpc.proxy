@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=invoke
-
---- invoke(req_header, req_body, opt = nil)
-

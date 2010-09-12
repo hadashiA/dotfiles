@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=WRCREAT
-
---- WRCREAT
-
-書き込みモードで、すでにファイルが存在しなかったら作ります．
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=set_encoded
-
---- set_encoded(value)
-

@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=createDriver,create_driver
-
---- create_driver(service = nil, port = nil)
---- createDriver(service = nil, port = nil)
-

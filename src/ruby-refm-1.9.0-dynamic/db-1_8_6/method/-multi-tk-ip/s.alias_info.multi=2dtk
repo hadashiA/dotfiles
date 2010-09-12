@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=alias_info
-
---- alias_info(slave, cmd_name)
-

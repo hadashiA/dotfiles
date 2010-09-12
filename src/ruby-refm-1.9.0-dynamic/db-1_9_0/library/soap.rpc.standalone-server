@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=soap.header.handlerset,soap.baseData,soap.encodingstyle.aspDotNetHandler,soap.property,soap.rpc.element,soap.mapping,soap.encodingstyle.soapHandler,soap.rpc.httpserver,soap.mimemessage,soap.rpc.rpc,soap.httpconfigloader,soap.rpc.router,soap.rpc.soaplet,soap.streamHandler,soap.mapping.registry,soap.mapping.rubytypeFactory,soap.element,soap.processor,soap.mapping.wsdlliteralregistry,soap.attachment,soap.mapping.typeMap,soap.generator,soap.soap,soap.encodingstyle.literalHandler,soap.mapping.mapping,soap.mapping.factory,soap.encodingstyle.handler
-classes=SOAP=RPC=StandaloneServer
-is_sublibrary=true
-
-

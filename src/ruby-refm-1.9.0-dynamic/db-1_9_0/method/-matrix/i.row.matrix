@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=row
-
---- row(i)
-
-第i番目の行ベクトルを返す。
-ブロックが与えられたときは、各行ベクトルについて、ブロックを繰り返す。
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=redefined
-names=inspect
-
---- inspect
-
-「3/5」などの形で返します。
-

@@ -1,7 +1,0 @@
-kind=defined
-names=default_pop3_port,default_port
-visibility=public
-
---- default_port
---- default_pop3_port
-

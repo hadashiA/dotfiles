@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=LOCK_SH
-
---- LOCK_SH
-共有ロック。複数のプロセスが同時にロックを共有できます。
-[[m:File#flock]] で使用します。
-

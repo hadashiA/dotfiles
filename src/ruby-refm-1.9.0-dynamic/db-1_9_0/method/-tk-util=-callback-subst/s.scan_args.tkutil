@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=scan_args
-
---- scan_args(arg_key, val_key)
-

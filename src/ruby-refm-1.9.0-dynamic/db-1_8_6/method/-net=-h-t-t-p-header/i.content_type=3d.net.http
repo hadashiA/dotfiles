@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=content_type=,set_content_type
-
---- content_type=(type)
---- set_content_type(type, params = {})
-

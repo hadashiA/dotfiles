@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=data
-
---- data(message)
---- data {|f| .... }
-
-Dispatch DATA command.
-

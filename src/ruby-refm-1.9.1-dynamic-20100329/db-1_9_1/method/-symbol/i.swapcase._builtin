@@ -1,8 +1,0 @@
-kind=defined
-names=swapcase
-visibility=public
-
---- swapcase -> Symbol
-
-@see [[m:String#swapcase]]
-

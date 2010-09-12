@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=poke
-
---- poke(service, topic, item, data)
-

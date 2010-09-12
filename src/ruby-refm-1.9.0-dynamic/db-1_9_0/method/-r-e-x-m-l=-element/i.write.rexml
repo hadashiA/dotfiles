@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=write
-
---- write(writer = $stdout, indent = -1, transitive = false, ie_hack = false)
-

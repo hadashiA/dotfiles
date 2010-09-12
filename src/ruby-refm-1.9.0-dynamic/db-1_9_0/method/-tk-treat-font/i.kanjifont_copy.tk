@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=kanjifont_copy
-
---- kanjifont_copy(win, wintag = nil, winkey = nil, targetkey = nil)
-
-

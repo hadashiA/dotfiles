@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=created?
-
---- created?
-
-キーが新しく作成された場合，真を返します。
-(⇒[[m:Win32::Registry.create]])
-

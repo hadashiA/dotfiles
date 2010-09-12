@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(mname, rname, serial, refresh, retry_, expire, minimum)
-

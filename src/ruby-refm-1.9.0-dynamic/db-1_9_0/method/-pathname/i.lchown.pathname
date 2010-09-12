@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=lchown
-
---- lchown(owner, group)
-File.lchown(owner, group, self.to_s)と同じです。 (cf. [[m:File.lchown]])
-

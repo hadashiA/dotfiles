@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=add_rpc_request_servant
-
---- add_rpc_request_servant(factory, namespace)
-

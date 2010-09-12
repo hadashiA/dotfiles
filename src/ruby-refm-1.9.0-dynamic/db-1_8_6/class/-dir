@@ -1,7 +1,0 @@
-superclass=Object
-type=class
-library=_builtin
-extended=
-included=Enumerable
-
-ディレクトリ内の要素を順に返すディレクトリストリーム操作のためのクラスです。

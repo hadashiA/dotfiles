@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=O_RDWR
-
---- O_RDWR
-open read-write.
-

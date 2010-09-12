@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=Fail,Raise
-
---- Raise(err = nil, *rest)
---- Fail(err  = nil, *rest)
-

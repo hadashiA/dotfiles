@@ -1,6 +1,0 @@
-kind=defined
-names=preprocess
-visibility=public
-
---- preprocess(string)
-

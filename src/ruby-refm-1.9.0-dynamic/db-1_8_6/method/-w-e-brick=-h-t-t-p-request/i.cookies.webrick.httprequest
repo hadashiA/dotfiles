@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=cookies
-
---- cookies    -> [WEBrick::Cookie]
-
-リクエストに含まれる Cookie ヘッダの値を [[c:WEBrick::Cookie]] の配列として返します。
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=delete
-
---- delete(*file)
-
-Fileクラスにある同名のクラスメソッドと同じです.
-

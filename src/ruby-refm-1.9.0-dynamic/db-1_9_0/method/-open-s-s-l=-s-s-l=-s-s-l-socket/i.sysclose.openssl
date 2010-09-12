@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=sysclose
-
---- sysclose
-
-接続を閉じます。相手に'close notify'を送ります。
-

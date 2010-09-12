@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=to_a
-
---- to_a
-
-値を配列([[c:Array]])として返します。
-

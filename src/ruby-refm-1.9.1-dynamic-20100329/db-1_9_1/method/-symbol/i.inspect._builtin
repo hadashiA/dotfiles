@@ -1,9 +1,0 @@
-kind=defined
-names=inspect
-visibility=public
-
---- inspect    -> String
-
-Returns the representation of sym as a symbol literal.
-
-   :fred.inspect   #=> ":fred"

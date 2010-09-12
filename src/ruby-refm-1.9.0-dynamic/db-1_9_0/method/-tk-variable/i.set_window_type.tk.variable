@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=set_window_type,window_type=
-
---- set_window_type(win)
---- window_type=
-

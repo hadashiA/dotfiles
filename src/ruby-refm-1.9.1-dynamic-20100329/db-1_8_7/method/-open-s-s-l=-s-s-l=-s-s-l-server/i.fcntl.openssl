@@ -1,8 +1,0 @@
-kind=defined
-names=fcntl
-visibility=public
-
---- fcntl(cmd[, arg])
-
-[[m:IO#fcntl]] と同様です。
-

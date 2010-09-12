@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=values
-
---- values
-
-データベース中に存在する値全てを含む配列を返します。
-

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=set_redirect
-
---- set_redirect(status, url)    -> ()
-
-指定された url にリダイレクトするためのヘッダと内容(エンティティボディ)を設定し例外 status を
-発生させます。
-

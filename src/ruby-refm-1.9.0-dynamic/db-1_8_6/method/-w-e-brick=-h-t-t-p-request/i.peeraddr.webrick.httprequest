@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=peeraddr
-
---- peeraddr    -> Array
-
-クライアントと接続されているソケットの [[m:IPSocket#peeraddr]] を返します。
-

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=bottom
-
---- bottom(n = 0)
-
-下からn番目のコンテキストを取り出します.
-n は 0 が最下位になります.
-

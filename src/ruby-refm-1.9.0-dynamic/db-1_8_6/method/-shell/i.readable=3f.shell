@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=readable?
-
---- readable?(file)
-
-FileTestクラスにある同名のクラスメソッドと同じです.
-

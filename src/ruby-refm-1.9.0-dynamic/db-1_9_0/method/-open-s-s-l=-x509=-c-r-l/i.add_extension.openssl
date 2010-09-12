@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=add_extension
-
---- add_extension(ex)
-
-拡張領域に値を加えます。
-

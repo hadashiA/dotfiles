@@ -1,9 +1,0 @@
-superclass=Object
-type=class
-library=rubygems.indexer.abstract_index_builder
-extended=
-included=
-
-Gem のインデックスを構築するための抽象クラスです。
-
-テンプレートパターンを使用しています。

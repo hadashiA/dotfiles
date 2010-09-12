@@ -1,6 +1,0 @@
-:DEBUG	Logger::Severity::DEBUG
-:ERROR	Logger::Severity::DEBUG
-:FATAL	Logger::Severity::DEBUG
-:INFO	Logger::Severity::DEBUG
-:UNKNOWN	Logger::Severity::DEBUG
-:WARN	Logger::Severity::DEBUG

@@ -1,6 +1,0 @@
-kind=defined
-names=OctetString
-visibility=public
-
---- OctetString(value ... )
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=default_argv,default_argv=
-
---- default_argv    -> [String]
---- default_argv=
-Strings to be parsed in default. ARGV is default.
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(str_or_writable[, fs = ','[, rs = nil]])
-

@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=mountpoint?
-
---- mountpoint? -> bool
-self がマウントポイントであれば真を返します。
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(value, tag, tagging, tag_class)
-
-Constructive オブジェクトを生成します。
-

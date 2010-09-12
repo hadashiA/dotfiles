@@ -1,9 +1,0 @@
-visibility=public
-kind=added
-names=tojis
-
---- tojis
-
-self のエンコーディングを iso-2022-jp に変換した文字列を
-返します。
-

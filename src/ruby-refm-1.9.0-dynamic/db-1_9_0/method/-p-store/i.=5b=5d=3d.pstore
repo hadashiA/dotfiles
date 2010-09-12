@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=[]=
-
---- []=(name, value)
-
-ルートnameに対応する値valueをセットする。
-[[m:Hash#[]=]]に相当。
-

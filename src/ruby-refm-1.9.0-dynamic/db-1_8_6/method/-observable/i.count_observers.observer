@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=count_observers
-
---- count_observers
-
-オブザーバの数を返します。
-

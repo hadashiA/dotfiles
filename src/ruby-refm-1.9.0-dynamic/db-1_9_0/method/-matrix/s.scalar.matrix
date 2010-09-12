@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=scalar
-
---- scalar(n, value)
-
-対角要素が全てvalue(数)で、非対角要素が全て0であるようなn次の正方行列を生成する。
-

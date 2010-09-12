@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=private?
-
---- private?
-
-秘密鍵をもっている場合に true を返します。
-

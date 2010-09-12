@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=after
-
---- after(ms, cmd = Proc.new)
-

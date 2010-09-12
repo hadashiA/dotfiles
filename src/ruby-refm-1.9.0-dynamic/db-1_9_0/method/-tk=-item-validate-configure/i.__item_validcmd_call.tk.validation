@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=__item_validcmd_call
-
---- __item_validcmd_call(tagOrId, klass, key, *args, &b)
-
-
-

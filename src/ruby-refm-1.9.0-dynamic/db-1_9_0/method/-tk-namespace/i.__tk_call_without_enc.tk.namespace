@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=__tk_call_without_enc
-
---- __tk_call_without_enc(*args)
-

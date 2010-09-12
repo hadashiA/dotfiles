@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(path)
-Htdigest オブジェクトを生成する。.htdigest ファイルのパスを path で与える。
-

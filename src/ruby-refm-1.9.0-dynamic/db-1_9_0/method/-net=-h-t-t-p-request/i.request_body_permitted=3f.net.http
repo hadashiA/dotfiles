@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=request_body_permitted?
-
---- request_body_permitted?
-
-リクエストにエンティティボディを一緒に送ることが許されている
-HTTP メソッド (POST など)の場合真を返します。
-

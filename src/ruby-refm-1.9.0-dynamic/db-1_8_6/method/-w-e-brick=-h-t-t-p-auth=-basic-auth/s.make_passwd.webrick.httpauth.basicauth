@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=make_passwd
-
---- make_passwd(realm, user, pass)
-pass をランダムなソルトで crypt した文字列を返します。
-

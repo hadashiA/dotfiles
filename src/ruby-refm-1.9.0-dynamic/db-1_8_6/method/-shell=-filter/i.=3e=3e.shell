@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=>>
-
---- >>(to)
-
-srcをフィルタに追加する. toが, 文字列ならばファイルに, IOであれば
-それをそのまま出力とする.
-

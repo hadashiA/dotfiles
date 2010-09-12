@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=set_symbol_type,symbol_type=
-
---- symbol_type=
---- set_symbol_type(val)
-

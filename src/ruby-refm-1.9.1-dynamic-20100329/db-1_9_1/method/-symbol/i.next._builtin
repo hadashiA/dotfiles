@@ -1,9 +1,0 @@
-kind=defined
-names=next,succ
-visibility=public
-
---- succ -> Symbol
---- next -> Symbol
-
-@see [[m:String#succ]]
-

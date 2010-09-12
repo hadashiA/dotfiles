@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=to_datetime
-
---- to_datetime -> DateTime
-対応するもっともふさわしいと思われる [[c:DateTime]] オブジェクトを返します。
-

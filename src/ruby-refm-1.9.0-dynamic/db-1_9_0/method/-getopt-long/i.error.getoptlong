@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=error,error?
-
---- error
---- error?
-現在のエラーの型を返します。エラーが発生していなければ、nil
-を返します。
-

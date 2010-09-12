@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=raw
-
---- raw
-
-キーボード入力のバッファリングと Ctrl-C などの
-特殊キーの処理をやめます (raw モード)。
-

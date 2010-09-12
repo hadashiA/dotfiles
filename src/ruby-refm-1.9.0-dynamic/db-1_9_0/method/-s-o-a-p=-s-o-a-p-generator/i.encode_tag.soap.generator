@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=encode_tag
-
---- encode_tag(elename, attrs = nil)
-

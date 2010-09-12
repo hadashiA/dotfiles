@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=create_arytype
-
---- create_arytype(typename, rank)
-

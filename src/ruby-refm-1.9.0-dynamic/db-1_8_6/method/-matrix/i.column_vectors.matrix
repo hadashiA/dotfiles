@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=column_vectors
-
---- column_vectors
-
-行ベクトルの配列を返す。
-

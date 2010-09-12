@@ -1,5 +1,0 @@
-visibility=public
-kind=defined
-names=tests
-
---- tests    -> [ Test::Unit::TestSuite | Test::Unit::TestCase ]

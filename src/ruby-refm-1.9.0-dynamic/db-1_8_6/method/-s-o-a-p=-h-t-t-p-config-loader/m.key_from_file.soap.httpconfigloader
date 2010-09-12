@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=key_from_file
-
---- key_from_file(filename)
-

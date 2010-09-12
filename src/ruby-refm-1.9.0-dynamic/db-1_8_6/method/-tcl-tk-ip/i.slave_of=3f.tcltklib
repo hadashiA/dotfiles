@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=slave_of?
-
---- slave_of?(master)
-

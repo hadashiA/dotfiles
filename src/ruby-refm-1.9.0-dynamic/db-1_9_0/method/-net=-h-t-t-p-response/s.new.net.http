@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(http_version, result_code, message)
-
-ライブラリ内部用メソッドです。使わないでください。
-

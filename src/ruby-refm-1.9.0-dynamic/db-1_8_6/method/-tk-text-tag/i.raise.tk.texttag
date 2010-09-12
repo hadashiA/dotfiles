@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=raise
-
---- raise(above = Tk::None)
-

@@ -1,8 +1,0 @@
-kind=defined
-names=polar
-visibility=public
-
---- polar
-
-Returns the absolute value and the argument.
-

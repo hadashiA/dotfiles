@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=literal_mapping_registry,literal_mapping_registry=
-
---- literal_mapping_registry
---- literal_mapping_registry=(value)
-

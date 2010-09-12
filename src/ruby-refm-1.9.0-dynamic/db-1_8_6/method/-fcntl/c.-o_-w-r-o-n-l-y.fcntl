@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=O_WRONLY
-
---- O_WRONLY
-open write-only.
-

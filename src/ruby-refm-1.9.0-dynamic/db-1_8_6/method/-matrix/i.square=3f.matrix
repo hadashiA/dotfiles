@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=square?
-
---- square?
-
-正方行列であるなら、真を返す。
-
-

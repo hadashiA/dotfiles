@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=subset?
-
---- subset?(set)
-
-集合が与えられた集合 set に含まれる場合に true を返します。
-

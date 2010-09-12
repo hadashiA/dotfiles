@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=addtag_closest
-
---- addtag_closest(tagOrId, x, y, halo = Tk::None, start = Tk::None)
-
-
-

@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=grid_rowconfig,grid_rowconfigure
-
---- grid_rowconfig(index, keys)
---- grid_rowconfigure(index, keys)
-

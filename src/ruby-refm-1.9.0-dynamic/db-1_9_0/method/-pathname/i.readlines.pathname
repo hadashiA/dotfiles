@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=readlines
-
---- readlines(*args)
-IO.readlines(self.to_s, *args)と同じです。 (cf. [[m:IO.readlines]])
-

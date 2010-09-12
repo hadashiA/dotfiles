@@ -1,9 +1,0 @@
-visibility=public
-kind=redefined
-names=chmod
-
---- chmod(mode, files[, ...][, verbose = false])
-
-(複数の)ファイルの属性を変えます。
-オリジナルの [[m:File.chmod]] に verbose の指定が
-追加されるだけです。

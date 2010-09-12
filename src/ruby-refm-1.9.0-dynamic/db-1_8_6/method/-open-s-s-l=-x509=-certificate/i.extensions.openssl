@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=extensions,extensions=
-
---- extensions
---- extensions=(extensions)
-
-証明書の拡張領域 [[c:OpenSSL::X509::Extension]] オブジェクトの [[c:Array]] です。
-

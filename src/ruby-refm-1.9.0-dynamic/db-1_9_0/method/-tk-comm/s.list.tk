@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=list
-
---- list(val, depth = 0, enc = true)
-

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=RegexpEucjp
-
---- RegexpEucjp
-
-((<ruby 1.8.2 feature>)):
-EUCJP にマッチする正規表現です。
-

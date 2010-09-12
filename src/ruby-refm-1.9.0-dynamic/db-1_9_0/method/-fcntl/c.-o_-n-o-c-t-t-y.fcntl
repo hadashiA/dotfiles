@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=O_NOCTTY
-
---- O_NOCTTY
-open tty without it becoming controlling tty.
-

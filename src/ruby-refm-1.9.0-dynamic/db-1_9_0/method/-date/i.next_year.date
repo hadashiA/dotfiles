@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=next_year
-
---- next_year(n = 1) -> Date
-n 年後を返します。
-
-@param n 年数
-

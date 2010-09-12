@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=create_doc_param_def
-
---- create_doc_param_def(req_qnames, res_qnames)
-

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=>
-
---- >(to)
-
-srcをフィルタの出力とする. toが, 文字列ならばファイルに, IOであれ
-ばそれをそのまま出力とする.
-

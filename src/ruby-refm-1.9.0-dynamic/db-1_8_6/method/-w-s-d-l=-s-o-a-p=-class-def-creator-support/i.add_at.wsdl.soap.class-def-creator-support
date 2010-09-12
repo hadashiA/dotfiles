@@ -1,8 +1,0 @@
-visibility=private 
-kind=defined
-names=add_at
-
---- add_at(base, str, pos)
-
-
-

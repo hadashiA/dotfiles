@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=closed?,to_io
-
---- closed?
---- to_io
-
-IO クラスの同名メソッドと同じ。
-

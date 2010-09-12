@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=unbind
-
---- unbind -> UnboundMethod
-
-self のレシーバとの関連を取り除いた [[c:UnboundMethod]] オブ
-ジェクトを生成して返します。
-

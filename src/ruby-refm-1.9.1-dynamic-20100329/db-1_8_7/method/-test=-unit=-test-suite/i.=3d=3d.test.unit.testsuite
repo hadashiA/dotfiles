@@ -1,8 +1,0 @@
-kind=defined
-names===
-visibility=public
-
---- ==(other)    -> bool
-
-It's handy to be able to compare TestSuite instances.
-

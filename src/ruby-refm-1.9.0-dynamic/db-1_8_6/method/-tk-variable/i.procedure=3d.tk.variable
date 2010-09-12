@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=procedure=,set_procedure
-
---- set_procedure(cmd)
---- procedure=
-

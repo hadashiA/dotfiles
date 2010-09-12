@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=collect,map
-
---- collect {|x| ... }
---- map {|x| ... }
-
-行列の各要素に対してブロックの適用を繰り返した結果を、要素として持つ行列を生成する。
-

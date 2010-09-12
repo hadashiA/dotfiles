@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=sash_mark
-
---- sash_mark(index, x, y)
-

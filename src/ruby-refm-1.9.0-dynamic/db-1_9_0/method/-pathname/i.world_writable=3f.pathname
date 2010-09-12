@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=world_writable?
-
---- world_writable?
-FileTest.world_writable?(self.to_s) と同じです。 
-(cf. [[m:FileTest.#world_writable?]])
-
-

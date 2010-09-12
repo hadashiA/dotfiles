@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=head2,request_head
-
---- request_head(path, header = nil)
---- request_head(path, header = nil) {|response| .... }
---- head2(path, header = nil)
---- head2(path, header = nil) {|response| .... }
-

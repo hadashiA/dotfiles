@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=<<,addstr
-
---- addstr(str)
---- <<(str)
-
-ウィンドウのカーソル位置に文字列 str を上書きします。
-

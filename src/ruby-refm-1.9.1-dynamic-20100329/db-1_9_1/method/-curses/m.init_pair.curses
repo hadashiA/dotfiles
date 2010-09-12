@@ -1,6 +1,0 @@
-kind=defined
-names=init_pair
-visibility=public
-
---- init_pair(pair, f, b)
-

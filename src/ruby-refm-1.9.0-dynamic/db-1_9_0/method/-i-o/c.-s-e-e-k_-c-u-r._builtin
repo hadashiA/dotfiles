@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=SEEK_CUR
-
---- SEEK_CUR
-
-[[m:IO#seek]] を参照してください。
-

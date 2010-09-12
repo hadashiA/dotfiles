@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=alias_delete
-
---- alias_delete(slave, cmd_name)
-

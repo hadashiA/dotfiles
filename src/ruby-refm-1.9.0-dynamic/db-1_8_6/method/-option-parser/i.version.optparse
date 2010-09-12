@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=version,version=
-
---- version       -> [Integer]
---- version=(ver)
-プログラムのバージョンを設定します。
-

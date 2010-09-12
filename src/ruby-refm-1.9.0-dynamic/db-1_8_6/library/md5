@@ -1,9 +1,0 @@
-methods=
-sublibraries=
-requires=
-classes=MD5
-is_sublibrary=false
-
-このライブラリは obsolete です。後方互換性のためにのみ存在します。
-
-[[lib:digest/md5]] をロードして  MD5 を Digest::MD5 に置き換えます。

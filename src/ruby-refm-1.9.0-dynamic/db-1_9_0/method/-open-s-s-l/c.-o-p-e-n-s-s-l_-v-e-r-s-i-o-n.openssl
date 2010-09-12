@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=OPENSSL_VERSION
-
---- OPENSSL_VERSION
-
-システムにインストールされている OpenSSL 本体のバージョンを表した文字列です。
-

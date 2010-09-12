@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=ungetc
-
---- ungetc(char)
-
-[[m:IO#ungetc]] と同様です。
-

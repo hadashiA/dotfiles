@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=each,each_mail
-
---- each_mail {|popmail| .... }
---- each {|popmail| .... }
-
-pop3.mails.each と同じです。
-

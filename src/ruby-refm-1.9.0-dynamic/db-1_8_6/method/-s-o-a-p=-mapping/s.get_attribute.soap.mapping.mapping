@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=get_attribute
-
---- get_attribute(obj, attr_name)
-

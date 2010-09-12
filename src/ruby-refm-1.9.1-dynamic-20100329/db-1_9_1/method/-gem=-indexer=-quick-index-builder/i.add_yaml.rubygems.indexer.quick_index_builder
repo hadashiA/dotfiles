@@ -1,6 +1,0 @@
-kind=defined
-names=add_yaml
-visibility=public 
-
---- add_yaml(spec)
-

@@ -1,8 +1,0 @@
-kind=defined
-names=auth_cram_md5
-visibility=public
-
---- auth_cram_md5(user, secret)
-
-Cram-MD5 authentication.
-

@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=set_list_element_type
-
---- set_list_element_type(idxs, val)
-
-

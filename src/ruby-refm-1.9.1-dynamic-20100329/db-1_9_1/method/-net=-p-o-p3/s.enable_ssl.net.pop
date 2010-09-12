@@ -1,8 +1,0 @@
-kind=defined
-names=enable_ssl
-visibility=public
-
---- enable_ssl(verify, certs)
-
-signature will be changed to enable_ssl(ctx).
-

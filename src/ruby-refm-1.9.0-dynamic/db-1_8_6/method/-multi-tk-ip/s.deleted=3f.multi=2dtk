@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=deleted?,deleteed?,do_one_event
-
---- deleted?
---- deleteed?
---- do_one_event(flag = TclTkLib::EventFlag::ALL)
-

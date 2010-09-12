@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=set_dictionary
-
---- set_dictionary(string)
-
-圧縮に用いる辞書を指定します。string を返します。
-このメソッドは [[m:Zlib::Deflate.new]], [[m:Zlib::ZStream#reset]]
-を呼び出した直後にのみ有効です。詳細は zlib.h を参照して下さい。

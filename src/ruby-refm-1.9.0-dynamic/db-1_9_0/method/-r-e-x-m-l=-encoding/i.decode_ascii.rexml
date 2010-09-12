@@ -1,7 +1,0 @@
-visibility=public
-kind=added
-names=decode_ascii
-
---- decode_ascii(str)
-
-

@@ -1,6 +1,0 @@
-kind=defined
-names=dequote
-visibility=public
-
---- dequote(str)
-

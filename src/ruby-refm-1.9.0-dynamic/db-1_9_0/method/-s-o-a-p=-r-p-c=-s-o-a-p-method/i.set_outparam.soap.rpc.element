@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=set_outparam
-
---- set_outparam(params)
-

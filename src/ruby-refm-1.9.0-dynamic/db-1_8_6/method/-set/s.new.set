@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(enum = nil)
-
-引数 enum で与えられた Enumerable の要素からなる新しい集合を作ります。
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=undef_system_command
-
---- undef_system_command(command)
-
-commandを削除します.
-

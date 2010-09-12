@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=params_ok?
-
---- params_ok?
-
-パラメータ p と g が安全かどうかを判定します。
-

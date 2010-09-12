@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=nocbreak,nocrmode
-
---- nocbreak
---- nocrmode
-
-キーボード入力のバッファリングを有効にします。
-

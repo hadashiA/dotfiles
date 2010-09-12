@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=<=>
-
---- <=>(other)
-
-other と比べて self が大きいなら 1、同じなら 0、小さいなら -1 を返します。
-

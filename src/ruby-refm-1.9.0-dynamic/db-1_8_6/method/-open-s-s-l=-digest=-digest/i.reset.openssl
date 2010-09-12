@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=reset
-
---- reset
-
-いままで入力された文字列をリセットします。
-

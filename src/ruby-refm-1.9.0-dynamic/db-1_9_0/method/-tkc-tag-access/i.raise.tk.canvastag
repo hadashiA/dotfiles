@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=raise
-
---- raise(abovethis = Tk::None)
-
-
-

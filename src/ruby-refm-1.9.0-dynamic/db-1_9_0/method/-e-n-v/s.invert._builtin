@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=invert
-
---- invert -> Hash
-
-環境変数の値をキー、名前を値とした [[c:Hash]] を生成して返します。
-

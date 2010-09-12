@@ -1,9 +1,0 @@
-.Fail	Exception2MessageMapper.Fail
-.Raise	Exception2MessageMapper.Fail
-.def_e2message	Exception2MessageMapper.def_e2message
-.def_exception	Exception2MessageMapper.def_exception
-#Fail	Exception2MessageMapper#Fail
-#Raise	Exception2MessageMapper#Fail
-#def_e2message	Exception2MessageMapper#def_e2message
-#def_exception	Exception2MessageMapper#def_exception
-#fail	Exception2MessageMapper#fail

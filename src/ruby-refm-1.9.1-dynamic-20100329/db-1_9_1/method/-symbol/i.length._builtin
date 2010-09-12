@@ -1,9 +1,0 @@
-kind=defined
-names=length,size
-visibility=public
-
---- length -> Integer
---- size -> Integer
-
-@see [[m:String#length]], [[m:String#size]]
-

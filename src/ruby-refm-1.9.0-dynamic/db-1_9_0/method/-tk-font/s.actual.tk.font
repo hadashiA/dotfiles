@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=actual
-
---- actual(fnt, option = nil)
-

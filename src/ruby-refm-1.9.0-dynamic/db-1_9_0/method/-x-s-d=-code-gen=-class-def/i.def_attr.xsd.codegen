@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=def_attr
-
---- def_attr(attrname, writable = true, varname = nil)
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=create
-
---- create(str_or_readable[, fs = ','[, rs = nil]])
-

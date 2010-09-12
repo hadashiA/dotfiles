@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=system_path,system_path=
-
---- system_path
---- system_path=(path)
-
-コマンドサーチパスの配列を返す。
-

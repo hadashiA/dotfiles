@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=<
-
---- <(src)
-
-srcをフィルタの入力とする. srcが, 文字列ならばファイルを, IOであれ
-ばそれをそのまま入力とする.
-

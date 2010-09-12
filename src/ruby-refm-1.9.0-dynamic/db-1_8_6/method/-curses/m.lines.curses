@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=lines
-
---- lines
-
-画面に表示可能な行数を返します。
-

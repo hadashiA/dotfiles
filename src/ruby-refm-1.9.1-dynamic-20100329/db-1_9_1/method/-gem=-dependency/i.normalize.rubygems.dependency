@@ -1,8 +1,0 @@
-kind=defined
-names=normalize
-visibility=public 
-
---- normalize -> nil
-
-@see [[c:Gem::Requirement]]
-

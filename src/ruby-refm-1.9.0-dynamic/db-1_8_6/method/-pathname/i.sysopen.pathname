@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=sysopen
-
---- sysopen(*args)
-IO.sysopen(self.to_s, *args)と同じです。 (cf. [[m:IO.sysopen]])
-

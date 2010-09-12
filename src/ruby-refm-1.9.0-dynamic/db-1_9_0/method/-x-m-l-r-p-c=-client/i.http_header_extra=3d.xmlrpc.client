@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=http_header_extra=
-
---- http_header_extra=()
-
-Set extra HTTP headers that are included in the request.
-

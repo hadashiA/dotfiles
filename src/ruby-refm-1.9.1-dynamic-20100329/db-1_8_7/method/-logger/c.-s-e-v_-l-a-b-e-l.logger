@@ -1,8 +1,0 @@
-kind=defined
-names=SEV_LABEL
-visibility=public
-
---- SEV_LABEL -> Array
-
-重要度のラベルを格納した配列。
-

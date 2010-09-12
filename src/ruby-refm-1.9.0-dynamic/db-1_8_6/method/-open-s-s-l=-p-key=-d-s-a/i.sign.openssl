@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=sign
-
---- sign(digest, data)
-
-data に関して digest を使って署名を作成して文字列として返します。
-digest は OpenSSL::PKey::DSS1 のインスタンスです。
-

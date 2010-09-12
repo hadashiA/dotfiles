@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=items
-
---- items
-item要素を生成するオブジェクトを管理するオブジェクトを
-返します．
-

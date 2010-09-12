@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=year
-
---- year -> Integer
-年を返します。
-

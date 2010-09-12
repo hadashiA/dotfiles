@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=init_color
-
---- init_color(color, r, g, b)
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=add_request_headerhandler
-
---- add_request_headerhandler(factory)
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=norm
-
---- norm(fv, zero = 0.0)
-

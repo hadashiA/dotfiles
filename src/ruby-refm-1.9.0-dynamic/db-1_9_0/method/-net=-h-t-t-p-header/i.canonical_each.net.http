@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=canonical_each,each_capitalized
-
---- each_capitalized {|name, value| .... }
---- canonical_each {|name, value| .... }
-
-ヘッダフィールドの正式名とその値のペアに対して繰り返します。
-

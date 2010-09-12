@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=select
-
---- select {|s| ... } -> [String]
-
-self.to_a.select { ... } と同じです。
-

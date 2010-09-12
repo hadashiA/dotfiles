@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=list
-
---- list
-An array of 2-element arrays, consisting of label and block pairs.
-

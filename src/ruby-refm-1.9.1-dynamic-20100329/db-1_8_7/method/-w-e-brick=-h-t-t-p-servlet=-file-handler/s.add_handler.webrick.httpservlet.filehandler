@@ -1,6 +1,0 @@
-kind=defined
-names=add_handler
-visibility=public
-
---- add_handler(suffix, handler)
-

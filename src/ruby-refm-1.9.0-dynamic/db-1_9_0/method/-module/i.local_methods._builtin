@@ -1,8 +1,0 @@
-visibility=private 
-kind=defined
-names=local_methods
-
---- local_methods   -> Array
-
-Returns a list of the local methods defined in mod.
-

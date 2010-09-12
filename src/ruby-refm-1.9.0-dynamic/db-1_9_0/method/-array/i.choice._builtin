@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=choice
-
---- choice        -> object
-
-Choose a random element from an array.
-

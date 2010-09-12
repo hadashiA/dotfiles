@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=out
-
---- out(dev = STDOUT, &block)
-
-[[m:Shell#transact]] を呼び出しその結果を dev に出力する.
-
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(parent, name, mode = nil, *args)
-
-
-

@@ -1,8 +1,0 @@
-kind=defined
-names=syswrite
-visibility=public
-
---- syswrite(string)
-
-[[m:IO#syswrite]] と同様です。
-

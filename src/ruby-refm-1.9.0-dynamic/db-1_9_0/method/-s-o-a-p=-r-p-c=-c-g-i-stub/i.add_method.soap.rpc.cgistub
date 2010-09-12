@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=add_method,add_rpc_method
-
---- add_rpc_method(obj, name, *param)
---- add_method
-

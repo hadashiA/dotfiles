@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=STDIN
-
---- STDIN
-
-標準入力。[[m:$stdin]] のデフォルト値。詳細は [[m:$stdin]] を参照してください。
-

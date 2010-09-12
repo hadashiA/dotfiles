@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=binmode,binmode=
-
---- binmode
---- binmode(bool)
---- binmode=(bool)
-    ...
-

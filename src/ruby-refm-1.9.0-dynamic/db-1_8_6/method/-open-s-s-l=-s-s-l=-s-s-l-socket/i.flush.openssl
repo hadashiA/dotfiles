@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=flush
-
---- flush
-
-[[m:IO#flush]] と同様です。
-

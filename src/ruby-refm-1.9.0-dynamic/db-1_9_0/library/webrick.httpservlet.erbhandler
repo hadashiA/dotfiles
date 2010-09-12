@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=webrick.httpstatus,webrick.httpservlet.abstract,webrick.httputils
-classes=WEBrick=HTTPServlet=ERBHandler
-is_sublibrary=true
-
-

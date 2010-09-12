@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=encoding_from_xml
-
---- encoding_from_xml(str, charset)
-
-

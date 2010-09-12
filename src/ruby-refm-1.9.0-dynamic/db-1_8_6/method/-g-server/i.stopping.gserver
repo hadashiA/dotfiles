@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=stopping
-
---- stopping
-
-audit が true に設定されているなら、サーバ停止時に呼ばれます。
-サブクラスでオーバーライドします。
-

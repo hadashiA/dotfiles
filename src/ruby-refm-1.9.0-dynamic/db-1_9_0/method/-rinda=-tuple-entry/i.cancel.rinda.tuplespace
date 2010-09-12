@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=cancel
-
---- cancel
-
-Marks this TupleEntry as canceled.
-

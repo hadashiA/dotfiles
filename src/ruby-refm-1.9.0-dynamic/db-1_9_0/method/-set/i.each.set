@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=each
-
---- each { |o| ... }
-
-集合のすべての要素に対して1度ずつブロックを実行します。
-ブロック変数 o にはその要素が渡されます。
-

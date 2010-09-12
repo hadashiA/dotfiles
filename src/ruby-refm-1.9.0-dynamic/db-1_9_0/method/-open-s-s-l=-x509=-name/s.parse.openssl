@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=parse
-
---- parse(str)
-
-名前をパースして Name オブジェクトを返します。
-

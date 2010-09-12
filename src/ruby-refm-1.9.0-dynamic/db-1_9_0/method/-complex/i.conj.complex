@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=conj,conjugate
-
---- conj
---- conjugate
-共役複素数を返します。
-

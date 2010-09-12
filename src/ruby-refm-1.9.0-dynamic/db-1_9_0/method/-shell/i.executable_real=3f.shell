@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=executable_real?
-
---- executable_real?(file)
-
-FileTestクラスにある同名のクラスメソッドと同じです.
-

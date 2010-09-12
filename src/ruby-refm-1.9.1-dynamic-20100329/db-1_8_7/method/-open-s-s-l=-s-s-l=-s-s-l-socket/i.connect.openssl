@@ -1,8 +1,0 @@
-kind=defined
-names=connect
-visibility=public
-
---- connect
-
-接続相手との TLS/SSL ハンドシェイクを実行します。
-

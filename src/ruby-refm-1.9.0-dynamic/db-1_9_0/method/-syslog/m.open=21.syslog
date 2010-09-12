@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=open!,reopen
-
---- open!(ident=$0, options=Syslog::LOG_PID|Syslog::LOG_CONS, facility=Syslog::LOG_USER) { |syslog| ... }
---- reopen(ident=$0, options=Syslog::LOG_PID|Syslog::LOG_CONS, facility=Syslog::LOG_USER) { |syslog| ... }
-
-開いていた syslog を最初にクローズする点を除いて Syslog.open と同じ。
-

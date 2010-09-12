@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(test_name, exception)
-
-Creates a new Error with the given test_name and exception.
-

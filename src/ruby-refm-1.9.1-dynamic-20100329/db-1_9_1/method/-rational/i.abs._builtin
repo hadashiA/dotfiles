@@ -1,8 +1,0 @@
-kind=defined
-names=abs
-visibility=public 
-
---- abs
-
-Returns the absolute value.
-

@@ -1,8 +1,0 @@
-kind=defined
-names=each
-visibility=public
-
---- each
-
-[[m:IO#each]] と同様です。
-

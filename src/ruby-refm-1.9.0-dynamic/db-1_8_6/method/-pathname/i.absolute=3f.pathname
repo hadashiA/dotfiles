@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=absolute?
-
---- absolute? -> bool
-self が絶対パス指定であれば真を返します。
-

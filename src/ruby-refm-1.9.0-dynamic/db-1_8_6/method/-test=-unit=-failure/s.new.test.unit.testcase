@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(test_name, location, message)
-
-Creates a new Failure with the given location and message.
-

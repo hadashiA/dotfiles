@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=RUBY_RELEASE_DATE
-
---- RUBY_RELEASE_DATE
-
-Ruby のリリース日を示す文字列。
-

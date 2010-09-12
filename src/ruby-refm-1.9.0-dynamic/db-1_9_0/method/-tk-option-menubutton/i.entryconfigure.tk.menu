@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=entryconfigure
-
---- entryconfigure(index, key, val = Tk::None)
-

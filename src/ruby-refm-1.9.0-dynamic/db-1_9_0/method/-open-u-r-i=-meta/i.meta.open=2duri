@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=meta
-
---- meta    -> Hash
-
-ヘッダを収録したハッシュを返します。
-

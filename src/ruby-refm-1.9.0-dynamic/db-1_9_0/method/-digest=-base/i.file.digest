@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=file
-
---- file 
-updates the digest with the contents of a given file _name_ and
-returns self.
-

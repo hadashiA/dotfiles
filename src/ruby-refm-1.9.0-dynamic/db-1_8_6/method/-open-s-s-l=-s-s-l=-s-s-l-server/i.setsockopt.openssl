@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=setsockopt
-
---- setsockopt
-[[m:BasicSocket#setsockopt]] と同様です。
-

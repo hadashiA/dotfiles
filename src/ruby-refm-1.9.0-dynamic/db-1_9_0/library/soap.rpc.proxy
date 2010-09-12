@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=soap.encodingstyle.aspDotNetHandler,soap.baseData,soap.property,soap.rpc.element,soap.mapping,soap.encodingstyle.soapHandler,soap.mimemessage,soap.httpconfigloader,soap.rpc.rpc,soap.streamHandler,soap.mapping.rubytypeFactory,soap.mapping.registry,soap.element,soap.attachment,soap.mapping.typeMap,soap.processor,soap.generator,soap.soap,soap.mapping.factory,soap.mapping.mapping,soap.encodingstyle.literalHandler,soap.encodingstyle.handler
-classes=SOAP=RPC=Proxy,SOAP=RPC=Proxy=Operation
-is_sublibrary=true
-
-

@@ -1,7 +1,0 @@
-superclass=Numeric
-type=class
-library=_builtin
-extended=
-included=
-
-有理数を扱うクラスです。

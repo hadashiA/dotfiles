@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=handle
-
---- handle(func = Proc.new, keys = nil, &block)
-

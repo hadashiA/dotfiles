@@ -1,7 +1,0 @@
-visibility=public
-kind=added
-names=to_date
-
---- to_date -> Date
-対応するもっともふさわしいと思われる [[c:Date]] オブジェクトを返します。
-

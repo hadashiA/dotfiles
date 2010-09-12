@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=RegexpShiftjis
-
---- RegexpShiftjis
-
-((<ruby 1.8.2 feature>)):
-SJIS にマッチする正規表現です。
-

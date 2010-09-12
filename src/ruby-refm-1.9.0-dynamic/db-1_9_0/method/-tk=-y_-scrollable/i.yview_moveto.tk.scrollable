@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=yview_moveto
-
---- yview_moveto(*index)
-
-
-

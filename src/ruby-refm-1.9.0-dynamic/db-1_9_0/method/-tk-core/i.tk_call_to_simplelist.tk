@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=tk_call_to_simplelist
-
---- tk_call_to_simplelist(*args)
-

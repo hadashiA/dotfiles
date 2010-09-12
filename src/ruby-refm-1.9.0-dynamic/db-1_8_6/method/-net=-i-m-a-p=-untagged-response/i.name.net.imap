@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=name
-
---- name
-
-Returns the name such as "FLAGS", "LIST", "FETCH"....
-

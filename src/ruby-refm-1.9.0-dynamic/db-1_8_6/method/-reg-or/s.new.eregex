@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(re1, re2)
-
-新しい RegOr オブジェクトを生成します。
-

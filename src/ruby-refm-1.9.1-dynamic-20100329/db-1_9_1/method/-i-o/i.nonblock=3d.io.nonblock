@@ -1,8 +1,0 @@
-kind=added
-names=nonblock=
-visibility=public
-
---- nonblock=(bool)
-bool が真なら self をノンブロックモードに、偽ならブロックモー
-ドにします。
-

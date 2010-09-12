@@ -1,9 +1,0 @@
-visibility=private 
-kind=added
-names=LINK
-
---- LINK
-
-リンカを起動するときのコマンドラインのフォーマットです。
-[[m:Kernel#try_link]] などが使用します。
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=ipv6?
-
---- ipv6?
-
-IPv6 なら真を返します。
-

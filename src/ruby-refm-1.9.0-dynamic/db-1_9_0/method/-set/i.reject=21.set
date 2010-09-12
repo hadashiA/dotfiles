@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=reject!
-
---- reject! { |o| ... }
-
-delete_if と同じですが、要素が1つも削除されなかった場合は nil を返します。
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=encode_child
-
---- encode_child(ns, child, parent)
-

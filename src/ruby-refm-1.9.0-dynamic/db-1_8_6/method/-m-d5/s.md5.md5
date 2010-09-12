@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=md5
-
---- md5(*args)
-[[m:Digest::MD5.new]]の別名です。

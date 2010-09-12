@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=body,body=
-
---- body
---- body=(body)
-
-サーバに送るリクエストのエンティティボディを文字列で設定します。
-

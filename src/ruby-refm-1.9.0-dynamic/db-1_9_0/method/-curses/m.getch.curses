@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=getch
-
---- getch
-
-標準入力から 1 バイト読み込みます。
-戻り値は ASCII コードを表す整数です。
-

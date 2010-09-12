@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=decode_rdata,get_class
-
---- decode_rdata(msg)
---- get_class(type_value, class_value)
-

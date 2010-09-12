@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=send_string,send_string=
-
---- send_string
---- send_string=(value)
-

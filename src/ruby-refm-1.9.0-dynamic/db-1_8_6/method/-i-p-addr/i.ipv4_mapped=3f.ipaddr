@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=ipv4_mapped?
-
---- ipv4_mapped?
-
-IPv4 射影 IPv6 アドレスなら 真を返します。
-

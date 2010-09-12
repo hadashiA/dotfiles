@@ -1,8 +1,0 @@
-kind=defined
-names=cp
-visibility=public
-
---- cp
-
-[[m:Shell#copy]] と同じです。
-

@@ -1,7 +1,0 @@
-superclass=Resolv=DNS=Resource=CNAME
-type=class
-library=resolv
-extended=
-included=
-
-

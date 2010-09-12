@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=wm_command
-
---- wm_command(value = nil)
-

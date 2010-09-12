@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=base_uri
-
---- base_uri    -> URI
-
-リソースの実際の URI を URI オブジェクトとして返します。
-リダイレクトされた場合は、リダイレクトされた後のデータが存在する URI を返します。
-

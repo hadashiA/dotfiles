@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=OBJECT_DESCRIPTOR
-
---- OBJECT_DESCRIPTOR
-
-OBJECT_DESCRIPTOR のタグ番号 7 を表す定数です。
-

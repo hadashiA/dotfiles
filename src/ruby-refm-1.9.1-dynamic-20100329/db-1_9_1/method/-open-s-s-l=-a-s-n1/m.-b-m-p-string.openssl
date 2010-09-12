@@ -1,6 +1,0 @@
-kind=defined
-names=BMPString
-visibility=public
-
---- BMPString(value ... )
-

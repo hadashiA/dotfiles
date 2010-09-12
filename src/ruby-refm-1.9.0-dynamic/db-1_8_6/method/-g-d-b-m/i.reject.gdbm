@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=reject
-
---- reject {|key, value| ... }
-
-self.to_hash.reject と同じです。ハッシュを返します。
-

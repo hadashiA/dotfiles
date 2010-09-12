@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=chown
-
---- chown(owner, group, *file)
-
-Fileクラスにある同名のクラスメソッドと同じです.
-

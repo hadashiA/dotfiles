@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=column_size
-
---- column_size
-
-列の大きさを返す。
-

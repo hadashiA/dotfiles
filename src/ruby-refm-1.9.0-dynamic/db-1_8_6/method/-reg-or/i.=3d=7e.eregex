@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names==~
-
---- =~(str)
-
-str が re1 か re2 のいずれかにマッチすれば真を返します。

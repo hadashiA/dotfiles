@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=receiver
-
---- receiver    -> object
-
-Returns the bound receiver of the method object.
-

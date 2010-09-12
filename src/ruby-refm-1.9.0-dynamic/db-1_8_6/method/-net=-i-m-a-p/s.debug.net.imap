@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=debug
-
---- debug
-
-Returns the debug mode.
-

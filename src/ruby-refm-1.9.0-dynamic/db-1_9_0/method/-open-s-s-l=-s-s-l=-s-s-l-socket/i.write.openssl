@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=write
-
---- write(str)
-
-[[m:IO#write]] と同様です。
-

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=FNM_PATHNAME
-
---- FNM_PATHNAME
-ワイルドカード `*', `?', `[]' が `/' にマッチしなくなります。
-シェルのパターンマッチにはこのフラグが使用されています。
-[[m:File.fnmatch]], [[m:Dir#glob]]で使用します。
-

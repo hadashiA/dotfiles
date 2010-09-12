@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=detach_bgexec
-
---- detach_bgexec(*args)
-
-
-

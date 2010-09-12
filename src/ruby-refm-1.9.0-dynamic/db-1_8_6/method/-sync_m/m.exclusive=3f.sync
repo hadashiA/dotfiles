@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=exclusive?,sync_exclusive?
-
---- sync_exclusive?
---- exclusive?
-排他ロックされているかどうかを返す。
-

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=kill
-
---- kill(sig, job)
-
-jobにシグナルsigを送る
-
-

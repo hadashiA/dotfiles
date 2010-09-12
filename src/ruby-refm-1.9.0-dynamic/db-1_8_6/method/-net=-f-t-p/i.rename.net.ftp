@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=rename
-
---- rename(fromname, toname)
-
-ファイルをリネームします。
-

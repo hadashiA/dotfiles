@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=parse
-
---- parse(src, filename = '(ripper)', lineno = 1)
-

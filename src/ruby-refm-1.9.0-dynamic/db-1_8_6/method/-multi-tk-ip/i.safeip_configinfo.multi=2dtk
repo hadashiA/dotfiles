@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=safeip_configinfo
-
---- safeip_configinfo(slot = nil)
-

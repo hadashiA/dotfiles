@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=exit
-
---- exit    -> ()
-
-カレントスレッドに対して [[m:Thread#exit]] を呼びます。
-

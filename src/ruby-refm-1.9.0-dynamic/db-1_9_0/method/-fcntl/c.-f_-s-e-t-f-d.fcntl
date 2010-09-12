@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=F_SETFD
-
---- F_SETFD
-set the close-on-exec flag of a file handle.
-

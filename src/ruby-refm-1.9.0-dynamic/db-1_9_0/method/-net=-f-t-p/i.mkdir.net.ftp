@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=mkdir
-
---- mkdir(dirname)
-
-ディレクトリを作成します。
-

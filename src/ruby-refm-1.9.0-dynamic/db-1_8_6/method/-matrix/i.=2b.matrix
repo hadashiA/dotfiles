@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=+
-
---- +(m)
-
-行列mを加えた行列を返す。
-

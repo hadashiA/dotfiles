@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=to_der
-
---- to_der
-
-DER 形式にして返します。
-

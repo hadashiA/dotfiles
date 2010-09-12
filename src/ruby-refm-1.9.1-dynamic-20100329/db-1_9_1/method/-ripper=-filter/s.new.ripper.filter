@@ -1,6 +1,0 @@
-kind=defined
-names=new
-visibility=public
-
---- new(src, filename = '-', lineno = 1)
-

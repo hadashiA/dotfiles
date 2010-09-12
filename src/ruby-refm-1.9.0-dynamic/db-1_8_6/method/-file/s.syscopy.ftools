@@ -1,9 +1,0 @@
-visibility=public
-kind=added
-names=syscopy
-
---- syscopy(from, to)
-
-Copies a file from to to. If to is a directory, copies from to
-to/from.
-

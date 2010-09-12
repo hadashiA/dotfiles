@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=eval_proc
-
---- eval_proc(*args)
-

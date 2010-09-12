@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=row_vector
-
---- row_vector(row)
-
-要素がrowの(1,n)型の行列(行ベクトル)を生成する。
-ここで、引数rowは、[[c:Vector]] または [[c:Array]] で与えられる。
-

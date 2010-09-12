@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=useinputmethods
-
---- useinputmethods(window = nil, value = nil)
-

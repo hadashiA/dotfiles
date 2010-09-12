@@ -1,7 +1,0 @@
-visibility=public
-kind=added
-names=im
-
---- im
-Returns a Complex number Complex(0, self).
-

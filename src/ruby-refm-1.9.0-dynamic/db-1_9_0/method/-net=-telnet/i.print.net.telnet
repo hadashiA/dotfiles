@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=print
-
---- print(string)
-

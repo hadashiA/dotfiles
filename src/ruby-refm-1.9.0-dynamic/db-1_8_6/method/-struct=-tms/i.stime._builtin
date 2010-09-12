@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=stime
-
---- stime -> Float
-システム CPU 時間を返します。
-
