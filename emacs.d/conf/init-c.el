@@ -9,14 +9,6 @@
 ;; M - .     CTAGSで関数にジャンプ
 ;; M - +     CTAGSでジャンプしてた時に元の場所に戻る
 
-;; BackSpace キーを「賢く」し，インデント幅は4桁，タブはスペースに展開
-(setq c-default-style "gnu")
-(add-hook 'c-mode-common-hook
-            '(lambda ()
-               (c-toggle-hungry-state t)
-               (c-toggle-auto-state t)               
-               (setq c-basic-offset 4 indent-tabs-mode nil)))
-
 (setq ff-other-file-alist
       '(("\\.mm?$" (".h"))
         ("\\.cc$"  (".hh" ".h"))
@@ -36,24 +28,14 @@
         
         ("\\.hpp$" (".cpp" ".c"))))
 
-
-(add-hook 'cc-mode-hook
-          (lambda ()
-            (define-key c-mode-base-map (kbd "C-c o") 'ff-find-other-file)
-            (gtags-mode 1)
-            (gtags-make-complete-list)
-            (add-to-list 'anything-sources 'anything-c-source-gtags-select t)
-            ))
-(define-key c-mode-map (kbd "C-+") 'anything-gtags-select)
-
-(add-hook 'objc-mode-hook
-          (lambda ()
-            (define-key c-mode-base-map (kbd "C-c o") 'ff-find-other-file)
-            (gtags-mode 1)
-            (gtags-make-complete-list)
-            (add-to-list 'anything-sources 'anything-c-source-gtags-select t)
-            ))
-(define-key objc-mode-map (kbd "C-+") 'anything-gtags-select)
+;; BackSpace キーを「賢く」し，インデント幅は4桁，タブはスペースに展開
+(setq c-default-style "gnu")
+(add-hook 'c-mode-common-hook
+            '(lambda ()
+               (c-toggle-hungry-state t)
+               (c-toggle-auto-state t)               
+               (setq c-basic-offset 4 indent-tabs-mode nil)
+               (define-key c-mode-base-map (kbd "C-c o") 'ff-find-other-file)))
 
 (add-hook 'align-load-hook
             (lambda ()
@@ -67,7 +49,3 @@
                              (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
                              (repeat . t)
                              (modes  . '(objc-mode))))))
-
-
-
-
