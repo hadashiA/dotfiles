@@ -4,6 +4,7 @@
 
 (require 'info)
 (require 'anything-config)
+(require 'anything-gtags nil t)
 
 (define-key anything-map (kbd "C-p") 'anything-previous-line)
 (define-key anything-map (kbd "C-n") 'anything-next-line)
@@ -26,7 +27,10 @@
 ;;        anything-c-source-emacs-functions          ;; emacs関数を検索する
 ;;        anything-c-source-complex-command-history  ;; コマンド履歴の一覧
 ;;        anything-c-source-info-elisp
+        ;; anything-c-source-gtags-select
         ))
+
+;; (global-set-key (kbd "C-+") 'anything-gtags-select)
 
 ;; \M-y でキルリング履歴
 (setq kill-ring-max 30) ;; kill-ring の最大値. デフォルトは 30.
@@ -54,11 +58,11 @@
         anything-c-moccur-enable-auto-look-flag t
         anything-c-moccur-enable-initial-pattern t))
 
-(when (require 'anything-rurima nil t)
-  (setq anything-rurima-index-file "~/src/rurema/rubydoc/rurema.e")
-  ;; (define-key ruby-mode-map "\C-cue" 'anything-rurima)
-  ;; (define-key ruby-mode-map "\C-cum" 'anything-rurima-at-point)
-    (global-set-key "\C-cue" 'anything-rurima)
-    (global-set-key "\C-cum" 'anything-rurima-at-point))
+;; (when (require 'anything-rurima nil t)
+;;   (setq anything-rurima-index-file "~/src/rurema/rubydoc/rurema.e")
+;;   ;; (define-key ruby-mode-map "\C-cue" 'anything-rurima)
+;;   ;; (define-key ruby-mode-map "\C-cum" 'anything-rurima-at-point)
+;;     (global-set-key "\C-cue" 'anything-rurima)
+;;     (global-set-key "\C-cum" 'anything-rurima-at-point))
 
 (require 'anything-zsh-history)
