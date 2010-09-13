@@ -4,7 +4,7 @@ task :install => 'install:all'
 namespace :install do
   task :all => [
     '.tags',
-    '.gtagsrc',
+    '.globalrc',
     '.irbrc',
     '.emacs',
     '.vimrc',

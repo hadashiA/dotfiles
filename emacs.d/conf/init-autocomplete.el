@@ -43,18 +43,6 @@
   ;; (when (require 'pos-tip nil t)
   ;;   (setq ac-quick-help-prefer-x t))
 
-  (add-hook 'emacs-lisp-mode-hook
-            (lambda ()
-              (add-to-list 'ac-sources 'ac-source-features)
-              (add-to-list 'ac-sources 'ac-source-functions)
-              (add-to-list 'ac-sources 'ac-source-symbols)
-              (add-to-list 'ac-sources 'ac-source-variables)))
-
-  (add-hook 'ruby-mode-hook
-            (lambda ()
-              (add-to-list 'ac-sources 'ac-source-rsense-method)
-              (add-to-list 'ac-sources 'ac-source-rsense-constant)))
-
   (add-to-list 'load-path "~/.emacs.d/elisp/company")
   (require 'ac-company)
   (setq ac-modes (append ac-modes '(objc-mode)))
@@ -71,5 +59,19 @@
               (auto-complete)
               )
             )
+
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (add-to-list 'ac-sources 'ac-source-features)
+              (add-to-list 'ac-sources 'ac-source-functions)
+              (add-to-list 'ac-sources 'ac-source-symbols)
+              (add-to-list 'ac-sources 'ac-source-variables)))
+
+  (add-hook 'ruby-mode-hook
+            (lambda ()
+              (add-to-list 'ac-sources 'ac-source-rsense-method)
+              (add-to-list 'ac-sources 'ac-source-rsense-constant)
+              (add-to-list 'ac-sources 'ac-source-company-gtags)
+              ))
 
   (ac-config-default))
