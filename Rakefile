@@ -3,6 +3,8 @@ task :install => 'install:all'
 
 namespace :install do
   task :all => [
+    '.tags',
+    '.gtagsrc',
     '.irbrc',
     '.emacs',
     '.vimrc',
@@ -24,7 +26,8 @@ namespace :install do
     ln_s_confirm t.source, File.expand_path("~/#{t.name}")
   end
 
-  file '.emacs'        => ['.emacs.d', 'gems:rcodetools', 'devel/which', :rurema, :rsense, :cmigemo]
+  # file '.emacs'        => ['.emacs.d', 'gems:rcodetools', 'devel/which', :rurema, :rsense, :cmigemo]
+  file '.emacs'        => ['.emacs.d', 'gems:rcodetools', 'devel/which', :rsense, :cmigemo]
   file '.vimrc'        => ['.vim', '.gvimrc']
   file '.irbrc'        => ['gems:hirb', 'gems:wirble']
   file '.zshrc'        => ['.zsh', '.aliases', '.exports','.gitrc']
@@ -65,7 +68,8 @@ namespace :install do
   end
 
   desc 'install rsense. see http://cx4a.org/software/rsense/index.ja.html'
-  task :rsense => [opt, :rurema] do
+  # task :rsense => [opt, :rurema] do
+  task :rsense => [opt] do
     current  = File.expand_path('~/opt/rsense')
     original = Dir[File.expand_path('./opt/rsense*')].sort.last
 
