@@ -38,19 +38,19 @@
 ;;             ))
 ;;       )))
 
-(defadvice backward-delete-char-untabify
-  (around matelike-backward-delete-pair activate)
-  (if (assoc (char-before (point)) matelike-delete-pair-alist)
-      (progn
-        (backward-char)
-        (condition-case nil
-            (delete-pair)
-          (error (progn
-                   (forward-char)
-                   ad-do-it))))
-    ad-do-it))
+;; (defadvice backward-delete-char-untabify
+;;   (around matelike-backward-delete-pair activate)
+;;   (if (assoc (char-before (point)) matelike-delete-pair-alist)
+;;       (progn
+;;         (backward-char)
+;;         (condition-case nil
+;;             (delete-pair)
+;;           (error (progn
+;;                    (forward-char)
+;;                    ad-do-it))))
+;;     ad-do-it))
 
-(defun matelike-delete-pair ()
+(defun matelike-delete-pair (&optional n)
   "wrap delete-pair only specify char"
   (interactive)
   (if (assoc (char-after (point)) matelike-delete-pair-alist)

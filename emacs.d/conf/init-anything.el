@@ -20,11 +20,11 @@
         anything-c-source-recentf                    ;; 最近開いたファイル
         anything-c-source-locate
         anything-c-source-bookmarks                  ;; bookmark
-;;        anything-c-source-info-pages               ;; infoマニュアルを参照する
+        anything-c-source-info-pages               ;; infoマニュアルを参照する
         ;; anything-c-source-man-pages                  ; manページ。なんかすげー重いんだけど
 ;;        anything-c-source-occur                      ;;
 ;;        anything-c-source-emacs-commands           ;; emacsコマンドを実行する
-;;        anything-c-source-emacs-functions          ;; emacs関数を検索する
+        anything-c-source-emacs-functions          ;; emacs関数を検索する
 ;;        anything-c-source-complex-command-history  ;; コマンド履歴の一覧
 ;;        anything-c-source-info-elisp
         ;; anything-c-source-gtags-select
