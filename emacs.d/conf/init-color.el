@@ -1,5 +1,12 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
+(defun print-all-fonts ()
+  (let ((ls (x-list-fonts "*")))
+    (while (not (null ls))
+      (princ (car ls))
+      (newline)
+      (setq ls (cdr ls)))))
+
 (when (window-system)
   (custom-set-faces
    ;;'(default ((t (:stipple nil :background "#272822" :foreground "#F8F8F2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :family "outline-consolas"))))
@@ -45,3 +52,14 @@
   ;;         (dircolors-face-compress       "Sienna"         )
   ;;         )))
 )
+
+;; (set-face-attribute 'default nil
+;; 		    :family "MiuraLiner\-Jr"
+;; 		    :height 120)
+;; (set-fontset-font "fontset-default"
+;; 		  'japanese-jisx0208
+;; 		  '( "MiuraLiner\-Jr" . "iso10646-1"))
+;; (set-fontset-font "fontset-default"
+;; 		  'katakana-jisx0201
+;; 		  '("MiuraLiner\-Jr" . "iso10646-1"))
+

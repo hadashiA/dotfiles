@@ -96,6 +96,7 @@
 
 (load "init-global")
 (load "init-color")
+;; (load "init-font")
 (load "init-window")
 (load "init-highlighting")
 (load "init-keymaps")
