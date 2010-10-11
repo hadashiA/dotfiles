@@ -112,6 +112,8 @@
 (setq Info-default-directory-list
       (cons (expand-file-name "~/.emacs.d/info/") Info-default-directory-list))
 
+(turn-off-auto-fill)
+
 ;; 記号やその他の文字等を正しくマッピングする
 ;; Emacs辞典p.395
 ;; http://www.pqrs.org/~tekezo/emacs/doc/wide-character/index.html
