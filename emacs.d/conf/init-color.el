@@ -1,12 +1,5 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-(defun print-all-fonts ()
-  (let ((ls (x-list-fonts "*")))
-    (while (not (null ls))
-      (princ (car ls))
-      (newline)
-      (setq ls (cdr ls)))))
-
 (when (window-system)
   (custom-set-faces
    ;;'(default ((t (:stipple nil :background "#272822" :foreground "#F8F8F2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :family "outline-consolas"))))
@@ -53,13 +46,29 @@
   ;;         )))
 )
 
+
+;; (defun print-all-fonts ()
+;;   (let ((ls (x-list-fonts "*")))
+;;     (while (not (null ls))
+;;       (princ (car ls))
+;;       (newline)
+;;       (setq ls (cdr ls)))))
+
+;; (prin1 (font-family-list))
+
+;; ;; 英語フォント
 ;; (set-face-attribute 'default nil
 ;; 		    :family "MiuraLiner\-Jr"
-;; 		    :height 120)
-;; (set-fontset-font "fontset-default"
-;; 		  'japanese-jisx0208
-;; 		  '( "MiuraLiner\-Jr" . "iso10646-1"))
-;; (set-fontset-font "fontset-default"
-;; 		  'katakana-jisx0201
-;; 		  '("MiuraLiner\-Jr" . "iso10646-1"))
+;; 		    :height 250)
+;; ;; 日本語フォント
+;; (set-fontset-font
+;;  nil 'japanese-jisx0208
+;;  (font-spec :family "Hiragino_Minco_ProN"))
 
+;; ;; ひらがなとカタカナ
+;; ;; U+3000-303F CJKの記号および句読点
+;; ;; U+3040-309F ひらがな
+;; ;; U+30A0-30FF カタカナ
+;; (set-fontset-font
+;;  nil '(#x3040 . #x30ff)
+;;  (font-spec :family "MiuraLiner\-Jr"))
