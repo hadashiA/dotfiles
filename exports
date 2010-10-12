@@ -4,7 +4,6 @@ export EDITOR='vim'
 # export MANPAGER='/usr/share/vim/vim72/macros/less.sh'
 # export PAGER='/usr/share/vim/vim72/macros/less.sh'
 
-export PATH="~/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/git/bin:$PATH"
 export PATH="/usr/local/mysql/bin:$PATH"
@@ -14,6 +13,9 @@ export PATH="/opt/local/lib/postgresql84/bin:$PATH"
 export PATH="/Applications/MacPorts/Emacs.app/Contents/MacOS/bin:$PATH"
 export PATH="/Developer/usr/bin:$PATH"
 export PATH="$PATH:/usr/local/jruby/bin"
+export PATH="$HOME/bin:$PATH"
+
+if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi
 
 export ARCHFLAGS='-arch x86'
 
