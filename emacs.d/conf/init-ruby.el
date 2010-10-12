@@ -26,6 +26,8 @@
   (add-to-list 'auto-mode-alist '("\\.erb$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rhtml$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile.lock" . ruby-mode))
   (add-to-list 'auto-mode-alist '("Capfile" . ruby-mode))
   (add-to-list 'auto-mode-alist '(".\\?irbrc" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rash$" . ruby-mode))
