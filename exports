@@ -13,6 +13,8 @@ export PATH="/opt/local/lib/postgresql84/bin:$PATH"
 export PATH="/Applications/MacPorts/Emacs.app/Contents/MacOS/bin:$PATH"
 export PATH="/Developer/usr/bin:$PATH"
 export PATH="$PATH:/usr/local/jruby/bin"
+export PATH="$HOME/local/bin:$PATH"
+export PATH="$HOME/local/ruby/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 
 if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi
