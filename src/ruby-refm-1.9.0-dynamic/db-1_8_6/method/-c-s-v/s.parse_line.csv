@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=parse_line
-
---- parse_line(src[, fs = nil[, rs = nil]])
-

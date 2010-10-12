@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=clone
-
---- clone
-
-圧縮ストリームを複製します。
-

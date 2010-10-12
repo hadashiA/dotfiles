@@ -1,6 +1,0 @@
-visibility=protected 
-kind=defined
-names=read
-
---- read(size)
-

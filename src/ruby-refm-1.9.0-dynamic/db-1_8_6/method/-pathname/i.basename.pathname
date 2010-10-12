@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=basename
-
---- basename(*args)
-Pathname.new(File.basename(self.to_s, *args)) と同じです。 (cf. [[m:File.basename]])
-

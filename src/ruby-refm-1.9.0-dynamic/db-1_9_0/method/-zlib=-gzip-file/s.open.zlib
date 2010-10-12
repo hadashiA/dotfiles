@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=open
-
---- open(args...) {|gz| ... }
-
-[[m:Zlib::GzipReader.open]] 及び [[m:Zlib::GzipWriter.open]] を参照。
-

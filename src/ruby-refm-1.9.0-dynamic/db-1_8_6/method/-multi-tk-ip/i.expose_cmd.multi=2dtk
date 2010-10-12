@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=expose_cmd
-
---- expose_cmd(slave, cmd, aliasname = nil)
-

@@ -1,9 +1,0 @@
-kind=defined
-names=[],slice
-visibility=public
-
---- []
---- slice
-
-@see [[m:String#[] ]], [[m:String#slice]]
-

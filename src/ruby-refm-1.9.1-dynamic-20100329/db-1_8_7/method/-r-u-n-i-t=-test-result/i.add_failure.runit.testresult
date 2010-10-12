@@ -1,6 +1,0 @@
-kind=defined
-names=add_failure
-visibility=public
-
---- add_failure(failure)
-

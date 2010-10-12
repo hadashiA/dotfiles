@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=xview_moveto
-
---- xview_moveto(*index)
-
-
-

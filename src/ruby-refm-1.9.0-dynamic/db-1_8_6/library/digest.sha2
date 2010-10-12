@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=digest,digest.rmd160,digest.md5,digest.sha1,digest.sha2
-classes=Digest=SHA256,Digest=SHA384,Digest=SHA512,Digest=SHA2
-is_sublibrary=true
-
-

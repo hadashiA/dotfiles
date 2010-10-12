@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=element_to_a,list_element
-
---- list_element(*idxs)
---- element_to_a(*idxs)
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=set_current
-
---- set_current(index)
-

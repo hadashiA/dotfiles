@@ -1,7 +1,0 @@
-kind=defined
-names=debug_output=,set_debug_output
-visibility=public
-
---- set_debug_output(f)
---- debug_output=(f)
-

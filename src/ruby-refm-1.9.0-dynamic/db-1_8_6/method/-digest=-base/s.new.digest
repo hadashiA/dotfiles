@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new
-新しいダイジェストオブジェクトを生成する。
-

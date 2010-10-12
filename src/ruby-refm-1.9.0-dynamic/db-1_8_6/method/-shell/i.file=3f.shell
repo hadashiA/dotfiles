@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=file?
-
---- file?(file)
-
-FileTestクラスにある同名のクラスメソッドと同じです.
-

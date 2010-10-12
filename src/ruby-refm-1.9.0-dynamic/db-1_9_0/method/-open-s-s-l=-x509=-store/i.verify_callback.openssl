@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=verify_callback,verify_callback=
-
---- verify_callback
---- verify_callback=(proc)
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=load_tk
-
---- load_tk(dir)
-

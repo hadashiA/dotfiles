@@ -1,9 +1,0 @@
-visibility=private 
-kind=added
-names=help
-
---- help -> ()
-Display help message.
-
-  ruby -run -e help [COMMAND]
-

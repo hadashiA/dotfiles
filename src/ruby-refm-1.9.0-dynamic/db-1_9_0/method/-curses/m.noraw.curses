@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=noraw
-
---- noraw
-
-キーボード入力のバッファリングと Ctrl-C など
-特殊キーの処理を行うようにします (cooked モード)。
-

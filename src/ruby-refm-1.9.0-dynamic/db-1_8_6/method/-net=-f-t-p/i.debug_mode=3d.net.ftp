@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=debug_mode=
-
---- debug_mode=(boolean)
-
-デバッグモードの値を設定します。
-

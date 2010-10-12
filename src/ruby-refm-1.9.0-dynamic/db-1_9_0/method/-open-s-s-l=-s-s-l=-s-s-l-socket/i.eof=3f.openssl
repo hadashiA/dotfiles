@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=eof?
-
---- eof?
-
-[[m:IO#eof?]] と同様です。
-

@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=cloud
-
---- cloud
-     cloudを返します．
-

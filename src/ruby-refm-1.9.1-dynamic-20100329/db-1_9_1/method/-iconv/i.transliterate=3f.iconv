@@ -1,8 +1,0 @@
-kind=defined
-names=transliterate?
-visibility=public
-
---- transliterate?
-
-Returns transliterate flag.
-

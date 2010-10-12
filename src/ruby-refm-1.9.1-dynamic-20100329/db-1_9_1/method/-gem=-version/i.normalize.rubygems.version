@@ -1,8 +1,0 @@
-kind=defined
-names=normalize
-visibility=public 
-
---- normalize
-
-末尾のゼロを削除します。
-

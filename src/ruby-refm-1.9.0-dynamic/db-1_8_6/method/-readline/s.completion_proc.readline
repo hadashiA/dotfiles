@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=completion_proc
-
---- completion_proc
-補完時の動作を決定する[[c:Proc]]オブジェクトを返します。
-

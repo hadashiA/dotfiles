@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=start_command_line_test
-
---- start_command_line_test    -> Test::Unit::TestResult
-Takes care of the ARGV parsing and suite
-determination necessary for running one of the
-TestRunners from the command line.

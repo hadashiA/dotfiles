@@ -1,6 +1,0 @@
-kind=defined
-names=DEFAULT_BULK_THRESHOLD
-visibility=protected 
-
---- DEFAULT_BULK_THRESHOLD -> 1000
-

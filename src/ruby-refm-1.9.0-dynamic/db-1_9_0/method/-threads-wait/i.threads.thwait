@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=threads
-
---- threads
-
-list threads to be synchronized
-

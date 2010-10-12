@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=size
-
---- size
-
-digest で返す文字列のバイト長。
-

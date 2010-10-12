@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=maxConnections
-
---- maxConnections
-
-受け付ける最大接続数を返します。
-

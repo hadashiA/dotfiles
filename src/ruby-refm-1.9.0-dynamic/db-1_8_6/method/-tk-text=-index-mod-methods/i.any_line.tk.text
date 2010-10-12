@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=any_line,any_lines
-
---- any_lines(mod)
---- any_line(mod)
-

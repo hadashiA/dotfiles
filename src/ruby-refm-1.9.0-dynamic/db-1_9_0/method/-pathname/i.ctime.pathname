@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=ctime
-
---- ctime
-[[m:File.ctime]]の第一引数に self.to_s を渡したものと同じです。
-

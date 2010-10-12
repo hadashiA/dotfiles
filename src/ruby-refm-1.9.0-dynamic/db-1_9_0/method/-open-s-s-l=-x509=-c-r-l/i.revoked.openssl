@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=revoked,revoked=
-
---- revoked
---- revoked=(rev)
-
-失効した証明書の配列です。[[c:OpenSSL::X509::Revoked]] オブジェクトの [[c:Array]]。
-

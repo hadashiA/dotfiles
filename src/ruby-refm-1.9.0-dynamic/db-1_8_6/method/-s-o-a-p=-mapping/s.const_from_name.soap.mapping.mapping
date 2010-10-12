@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=const_from_name
-
---- const_from_name(name, lenient = false)
-

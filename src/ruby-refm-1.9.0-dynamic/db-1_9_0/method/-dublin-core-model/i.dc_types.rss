@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=dc_types
-
---- dc_types
-
- * [[url:http://purl.org/rss/1.0/modules/syndication/]]
-

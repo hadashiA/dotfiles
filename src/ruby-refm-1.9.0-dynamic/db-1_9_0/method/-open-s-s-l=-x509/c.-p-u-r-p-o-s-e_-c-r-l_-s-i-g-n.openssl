@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=PURPOSE_CRL_SIGN
-
---- PURPOSE_CRL_SIGN
-
-CRL の署名をするのに使えるか。
-

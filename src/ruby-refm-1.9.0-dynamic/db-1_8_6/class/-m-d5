@@ -1,7 +1,0 @@
-superclass=Object
-type=class
-library=md5
-extended=
-included=
-
-[[c:Digest::MD5]] のエイリアスです。

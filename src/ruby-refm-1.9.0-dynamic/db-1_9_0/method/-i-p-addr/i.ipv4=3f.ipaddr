@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=ipv4?
-
---- ipv4?
-
-IPv4 なら真を返します。
-

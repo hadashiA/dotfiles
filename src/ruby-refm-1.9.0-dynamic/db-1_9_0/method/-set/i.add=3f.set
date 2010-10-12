@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=add?
-
---- add?(o)
-
-Adds the given object to the set and returns self. If the object
-is already in the set, returns nil.
-

@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=
-classes=Logger,Logger=Application,Logger=Error,Logger=Formatter,Logger=LogDevice,Logger=LogDevice=LogDeviceMutex,Logger=Severity,Logger=ShiftingError
-is_sublibrary=false
-
-ログを記録するためのライブラリです。

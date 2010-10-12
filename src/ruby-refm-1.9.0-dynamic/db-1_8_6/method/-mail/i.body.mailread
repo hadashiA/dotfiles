@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=body
-
---- body
-
-本文を行単位の [[c:Array]] で返します。
-

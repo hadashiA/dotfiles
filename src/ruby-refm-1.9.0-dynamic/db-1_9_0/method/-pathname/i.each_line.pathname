@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=each_line
-
---- each_line(*args, &block)
-IO.foreach(self.to_s, *args, &block) と同じです。 (cf. [[m:IO.foreach]])
-
-

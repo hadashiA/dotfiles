@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=syswrite
-
---- syswrite(obj)    -> Integer
-[[m:StringIO#write]] と同じです。
-
-@param obj 書き込みたいオブジェクトを指定します。
-

@@ -1,8 +1,0 @@
-kind=defined
-names=ungetbyte
-visibility=public
-
---- ungetbyte(num) -> nil
-
-@see [[m:IO#ungetbyte]]
-

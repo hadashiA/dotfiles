@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=add_tk_procs
-
---- add_tk_procs(name, args = nil, body = nil)
-

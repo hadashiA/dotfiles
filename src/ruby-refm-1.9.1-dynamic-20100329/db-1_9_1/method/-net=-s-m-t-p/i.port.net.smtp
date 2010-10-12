@@ -1,8 +1,0 @@
-kind=defined
-names=port
-visibility=public
-
---- port
-
-接続するポート番号
-

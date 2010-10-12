@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=DEF_MEM_LEVEL,MAX_MEM_LEVEL
-
---- DEF_MEM_LEVEL
---- MAX_MEM_LEVEL
-
-[[m:Zlib::Deflate.new]] 等に渡す、memory level を表す整数。
-

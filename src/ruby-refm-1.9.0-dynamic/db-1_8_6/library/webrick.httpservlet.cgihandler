@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=webrick.httpstatus,webrick.log,webrick.config,webrick.httpservlet.abstract,webrick.httputils,webrick.httpversion,webrick.version,webrick.utils
-classes=WEBrick=HTTPServlet=CGIHandler
-is_sublibrary=true
-
-

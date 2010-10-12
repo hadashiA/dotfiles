@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=total
-
---- total
-Total time, that is _utime_ + _stime_ + _cutime_ + _cstime_ 
-

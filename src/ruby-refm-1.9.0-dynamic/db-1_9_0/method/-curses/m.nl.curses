@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=nl
-
---- nl
-
-cooked モードのとき、return キーの入力に対して
-LF (Ctrl-j) を返すようにします。
-

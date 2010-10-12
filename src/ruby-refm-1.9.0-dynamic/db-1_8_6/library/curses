@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=
-classes=Curses,Curses=Key,Curses=MouseEvent,Curses=Window
-is_sublibrary=false
-
-端末操作ライブラリ curses の Ruby インターフェイスです。

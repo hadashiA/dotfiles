@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=_retval_
-
---- _retval_ -> object
-
-直前に呼んだダイナミックライブラリの関数の返り値を返します。
-

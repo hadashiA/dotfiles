@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=unknown_proc
-
---- unknown_proc(*arg} { .... }
-

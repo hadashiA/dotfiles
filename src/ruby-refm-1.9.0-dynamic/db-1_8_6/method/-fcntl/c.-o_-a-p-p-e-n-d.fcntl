@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=O_APPEND
-
---- O_APPEND
-open file in append mode.
-

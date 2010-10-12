@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=wrap
-
---- wrap(args...) {|gz| ... }
-
-[[m:Zlib::GzipReader.wrap]] 及び [[m:Zlib::GzipWriter.wrap]] を参照。
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=flush
-
---- flush
-
-キーの全てのデータをレジストリファイルに書き込みます。
-

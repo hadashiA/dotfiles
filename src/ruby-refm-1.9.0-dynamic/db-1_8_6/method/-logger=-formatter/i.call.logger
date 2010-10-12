@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=call
-
---- call(severity, time, progname, msg)
-

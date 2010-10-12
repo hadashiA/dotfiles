@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=enable_ssl
-
---- enable_ssl(context = SMTP.default_ssl_context)
-
-Enable SMTP/SSL.
-

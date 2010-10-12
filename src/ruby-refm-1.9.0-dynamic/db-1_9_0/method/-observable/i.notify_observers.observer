@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=notify_observers
-
---- notify_observers(*arg)
-
-更新フラグが立っていたら、オブザーバの update メソッドを呼び出します。
-与えられた引数はその update メソッドに渡されます。
-更新フラグは false になります。

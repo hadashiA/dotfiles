@@ -1,6 +1,0 @@
-visibility=public
-kind=added
-names=tk_send_to_list_without_enc
-
---- tk_send_to_list_without_enc(cmd, *rest)
-

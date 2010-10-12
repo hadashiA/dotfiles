@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=notify
-
---- notify(ev, tuple, sec = nil)
-
-詳細は [[m:TupleSpace#notify]] 参照
-

@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=dirname
-
---- dirname
-Pathname.new(File.dirname(self.to_s)) と同じです。 (cf. [[m:File.dirname]])
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=do_GET
-
---- do_GET(req, res)
-

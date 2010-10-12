@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=tk_pkgconfig_get
-
---- tk_pkgconfig_get(key)
-

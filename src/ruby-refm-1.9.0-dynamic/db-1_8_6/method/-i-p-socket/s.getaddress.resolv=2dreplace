@@ -1,9 +1,0 @@
-visibility=public
-kind=redefined
-names=getaddress
-
---- getaddress(host)
-
-[[m:IPSocket.getaddress]]の名前解決に [[lib:resolv]] ライブラリを
-使います。
-

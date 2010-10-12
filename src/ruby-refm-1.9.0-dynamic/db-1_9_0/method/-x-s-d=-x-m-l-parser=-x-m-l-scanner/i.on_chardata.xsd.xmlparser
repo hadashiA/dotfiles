@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=on_chardata
-
---- on_chardata(str)
-

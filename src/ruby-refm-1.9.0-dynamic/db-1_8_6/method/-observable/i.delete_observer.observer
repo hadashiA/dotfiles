@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=delete_observer
-
---- delete_observer(observer)
-
-オブザーバを削除します。
-

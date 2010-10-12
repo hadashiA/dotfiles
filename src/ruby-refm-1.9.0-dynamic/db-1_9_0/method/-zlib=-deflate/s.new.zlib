@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new([level[, windowBits[, memlevel[, strategy]]]])
-
-圧縮ストリームを作成します。各引数の詳細は zlib.h を
-参照して下さい。nil の場合はデフォルトの値を使用します。
-

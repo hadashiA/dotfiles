@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=digest,digest.rmd160,digest.md5,digest.sha1,digest.sha2
-classes=Digest=SHA1
-is_sublibrary=true
-
-

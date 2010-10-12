@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=prec_i
-
---- prec_i -> Fixnum
-
-self を [[c:Integer]] に変換します。
-prec(Integer) と等価です。
-

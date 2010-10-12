@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=decode_b
-
---- decode_b(str) -> String
-
-[[m:Base64.#decode_b]] と同じです。
-

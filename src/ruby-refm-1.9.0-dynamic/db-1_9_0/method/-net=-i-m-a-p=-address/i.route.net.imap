@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=route
-
---- route
-
-Returns the route from [[RFC:822]] route-addr.
-

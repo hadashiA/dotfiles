@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=fnmatch
-
---- fnmatch(pattern, *args)
-File.fnmatch(pattern, self.to_s, *args)と同じです。 (cf. [[m:File.fnmatch]])
-

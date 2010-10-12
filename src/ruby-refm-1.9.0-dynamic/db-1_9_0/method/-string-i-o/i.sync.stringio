@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=sync
-
---- sync    -> true
-
-何もせずに true を返します。
-

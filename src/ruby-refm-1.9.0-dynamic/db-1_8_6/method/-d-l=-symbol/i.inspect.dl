@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=inspect
-
---- inspect    -> String
-
-人間が読みやすい形式の文字列を返します。
-

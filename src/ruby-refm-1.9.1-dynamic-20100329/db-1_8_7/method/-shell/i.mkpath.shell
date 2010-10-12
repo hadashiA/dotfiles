@@ -1,9 +1,0 @@
-kind=defined
-names=mkpath
-visibility=public
-
---- mkpath
-
-[[m:Shell#makedirs]] と同じです。
-
-

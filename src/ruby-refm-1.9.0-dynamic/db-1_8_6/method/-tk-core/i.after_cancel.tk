@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=after_cancel
-
---- after_cancel(after_id)
-
-

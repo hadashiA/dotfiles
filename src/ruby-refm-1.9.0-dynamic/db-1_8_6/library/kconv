@@ -1,8 +1,0 @@
-methods=String/i.kconv.kconv,String/i.tojis.kconv,String/i.toeuc.kconv,String/i.tosjis.kconv,String/i.toutf8.kconv,String/i.toutf16.kconv,String/i.iseuc.kconv,String/i.issjis.kconv,String/i.isutf8.kconv
-sublibraries=
-requires=
-classes=Kconv
-is_sublibrary=false
-
-kconv を require すると [[c:String]] クラスに以下のメソッドが定義されます。
-他のメソッドや定数については [[c:Kconv]] を参照してください。

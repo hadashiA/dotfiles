@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=version
-
---- version
-作成するXMLのバージョンを返します．
-

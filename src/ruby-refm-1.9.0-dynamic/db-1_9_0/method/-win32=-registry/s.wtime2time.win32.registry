@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=wtime2time
-
---- wtime2time(wtime)
-
-64bit の [[unknown:FILETIME|URL:http://msdn.microsoft.com/library/en-us/sysinfo/base/filetime_str.asp]] を Time オブジェクトに変換します。
-

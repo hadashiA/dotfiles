@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=delete_if,reject!
-
---- delete_if { |key, value|  ...  }
---- reject! { |key, value|  ...  }
-
-ブロックを評価した値が真であれば該当する項目を削除します。
-

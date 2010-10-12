@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=rewind
-
---- rewind    -> 0
-
-自身の pos と lineno をそれぞれ 0 にします。
-

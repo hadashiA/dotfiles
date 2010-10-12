@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=OCTET_STRING
-
---- OCTET_STRING
-
-OCTET_STRING のタグ番号 4 を表す定数です。
-

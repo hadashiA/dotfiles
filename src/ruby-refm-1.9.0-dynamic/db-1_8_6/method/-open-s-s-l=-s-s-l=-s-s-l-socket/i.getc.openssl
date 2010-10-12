@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=getc
-
---- getc
-
-[[m:IO#getc]] と同様です。
-

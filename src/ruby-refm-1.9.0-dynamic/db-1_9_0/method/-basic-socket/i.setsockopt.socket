@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=setsockopt
-
---- setsockopt(level, optname, optval)
-
-ソケットのオプションを設定します。[[man:setsockopt(2)]]
-を参照してください。
-

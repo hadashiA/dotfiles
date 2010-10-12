@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=audit
-
---- audit
-
-メソッド starting, connecting, disconnecting, stopping をそれぞれ定められた時に呼ぶなら true、そうでないなら false を返します。
-

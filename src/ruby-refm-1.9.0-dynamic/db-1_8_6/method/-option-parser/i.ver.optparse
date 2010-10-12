@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=ver
-
---- ver    -> String
-program_name、version と release から生成したバー
-ジョンを表す文字列を返します。
-

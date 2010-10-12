@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=subject
-
---- subject
-
-Retunns a string that represents the subject.
-

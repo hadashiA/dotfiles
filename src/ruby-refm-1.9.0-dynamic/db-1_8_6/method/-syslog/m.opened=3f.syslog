@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=opened?
-
---- opened?
-
-syslog をオープンしていれば真を返す。
-

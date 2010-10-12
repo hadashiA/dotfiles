@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=utime
-
---- utime(atime, mtime)
-File.utime(atime, mtime, self.to_s) と同じです。 (cf. [[m:File.utime]])
-

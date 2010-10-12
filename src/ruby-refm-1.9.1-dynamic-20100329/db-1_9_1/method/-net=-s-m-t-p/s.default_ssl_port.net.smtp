@@ -1,8 +1,0 @@
-kind=defined
-names=default_ssl_port
-visibility=public
-
---- default_ssl_port
-
-The default SMTP/SSL port number, 465.
-

@@ -1,6 +1,0 @@
-kind=defined
-names=BitString
-visibility=public
-
---- BitString(value ... )
-

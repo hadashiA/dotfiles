@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=Boolean
-
---- Boolean(value [, tag [, tagging [, tag_class]]])
-

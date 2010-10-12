@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=changed?
-
---- changed?
-
-更新フラグの状態を返します。
-

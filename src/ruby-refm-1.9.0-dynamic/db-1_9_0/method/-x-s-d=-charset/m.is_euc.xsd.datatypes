@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=is_euc
-
---- is_euc(str)
-

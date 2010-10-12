@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=nil?
-
---- nil? -> bool
-
-常に true を返します。
-

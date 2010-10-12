@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=encode_string
-
---- encode_string(str)
-

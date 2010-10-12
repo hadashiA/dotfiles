@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=NORMAL,PROGRESS_ONLY,SILENT,VERBOSE
-
---- SILENT
---- PROGRESS_ONLY
---- NORMAL
---- VERBOSE
-

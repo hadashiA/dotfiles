@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=processing_instruction
-
---- processing_instruction(node)
-

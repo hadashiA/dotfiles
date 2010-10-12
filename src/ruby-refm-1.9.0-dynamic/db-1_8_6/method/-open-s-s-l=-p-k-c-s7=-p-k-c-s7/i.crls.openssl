@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=crls,crls=
-
---- crls
---- crls=(s)
-
-CRL を返します。
-

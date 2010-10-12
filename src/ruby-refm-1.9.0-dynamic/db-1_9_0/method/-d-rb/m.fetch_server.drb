@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=fetch_server
-
---- fetch_server(uri)
-
-
-

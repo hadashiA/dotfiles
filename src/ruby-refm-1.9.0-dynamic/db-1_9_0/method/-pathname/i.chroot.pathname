@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=chroot
-
---- chroot
-Dir.chroot(self.to_s) と同じです。 (cf. [[m:Dir.chroot]])
-

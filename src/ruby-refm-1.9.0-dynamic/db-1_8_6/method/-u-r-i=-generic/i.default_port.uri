@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=default_port
-
---- default_port     -> Integer | nil
-
-self.class.default_port を返します。
-

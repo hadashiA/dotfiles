@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=stdlog=
-
---- stdlog=(io)
-
-ログを出力する先の [[c:IO]] オブジェクトを設定します。デフォルトは $stderr です。
-

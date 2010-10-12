@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=rm_rf,rmtree
-
---- rm_rf(list, options = {})
---- rmtree(list, options = {})
-
-rm_r(list, {:force => true}) と同じです。
-

@@ -1,6 +1,0 @@
-visibility=private 
-kind=defined
-names=param2str
-
---- param2str(params)
-

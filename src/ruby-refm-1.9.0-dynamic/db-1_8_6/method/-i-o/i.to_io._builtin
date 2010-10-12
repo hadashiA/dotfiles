@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=to_io
-
---- to_io    -> self
-
-self を返します。
-

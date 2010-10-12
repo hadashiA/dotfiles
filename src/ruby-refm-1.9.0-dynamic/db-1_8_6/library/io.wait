@@ -1,7 +1,0 @@
-methods=IO/i.ready=3f.io.wait,IO/i.wait.io.wait
-sublibraries=
-requires=
-classes=
-is_sublibrary=false
-
-

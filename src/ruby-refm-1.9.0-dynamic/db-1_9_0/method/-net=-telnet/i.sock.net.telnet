@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=sock
-
---- sock
-
-リモートホストに接続している IO オブジェクトを返します。
-
-

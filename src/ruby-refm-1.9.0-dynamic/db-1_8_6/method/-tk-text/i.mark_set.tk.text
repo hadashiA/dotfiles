@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=mark_set,set_mark
-
---- mark_set(mark, index)
---- set_mark(mark, index)
-

@@ -1,7 +1,0 @@
-superclass=Object
-type=class
-library=webrick.httpservlet.abstract
-extended=
-included=
-
-サーブレットの抽象クラス。実装はサブクラスで行なう。

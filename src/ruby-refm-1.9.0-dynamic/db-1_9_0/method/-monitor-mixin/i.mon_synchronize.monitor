@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=mon_synchronize,synchronize
-
---- mon_synchronize { ... }
---- synchronize     { ... }
-
-モニターをロックし、ブロックを実行します。実行後に必ずモニターのロックを解放します。
-

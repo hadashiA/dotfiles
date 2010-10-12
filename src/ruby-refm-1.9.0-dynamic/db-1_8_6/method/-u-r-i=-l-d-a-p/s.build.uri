@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=build
-
---- build(ary)
---- build(hash)
-

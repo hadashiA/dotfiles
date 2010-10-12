@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=trace_vdelete_for_element
-
---- trace_vdelete_for_element(elem, opts, cmd)
-

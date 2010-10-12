@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=irb_jobs,jobs
-
---- jobs
---- irb_jobs
-
-サブ irb のリストを返します。
-

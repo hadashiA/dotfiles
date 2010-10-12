@@ -1,8 +1,0 @@
-visibility=public
-kind=added
-names=use_ssl?
-
---- use_ssl?
-
-HTTP で SSL/TLS を使うなら true を返します。
-

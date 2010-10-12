@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=tmpdir
-classes=Tempfile
-is_sublibrary=false
-
-テンポラリファイルを操作するためのクラスです

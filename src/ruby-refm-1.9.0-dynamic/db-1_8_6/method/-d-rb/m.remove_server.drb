@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=remove_server
-
---- remove_server(server)
-
-
-

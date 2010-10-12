@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=F_SETLK
-
---- F_SETLK
-acquire a lock on a region of a file.
-

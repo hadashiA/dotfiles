@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=
-classes=Vector,Vector=ErrDimensionMismatch,Vector=ErrNotRegular,Vector=ErrOperationNotDefined,Matrix,Matrix=ErrDimensionMismatch,Matrix=ErrNotRegular,Matrix=ErrOperationNotDefined
-is_sublibrary=false
-
-

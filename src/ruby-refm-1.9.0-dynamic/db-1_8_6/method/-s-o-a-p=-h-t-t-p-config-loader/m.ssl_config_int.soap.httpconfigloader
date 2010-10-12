@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=ssl_config_int
-
---- ssl_config_int(value)
-

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=new,new!
-
---- new(r,i)
---- new!(r,i=0)
-
-実部が r、虚部が i である複素数を生成します。
-

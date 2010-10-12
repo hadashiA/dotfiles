@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=ip6_arpa
-
---- ip6_arpa
-
-IPv6 なら RFC3172 で定義された形式で DNS 逆引きのための文字列を返します。
-IPv4 の場合は例外を発生します。
-

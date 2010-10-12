@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=ctime
-
---- ctime(file)
-
-Fileクラスにある同名のクラスメソッドと同じです.
-

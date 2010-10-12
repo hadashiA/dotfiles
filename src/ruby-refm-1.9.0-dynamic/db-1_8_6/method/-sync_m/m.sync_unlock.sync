@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=sync_unlock,unlock
-
---- sync_unlock(mode = EX)
---- unlock(mode = EX)
-ロックを解除する。
-

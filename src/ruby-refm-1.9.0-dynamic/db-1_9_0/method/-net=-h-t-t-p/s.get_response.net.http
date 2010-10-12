@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=get_response
-
---- get_response(uri)
---- get_response(host, path = nil, port = nil)
-

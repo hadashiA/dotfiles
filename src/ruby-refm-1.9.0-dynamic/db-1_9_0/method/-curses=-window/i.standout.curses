@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=standout
-
---- standout
-
-以後書き込む文字を強調表示します。
-

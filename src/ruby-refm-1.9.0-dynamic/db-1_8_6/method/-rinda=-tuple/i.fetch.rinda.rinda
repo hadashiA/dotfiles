@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=fetch
-
---- fetch(key)
-
-ハッシュキー key に対応する要素を返します。
-

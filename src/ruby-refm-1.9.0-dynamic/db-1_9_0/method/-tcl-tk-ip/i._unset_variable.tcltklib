@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=_unset_variable
-
---- _unset_variable(var_name, flag)
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=kinput_attribute_config
-
---- kinput_attribute_config(slot, value = Tk::None)
-

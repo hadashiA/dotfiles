@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=RUBY_PLATFORM
-
---- RUBY_PLATFORM
-
-プラットフォームを示す文字列。
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=starttls
-
---- starttls(cxt = nil)
-
-Sends a STARTTLS command to start TLS session.
-

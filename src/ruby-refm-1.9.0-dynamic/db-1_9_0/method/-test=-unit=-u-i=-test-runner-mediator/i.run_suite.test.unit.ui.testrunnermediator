@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=run_suite
-
---- run_suite
-生成時に与えられた Test::Unit::TestSuite が保持しているテストを実行します。
-実行結果を表す Test::Unit::TestResult オブジェクトを返します。
-

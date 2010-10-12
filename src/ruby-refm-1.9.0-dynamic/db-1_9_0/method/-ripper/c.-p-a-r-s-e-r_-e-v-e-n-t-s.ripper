@@ -1,8 +1,0 @@
-visibility=private 
-kind=defined
-names=PARSER_EVENTS
-
---- PARSER_EVENTS
-
-パーサイベントのイベント ID (シンボル) のリストを返します。
-

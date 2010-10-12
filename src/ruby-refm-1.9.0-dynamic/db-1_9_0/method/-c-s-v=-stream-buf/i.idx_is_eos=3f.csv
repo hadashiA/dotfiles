@@ -1,7 +1,0 @@
-visibility=private 
-kind=defined
-names=idx_is_eos?
-
---- idx_is_eos?(idx)
-
-

@@ -1,8 +1,0 @@
-kind=defined
-names=<<
-visibility=public
-
---- <<
-
-[[m:IO#<<]] と同様です。
-

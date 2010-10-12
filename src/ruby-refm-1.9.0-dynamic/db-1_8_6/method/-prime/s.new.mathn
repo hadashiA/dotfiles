@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new
-
-素数を生成するオブジェクトを作ります。
-

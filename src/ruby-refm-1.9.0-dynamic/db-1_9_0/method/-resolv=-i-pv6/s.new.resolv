@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(address)
-
-16 byte の文字列 address から Resolv::IPv6 のインスタンスを生成します。
-

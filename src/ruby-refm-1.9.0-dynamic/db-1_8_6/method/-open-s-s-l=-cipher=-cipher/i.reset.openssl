@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=reset
-
---- reset
-
-暗号、暗号鍵、暗号化復号化フラグを共にリセットします。
-

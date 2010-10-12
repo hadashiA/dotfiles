@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=BINARY
-
---- BINARY
-
-入力が binary であることを表します。
-

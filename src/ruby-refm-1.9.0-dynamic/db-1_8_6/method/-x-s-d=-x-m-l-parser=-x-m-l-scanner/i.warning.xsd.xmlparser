@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=warning
-
---- warning(msg)
-

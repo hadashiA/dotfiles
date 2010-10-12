@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=guess
-
---- guess(str)
-
-文字列 str のエンコーディングを判定します。戻り値は
-Kconv の定数です。
-

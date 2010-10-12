@@ -1,6 +1,0 @@
-visibility=public
-kind=added
-names=child_type
-
---- child_type(name = nil)
-

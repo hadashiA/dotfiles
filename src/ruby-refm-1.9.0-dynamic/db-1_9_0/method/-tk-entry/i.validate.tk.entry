@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=validate
-
---- validate(mode = nil)
-

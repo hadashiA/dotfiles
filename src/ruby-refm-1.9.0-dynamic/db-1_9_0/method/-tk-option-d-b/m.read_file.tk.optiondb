@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=read_file,readfile
-
---- readfile(file, pri = Tk::None)
---- read_file(file, pri = Tk::None)
-

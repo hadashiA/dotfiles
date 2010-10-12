@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=generate_line
-
---- generate_line(row[, fs = nil[, rs = nil]])
-

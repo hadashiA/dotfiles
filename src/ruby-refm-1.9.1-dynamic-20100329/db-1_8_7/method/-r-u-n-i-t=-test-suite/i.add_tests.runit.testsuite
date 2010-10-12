@@ -1,6 +1,0 @@
-kind=defined
-names=add_tests
-visibility=public
-
---- add_tests(*args)
-

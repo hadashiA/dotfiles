@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=find_enclosed
-
---- find_enclosed(x1, y1, x2, y2)
-
-
-

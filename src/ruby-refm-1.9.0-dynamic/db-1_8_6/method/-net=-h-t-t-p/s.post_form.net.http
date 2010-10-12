@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=post_form
-
---- post_form(uri, params)
-

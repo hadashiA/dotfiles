@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=ehlo
-
---- ehlo(domain)
-
-Dispatch EHLO command (use ESMTP).
-

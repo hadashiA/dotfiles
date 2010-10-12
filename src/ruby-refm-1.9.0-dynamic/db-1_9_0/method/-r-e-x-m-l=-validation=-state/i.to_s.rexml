@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=to_s
-
---- to_s
-

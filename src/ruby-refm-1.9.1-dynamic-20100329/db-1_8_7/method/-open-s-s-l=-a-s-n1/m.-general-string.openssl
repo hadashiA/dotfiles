@@ -1,6 +1,0 @@
-kind=defined
-names=GeneralString
-visibility=public
-
---- GeneralString(value ... )
-

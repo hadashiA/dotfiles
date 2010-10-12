@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=create
-
---- create(type_value, class_value)
-

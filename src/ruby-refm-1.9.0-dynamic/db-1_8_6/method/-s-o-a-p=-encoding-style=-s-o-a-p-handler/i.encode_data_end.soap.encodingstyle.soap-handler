@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=encode_data_end
-
---- encode_data_end(generator, ns, data, parent)
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=def_exception
-
---- def_exception(k, n, m, s = StandardError)
-

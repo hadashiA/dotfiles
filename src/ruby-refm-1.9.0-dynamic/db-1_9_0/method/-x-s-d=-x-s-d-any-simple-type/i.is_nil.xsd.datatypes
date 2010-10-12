@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=is_nil,is_nil=
-
---- is_nil
---- is_nil=(bool)
-

@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=string,to_s
-
---- string
---- to_s
-

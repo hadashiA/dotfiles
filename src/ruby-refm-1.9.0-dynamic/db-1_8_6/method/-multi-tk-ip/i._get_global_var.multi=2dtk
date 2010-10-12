@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=_get_global_var
-
---- _get_global_var(var)
-

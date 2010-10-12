@@ -1,7 +1,0 @@
-methods=
-sublibraries=dl.types,dl.struct,dl.win32,dl.import
-requires=
-classes=
-is_sublibrary=false
-
-

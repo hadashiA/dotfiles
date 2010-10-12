@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=stat
-
---- stat(file)
-
-Fileクラスにある同名のクラスメソッドと同じです.
-

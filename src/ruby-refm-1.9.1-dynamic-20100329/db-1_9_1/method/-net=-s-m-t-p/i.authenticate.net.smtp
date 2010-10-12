@@ -1,6 +1,0 @@
-kind=defined
-names=authenticate
-visibility=public
-
---- authenticate(user, secret, authtype)
-

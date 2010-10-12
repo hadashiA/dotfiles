@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=make_tuple
-
---- make_tuple(ary)
-
-Creates a Rinda::Tuple for +ary+.
-

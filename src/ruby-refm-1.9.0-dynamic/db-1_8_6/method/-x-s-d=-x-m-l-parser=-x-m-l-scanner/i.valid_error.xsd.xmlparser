@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=valid_error
-
---- valid_error(msg)
-

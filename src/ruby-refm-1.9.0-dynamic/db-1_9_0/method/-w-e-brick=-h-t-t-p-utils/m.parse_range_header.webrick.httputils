@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=parse_range_header
-
---- parse_range_header(ranges_specifier)
-

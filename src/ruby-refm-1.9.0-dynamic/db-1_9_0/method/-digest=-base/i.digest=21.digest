@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=digest!
-
---- digest!
-
-Returns the resulting hash value and resets the digest to the initial state. 
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=each_key
-
---- each_key {|key|  ...  }
-
-全ての key に対して繰り返すイテレータです。
-

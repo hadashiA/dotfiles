@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=bell_on_display
-
---- bell_on_display(win, nice = false)
-

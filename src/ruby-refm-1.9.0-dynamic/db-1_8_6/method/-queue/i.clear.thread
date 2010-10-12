@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=clear
-
---- clear
-queue を空にします。返り値は不定です。
-

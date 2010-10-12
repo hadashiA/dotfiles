@@ -1,6 +1,0 @@
-kind=defined
-names=on_default
-visibility=private 
-
---- on_default(event, token, data)
-

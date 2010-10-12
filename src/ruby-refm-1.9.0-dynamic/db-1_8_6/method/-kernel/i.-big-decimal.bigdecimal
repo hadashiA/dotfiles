@@ -1,7 +1,0 @@
-visibility=private 
-kind=added
-names=BigDecimal
-
---- BigDecimal(s [, n])
-詳細は [[m:BigDecimal.new]] を参照
-

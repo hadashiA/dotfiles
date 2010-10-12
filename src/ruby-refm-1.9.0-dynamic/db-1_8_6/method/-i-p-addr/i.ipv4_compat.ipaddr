@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=ipv4_compat
-
---- ipv4_compat
-
-IPv4 アドレスから IPv4 互換 IPv6 アドレスの
-新しい IPAddr オブジェクトを返します。
-

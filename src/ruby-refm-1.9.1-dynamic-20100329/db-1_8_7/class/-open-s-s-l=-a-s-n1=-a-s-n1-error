@@ -1,7 +1,0 @@
-superclass=OpenSSL=OpenSSLError
-type=class
-library=openssl
-extended=
-included=
-
-OpenSSL::OpenSSLError を継承した例外です。

@@ -1,6 +1,0 @@
-kind=defined
-names=not_modified?
-visibility=public
-
---- not_modified?(req, res, mtime, etag)
-

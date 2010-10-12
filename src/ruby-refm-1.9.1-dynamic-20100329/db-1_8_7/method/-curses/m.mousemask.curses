@@ -1,6 +1,0 @@
-kind=defined
-names=mousemask
-visibility=public
-
---- mousemask(mask)
-

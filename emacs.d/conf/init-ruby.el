@@ -4,7 +4,7 @@
 (add-to-load-path "~/.emacs.d/elisp/ruby-mode/")
 (when (require 'ruby-mode nil t)
   ;; magickコメントを入れない
-  (defun ruby-mode-set-encoding () ())
+  ;; (defun ruby-mode-set-encoding () ())
 
   (setq ruby-indent-level 2
         ruby-indent-tabs-mode nil

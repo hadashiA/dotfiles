@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=valid_fields
-
---- valid_fields(group_flag = nil)
-

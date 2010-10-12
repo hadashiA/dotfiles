@@ -1,7 +1,0 @@
-visibility=public
-kind=redefined
-names=ARGV
-
---- ARGV
-optparse を require することにより、ARGV は 
-[[c:OptionParser::Arguable]] を extend します。

@@ -1,7 +1,0 @@
-superclass=Object
-type=class
-library=win32ole
-extended=
-included=
-
-WIN32OLE_METHOD objects represent OLE method information.

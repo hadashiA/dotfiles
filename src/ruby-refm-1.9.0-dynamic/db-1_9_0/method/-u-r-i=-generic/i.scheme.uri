@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=scheme
-
---- scheme    -> String | nil
-
-自身の scheme を返します。設定されていない場合は nil を返します。
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=collect2
-
---- collect2(v) {|x, y| ... }
-
-ベクトルの各要素と、それに対応するインデックスを持つ引数 v の要素との組に対して (2引数の) ブロックを評価し、その結果を要素として持つ配列を生成します。
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=[]
-
---- [](i)
-
-i 番目の要素を返します。インデックスは 0 から開始します。
-

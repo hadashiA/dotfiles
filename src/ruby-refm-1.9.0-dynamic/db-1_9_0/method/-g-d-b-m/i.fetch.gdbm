@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=fetch
-
---- fetch(key[,ifnone])
---- fetch(key) {|key| ... }
-
-[[m:Hash#fetch]] と同じです。
-

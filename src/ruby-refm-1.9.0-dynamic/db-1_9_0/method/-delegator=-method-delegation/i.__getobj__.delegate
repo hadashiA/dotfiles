@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=__getobj__
-
---- __getobj__
-
-This method must be overridden by subclasses and should return
-the object method calls are being delegated to.
-

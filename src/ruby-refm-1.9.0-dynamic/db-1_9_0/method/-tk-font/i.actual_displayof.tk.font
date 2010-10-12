@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=actual_displayof
-
---- actual_displayof(win, option = nil)
-

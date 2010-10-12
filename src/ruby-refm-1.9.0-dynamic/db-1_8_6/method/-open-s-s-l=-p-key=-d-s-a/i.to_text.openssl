@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=to_text
-
---- to_text
-
-人間が読める形式にして返します。
-

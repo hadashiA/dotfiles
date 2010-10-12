@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=return_code=
-
---- return_code=(string)
-
-現在のセッションの改行コードを設定します。新しい改行コードを返します。
-

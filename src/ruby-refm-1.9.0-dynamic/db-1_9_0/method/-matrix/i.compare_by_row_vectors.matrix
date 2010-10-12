@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=compare_by_row_vectors
-
---- compare_by_row_vectors(rows)
-
-Not really intended for general consumption.
-

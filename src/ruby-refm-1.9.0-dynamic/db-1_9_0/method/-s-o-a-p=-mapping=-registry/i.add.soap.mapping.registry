@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=add,set
-
---- add(obj_class, soap_class, factory, info = nil)
---- set(obj_class, soap_class, factory, info = nil)
-

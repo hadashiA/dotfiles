@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=show_kinsoku
-
---- show_kinsoku(mode = 'both')
-

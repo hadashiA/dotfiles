@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=class_from_name
-
---- class_from_name(name, lenient = false)
-

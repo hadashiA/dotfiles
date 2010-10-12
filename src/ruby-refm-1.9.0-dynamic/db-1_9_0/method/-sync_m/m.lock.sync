@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=lock,sync_lock
-
---- sync_lock(mode = EX)
---- lock(mode = EX)
-ロック状態を変更する。
-変更できるまで現在のスレッドの実行をブロックする。
-

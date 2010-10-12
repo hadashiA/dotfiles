@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=lchmod
-
---- lchmod(mode)
-File.lchmod(mode, self.to_s)と同じです。 (cf. [[m:File.lchmod]])
-

@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=soap.baseData,wsdl.soap.classDefCreatorSupport,soap.rpc.element,soap.mapping,wsdl.info,soap.mapping.rubytypeFactory,soap.mapping.registry,soap.mapping.typeMap,soap.soap,soap.mapping.factory,soap.mapping.mapping,xsd.codegen.gensupport
-classes=WSDL=SOAP=MethodDefCreator
-is_sublibrary=true
-
-

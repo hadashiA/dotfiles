@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=O_RDONLY
-
---- O_RDONLY
-open read-only.
-

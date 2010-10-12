@@ -1,9 +1,0 @@
-superclass=Object
-type=class
-library=gdbm
-extended=
-included=Enumerable
-
-GDBM ファイルをアクセスするクラス。キー、データともに文字列でなければな
-らないという制限と、データがファイルに保存されるという点を除いては
-Hash クラスと全く同様に扱うことができます。

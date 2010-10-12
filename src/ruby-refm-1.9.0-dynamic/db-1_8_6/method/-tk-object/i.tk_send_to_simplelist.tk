@@ -1,6 +1,0 @@
-visibility=public
-kind=added
-names=tk_send_to_simplelist
-
---- tk_send_to_simplelist(cmd, *rest)
-

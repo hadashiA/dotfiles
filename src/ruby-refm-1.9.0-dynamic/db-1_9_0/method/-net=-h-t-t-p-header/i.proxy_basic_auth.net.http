@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=proxy_basic_auth
-
---- proxy_basic_auth(account, password)
-
-Proxy 認証のために Proxy-Authrization: ヘッダをセットします。
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=split_header_value
-
---- split_header_value(str)
-

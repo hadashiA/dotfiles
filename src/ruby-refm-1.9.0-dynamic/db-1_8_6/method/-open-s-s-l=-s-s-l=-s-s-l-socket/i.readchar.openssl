@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=readchar
-
---- readchar
-
-[[m:IO#readchar]] と同様です。
-

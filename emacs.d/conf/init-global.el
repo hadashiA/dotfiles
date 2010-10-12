@@ -112,6 +112,8 @@
 (setq Info-default-directory-list
       (cons (expand-file-name "~/.emacs.d/info/") Info-default-directory-list))
 
+(turn-off-auto-fill)
+
 ;; 記号やその他の文字等を正しくマッピングする
 ;; Emacs辞典p.395
 ;; http://www.pqrs.org/~tekezo/emacs/doc/wide-character/index.html
@@ -157,6 +159,6 @@
         (t (self-insert-command (or arg 1)))))
 
 (when (require 'point-undo nil t)
-  (global-set-key (kbd "C-c C-/") 'point-undo)
-  (global-set-key (kbd "C-c C-c C-/") 'point-redo)
+  (global-set-key (kbd "C-?") 'point-undo)
+  (global-set-key (kbd "C-?") 'point-redo)
   )

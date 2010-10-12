@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=image_cget
-
---- image_cget(index, slot)
-

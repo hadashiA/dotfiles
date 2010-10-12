@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=clone
-
---- clone
-
-Clone support for the object returned by __getobj__.
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=read_entries
-
---- read_entries(file, f_enc = nil)
-

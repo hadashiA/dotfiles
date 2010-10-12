@@ -1,8 +1,0 @@
-kind=defined
-names=serve
-visibility=public
-
---- serve(io)
-
-何もしません。サブクラスでオーバーライドします。
-

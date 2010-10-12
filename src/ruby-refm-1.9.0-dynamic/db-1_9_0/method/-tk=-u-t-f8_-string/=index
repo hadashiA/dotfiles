@@ -1,2 +1,0 @@
-.new	Tk::UTF8_String.new
-:Encoding	Tk::UTF8_String::Encoding

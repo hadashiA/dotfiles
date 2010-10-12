@@ -50,7 +50,7 @@
                    ad-do-it))))
     ad-do-it))
 
-(defun matelike-delete-pair ()
+(defun matelike-delete-pair (&optional n)
   "wrap delete-pair only specify char"
   (interactive)
   (if (assoc (char-after (point)) matelike-delete-pair-alist)

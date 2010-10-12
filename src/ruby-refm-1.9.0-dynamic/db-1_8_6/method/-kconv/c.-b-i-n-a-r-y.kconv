@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=BINARY
-
---- BINARY
-
-JIS EUC SJIS 以外を表します。
-

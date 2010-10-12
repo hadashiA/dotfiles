@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=<<,add_row
-
---- <<(row)
---- add_row(row)
-

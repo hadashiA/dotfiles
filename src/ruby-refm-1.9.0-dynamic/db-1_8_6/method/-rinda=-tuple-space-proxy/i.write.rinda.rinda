@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=write
-
---- write(tuple, sec = nil)
-
-詳細は [[m:TupleSpace#write]] 参照

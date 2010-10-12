@@ -1,7 +1,0 @@
-superclass=Object
-type=class
-library=thwait
-extended=
-included=
-
-provides synchronization for multiple threads.

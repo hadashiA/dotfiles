@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=[]=
-
---- []=(key, val)
-
-指定されたキーの値を設定します。
-

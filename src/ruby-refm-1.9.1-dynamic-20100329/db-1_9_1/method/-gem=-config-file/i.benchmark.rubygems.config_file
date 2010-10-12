@@ -1,8 +1,0 @@
-kind=defined
-names=benchmark
-visibility=public 
-
---- benchmark -> bool
-
-真の場合はベンチマークを実行します。
-

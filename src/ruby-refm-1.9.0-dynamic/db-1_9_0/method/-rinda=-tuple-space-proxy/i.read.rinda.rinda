@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=read
-
---- read(tuple, sec = nil){|template| ... }
-
-詳細は [[m:TupleSpace#read]] 参照
-

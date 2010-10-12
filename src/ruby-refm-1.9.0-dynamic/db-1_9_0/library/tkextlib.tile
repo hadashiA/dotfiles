@@ -1,7 +1,0 @@
-methods=
-sublibraries=tkextlib.tile.setup,tkextlib.tile.tradiobutton,tkextlib.tile.tcheckbutton,tkextlib.tile.tmenubutton,tkextlib.tile.tnotebook,tkextlib.tile.tlabel,tkextlib.tile.tbutton,tkextlib.tile.style
-requires=tk.optionobj,tk.tagfont,tk.button,tk.virtevent,tcltklib,tk.mngfocus,tk.scrollbox,tk.spinbox,tk.autoload,tk.optiondb,tk.txtwin_abst,tk.scrollbar,tk.event,tk.menu,tk.canvastag,tk.itemconfig,tk.dialog,tkextlib.tile.tlabel,tk.canvas,tk.macpkg,tkextlib.tile.style,tk.msgcat,tk.scrollable,tk.clipboard,tk.texttag,tk.root,tkutil,tkextlib.tile.tbutton,tkextlib.setup,tk.console,tk.text,tk.encodedstr,tk.winfo,tk.textmark,tk.frame,tk.place,tk.radiobutton,tk.winpkg,tk.bgerror,tk.menuspec,tkextlib.tile.tmenubutton,tk.itemfont,tk,tk.menubar,tk.listbox,tk.label,tk.toplevel,tkextlib.tile.tnotebook,tkextlib.tile.tcheckbutton,tk.composite,tk.wm,tk.font,tk.timer,tk.entry,tk.image,tk.kinput,tk.selection,tk.namespace,tk.palette,tk.scale,tk.pack,tk.bindtag,tk.xim,tkextlib.tile.setup,tk.textwindow,tk.package,tk.labelframe,tk.message,tkextlib.tile.tradiobutton,tk.variable,tk.clock,tk.textimage,tk.panedwindow,tk.grid,tk.validation,tk.checkbutton
-classes=Tk=Tile,Tk=Tile=TileWidget
-is_sublibrary=true
-
-

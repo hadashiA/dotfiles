@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=charset_map
-
---- charset_map
-
-Returns the map from canonical name to system dependent name.
-

@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=must_C_version
-
----  StringScanner.must_C_version 
-This method is defined for backward compatibility.
-

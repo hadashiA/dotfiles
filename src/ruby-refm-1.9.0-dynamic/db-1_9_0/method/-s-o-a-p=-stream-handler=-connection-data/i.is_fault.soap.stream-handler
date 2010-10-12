@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=is_fault,is_fault=
-
---- is_fault
---- is_fault=(value)
-

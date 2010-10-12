@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=config
-
---- config     -> Hash
-サーバの設定を保存したハッシュを返す。
-

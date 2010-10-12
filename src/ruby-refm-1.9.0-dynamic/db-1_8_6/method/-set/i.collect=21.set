@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=collect!,map!
-
---- map! {|o| ...}
---- collect! {|o| ...}
-
-Do collect() destructively.
-

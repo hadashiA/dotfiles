@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=check
-
---- check
-
-Sends a CHECK command to request a checkpoint of the currently
-selected mailbox.
-

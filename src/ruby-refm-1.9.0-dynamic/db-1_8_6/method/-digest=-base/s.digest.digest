@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=digest
-
---- digest(str)
-
-与えられた文字列に対するハッシュ値を文字列で返す。
-new(str).digest と等価。
-

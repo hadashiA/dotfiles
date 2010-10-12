@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=set_translation_list
-
---- set_translation_list(locale, trans_list, enc = "utf-8")
-

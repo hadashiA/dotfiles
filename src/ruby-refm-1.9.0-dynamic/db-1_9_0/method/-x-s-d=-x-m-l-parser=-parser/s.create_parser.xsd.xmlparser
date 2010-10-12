@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=create_parser
-
---- create_parser(host, opt = {})
-

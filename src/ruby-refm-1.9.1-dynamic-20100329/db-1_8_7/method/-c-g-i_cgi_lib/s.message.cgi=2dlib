@@ -1,6 +1,0 @@
-kind=defined
-names=message
-visibility=public
-
---- message(message, title = "", header = ["Content-Type: text/html"])
-

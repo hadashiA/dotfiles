@@ -1,5 +1,0 @@
-visibility=public
-kind=defined
-names=new
-
---- new(text, parent = nil, keys = {})

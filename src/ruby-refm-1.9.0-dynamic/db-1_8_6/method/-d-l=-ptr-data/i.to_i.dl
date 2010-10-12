@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=to_i
-
---- to_i    -> Integer
-
-自身が指すアドレスを整数で返します。
-

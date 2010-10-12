@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=<<,add
-
---- add(o)
---- << o
-
-集合にオブジェクト o を加え、その集合自身を返します。
-

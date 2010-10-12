@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=prompt_s
-
---- prompt_s
-
-文字列中のプロンプトを表現するフォーマット文字列を返します。
-

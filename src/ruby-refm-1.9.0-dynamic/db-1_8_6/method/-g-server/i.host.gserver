@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=host
-
---- host
-
-ホストを文字列で返します。
-

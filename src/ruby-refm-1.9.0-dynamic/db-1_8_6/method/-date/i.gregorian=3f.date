@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=gregorian?
-
---- gregorian? -> bool
-グレゴリオ暦なら真を返します。
-
-

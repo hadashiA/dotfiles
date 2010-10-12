@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=sent_size
-
---- sent_size    -> Intger
-
-クライアントに送られた内容(エンティティボディ)のバイト数を表す整数を返します。
-

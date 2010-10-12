@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=load
-
---- load(filename)     -> bool
-
-file を読み込んで各行に対して parse を行ないます。
-

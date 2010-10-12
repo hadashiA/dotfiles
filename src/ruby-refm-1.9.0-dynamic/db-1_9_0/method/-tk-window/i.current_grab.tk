@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=current_grab,grab_current
-
---- grab_current
---- current_grab
-

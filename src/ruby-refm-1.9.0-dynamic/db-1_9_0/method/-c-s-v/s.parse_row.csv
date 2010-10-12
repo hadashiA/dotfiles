@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=parse_row
-
---- parse_row(src, index, out_dev[, fs = nil[, rs = nil]])
-

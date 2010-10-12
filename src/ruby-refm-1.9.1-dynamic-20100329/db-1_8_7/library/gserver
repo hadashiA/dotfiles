@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=
-classes=GServer
-is_sublibrary=false
-
-サーバを実装するためのライブラリです。

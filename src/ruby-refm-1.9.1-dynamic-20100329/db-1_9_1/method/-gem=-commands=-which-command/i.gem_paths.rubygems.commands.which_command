@@ -1,9 +1,0 @@
-kind=defined
-names=gem_paths
-visibility=public 
-
---- gem_paths(spec) -> Array
-
-
-@param spec
-

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=proper_subset?
-
---- proper_subset?(set)
-
-集合が与えられた集合 set に真に含まれる場合に true を返します。つまり、
-ふたつの集合が等しい場合には false を返します。
-

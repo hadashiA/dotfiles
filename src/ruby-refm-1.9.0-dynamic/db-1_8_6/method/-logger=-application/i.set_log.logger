@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=set_log
-
---- set_log(logdev, shift_age = 0, shift_size = 1024000)
-

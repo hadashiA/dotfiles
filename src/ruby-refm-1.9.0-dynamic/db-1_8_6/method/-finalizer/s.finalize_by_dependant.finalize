@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=finalize_by_dependant
-
---- finalize_by_dependant(dependant, method = :finalize)
-

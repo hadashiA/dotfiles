@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=proxy_place
-
---- proxy_place(x, y)
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=auth_login
-
---- auth_login(user, secret)
-
-Login authentication.
-

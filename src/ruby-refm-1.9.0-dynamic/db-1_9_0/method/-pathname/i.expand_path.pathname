@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=expand_path
-
---- expand_path(*args)
-Pathname.new(File.expand_path(self.to_s, *args)) と同じです。 (cf. [[m:File.expand_path]])
-

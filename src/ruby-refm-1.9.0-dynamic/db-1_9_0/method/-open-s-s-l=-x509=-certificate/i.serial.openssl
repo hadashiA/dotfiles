@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=serial,serial=
-
---- serial
---- serial=(serial)
-
-発行者 (CA) が証明書に付ける識別番号です。
-

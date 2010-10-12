@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=b64encode
-
---- b64encode(bin, len = 60) -> ()
-
-[[m:Base64.#b64encode]] と同じです。
-
-

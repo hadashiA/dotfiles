@@ -1,8 +1,0 @@
-kind=defined
-names=rm_f
-visibility=public
-
---- rm_f
-
-[[m:Shell#safe_unlink]] と同じです。
-

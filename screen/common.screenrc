@@ -49,10 +49,14 @@ setenv SCRCOPYCMD "cat $SCRCOPYBUFFER | xsel -i"
 bufferfile $SCRCOPYBUFFER
 
 # pass copy buffer to xclip
-bindkey -m ' ' eval 'stuff \040' writebuf "exec !!! zsh -c '$SCRCOPYCMD'"
-bindkey -m Y eval 'stuff Y' writebuf "exec !!! zsh -c '$SCRCOPYCMD'"
-bindkey -m y eval 'stuff y' writebuf "exec !!! zsh -c '$SCRCOPYCMD'"
-bindkey -m W eval 'stuff W' writebuf "exec !!! zsh -c '$SCRCOPYCMD'"
+# bindkey -m ' ' eval 'stuff \040' writebuf "exec !!! zsh -c '$SCRCOPYCMD'"
+# bindkey -m Y eval 'stuff Y' writebuf "exec !!! zsh -c '$SCRCOPYCMD'"
+# bindkey -m y eval 'stuff y' writebuf "exec !!! zsh -c '$SCRCOPYCMD'"
+# bindkey -m W eval 'stuff W' writebuf "exec !!! zsh -c '$SCRCOPYCMD'"
+bindkey -m ' ' eval 'stuff \040' 'writebuf $HOME/tmp/screen-exchange' 'exec !!! sh -c "cat $HOME/tmp/screen-exchange | pbcopy"'
+bindkey -m Y   eval 'stuff Y'    'writebuf $HOME/tmp/screen-exchange' 'exec !!! sh -c "cat $HOME/tmp/screen-exchange | pbcopy"'
+bindkey -m y   eval 'stuff y'    'writebuf $HOME/tmp/screen-exchange' 'exec !!! sh -c "cat $HOME/tmp/screen-exchange | pbcopy"'
+bindkey -m W   eval 'stuff W'    'writebuf $HOME/tmp/screen-exchange' 'exec !!! sh -c "cat $HOME/tmp/screen-exchange | pbcopy"'
 
 # paste from xclip
 setenv SCRYANKCMD "xsel -o > $SCRCOPYBUFFER"

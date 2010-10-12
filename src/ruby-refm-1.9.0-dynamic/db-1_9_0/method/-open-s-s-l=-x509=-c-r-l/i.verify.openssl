@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=verify
-
---- verify(key)
-
-発行者の公開鍵で CRL に記載されている署名を検証します。
-

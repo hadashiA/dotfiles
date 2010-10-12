@@ -1,9 +1,0 @@
-kind=defined
-names=issuer_certificate,issuer_certificate=
-visibility=public
-
---- issuer_certificate
---- issuer_certificate=(name)
-
-issuer の証明書を設定します。
-

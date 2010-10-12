@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=find_closest
-
---- find_closest(x, y, halo = Tk::None, start = Tk::None)
-
-
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=yday
-
---- yday    -> Integer  
-
-1月1日を1とした通算日(1から366まで)を整数で返します。
-

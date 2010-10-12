@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=ip_eval
-
---- ip_eval(cmd_string)
-

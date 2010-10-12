@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=proxy_class?
-
---- proxy_class?
-
-自身が (Proxy メソッドによって作成された) プロクシ用のクラスならば真。
-

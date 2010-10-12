@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=abs
-
---- abs
-複素数の絶対値を返します。
-

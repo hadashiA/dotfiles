@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=error_message
-
---- error_message
-現在のエラーのエラーメッセージを返します。エラーが発生していな
-ければ、nil を返します。
-

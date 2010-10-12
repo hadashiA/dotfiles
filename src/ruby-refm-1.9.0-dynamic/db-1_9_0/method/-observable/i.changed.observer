@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=changed
-
---- changed(state = true)
-
-更新フラグを立てます。
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=assigned_tag?
-
---- assigned_tag?(tag)
-

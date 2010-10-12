@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=send_request
-
---- send_request(name, path, data = nil, header = nil)
-

@@ -1,7 +1,0 @@
-methods=
-sublibraries=
-requires=webrick.httpstatus,webrick.log,webrick.config,webrick.httputils,webrick.httpauth.authenticator,webrick.httpversion,webrick.version,webrick.utils
-classes=WEBrick=HTTPAuth=BasicAuth,WEBrick=HTTPAuth=ProxyBasicAuth
-is_sublibrary=true
-
-

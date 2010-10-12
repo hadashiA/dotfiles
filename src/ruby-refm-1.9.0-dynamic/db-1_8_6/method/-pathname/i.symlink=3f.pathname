@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=symlink?
-
---- symlink?
-FileTest.symlink?(self.to_s) と同じです。 (cf. [[m:FileTest.#symlink?]])
-
-

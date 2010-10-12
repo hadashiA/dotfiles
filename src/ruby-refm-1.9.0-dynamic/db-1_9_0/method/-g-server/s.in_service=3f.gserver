@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=in_service?
-
---- in_service?(port, host = DEFAULT_HOST)
-
-与えられた host と port で GServer オブジェクトが同じプロセス内で
-サービス中なら真を返します。
-

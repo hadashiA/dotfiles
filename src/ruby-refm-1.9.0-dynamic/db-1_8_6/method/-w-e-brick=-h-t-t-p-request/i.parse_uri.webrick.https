@@ -1,6 +1,0 @@
-visibility=public
-kind=redefined
-names=parse_uri
-
---- parse_uri(str, scheme = "http")
-

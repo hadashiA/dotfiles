@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=endpoint_url,endpoint_url=
-
---- endpoint_url
---- endpoint_url=(endpoint_url)
-

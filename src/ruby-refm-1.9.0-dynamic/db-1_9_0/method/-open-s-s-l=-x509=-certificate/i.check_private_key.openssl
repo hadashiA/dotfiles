@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=check_private_key
-
---- check_private_key(pkey)
-
-与えられた秘密鍵が証明書に記載されている subject の公開鍵と対応するものかを確かめます。
-

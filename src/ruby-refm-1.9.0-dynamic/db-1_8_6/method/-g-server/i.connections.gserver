@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=connections
-
---- connections()
-
-現在接続しているクライアントの数を返します。
-

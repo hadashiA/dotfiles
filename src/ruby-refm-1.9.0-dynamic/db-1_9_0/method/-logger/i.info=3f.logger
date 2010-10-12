@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=info?
-
---- info?
-
-現在の Logger オブジェクトが INFO 以上の重要度のメッセージを記録するなら
-真を返します。
-

@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=atime
-
---- atime
-[[m:File.atime]]の第一引数に self.to_s を渡したものと同じです。
-

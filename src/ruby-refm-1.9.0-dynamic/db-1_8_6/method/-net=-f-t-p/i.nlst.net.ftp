@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=nlst
-
---- nlst(dir = nil)
-
-dir で指定したディレクトリのファイルの配列を返します。
-dir を省略した場合カレントディレクトリが指定されます。
-

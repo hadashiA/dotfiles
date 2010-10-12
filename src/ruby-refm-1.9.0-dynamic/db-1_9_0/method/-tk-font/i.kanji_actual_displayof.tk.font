@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=kanji_actual_displayof
-
---- kanji_actual_displayof(win, option = nil)
-

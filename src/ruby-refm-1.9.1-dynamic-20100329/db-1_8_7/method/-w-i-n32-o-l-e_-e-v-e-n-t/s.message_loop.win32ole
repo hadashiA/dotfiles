@@ -1,8 +1,0 @@
-kind=defined
-names=message_loop
-visibility=public
-
---- message_loop
-
-Translates and dispatches Windows message.
-

@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=oid,oid=
-
----oid
----oid=(oid)
-
-OID を文字列で設定します。
-

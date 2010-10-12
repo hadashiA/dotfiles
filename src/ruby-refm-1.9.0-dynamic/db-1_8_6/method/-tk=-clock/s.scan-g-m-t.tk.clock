@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=scanGMT
-
---- scanGMT(str, base = nil)
-

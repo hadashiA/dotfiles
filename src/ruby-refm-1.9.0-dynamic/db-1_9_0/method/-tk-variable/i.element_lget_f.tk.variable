@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=element_lget_f
-
---- element_lget_f(elem_idxs, idx)
-

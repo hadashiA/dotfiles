@@ -1,7 +1,0 @@
-superclass=Object
-type=class
-library=yaml
-extended=
-included=
-
-YAMLドキュメントを複数保持することができるストリームクラスです。

@@ -1,8 +1,0 @@
-visibility=public
-kind=added
-names=abbrev
-
---- abbrev(pattern = nil)
-
-[[m:Abbrev.#abbrev]](self, pattern) と同じです。
-

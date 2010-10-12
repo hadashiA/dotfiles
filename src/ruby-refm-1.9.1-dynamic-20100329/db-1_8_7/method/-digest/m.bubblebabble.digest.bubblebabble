@@ -1,6 +1,0 @@
-kind=added
-names=bubblebabble
-visibility=public
-
---- bubblebabble(string)
-Returns a BubbleBabble encoded version of a given string.

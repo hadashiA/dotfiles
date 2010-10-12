@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=parse_local
-
---- parse_local(elem)
-

@@ -1,6 +1,0 @@
-kind=defined
-names=warning
-visibility=private 
-
---- warning(fmt, *args)
-

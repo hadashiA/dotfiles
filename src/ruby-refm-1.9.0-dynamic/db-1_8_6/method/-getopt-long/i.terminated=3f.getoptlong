@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=terminated?
-
---- terminated?
-エラーが起きずにオプションの処理が終了しているときは TRUE が
-返ります。それ以外のときは、FALSE が返ります。
-

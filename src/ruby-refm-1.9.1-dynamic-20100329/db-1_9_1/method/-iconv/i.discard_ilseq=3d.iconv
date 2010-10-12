@@ -1,8 +1,0 @@
-kind=defined
-names=discard_ilseq=
-visibility=public
-
---- discard_ilseq=
-
-Sets discard_ilseq flag.
-

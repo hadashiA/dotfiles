@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=chown
-
---- chown(owner, group)
-File.chown(owner, group, self.to_s)と同じです。 (cf. [[m:File.chown]])
-

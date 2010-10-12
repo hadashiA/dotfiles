@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=unlink
-
---- unlink(path)
-
-pathがファイルなら, File#unlink
-pathがディレクトリなら, Dir#unlink
-

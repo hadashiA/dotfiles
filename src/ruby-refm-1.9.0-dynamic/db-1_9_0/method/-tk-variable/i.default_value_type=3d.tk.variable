@@ -1,7 +1,0 @@
-visibility=public
-kind=defined
-names=default_value_type=,set_default_value_type
-
---- default_value_type=
---- set_default_value_type(type)
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=asciifont_copy,latinfont_copy
-
---- latinfont_copy(win, wintag = nil, winkey = nil, targetkey = nil)
---- asciifont_copy(win, wintag = nil, winkey = nil, targetkey = nil)
-
-

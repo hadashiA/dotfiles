@@ -1,6 +1,0 @@
-visibility=protected 
-kind=defined
-names=expand_ref_in
-
---- expand_ref_in(arry, ind)
-

@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=index
-
---- index(val)
-
-[[m:Hash#index]] と同じです。
-

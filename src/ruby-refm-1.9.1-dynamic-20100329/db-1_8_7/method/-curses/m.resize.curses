@@ -1,8 +1,0 @@
-kind=defined
-names=resize,resizeterm
-visibility=public
-
---- resize(lin, col)
---- resizeterm(lin, col)
-
-

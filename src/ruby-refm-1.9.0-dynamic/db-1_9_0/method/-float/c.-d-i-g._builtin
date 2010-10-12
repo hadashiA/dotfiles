@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=DIG
-
---- DIG
-
-Float が表現できる最大の 10 進桁数
-

@@ -1,9 +1,0 @@
-methods=Thread/s.exclusive.thread
-sublibraries=
-requires=
-classes=ConditionVariable,Mutex,Queue,SizedQueue
-is_sublibrary=false
-
-[[c:Thread]]を拡張するライブラリです．rubyインタプリタを
-デバッグオプション付き([[m:$DEBUG]]を真)で実行したときには，
-[[m:Thread.abort_on_exception]]をtrueにします

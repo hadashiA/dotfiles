@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=user
-
---- user    -> String | nil
-
-自身の userinfo を返します。userinfo が「username:password」の形式である場合は、username 部を返します。
-設定されていない場合は nil を返します。
-

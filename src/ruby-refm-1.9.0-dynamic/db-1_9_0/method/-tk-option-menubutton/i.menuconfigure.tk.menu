@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=menuconfigure
-
---- menuconfigure(key, val = Tk::None)
-

@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=predicate_to_string
-
---- predicate_to_string(path) {|path| ... }
-

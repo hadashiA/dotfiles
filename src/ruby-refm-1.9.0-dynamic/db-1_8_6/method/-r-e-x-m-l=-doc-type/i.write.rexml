@@ -1,6 +1,0 @@
-visibility=public
-kind=defined
-names=write
-
---- write(output, indent = 0, transitive = false, ie_hack = false)
-

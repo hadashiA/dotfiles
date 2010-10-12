@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=safe_unlink
-
---- safe_unlink(*filenames)
-
-FileToolsクラスにある同名のクラスメソッドと同じです.
-

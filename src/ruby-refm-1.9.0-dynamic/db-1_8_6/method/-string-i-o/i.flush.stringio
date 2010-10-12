@@ -1,8 +1,0 @@
-visibility=public
-kind=defined
-names=flush
-
---- flush    -> self
-
-何もせずに self を返します。
-

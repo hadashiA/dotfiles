@@ -1,9 +1,0 @@
-kind=added
-names=with_config
-visibility=private 
-
---- with_config(config[, default])
-
-[[m:Kernel#arg_config]] と同じですが、
---with-config オプションの値だけを参照します。
-

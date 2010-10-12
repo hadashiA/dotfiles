@@ -1,6 +1,0 @@
-visibility=public
-kind=redefined
-names=atan2
-
---- atan2(z)
-

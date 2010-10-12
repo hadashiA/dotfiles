@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=item,report
-
---- item(label = "", *fmt, &blk)
---- report(label = "", *fmt, &blk)
-Prints the label and measured time for the block,
-formatted by fmt. See Tms#format for the
-formatting rules.

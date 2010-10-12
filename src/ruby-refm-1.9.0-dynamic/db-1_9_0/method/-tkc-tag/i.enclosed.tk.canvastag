@@ -1,9 +1,0 @@
-visibility=public
-kind=defined
-names=enclosed,set_to_enclosed
-
---- set_to_enclosed(x1, y1, x2, y2)
---- enclosed(x1, y1, x2, y2)
-
-
-
