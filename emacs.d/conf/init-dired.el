@@ -30,7 +30,8 @@
           ))
 
   (global-set-key "\C-x\C-d" 'dired-jump)
-  (global-set-key "\C-x\C-j" 'skk-auto-fill-mode)
+  ;; (global-set-key "\C-x\C-j" 'skk-auto-fill-mode)
+  (global-set-key "\C-x\C-j" 'skk-mode)
   )
 
 (add-hook 'dired-load-hook
