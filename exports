@@ -45,9 +45,9 @@ fi
 # LS_OPTIONS=""
 # export LS_OPTIONS
 
-export PLATFORM=iPhoneOS
+export SDK_PLATFORM=iPhoneOS
 # export VERSION=3.2
-export VERSION=4.1
-export SDK=/Developer/Platforms/${PLATFORM}.platform/Developer/SDKs/${PLATFORM}${VERSION}.sdk/System/Library/Frameworks
+export SDK_VERSION=4.1
+export SDK_PATH=/Developer/Platforms/${PLATFORM}.platform/Developer/SDKs/${SDK_PLATFORM}${SDK_VERSION}.sdk/System/Library/Frameworks
 
 export GEM=/opt/local/lib/ruby/gems/1.8/gems/
