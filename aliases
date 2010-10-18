@@ -32,6 +32,7 @@ alias ss='ruby ./script/server'
 alias sc='ruby ./script/console'
 alias sp='ruby ./script/prep'
 alias rs='rake spec'
+alias scheme_ver="ls db/migrate | ruby -e 'puts readlines.last[/^\d+/]'"
 
 # Only MacOSX
 #if [ $system_name  == 'Darwin' ]; then
