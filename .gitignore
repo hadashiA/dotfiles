@@ -17,3 +17,4 @@ emacs.d/anything-c-adaptive-history
 screen/.temp
 screen/exchange
 .#*
+emacs.d/conf/twitter-password.el

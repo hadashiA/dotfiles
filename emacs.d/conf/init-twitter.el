@@ -3,9 +3,8 @@
 ;; (require 'twittering-mode)
 ;; (setq twittering-username "unko")
 ;; (setq twittering-password "unko")
-(load "twit")
-(twit-mode t)
-
+(require 'twit nil t)
+(require 'twitter-password nil t)
 
 ;; (require 'glowl)
 ;; (setq twit-use-growl-notification t)
