@@ -5,7 +5,6 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/twittering-mode")
 (require 'twittering-mode)
 (setq twittering-auth-method 'xauth)
-(setq twittering-username "hadahsiA")
 (setq twittering-status-format "%i %p%s / %S:\n%FOLD{%T}\n%r %R [%@]")
 (setq twittering-timer-interval 75)
 (setq twittering-convert-fix-size 48)
