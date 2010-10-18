@@ -120,6 +120,7 @@
 (load "init-dired")
 (load "init-sdic")
 (load "init-w3m")
+(load "init-twitter")
 (load "init-translate")
 (load "init-tags")
 (load "init-vcs")
