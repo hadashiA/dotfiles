@@ -93,6 +93,8 @@
                              (modes  . '(ruby-mode))))))
 
   (require 'rspec-mode nil t)
+  (require 'haml-mode nil t)
+  (require 'sass-mode nil t)
 
   ;; Software Design 2008-02 P152
   ;; devel/which and ffap
