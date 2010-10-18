@@ -71,4 +71,11 @@
 ;; ;; U+30A0-30FF カタカナ
 ;; (set-fontset-font
 ;;  nil '(#x3040 . #x30ff)
-;;  (font-spec :family "MiuraLiner\-Jr"))
+;;  (font-spec :family "Hiragino_Minco_ProN"))
+
+;; 半角カタカナ、全角アルファベット
+(set-fontset-font nil
+                  '( #xff00 .  #xffef)
+                  (font-spec :family "Hiragino_Minco_ProN" :spacing 'm)
+                  nil
+                  'prepend)
