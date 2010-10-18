@@ -1,0 +1,20 @@
+require "capistrano_colors"
+
+capistrano_color_matchers = [
+  # "command finished" を含む行を隠す。(文字色として :hide に設定する)
+  { :match => /command finished/, :color => :hide, :prio => 10 },
+
+  # "executing command" を含む行の、文字色を青色とし、下線を引く。
+  { :match => /executing command/, :color => :blue, :prio => 10,
+    :attribute => :underscore },
+
+  # "transaction: commit" の行の文字色をマゼンタ色とし、点滅させる。
+  { :match => /^transaction: commit$/, :color => :magenta, :prio => 10,
+    :attribute => :blink },
+
+  # "git" を含む行の文字色を白色とし、反転表示する。
+  { :match => /git/, :color => :white, :prio => 20, :attribute => :reverse },
+]
+
+# 上記の設定を反映する。
+colorize( capistrano_color_matchers )
