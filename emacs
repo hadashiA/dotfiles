@@ -120,7 +120,6 @@
 (load "init-dired")
 (load "init-sdic")
 (load "init-w3m")
-(load "init-twitter")
 (load "init-translate")
 (load "init-tags")
 (load "init-vcs")
@@ -142,6 +141,8 @@
 ;;(load "init-hatena")
 ;;(load "init-elscreen")
 ;;(load "init-taskpaper")
+(load "init-howm")
+(load "init-twitter")
 (load "init-autosave-buffers")
 
 ;; [2008-03-13]
