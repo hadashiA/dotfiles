@@ -74,8 +74,8 @@
 ;;  (font-spec :family "Hiragino_Minco_ProN"))
 
 ;; 半角カタカナ、全角アルファベット
-(set-fontset-font nil
-                  '( #xff00 .  #xffef)
-                  (font-spec :family "Hiragino_Minco_ProN" :spacing 'm)
-                  nil
-                  'prepend)
+;; (set-fontset-font nil
+;;                   '( #xff00 .  #xffef)
+;;                   (font-spec :family "Hiragino_Minco_ProN" :spacing 'm)
+;;                   nil
+;;                   'prepend)

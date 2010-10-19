@@ -32,18 +32,19 @@
 
 ;; (global-set-key (kbd "C-+") 'anything-gtags-select)
 
+(defun anything-split-window (buf)
+  (split-window)
+  (other-window 1)
+  (switch-to-buffer buf))
+;; (setq anything-display-function 'anything-split-window)
+(setq anything-display-function 'anything-default-display-buffer)
+
 ;; \M-y でキルリング履歴
 (setq kill-ring-max 30) ;; kill-ring の最大値. デフォルトは 30.
 (setq anything-kill-ring-threshold 5) ;; anything で対象とするkill-ring の要素の長さの最小値.デフォルトは 10.
 (global-set-key "\M-y" 'anything-show-kill-ring);;kill-ring の最大値. デフォルトは 30.
-
 (setq kill-ring-max 20)
 
-;;anything で対象とするkill-ring の要素の長さの最小値.
-
-;;デフォルトは 10.
-
-(setq anything-kill-ring-threshold 5)
 
 (global-set-key "\M-y" 'anything-show-kill-ring)
 
