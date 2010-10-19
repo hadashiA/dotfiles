@@ -1,5 +1,5 @@
 alias ls='ls -pGF'
-alias la='ls -palGFwc'
+alias la='ls -palGFc'
 alias del='rm -rf'
 alias cp='cp -irf'
 alias mv='mv -i'
