@@ -27,7 +27,7 @@ function gpall() {
   git push origin master --tags
 }
 alias gitrm="git status | grep deleted | awk '{print $3}' | xargs git rm"
-alias gitx="open -b nl.frim.GitX"
+#alias gitx="open -b nl.frim.GitX"
                                 
 # End Dr Nic Compatibility Mode
                             

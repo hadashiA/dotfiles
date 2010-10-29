@@ -6,13 +6,12 @@ require 'irb/completion'
 require 'kconv'
 require 'pp'
 require 'rubygems'
-IRB.conf[:SAVE_HISTORY] = 100000
+# IRB.conf[:SAVE_HISTORY] = 100000
 
 begin
   require 'wirble'
   Wirble.init(:history_size => 10000)
   Wirble.colorize
-
 
   # Wirble::Colorize.colors = {
   #   # delimiter colors
@@ -69,8 +68,10 @@ class Object
   end
 end
 
-# Log to STDOUT if in Rails
-if ENV.include?('RAILS_ENV') && !Object.const_defined?('RAILS_DEFAULT_LOGGER')
-  require 'logger'
-  RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
+require 'logger'
+if ENV.include?('RAILS_ENV')&& 
+!Object.const_defined?('RAILS_DEFAULT_LOGGER')
+   Object.const_set('RAILS_DEFAULT_LOGGER', Logger.new(STDOUT))
+else
+   ActiveRecord::Base.logger = Logger.new(STDOUT)
 end
