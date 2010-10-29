@@ -67,7 +67,8 @@ function scd () {
 }
 
 # alias fish='cd ~/dev/fish'
-export CURPROJ="takara"
+export CURPROJ="nail"
+alias nail='cd ~/dev/nail'
 alias takara='cd ~/dev/takara'
 alias flower='cd ~/dev/flower'
 alias piklib="cd ~/dev/$CURPROJ/vendor/plugins/piklib"
