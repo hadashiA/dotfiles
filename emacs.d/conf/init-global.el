@@ -45,7 +45,14 @@
 ;; (server-start)
 
 ;; エンコーディングは基本的にUTF-8
-(set-language-environment "Japanese")
+;; (add-hook 'set-language-environment-hook 
+;; 	  (lambda ()
+;; 	    (when (equal "ja_JP.UTF-8" (getenv "LANG"))
+;; 	      (setq default-process-coding-system '(utf-8 . utf-8))
+;; 	      (setq default-file-name-coding-system 'utf-8))
+;; 	    (when (equal "Japanese" current-language-environment)
+;; 	      (setq default-buffer-file-coding-system 'iso-2022-jp))))
+;; (set-language-environment "Japanese")
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-buffer-file-coding-system 'utf-8)
