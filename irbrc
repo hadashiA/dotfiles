@@ -68,10 +68,17 @@ class Object
   end
 end
 
-require 'logger'
-if ENV.include?('RAILS_ENV')&& 
-!Object.const_defined?('RAILS_DEFAULT_LOGGER')
-   Object.const_set('RAILS_DEFAULT_LOGGER', Logger.new(STDOUT))
-else
-   ActiveRecord::Base.logger = Logger.new(STDOUT)
+if Object.const_defined?('Rails')
+  require 'logger'
+  if ENV.include?('RAILS_ENV')&& !const_defined?('RAILS_DEFAULT_LOGGER')
+    Object.const_set('RAILS_DEFAULT_LOGGER', Logger.new(STDOUT))
+  else
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
+  end
 end
+
+
+
+
+
+

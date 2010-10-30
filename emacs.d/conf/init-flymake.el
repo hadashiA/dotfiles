@@ -53,14 +53,6 @@
   ;;              )
   ;;          ))
 
- (add-hook
-  'ruby-mode-hook
-  '(lambda ()
-     ;; Don't want flymake mode for ruby regions in rhtml files
-     (if (not (null buffer-file-name)) (flymake-mode))
-     ;; エラー行で C-c d するとエラーの内容をミニバッファで表示する
-     (define-key ruby-mode-map "\C-cd" 'flymake-display-err-minibuf)))
-
   (defun flymake-display-err-minibuffer ()
   "現在行の error や warinig minibuffer に表示する"
   (interactive)

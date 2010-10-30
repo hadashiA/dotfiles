@@ -141,7 +141,7 @@
 ;;(load "init-hatena")
 ;;(load "init-elscreen")
 ;;(load "init-taskpaper")
-(load "init-howm")
+;; (load "init-howm")
 (load "init-twitter")
 (load "init-autosave-buffers")
 
