@@ -144,6 +144,7 @@
 ;; (load "init-howm")
 (load "init-twitter")
 (load "init-autosave-buffers")
+(load "init-evernote")
 
 ;; [2008-03-13]
 ;; mmm-modeってば、なんか動かないんだよなー。
