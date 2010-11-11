@@ -92,7 +92,10 @@
                              (repeat . nil)
                              (modes  . '(ruby-mode))))))
 
-  (require 'rspec-mode nil t)
+  (when (require 'rspec-mode nil t)
+    (custom-set-variables '(rspec-use-rake-flag t))
+    (custom-set-faces )
+    )
   (require 'haml-mode nil t)
   (require 'sass-mode nil t)
 

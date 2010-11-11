@@ -121,6 +121,9 @@
 
 (turn-off-auto-fill)
 
+;; ファイルの末尾にかいぎょうを付加しない
+(setq require-final-newline nil)
+
 ;; 記号やその他の文字等を正しくマッピングする
 ;; Emacs辞典p.395
 ;; http://www.pqrs.org/~tekezo/emacs/doc/wide-character/index.html
