@@ -1551,6 +1551,7 @@ TITLE is the title to display, and it is formatted with ARGS."
                          (define-key map [mouse 2] 'twit-visit-link)
                          (define-key map [mouse-3] 'twit-visit-link)
                          (propertize str
+
                                      'face 'twit-url-face
                                      'pointer 'hand
                                      'twit-url str
