@@ -1,4 +1,5 @@
 (add-to-load-path "~/.emacs.d/elisp/evernote/")
-(require 'evernote)
-;; (setq evernote-user "hadashikick"
-;;       evernote-pass "hadashiex")
+(when (require 'evernote) nil t
+      ;; (setq evernote-user "hadashikick"
+      ;;       evernote-pass "hadashiex")
+      (global-set-key (kbd "C-c C-q") 'evernote-search))
