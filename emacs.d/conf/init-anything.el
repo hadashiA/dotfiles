@@ -11,6 +11,7 @@
 (define-key anything-map (kbd "C-v") 'anything-next-source)
 (define-key anything-map (kbd "M-v") 'anything-previous-source)
 (global-set-key (kbd "C-;") 'anything)
+(global-set-key (kbd "C-:") 'anything-resume)
 (setq anything-enable-shortcuts 'alphabet)
 
 (setq anything-sources
@@ -51,6 +52,8 @@
 (when (require 'anything-c-moccur nil t)
   (global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur)
   ;; (global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur)
+  (global-set-key (kbd "C-s") 'anything-c-moccur-isearch-forward)
+  (global-set-key (kbd "C-r") 'anything-c-moccur-isearch-backward)
   (add-hook 'dired-mode-hook
             '(lambda ()
                (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
