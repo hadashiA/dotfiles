@@ -58,6 +58,8 @@
 (set-buffer-file-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (setq default-buffer-file-coding-system 'utf-8)
+(setq default-process-coding-system '(utf-8 . utf-8))
+(setq default-file-name-coding-system 'utf-8)
 
 ;; メニューバー、ツールバー非表示
 (eval-safe (menu-bar-mode 0))
