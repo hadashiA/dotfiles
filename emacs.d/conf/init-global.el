@@ -35,6 +35,9 @@
   (setq exec-path (append path exec-path))
   (setenv "PATH" (concat (mapconcat 'identity path ":") ":" (getenv "PATH"))))
 
+;; バイトコンパイル時のWarningを抑制
+(setq byte-compile-warnings '(free-vars unresolved callargs redefine obsolete noruntime cl-functions interactive-only make-local))
+
 ;; スタートアップ時のメッセージを抑制
 (setq inhibit-startup-message t)
 
