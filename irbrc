@@ -60,12 +60,6 @@ require 'rubygems'
 #   puts "please run: `sudo gem install hirb"
 # end
 
-begin
-  require 'irbtools'
-rescue LoadError
-  puts "please run: `gem install irbtools"
-end
-
 
 class Object
   # Return a list of methods defined locally for a particular object.  Useful
@@ -85,7 +79,15 @@ if Object.const_defined?('Rails')
   end
 end
 
-
+if Object.const_defined?('Bundler')
+  Bundler.require(:irbtools)
+else
+  begin
+    require 'irbtools'
+  rescue LoadError
+    puts "please run: `gem install irbtools"
+  end
+end
 
 
 
