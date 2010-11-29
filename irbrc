@@ -80,7 +80,7 @@ if Object.const_defined?('Rails')
 end
 
 if Object.const_defined?('Bundler')
-  Bundler.require(:irbtools)
+  Bundler.require(:irb)
 else
   begin
     require 'irbtools'

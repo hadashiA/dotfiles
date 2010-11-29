@@ -17,6 +17,14 @@ export PATH="$HOME/local/bin:$PATH"
 export PATH="$HOME/local/ruby/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 
+export MANPATH=/opt/local/man:$MANPATH
+export LIBRARY_PATH=/opt/local/lib:$LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/local/lib:$LD_LIBRARY_PATH
+export C_INCLUDE_PATH=/opt/local/include:$C_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
+export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
+export BOOST_ROOT=/opt/local/include:$BOOST_ROOT
+
 if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi
 
 export ARCHFLAGS='-arch x86'

@@ -71,8 +71,8 @@ export CURPROJ="nail"
 alias nail='cd ~/dev/nail'
 alias takara='cd ~/dev/takara'
 alias flower='cd ~/dev/flower'
-alias piklib="cd ~/dev/$CURPROJ/vendor/plugins/piklib"
-alias jpsns="cd ~/dev/$CURPROJ/vendor/plugins/japan_sns"
+alias piklib="cd ~/dev/piklib"
+alias jpsns="cd ~/dev/japan_sns"
 alias pj=$CURPROJ
 
 
