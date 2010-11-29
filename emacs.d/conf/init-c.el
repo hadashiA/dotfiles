@@ -29,7 +29,9 @@
         ("\\.hpp$" (".cpp" ".c"))))
 
 ;; BackSpace キーを「賢く」し，インデント幅は4桁，タブはスペースに展開
-(setq c-default-style "gnu")
+;; (setq c-default-style "gnu")
+;; (setq c-default-style "linux")
+(setq c-default-style "java")
 (add-hook 'c-mode-common-hook
             '(lambda ()
                (c-toggle-hungry-state t)

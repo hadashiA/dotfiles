@@ -145,6 +145,7 @@
 (load "init-twitter")
 (load "init-autosave-buffers")
 (load "init-evernote")
+(load "init-genkou")
 
 ;; [2008-03-13]
 ;; mmm-modeってば、なんか動かないんだよなー。

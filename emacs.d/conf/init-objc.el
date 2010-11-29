@@ -23,3 +23,7 @@
                 (lambda ()
                   ;; C-c w で確認してからドキュメントの検索
                   (define-key objc-mode-map (kbd "C-c w") 'xcdoc:ask-search))))
+
+(setq c-objc-method-arg-min-delta-to-bracket 1
+      c-objc-method-arg-unfinished-offset 1
+      c-objc-method-parameter-offset 1)
