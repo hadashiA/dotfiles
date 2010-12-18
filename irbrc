@@ -72,10 +72,17 @@ end
 
 if Object.const_defined?('Rails')
   require 'logger'
+  putslogger = Logger.new(STDOUT)
+
   if ENV.include?('RAILS_ENV')&& !const_defined?('RAILS_DEFAULT_LOGGER')
-    Object.const_set('RAILS_DEFAULT_LOGGER', Logger.new(STDOUT))
+    Object.const_set('RAILS_DEFAULT_LOGGER', putslogger)
   else
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    if Object.const_defined?('ActiveRecord')
+      ActiveRecord::Base.logger = putslogger
+    end
+    if Object.const_defined?('Mongoid')
+      Mongoid.logger = putslogger
+    end
   end
 end
 
