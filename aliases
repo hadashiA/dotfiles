@@ -74,3 +74,15 @@ alias flower='cd ~/dev/flower'
 alias piklib="cd ~/dev/piklib"
 alias jpsns="cd ~/dev/japan_sns"
 alias pj=$CURPROJ
+
+alias staging="open ~/dotfiles/terminal/Staging.terminal"
+
+
+
+
+
+
+
+
+
+>>>>>>> 6d35fdd0cdabf9a4d5b4eb6fe9b8ce81364c775a
