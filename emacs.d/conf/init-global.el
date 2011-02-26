@@ -178,4 +178,8 @@
   (global-set-key (kbd "C-c C-?") 'point-redo)
   )
 
+(when (require 'goto-last-change nil t)
+  (global-set-key (kbd "M-?") 'goto-last-change)
+  )
+
 (require 'sudo-ext)
