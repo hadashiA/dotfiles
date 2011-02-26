@@ -174,12 +174,12 @@
         (t (self-insert-command (or arg 1)))))
 
 (when (require 'point-undo nil t)
-  (global-set-key (kbd "C-?") 'point-undo)
-  (global-set-key (kbd "C-c C-?") 'point-redo)
+  (global-set-key (kbd "M-?") 'point-undo)
+  (global-set-key (kbd "C-c M-?") 'point-redo)
   )
 
 (when (require 'goto-last-change nil t)
-  (global-set-key (kbd "M-?") 'goto-last-change)
+  (global-set-key (kbd "C-?") 'goto-last-change)
   )
 
 (require 'sudo-ext)
