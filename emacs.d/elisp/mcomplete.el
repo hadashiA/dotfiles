@@ -629,14 +629,18 @@ These bindings are used when an exact match is required."
 (defun mcomplete-setup-command-hooks ()
   "Setup `pre-command-hook' and `post-command-hook' for `mcomplete-mode'."
   ;; setup PRE-COMMAND-HOOK
-  (make-local-hook 'pre-command-hook)
+  ;; (make-local-hook 'pre-command-hook)
+  (if (fboundp 'make-local-hook)
+      (make-local-hook 'pre-command-hook))
   (add-hook 'pre-command-hook
             #'(lambda () (run-hooks (mcomplete-get :pre-command-hook)))
             nil                         ; nil means prepend
             t)                          ; t means a local hook
 
   ;; setup POST-COMMAND-HOOK
-  (make-local-hook 'post-command-hook)
+  ;; (make-local-hook 'post-command-hook)
+  (if (fboundp 'make-local-hook)
+      (make-local-hook 'post-command-hook))
   (add-hook 'post-command-hook
             #'(lambda () (run-hooks (mcomplete-get :post-command-hook)))
             nil                         ; nil means prepend
