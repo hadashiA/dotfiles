@@ -1,0 +1,3 @@
+root = ~/.npm/lib
+binroot =  ~/.npm/bin
+manroot = ~/.npm/man
