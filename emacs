@@ -125,7 +125,7 @@
 (load "init-vcs")
 (load "init-html")
 ;;(load "init-css")
-;;(load "init-javascript")
+(load "init-javascript")
 (load "init-c")
 (load "init-objc")
 ;;(load "init-perl")
