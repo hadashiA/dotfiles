@@ -9,6 +9,14 @@
 
 (add-to-list 'auto-mode-alist '("\\.\\(js\\|as\\|json\\|jsn\\)\\'" . js2-mode))
 (require 'js2-mode)
+
+(defun insert-semicolon-and-new-line-and-indent ()
+  "insert semicolon and newline and indentation."
+  (interactive)
+  (insert ";")
+  (newline-and-indent)
+  )
+
 (add-hook 'js2-mode-hook
           '(lambda ()
              (setq js2-bounce-indent-flag nil
@@ -25,6 +33,7 @@
 
              (define-key js2-mode-map "\C-m" 'newline-and-indent)
              (define-key js2-mode-map "\C-i" 'indent-and-back-to-indentation)
+             (define-key js2-mode-map ";" 'insert-semicolon-and-new-line-and-indent)
              ))
 (defun indent-and-back-to-indentation ()
   (interactive)
