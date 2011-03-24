@@ -314,7 +314,8 @@
       (concat "--options " (rspec-spec-opts-file))
     (if default-options
         default-options
-        (concat "--format specdoc " "--reverse"))))
+        ;; (concat "--format specdoc " "--reverse"))))
+        (concat "--format documentation " "--color"))))
 
 (defun rspec-spec-opts-file ()
   "Returns filename of spec opts file (usually spec/spec.opts)"

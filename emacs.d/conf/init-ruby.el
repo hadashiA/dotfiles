@@ -96,7 +96,11 @@
                              (modes  . '(ruby-mode))))))
 
   (when (require 'rspec-mode nil t)
-    (custom-set-variables '(rspec-use-rake-flag t))
+    (custom-set-variables
+     '(rspec-use-rake-flag nil)
+     '(rspec-spec-command "rspec")
+     '(rspec-use-rvm t)
+     )
     (custom-set-faces )
     )
   (require 'haml-mode nil t)
