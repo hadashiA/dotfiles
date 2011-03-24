@@ -65,11 +65,15 @@
 ;;
 ;; This minor mode depends on `mode-compile`.  The expectations depend
 ;; `on el-expectataions.el`.  If `ansi-color` is available it will be
-;; loaded so that rspec output is colorized properly.
+;; loaded so that rspec output is colorized properly.  If
+;; `rspec-use-rvm` is set to true `rvm.el` is required.
 ;; 
 
 ;;; Change Log:
 ;;
+;; 1.1 - Run verification processes from project root directory (Joe Hirn)
+;; 1.0 - Advance to end of compilation buffer even if it not the other window (byplayer)
+;; 0.8 - RVM support (Peter Williams)
 ;; 0.7 - follow RoR conventions for file in lib directory (Tim Harper)
 ;; 0.6 - support for arbitrary spec and rake commands (David Yeu)
 ;; 0.5 - minor changes from Tim Harper
@@ -113,6 +117,12 @@
   :type 'string
   :group 'rspec-mode)
 
+(defcustom rspec-use-rvm nil
+  "t when RVM in is in use. (Requires rvm.el)"
+  :type 'boolean
+  :group 'rspec-mode)
+
+
 ;;;###autoload
 (define-minor-mode rspec-mode
   "Minor mode for rSpec files"
@@ -123,6 +133,11 @@
 (defvar rspec-imenu-generic-expression
   '(("Examples"  "^\\( *\\(it\\|describe\\|context\\) +.+\\)"          1))
   "The imenu regex to parse an outline of the rspec file")
+
+(defcustom rspec-compilation-buffer-name "*compilation*"
+  "The compilation buffer name for spec"
+  :type 'string
+  :group 'rspec-mode)
 
 (defun rspec-set-imenu-generic-expression ()
   (make-local-variable 'imenu-generic-expression)
@@ -205,8 +220,7 @@
 (defun rspec-verify-all ()
   "Runs the 'spec' rake task for the project of the current file."
   (interactive)
-  (let ((default-directory (or (rspec-project-root) default-directory)))
-    (rspec-run (rspec-core-options "--format=progress"))))
+  (rspec-run (rspec-core-options "--format=progress")))
 
 (defun rspec-toggle-spec-and-target ()
   "Switches to the spec for the current buffer if it is a
@@ -300,8 +314,7 @@
       (concat "--options " (rspec-spec-opts-file))
     (if default-options
         default-options
-        ;; (concat "--format specdoc " "--reverse"))))
-        (concat "--format documentation "))))
+        (concat "--format specdoc " "--reverse"))))
 
 (defun rspec-spec-opts-file ()
   "Returns filename of spec opts file (usually spec/spec.opts)"
@@ -338,23 +351,43 @@
     (rspec-beginning-of-example)
     (re-search-forward "it[[:space:]]+['\"]\\(.*\\)['\"][[:space:]]*\\(do\\|DO\\|Do\\|{\\)")
     (match-string 1)))
-                    
-(defun rspec-register-verify-redo (redoer)
-  "Register a bit of code that will repeat a verification process"
-  (let ((redoer-cmd (eval (append '(lambda () (interactive)) (list redoer)))))
-    (global-set-key (kbd "C-c ,r") redoer-cmd)))
+
+(defun rspec-end-of-buffer-target-window (buf-name)
+  "end of line target window"
+  (let ((cur-window (selected-window))
+        (com-buffer (get-buffer buf-name)))
+    (if com-buffer
+        (let ((com-window (get-buffer-window com-buffer)))
+          (cond (com-window
+                 (unwind-protect
+                     (progn
+                       (select-window com-window)
+                       (with-no-warnings
+                         (goto-char (point-max))
+                         (recenter '(t))))
+                   (select-window cur-window))))))))
 
 (defun rspec-run (&optional opts)
   "Runs spec with the specified options"
-  (rspec-register-verify-redo (cons 'rspec-run opts))
-  (compile (mapconcat 'identity (list (rspec-runner) (rspec-spec-directory (rspec-project-root)) (rspec-runner-options opts)) " "))
-  (end-of-buffer-other-window 0))
+  (rspec-compile (rspec-spec-directory (rspec-project-root)) opts))
 
 (defun rspec-run-single-file (spec-file &rest opts)
   "Runs spec on a file with the specified options"
-  (rspec-register-verify-redo (cons 'rspec-run-single-file (cons spec-file opts)))
-  (compile (mapconcat 'identity (list (rspec-runner) (rspec-runner-target spec-file) (rspec-runner-options opts)) " "))
-  (end-of-buffer-other-window 0))
+  (rspec-compile (rspec-runner-target spec-file) opts))
+
+(defun rspec-compile (a-file-or-dir &optional opts)
+  "Runs a compile for the specified file or diretory with the specified opts"
+  (global-set-key (kbd "C-c ,r") 
+                  (eval `(lambda () (interactive) 
+                           (rspec-from-direcory ,default-directory
+                                                (rspec-compile ,a-file-or-dir (quote ,opts))))))
+
+  (if rspec-use-rvm
+      (rvm-activate-corresponding-ruby))
+  (rspec-from-project-root
+   (compile (mapconcat 'identity `(,(rspec-runner) ,a-file-or-dir ,(rspec-runner-options opts)) " ")))
+  (rspec-end-of-buffer-target-window rspec-compilation-buffer-name))
+
 
 (defun rspec-project-root (&optional directory)
   "Finds the root directory of the project by walking the directory tree until it finds a rake file."
@@ -362,6 +395,16 @@
     (cond ((rspec-root-directory-p directory) nil)
           ((file-exists-p (concat directory "Rakefile")) directory)
           (t (rspec-project-root (file-name-directory (directory-file-name directory)))))))
+
+(defmacro rspec-from-direcory (directory body-form)
+  "Peform body-form from the specified directory"
+  `(let ((default-directory ,directory))
+     ,body-form))
+
+(defmacro rspec-from-project-root (body-form)
+  "Peform body-form from the project root directory"
+  `(rspec-from-direcory ,(or (rspec-project-root) default-directory)
+                        ,body-form))
 
 ;; Makes sure that Rspec buffers are given the rspec minor mode by default
 ;;;###autoload
