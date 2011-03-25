@@ -34,7 +34,7 @@
 (add-hook 'ruby-mode-hook 'skelton-setup-default)
 (add-hook 'python-mode-hook 'skelton-setup-default)
 (add-hook 'javascript-mode-hook 'skelton-setup-default)
-(add-hook 'js2-mode-hook 'skelton-setup-default)
+;; (add-hook 'js2-mode-hook 'skelton-setup-default)
 
 (add-hook 'lisp-mode-hook 'skelton-setup-lisp)
 (add-hook 'emacs-lisp-mode-hook 'skelton-setup-lisp)
