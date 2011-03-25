@@ -143,6 +143,7 @@
 ;;(load "init-taskpaper")
 ;; (load "init-howm")
 (load "init-twitter")
+(load "init-skype")
 (load "init-autosave-buffers")
 (load "init-evernote")
 (load "init-genkou")
