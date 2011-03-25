@@ -1,7 +1,14 @@
+(defun my-python-settings ()
+    (setq py-indent-offset 2
+          py-continuation-offset 2
+          indent-tabs-mode nil)
+    (message "my-python-settings"))
+
 (when (require 'python-mode nil t)
+  ;; (autoload 'python-mode "python-mode" "Python editing mode." t)
   (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
   (setq interpreter-mode-alist (cons '("python" . python-mode) interpreter-mode-alist))
-  (autoload 'python-mode "python-mode" "Python editing mode." t))
+  (add-hook 'python-mode-hook 'my-python-settings))
 
 ;; Pymacs
 (autoload 'pymacs-apply "pymacs")
