@@ -1,5 +1,6 @@
 alias emacsc='emacsclient -nw'
-alias emacsd='emacs --daemon'
+# alias emacsd='emacs --daemon'
+alias emacsd='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
 
 function emacsb {
     env emacs-snapshot --batch $@

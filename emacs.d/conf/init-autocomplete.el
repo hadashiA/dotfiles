@@ -69,9 +69,28 @@
 
   (add-hook 'ruby-mode-hook
             (lambda ()
+              (ac-ruby-mode-setup)
               (add-to-list 'ac-sources 'ac-source-rsense-method)
               (add-to-list 'ac-sources 'ac-source-rsense-constant)
               (add-to-list 'ac-sources 'ac-source-company-gtags)
+              ))
+
+  (defun ac-complete-pycomplete-pycomplete ()
+    (interactive)
+    (auto-complete '(ac-source-python)))
+  
+  (setq ac-source-python
+        '((prefix "\\(?:\\.\\|->\\)\\(\\(?:[a-zA-Z_][a-zA-Z0-9_]*\\)?\\)" nil 1)      
+          (candidates . ac-py-candidates)
+          (requires . 0)))
+
+  (defun ac-py-candidates ()
+    (pycomplete-pycomplete (py-symbol-near-point) (py-find-global-imports)))
+
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
+              (add-to-list 'ac-sources 'ac-source-dictionary)
               ))
 
   (ac-config-default))
