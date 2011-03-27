@@ -3,8 +3,7 @@
                 (getenv "PYTHONPATH")))
 
 (defun my-python-settings ()
-    (setq py-indent-offset 2
-          py-continuation-offset 2
+    (setq py-indent-offset 4
           indent-tabs-mode nil)
     (message "my-python-settings"))
 
@@ -26,7 +25,11 @@
 (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
 (setq interpreter-mode-alist (cons '("python" . python-mode)
                                    interpreter-mode-alist))
-(add-hook 'python-mode-hook '(lambda ()
-                               (require 'pycomplete)
-                               ))
-
+(add-hook 'python-mode-hook
+          '(lambda ()
+             (require 'pycomplete)
+             ;; (pymacs-load "ropemacs" "rope-")
+             ;; (setq ropemacs-enable-autoimport t)
+             ;; (setq ropemacs-enable-shortcuts nil)
+             ;; (setq ropemacs-local-prefix "C-c C-p")
+             ))
