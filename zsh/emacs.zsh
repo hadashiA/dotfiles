@@ -1,5 +1,5 @@
+alias emacsclient='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient'
 alias emacsc='emacsclient -nw'
-# alias emacsd='emacs --daemon'
 alias emacsd='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
 
 function emacsb {
