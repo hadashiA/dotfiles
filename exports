@@ -48,7 +48,7 @@ export WORKON_HOME="$HOME/.python"
 export PIP_DOWNLOAD_CACHE="$HOME/.pip_cache"
 export PIP_REQUIRE_VIRTUALENV=true
 export PIP_RESPECT_VIRTUALENV=true
-source "/usr/local/bin/virtualenvwrapper.sh"
+if [[ -s "/usr/local/bin/virtualenvwrapper.sh" ]]; then source "/usr/local/bin/virtualenvwrapper.sh"; fi
 
 export ARCHFLAGS='-arch x86'
 
