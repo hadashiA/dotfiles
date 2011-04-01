@@ -34,6 +34,9 @@ alias sp='ruby ./script/prep'
 alias rs='rake spec'
 alias scheme_ver="ls db/migrate | ruby -e 'puts readlines.last[/^\d+/]'"
 
+# GAE stuff
+alias gae='dev_appserver.py --debug .'
+
 # Only MacOSX
 #if [ $system_name  == 'Darwin' ]; then
   function manpdf() { man -t $@ | open -f -a Preview; }
