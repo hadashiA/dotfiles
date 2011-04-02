@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<root>
+    <item>
+      <name>Kubota settings</name>
+      <list>
+        <item>
+          <name>MacBook</name>
+          <list>
+            <item>
+              <name>Bracket left to Control</name>
+              <identifier>remap.bracketL2controlL</identifier>
+              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, KeyCode::CONTROL_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, ModifierFlag::OPTION_L, KeyCode::BRACKET_RIGHT</autogen>
+              <autogen>--KeyToKey-- KeyCode::CURSOR_DOWN, KeyCode::BRACKET_RIGHT</autogen>
+            </item>
+            <item>
+              <name>Bracket left to Option</name>
+              <identifier>remap.bracketL2optionL</identifier>
+              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, KeyCode::OPTION_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, ModifierFlag::FN, KeyCode::BRACKET_RIGHT</autogen>
+              <autogen>--KeyToKey-- KeyCode::CURSOR_DOWN, KeyCode::BRACKET_RIGHT</autogen>
+            </item>
+            <item>
+              <name>Bracket right to Control</name>
+              <identifier>remap.bracketR2controlL</identifier>
+              <autogen>--KeyToKey-- KeyCode::BACKSLASH, KeyCode::CONTROL_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::BACKSLASH, ModifierFlag::OPTION_L, KeyCode::BACKSLASH</autogen>
+              <autogen>--KeyToKey-- KeyCode::CURSOR_RIGHT, KeyCode::BACKSLASH</autogen>
+            </item>
+            <item>
+              <name>Bracket right to Option</name>
+              <identifier>remap.bracketR2optionL</identifier>
+              <autogen>--KeyToKey-- KeyCode::BACKSLASH, KeyCode::OPTION_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::BACKSLASH, ModifierFlag::OPTION_L, KeyCode::BACKSLASH</autogen>
+              <autogen>--KeyToKey-- KeyCode::CURSOR_RIGHT, KeyCode::BACKSLASH</autogen>
+            </item>
+            <item>
+              <name>Arrow LEFT to Control</name>
+              <identifier>remap.leftallow2controlR</identifier>
+              <autogen>--KeyToKey-- KeyCode::CURSOR_LEFT, KeyCode::CONTROL_R</autogen>
+            </item>
+            <item>
+              <name>FN+hjkl to cursor </name>
+              <identifier>remap.vimlikecursorformacbook</identifier>
+              <autogen>--KeyToKey-- KeyCode::H, ModifierFlag::FN, KeyCode::CURSOR_LEFT</autogen>
+              <autogen>--KeyToKey-- KeyCode::J, ModifierFlag::FN, KeyCode::CURSOR_DOWN</autogen>
+              <autogen>--KeyToKey-- KeyCode::K, ModifierFlag::FN, KeyCode::CURSOR_UP</autogen>
+              <autogen>--KeyToKey-- KeyCode::L, ModifierFlag::FN, KeyCode::CURSOR_RIGHT</autogen>
+            </item>
+          </list>
+        </item>
+        <item>
+          <name>HHK</name>
+          <list>
+            <item>
+              <name>Bracket left to Control</name>
+              <identifier>remap.bracketL2controlLhhk</identifier>
+              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, KeyCode::CONTROL_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::OPTION_R, KeyCode::BRACKET_RIGHT</autogen>
+              <autogen>--KeyToKey-- KeyCode::F8, KeyCode::BRACKET_RIGHT</autogen>
+              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, ModifierFlag::OPTION_L, KeyCode::BRACKET_RIGHT</autogen>
+            </item>
+            <item>
+              <name>Bracket left to Option</name>
+              <identifier>remap.bracketL2optionLhhk</identifier>
+              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, KeyCode::OPTION_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::OPTION_R, KeyCode::BRACKET_RIGHT</autogen>
+              <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, ModifierFlag::OPTION_L, KeyCode::BRACKET_RIGHT</autogen>
+              <autogen>--KeyToKey-- KeyCode::F8, KeyCode::BRACKET_RIGHT</autogen>
+            </item>
+            <item>
+              <name>Bracket right to Control</name>
+              <identifier>remap.bracketR2controlLhhk</identifier>
+              <autogen>--KeyToKey-- KeyCode::BACKSLASH, KeyCode::CONTROL_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::CONTROL_R, KeyCode::BACKSLASH</autogen>
+              <autogen>--KeyToKey-- KeyCode::F9, KeyCode::BACKSLASH</autogen>
+              <autogen>--KeyToKey-- KeyCode::BACKSLASH, ModifierFlag::OPTION_L, KeyCode::BACKSLASH</autogen>
+            </item>
+            <item>
+              <name>Bracket right to Option</name>
+              <identifier>remap.bracketR2optionLhhk</identifier>
+              <autogen>--KeyToKey-- KeyCode::BACKSLASH, KeyCode::OPTION_L</autogen>
+              <autogen>--KeyToKey-- KeyCode::CONTROL_R, KeyCode::BACKSLASH</autogen>
+              <autogen>--KeyToKey-- KeyCode::F9, KeyCode::BACKSLASH</autogen>
+              <autogen>--KeyToKey-- KeyCode::BACKSLASH, ModifierFlag::OPTION_L, KeyCode::BACKSLASH</autogen>
+            </item>
+            <item>
+              <name>ForwardDELL to Control</name>
+              <identifier>remap.forwarddelete2controlRhhk</identifier>
+              <autogen>--KeyToKey-- KeyCode::FORWARD_DELETE, KeyCode::CONTROL_R</autogen>
+            </item>
+            <item>
+              <name>Enable FN+hjkl at HHK to Left/Down/Up/Right</name>
+              <identifier>remap.hhkmode_vi_cursor_2</identifier>
+              <autogen>--KeyToKey-- KeyCode::KEYPAD_MULTIPLY, KeyCode::CURSOR_LEFT</autogen>
+              <autogen>--KeyToKey-- KeyCode::KEYPAD_SLASH,    KeyCode::CURSOR_DOWN</autogen>
+              <autogen>--KeyToKey-- KeyCode::HOME,            KeyCode::CURSOR_UP</autogen>
+              <autogen>--KeyToKey-- KeyCode::PAGEUP,          KeyCode::CURSOR_RIGHT</autogen>
+            </item>
+          </list>
+        </item>
+      </list>  
+    </item>  
+</root>
