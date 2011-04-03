@@ -38,17 +38,8 @@ export NODE_PATH=/home/ursm/.npm/lib:$NODE_PATH
 export PATH=/home/ursm/.npm/bin:$PATH
 export MANPATH=/home/ursm/.npm/man:$MANPATH
 
-
-# Ruby RVM
-if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi
-
 # Python
 export PYTHONPATH="/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:$PYTHONPATH"
-export WORKON_HOME="$HOME/.python"
-export PIP_DOWNLOAD_CACHE="$HOME/.pip_cache"
-export PIP_REQUIRE_VIRTUALENV=true
-export PIP_RESPECT_VIRTUALENV=true
-if [[ -s "/usr/local/bin/virtualenvwrapper.sh" ]]; then source "/usr/local/bin/virtualenvwrapper.sh"; fi
 
 export ARCHFLAGS='-arch x86'
 
