@@ -1,15 +1,21 @@
 (when (require 'smartchr nil)
   (global-set-key (kbd "=") (smartchr '(" = " " == " " != " "=")))
-  (global-set-key (kbd ">") (smartchr '(">" " => " " => '`!!''" " => \"`!!'\"")))
-  ;; (global-set-key (kbd "|") (smartchr '("|" " || " " ||= ")))
-  (global-set-key (kbd "+") (smartchr '("+" " + " " += ")))
 
-  (add-hook 'cc-mode-hook
+  (add-hook 'c-common-mode-hook
             (lambda ()
               (global-set-key (kbd "+") (smartchr '("+" " + " "++" " += ")))
               (global-set-key (kbd ">") (smartchr '(">" " >> " "->")))
               ))
+
+  (add-hook 'ruby-mode-hook
+            (lambda ()
+              (global-set-key (kbd ">") (smartchr '(">" " => " " => '`!!''" " => \"`!!'\"")))
+              (global-set-key (kbd "|") (smartchr '("|" " || " " ||= ")))
+              
+              ))
+
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (global-set-key (kbd "+") (smartchr '("+" " + " " += ")))
+              ))
   )
-
-
-

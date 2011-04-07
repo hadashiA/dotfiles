@@ -87,6 +87,7 @@
               (add-to-list 'ac-sources 'ac-source-yasnippet)
               ))
 
+  (global-set-key (kbd "M-h") 'ac-complete-pycomplete-pycomplete)
   (defun ac-complete-pycomplete-pycomplete ()
     (interactive)
     (auto-complete '(ac-source-python)))

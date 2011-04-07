@@ -28,6 +28,7 @@
         
         ("\\.hpp$" (".cpp" ".c"))))
 
+
 ;; BackSpace キーを「賢く」し，インデント幅は4桁，タブはスペースに展開
 ;; (setq c-default-style "gnu")
 ;; (setq c-default-style "linux")
@@ -38,6 +39,11 @@
                (c-toggle-auto-state t)               
                (setq c-basic-offset 4 indent-tabs-mode nil)
                (define-key c-mode-base-map (kbd "C-c o") 'ff-find-other-file)))
+
+(add-hook 'c++-mode-hook
+          (lambda ()
+            (c-set-offset 'access-label '-)
+            ))
 
 (add-hook 'align-load-hook
             (lambda ()
