@@ -40,12 +40,11 @@
   (define-key ac-menu-map "\C-p" 'ac-previous)
 
   ;; ツールチップすごいけど、あんまり見てないので無効
-  ;; (when (require 'pos-tip nil t)
-  ;;   (setq ac-quick-help-prefer-x t))
+  (when (require 'pos-tip nil t)
+    (setq ac-quick-help-prefer-x t))
 
   (add-to-list 'load-path "~/.emacs.d/elisp/company")
   (require 'ac-company)
-  (setq ac-modes (append ac-modes '(objc-mode)))
   (ac-company-define-source ac-source-company-xcode company-xcode)
   (ac-company-define-source ac-source-company-gtags company-gtags)
   (add-hook 'objc-mode-hook
@@ -60,6 +59,16 @@
               )
             )
 
+  (add-hook 'c++-mode-hook
+            (lambda ()
+              (add-to-list 'ac-sources 'ac-source-c++-keywords)
+              (add-to-list 'ac-sources 'ac-source-company-gtags)
+              (add-to-list 'ac-sources 'ac-source-filename)
+              (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
+              (add-to-list 'ac-sources 'ac-source-yasnippet)
+              (auto-complete)
+              ))
+
   (add-hook 'emacs-lisp-mode-hook
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-features)
@@ -73,24 +82,30 @@
               (add-to-list 'ac-sources 'ac-source-rsense-method)
               (add-to-list 'ac-sources 'ac-source-rsense-constant)
               (add-to-list 'ac-sources 'ac-source-company-gtags)
+              (add-to-list 'ac-sources 'ac-source-filename)
+              (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
+              (add-to-list 'ac-sources 'ac-source-yasnippet)
               ))
 
   (defun ac-complete-pycomplete-pycomplete ()
     (interactive)
     (auto-complete '(ac-source-python)))
   
+  (defun ac-py-candidates ()
+    (pycomplete-pycomplete (py-symbol-near-point) (py-find-global-imports)))
+
   (setq ac-source-python
         '((prefix "\\(?:\\.\\|->\\)\\(\\(?:[a-zA-Z_][a-zA-Z0-9_]*\\)?\\)" nil 1)      
           (candidates . ac-py-candidates)
           (requires . 0)))
 
-  (defun ac-py-candidates ()
-    (pycomplete-pycomplete (py-symbol-near-point) (py-find-global-imports)))
-
   (add-hook 'python-mode-hook
             (lambda ()
+              (add-to-list 'ac-sources 'ac-python)
               (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
               (add-to-list 'ac-sources 'ac-source-dictionary)
+              (add-to-list 'ac-sources 'ac-source-filename)
+              (add-to-list 'ac-sources 'ac-source-yasnippet)
               ))
 
   (ac-config-default))
