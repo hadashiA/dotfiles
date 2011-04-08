@@ -105,7 +105,7 @@
       (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
   (push '("\\.cc$" flymake-c++-init) flymake-allowed-file-name-masks)
   (push '("\\.cpp$" flymake-c++-init) flymake-allowed-file-name-masks)
-  (push '("\\.mm$" flymake-c++-init) flymake-allowed-file-name-masks)
+  ;; (push '("\\.mm$" flymake-c++-init) flymake-allowed-file-name-masks)
   (push '("\\.hpp$" flymake-c++-init) flymake-allowed-file-name-masks)
   (add-hook 'c++-mode-hook 'flymake-mode-on-if-file-exists)
 

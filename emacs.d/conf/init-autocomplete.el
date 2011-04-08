@@ -90,7 +90,7 @@
   (add-hook 'python-mode-hook
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-pycomplete)
-              (global-set-key (kbd "M-h") 'ac-complete-pycomplete)
+              (global-set-key (kbd "M-TAB") 'ac-complete-pycomplete)
               ))
 
   (setq-default ac-sources
