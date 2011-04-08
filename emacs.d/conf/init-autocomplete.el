@@ -47,6 +47,8 @@
   (require 'ac-company)
   (ac-company-define-source ac-source-company-xcode company-xcode)
   (ac-company-define-source ac-source-company-gtags company-gtags)
+
+  ;; objc-mode
   (add-hook 'objc-mode-hook
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-company-xcode)
@@ -61,7 +63,7 @@
 
   (add-hook 'c++-mode-hook
             (lambda ()
-              (add-to-list 'ac-sources 'ac-source-c++-keywords)
+              (add-to-list 'ac-sources 'ac-source-dictionary)
               (add-to-list 'ac-sources 'ac-source-company-gtags)
               (add-to-list 'ac-sources 'ac-source-filename)
               (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
