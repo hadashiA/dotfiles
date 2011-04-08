@@ -53,10 +53,6 @@
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-company-xcode)
               (add-to-list 'ac-sources 'ac-source-company-gtags)
-              ;; (add-to-list 'ac-sources 'ac-source-c++-keywords)
-              (add-to-list 'ac-sources 'ac-source-filename)
-              ;; (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
-              (add-to-list 'ac-sources 'ac-source-yasnippet)
               (auto-complete)
               )
             )
@@ -65,9 +61,6 @@
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-dictionary)
               (add-to-list 'ac-sources 'ac-source-company-gtags)
-              (add-to-list 'ac-sources 'ac-source-filename)
-              (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
-              (add-to-list 'ac-sources 'ac-source-yasnippet)
               (auto-complete)
               ))
 
@@ -84,31 +77,33 @@
               (add-to-list 'ac-sources 'ac-source-rsense-method)
               (add-to-list 'ac-sources 'ac-source-rsense-constant)
               (add-to-list 'ac-sources 'ac-source-company-gtags)
-              (add-to-list 'ac-sources 'ac-source-filename)
-              (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
-              (add-to-list 'ac-sources 'ac-source-yasnippet)
               ))
 
-  (global-set-key (kbd "M-h") 'ac-complete-pycomplete-pycomplete)
-  (defun ac-complete-pycomplete-pycomplete ()
-    (interactive)
-    (auto-complete '(ac-source-python)))
-  
-  (defun ac-py-candidates ()
+  (defun ac-pycomplete-candidates ()
     (pycomplete-pycomplete (py-symbol-near-point) (py-find-global-imports)))
 
-  (setq ac-source-python
+  (ac-define-source pycomplete
         '((prefix "\\(?:\\.\\|->\\)\\(\\(?:[a-zA-Z_][a-zA-Z0-9_]*\\)?\\)" nil 1)      
-          (candidates . ac-py-candidates)
+          (candidates . ac-pycomplete-candidates)
           (requires . 0)))
 
   (add-hook 'python-mode-hook
             (lambda ()
-              (add-to-list 'ac-sources 'ac-python)
-              (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
-              (add-to-list 'ac-sources 'ac-source-dictionary)
-              (add-to-list 'ac-sources 'ac-source-filename)
-              (add-to-list 'ac-sources 'ac-source-yasnippet)
+              (add-to-list 'ac-sources 'ac-source-pycomplete)
+              (global-set-key (kbd "M-h") 'ac-complete-pycomplete)
               ))
 
-  (ac-config-default))
+  (setq-default ac-sources
+                '(ac-source-abbrev
+                  ac-source-dictionary
+                  ac-source-words-in-same-mode-buffers
+                  ac-source-filename
+                  ac-source-yasnippet))
+  
+  (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
+  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+  (add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
+  (add-hook 'css-mode-hook 'ac-css-mode-setup)
+  (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+
+  (global-auto-complete-mode t))
