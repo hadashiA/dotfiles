@@ -67,25 +67,25 @@
   (push '("\\.h$" flymake-cc-init) flymake-allowed-file-name-masks)
   ;; (add-hook 'c-mode-common-hook 'flymake-cc-init)
 
-  ;; (defvar xcode:gccver "4.2")
-  ;; (defvar xcode:sdkver "4.2")
-  ;; (defvar xcode:sdkpath "/Developer/Platforms/iPhoneSimulator.platform/Developer")
-  ;; (defvar xcode:sdk (concat xcode:sdkpath "/SDKs/iPhoneSimulator" xcode:sdkver ".sdk"))
-  ;; ;; (defvar flymake-objc-compiler (concat xcode:sdkpath "/usr/bin/gcc-" xcode:gccver))
-  ;; (defvar flymake-objc-compiler (concat xcode:sdkpath "/usr/bin/gcc-" xcode:gccver))
-  ;; (defvar flymake-objc-compile-default-options (list "-arch" "i386" "-Wall" "-Wextra" "-fsyntax-only" "-ObjC" "-std=c99" "-isysroot" xcode:sdk))
-  ;; (defvar flymake-objc-compile-options '("-I."))
-  ;; (defvar flymake-last-position nil)
-  (defvar flymake-objc-compiler "gcc")
-  (defvar flymake-objc-compile-default-options nil)
-  (defvar flymake-objc-compile-options (list "-Wall" "-Wextra" "-fsyntax-only"))
+  ;; export SDK_PLATFORM=iPhoneOS
+  ;; export SDK_VERSION=4.3
+  ;; export SDK_PATH=/Developer/Platforms/${SDK_PLATFORM}.platform/Developer/SDKs/${SDK_PLATFORM}${SDK_VERSION}.sdk
+  (defvar xcode:sdk:platform "iPhoneOS")
+  (defvar xcode:sdk:version "4.3")
+  (defvar xcode:sdk:path (concat "/Developer/Platforms/"
+                                 xcode:sdk:platform
+                                 ".platform/Developer/SDKs/"
+                                 xcode:sdk:platform xcode:sdk:version ".sdk"))
   (defun flymake-objc-init ()
     (let* ((temp-file (flymake-init-create-temp-buffer-copy
                        'flymake-create-temp-inplace))
            (local-file (file-relative-name
                         temp-file
                         (file-name-directory buffer-file-name))))
-      (list flymake-objc-compiler (append flymake-objc-compile-default-options flymake-objc-compile-options (list local-file)))))
+      (list "gcc" (list "-Wall" "-Wextra" "-fsyntax-only"
+                        "-ObjC"
+                        "-isysroot" xcode:sdk:path
+                        local-file))))
 
   ;; 拡張子 m と h に対して flymake を有効にする設定 flymake-mode t の前に書く必要があります
   ;; (push '("\\.m$" flymake-objc-init) flymake-allowed-file-name-masks)
@@ -102,7 +102,9 @@
            (local-file  (file-relative-name
                          temp-file
                          (file-name-directory buffer-file-name))))
-      (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
+      (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only"
+                        "-isysroot" xcode:sdk:path
+                        local-file))))
   (push '("\\.cc$" flymake-c++-init) flymake-allowed-file-name-masks)
   (push '("\\.cpp$" flymake-c++-init) flymake-allowed-file-name-masks)
   (push '("\\.mm$" flymake-c++-init) flymake-allowed-file-name-masks)
