@@ -65,7 +65,7 @@
 
   (push '("\\.c$" flymake-cc-init) flymake-allowed-file-name-masks)
   (push '("\\.h$" flymake-cc-init) flymake-allowed-file-name-masks)
-  (add-hook 'c-mode-common-hook 'flymake-cc-init)
+  ;; (add-hook 'c-mode-common-hook 'flymake-cc-init)
 
   ;; (defvar xcode:gccver "4.2")
   ;; (defvar xcode:sdkver "4.2")
@@ -105,7 +105,7 @@
       (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
   (push '("\\.cc$" flymake-c++-init) flymake-allowed-file-name-masks)
   (push '("\\.cpp$" flymake-c++-init) flymake-allowed-file-name-masks)
-  ;; (push '("\\.mm$" flymake-c++-init) flymake-allowed-file-name-masks)
+  (push '("\\.mm$" flymake-c++-init) flymake-allowed-file-name-masks)
   (push '("\\.hpp$" flymake-c++-init) flymake-allowed-file-name-masks)
   (add-hook 'c++-mode-hook 'flymake-mode-on-if-file-exists)
 

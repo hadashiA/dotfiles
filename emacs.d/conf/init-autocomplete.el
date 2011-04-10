@@ -49,6 +49,7 @@
   (ac-company-define-source ac-source-company-gtags company-gtags)
 
   ;; objc-mode
+  (add-to-list 'ac-modes 'objc-mode)
   (add-hook 'objc-mode-hook
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-company-xcode)
@@ -60,8 +61,8 @@
   (add-hook 'c++-mode-hook
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-dictionary)
+              (add-to-list 'ac-sources 'ac-source-company-xcode)
               (add-to-list 'ac-sources 'ac-source-company-gtags)
-              (auto-complete)
               ))
 
   (add-hook 'emacs-lisp-mode-hook

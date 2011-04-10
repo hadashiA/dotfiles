@@ -38,11 +38,19 @@
                (c-toggle-hungry-state t)
                (c-toggle-auto-state t)               
                (setq c-basic-offset 4 indent-tabs-mode nil)
-               (define-key c-mode-base-map (kbd "C-c o") 'ff-find-other-file)))
+               (define-key c-mode-base-map (kbd "C-c o") 'ff-find-other-file)
+               (c-set-offset 'arglist-intro '+)
+               (c-set-offset 'arglist-close '+)
+               ))
 
 (add-hook 'c++-mode-hook
           (lambda ()
             (c-set-offset 'access-label '-)
+            ))
+
+(add-hook 'objc-mode-hook
+          (lambda ()
+            (c-set-offset 'label '-)
             ))
 
 (add-hook 'align-load-hook
