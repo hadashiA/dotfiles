@@ -39,8 +39,8 @@
                (c-toggle-auto-state t)               
                (setq c-basic-offset 4 indent-tabs-mode nil)
                (define-key c-mode-base-map (kbd "C-c o") 'ff-find-other-file)
-               (c-set-offset 'arglist-intro '+)
-               (c-set-offset 'arglist-close '+)
+               ;; (c-set-offset 'arglist-intro '+)
+               ;; (c-set-offset 'arglist-close '+)
                ))
 
 (add-hook 'c++-mode-hook
