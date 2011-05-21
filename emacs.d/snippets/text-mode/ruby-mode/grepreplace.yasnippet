@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: grepreplace
+# expand-env: ((some-var some-value))
+# --
+dir = File.expand_path('~/dev/iPhone/HelloArrow/HelloArrow')
+`grep -lr HK #{dir}`.split("\n").each do |path|
+  src  = open(path){ |io| io.read  }
+  dest = src.gsub("HK", '')
+  open(path, 'w'){|io| io.puts(dest) }
+end

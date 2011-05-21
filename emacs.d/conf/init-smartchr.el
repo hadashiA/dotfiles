@@ -1,7 +1,7 @@
 (when (require 'smartchr nil)
   (global-set-key (kbd "=") (smartchr '(" = " " == " " != " "=")))
 
-  (add-hook 'c-common-mode-hook
+  (add-hook 'cc-mode-hook
             (lambda ()
               (define-key c-common-mode-hook
                 (kbd "+") (smartchr '("+" " + " "++" " += ")))
@@ -15,8 +15,8 @@
                 (kbd "+") (smartchr '("+" " + " " += ")))
               (define-key ruby-mode-map
                 (kbd ">") (smartchr '(">" " => " " => '`!!''" " => \"`!!'\"")))
-              (define-key ruby-mode-map
-                (kbd "|") (smartchr '("|" " || " " ||= ")))
+              ;; (define-key ruby-mode-map
+              ;;   (kbd "|") (smartchr '("|" " || " " ||= ")))
               ))
 
   (add-hook 'python-mode-hook
