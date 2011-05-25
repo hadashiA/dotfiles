@@ -1,6 +1,6 @@
 ;; ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-(defun skelton-setup-default ()
+(defun skeleton-setup-default ()
   (interactive)
   (make-variable-buffer-local 'skeleton-pair)
   (make-variable-buffer-local 'skeleton-pair-on-word)
@@ -14,7 +14,7 @@
   (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
   (local-set-key (kbd "'") 'skeleton-pair-insert-maybe))
 
-(defun skelton-setup-lisp ()
+(defun skeleton-setup-lisp ()
   (interactive)
   (make-variable-buffer-local 'skeleton-pair)
   (make-variable-buffer-local 'skeleton-pair-on-word)
@@ -27,15 +27,15 @@
   (local-set-key (kbd "`") 'skeleton-pair-insert-maybe)
   (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe))
 
-(add-hook 'html-mode-hook 'skelton-setup-default)
-(add-hook 'c-common-mode-hook 'skelton-setup-default)
-(add-hook 'objc-mode-hook 'skelton-setup-default)
-(add-hook 'c-mode-hook 'skelton-setup-default)
-(add-hook 'c++-mode-hook 'skelton-setup-default)
-(add-hook 'ruby-mode-hook 'skelton-setup-default)
-(add-hook 'python-mode-hook 'skelton-setup-default)
-(add-hook 'javascript-mode-hook 'skelton-setup-default)
-;; (add-hook 'js2-mode-hook 'skelton-setup-default)
+(add-hook 'html-mode-hook 'skeleton-setup-default)
+(add-hook 'c-common-mode-hook 'skeleton-setup-default)
+(add-hook 'objc-mode-hook 'skeleton-setup-default)
+(add-hook 'c-mode-hook 'skeleton-setup-default)
+;; (add-hook 'c++-mode-hook 'skeleton-setup-default)
+(add-hook 'ruby-mode-hook 'skeleton-setup-default)
+(add-hook 'python-mode-hook 'skeleton-setup-default)
+(add-hook 'javascript-mode-hook 'skeleton-setup-default)
+;; (add-hook 'js2-mode-hook 'skeleton-setup-default)
 
-(add-hook 'lisp-mode-hook 'skelton-setup-lisp)
-(add-hook 'emacs-lisp-mode-hook 'skelton-setup-lisp)
+(add-hook 'lisp-mode-hook 'skeleton-setup-lisp)
+(add-hook 'emacs-lisp-mode-hook 'skeleton-setup-lisp)
