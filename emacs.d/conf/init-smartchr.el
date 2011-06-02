@@ -9,6 +9,14 @@
                 (kbd ">") (smartchr '(">" " >> " "->")))
               ))
 
+  (add-hook 'c++-mode-hook
+            (lambda ()
+              (define-key c-common-mode-hook
+                (kbd "+") (smartchr '("+" " + " "++" " += ")))
+              (define-key c-common-mode-hook
+                (kbd ">") (smartchr '(">" " >> " "->")))
+              ))
+
   (add-hook 'ruby-mode-hook
             (lambda ()
               (define-key ruby-mode-map
