@@ -3,19 +3,19 @@
 
   (add-hook 'cc-mode-hook
             (lambda ()
-              (define-key cc-mode-hook
+              (define-key cc-mode-map
                 (kbd "+") (smartchr '("+" " + " "++" " += ")))
-              (define-key cc-mode-hook
-                (kbd ">") (smartchr '(">" " >> " "->")))
+              (define-key cc-mode-map
+                (kbd ">") (smartchr '(">" "->" " >> ")))
               ))
 
-  ;; (add-hook 'c++-mode-hook
-  ;;           (lambda ()
-  ;;             (define-key c++-mode-hook
-  ;;               (kbd "+") (smartchr '("+" " + " "++" " += ")))
-  ;;             (define-key c++-mode-hook
-  ;;               (kbd ">") (smartchr '(">" " >> " "->")))
-  ;;             ))
+  (add-hook 'c++-mode-hook
+            (lambda ()
+              (define-key c++-mode-map
+                (kbd "+") (smartchr '("+" " + " "++" " += ")))
+              (define-key c++-mode-map
+                (kbd ">") (smartchr '(">" "->" " >> ")))
+              ))
 
   (add-hook 'ruby-mode-hook
             (lambda ()
