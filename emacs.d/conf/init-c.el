@@ -33,7 +33,7 @@
 ;; (setq c-default-style "gnu")
 ;; (setq c-default-style "linux")
 (setq c-default-style "java")
-(add-hook 'c-mode-common-hook
+(add-hook 'cc-mode-hook
             '(lambda ()
                (c-toggle-hungry-state t)
                (c-toggle-auto-state t)               
@@ -46,6 +46,7 @@
 (add-hook 'c++-mode-hook
           (lambda ()
             (c-set-offset 'access-label '-)
+            (c-set-offset 'innamespace 0)
             ))
 
 (add-hook 'objc-mode-hook
