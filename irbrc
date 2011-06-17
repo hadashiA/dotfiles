@@ -159,6 +159,26 @@ module Handy
       puts "#{vn} = #{self.instance_eval(vn).inspect}"
     end
   end
+
+  def grep(pattern, glob)
+    Dir.glob(glob).each do |path|
+      content = open(path){|io| io.read }
+      paths = []
+      if content.match(pattern)
+        paths << path           # 
+        yield path, content if block_given?
+      end
+      paths
+    end
+  end
+
+  def glob_replace(glob)
+    Dir.glob(glob).each do |path|
+      content = open(path){|io| io.read }
+      content = yield(content)
+      open(path, 'w'){|io| io.puts(content) }
+    end
+  end
 end
 
 Object.send(:include, Handy)

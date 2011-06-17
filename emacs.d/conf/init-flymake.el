@@ -50,10 +50,10 @@
            (local-file (file-relative-name
                         temp-file
                         (file-name-directory buffer-file-name))))
-      (list "pep8" (list local-file))))
+      (list "pep8" (list "--repeat" local-file))))
 
   (push '("\\.py$" flymake-pep8-init) flymake-allowed-file-name-masks)
-  (add-hook 'python-mode-hook 'flymake-mode-on-if-file-exists)
+  ;; (add-hook 'python-mode-hook 'flymake-mode-on-if-file-exists)
 
   (defun flymake-cc-init ()
     (let* ((temp-file (flymake-init-create-temp-buffer-copy

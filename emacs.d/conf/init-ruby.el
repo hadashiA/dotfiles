@@ -99,8 +99,8 @@
 
   (when (require 'rspec-mode nil t)
     (custom-set-variables
-     '(rspec-use-rake-flag nil)
-     '(rspec-spec-command "rspec")
+     ;; '(rspec-use-rake-flag t)
+     ;; '(rspec-spec-command "rspec")
      '(rspec-use-rvm t)
      )
     (custom-set-faces )

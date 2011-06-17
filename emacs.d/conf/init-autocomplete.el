@@ -48,12 +48,20 @@
   (ac-company-define-source ac-source-company-xcode company-xcode)
   (ac-company-define-source ac-source-company-gtags company-gtags)
 
+  (require 'auto-complete-ya-gtags)
+
+  (add-hook 'c-common-mode-hook
+            (lambda ()
+              (message "c-common-mode-hook!!!!!!!!!!!")
+              (add-to-list 'ac-sources 'ac-source-ya-gtags)))
+
   ;; objc-mode
   (add-to-list 'ac-modes 'objc-mode)
   (add-hook 'objc-mode-hook
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-company-xcode)
-              (add-to-list 'ac-sources 'ac-source-company-gtags)
+              ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
+              (add-to-list 'ac-sources 'ac-source-ya-gtags)
               (auto-complete)
               )
             )
@@ -62,7 +70,8 @@
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-dictionary)
               (add-to-list 'ac-sources 'ac-source-company-xcode)
-              (add-to-list 'ac-sources 'ac-source-company-gtags)
+              ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
+              (add-to-list 'ac-sources 'ac-source-ya-gtags)
               ))
 
   (add-hook 'emacs-lisp-mode-hook
