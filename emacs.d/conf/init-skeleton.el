@@ -29,6 +29,7 @@
 
 (add-hook 'html-mode-hook 'skeleton-setup-default)
 (add-hook 'cc-mode-hook 'skeleton-setup-default)
+(add-hook 'c-common-mode-hook 'skeleton-setup-default)
 (add-hook 'objc-mode-hook 'skeleton-setup-default)
 (add-hook 'c++-mode-hook 'skeleton-setup-default)
 (add-hook 'ruby-mode-hook 'skeleton-setup-default)
@@ -38,3 +39,4 @@
 
 (add-hook 'lisp-mode-hook 'skeleton-setup-lisp)
 (add-hook 'emacs-lisp-mode-hook 'skeleton-setup-lisp)
+

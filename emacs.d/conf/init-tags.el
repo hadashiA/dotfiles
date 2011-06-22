@@ -23,17 +23,17 @@
   (define-key c-mode-map (kbd "C-+") 'anything-gtags-select)
   )
 
-(add-hook 'c-mode-common-hook 
+(add-hook 'cc-mode-common-hook 
           (lambda ()
             (gtags-mode-on-and-setup-anything)
             ;; (setq gtags-libpath `((,(expand-file-name "~/.tags/c") . "/usr/include")
             ;;                       (,(expand-file-name "~/.tags/c_local") . "/usr/local/include")))
             ))
           
-(add-hook 'c++-mode-hook
-          (lambda ()
-            (gtags-mode-on-and-setup-anything)
-            ))
+;; (add-hook 'c++-mode-hook
+;;           (lambda ()
+;;             (gtags-mode-on-and-setup-anything)
+;;             ))
 
 (add-hook 'objc-mode-hook
           (lambda ()

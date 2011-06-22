@@ -9,6 +9,11 @@
 ;; M - .     CTAGSで関数にジャンプ
 ;; M - +     CTAGSでジャンプしてた時に元の場所に戻る
 
+(defun make-and-go-go ()
+  "make and exec compiled object."
+  (interactive)
+  (compile "make -k && $(find . -perm -u+x -type f -maxdepth 1 | head -1)"))
+
 (setq ff-other-file-alist
       '(("\\.mm?$" (".h"))
         ("\\.cc$"  (".hh" ".h"))
@@ -38,13 +43,19 @@
                (c-toggle-hungry-state t)
                (c-toggle-auto-state t)               
                (setq c-basic-offset 4 indent-tabs-mode nil)
-               (define-key c-mode-base-map (kbd "C-c o") 'ff-find-other-file)
+               (define-key cc-mode-map (kbd "C-c o") 'ff-find-other-file)
+               (define-key cc-mode-map (kbd "C-c ,") 'make-and-go-go)
                ;; (c-set-offset 'arglist-intro '+)
                ;; (c-set-offset 'arglist-close '+)
                ))
 
 (add-hook 'c++-mode-hook
           (lambda ()
+            (c-toggle-hungry-state t)
+            (c-toggle-auto-state t)               
+            (setq c-basic-offset 4 indent-tabs-mode nil)
+            (define-key c++-mode-map (kbd "C-c o") 'ff-find-other-file)
+            (define-key c++-mode-map (kbd "C-c ,") 'make-and-go-go)
             (c-set-offset 'access-label '-)
             (c-set-offset 'innamespace 0)
             ))
