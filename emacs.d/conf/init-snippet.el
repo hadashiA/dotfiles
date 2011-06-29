@@ -29,6 +29,10 @@
           #'(lambda ()
               (setq yas/mode-symbol 'rspec-mode)))
  
+  (add-hook 'js2-mode-hook
+          #'(lambda ()
+              (setq yas/mode-symbol 'js2-mode)))
+
   ;; (and (require 'dropdown-list nil t)
   ;;      (setq yas/text-popup-function
   ;;            #'yas/dropdown-list-popup-for-template))
