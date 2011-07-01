@@ -1,6 +1,6 @@
 #name : class ... { ... }
 # --
-class ${1:`(file-name-camelize)`} {
+class ${1:`(file-name-nondirectory (file-name-sans-extension (or (buffer-file-name) (buffer-name (current-buffer)))))`} {
 public:
     ${1:$(yas/substr text "[^: ]*")}($2);
     virtual ~${1:$(yas/substr text "[^: ]*")}();

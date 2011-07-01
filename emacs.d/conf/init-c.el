@@ -9,10 +9,21 @@
 ;; M - .     CTAGSで関数にジャンプ
 ;; M - +     CTAGSでジャンプしてた時に元の場所に戻る
 
-(defun make-and-go-go ()
+(defun compile-and-go-go ()
   "make and exec compiled object."
   (interactive)
-  (compile "make -k && $(find . -perm -u+x -type f -maxdepth 1 | head -1)"))
+  (if (< 0 (length (shell-command-to-string "find . -name 'Makefile' -maxdepth 1")))
+      (compile "make -k && $(find . -perm -u+x -type f -maxdepth 1 | head -1)")
+    (let* ((path (buffer-file-name))
+           (ext (file-name-extension path)))
+      (setq command
+            (cond ((string= ext "cpp") "g++")
+                  (t "gcc")))
+      (compile (concat command " " path " && ./a.out")))    
+    ))
+
+(add-to-list 'auto-mode-alist '("\\.vert$" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.frag$" . c-mode))
 
 (setq ff-other-file-alist
       '(("\\.mm?$" (".h"))
@@ -44,7 +55,7 @@
                (c-toggle-auto-state t)               
                (setq c-basic-offset 4 indent-tabs-mode nil)
                (define-key cc-mode-map (kbd "C-c o") 'ff-find-other-file)
-               (define-key cc-mode-map (kbd "C-c ,") 'make-and-go-go)
+               (define-key cc-mode-map (kbd "C-c ,") 'compile-and-go-go)
                ;; (c-set-offset 'arglist-intro '+)
                ;; (c-set-offset 'arglist-close '+)
                ))
@@ -55,7 +66,7 @@
             (c-toggle-auto-state t)               
             (setq c-basic-offset 4 indent-tabs-mode nil)
             (define-key c++-mode-map (kbd "C-c o") 'ff-find-other-file)
-            (define-key c++-mode-map (kbd "C-c ,") 'make-and-go-go)
+            (define-key c++-mode-map (kbd "C-c ,") 'compile-and-go-go)
             (c-set-offset 'access-label '-)
             (c-set-offset 'innamespace 0)
             ))
@@ -63,6 +74,8 @@
 (add-hook 'objc-mode-hook
           (lambda ()
             (c-set-offset 'label '-)
+            (define-key objc-mode-map (kbd "C-c o") 'ff-find-other-file)
+            (define-key c++-mode-map (kbd "C-c ,") 'compile-and-go-go)
             ))
 
 (add-hook 'align-load-hook
