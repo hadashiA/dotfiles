@@ -15,10 +15,9 @@
   (if (< 0 (length (shell-command-to-string "find . -name 'Makefile' -maxdepth 1")))
       (compile "make -k && $(find . -perm -u+x -type f -maxdepth 1 | head -1)")
     (let* ((path (buffer-file-name))
-           (ext (file-name-extension path)))
-      (setq command
-            (cond ((string= ext "cpp") "g++")
-                  (t "gcc")))
+           (ext (file-name-extension path))
+           (command (cond ((string= ext "cpp") "g++")
+                          (t "gcc"))))
       (compile (concat command " " path " && ./a.out")))    
     ))
 

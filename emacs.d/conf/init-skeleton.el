@@ -34,8 +34,8 @@
 (add-hook 'c++-mode-hook 'skeleton-setup-default)
 (add-hook 'ruby-mode-hook 'skeleton-setup-default)
 (add-hook 'python-mode-hook 'skeleton-setup-default)
-;; (add-hook 'javascript-mode-hook 'skeleton-setup-default)
-;; (add-hook 'js2-mode-hook 'skeleton-setup-default)
+(add-hook 'javascript-mode-hook 'skeleton-setup-default)
+(add-hook 'js2-mode-hook 'skeleton-setup-default)
 
 (add-hook 'lisp-mode-hook 'skeleton-setup-lisp)
 (add-hook 'emacs-lisp-mode-hook 'skeleton-setup-lisp)
