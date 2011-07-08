@@ -7,7 +7,7 @@
 ;; (setq javascript-indent-level 2)
 ;; (setq javascript-auto-indent-flag t)
 
-(autoload 'us2-mode "js2-mode" nil t)
+(autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.\\(js\\|as\\|json\\|jsn\\)\\'" . js2-mode))
 
 (add-hook 'js2-mode-hook
