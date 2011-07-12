@@ -1,4 +1,4 @@
-:set guioptions=nosmallicons,nosearchbox,nomenubutton,leftscrollbar,nobottomscrollbar,notabnumbers
+:set guioptions=nosmallicons,nosearchbox,nomenubutton,leftscrollbar,nobottomscrollbar
 :set toolbars=nomenu,nonavigation,noaddons,nobookmarks
 
 colorscheme vimplight
@@ -69,10 +69,10 @@ map <C-r> :restart<CR>
 "map <C-h> :help<CR>
 
 "Gmail と Google Reader で使用するキーを設定
-autocmd LocationChange .* :fmapc
-autocmd LocationChange 'mail\.google\.com/mail' :fmap c / j k n p o u e x s r a y # [ ] z ? gi gs gt gd ga gc
-autocmd LocationChange 'www\.google\.com/reader' :fmap! -vkey j k n p m s t v A r S N P X O gh ga gs gt gu / ?
-autocmd LocationChange 'www\.google\.co\.jp/reader' :fmap! -vkey j k n p m s t v A r S N P
+" autocmd LocationChange .* :fmapc
+" autocmd LocationChange 'mail\.google\.com/mail' :fmap c / j k n p o u e x s r a y # [ ] z ? gi gs gt gd ga gc
+" autocmd LocationChange 'www\.google\.com/reader' :fmap! -vkey j k n p m s t v A r S N P X O gh ga gs gt gu / ?
+" autocmd LocationChange 'www\.google\.co\.jp/reader' :fmap! -vkey j k n p m s t v A r S N P
 
 " Plugins
 " ===================================================
