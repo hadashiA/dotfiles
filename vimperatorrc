@@ -1,52 +1,34 @@
-" 1.2pre (created: 2008/07/11 21:30:06)
+:set guioptions=nosmallicons,nosearchbox,nomenubutton,leftscrollbar,nobottomscrollbar,notabnumbers
+:set toolbars=nomenu,nonavigation,noaddons,nobookmarks
 
-" Options
-"メニュー/ツール/ブックマークバーを表示
-"set guioptions=mTb
-"ブラウザタイトルの設定
+colorscheme vimplight
+
 set titlestring=Mozilla Firefox 3
-"エラー時のビープ音をビジュアルベルに
 set visualbell
-"ビジュアルベルを無効化
 "set visualbellstyle=display:none;
-"詳細表示を7行に(最大値=9)
 set verbose=7
-":[tab]open時の補完設定(s=検索エンジン+キーワードURL,l=ロケーションバーの補完機能を利用)
 set complete=sl
-"コマンド入力時にコマンド名を自動補完
 set wildoptions=auto
-"デフォルト検索エンジン(検索バーの管理→キーワード,うちではg=google)
 set defsearch=google
-"サジェストエンジンの設定
 set suggestengines=google
-"検索語のハイライト
 set hlsearch
-"開いているページが1つならタブ非表示
 set showtabline=1
-"履歴を保存
-set history=100
-"以下のとき新しいタブで開く
+set history=1000
 set activate=homepage,quickmark,tabopen,paste
-"ヒント機能(f,F押下時)の見た目設定(効いてない？)
-set hintstyle+= font-family: Verdana , monospace; font-size:20px; color:white; background-color:blue; border-color:ButtonShadow;
+set hintchars=asdfjklgh
+" noremap , :set hintchars=jkl;uiop<CR>f
+" noremap f :set hintchars=asdfjkl;<CR>f
 
-" Mappings
-"j/kの移動量を5倍に
 noremap j 5<C-e>
 noremap k 5<C-y>
-"J/KにPageDown,PageUpを割り当て(LDRizeが効いている場合でも指のポジションを動かさずに済む
 noremap J <PageDown>
 noremap K <PageUp>
-"h/lで戻る/進む
 noremap h <A-Left>
 noremap l <A-Right>
-"H/Lでタブ移動
 noremap H gT
 noremap L gt
-"←/→でタブ移動
 map <Left> <C-p>
 map <Right> <C-n>
-"Shift+←/Shift+→でタブ位置変更
 map <S-Right> :tabmove! +1<CR>
 map <S-Left> :tabmove! -1<CR>
 
@@ -73,17 +55,8 @@ noremap <C-3> :set guioptions=bmT<cr>
 "LDRize_Cooperationをトグル
 map q <esc>:toggleldrc<cr>
 
-"はてブ追加
-noremap a <esc>:hb<space>[
-
 "ダイアログ表示してブックマーク追加
 map ,a <esc>:dialog addbookmark<cr>
-
-"はてブ情報表示
-map b <esc>:hbinfo<cr>
-
-"はてブタグ読み込み
-map ,b <esc>:hbtags<cr>
 
 "タブを閉じる(browser_object.js)
 map x dd
@@ -95,37 +68,15 @@ map <C-:> :m<Space>
 map <C-r> :restart<CR>
 "map <C-h> :help<CR>
 
-"niconicoplaylist.js関連
-map ,nn <esc>:nnpplaynext<cr>
-map ,na <esc>:nnppushallvideos<cr>
-map ,nt <esc>:nnppushthisvideo<cr>
-map ,nc <esc>:nnpclear<cr>
-map ,nl <esc>:nnpgetlist<cr>
-map ,nr <esc>:nnpremove<Space>
-map ,ni <esc>:nicoinfo<cr>
-map ,np <esc>:nicopause<cr>
-map ,nm <esc>:nicomute<cr>
-map ,nv <esc>:nicommentvisible<cr>
-map ,nz <esc>:nicosize<cr>
-map ,ns <esc>:nicoseek<cr>
-
-" C-cでテキスト選択してたらコピー、 してなかったらロードを中止する
-"js <<EOM</pp>
-"mappings.addUserMap([modes.NORMAL,modes.VISUAL],['<C-c>'], 'Copy selected text or stop loading',
-"    function(){
-"        var sel = window.content.window.getSelection().toString();
-"        if (sel){
-"            copyToClipboard(sel,true);
-"        } else {
-"            BrowserStop();
-"            echo('Stopped loading !');
-"        }
-"    }
-");
-"EOM
+"Gmail と Google Reader で使用するキーを設定
+autocmd LocationChange .* :fmapc
+autocmd LocationChange 'mail\.google\.com/mail' :fmap c / j k n p o u e x s r a y # [ ] z ? gi gs gt gd ga gc
+autocmd LocationChange 'www\.google\.com/reader' :fmap! -vkey j k n p m s t v A r S N P X O gh ga gs gt gu / ?
+autocmd LocationChange 'www\.google\.co\.jp/reader' :fmap! -vkey j k n p m s t v A r S N P
 
 " Plugins
 " ===================================================
+
 " ime_controller.js
 let g:ex_ime_mode = "inactive"
 let g:textarea_ime_mode = "inactive"
@@ -134,28 +85,8 @@ let g:textarea_ime_mode = "inactive"
 map s :google<Space>
 
 " migemo_hint.js
-set hintmatching=custom
+" set hintmatching=custom
 
 "Appearance Change with StyleChanger.js
 let g:styles = "vimperator"
-
-"feedSomeKeys_2.js
-" autocmd LocationChange .* :fmapc
-" autocmd LocationChange mail\.google\.com/mail :fmap -depth 4 c / y j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gc
-" autocmd LocationChange www\.google\.com/reader :fmap j k s a r v <Space> <S-Space> g
-
-" vimperatorでgoogle readerのショートカットを有効にする - 拡張現実ライフ - モバイルデジタルサイネージ編
-"  http://d.hatena.ne.jp/akio0911/20090112/p1
-autocmd LocationChange .* js modes.passAllKeys = false
-autocmd LocationChange www\\.google\\.(co\\.jp|com)/reader js modes.passAllKeys = true
-
-" char-hint-mod2.js
-let g:hintsio="iO"    
-
-" Abbreviations
-" ======================================================================
-"読み込み終了のお知らせ
-echo "done."
-source! ~/_vimperatorrc.local
-" vim: set ft=vimperator:
 

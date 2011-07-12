@@ -35,9 +35,9 @@ export CPLUS_INCLUDE_PATH=/usr/local/include:/opt/local/include:$CPLUS_INCLUDE_P
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/lib:/opt/local/lib
 export BOOST_ROOT=/usr/local/include:/opt/local/include:$BOOST_ROOT
 
-export NODE_PATH=/home/ursm/.npm/lib:$NODE_PATH
-export PATH=/home/ursm/.npm/bin:$PATH
-export MANPATH=/home/ursm/.npm/man:$MANPATH
+export NODE_PATH=$HOME/.npm/lib:$NODE_PATH
+export PATH=$HOME/.npm/bin:$PATH
+export MANPATH=$HOME/.npm/man:$MANPATH
 
 # Python
 export PYTHONPATH="/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:$PYTHONPATH"
