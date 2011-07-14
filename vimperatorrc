@@ -90,3 +90,6 @@ map s :google<Space>
 "Appearance Change with StyleChanger.js
 let g:styles = "vimperator"
 
+" _smooziee.js
+let g:smooziee_scroll_amount="200"
+let g:smooziee_scroll_interval="10"
