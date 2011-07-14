@@ -1,0 +1,36 @@
+! keycode 102 (keysym 0xff22, Muhenkan), same_screen YES,
+! keycode  36 (keysym 0xff0d, Return), same_screen YES,
+! keycode  51 (keysym 0xffe3, bracketright), same_screen YES,
+
+
+! ctrl and capslock
+remove Lock  =  Caps_Lock
+!remove Control  =  Control_L
+!keysym Control_L  =  Caps_Lock
+keysym Caps_Lock  =  Control_L
+!add Lock  =  Caps_Lock
+add Control  =  Control_L
+
+! language switch
+keycode 101  =  Zenkaku_Hankaku Kanji Zenkaku_Hankaku Kanji
+keycode  49  =  Escape NoSymbol Escape NoSymbol Escape
+
+! alt and super
+! remove mod1  =  Alt_L Meta_L
+! remove mod4  =  Super_L
+!keysym Alt_L  =  Super_L
+!keysym Super_L  =  Alt_L
+! add mod1  =  Alt_L
+! add mod4  =  Super_L
+
+! backslash
+keycode 132  =  backslash bar backslash bar
+
+! Right Control
+keycode 114  =  bracketright braceright kana_MU kana_closingbracket
+
+keycode 36  =  Control_L
+add Control  =  Control_L
+keycode 51 = Return NoSymbol Return
+
+
