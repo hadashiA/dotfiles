@@ -161,6 +161,11 @@
 ;; Mac用設定を読み込む
 (when run-darwin
   (load "init-mac"))
+
+;; Linux
+(when run-linux
+  (load "init-linux"))
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
