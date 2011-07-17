@@ -33,4 +33,4 @@ keycode 36  =  Control_L
 add Control  =  Control_L
 keycode 51 = Return NoSymbol Return
 
-
+keycode 97 = underscore underscore backslash underscore
