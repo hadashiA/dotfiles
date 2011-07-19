@@ -44,5 +44,9 @@
            (point))))
     (skip-chars-forward "\s " point-of-indentation)))
 
+;; (defun kakko-and-semicolon ()
+;;   (interactive)
+;;   )
+
 (require 'jade-mode)
 

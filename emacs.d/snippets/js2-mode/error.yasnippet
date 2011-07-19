@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: error
+# --
+exports.$1 = function(msg) {
+  this.name = '$1';
+  Error.call(this, msg);
+  Error.captureStackTrace(this, arguments.callee);
+};
+
