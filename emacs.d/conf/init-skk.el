@@ -13,17 +13,12 @@
 ;; SKK tutorial
 ;; (setq skk-tut-file (expand-file-name "~/.skk/SKK.tut"))
 
-;; skkservを使うのでラージ辞書いらない
-(setq skk-large-jisyo nil)
-
 ;; Mac上での動作が前提。AquaSKKのskkserve機能を利用。
 ;; VMWareのネットワーク設定をちゃんとしないとだめ。
-;;  - linux  = VMWare Fusion on Mac
 ;;  - darwin = VMWareのホストOS (Mac)
-(cond (run-linux
-       (setq skk-server-host "172.16.8.2")
-       (setq skk-server-portnum 1178))
-      (run-darwin
+(cond (run-darwin
+       ;; skkservを使うのでラージ辞書いらない
+       (setq skk-large-jisyo nil)
        (setq skk-server-host "localhost")
        (setq skk-server-portnum 1178)))
 

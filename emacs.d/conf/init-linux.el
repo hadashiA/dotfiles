@@ -11,8 +11,10 @@
 ;; (setq mac-pass-option-to-system nil)
 
 ;; 半透明化パッチ適用
-(setq default-frame-alist
-      (append (list '(alpha . (80 80))) default-frame-alist))
+;; (setq default-frame-alist
+;;       (append (list '(alpha . (80 80))) default-frame-alist))
+
+(add-to-list 'default-frame-alist '(alpha . 80))
 
 ;; ¥の代わりにバックスラッシュを入力する
 (define-key global-map [?¥] [?\\])
