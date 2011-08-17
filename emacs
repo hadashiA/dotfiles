@@ -146,7 +146,7 @@
 ;; (load "init-skype")
 (load "init-autosave-buffers")
 ;; (load "init-evernote")
-;; (load "init-genkou")
+(load "init-genkou")
 (load "init-irc")
 
 ;; [2008-03-13]

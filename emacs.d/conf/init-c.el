@@ -73,6 +73,7 @@
 (add-hook 'objc-mode-hook
           (lambda ()
             (c-set-offset 'label '-)
+            (c-toggle-auto-newline t)
             (define-key objc-mode-map (kbd "C-c o") 'ff-find-other-file)
             (define-key c++-mode-map (kbd "C-c ,") 'compile-and-go-go)
             ))

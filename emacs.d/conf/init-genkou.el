@@ -6,6 +6,7 @@
 ;;     * genkou-save 「保存して400字換算」
 ;;     * genkou-tex-export 「TeXにエクスポート」
 ;;     * genkou-count-preview 「プレビュー」
+(add-to-list 'auto-mode-alist '("\\.omm$" . genkou-mode))
 (autoload 'genkou-mode "genkou" "minor mode for Japanese manuscript." t)
 (add-hook 'genkou-mode-hook
           '(lambda ()

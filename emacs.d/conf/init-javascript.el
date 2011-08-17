@@ -28,6 +28,15 @@
              (define-key js2-mode-map "\C-i" 'indent-and-back-to-indentation)
              ))
 
+(add-hook 'align-load-hook
+          (lambda ()
+            (add-to-list 'align-rules-list
+                         '(js2-assignment-literal
+                           (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
+                           (repeat . t)
+                           (modes  . '(js2-mode))))
+              ))
+
 (defun insert-semicolon-and-new-line-and-indent ()
   "insert semicolon and newline and indentation."
   (interactive)

@@ -25,7 +25,7 @@
                 (kbd "{") (smartchr '("{ `!!' }" "{`!!'}")))
               
               (define-key js2-mode-map
-                (kbd "C-8") (smartchr '("(`!!');" "({ `!!' });" "(function() { `!!' });")))
+                (kbd "C-8") (smartchr '("(`!!');" "('`!!'');" "({ `!!' });" "(function(`!!') {  });")))
               ))
 
   (add-hook 'ruby-mode-hook
