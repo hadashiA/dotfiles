@@ -44,34 +44,45 @@
     (setq ac-quick-help-prefer-x t))
 
   (add-to-list 'load-path "~/.emacs.d/elisp/company")
-  (require 'ac-company)
-  (ac-company-define-source ac-source-company-xcode company-xcode)
-  (ac-company-define-source ac-source-company-gtags company-gtags)
+  ;; (require 'ac-company)
+  ;; (ac-company-define-source ac-source-company-xcode company-xcode)
+  ;; (ac-company-define-source ac-source-company-gtags company-gtags)
 
-  (require 'auto-complete-ya-gtags)
+  ;; (require 'auto-complete-ya-gtags)
+  (require 'auto-complete-clang)
 
-  (add-hook 'c-common-mode-hook
-            (lambda ()
-              (message "c-common-mode-hook!!!!!!!!!!!")
-              (add-to-list 'ac-sources 'ac-source-ya-gtags)))
+  ;; (add-hook 'c-common-mode-hook
+  ;;           (lambda ()
+  ;;             (add-to-list 'ac-sources 'ac-source-ya-gtags)))
 
   ;; objc-mode
   (add-to-list 'ac-modes 'objc-mode)
   (add-hook 'objc-mode-hook
             (lambda ()
-              (add-to-list 'ac-sources 'ac-source-company-xcode)
+              ;; (add-to-list 'ac-sources 'ac-source-company-xcode)
+              ;; (add-to-list 'ac-sources 'ac-source-ya-gtags)
+
               ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
-              (add-to-list 'ac-sources 'ac-source-ya-gtags)
-              (auto-complete)
-              )
-            )
+              ;; (auto-complete)
+
+              (setq ac-clang-prefix-header "~/.emacs.d/cocos2d.h.pch"
+                    ac-clang-flags (list "-Wall" "-Wextra" "-fsyntax-only"
+                                         "-x" "objective-c"
+                                         "-isysroot" xcode:sdk:path))
+              (add-to-list 'ac-sources 'ac-source-clang)
+              ))
 
   (add-hook 'c++-mode-hook
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-dictionary)
-              (add-to-list 'ac-sources 'ac-source-company-xcode)
+              ;; (add-to-list 'ac-sources 'ac-source-company-xcode)
               ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
-              (add-to-list 'ac-sources 'ac-source-ya-gtags)
+              ;; (add-to-list 'ac-sources 'ac-source-ya-gtags)
+
+              (setq ac-clang-prefix-header "~/.emacs.d/std.hpp.pch"
+                    ac-clang-flags '("-w" "-ferror-limit" "1")
+                    )
+              (add-to-list 'ac-sources 'ac-source-clang)
               ))
 
   (add-hook 'emacs-lisp-mode-hook
@@ -86,7 +97,7 @@
               (ac-ruby-mode-setup)
               (add-to-list 'ac-sources 'ac-source-rsense-method)
               (add-to-list 'ac-sources 'ac-source-rsense-constant)
-              (add-to-list 'ac-sources 'ac-source-company-gtags)
+              ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
               ))
 
   (defun ac-pycomplete-candidates ()
@@ -116,4 +127,5 @@
   (add-hook 'css-mode-hook 'ac-css-mode-setup)
   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
 
-  (global-auto-complete-mode t))
+  (global-auto-complete-mode t)
+)

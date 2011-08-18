@@ -83,7 +83,7 @@
                         temp-file
                         (file-name-directory buffer-file-name))))
       (list "gcc" (list "-Wall" "-Wextra" "-fsyntax-only"
-                        "-ObjC"
+                        "-x" "objective-c"
                         "-isysroot" xcode:sdk:path
                         local-file))))
 
