@@ -61,7 +61,7 @@
             (lambda ()
               ;; (add-to-list 'ac-sources 'ac-source-company-xcode)
               ;; (add-to-list 'ac-sources 'ac-source-ya-gtags)
-
+              
               ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
               ;; (auto-complete)
 
@@ -69,7 +69,8 @@
                     ac-clang-flags (list "-Wall" "-Wextra" "-fsyntax-only"
                                          "-x" "objective-c"
                                          "-isysroot" xcode:sdk:path))
-              (add-to-list 'ac-sources 'ac-source-clang)
+              ;; (add-to-list 'ac-sources 'ac-source-clang)
+              (define-key objc-mode-map (kbd "C-9") 'ac-complete-clang)
               ))
 
   (add-hook 'c++-mode-hook
