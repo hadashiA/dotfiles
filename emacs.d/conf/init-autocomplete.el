@@ -83,7 +83,8 @@
               (setq ac-clang-prefix-header "~/.emacs.d/std.hpp.pch"
                     ac-clang-flags '("-w" "-ferror-limit" "1")
                     )
-              (add-to-list 'ac-sources 'ac-source-clang)
+              ;; (add-to-list 'ac-sources 'ac-source-clang)
+              (define-key c++-mode-map (kbd "C-9") 'ac-complete-clang)
               ))
 
   (add-hook 'emacs-lisp-mode-hook
