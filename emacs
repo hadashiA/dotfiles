@@ -147,7 +147,7 @@
 (load "init-autosave-buffers")
 ;; (load "init-evernote")
 (load "init-genkou")
-(load "init-irc")
+;; (load "init-irc")
 
 ;; [2008-03-13]
 ;; mmm-modeってば、なんか動かないんだよなー。
