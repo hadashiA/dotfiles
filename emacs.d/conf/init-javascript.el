@@ -35,7 +35,7 @@
                            (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
                            (repeat . t)
                            (modes  . '(js2-mode))))
-              ))
+            ))
 
 (defun insert-semicolon-and-new-line-and-indent ()
   "insert semicolon and newline and indentation."

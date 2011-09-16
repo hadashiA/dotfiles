@@ -192,3 +192,4 @@
  '(region ((((class color) (min-colors 88) (background dark)) (:background "#49483E"))))
  '(show-paren-match ((((class color) (background dark)) (:background "#3E3D32"))))
  '(variable-pitch ((t (:family "DejaVu Sans")))))
+(put 'downcase-region 'disabled nil)
