@@ -1,5 +1,0 @@
-CXXFLAGS = -I../../ -Wall -Werror -O2
-LDFLAGS =-F$(HOME)/Library/Frameworks -framework gtest
-
-SOURCES=$(wildcard *.cpp)
-OBJECTS=$(patsubst %.cpp,%.o,$(SOURCES))
