@@ -1,7 +1,0 @@
-.emacs.d/dot:
-  local.el: tarao.luxaky.el
-  .viper.el: viper.el
-.vim:
-  local.vim: tarao.vim
-.zsh:
-  local.zsh: tarao.luxaky.zsh
