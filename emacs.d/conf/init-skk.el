@@ -16,11 +16,15 @@
 ;; Mac上での動作が前提。AquaSKKのskkserve機能を利用。
 ;; VMWareのネットワーク設定をちゃんとしないとだめ。
 ;;  - darwin = VMWareのホストOS (Mac)
-(cond (run-darwin
-       ;; skkservを使うのでラージ辞書いらない
-       (setq skk-large-jisyo nil)
-       (setq skk-server-host "localhost")
-       (setq skk-server-portnum 1178)))
+;; (cond (run-darwin
+;;        ;; skkservを使うのでラージ辞書いらない
+;;        (setq skk-large-jisyo nil)
+;;        (setq skk-server-host "localhost")
+;;        (setq skk-server-portnum 1178)))
+
+(setq skk-large-jisyo nil)
+(setq skk-server-host "hadashikick.jp")
+(setq skk-server-portnum 1178)
 
 ;; SKKの設定
 ;; http://www.bookshelf.jp/soft/meadow_21.html#SEC194
