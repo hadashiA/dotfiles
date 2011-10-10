@@ -128,6 +128,7 @@
 (load "init-javascript")
 (load "init-c")
 (load "init-objc")
+(load "init-csharp")
 ;;(load "init-perl")
 ;;(load "init-perlysense")
 (load "init-ruby")

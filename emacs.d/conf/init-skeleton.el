@@ -46,6 +46,7 @@
 (add-hook 'c-common-mode-hook 'skeleton-setup-default)
 (add-hook 'objc-mode-hook 'skeleton-setup-default)
 (add-hook 'c++-mode-hook 'skeleton-setup-default)
+(add-hook 'csharp-mode-hook 'skeleton-setup-default)
 (add-hook 'ruby-mode-hook 'skeleton-setup-default)
 (add-hook 'python-mode-hook 'skeleton-setup-default)
 (add-hook 'javascript-mode-hook 'skeleton-setup-default)
