@@ -27,9 +27,9 @@
 
   (add-hook 'csharp-mode-hook
             (lambda ()
-              (define-key objc-mode-map
+              (define-key csharp-mode-map
                 (kbd "+") (smartchr '("+" " + " "++" " += ")))
-              (define-key objc-mode-map
+              (define-key csharp-mode-map
                 (kbd ">") (smartchr '(">" "->" " >> ")))
               ))
 
