@@ -23,7 +23,7 @@
 ;;        (setq skk-server-portnum 1178)))
 
 (setq skk-large-jisyo nil)
-(setq skk-server-host "hadashikick.jp")
+(setq skk-server-host "ata.ma")
 (setq skk-server-portnum 1178)
 
 ;; SKKの設定
