@@ -3,7 +3,7 @@ alias la='ls -palGFc'
 alias del='rm -rf'
 alias cp='cp -irf'
 alias mv='mv -i'
-alias grep='grep -i -r -H -n -I --color=auto'
+alias grep='grep -i -H -n -I --color=auto'
 
 function cd() {builtin cd $@ && la}
 
