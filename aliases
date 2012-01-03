@@ -57,7 +57,7 @@ alias gae='dev_appserver.py --debug .'
   alias o='open .'
   alias mvim="open -a MacVim"
   alias eprof="mvim ~/dotfiles"
-  alias readrails="mvim `ruby -rubygems -e "puts( ['rails', 'activerecord', 'activeresource', 'actionpack', 'activesupport'].collect { |gem| gems = Gem.source_index.find_name(gem); gems.last.full_gem_path; }.join(' '))"`"
+#alias readrails="mvim `ruby -rubygems -e "puts( ['rails', 'activerecord', 'activeresource', 'actionpack', 'activesupport'].collect { |gem| gems = Gem.source_index.find_name(gem); gems.last.full_gem_path; }.join(' '))"`"
   alias hidefile='/usr/bin/SetFile -a "V"'
   alias showfile='/usr/bin/SetFile -a "v"'
 
