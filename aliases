@@ -5,7 +5,8 @@ alias cp='cp -irf'
 alias mv='mv -i'
 alias grep='grep -i -H -n -I --color=auto'
 
-function cd() {builtin cd $@ && la}
+# nvm.sh using cd 
+# function cd() {builtin cd $@ && la}
 
 alias b='cd -'
 alias c='clear' # shortcut to clear your terminal

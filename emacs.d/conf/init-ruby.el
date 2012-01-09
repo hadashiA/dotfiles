@@ -3,8 +3,7 @@
 ;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs 
 (add-to-load-path "~/.emacs.d/elisp/ruby-mode/")
 (require 'rvm)
-;; (rvm-use "1.8.7" "ruby")
-;; (rvm-use "1.9.2" "ruby")
+;; (rvm-use "1.9.3" "ruby")
 (rvm-use-default)
 
 (when (require 'ruby-mode nil t)

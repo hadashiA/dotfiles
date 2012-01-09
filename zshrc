@@ -1,9 +1,3 @@
-source ~/.exports
-source ~/.aliases
-source ~/.gitrc
-source ~/.zsh/common.zsh
-source ~/.zsh/local.zsh
-
 # Ruby rvm
 if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi
 
@@ -17,6 +11,12 @@ if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi
 # fi
 
 # Node.js nvm
-if [[ -f ~/.nvm/nvm.sh ]]; then
-  source ~/.nvm/nvm.sh
+if [[ -f $HOME/.nvm/nvm.sh ]]; then
+    source $HOME/.nvm/nvm.sh
 fi
+
+source ~/.exports
+source ~/.aliases
+source ~/.gitrc
+source ~/.zsh/common.zsh
+source ~/.zsh/local.zsh
