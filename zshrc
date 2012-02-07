@@ -20,3 +20,4 @@ source ~/.aliases
 source ~/.gitrc
 source ~/.zsh/common.zsh
 source ~/.zsh/local.zsh
+source ~/.paperboy

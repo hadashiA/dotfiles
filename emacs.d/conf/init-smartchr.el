@@ -71,4 +71,11 @@
               (define-key jade-mode-map (kbd "=")
                 (smartchr '("=" "=\"`!!'\"" "=\"{% `!!' %}\"" "=\"{{ `!!' }}\"")))
               ))
+  (add-hook 'php-mode-hook
+            (lambda ()
+              (define-key php-mode-map (kbd "=")
+                (define-key php-mode-map
+                  (kbd "+") (smartchr '("+" " + " " += ")))
+                (define-key php-mode-map
+                  (kbd ">") (smartchr '(">" "->" " => " " => '`!!''" " => \"`!!'\""))))))
   )

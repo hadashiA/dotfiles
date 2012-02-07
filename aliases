@@ -84,3 +84,4 @@ alias jpsns="cd ~/dev/japan_sns"
 alias pj=$CURPROJ
 
 alias staging="open ~/dotfiles/terminal/Staging.terminal"
+
