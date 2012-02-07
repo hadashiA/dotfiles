@@ -134,6 +134,7 @@
 (load "init-ruby")
 (load "init-python")
 (load "init-php")
+(load "init-sql")
 (load "init-lisp")
 ;;(load "init-haskell")
 ;;(load "init-scheme")

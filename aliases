@@ -85,5 +85,3 @@ alias pj=$CURPROJ
 
 alias staging="open ~/dotfiles/terminal/Staging.terminal"
 
-# kzm1228
-alias kaihatudb="mysql -u procart -p -h 192.168.39.91 procart"
