@@ -65,4 +65,10 @@
               (define-key html-mode-map (kbd "=")
                 (smartchr '("=" "=\"`!!'\"" "=\"{% `!!' %}\"" "=\"{{ `!!' }}\"")))
               ))
+
+  (add-hook 'jade-mode-hook
+            (lambda ()
+              (define-key jade-mode-map (kbd "=")
+                (smartchr '("=" "=\"`!!'\"" "=\"{% `!!' %}\"" "=\"{{ `!!' }}\"")))
+              ))
   )
