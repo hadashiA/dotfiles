@@ -133,7 +133,7 @@
 ;;(load "init-perlysense")
 (load "init-ruby")
 (load "init-python")
-;;(load "init-php")
+(load "init-php")
 (load "init-lisp")
 ;;(load "init-haskell")
 ;;(load "init-scheme")
