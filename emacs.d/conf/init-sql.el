@@ -46,6 +46,8 @@
                             'comint-truncate-buffer)))
           )
 
+(setq sql-mysql-options (list "-u procart" "-pkzm1228" "-h 192.168.39.91" "procart"))
+
 ;; SQL モードから SQLi へ送った SQL 文も SQLi ヒストリの対象とする
 (defadvice sql-send-region (after sql-store-in-history)
   "The region sent to the SQLi process is also stored in the history."

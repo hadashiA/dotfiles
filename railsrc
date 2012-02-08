@@ -1,3 +1,5 @@
+AR = ActiveRecord::Base
+
 def sql(sql_or_scope)
   sql = 
     if sql_or_scope.kind_of?(ActiveRecord::Relation)
@@ -5,7 +7,7 @@ def sql(sql_or_scope)
     else
       sql_or_scope
     end
-  ActiveRecord::Base.connection.select_all(sql)
+  table ActiveRecord::Base.connection.select_all(sql)
 end
 
 def explain(sql_or_scope)
@@ -15,5 +17,5 @@ def explain(sql_or_scope)
     else
       sql_or_scope
     end
-  ActiveRecord::Base.connection.select_all("EXPLAIN #{sql}")
+  table ActiveRecord::Base.connection.select_all("EXPLAIN #{sql}")
 end

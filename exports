@@ -7,12 +7,13 @@ export EDITOR='vim'
 export PATH="/Applications/MacPorts/Emacs.app/Contents/MacOS/bin:$PATH"
 export PATH="/Applications/MacPorts/Emacs.app/Contents/MacOS:$PATH"
 
-#export PATH="/usr/local/git/bin:$PATH"
-export PATH="/usr/local/mysql/bin:$PATH"
-
+export PATH="/opt/local/lib/mysql4/bin:$PATH"
 export PATH="/opt/local/lib/mysql5/bin:$PATH"
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="/opt/local/lib/postgresql84/bin:$PATH"
+#export PATH="/usr/local/git/bin:$PATH"
+export PATH="/usr/local/mysql/bin:$PATH"
+
 export PATH="/usr/local/jruby/bin:$PATH"
 
 export PATH="/usr/local/Cellar/emacs/HEAD/bin:$PATH"
@@ -73,3 +74,7 @@ export SDK_VERSION=4.3
 export SDK_PATH=/Developer/Platforms/${SDK_PLATFORM}.platform/Developer/SDKs/${SDK_PLATFORM}${SDK_VERSION}.sdk
 
 export GEM=/opt/local/lib/ruby/gems/1.8/gems/
+
+
+export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/mysql/lib
+export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/mysql/lib
