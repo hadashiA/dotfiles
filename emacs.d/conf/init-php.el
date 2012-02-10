@@ -3,16 +3,17 @@
 ;; php-mode
 (load-library "php-mode")
 (require 'php-mode)
-(add-hook 'php-mode-user-hook
+(add-hook 'php-mode-hook
           '(lambda ()
              (setq c-basic-offset 4
                    indent-tabs-mode t
                    tab-width 4
                    default-tab-width 4
                    )
-             (set-default-coding-systems 'euc-jp)
-             (set-buffer-file-coding-system 'euc-jp)
-             (set-terminal-coding-system 'euc-jp)
+             ;; (set-default-coding-systems 'euc-jp)
+             ;; (set-buffer-file-coding-system 'euc-jp)
+             ;; (set-terminal-coding-system 'euc-jp)
+             (skeleton-setup-default)
              ))
 
 ;; http://namazu.org/~satoru/diary/?200203c&to=200203272#200203272

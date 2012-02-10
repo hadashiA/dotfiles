@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: query_from_file
+# --
+$wIO = fopen(dirname(__FILE__).'/../../tmp/insert_m_yahoo_category.sql', 'r');
+				
+$wSQL = '';
+for ($i = 1; !feof($wIO); $i++) {
+	$line = fgets($wIO);
+	$wSQL .= $line;
+	if (preg_match('/\);/', $line) > 0) {
+		$result = gf_QueryExec($GLOBALS['gConn'], $wSQL);
+		Var_Dump::display($result);
+		$wSQL = '';
+	}
+}
