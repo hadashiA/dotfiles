@@ -14,6 +14,11 @@
              ;; (set-buffer-file-coding-system 'euc-jp)
              ;; (set-terminal-coding-system 'euc-jp)
              (skeleton-setup-default)
+
+             ;; コメントのスタイル (必要なければコメントアウトする)
+             (setq comment-start "// "
+                   comment-end   ""
+                   comment-start-skip "// *")
              ))
 
 ;; http://namazu.org/~satoru/diary/?200203c&to=200203272#200203272
