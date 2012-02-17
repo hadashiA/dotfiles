@@ -41,12 +41,8 @@
 (setq anything-display-function 'anything-default-display-buffer)
 
 ;; \M-y でキルリング履歴
-(setq kill-ring-max 30) ;; kill-ring の最大値. デフォルトは 30.
-(setq anything-kill-ring-threshold 5) ;; anything で対象とするkill-ring の要素の長さの最小値.デフォルトは 10.
-(global-set-key "\M-y" 'anything-show-kill-ring);;kill-ring の最大値. デフォルトは 30.
-(setq kill-ring-max 20)
-
-
+(setq kill-ring-max 50) ;; kill-ring の最大値. デフォルトは 30.
+(setq anything-kill-ring-threshold 10) ;; anything で対象とするkill-ring の要素の長さの最小値.デフォルトは 10.
 (global-set-key "\M-y" 'anything-show-kill-ring)
 
 (when (require 'anything-c-moccur nil t)

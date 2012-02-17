@@ -1,6 +1,6 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-;; M-Y で行のコピー
+;; C-S-y で行のコピー
 (defun duplicate-line (&optional numlines)
   "One line is duplicated wherever there is a cursor."
   (interactive "p")
