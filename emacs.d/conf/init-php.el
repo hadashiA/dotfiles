@@ -1,14 +1,13 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
-
 ;; php-mode
 (load-library "php-mode")
 (require 'php-mode)
 (add-hook 'php-mode-hook
           '(lambda ()
              (setq c-basic-offset 4
-                   indent-tabs-mode t
                    tab-width 4
                    default-tab-width 4
+                   indent-tabs-mode (string-match "cmsp" (buffer-file-name))
                    )
              ;; (set-default-coding-systems 'euc-jp)
              ;; (set-buffer-file-coding-system 'euc-jp)
