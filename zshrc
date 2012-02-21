@@ -20,4 +20,6 @@ source ~/.aliases
 source ~/.gitrc
 source ~/.zsh/common.zsh
 source ~/.zsh/local.zsh
-source ~/.paperboy
+if [[ -f $HOME/.paperboy ]]; then
+    source $HOME/.paperboy
+fi
