@@ -12,8 +12,6 @@
              ;; (set-default-coding-systems 'euc-jp)
              ;; (set-buffer-file-coding-system 'euc-jp)
              ;; (set-terminal-coding-system 'euc-jp)
-             (skeleton-setup-default)
-
              ;; コメントのスタイル (必要なければコメントアウトする)
              (setq comment-start "// "
                    comment-end   ""

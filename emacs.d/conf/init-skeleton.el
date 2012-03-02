@@ -51,10 +51,23 @@
 (add-hook 'python-mode-hook 'skeleton-setup-default)
 (add-hook 'javascript-mode-hook 'skeleton-setup-default)
 (add-hook 'js2-mode-hook 'skeleton-setup-js)
-(add-hook 'php-mode-hook 'skeleton-setup-default)
 
 (add-hook 'lisp-mode-hook 'skeleton-setup-lisp)
 (add-hook 'emacs-lisp-mode-hook 'skeleton-setup-lisp)
+
+(add-hook 'php-mode-hook
+          (lambda ()
+              (make-variable-buffer-local 'skeleton-pair)
+              (make-variable-buffer-local 'skeleton-pair-on-word)
+              (setq skeleton-pair-on-word t)
+              (setq skeleton-pair t)
+              (make-variable-buffer-local 'skeleton-pair-alist)
+              (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
+              (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
+              (local-set-key (kbd "`") 'skeleton-pair-insert-maybe)
+              (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
+              (local-set-key (kbd "'") 'skeleton-pair-insert-maybe)
+            ))
 
 
 

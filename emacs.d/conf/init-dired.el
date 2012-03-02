@@ -66,3 +66,17 @@
   (let ((file (dired-get-filename)))
     (shell-command-to-string (concat "open " file))))
 (define-key dired-mode-map "z" 'dired-app-open)
+
+
+;; make get-free-disk-space human readable (especially for dired) — Gist
+;; https://gist.github.com/845216
+(defadvice get-free-disk-space (after get-free-disk-gb activate)
+  "Return free disk space with GByte order"
+  (let ((kb (string-to-number ad-return-value))) ; this is reserved variable
+  (if (> kb 1024)
+      (progn (setq kb (/ kb 1024))
+             (if (> kb 1024)
+                 (setq ad-return-value (format "%.0f GB" (/ kb 1024)))
+               (setq ad-return-value (format "%.0f MB" kb))))
+    (setq ad-return-value (format "%.0f kB" kb))
+)))
