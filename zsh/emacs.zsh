@@ -1,5 +1,5 @@
 if [[ -d /Applications/Emacs.app/ ]]; then
-    alias emacsclient='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient'
+    # alias emacsc='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient'
     alias emacsd='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
 else
     alias emacsc='emacsclient -nw'
