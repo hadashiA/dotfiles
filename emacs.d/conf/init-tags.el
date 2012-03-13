@@ -4,9 +4,9 @@
 (require 'gtags)
 (setq gtags-mode-hook
       '(lambda ()
-         (local-set-key "\M-t" 'gtags-find-tag)
-         (local-set-key "\M-r" 'gtags-find-rtag)
-         (local-set-key "\M-s" 'gtags-find-symbol)
+         (local-set-key (kbd "M-t") 'gtags-find-tag)
+         (local-set-key (kbd "M-r") 'gtags-find-rtag)
+         (local-set-key (kbd "M-s") 'gtags-find-symbol)
          (local-set-key (kbd "S-C-t") 'gtags-pop-stack)
          ))
 
@@ -48,4 +48,9 @@
             (gtags-mode-on-and-setup-anything)
             ;; (setq gtags-libpath `((,(expand-file-name "~/.tags/activerecord-2.3.8") . "/opt/local/lib/ruby/gems/1.8/gems/activerecord-2.3.8/lib")
             ;;                       (,(expand-file-name "~/.tags/activesupport-2.3.8") . "/opt/local/lib/ruby/gems/1.8/gems/activesupport-2.3.8/lib")))
+            ))
+
+(add-hook 'php-mode-hook
+          (lambda ()
+            (gtags-mode-on-and-setup-anything)
             ))
