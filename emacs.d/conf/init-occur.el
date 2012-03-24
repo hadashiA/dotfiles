@@ -13,4 +13,4 @@
   ;; (global-set-key (kbd "C-M-o") 'dmoccur)
   )
 
-
+(load "moccur-edit")
