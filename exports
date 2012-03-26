@@ -78,3 +78,5 @@ export GEM=/opt/local/lib/ruby/gems/1.8/gems/
 
 export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/mysql/lib
 export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/mysql/lib
+
+export BYOBU_PREFIX=`brew --prefix`
