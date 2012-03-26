@@ -17,7 +17,6 @@
    '(variable-pitch ((t (:family "DejaVu Sans"))))
    )
 
-
   (set-cursor-color "#656565")
 
   ;; 補完候補に色

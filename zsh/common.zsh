@@ -8,8 +8,8 @@ typeset -gxU PATH=$PATH
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
-setopt   share_history append_history
-unsetopt extended_history
+setopt no_extended_history
+setopt share_history append_history
 # setopt   hist_ignore_space hist_ignore_dups hist_expire_dups_first
 autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
