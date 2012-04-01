@@ -105,6 +105,7 @@
 (load "init-killring")
 (load "init-skeleton")
 (load "init-smartchr")
+(load "init-vimlike")
 (load "init-jump")
 (load "init-matelike")
 (load "init-migemo")
