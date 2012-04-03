@@ -1,5 +1,7 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
+(require 'generic-x)
+
 ;; 文字コードの変更方法
 ;;
 ;; キーボードから入力する文字コード
