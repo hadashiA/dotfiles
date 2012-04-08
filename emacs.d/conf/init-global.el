@@ -2,6 +2,9 @@
 
 (require 'generic-x)
 
+(require 'open-junk-file)
+(global-set-key (kbd "C-x C-z") 'open-junk-file)
+
 ;; 文字コードの変更方法
 ;;
 ;; キーボードから入力する文字コード
