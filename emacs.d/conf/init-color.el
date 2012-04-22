@@ -19,6 +19,9 @@
 
   (set-cursor-color "#656565")
 
+  (set-face-foreground 'font-lock-regexp-grouping-backslash "#666")
+  (set-face-foreground 'font-lock-regexp-grouping-construct "#f60")
+
   ;; 補完候補に色
   (when (require 'dircolors nil t)
     ;; (setq dircolors-face-color
