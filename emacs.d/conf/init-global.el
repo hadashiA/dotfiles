@@ -69,6 +69,9 @@
 (setq default-process-coding-system '(utf-8 . utf-8))
 (setq default-file-name-coding-system 'utf-8)
 
+(setenv "LANG" "ja_JP.UTF-8")
+
+
 ;; メニューバー、ツールバー非表示
 (eval-safe (menu-bar-mode 0))
 (eval-safe (tool-bar-mode 0))
