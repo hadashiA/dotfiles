@@ -102,6 +102,14 @@ EOT
     bindkey-advice-before "^J" afu+cancel afu+accept-line
 fi
 
+pbcopy-buffer() { 
+    print -rn $BUFFER | pbcopy
+    zle -M "pbcopy: ${BUFFER}" 
+}
+
+zle -N pbcopy-buffer
+bindkey '^x^p' pbcopy-buffer
+
 # run-help
 unalias  run-help 2>/dev/null || true
 autoload run-help
