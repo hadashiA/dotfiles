@@ -4,14 +4,14 @@
 
 (add-to-list 'load-path "~/.emacs.d/elisp/twittering-mode")
 (require 'twittering-mode)
-(setq twittering-auth-method 'xauth)
-(setq twittering-status-format "%i %p%s / %S:\n%FOLD{%T}\n%r %R [%@]")
-(setq twittering-timer-interval 75)
-(setq twittering-convert-fix-size 48)
-;; (setq twittering-update-status-function 'twittering-update-status-from-pop-up-buffer)
-(setq twittering-update-status-function 'twittering-update-status-from-minibuffer)
-(setq twittering-icon-mode nil)
-(setq twittering-scroll-mode nil)
+(setq twittering-status-format "%i %p%s / %S:\n%FOLD{%T}\n%r %R [%@]"
+      ;; twittering-auth-method 'xauth
+      twittering-timer-interval 75
+      twittering-convert-fix-size 48
+      twittering-update-status-function 'twittering-update-status-from-minibuffer
+      twittering-icon-mode nil
+      twittering-scroll-mode t
+      )
 
 (add-hook 'twittering-mode-hook
           (lambda ()
