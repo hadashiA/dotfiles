@@ -10,3 +10,6 @@
 [submodule "emacs.d/elisp/evernote"]
 	path = emacs.d/elisp/evernote
 	url = git@hadashikick.jp:evernote.el
+[submodule "emacs.d/elisp/twittering-mode"]
+	path = emacs.d/elisp/twittering-mode
+	url = git@github.com:f-kubotar/twittering-mode.git
