@@ -124,6 +124,7 @@
 (load "init-translate")
 (load "init-tags")
 (load "init-vcs")
+(load "init-markdown")
 (load "init-html")
 ;;(load "init-css")
 (load "init-javascript")
