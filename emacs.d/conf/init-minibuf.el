@@ -67,3 +67,5 @@
 ;; http://www.sodan.org/%7Eknagano/emacs/minibuf-isearch/
 ;; (require 'minibuf-isearch)
 
+
+(require 'minibuf-isearch)
