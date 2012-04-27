@@ -22,7 +22,7 @@
 (add-hook 'comint-output-filter-functions
           'comint-watch-for-password-prompt)
 
-(setq explicit-shell-file-name "/opt/local/bin/zsh")
+(setq explicit-shell-file-name "/usr/loca/bin/zsh")
 ;; (setq explicit-shell-file-name "/opt/local/bin/fish")
 ;; (setq explicit-shell-file-name "/bin/bash")
 
@@ -52,8 +52,8 @@
 ;; (setq eshell-history-size 100000)
 
 
-(require 'shell-history)
-(setq shell-history-file "~/.zsh_history")
+;; (require 'shell-history)
+;; (setq shell-history-file "~/.zsh_history")
 
 (add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
 
