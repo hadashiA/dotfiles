@@ -13,3 +13,6 @@
 [submodule "emacs.d/elisp/twittering-mode"]
 	path = emacs.d/elisp/twittering-mode
 	url = git@github.com:f-kubotar/twittering-mode.git
+[submodule "zsh/autojump"]
+	path = zsh/autojump
+	url = https://github.com/joelthelion/autojump.git

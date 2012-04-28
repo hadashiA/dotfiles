@@ -15,6 +15,9 @@ if [[ -f $HOME/.nvm/nvm.sh ]]; then
     source $HOME/.nvm/nvm.sh
 fi
 
+[[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
+
+
 source ~/.exports
 source ~/.aliases
 source ~/.gitrc
