@@ -43,3 +43,5 @@ if __FILE__==$0
   end
 end
 # (executable-interpret "ar-index.rb  ~/compile/rurima/rubydoc/ rurima.e")
+
+

@@ -1,7 +1,7 @@
 ;; Auto Complete Mode
 ;; http://cx4a.org/software/auto-complete/manual.ja.html#ac-source-yasnippet
 ;; (when (require 'auto-complete nil t)
-(when (require 'auto-complete-config nil t)
+(when (require 'auto-complete-config)
   ;; (ac-config-default)
   (global-auto-complete-mode t)
   (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
@@ -65,7 +65,7 @@
               ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
               ;; (auto-complete)
 
-              (setq ac-clang-prefix-header "~/.emacs.d/cocos2d.h.pch"
+              (setq ac-clang-prefix-header "~/dotfiles/doc/cocos2d.h.pch"
                     ac-clang-flags (list "-Wall" "-Wextra" "-fsyntax-only"
                                          "-x" "objective-c"
                                          "-isysroot" xcode:sdk:path))
@@ -85,7 +85,7 @@
               ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
               ;; (add-to-list 'ac-sources 'ac-source-ya-gtags)
 
-              (setq ac-clang-prefix-header "~/.emacs.d/std.hpp.pch"
+              (setq ac-clang-prefix-header "~/dotfiles/doc/std.hpp.pch"
                     ac-clang-flags '("-w" "-ferror-limit" "1")
                     )
               ;; (add-to-list 'ac-sources 'ac-source-clang)
@@ -133,5 +133,4 @@
   (add-hook 'css-mode-hook 'ac-css-mode-setup)
   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
 
-  (global-auto-complete-mode t)
-)
+  (global-auto-complete-mode t))

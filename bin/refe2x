@@ -3,7 +3,7 @@
 require 'tempfile'
 COLUMNS = 50
 ENV['COLUMNS'] = COLUMNS.to_s
-BITCLUST_DIR = File.expand_path "~/src/rurema/bitclust/"
+BITCLUST_DIR = File.expand_path "~/dotfiles/doc/rurema/bitclust/"
 OPTIONS = { 'm' => '--method', 'c' => '--class', 'l' => '--library' }
 
 def escape(kw)

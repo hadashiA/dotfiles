@@ -138,7 +138,7 @@
 ;;(load "init-perl")
 ;;(load "init-perlysense")
 (load "init-ruby")
-;; (load "init-ruby-rurema")
+(load "init-ruby-refm")
 (load "init-python")
 (load "init-php")
 (load "init-sql")
