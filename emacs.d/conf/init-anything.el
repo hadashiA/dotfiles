@@ -4,7 +4,7 @@
 
 (require 'info)
 (require 'anything-config)
-(require 'anything-gtags nil t)
+(require 'anything-gtags)
 
 (define-key anything-map (kbd "C-p") 'anything-previous-line)
 (define-key anything-map (kbd "C-n") 'anything-next-line)
@@ -57,12 +57,5 @@
         anything-c-moccur-higligt-info-line-flag t
         anything-c-moccur-enable-auto-look-flag t
         anything-c-moccur-enable-initial-pattern t))
-
-;; (when (require 'anything-rurima nil t)
-;;   (setq anything-rurima-index-file "~/src/rurema/rubydoc/rurema.e")
-;;   ;; (define-key ruby-mode-map "\C-cue" 'anything-rurima)
-;;   ;; (define-key ruby-mode-map "\C-cum" 'anything-rurima-at-point)
-;;     (global-set-key "\C-cue" 'anything-rurima)
-;;     (global-set-key "\C-cum" 'anything-rurima-at-point))
 
 (require 'anything-zsh-history)

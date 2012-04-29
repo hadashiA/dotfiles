@@ -9,7 +9,7 @@
                                           (or (buffer-file-name)
                                               (buffer-name (current-buffer))))))))
 
-(when (require 'yasnippet nil t)
+(when (require 'yasnippet)
   (setq yas/use-menu nil
         yas/trigger-key "C-o"    ; default => "TAB"
         yas/next-field-key "M-n" ; default => "TAB"

@@ -48,20 +48,15 @@
   (and run-xemacs (not (featurep 'mule))))
 (defvar run-carbon-emacs (and run-darwin window-system))
 
-;; ユーティリティ関数
+(eval-when-compile (require 'cl))
 
-;; [2008-03-13]
-;; add-to-load-path追加
+;; ユーティリティ関数
 
 ;; 引数をload-pathへ追加する
 (defun add-to-load-path (&rest paths)
   (mapc '(lambda (path)
            (add-to-list 'load-path path))
         (mapcar 'expand-file-name paths)))
-
-;; elispと設定ファイルのディレクトリをload-pathに追加
-(add-to-load-path "~/.emacs.d/elisp"
-                  "~/.emacs.d/conf")
 
 ;; eval-safe
 ;; 安全な評価。評価に失敗してもそこで止まらない。
@@ -71,12 +66,6 @@
        (progn ,@body)
      (error (message "[eval-safe] %s" err))))
 
-;; [2008-03-13]
-;; clはどこで使ってるかわからんので、とりあえずrequireしとく。
-
-(eval-when-compile
-  (require 'cl))
-
 ;; dot.emacs
 ;; http://www.sodan.org/~knagano/emacs/dotemacs.html
 (defun autoload-if-found (function file &optional docstring interactive type)
@@ -84,17 +73,31 @@
   (and (locate-library file)
        (autoload function file docstring interactive type)))
 
-(require 'auto-install)
-(setq auto-install-directory "~/.emacs.d/elisp/")
+
+;; elispと設定ファイルのディレクトリをload-pathに追加
+(add-to-load-path "~/.emacs.d/elisp"
+                  "~/.emacs.d/conf")
+
+;; apel, emuをロードパスに追加
+;; w3mかなんかで使う。
+(add-to-load-path "~/.emacs.d/elisp/emu"
+                  "~/.emacs.d/elisp/apel")
+
+(when (require 'auto-install)
+  (setq auto-install-directory "~/.emacs.d/elisp/"))
 ;; (auto-install-update-emacswiki-package-name t)
 ;;(auto-install-compatibility-setup)
+
+(require 'generic-x)
 
 ;; 個別の設定をロードしまくりパート
 
 ;; 特定ディレクトリ以下を自動でロードするようにしてもいいけど、順番とか、
 ;; これやっぱ外しておこうとかいうのを調整するのが面倒。
 
-(load "init-global")
+(load "init-env")
+(load "init-paren")
+(load "init-undo")
 (load "init-color")
 ;; (load "init-font")
 (load "init-window")
@@ -105,6 +108,7 @@
 (load "init-killring")
 (load "init-skeleton")
 (load "init-smartchr")
+(load "init-junk-file")
 (load "init-vimlike")
 (load "init-jump")
 (load "init-matelike")
@@ -134,6 +138,7 @@
 ;;(load "init-perl")
 ;;(load "init-perlysense")
 (load "init-ruby")
+;; (load "init-ruby-rurema")
 (load "init-python")
 (load "init-php")
 (load "init-sql")
@@ -152,11 +157,6 @@
 ;; (load "init-evernote")
 (load "init-genkou")
 ;; (load "init-irc")
-
-;; [2008-03-13]
-;; mmm-modeってば、なんか動かないんだよなー。
-
-;; (load "init-mmm")
 
 ;; Meadow用設定を読み込む
 (when (and run-w32 run-meadow)

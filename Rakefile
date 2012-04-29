@@ -1,3 +1,5 @@
+# coding: utf-8
+
 desc "install the dot files into user's home directory"
 task :install => 'install:all'
 
@@ -115,11 +117,11 @@ end
 def ln_s_confirm(src, dest)
   if File.exist?(dest) or File.symlink?(dest)
     print "overwrite #{dest}? [yn] "
-    if $stdin.gets.chomp == 'y'
+    if getc.chomp.match(/y/i)
       rm_rf dest
-      ln_s  src, dest
+    else
+      return
     end
-  else
-    ln_s src, dest
   end
+  ln_s src, dest
 end
