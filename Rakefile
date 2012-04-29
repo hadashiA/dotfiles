@@ -1,47 +1,46 @@
 # coding: utf-8
 
 desc "install the dot files into user's home directory"
+task :default => :install
 task :install => 'install:all'
 
-namespace :install do
-  task :all => [
-    '.tags',
-    '.globalrc',
-    '.irbrc',
-    '.emacs',
-    '.vimrc',
-    '.config',  # fish shell configuration
-    '.zshrc',
-    '.vimperatorrc',
-    # '.autotest',
-  ]
-  
-  bin = File.expand_path("~/bin")
-  opt = File.expand_path("~/opt")
-  src = File.expand_path("~/src")
+def dot(file)
+  File.expand_path("~/.#{file}")
+end
 
-  directory bin
-  directory opt
-  directory src
-  
-  rule(/^\./ => lambda{|dotfile| File.expand_path("./#{dotfile.sub(/^\./, '')}") }) do |t|
-    ln_s_confirm t.source, File.expand_path("~/#{t.name}")
+namespace :install do
+  rule /\/\..+?$/ => [
+    proc {|task_name| File.basename(task_name).sub(/^\./, '') }
+  ] do |t|
+    ln_s t.source, t.name
   end
 
-  # file '.emacs'        => ['.emacs.d', 'gems:rcodetools', 'devel/which', :rurema, :rsense, :cmigemo]
-  file '.emacs'        => ['.emacs.d', 'gems:rcodetools', 'devel/which', :rsense, :cmigemo]
-  file '.vimrc'        => ['.vim', '.gvimrc']
-  file '.irbrc'        => ['gems:hirb', 'gems:wirble']
-  file '.zshrc'        => ['.zsh', '.aliases', '.exports','.gitrc']
-  file '.vimperatorrc' => ['.vimperator']
-  file '.autotest'     => ['.autotest_icons', 'gems:rspec', 'gems:ZenTest', 'gems:RedGreen', 'gems:autotest-growl']
+  task :all => [
+    dot('globalrc'),
+    dot('irbrc'),
+    dot('emacs.d'),
+    dot('vimrc'),
+    dot('zshrc'),
+    dot('screenrc'),
+    dot('vimperatorrc'),
+    # dot('autotest'),
+    # dot('config'),  # fish shell configuration
+  ]
+
+  file dot('emacs.d')      => ['gems:rcodetools', 'devel/which', dot('rsense'), '/usr/local/bin/cmigemo', 'doc/ruby-refm']
+  file dot('vimrc')        => [dot('vim'), dot('gvimrc')]
+  file dot('irbrc')        => ['gems:irbtools']
+  file dot('zshrc')        => [dot('zsh'), dot('aliases'), dot('exports'), dot('gitrc')]
+  file dot('screenrc')     => [dot('screen')]
+  file dot('vimperatorrc') => [dot('vimperator')]
+  file dot('autotest')     => [dot('autotest_icons'), 'gems:rspec', 'gems:ZenTest', 'gems:RedGreen', 'gems:autotest-growl']
 
   namespace :gems do
     rule /gems:/ do |t|
       gem_name = t.name.sub(/^gems:/, '')
       unless `gem list #{gem_name}`.include? gem_name
         puts '-' * 20
-        sh "sudo gem install #{gem_name}"
+        sh "gem install #{gem_name}"
       end
     end
   end
@@ -53,36 +52,22 @@ namespace :install do
     end
   end
 
-  desc "install ruby refm (るりま) see http://redmine.ruby-lang.org/wiki/rurema/"
-  task :rurema => src do |t|
-    # source = Dir[File.expand_path('./src/ruby-refm*')].sort.last
-    # source = File.expand_path('./src/ruby-refm-1.9.0-dynamic')
-    dest   = File.join(src, 'rurema')
-    source = File.expand_path('./src/rurema')
-
-    rm_f dest
-    ln_s source, dest
-
-    cd dest do
-      cmd =  "ruby1.9 #{File.expand_path('./bin/ar-index.rb')} ./rubydoc ./rurema.e"
-      puts cmd
-    end
+  desc "install ruby-refm"
+  file 'doc/ruby-refm' do |t|
+    url = 'http://doc.ruby-lang.org/archives/201107/ruby-refm-1.9.2-dynamic-20110729.tar.gz'
+    sh "curl '#{url}' > ./doc/ruby-refm.tar.gz"
   end
 
   desc 'install rsense. see http://cx4a.org/software/rsense/index.ja.html'
-  # task :rsense => [opt, :rurema] do
-  task :rsense => [opt] do
-    current  = File.expand_path('~/opt/rsense')
-    original = Dir[File.expand_path('./opt/rsense*')].sort.last
+  file dot('rsense') do
+    rsense_dir = File.expand_path('~/dotfiles/opt/rsense')
 
-    rm_rf current
-    ln_s original, current
-    sh "ruby #{File.join(original, 'etc/config.rb')} > $HOME/.rsense"
+    sh "ruby #{File.join(rsense_dir, 'etc/config.rb')} > $HOME/.rsense"
     sh "cat $HOME/.rsense"
   end
 
   desc "install C/Migemo (Kaoriya.net http://www.kaoriya.net/#CMIGEMO)"
-  task :cmigemo do
+  file '/usr/local/bin/cmigemo' do
     cd "src/cmigemo-1.3c" do
       sh "./configure"
       sh "make osx"
@@ -95,33 +80,26 @@ namespace :install do
   end
 
   desc "setup Emacs configuration. write .emacs and .emacs.d"
-  task :dotemacs => '.emacs'
+  task :emacs => dot('emacs.d')
 
   desc "setup Vim configuration. write .vimrc, .gvimrc .vim direcotry"
-  task :dotvimrc => '.vimrc'
+  task :vim => dot('vimrc')
 
   desc "setup .irbrc"
-  task :dotirbrc => '.irbrc'
+  task :irb => dot('irbrc')
 
   desc "setup .vimperator configuration. .vimepratorrc and .vimperator directory"
-  task :dotvimperatorrc => '.vimperatorrc'
+  task :vimperator => dot('vimperatorrc')
 
   desc "setup .zshrc"
-  task :dotzshrc => '.zshrc'
+  task :zsh => dot('zshrc')
 
   desc "setup fishshell configuration. .config direcotry"
-  task :dotconfig => '.config'
-end
+  task :fish => dot('config')
 
-# create symlink
-def ln_s_confirm(src, dest)
-  if File.exist?(dest) or File.symlink?(dest)
-    print "overwrite #{dest}? [yn] "
-    if getc.chomp.match(/y/i)
-      rm_rf dest
-    else
-      return
-    end
-  end
-  ln_s src, dest
+  desc "setup screen"
+  task :screen => dot('screenrc')
+
+  desc "setup ruby-refm"
+  task :ruby_refm => 'doc/ruby-refm'
 end
