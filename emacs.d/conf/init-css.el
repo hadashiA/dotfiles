@@ -6,3 +6,9 @@
 (setq auto-mode-alist
       (cons '("\\.css\\'" . css-mode) auto-mode-alist))
 (setq cssm-indent-function #'cssm-c-style-indenter)
+
+(add-hook 'css-mode-hook
+          '(lambda ()
+             (require 'rainbow-mode)
+             (rainbow-mode 1)
+             ))
