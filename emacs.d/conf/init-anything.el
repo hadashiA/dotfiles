@@ -15,11 +15,13 @@
 (setq anything-enable-shortcuts 'alphabet)
 
 (setq anything-sources
-      '(anything-c-source-buffers
+      `(
+        ;; ,@(anything-c-sources-git-project-for)
+        anything-c-source-buffers
         anything-c-source-files-in-current-dir       ;; カレントディレクトディレクトリにあるファイル
         anything-c-source-file-name-history          ;; ファイル開いた履歴
         anything-c-source-recentf                    ;; 最近開いたファイル
-        anything-c-source-locate
+        ;; anything-c-source-locate
         anything-c-source-bookmarks                  ;; bookmark
         anything-c-source-info-pages               ;; infoマニュアルを参照する
         ;; anything-c-source-man-pages                  ; manページ。なんかすげー重いんだけど
@@ -61,13 +63,15 @@
 (require 'anything-zsh-history)
 
 
-(defun anything-c-sources-git-project-for (pwd)
+(defun anything-c-sources-git-project-for (&optional pwd)
   (loop for elt in
         '(("Modified files (%s)" . "--modified")
           ("Untracked files (%s)" . "--others --exclude-standard")
           ("All controlled files in this project (%s)" . ""))
         collect
-        `((name . ,(format (car elt) pwd))
+        `((name . ,(format (car elt) (or pwd
+                                         (shell-command-to-string "echo -n `pwd`"))
+                           ))
           (init . (lambda ()
                     (unless (and ,(string= (cdr elt) "") ;update candidate buffer every time except for that of all project files
                                  (anything-candidate-buffer))
