@@ -12,7 +12,10 @@
 
 (setq ruby-indent-level 2
       ruby-indent-tabs-mode nil
-      ruby-deep-indent-paren-style nil)
+      ;; ruby-deep-indent-paren-style nil
+      ;; ruby-deep-indent-paren-style t
+      ruby-deep-indent-paren-style 'space
+      )
 
 (add-to-list 'auto-coding-alist '("\\.rb\\'" . utf-8-unix))
 
@@ -96,35 +99,31 @@
                            (repeat . nil)
                            (modes  . '(ruby-mode))))))
 
-(when (require 'rspec-mode nil t)
+(when (require 'rspec-mode)
   (custom-set-variables
    ;; '(rspec-use-rake-flag t)
    ;; '(rspec-spec-command "rspec")
-   '(rspec-use-rvm t)
-   )
-  (custom-set-faces )
-  )
-(require 'haml-mode nil t)
-(require 'sass-mode nil t)
+   '(rspec-use-rvm t))
+  (custom-set-faces))
 
-;; Software Design 2008-02 P152
-;; devel/which and ffap
-;; http://raa.ruby-lang.org/project/devel-which/
-(defun ffap-ruby-mode (name)
-  (shell-command-to-string
-   (format "
+(when (require 'ffap)
+  ;; Software Design 2008-02 P152
+  ;; devel/which and ffap
+  ;; http://raa.ruby-lang.org/project/devel-which/
+  (defun ffap-ruby-mode (name)
+    (shell-command-to-string
+     (format "
 ruby -e '
 require %%[rubygems]
 require %%[devel/which]
 require %%[%s]
 print(which_library(%%[%s]))'"
-           name name)))
-
-(defun find-rubylib (name)
-  (interactive "sRuby library name: ")
-  (find-file (ffap-ruby-mode name)))
-
-(when (require 'ffap)
+             name name)))
+  
+  (defun find-rubylib (name)
+    (interactive "sRuby library name: ")
+    (find-file (ffap-ruby-mode name)))
+  
   (add-to-list 'ffap-alist '(ruby-mode . ffap-ruby-mode)))
 
 ;; Rsense

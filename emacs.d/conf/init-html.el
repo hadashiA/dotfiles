@@ -17,5 +17,6 @@
           (lambda ()
             (define-key html-mode-map (kbd "M-n") 'sgml-skip-tag-forward)
             (define-key html-mode-map "\M-p" 'sgml-skip-tag-backward)))
+
 (require 'haml-mode)
 (require 'sass-mode)
