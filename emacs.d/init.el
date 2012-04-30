@@ -117,8 +117,6 @@
 (load "init-flymake")
 (load "init-occur")
 ;; (load "init-woman") [2010-04-14 別に見易くないような。何が良いんだろう]
-(load "init-autocomplete")
-(load "init-anything")
 ;;(load "init-abbrves")
 (load "init-templates")
 (load "init-shell")
@@ -157,6 +155,8 @@
 ;; (load "init-evernote")
 (load "init-genkou")
 ;; (load "init-irc")
+(load "init-autocomplete")
+(load "init-anything")
 
 ;; Meadow用設定を読み込む
 (when (and run-w32 run-meadow)

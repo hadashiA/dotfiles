@@ -53,24 +53,24 @@
 ;;                '(lambda ()
 ;;                   (ruby-electric-mode 1))))
 
-(and (require 'inf-ruby nil t)
-     (setq interpreter-mode-alist
-           (cons '("ruby" . ruby-mode) interpreter-mode-alist))
-     (let
-         ((ruby (executable-find "ruby"))
-          (irb (locate-library "irb" nil exec-path))
-          (args (list "--inf-ruby-mode" "-Ku")))
+;; (and (require 'inf-ruby nil t)
+;;      (setq interpreter-mode-alist
+;;            (cons '("ruby" . ruby-mode) interpreter-mode-alist))
+;;      (let
+;;          ((ruby (executable-find "ruby"))
+;;           (irb (locate-library "irb" nil exec-path))
+;;           (args (list "--inf-ruby-mode" "-Ku")))
        
-       (and irb
-            (setq ruby-program-name
-                  (mapconcat #'identity
-                             `(,ruby ,irb ,@args) " "))
+;;        (and irb
+;;             (setq ruby-program-name
+;;                   (mapconcat #'identity
+;;                              `(,ruby ,irb ,@args) " "))
             
-            (add-hook 'ruby-mode-hook
-                      '(lambda ()
-                         (inf-ruby-keys))))))
+;;             (add-hook 'ruby-mode-hook
+;;                       '(lambda ()
+;;                          (inf-ruby-keys))))))
 
-(when (require 'ruby-block nil t)
+(when (require 'ruby-block)
   (setq ruby-block-highlight-toggle t)
   (ruby-block-mode t))
 

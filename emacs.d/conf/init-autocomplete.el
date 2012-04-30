@@ -39,8 +39,7 @@
   (define-key ac-menu-map "\C-n" 'ac-next)
   (define-key ac-menu-map "\C-p" 'ac-previous)
 
-  ;; ツールチップすごいけど、あんまり見てないので無効
-  (when (require 'pos-tip nil t)
+  (when (require 'pos-tip)
     (setq ac-quick-help-prefer-x t))
 
   (add-to-list 'load-path "~/.emacs.d/elisp/company")
@@ -134,3 +133,4 @@
   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
 
   (global-auto-complete-mode t))
+
