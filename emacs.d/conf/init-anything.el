@@ -90,4 +90,4 @@
     (anything-other-buffer sources
      (format "*Anything git project in %s*" default-directory))))
 
-;; (define-key global-map (kbd "C-+") 'anything-git-project)
+(define-key global-map (kbd "C-+") 'anything-git-project)
