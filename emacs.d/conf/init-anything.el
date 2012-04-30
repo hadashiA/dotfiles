@@ -16,7 +16,7 @@
 
 (setq anything-sources
       `(
-        anything-c-source-git-project-for-modified
+        ;; anything-c-source-git-project-for-modified
         anything-c-source-buffers
         anything-c-source-files-in-current-dir       ;; カレントディレクトディレクトリにあるファイル
         anything-c-source-file-name-history          ;; ファイル開いた履歴
@@ -65,7 +65,7 @@
 
 (dolist (elt '(("modified" "Modified files (%s)" "--modified")
                ("untracked" "Untracked files (%s)" "--others --exclude-standard")
-               ("all ""All controlled files in this project (%s)" "")))
+               ("all" "All controlled files in this project (%s)" "")))
   (destructuring-bind (suffix name options) elt
     (eval `(defvar ,(intern (concat "anything-c-source-git-project-for-" suffix))
              `((name . ,(format name default-directory))
