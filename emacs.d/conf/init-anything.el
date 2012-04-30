@@ -16,7 +16,7 @@
 
 (setq anything-sources
       `(
-        ;; ,@(anything-c-sources-git-project-for)
+        anything-c-source-git-project-for-modified
         anything-c-source-buffers
         anything-c-source-files-in-current-dir       ;; カレントディレクトディレクトリにあるファイル
         anything-c-source-file-name-history          ;; ファイル開いた履歴
@@ -63,32 +63,31 @@
 (require 'anything-zsh-history)
 
 
-(defun anything-c-sources-git-project-for (&optional pwd)
-  (loop for elt in
-        '(("Modified files (%s)" . "--modified")
-          ("Untracked files (%s)" . "--others --exclude-standard")
-          ("All controlled files in this project (%s)" . ""))
-        collect
-        `((name . ,(format (car elt) (or pwd
-                                         (shell-command-to-string "echo -n `pwd`"))
-                           ))
-          (init . (lambda ()
-                    (unless (and ,(string= (cdr elt) "") ;update candidate buffer every time except for that of all project files
-                                 (anything-candidate-buffer))
-                      (with-current-buffer
-                          (anything-candidate-buffer 'global)
-                        (insert
-                         (shell-command-to-string
-                          ,(format "git ls-files $(git rev-parse --show-cdup) %s"
-                                   (cdr elt))))))))
-          (candidates-in-buffer)
-          (type . file))))
+(dolist (elt '(("modified" "Modified files (%s)" "--modified")
+               ("untracked" "Untracked files (%s)" "--others --exclude-standard")
+               ("all ""All controlled files in this project (%s)" "")))
+  (destructuring-bind (suffix name options) elt
+    (eval `(defvar ,(intern (concat "anything-c-source-git-project-for-" suffix))
+             `((name . ,(format name default-directory))
+               (init . (lambda ()
+                         (unless (and ,(string= options "") ;update candidate buffer every time except for that of all project files
+                                      (anything-candidate-buffer))
+                           (with-current-buffer
+                               (anything-candidate-buffer 'global)
+                             (insert
+                              (shell-command-to-string
+                               ,(format "git ls-files $(git rev-parse --show-cdup) %s"
+                                        options)))))))
+               (candidates-in-buffer)
+               (type . file))
+             ))))
 
 (defun anything-git-project ()
   (interactive)
-  (let* ((pwd (shell-command-to-string "echo -n `pwd`"))
-         (sources (anything-c-sources-git-project-for pwd)))
+  (let ((sources '(anything-c-source-git-project-for-modified
+                   anything-c-source-git-project-for-untracked
+                   anything-c-source-git-project-for-all)))
     (anything-other-buffer sources
-     (format "*Anything git project in %s*" pwd))))
+     (format "*Anything git project in %s*" default-directory))))
 
-(define-key global-map (kbd "C-+") 'anything-git-project)
+;; (define-key global-map (kbd "C-+") 'anything-git-project)
