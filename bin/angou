@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+# coding: utf-8
+
+puts STDIN.read.unpack('U*').map{|code| code.to_s(2).each_char.map{|i| i.to_i.zero? ? 'Hey' : 'パス' }.join}.join(' ')
