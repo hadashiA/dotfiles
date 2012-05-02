@@ -20,7 +20,7 @@
         anything-c-source-files-in-current-dir       ;; カレントディレクトディレクトリにあるファイル
         anything-c-source-file-name-history          ;; ファイル開いた履歴
         anything-c-source-recentf                    ;; 最近開いたファイル
-        ;; anything-c-source-locate
+        anything-c-source-locate
         anything-c-source-bookmarks                  ;; bookmark
         anything-c-source-info-pages               ;; infoマニュアルを参照する
         ;; anything-c-source-man-pages                  ; manページ。なんかすげー重いんだけど
@@ -84,7 +84,7 @@
 (defun anything-git-project ()
   (interactive)
   (let ((sources '(anything-c-source-git-project-for-modified
-                   anything-c-source-git-project-for-untracked
+                   ;; anything-c-source-git-project-for-untracked
                    anything-c-source-git-project-for-all)))
     (anything-other-buffer sources
      (format "*Anything git project in %s*" default-directory))))
