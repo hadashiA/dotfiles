@@ -17,5 +17,6 @@ emacs.d/anything-c-adaptive-history
 screen/.temp
 screen/exchange
 .#*
+emacs.d/bookmarks
 emacs.d/conf/twitter-password.el
 doc/ruby-refm*

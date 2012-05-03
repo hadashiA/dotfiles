@@ -36,7 +36,7 @@
   (defun anything-refe-create-file-action (word)
     (let ((file-path (concat anything-refe-private-dict-path "/" word)))
       (with-temp-buffer
-        (call-process (expand-file-name "~/dotfiles/bin/refe") nil t t "File")
+        (call-process (expand-file-name "~/dotfiles/bin/refe") nil t t word)
         (write-region (point-min) (point-max) file-path))
       (find-file file-path)))
 

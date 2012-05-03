@@ -2,7 +2,7 @@
 ;; Emacs でテキスト翻訳をする elisp - とりあえず暇だったし何となく始めたブログ
 ;;  http://d.hatena.ne.jp/khiker/20070503/emacs_text_translator
 (add-to-load-path "~/.emacs.d/elisp/text-translator")
-(when (require 'text-translator nil t)
+(when (require 'text-translator)
   ;; 自動選択に使用する関数を設定
   (setq text-translator-auto-selection-func 'text-translator-translate-by-auto-selection-enja)
 
