@@ -4,8 +4,6 @@
 
 (require 'info)
 (require 'anything-config)
-(require 'anything-migemo)
-(require 'anything-gtags)
 
 (define-key anything-map (kbd "C-p") 'anything-previous-line)
 (define-key anything-map (kbd "C-n") 'anything-next-line)
