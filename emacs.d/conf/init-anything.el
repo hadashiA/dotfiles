@@ -12,6 +12,7 @@
 ;; (global-set-key (kbd "C-;") 'anything)
 (global-set-key (kbd "C-;") 'anything-for-files)
 (global-set-key (kbd "C-:") 'anything-resume)
+(global-set-key (kbd "C-*") 'anything-execute-extended-command)
 (setq anything-enable-shortcuts 'alphabet)
 
 ;; (setq anything-sources
@@ -114,7 +115,8 @@
      :input (thing-at-point 'symbol)
      ;; :preselect (thing-at-point 'symbol)
      ))
-  (define-key global-map (kbd "C-*") 'anything-gtags-from-here))
+  ;; (define-key global-map (kbd "C-*") 'anything-gtags-from-here)
+  )
 
 (defvar anything-c-sources-local-gem-file
   '((name . "gems (local)")

@@ -16,5 +16,15 @@
 ;; (define-key esc-map "Y" 'duplicate-line)
 (global-set-key (kbd "C-S-y") 'duplicate-line)
 
+(defun copy-current-file-path ()
+  (interactive)
+  (kill-new buffer-file-name)
+  (message "copy \"%s\"" buffer-file-name))
 
+(defun copy-current-directory-path ()
+  (interactive)
+  (kill-new default-directory)
+  (message "Copy \"%s\"" default-directory))
 
+(global-set-key (kbd "C-c c") 'copy-current-file-path)
+;; (global-set-key (kbd "C-c d") 'copy-current-directory-path)
