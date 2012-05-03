@@ -9,28 +9,29 @@
 (define-key anything-map (kbd "C-n") 'anything-next-line)
 (define-key anything-map (kbd "C-v") 'anything-next-source)
 (define-key anything-map (kbd "M-v") 'anything-previous-source)
-(global-set-key (kbd "C-;") 'anything)
+;; (global-set-key (kbd "C-;") 'anything)
+(global-set-key (kbd "C-;") 'anything-for-files)
 (global-set-key (kbd "C-:") 'anything-resume)
 (setq anything-enable-shortcuts 'alphabet)
 
-(setq anything-sources
-      `(
-        ;; anything-c-source-git-project-for-modified
-        anything-c-source-buffers
-        anything-c-source-files-in-current-dir       ;; カレントディレクトディレクトリにあるファイル
-        anything-c-source-file-name-history          ;; ファイル開いた履歴
-        anything-c-source-recentf                    ;; 最近開いたファイル
-        anything-c-source-locate
-        anything-c-source-bookmarks                  ;; bookmark
-        anything-c-source-info-pages               ;; infoマニュアルを参照する
-        ;; anything-c-source-man-pages                  ; manページ。なんかすげー重いんだけど
-;;        anything-c-source-occur                      ;;
-;;        anything-c-source-emacs-commands           ;; emacsコマンドを実行する
-        anything-c-source-emacs-functions          ;; emacs関数を検索する
-;;        anything-c-source-complex-command-history  ;; コマンド履歴の一覧
-;;        anything-c-source-info-elisp
-        ;; anything-c-source-gtags-select
-        ))
+;; (setq anything-sources
+;;       `(
+;;         ;; anything-c-source-git-project-for-modified
+;;         anything-c-source-buffers
+;;         anything-c-source-files-in-current-dir       ;; カレントディレクトディレクトリにあるファイル
+;;         anything-c-source-file-name-history          ;; ファイル開いた履歴
+;;         anything-c-source-recentf                    ;; 最近開いたファイル
+;;         anything-c-source-locate
+;;         anything-c-source-bookmarks                  ;; bookmark
+;;         anything-c-source-info-pages               ;; infoマニュアルを参照する
+;;         ;; anything-c-source-man-pages                  ; manページ。なんかすげー重いんだけど
+;; ;;        anything-c-source-occur                      ;;
+;; ;;        anything-c-source-emacs-commands           ;; emacsコマンドを実行する
+;;         anything-c-source-emacs-functions          ;; emacs関数を検索する
+;; ;;        anything-c-source-complex-command-history  ;; コマンド履歴の一覧
+;; ;;        anything-c-source-info-elisp
+;;         ;; anything-c-source-gtags-select
+;;         ))
 
 ;; (global-set-key (kbd "C-+") 'anything-gtags-select)
 
@@ -115,3 +116,29 @@
      ))
   (define-key global-map (kbd "C-*") 'anything-gtags-from-here))
 
+(defvar anything-c-sources-local-gem-file
+  '((name . "gems (local)")
+    (candidates-in-buffer)
+    (init . (lambda ()
+              (unless (anything-candidate-buffer)
+                (call-process-shell-command
+                 "gem list" nil (anything-candidate-buffer 'global)
+                 ))))
+    (action . (lambda (gem-name)
+                (setq gem-name (replace-regexp-in-string "\s+(.+)$" "" gem-name))
+                (find-file (shell-command-to-string
+                            (format "
+ruby -e '
+require \"rubygems\"
+require \"devel/which\"
+require \"%s\"
+print(which_library(\"%s\"))'"
+                                    gem-name gem-name)))
+                ))))
+
+(defun anything-local-gems ()
+  (interactive)
+  (anything-other-buffer
+   '(anything-c-sources-local-gem-file)
+   "*anything local gems*"
+  ))
