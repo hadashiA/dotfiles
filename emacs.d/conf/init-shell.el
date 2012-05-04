@@ -22,9 +22,11 @@
 (add-hook 'comint-output-filter-functions
           'comint-watch-for-password-prompt)
 
-(setq explicit-shell-file-name "/usr/loca/bin/zsh")
+;; (setq explicit-shell-file-name "/usr/loca/bin/zsh")
 ;; (setq explicit-shell-file-name "/opt/local/bin/fish")
-;; (setq explicit-shell-file-name "/bin/bash")
+(setq explicit-shell-file-name "/bin/bash")
+(setq shell-file-name "/bin/bash")
+
 
 ;; エスケープシーケンスを正しく処理する
 ;; http://www.namazu.org/~tsuchiya/elisp/#shell-mode
