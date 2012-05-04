@@ -6,7 +6,7 @@
 ;; (rvm-use "1.9.3" "ruby")
 (rvm-use-default)
 
-(require 'ruby-mode nil t)
+(require 'ruby-mode)
 ;; magickコメントを入れない
 (defun ruby-mode-set-encoding () ())
 
@@ -112,12 +112,13 @@
   ;; http://raa.ruby-lang.org/project/devel-which/
   (defun ffap-ruby-mode (name)
     (shell-command-to-string
-     (format "
-ruby -e '
+     (format "ruby -e '
+Gem::GemPathSercher.new
 require %%[rubygems]
 require %%[devel/which]
 require %%[%s]
-print(which_library(%%[%s]))'"
+print(which_library(%%[%s]))
+'"
              name name)))
   
   (defun find-rubylib (name)
