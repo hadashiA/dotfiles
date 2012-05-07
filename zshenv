@@ -1,15 +1,20 @@
-ZDOTDIR=~/.zsh
+# PATHをクリア
+PATH=
 
-if [ "`id -u`" -eq 0 ]; then
-  PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-else
-  PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
+# linux (debian)
+if [ -f /etc/zsh/zshenv ]; then
+    source /etc/zsh/zshenv
 fi
-export PATH=$HOME/bin:$PATH
 
-umask 022
-unsetopt nomatch
+# mac
+if [ -x /usr/libexec/path_helper ]; then
+    eval `/usr/libexec/path_helper -s`
+fi
 
-function xsel() {
-    [[ -n "$DISPLAY" ]] && env xsel $@
-}
+source ~/.exports
+
+# Ruby rvm
+if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi
+
+# Node.js nvm
+if [[ -f $HOME/.nvm/nvm.sh ]]; then source $HOME/.nvm/nvm.sh ; fi
