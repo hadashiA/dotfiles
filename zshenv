@@ -1,4 +1,4 @@
-ZDOTDIR=~/.zsh
+# ZDOTDIR=~/.zsh
 
 # PATHをクリア
 PATH=
