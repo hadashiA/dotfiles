@@ -141,4 +141,30 @@ htags:\
 	:warned_line_begin=<span style='background-color\:yellow'>:warned_line_end=</span>:\
 	:reserved_begin=<b>:reserved_end=</b>:script_alias=/cgi-bin/:\
 	:ncol#4:tabs#8:normal_suffix=html:gzipped_suffix=ghtml:\
-	:definition_header=no:        
+	:definition_header=no:
+
+# We need to change some of the output that rtags dumps
+#
+# Module::Submodule is NOT found by global (don't know why)
+# Module:Submodule IS found
+# So we replace :: with :
+#
+# Also, dotnames are not allowed in tags
+# So, when rtag parses this
+#   class User ;  def self.validate ; end ; end
+# as:
+#   User.validate  line_no file_name line
+# global doesn't find it with: global -c User
+# So we need to replace any dots in the firts column with #
+#   User#validate line_no file_name line
+#
+# So we need to to this:
+# rtags -x %s | awk '{ sub(/^::/, "") ; sub(/::/, ":"); sub(/\\./, "#", $1); print}'
+#
+rtags:\
+	:tc=common:\
+	:suffixes=s,a,sa,asm,C,H,cpp,cxx,hxx,hpp,cc,c,h,y,rb:\
+	:extractmethod:\
+	:GTAGS=rtags -x %s | awk '{ sub(/^\:\:/, "") ; sub(/\:\:/, "\:"); sub(/\\./, "#", $1); print}':\
+	:GRTAGS=gtags-parser --langmap=java\:.rb -dtr  %s:\
+	:GSYMS=gtags-parser --langmap=java\:.rb -dts  %s:
