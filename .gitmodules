@@ -16,3 +16,6 @@
 [submodule "zsh/autojump"]
 	path = zsh/autojump
 	url = https://github.com/joelthelion/autojump.git
+[submodule "emacs.d/elisp/rspec-mode"]
+	path = emacs.d/elisp/rspec-mode
+	url = https://github.com/pezra/rspec-mode.git

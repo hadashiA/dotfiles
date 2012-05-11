@@ -99,6 +99,8 @@
                            (repeat . nil)
                            (modes  . '(ruby-mode))))))
 
+
+(add-to-load-path "~/.emacs.d/elisp/rspec-mode/")
 (when (require 'rspec-mode)
   (custom-set-variables
    ;; '(rspec-use-rake-flag t)
