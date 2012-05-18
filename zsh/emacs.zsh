@@ -33,28 +33,30 @@ function restart-emacsd() {
 #     rm $tmpfile
 # }
 
-function anything-history() {
-    # tmpfile=/tmp/.azh-tmp-file
-    local tmpfile
-    tmpfile=`mktemp azh-tmp.XXXXXX`
+# function anything-history() {
+#     # tmpfile=/tmp/.azh-tmp-file
+#     local tmpfile
+#     tmpfile=`mktemp azh-tmp.XXXXXX`
 
-    emacsclient -nw --eval \
-        "(anything-zsh-history-from-zle \"$tmpfile\" \"$BUFFER\")"
-    if [[ -n "$STY" ]]; then
-        # screen 4.0.3 has a bug that altscreen doesn't work for emacs
-        (( `screen -v | cut -f 3 -d ' ' | cut -f 2 -d.` < 1 )) && zle -I
-    fi
-    zle -R -c
-    if [[ -n "$ANYTHING_HISTORY_DONT_EXEC" ]]; then
-        zle -U "`cat $tmpfile`"
-    else
-        BUFFER="`cat $tmpfile`"
-        [[ -n "$BUFFER" ]] && zle accept-line
-    fi
-    rm $tmpfile
-}
-zle -N anything-history
-bindkey '^R' anything-history
+#     emacsclient -nw --eval \
+#         "(anything-zsh-history-from-zle \"$tmpfile\" \"$BUFFER\")"
+#     if [[ -n "$STY" ]]; then
+#         # screen 4.0.3 has a bug that altscreen doesn't work for emacs
+#         (( `screen -v | cut -f 3 -d ' ' | cut -f 2 -d.` < 1 )) && zle -I
+#     fi
+#     zle -R -c
+#     if [[ -n "$ANYTHING_HISTORY_DONT_EXEC" ]]; then
+#         zle -U "`cat $tmpfile`"
+#     else
+#         BUFFER="`cat $tmpfile`"
+#         [[ -n "$BUFFER" ]] && zle accept-line
+#     fi
+#     rm $tmpfile
+# }
+# zle -N anything-history
+# bindkey '^R' anything-history
 bindkey -M afu >/dev/null 2>&1 && bindkey -M afu '^R' anything-history
+
+
 
 # export ANYTHING_HISTORY_DONT_EXEC=1

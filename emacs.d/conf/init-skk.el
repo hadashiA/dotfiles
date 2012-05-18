@@ -22,9 +22,10 @@
 ;;        (setq skk-server-host "localhost")
 ;;        (setq skk-server-portnum 1178)))
 
-(setq skk-large-jisyo nil)
-(setq skk-server-host "ata.ma")
-(setq skk-server-portnum 1178)
+(setq skk-large-jisyo nil
+      skk-server-host "hadashikick.jp"
+      skk-server-portnum 1178
+      )
 
 ;; SKKの設定
 ;; http://www.bookshelf.jp/soft/meadow_21.html#SEC194

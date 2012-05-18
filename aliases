@@ -3,7 +3,7 @@ alias la='ls -palGFc'
 alias del='rm -rf'
 alias cp='cp -irf'
 alias mv='mv -i'
-alias grep='grep -i -H -n -I --color=auto'
+alias grepp='grep -i -H -n -I --color=auto'
 
 # nvm.sh using cd 
 function cd() {builtin cd $@ && la}

@@ -27,3 +27,13 @@
 
 ;; バッファにファイルをドラッグドロップした際のファイルをfind-file
 (define-key global-map [ns-drag-file] 'ns-find-file)
+
+;; diredからquick look
+(setq dired-load-hook '(lambda () (load "dired-x")))
+(setq dired-guess-shell-alist-user
+      '(("\\.png" "qlmanage -p")
+        ("\\.jpg" "qlmanage -p")
+        ("\\.pdf" "qlmanage -p")
+        ("\\.doc" "qlmanage -p")
+        ("\\.xls" "qlmanage -p")
+        ("\\.ppt" "qlmanage -p")))
