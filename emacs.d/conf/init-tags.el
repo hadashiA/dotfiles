@@ -10,13 +10,9 @@
         (local-set-key (kbd "S-C-t") 'gtags-pop-stack)
         ))
 
-;; (define-key gtags-mode-map "\M-t" 'gtags-find-rtag)
-;; (define-key gtags-mode-map "\M-r" 'gtags-pop-stack)
-;; (define-key gtags-mode-map "\M-s" 'gtags-find-symbol)
-
 (defun gtags-mode-setup ()
   (interactive)
-  (gtags-mode)
+  (gtags-mode 1)
   ;; (gtags-make-complete-list)
   )
 
