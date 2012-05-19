@@ -55,7 +55,7 @@ function restart-emacsd() {
 # }
 # zle -N anything-history
 # bindkey '^R' anything-history
-bindkey -M afu >/dev/null 2>&1 && bindkey -M afu '^R' anything-history
+# bindkey -M afu >/dev/null 2>&1 && bindkey -M afu '^R' anything-history
 
 
 
