@@ -152,7 +152,7 @@
 (load "init-twitter")
 ;; (load "init-skype")
 (load "init-autosave-buffers")
-;; (load "init-evernote")
+(load "init-evernote")
 (load "init-genkou")
 ;; (load "init-irc")
 (load "init-autocomplete")
