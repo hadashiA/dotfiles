@@ -143,3 +143,19 @@
    '(anything-c-sources-local-gem-file)
    "*anything local gems*"
   ))
+
+(when (require 'anything-project)
+         (global-set-key (kbd "C-c C-f") 'anything-project)
+         (setq ap:project-files-filters
+               (list
+                (lambda (files)
+                  (remove-if 'file-directory-p files))))
+         (ap:add-project
+          :name 'ruby
+          :look-for '("Gemfile" "Rakefile")
+          :exclude-directory-regexp "\\(vendor\\|tmp\\|log\\|doc\\|\\.git\\)")
+
+         (ap:add-project
+          :name 'php
+          :look-for '("index.php")
+          :exclude-directory-regexp "\\(\\.git\\)"))
