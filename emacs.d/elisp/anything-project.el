@@ -492,6 +492,4 @@ directory, open this directory."
 (defun ap:cake-root-detector (files)
   (ap:all-files-exist '("index.php" "controllers" "config") files))
 
-
-
 (provide 'anything-project)
