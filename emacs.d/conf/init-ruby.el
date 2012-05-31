@@ -103,9 +103,10 @@
 (add-to-load-path "~/.emacs.d/elisp/rspec-mode/")
 (when (require 'rspec-mode)
   (custom-set-variables
-   ;; '(rspec-use-rake-flag t)
-   ;; '(rspec-spec-command "rspec")
-   '(rspec-use-rvm t))
+   '(rspec-use-rake-flag nil)
+   '(rspec-spec-command "rspec")
+   ;; '(rspec-use-rvm t)
+   )
   (custom-set-faces))
 
 (when (require 'ffap)

@@ -82,3 +82,38 @@
                (setq ad-return-value (format "%.0f MB" kb))))
     (setq ad-return-value (format "%.0f kB" kb))
 )))
+
+(defun my-quicklook-at-point ()
+  "Preview a file at point with Quick Look."
+  (interactive)
+  (require 'ffap)
+  (let ((url (ffap-url-at-point))
+        (file (ffap-file-at-point))
+        (process (get-process "qlmanage_ps")))
+    (when url
+      (if (string-match "\\`file://\\(.*\\)\\'" url)
+          (setq file (match-string 1 url))
+        (setq file nil)))
+    (when (or (not (stringp file))
+              (not (file-exists-p (setq file (expand-file-name file)))))
+      (when process
+        (kill-process process))
+      (error "No file found"))
+    (if process
+        (kill-process process)
+      (message "Quick Look: %s" file)
+      (start-process "qlmanage_ps" nil "qlmanage" "-p" file))))
+
+(global-set-key "\C-cy" 'my-quicklook-at-point)
+
+(defun my-dired-do-quicklook ()
+  "In dired, preview with Quick Look."
+  (interactive)
+  (let ((file (dired-get-filename))
+        (process (get-process "qlmanage_ps")))
+    (if process
+        (kill-process process)
+      (start-process "qlmanage_ps" nil "qlmanage" "-p" file))))
+
+(eval-after-load "dired"
+  '(define-key dired-mode-map "\C-cy" 'my-dired-do-quicklook))
