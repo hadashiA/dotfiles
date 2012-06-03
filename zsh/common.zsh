@@ -126,7 +126,9 @@ source ~/.zsh/emacs.zsh
 source ~/.zsh/cdd.zsh
 source ~/.zsh/term.compat.zsh
 
+[[ $ZSH_VERSION == (<5->|4.<4->|4.3.<10->)* ]] && source ~/.zsh/term.zsh
+
 source ~/.zsh/modules/zaw/zaw.zsh
 bindkey '^R' zaw-history
 
-[[ $ZSH_VERSION == (<5->|4.<4->|4.3.<10->)* ]] && source ~/.zsh/term.zsh
+fpath=(~/.zsh/modules/zsh-completions $fpath)
