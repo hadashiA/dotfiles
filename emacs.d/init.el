@@ -155,7 +155,7 @@
 (load "init-evernote")
 (load "init-genkou")
 ;; (load "init-irc")
-(load "init-autocomplete")
+(load "init-auto-complete")
 (load "init-anything")
 
 ;; Meadow用設定を読み込む

@@ -130,13 +130,6 @@ print(which_library(%%[%s]))
   
   (add-to-list 'ffap-alist '(ruby-mode . ffap-ruby-mode)))
 
-;; Rsense
-;;   RSense - ユーザーマニュアル
-;; http://cx4a.org/software/rsense/manual.ja.html#.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB
-(setq rsense-home (expand-file-name "~/dotfiles/opt/rsense"))
-(add-to-list 'load-path (concat rsense-home "/etc"))
-(require 'rsense)
-
 ;; Software Design 2008-02 P154
 ;; xmpfilter (rcodetools)
 (when (require 'rcodetools)

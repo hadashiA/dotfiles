@@ -3,7 +3,6 @@
 ;; (when (require 'auto-complete nil t)
 (when (require 'auto-complete-config)
   ;; (ac-config-default)
-  (global-auto-complete-mode t)
   (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
   (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 
@@ -63,7 +62,7 @@
               
               ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
               ;; (auto-complete)
-
+              
               (setq ac-clang-prefix-header "~/dotfiles/doc/cocos2d.h.pch"
                     ac-clang-flags (list "-Wall" "-Wextra" "-fsyntax-only"
                                          "-x" "objective-c"
@@ -98,13 +97,22 @@
               (add-to-list 'ac-sources 'ac-source-symbols)
               (add-to-list 'ac-sources 'ac-source-variables)))
 
+
+  ;; Rsense
+  ;;   RSense - ユーザーマニュアル
+  ;; http://cx4a.org/software/rsense/manual.ja.html#.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB
+  (setq rsense-home (expand-file-name "~/dotfiles/opt/rsense"))
+  (add-to-list 'load-path (concat rsense-home "/etc"))
+  (require 'rsense)
   (add-hook 'ruby-mode-hook
             (lambda ()
               (ac-ruby-mode-setup)
               (add-to-list 'ac-sources 'ac-source-rsense-method)
               (add-to-list 'ac-sources 'ac-source-rsense-constant)
               ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
-              ))
+              (auto-complete-mode nil)
+              (auto-complete-mode t)
+              ) t)
 
   (defun ac-pycomplete-candidates ()
     (pycomplete-pycomplete (py-symbol-near-point) (py-find-global-imports)))

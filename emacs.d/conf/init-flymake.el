@@ -103,13 +103,13 @@
                          temp-file
                          (file-name-directory buffer-file-name))))
       (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only"
-                        "-isysroot" xcode:sdk:path
+                        ;; "-isysroot" xcode:sdk:path
                         local-file))))
   (push '("\\.cc$" flymake-c++-init) flymake-allowed-file-name-masks)
   (push '("\\.cpp$" flymake-c++-init) flymake-allowed-file-name-masks)
   (push '("\\.mm$" flymake-c++-init) flymake-allowed-file-name-masks)
   (push '("\\.hpp$" flymake-c++-init) flymake-allowed-file-name-masks)
-  (add-hook 'c++-mode-hook 'flymake-mode-on-if-file-exists)
+  ;; (add-hook 'c++-mode-hook 'flymake-mode-on-if-file-exists)
 
   (defun flymake-display-err-minibuffer ()
     "現在行の error や warinig minibuffer に表示する"
