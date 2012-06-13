@@ -63,7 +63,6 @@
 
 (require 'anything-zsh-history)
 
-
 (dolist (elt '(("modified" "Modified files (%s)" "--modified")
                ("untracked" "Untracked files (%s)" "--others --exclude-standard")
                ("all" "All controlled files in this project (%s)" "")))
@@ -91,7 +90,7 @@
     (anything-other-buffer sources
      (format "*Anything git project in %s*" default-directory))))
 
-;; (define-key global-map (kbd "C-+") 'anything-git-project)
+(define-key global-map (kbd "C-c C-f") 'anything-git-project)
 
 
 (when (require 'anything-gtags)
@@ -145,7 +144,6 @@
   ))
 
 (when (require 'anything-project)
-  ;; (global-set-key (kbd "C-c C-f") 'anything-project)
   (define-key global-map (kbd "C-+") 'anything-project)
   (setq ap:project-files-filters
         (list
@@ -154,7 +152,7 @@
   (ap:add-project
    :name 'ruby
    :look-for '("Gemfile" "Rakefile")
-   :exclude-directory-regexp "\\(vendor\\|tmp\\|log\\|doc\\|\\.git\\)")
+   :exclude-directory-regexp "\\(vendor\\|tmp\\|log\\|doc\\|\\.git\\|work\\)")
   
   (ap:add-project
    :name 'php

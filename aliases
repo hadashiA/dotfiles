@@ -86,3 +86,5 @@ alias pj=$CURPROJ
 alias staging="open ~/dotfiles/terminal/Staging.terminal"
 
 alias www="python -m SimpleHTTPServer 8080"
+
+alias flushcache="sudo dscacheutil -flushcache"
