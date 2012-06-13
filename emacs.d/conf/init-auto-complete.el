@@ -46,7 +46,7 @@
   ;; (ac-company-define-source ac-source-company-xcode company-xcode)
   ;; (ac-company-define-source ac-source-company-gtags company-gtags)
 
-  ;; (require 'auto-complete-ya-gtags)
+  (require 'auto-complete-ya-gtags)
   (require 'auto-complete-clang)
 
   ;; (add-hook 'c-common-mode-hook
@@ -58,30 +58,32 @@
   (add-hook 'objc-mode-hook
             (lambda ()
               ;; (add-to-list 'ac-sources 'ac-source-company-xcode)
-              ;; (add-to-list 'ac-sources 'ac-source-ya-gtags)
+              (add-to-list 'ac-sources 'ac-source-ya-gtags)
               
               ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
               ;; (auto-complete)
               
-              (setq ac-clang-prefix-header "~/dotfiles/doc/cocos2d.h.pch"
-                    ac-clang-flags (list "-Wall" "-Wextra" "-fsyntax-only"
-                                         "-x" "objective-c"
-                                         "-isysroot" xcode:sdk:path))
-              ;; (add-to-list 'ac-sources 'ac-source-clang)
-              (define-key objc-mode-map (kbd "C-9") 'ac-complete-clang)
+              ;; (setq ac-clang-prefix-header "~/dotfiles/doc/cocos2d.h.pch"
+              ;;       ac-clang-flags (list "-Wall" "-Wextra" "-fsyntax-only"
+              ;;                            "-x" "objective-c"
+              ;;                            "-isysroot" xcode:sdk:path))
+              ;; ;; (add-to-list 'ac-sources 'ac-source-clang)
+              ;; (define-key objc-mode-map (kbd "C-9") 'ac-complete-clang)
               ))
 
   (add-to-list 'ac-modes 'csharp-mode)
   (add-hook 'csharp-mode-hook
             (lambda ()
+              (add-to-list 'ac-sources 'ac-source-ya-gtags)
               ))
 
   (add-hook 'c++-mode-hook
             (lambda ()
               (add-to-list 'ac-sources 'ac-source-dictionary)
+              ;; (add-to-list 'ac-sources 'ac-source-gtags)
               ;; (add-to-list 'ac-sources 'ac-source-company-xcode)
               ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
-              ;; (add-to-list 'ac-sources 'ac-source-ya-gtags)
+              (add-to-list 'ac-sources 'ac-source-ya-gtags)
 
               (setq ac-clang-prefix-header "~/dotfiles/doc/std.hpp.pch"
                     ac-clang-flags '("-w" "-ferror-limit" "1")
@@ -99,8 +101,7 @@
 
 
   ;; Rsense
-  ;;   RSense - ユーザーマニュアル
-  ;; http://cx4a.org/software/rsense/manual.ja.html#.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB
+  ;; http://cx4a.org/software/rsense/manual.ja.html
   (setq rsense-home (expand-file-name "~/dotfiles/opt/rsense"))
   (add-to-list 'load-path (concat rsense-home "/etc"))
   (require 'rsense)
@@ -136,9 +137,9 @@
                   ac-source-yasnippet))
   
   (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
-  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+  ;; (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
   (add-hook 'css-mode-hook 'ac-css-mode-setup)
   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-
+  
   (global-auto-complete-mode t))
 
