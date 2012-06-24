@@ -105,8 +105,8 @@ javascript <<EOM
     { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
     { label: 'amazon',   value: 'copy clean amazon url from current page',
       custom: function() {
-        var m = content.document.location.pathname.match(/dp\/(\d+)/);
-        return m ? ('http://amazon.jp/' + m[1]) : null;
+        var m = content.document.location.pathname.match(/dp\/(\w+)/);
+        return m ? ('http://amazon.jp/dp/' + m[1]) : null;
       }
     },
     { label: 'PA', value: 'copy account_id from CMSP', map: ',pa',
