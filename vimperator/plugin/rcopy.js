@@ -29,8 +29,10 @@
     { label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
     { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
     { label: 'ASIN',   value: 'copy ASIN code from Amazon',
-      custom: function(){
-        return content.document.getElementById('ASIN').value;}
+      custom: function() {
+        var m = content.document.location.pathname.match(/dp\/(\d+)/);
+        return m ? ('http://amazon.jp/' + m[1]) : null;
+      }
     },
     { label: 'PA', value: 'copy account_id from CMSP',
       custom: function() {

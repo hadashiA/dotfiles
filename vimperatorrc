@@ -103,12 +103,16 @@ javascript <<EOM
     { label: 'anchor',         value: '<a href="%URL%">%TITLE%</a>' },
     { label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
     { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
-    { label: 'ASIN',   value: 'copy ASIN code from Amazon',
-      custom: function(){
-        return content.document.getElementById('ASIN').value;}
+    { label: 'amazon',   value: 'copy clean amazon url from current page',
+      custom: function() {
+        var m = content.document.location.pathname.match(/dp\/(\d+)/);
+        return m ? ('http://amazon.jp/' + m[1]) : null;
+      }
     },
     { label: 'PA', value: 'copy account_id from CMSP', map: ',pa',
       custom: function() {
+        var regexp = /PA\d{8}/;
+
         return (function (e, re) {
           var m = e.textContent.match(re);
           if (m) return m[0];
@@ -118,7 +122,7 @@ javascript <<EOM
             if (result) return result;
           }
           return null;
-        })(content.document.body, /PA\d{8}/);
+        })(content.document.body, regexp);
       }}
   ];
 })();
