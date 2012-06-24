@@ -12,13 +12,15 @@
 (defun compile-and-go-go ()
   "make and exec compiled object."
   (interactive)
-  (if (< 0 (length (shell-command-to-string "find . -name 'Makefile' -maxdepth 1")))
+  ;; (if (< 0 (length (shell-command-to-string "find . -name 'Makefile' -maxdepth 1")))
+  (if nil
       (compile "make -k && $(find . -perm -u+x -type f -maxdepth 1 | head -1)")
     (let* ((path (buffer-file-name))
            (ext (file-name-extension path))
            (command (cond ((string= ext "cpp") "g++")
+                          ((string= ext "m") "gcc -framework Foundation")
                           (t "gcc"))))
-      (compile (concat command " " path " && ./a.out")))    
+      (compile (concat command " " path " && ./a.out")))
     ))
 
 (add-to-list 'auto-mode-alist '("\\.vert$" . c-mode))
@@ -75,7 +77,8 @@
             (c-set-offset 'label '-)
             (c-toggle-auto-newline t)
             (define-key objc-mode-map (kbd "C-c o") 'ff-find-other-file)
-            (define-key c++-mode-map (kbd "C-c ,") 'compile-and-go-go)
+            (define-key objc-mode-map (kbd "C-c ,") 'compile-and-go-go)
+            (c-set-offset 'objc-method-call-cont '+)
             ))
 
 (add-hook 'align-load-hook
