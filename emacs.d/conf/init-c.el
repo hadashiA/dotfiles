@@ -12,14 +12,14 @@
 (defun compile-and-go-go ()
   "make and exec compiled object."
   (interactive)
-  (if (< 0 (length (shell-command-to-string "find . -name 'Makefile' -maxdepth 1")))
+  ;; (if (< 0 (length (shell-command-to-string "find . -name 'Makefile' -maxdepth 1")))
+  (if nil
       (compile "make -k && $(find . -perm -u+x -type f -maxdepth 1 | head -1)")
     (let* ((path (buffer-file-name))
            (ext (file-name-extension path))
            (command (cond ((string= ext "cpp") "g++")
                           (t "gcc"))))
-      (compile (concat command " " path " && ./a.out")))    
-    ))
+      (compile (concat command " " path " && ./a.out")))))
 
 (add-to-list 'auto-mode-alist '("\\.vert$" . c-mode))
 (add-to-list 'auto-mode-alist '("\\.frag$" . c-mode))
@@ -68,6 +68,8 @@
             (define-key c++-mode-map (kbd "C-c ,") 'compile-and-go-go)
             (c-set-offset 'access-label '-)
             (c-set-offset 'innamespace 0)
+            (c-set-offset 'template-args-cont 0)
+            (c-set-offset 'topmost-intro-cont 0)
             ))
 
 (add-hook 'objc-mode-hook
