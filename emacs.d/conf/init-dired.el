@@ -106,14 +106,14 @@
 
 (global-set-key "\C-cy" 'my-quicklook-at-point)
 
-(defun my-dired-do-quicklook ()
-  "In dired, preview with Quick Look."
-  (interactive)
-  (let ((file (dired-get-filename))
-        (process (get-process "qlmanage_ps")))
-    (if process
-        (kill-process process)
-      (start-process "qlmanage_ps" nil "qlmanage" "-p" file))))
+;; (defun my-dired-do-quicklook ()
+;;   "In dired, preview with Quick Look."
+;;   (interactive)
+;;   (let ((file (dired-get-filename))
+;;         (process (get-process "qlmanage_ps")))
+;;     (if process
+;;         (kill-process process)
+;;       (start-process "qlmanage_ps" nil "qlmanage" "-p" file))))
 
-(eval-after-load "dired"
-  '(define-key dired-mode-map "\C-cy" 'my-dired-do-quicklook))
+;; (eval-after-load "dired"
+;;   '(define-key dired-mode-map "\C-cy" 'my-dired-do-quicklook))

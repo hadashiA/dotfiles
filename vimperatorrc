@@ -1,4 +1,3 @@
-:set guioptions=nosmallicons,nosearchbox,nomenubutton,leftscrollbar,nobottomscrollbar
 :set toolbars=nomenu,nonavigation,addons,nobookmarks
 
 colorscheme vimplight
@@ -8,11 +7,9 @@ set visualbell
 "set visualbellstyle=display:none;
 set verbose=7
 set complete=sl
-set wildoptions=auto
 set defsearch=google
 set suggestengines=google
 set hlsearch
-set showtabline=1
 set history=1000
 set activate=homepage,quickmark,tabopen,paste
 set hintchars=asdfjklgh
@@ -44,14 +41,6 @@ cnoremap <C-z> <C-v><C-z>
 cnoremap <C-x> <C-v><C-x>
 cnoremap <C-c> <C-v><C-c>
 cnoremap <C-v> <C-v><C-v>
-
-"ロケーションバーにフォーカス
-map <C-l> <A-d>
-
-"各種バー表示をトグル
-noremap <C-1> :set guioptions=<cr>
-noremap <C-2> :set guioptions=b<cr>
-noremap <C-3> :set guioptions=bmT<cr>
 
 "LDRize_Cooperationをトグル
 map q <esc>:toggleldrc<cr>
@@ -104,3 +93,37 @@ nnoremap s :hbsearch<Space>
 nnoremap S :hbtabsearch<Space>
 nnoremap m :bmarks<Space>
 set complete+=H
+
+"" copy.js
+javascript <<EOM
+(function () {
+  liberator.globalVariables.copy_templates = [
+    { label: 'titleAndURL',    value: '%TITLE%\n%URL%' },
+    { label: 'title',          value: '%TITLE%', map: ',y' },
+    { label: 'anchor',         value: '<a href="%URL%">%TITLE%</a>' },
+    { label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
+    { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
+    { label: 'amazon',   value: 'copy clean amazon url from current page',
+      custom: function() {
+        var m = content.document.location.pathname.match(/dp\/(\w+)/);
+        return m ? ('http://amazon.jp/dp/' + m[1]) : null;
+      }
+    },
+    { label: 'PA', value: 'copy account_id from CMSP', map: ',pa',
+      custom: function() {
+        var regexp = /PA\d{8}/;
+
+        return (function (e, re) {
+          var m = e.textContent.match(re);
+          if (m) return m[0];
+          
+          for (var i = 0; i < e.children.length; i++) {
+            var result = arguments.callee(e.children[i], re);
+            if (result) return result;
+          }
+          return null;
+        })(content.document.body, regexp);
+      }}
+  ];
+})();
+EOM

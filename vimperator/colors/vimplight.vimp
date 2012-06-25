@@ -16,15 +16,15 @@ hi HintActive background-color: #ffdcdc; border: 1px #ef6f6f dotted; -moz-border
 " Tab (for Tree Style Tab)
 "--------------------------------------------------
 hi TabNumber    font-size: 9px; padding-left: 6px; 
-hi TabText     text-align: left;
+" hi TabText     text-align: left;
  
 "--------------------------------------------------
 " Status Line
 "--------------------------------------------------
 hi StatusLine height: 23px; -moz-appearance: statusbar;
-hi StatusLineSecure height: 23px; -moz-appearance: statusbar;
-hi StatusLineBroken height: 23px; -moz-appearance: statusbar;
-hi StatusLineExtended height: 23px; -moz-appearance: statusbar;
+" hi StatusLineSecure height: 23px; -moz-appearance: statusbar;
+" hi StatusLineBroken height: 23px; -moz-appearance: statusbar;
+" hi StatusLineExtended height: 23px; -moz-appearance: statusbar;
 
 " for Firefox 3.0.x
 " hi StatusLine font-family: "Lucida Grande", monospace; font-size: 11px; color: #262626; background: url("chrome://global/skin/statusbar-background.gif") #949393 repeat-x top left; border-top: 1px solid #888; height: 22px; padding-left: 0.5em;
@@ -63,8 +63,8 @@ hi CompItem[selected] background: #292929;
 hi CompIcon margin-right: 8px;
 hi CompDesc color: #666;
  
-hi GradientLeft background-color: #333;
-hi GradientRight background-color: #111;
+" hi GradientLeft background-color: #333;
+" hi GradientRight background-color: #111;
  
 hi Indicator color: #444;
 hi FrameIndicator background-color: #fdffc3; border: 2px solid yellow;

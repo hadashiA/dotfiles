@@ -18,8 +18,10 @@
     (let* ((path (buffer-file-name))
            (ext (file-name-extension path))
            (command (cond ((string= ext "cpp") "g++")
+                          ((string= ext "m") "gcc -framework Foundation")
                           (t "gcc"))))
       (compile (concat command " " path " && ./a.out")))))
+    ))
 
 (add-to-list 'auto-mode-alist '("\\.vert$" . c-mode))
 (add-to-list 'auto-mode-alist '("\\.frag$" . c-mode))
@@ -77,7 +79,8 @@
             (c-set-offset 'label '-)
             (c-toggle-auto-newline t)
             (define-key objc-mode-map (kbd "C-c o") 'ff-find-other-file)
-            (define-key c++-mode-map (kbd "C-c ,") 'compile-and-go-go)
+            (define-key objc-mode-map (kbd "C-c ,") 'compile-and-go-go)
+            (c-set-offset 'objc-method-call-cont '+)
             ))
 
 (add-hook 'align-load-hook
