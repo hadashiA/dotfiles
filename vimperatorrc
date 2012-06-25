@@ -97,6 +97,19 @@ set complete+=H
 "" copy.js
 javascript <<EOM
 (function () {
+  function findTextContent(re, e) {
+    if (!e) e = content.document.body;
+
+    var m = e.textContent.match(re);
+    if (m) return m[0];
+    
+    for (var i = 0; i < e.children.length; i++) {
+      var result = arguments.callee(e.children[i], re);
+      if (result) return result;
+    }
+    return null;
+  }
+
   liberator.globalVariables.copy_templates = [
     { label: 'titleAndURL',    value: '%TITLE%\n%URL%' },
     { label: 'title',          value: '%TITLE%', map: ',y' },
@@ -111,18 +124,11 @@ javascript <<EOM
     },
     { label: 'PA', value: 'copy account_id from CMSP', map: ',pa',
       custom: function() {
-        var regexp = /PA\d{8}/;
-
-        return (function (e, re) {
-          var m = e.textContent.match(re);
-          if (m) return m[0];
-          
-          for (var i = 0; i < e.children.length; i++) {
-            var result = arguments.callee(e.children[i], re);
-            if (result) return result;
-          }
-          return null;
-        })(content.document.body, regexp);
+        return findTextContent(/PA\d{8}/);
+      }},
+    { label: 'CI', value: 'copy inq ID from CMSP', map: ',ci',
+      custom: function() {
+        return findTextContent(/CI\d{8}/);
       }}
   ];
 })();
