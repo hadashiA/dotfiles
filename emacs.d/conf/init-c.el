@@ -21,7 +21,6 @@
                           ((string= ext "m") "gcc -framework Foundation")
                           (t "gcc"))))
       (compile (concat command " " path " && ./a.out")))))
-    ))
 
 (add-to-list 'auto-mode-alist '("\\.vert$" . c-mode))
 (add-to-list 'auto-mode-alist '("\\.frag$" . c-mode))
