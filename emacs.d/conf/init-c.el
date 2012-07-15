@@ -79,7 +79,7 @@
             (c-toggle-auto-newline t)
             (define-key objc-mode-map (kbd "C-c o") 'ff-find-other-file)
             (define-key objc-mode-map (kbd "C-c ,") 'compile-and-go-go)
-            (c-set-offset 'objc-method-call-cont '+)
+            ;; (c-set-offset 'objc-method-call-cont '+)
             ))
 
 (add-hook 'align-load-hook

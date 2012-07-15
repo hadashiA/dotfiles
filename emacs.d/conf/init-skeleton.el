@@ -42,8 +42,7 @@
   )
 
 (add-hook 'html-mode-hook 'skeleton-setup-default)
-(add-hook 'cc-mode-hook 'skeleton-setup-default)
-(add-hook 'c-common-mode-hook 'skeleton-setup-default)
+(add-hook 'c-mode-common-hook 'skeleton-setup-default)
 (add-hook 'objc-mode-hook 'skeleton-setup-default)
 (add-hook 'c++-mode-hook 'skeleton-setup-default)
 (add-hook 'csharp-mode-hook 'skeleton-setup-default)
@@ -68,10 +67,3 @@
               (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
               (local-set-key (kbd "'") 'skeleton-pair-insert-maybe)
             ))
-
-
-
-
-
-
-

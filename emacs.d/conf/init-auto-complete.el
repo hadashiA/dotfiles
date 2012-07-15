@@ -49,7 +49,7 @@
   (require 'auto-complete-ya-gtags)
   (require 'auto-complete-clang)
 
-  ;; (add-hook 'c-common-mode-hook
+  ;; (add-hook 'c-mode-common-hook
   ;;           (lambda ()
   ;;             (add-to-list 'ac-sources 'ac-source-ya-gtags)))
 
