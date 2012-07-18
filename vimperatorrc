@@ -129,7 +129,24 @@ javascript <<EOM
     { label: 'CI', value: 'copy inq ID from CMSP', map: ',ci',
       custom: function() {
         return findTextContent(/CI\d{8}/);
-      }}
+      }},
+    { label: 'sinsei', value: 'リリース承認おねがいします。>カラーミー開発 %URL%', map: ',xp'},
+
+    { label: 'webistrano', value: 'copy deploy 宣言', map: ',we',
+      custom: function() {
+        var title = content.document.title;
+        var proj  = '',
+            stage = '',
+            m;
+        if (m = title.match(/Project\s+(.+?)\s*?-/)) {
+          proj = m[1];
+        }
+        if (m = title.match(/[^-]+?$/)) {
+          stage = m[0];
+        }
+        return proj + " " + stage + " デプロイします。";
+      }
+    }
   ];
 })();
 EOM
