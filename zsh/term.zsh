@@ -5,17 +5,36 @@ zstyle ':vcs_info:(git|svn):*' actionformats '%R' '%S' '%b|%a' '%s'
 zstyle ':vcs_info:*' formats '%R' '%S' '%s:%b' '%s'
 zstyle ':vcs_info:*' actionformats '%R' '%S' '%s:%b|%a' '%s'
 function precmd_vcs_info () {
+    local branch st 
+
     psvar=()
     STY= LANG=en_US.UTF-8 vcs_info
     repos=`print -nD "$vcs_info_msg_0_"`
     if [[ -n "$vcs_info_msg_1_" ]]; then
         vcs="$vcs_info_msg_3_"
-    else
-        vcs=''
+        
+        if [[ -n "$vcs_info_msg_2_" ]]; then
+            branch="$vcs_info_msg_2_"
+        else
+            branch=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
+        fi
+
+        # いろつけたりしたい
+        # st=`git status 2> /dev/null`
+        # if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
+        #     psvar[1]="%F{green}$branch%f"
+        # elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
+        #     psvar[1]="%F{yello}$branch%f"
+        # elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
+        #     psvar[1]="%F{red}$branch%f"
+        # else
+        #     psvar[1]="%F{red}$branch%f"
+        # fi
+        psvar[1]="$branch"
+
+        [[ -n "$repos" ]] && psvar[2]="$repos"
+        psvar[3]="$vcs_info_msg_1_"
     fi
-    [[ -n "$repos" ]] && psvar[2]="$repos"
-    [[ -n "$vcs_info_msg_1_" ]] && psvar[3]="$vcs_info_msg_1_"
-    [[ -n "$vcs_info_msg_2_" ]] && psvar[1]="$vcs_info_msg_2_"
 }
 
 # set window title of screen
