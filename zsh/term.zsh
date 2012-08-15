@@ -1,39 +1,50 @@
 # VCS
+autoload -Uz colors
 autoload -Uz vcs_info
-zstyle ':vcs_info:(git|svn):*' formats '%R' '%S' '%b' '%s'
-zstyle ':vcs_info:(git|svn):*' actionformats '%R' '%S' '%b|%a' '%s'
-zstyle ':vcs_info:*' formats '%R' '%S' '%s:%b' '%s'
-zstyle ':vcs_info:*' actionformats '%R' '%S' '%s:%b|%a' '%s'
-function precmd_vcs_info () {
-    local branch st 
 
-    psvar=()
+zstyle ':vcs_info:*' enable git 
+zstyle ':vcs_info:*' formats '%R' '%S' '%b' '%s'
+zstyle ':vcs_info:*' actionformats '%R' '%S' '%b|%a' '%s'
+
+autoload -Uz is-at-least
+if is-at-least 4.3.10; then
+    zstyle ':vcs_info:git:*' check-for-changes true
+    zstyle ':vcs_info:git:*' stagedstr "+"    # 適当な文字列に変更する
+    zstyle ':vcs_info:git:*' unstagedstr "-"  # 適当の文字列に変更する
+    zstyle ':vcs_info:*' formats '%R' '%S' '%b' '%s' '%c' '%u'
+    zstyle ':vcs_info:*' actionformats '%R' '%S' '%b|%a' '%s' '%c' '%u'
+fi
+
+function echo_rprompt () {
+    local repos branch st color
+
     STY= LANG=en_US.UTF-8 vcs_info
-    repos=`print -nD "$vcs_info_msg_0_"`
     if [[ -n "$vcs_info_msg_1_" ]]; then
-        vcs="$vcs_info_msg_3_"
-        
+        # -Dつけて、~とかに変換
+        repos=`print -nD "$vcs_info_msg_0_"`
+
         if [[ -n "$vcs_info_msg_2_" ]]; then
             branch="$vcs_info_msg_2_"
         else
             branch=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
         fi
+        
+        if [[ -n "$vcs_info_msg_4_" ]]; then # unstaged
+            branch="%F{red}$branch%f"
+        elif [[ -n "$vcs_info_msg_5_" ]]; then # staged
+            branch="%F{green}$branch%f"
+        else
+            branch="%F{blue}$branch%f"
+        fi
 
-        # いろつけたりしたい
-        # st=`git status 2> /dev/null`
-        # if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
-        #     psvar[1]="%F{green}$branch%f"
-        # elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
-        #     psvar[1]="%F{yello}$branch%f"
-        # elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
-        #     psvar[1]="%F{red}$branch%f"
-        # else
-        #     psvar[1]="%F{red}$branch%f"
-        # fi
-        psvar[1]="$branch"
+        print -n "[%25<..<"
+        print -nD "%F{yellow}$repos%f"
+        print -n "@"
+        print -n "$branch"
+        print -n "%<<]"
 
-        [[ -n "$repos" ]] && psvar[2]="$repos"
-        psvar[3]="$vcs_info_msg_1_"
+    else
+        print -nD "[%F{yellow}%60<..<%~%<<%f]"
     fi
 }
 
@@ -117,8 +128,8 @@ precmd_functions+=precmd_screen_window_title
 preexec_functions+=preexec_screen_window_title
 
 # prompt
+setopt prompt_subst
+
 # PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)%(!.#.>) "
 PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)${WINDOW:+"[$WINDOW]"}%(!.#.>) "
-local psdirs='[%F{yellow}%3(v|%32<..<%3v%<<|%60<..<%~%<<)%f]'
-local psvcs='%3(v|[%25<\<<%F{yellow}%2v%f@%F{blue}%1v%f%<<]|)'
-RPROMPT="$psdirs$psvcs"
+RPROMPT="`echo_rprompt`"
