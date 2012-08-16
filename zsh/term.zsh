@@ -30,10 +30,10 @@ function echo_rprompt () {
         # fi
         
         # なんかcheck-for-changesがうごいてないんだよなあ
-        if [[ -n "$vcs_info_msg_4_" ]]; then # unstaged
-            branch="%F{red}$branch%f"
-        elif [[ -n "$vcs_info_msg_5_" ]]; then # staged
+        if [[ -n "$vcs_info_msg_4_" ]]; then # staged
             branch="%F{green}$branch%f"
+        elif [[ -n "$vcs_info_msg_5_" ]]; then # unstaged
+            branch="%F{red}$branch%f"
         else
             branch="%F{blue}$branch%f"
         fi
