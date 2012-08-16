@@ -3,14 +3,14 @@ autoload -Uz colors
 autoload -Uz vcs_info
 
 zstyle ':vcs_info:*' enable git 
+zstyle ':vcs_info:*' max-exports 7
 zstyle ':vcs_info:*' formats '%R' '%S' '%b' '%s'
 zstyle ':vcs_info:*' actionformats '%R' '%S' '%b|%a' '%s'
 
 autoload -Uz is-at-least
 if is-at-least 4.3.10; then
-    zstyle ':vcs_info:git:*' check-for-changes true
-    zstyle ':vcs_info:git:*' stagedstr "+"    # 適当な文字列に変更する
-    zstyle ':vcs_info:git:*' unstagedstr "-"  # 適当の文字列に変更する
+    zstyle ':vcs_info:*'  true
+    zstyle ':vcs_info:*' check-for-changes true
     zstyle ':vcs_info:*' formats '%R' '%S' '%b' '%s' '%c' '%u'
     zstyle ':vcs_info:*' actionformats '%R' '%S' '%b|%a' '%s' '%c' '%u'
 fi
@@ -23,12 +23,13 @@ function echo_rprompt () {
         # -Dつけて、~とかに変換
         repos=`print -nD "$vcs_info_msg_0_"`
 
-        if [[ -n "$vcs_info_msg_2_" ]]; then
+        # if [[ -n "$vcs_info_msg_2_" ]]; then
             branch="$vcs_info_msg_2_"
-        else
-            branch=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
-        fi
+        # else
+        #     branch=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
+        # fi
         
+        # なんかcheck-for-changesがうごいてないんだよなあ
         if [[ -n "$vcs_info_msg_4_" ]]; then # unstaged
             branch="%F{red}$branch%f"
         elif [[ -n "$vcs_info_msg_5_" ]]; then # staged
@@ -38,9 +39,12 @@ function echo_rprompt () {
         fi
 
         print -n "[%25<..<"
+        print -n "%F{yellow}$vcs_info_msg_1_%F"
+        print -n "%<<]"
+
+        print -n "[%25<..<"
         print -nD "%F{yellow}$repos%f"
-        print -n "@"
-        print -n "$branch"
+        print -n "@$branch"
         print -n "%<<]"
 
     else
@@ -123,13 +127,12 @@ function title() {
     fi
 }
 
-precmd_functions+=precmd_vcs_info
-precmd_functions+=precmd_screen_window_title
-preexec_functions+=preexec_screen_window_title
-
 # prompt
 setopt prompt_subst
 
+precmd_functions+=precmd_screen_window_title
+preexec_functions+=preexec_screen_window_title
+
 # PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)%(!.#.>) "
 PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)${WINDOW:+"[$WINDOW]"}%(!.#.>) "
-RPROMPT="`echo_rprompt`"
+RPROMPT='`echo_rprompt`'
