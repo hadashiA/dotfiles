@@ -117,3 +117,9 @@
 
 ;; (eval-after-load "dired"
 ;;   '(define-key dired-mode-map "\C-cy" 'my-dired-do-quicklook))
+
+(eval-after-load "dired"
+  '(add-to-list
+    (quote dired-font-lock-keywords)
+    (list dired-re-exe
+	  '(".+" (dired-move-to-filename) nil (0 (quote face-for-executable))))))
