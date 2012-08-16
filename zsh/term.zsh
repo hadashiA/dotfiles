@@ -1,5 +1,4 @@
 # VCS
-autoload -Uz colors
 autoload -Uz vcs_info
 
 zstyle ':vcs_info:*' enable git 
@@ -29,7 +28,6 @@ function echo_rprompt () {
         #     branch=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
         # fi
         
-        # なんかcheck-for-changesがうごいてないんだよなあ
         if [[ -n "$vcs_info_msg_4_" ]]; then # staged
             branch="%F{green}$branch%f"
         elif [[ -n "$vcs_info_msg_5_" ]]; then # unstaged
