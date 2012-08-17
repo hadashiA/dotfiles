@@ -43,7 +43,7 @@ function echo_prompt () {
 
     print "%F{$maincolor}──%f"
     # print -n "%F{$maincolor}└[%F{yellow}%m%f%F{$maincolor}]%f " 
-    print -n "%F{$maincolor}└%f " 
+    print -n "%F{$maincolor}└%f %B" 
 }
 
 function echo_rprompt () {
