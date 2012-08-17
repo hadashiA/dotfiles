@@ -1,5 +1,6 @@
 # VCS
 autoload -Uz vcs_info
+autoload -Uz colors
 
 zstyle ':vcs_info:*' enable git 
 zstyle ':vcs_info:*' max-exports 7
@@ -36,9 +37,9 @@ function echo_prompt () {
         elif [[ -n "$vcs_info_msg_6_" ]]; then # unstaged
             branch="%F{red}$branch%f"
         else
-            branch="%F{green}$branch%f"
+            branch="%F{blue}$branch%f"
         fi
-        print -n "%F{$maincolor}<%B$vcs_info_msg_0_@%b$branch%F{$maincolor}>%f"
+        print -n "%F{$maincolor}%f<%B$vcs_info_msg_0_%b%F{$maincolor}@%f$branch%F{$maincolor}>%f"
     fi
 
     print "%F{$maincolor}──%f"
