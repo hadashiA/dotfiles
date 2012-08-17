@@ -1,6 +1,5 @@
 # VCS
 autoload -Uz vcs_info
-autoload -Uz colors
 
 zstyle ':vcs_info:*' enable git 
 zstyle ':vcs_info:*' max-exports 7
@@ -44,7 +43,7 @@ function echo_prompt () {
 
     print "%F{$maincolor}──%f"
     # print -n "%F{$maincolor}└[%F{yellow}%m%f%F{$maincolor}]%f " 
-    print -n "%F{$maincolor}└%f %B" 
+    print -n "%F{$maincolor}└%f%F{red} →%f %B" 
 }
 
 function echo_rprompt () {
