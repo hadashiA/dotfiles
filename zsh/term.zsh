@@ -3,15 +3,15 @@ autoload -Uz vcs_info
 
 zstyle ':vcs_info:*' enable git 
 zstyle ':vcs_info:*' max-exports 7
-zstyle ':vcs_info:*' formats '%R' '%S' '%b' '%s'
-zstyle ':vcs_info:*' actionformats '%R' '%S' '%b|%a' '%s'
+zstyle ':vcs_info:*' formats '%r' '%R' '%S' '%b'
+zstyle ':vcs_info:*' actionformats '%r' '%R' '%S' '%b|%a'
 
 autoload -Uz is-at-least
 if is-at-least 4.3.10; then
     zstyle ':vcs_info:*'  true
     zstyle ':vcs_info:*' check-for-changes true
-    zstyle ':vcs_info:*' formats '%R' '%S' '%b' '%s' '%c' '%u'
-    zstyle ':vcs_info:*' actionformats '%R' '%S' '%b|%a' '%s' '%c' '%u'
+    zstyle ':vcs_info:*' formats '%r' '%R' '%S' '%b' '%c' '%u'
+    zstyle ':vcs_info:*' actionformats '%r' '%R' '%S' '%b|%a' '%c' '%u'
 fi
 
 function precmd_vcs_info () {
@@ -30,15 +30,15 @@ function echo_prompt () {
     print -n "%F{$maincolor}┌─(%B%T%b%F{$maincolor})──%f"
 
     if [[ -n "$vcs_info_msg_0_" ]]; then
-        branch="$vcs_info_msg_2_"
-        if [[ -n "$vcs_info_msg_4_" ]]; then # staged
+        branch="$vcs_info_msg_3_"
+        if [[ -n "$vcs_info_msg_5_" ]]; then # staged
             branch="%F{yellow}$branch%f"
-        elif [[ -n "$vcs_info_msg_5_" ]]; then # unstaged
+        elif [[ -n "$vcs_info_msg_6_" ]]; then # unstaged
             branch="%F{red}$branch%f"
         else
             branch="%F{blue}$branch%f"
         fi
-        print -n "%F{$maincolor}<%f$branch%F{$maincolor}>%f"
+        print -n "%F{$maincolor}<%B$vcs_info_msg_0_@%b$branch%F{$maincolor}>%f"
     fi
 
     print "%F{$maincolor}──%f"
@@ -52,10 +52,10 @@ function echo_rprompt () {
     STY= LANG=en_US.UTF-8 vcs_info
     if [[ -n "$vcs_info_msg_0_" ]]; then
         # -Dつけて、~とかに変換
-        repos=`print -nD "$vcs_info_msg_0_"`
+        repos=`print -nD "$vcs_info_msg_1_"`
 
         print -n "%F{green}[%25<..<"
-        print -n "%F{yellow}%B$vcs_info_msg_1_%b%f"
+        print -n "%F{yellow}%B$vcs_info_msg_2_%b%f"
         print -n "%<<%F{green}]%f"
 
         print -n "%F{green}[%25<..<"
