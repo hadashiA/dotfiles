@@ -39,7 +39,7 @@ function echo_prompt () {
         else
             branch="%F{blue}$branch%f"
         fi
-        print -n "%F{$maincolor}%f<%B$vcs_info_msg_0_%b%F{$maincolor}@%f$branch%F{$maincolor}>%f"
+        print -n "%F{$maincolor}<%f%B$vcs_info_msg_0_%b%F{$maincolor}@%f$branch%F{$maincolor}>%f"
     fi
 
     print "%F{$maincolor}──%f"
