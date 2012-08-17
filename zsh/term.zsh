@@ -36,7 +36,7 @@ function echo_prompt () {
         elif [[ -n "$vcs_info_msg_6_" ]]; then # unstaged
             branch="%F{red}$branch%f"
         else
-            branch="%F{blue}$branch%f"
+            branch="%F{green}$branch%f"
         fi
         print -n "%F{$maincolor}<%B$vcs_info_msg_0_@%b$branch%F{$maincolor}>%f"
     fi
