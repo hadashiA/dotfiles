@@ -14,39 +14,56 @@ if is-at-least 4.3.10; then
     zstyle ':vcs_info:*' actionformats '%R' '%S' '%b|%a' '%s' '%c' '%u'
 fi
 
-function echo_rprompt () {
-    local repos branch st color
-
+function precmd_vcs_info () {
     STY= LANG=en_US.UTF-8 vcs_info
-    if [[ -n "$vcs_info_msg_1_" ]]; then
-        # -Dつけて、~とかに変換
-        repos=`print -nD "$vcs_info_msg_0_"`
+}
 
-        # if [[ -n "$vcs_info_msg_2_" ]]; then
-            branch="$vcs_info_msg_2_"
-        # else
-        #     branch=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
-        # fi
-        
+function echo_prompt () {
+    local maincolor repos branch
+
+    maincolor="green"
+    if [ $UID -eq 0 ]; then
+        maincolor="red"
+    fi
+
+    print ""
+    print -n "%F{$maincolor}┌─(%B%T%b%F{$maincolor})──%f"
+
+    if [[ -n "$vcs_info_msg_0_" ]]; then
+        branch="$vcs_info_msg_2_"
         if [[ -n "$vcs_info_msg_4_" ]]; then # staged
-            branch="%F{green}$branch%f"
+            branch="%F{yellow}$branch%f"
         elif [[ -n "$vcs_info_msg_5_" ]]; then # unstaged
             branch="%F{red}$branch%f"
         else
             branch="%F{blue}$branch%f"
         fi
+        print -n "%F{$maincolor}<%f$branch%F{$maincolor}>%f"
+    fi
 
-        print -n "[%25<..<"
-        print -n "%F{yellow}$vcs_info_msg_1_%F"
-        print -n "%<<]"
+    print "%F{$maincolor}──%f"
+    # print -n "%F{$maincolor}└[%F{yellow}%m%f%F{$maincolor}]%f " 
+    print -n "%F{$maincolor}└%f " 
+}
 
-        print -n "[%25<..<"
+function echo_rprompt () {
+    local repos branch
+
+    STY= LANG=en_US.UTF-8 vcs_info
+    if [[ -n "$vcs_info_msg_0_" ]]; then
+        # -Dつけて、~とかに変換
+        repos=`print -nD "$vcs_info_msg_0_"`
+
+        print -n "%F{green}[%25<..<"
+        print -n "%F{yellow}%B$vcs_info_msg_1_%b%f"
+        print -n "%<<%F{green}]%f"
+
+        print -n "%F{green}[%25<..<"
         print -nD "%F{yellow}$repos%f"
-        print -n "@$branch"
-        print -n "%<<]"
+        print -n "%<<%F{green}]%f"
 
     else
-        print -nD "[%F{yellow}%60<..<%~%<<%f]"
+        print -nD "%F{green}[%F{yellow}%60<..<%~%<<%f%F{green}]%f"
     fi
 }
 
@@ -128,9 +145,9 @@ function title() {
 # prompt
 setopt prompt_subst
 
-precmd_functions+=precmd_screen_window_title
-preexec_functions+=preexec_screen_window_title
+precmd_functions+=precmd_vcs_info
 
 # PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)%(!.#.>) "
-PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)${WINDOW:+"[$WINDOW]"}%(!.#.>) "
+# PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)${WINDOW:+"[$WINDOW]"}%(!.#.>) "
+PROMPT='`echo_prompt`'
 RPROMPT='`echo_rprompt`'
