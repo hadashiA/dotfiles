@@ -56,7 +56,7 @@
 (setq default-buffer-file-coding-system 'utf-8)
 (setq default-process-coding-system '(utf-8 . utf-8))
 (setq default-file-name-coding-system 'utf-8)
-
+(set-default-coding-systems 'utf-8)
 (setenv "LANG" "ja_JP.UTF-8")
 
 
