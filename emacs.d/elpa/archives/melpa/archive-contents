@@ -937,6 +937,9 @@
  (guru-mode .
 	    [(20120622)
 	     nil "Become an Emacs guru [source: github]" single])
+ (groovy-mode .
+	      [(20120331)
+	       nil "Groovy mode derived mode [source: bzr]" single])
  (grin .
        [(20110806)
 	nil "run grin and grind (python replacements for grep and find) putting hits in a grep buffer [source: hg]" single])
@@ -1367,8 +1370,5 @@
 	    "An auto-complete source for Clojure using nrepl completions [source: github]" single])
  (ac-dabbrev .
 	     [(20091116)
-	      nil "auto-complete.el source for dabbrev [source: wiki]" single])
- (groovy-mode .
-	      [(20120331)
-	       nil "Groovy mode derived mode [source: bzr]" single]))
+	      nil "auto-complete.el source for dabbrev [source: wiki]" single]))
 
