@@ -32,9 +32,9 @@ function echo_prompt () {
     if [[ -n "$vcs_info_msg_0_" ]]; then
         branch="$vcs_info_msg_3_"
         if [[ -n "$vcs_info_msg_5_" ]]; then # staged
-            branch="%F{yellow}$branch%f"
-        elif [[ -n "$vcs_info_msg_6_" ]]; then # unstaged
             branch="%F{red}$branch%f"
+        elif [[ -n "$vcs_info_msg_6_" ]]; then # unstaged
+            branch="%F{yellow}$branch%f"
         else
             branch="%F{blue}$branch%f"
         fi
