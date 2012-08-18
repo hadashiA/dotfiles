@@ -44,7 +44,11 @@ function echo_prompt () {
     print "%F{$maincolor}──%f"
     # print -n "%F{$maincolor}└[%F{yellow}%m%f%F{$maincolor}]%f " 
     # print -n "%F{$maincolor}└%f%F{red} →%f %B" 
-    print -n "%F{$maincolor}└%f %B" 
+    print -n "%F{$maincolor}└%f"
+    if [[ -n $SSH_CONNECTION ]]; then
+        print -n "%F{$maincolor}[%f%F{yellow}%m%f%F{$maincolor}]%f%F{red}→%f"
+    fi
+    print -n " %B"
 }
 
 function echo_rprompt () {
