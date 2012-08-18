@@ -96,6 +96,7 @@
 ;; これやっぱ外しておこうとかいうのを調整するのが面倒。
 
 (load "init-env")
+(load "init-package")
 (load "init-paren")
 (load "init-undo")
 (load "init-color")
