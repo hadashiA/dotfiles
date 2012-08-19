@@ -38,12 +38,10 @@ function echo_prompt () {
         else
             branch="%F{blue}$branch%f"
         fi
-        print -n "%F{$maincolor}<%f%B$vcs_info_msg_0_%b%F{$maincolor}@%f$branch%F{$maincolor}>%f"
+        print -n "%F{$maincolor}<%f%B%F{yellow}$vcs_info_msg_0_%f%b%F{$maincolor}@%f$branch%F{$maincolor}>%f"
     fi
 
     print "%F{$maincolor}──%f"
-    # print -n "%F{$maincolor}└[%F{yellow}%m%f%F{$maincolor}]%f " 
-    # print -n "%F{$maincolor}└%f%F{red} →%f %B" 
     print -n "%F{$maincolor}└%f"
     if [[ -n $SSH_CONNECTION ]]; then
         print -n "%F{$maincolor}[%f%F{yellow}%m%f%F{$maincolor}]%f%F{red}→%f"
