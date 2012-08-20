@@ -52,7 +52,6 @@ function echo_prompt () {
 function echo_rprompt () {
     local repos branch
 
-    STY= LANG=en_US.UTF-8 vcs_info
     if [[ -n "$vcs_info_msg_0_" ]]; then
         # -Dつけて、~とかに変換
         repos=`print -nD "$vcs_info_msg_1_"`
