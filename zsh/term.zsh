@@ -8,7 +8,6 @@ zstyle ':vcs_info:*' actionformats '%r' '%R' '%S' '%b|%a'
 
 autoload -Uz is-at-least
 if is-at-least 4.3.10; then
-    zstyle ':vcs_info:*'  true
     zstyle ':vcs_info:*' check-for-changes true
     zstyle ':vcs_info:*' formats '%r' '%R' '%S' '%b' '%u' '%c'
     zstyle ':vcs_info:*' actionformats '%r' '%R' '%S' '%b|%a' '%u' '%c'
@@ -147,7 +146,9 @@ function title() {
 # prompt
 setopt prompt_subst
 
-# precmd_functions+=precmd_vcs_info
+precmd_functions+=precmd_vcs_info
+precmd_functions+=precmd_screen_window_title
+precmd_functions+=preexec_screen_window_title
 
 # PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)%(!.#.>) "
 # PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)${WINDOW:+"[$WINDOW]"}%(!.#.>) "
