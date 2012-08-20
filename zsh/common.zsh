@@ -181,3 +181,4 @@ source ~/.zsh/modules/zaw/zaw.zsh
 bindkey '^R' zaw-history
 
 fpath=(~/.zsh/modules/zsh-completions $fpath)
+

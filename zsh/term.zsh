@@ -10,8 +10,8 @@ autoload -Uz is-at-least
 if is-at-least 4.3.10; then
     zstyle ':vcs_info:*'  true
     zstyle ':vcs_info:*' check-for-changes true
-    zstyle ':vcs_info:*' formats '%r' '%R' '%S' '%b' '%c' '%u'
-    zstyle ':vcs_info:*' actionformats '%r' '%R' '%S' '%b|%a' '%c' '%u'
+    zstyle ':vcs_info:*' formats '%r' '%R' '%S' '%b' '%u' '%c'
+    zstyle ':vcs_info:*' actionformats '%r' '%R' '%S' '%b|%a' '%u' '%c'
 fi
 
 function precmd_vcs_info () {
@@ -31,9 +31,9 @@ function echo_prompt () {
 
     if [[ -n "$vcs_info_msg_0_" ]]; then
         branch="$vcs_info_msg_3_"
-        if [[ -n "$vcs_info_msg_5_" ]]; then # staged
+        if [[ -n "$vcs_info_msg_4_" ]]; then # unstaged
             branch="%F{red}$branch%f"
-        elif [[ -n "$vcs_info_msg_6_" ]]; then # unstaged
+        elif [[ -n "$vcs_info_msg_5_" ]]; then # staged
             branch="%F{yellow}$branch%f"
         else
             branch="%F{blue}$branch%f"
