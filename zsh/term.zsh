@@ -147,7 +147,7 @@ function title() {
 # prompt
 setopt prompt_subst
 
-precmd_functions+=precmd_vcs_info
+# precmd_functions+=precmd_vcs_info
 
 # PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)%(!.#.>) "
 # PROMPT="%(!.%F{red}.%F{green})%U%n@%6>>%m%>>%u%f:%1(j.%j.)${WINDOW:+"[$WINDOW]"}%(!.#.>) "
