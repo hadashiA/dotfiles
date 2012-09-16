@@ -2,9 +2,9 @@
 ;; ruby-mode
 ;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs 
 (add-to-load-path "~/.emacs.d/elisp/ruby-mode/")
-(require 'rvm)
+;; (require 'rvm)
 ;; (rvm-use "1.9.3" "ruby")
-(rvm-use-default)
+;; (rvm-use-default)
 
 (require 'ruby-mode)
 ;; magickコメントを入れない

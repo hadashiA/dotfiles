@@ -15,8 +15,9 @@ fi
 
 source ~/.exports
 
-# Ruby rvm
-if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi
+# Ruby 
+# if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi
+eval "$(rbenv init -)"
 
 # Node.js nvm
 if [[ -f $HOME/.nvm/nvm.sh ]]; then source $HOME/.nvm/nvm.sh ; fi
