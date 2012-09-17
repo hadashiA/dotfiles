@@ -24,10 +24,11 @@ bind -c REGION o focus
 caption splitonly "%?%F%{= Wk}%:%{= wk}%?%3n %t"
 # hardstatus alwayslastline "$SCRHSTCLR%H%{-} %-w%{=b bw}%n %t%{-}%+w"
 # hardstatus alwayslastline "%{= db} %-w%{=b dr}%n %t%{-}%+w %= [Mem:%0`%%] [CPU:%1`%% %2`C] [%3`] %y/%m/%d %c "
-hardstatus alwayslastline "%{= db} %-w%{=b dr}%n %t%{-}%+w %= [Mem:%0`%%] [CPU:%1`%% %2`C] %y/%m/%d %c "
-backtick 0 10 10 $HOME/.screen/mempct
-backtick 1 1 1   $HOME/.screen/cpupct
-backtick 2 5 5 $HOME/.screen/cputemp
+# hardstatus alwayslastline "%{= db} %-w%{=b dr}%n %t%{-}%+w %= [Mem:%0`%%] [CPU:%1`%% %2`C] %y/%m/%d %c "
+hardstatus alwayslastline "%{= db} %-w%{=b dr}%n %t%{-}%+w %= "
+# backtick 0 10 10 $HOME/.screen/mempct
+# backtick 1 1 1   $HOME/.screen/cpupct
+# backtick 2 5 5 $HOME/.screen/cputemp
 # backtick 3 10 10 $HOME/.screen/battery.sh
 
 
