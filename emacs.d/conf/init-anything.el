@@ -118,20 +118,38 @@
   )
 
 (defvar anything-c-sources-local-gem-file
-  '((name . "gems (local)")
+  '((name . "rubygems")
     (candidates-in-buffer)
     (init . (lambda ()
-              (unless (anything-candidate-buffer)
-                (call-process-shell-command
-                 "gem list" nil (anything-candidate-buffer 'global)))))
+              (let ((gemfile-dir (block 'find-gemfile
+                                   (let* ((cur-dir (file-name-directory
+                                                    (expand-file-name (or (buffer-file-name)
+                                                                          default-directory))))
+                                          (cnt 0))
+                                     (while (and (< (setq cnt (+ 1 cnt)) 10)
+                                                 (not (equal cur-dir "/")))
+                                       (when (member "Gemfile" (directory-files cur-dir))
+                                         (return-from 'find-gemfile cur-dir))
+                                       (setq cur-dir (expand-file-name (concat cur-dir "/.."))))
+                                     ))))
+                (anything-attrset 'gem-command
+                                  (if gemfile-dir
+                                      ;; (concat "bundle --gemfile " gemfile-path "/Gemfile exec gem")
+                                      (concat "cd " gemfile-dir "; bundle exec gem")
+                                    "gem"))
+                (message (anything-attr 'gem-command)
+                (unless (anything-candidate-buffer)
+                  (call-process-shell-command (concat (anything-attr 'gem-command) " list")
+                                              nil
+                                              (anything-candidate-buffer 'local)))))))
     (action . (lambda (gem-name)
                 (let ((path (file-name-directory
                              (shell-command-to-string
-                              (concat "gem which " (replace-regexp-in-string "\s+(.+)$" "" gem-name))))))
+                              (concat (anything-attr 'gem-command) " which "
+                                      (replace-regexp-in-string "\s+(.+)$" "" gem-name))))))
                   (if (file-exists-p path)
                       (find-file path)
-                    (message "no such file or directory:\"%s\"" path)))))
-    ))
+                    (message "no such file or directory:\"%s\"" path)))))))
 
 (defun anything-local-gems ()
   (interactive)
