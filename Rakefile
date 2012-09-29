@@ -39,6 +39,16 @@ namespace :install do
                           ]
   file dot('vimperatorrc') => [dot('vimperator')]
 
+  file dot('rbenv') do 
+    sh "git clone git://github.com/sstephenson/rbenv.git #{dot('rbenv')}"
+    cd dot('rbenv') do 
+      sh "mkdir plugins"
+      cd "plugins" do 
+        sh "git clone git://github.com/sstephenson/ruby-build.git"
+      end
+    end
+  end
+
   rule /\/\..+?$/ => [proc {|task_name|
                         File.basename(task_name).sub(/^\./, '')
                       }] do |t|
@@ -135,4 +145,7 @@ namespace :install do
 
   desc "setup ruby autotest. notify icons. install rspec,ZenTest and other gems"
   task :autotest => dot('autotest')
+
+  desc "install rbenv"
+  task :rbenv => dot('rbenv')
 end
