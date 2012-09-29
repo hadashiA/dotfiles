@@ -51,7 +51,9 @@ namespace :install do
 
   file dot('nvm') do 
     sh "git clone git://github.com/creationix/nvm.git #{dot('nvm')}"
-    sh %Q{sh "ruby -i -pe $_.gsub!(/(?<!builtin\s)(cd\s+)/, "builtin \\1")' nvm.sh"}
+    cd dot('nvm') do
+      sh %Q{sh "ruby -i -pe $_.gsub!(/(?<!builtin\s)(cd\s+)/, "builtin \\1")' nvm.sh"}
+    end
   end
 
   rule /\/\..+?$/ => [proc {|task_name|
