@@ -123,18 +123,15 @@
     (init . (lambda ()
               (unless (anything-candidate-buffer)
                 (call-process-shell-command
-                 "gem list" nil (anything-candidate-buffer 'global)
-                 ))))
+                 "gem list" nil (anything-candidate-buffer 'global)))))
     (action . (lambda (gem-name)
-                (setq gem-name (replace-regexp-in-string "\s+(.+)$" "" gem-name))
-                (with-temp-buffer
-                  (call-process "gem" nil t nil "which" gem-name)
-                  (let ((path (buffer-substring-no-properties (point-min)
-                                                              (- (point-max) 1))))
-                    (if (file-exists-p path)
-                        (find-file path)
-                      (message "no such file or directory:\"%s\"" path))))
-                ))))
+                (let ((path (file-name-directory
+                             (shell-command-to-string
+                              (concat "gem which " (replace-regexp-in-string "\s+(.+)$" "" gem-name))))))
+                  (if (file-exists-p path)
+                      (find-file path)
+                    (message "no such file or directory:\"%s\"" path)))))
+    ))
 
 (defun anything-local-gems ()
   (interactive)
