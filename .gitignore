@@ -22,3 +22,4 @@ emacs.d/conf/twitter-password.el
 doc/ruby-refm*
 emacs.d/url/cookies
 .rbenv-version
+emacs.d/**/archive-contents
