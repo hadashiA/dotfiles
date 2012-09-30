@@ -24,9 +24,11 @@
 ;; これ、必要なの？
 
 ;; exec-path, PATHの追加
-(let ((path (list "~/bin" "/opt/local/lib/postgresql84/bn" "/opt/local/lib/mysql5/bin" "/opt/local/bin" "/opt/local/sbin" "/usr/local/mysql/bin" "/usr/local/git/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/bin" "/usr/X11/bin")))
-  (setq exec-path (append path exec-path))
-  (setenv "PATH" (concat (mapconcat 'identity path ":") ":" (getenv "PATH"))))
+(let* ((pathenv (shell-command-to-string "echo $PATH"))
+       (pathlst (split-string pathenv ":")))
+  (setq exec-path pathlst)
+  (setq eshell-path-env pathenv)
+  (setenv "PATH" pathenv))
 
 ;; バイトコンパイル時のWarningを抑制
 (setq byte-compile-warnings '(free-vars unresolved callargs redefine obsolete noruntime cl-functions interactive-only make-local))
