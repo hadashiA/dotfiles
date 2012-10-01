@@ -133,23 +133,24 @@
                                        (setq cur-dir (expand-file-name (concat cur-dir "/.."))))
                                      ))))
                 (anything-attrset 'gem-command
-                                  (if gemfile-dir
-                                      ;; (concat "bundle --gemfile " gemfile-path "/Gemfile exec gem")
-                                      (concat "cd " gemfile-dir "; bundle exec gem")
-                                    "gem"))
-                (message (anything-attr 'gem-command)
+                                  (concat (if gemfile-dir
+                                              (concat "BUNDLE_GEMFILE=" gemfile-dir "/Gemfile "
+                                                      "bundle exec ")
+                                            "")
+                                          "gem 2>/dev/null"))
                 (unless (anything-candidate-buffer)
                   (call-process-shell-command (concat (anything-attr 'gem-command) " list")
                                               nil
-                                              (anything-candidate-buffer 'local)))))))
+                                              (anything-candidate-buffer 'local))))))
     (action . (lambda (gem-name)
                 (let ((path (file-name-directory
                              (shell-command-to-string
                               (concat (anything-attr 'gem-command) " which "
                                       (replace-regexp-in-string "\s+(.+)$" "" gem-name))))))
-                  (if (file-exists-p path)
+                  (if (and path (file-equal-p path))
                       (find-file path)
-                    (message "no such file or directory:\"%s\"" path)))))))
+                    (message "no such file or directory: \"%s\"" path))
+                  )))))
 
 (defun anything-local-gems ()
   (interactive)
