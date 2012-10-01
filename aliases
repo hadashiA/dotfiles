@@ -5,6 +5,7 @@ alias del='rm -rf'
 alias cp='cp -irf'
 alias mv='mv -i'
 alias grepp='grep -i -H -n -I --color=auto'
+alias d='date | pbcopy'
 
 # nvm.sh using cd 
 function cd() {builtin cd $@ && la}
