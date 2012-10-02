@@ -73,7 +73,7 @@
                          (unless (and ,(string= options "") ;update candidate buffer every time except for that of all project files
                                       (anything-candidate-buffer))
                            (with-current-buffer
-                               (anything-candidate-buffer 'global)
+                               (anything-candidate-buffer 'local)
                              (insert
                               (shell-command-to-string
                                ,(format "git ls-files $(git rev-parse --show-cdup) %s"
@@ -90,7 +90,7 @@
     (anything-other-buffer sources
      (format "*Anything git project in %s*" default-directory))))
 
-(define-key global-map (kbd "C-c C-f") 'anything-git-project)
+(define-key global-map (kbd "C-`") 'anything-git-project)
 
 
 (when (require 'anything-gtags)
