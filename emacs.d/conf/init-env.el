@@ -24,7 +24,7 @@
 ;; これ、必要なの？
 
 ;; exec-path, PATHの追加
-(let* ((pathenv (shell-command-to-string "echo $PATH"))
+(let* ((pathenv (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))
        (pathlst (split-string pathenv ":")))
   (setq exec-path pathlst)
   (setq eshell-path-env pathenv)

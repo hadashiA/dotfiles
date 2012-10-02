@@ -147,7 +147,7 @@
                              (shell-command-to-string
                               (concat (anything-attr 'gem-command) " which "
                                       (replace-regexp-in-string "\s+(.+)$" "" gem-name))))))
-                  (if (and path (file-equal-p path))
+                  (if (and path (file-exists-p path))
                       (find-file path)
                     (message "no such file or directory: \"%s\"" path))
                   )))))
