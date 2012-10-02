@@ -67,17 +67,15 @@
                ("untracked" "Untracked files (%s)" "--others --exclude-standard")
                ("all" "All controlled files in this project (%s)" "")))
   (destructuring-bind (suffix name options) elt
-    (eval `(defvar ,(intern (concat "anything-c-source-git-project-for-" suffix))
+    (eval `(setq ,(intern (concat "anything-c-source-git-project-for-" suffix))
              `((name . ,(format name default-directory))
                (init . (lambda ()
-                         (unless (and ,(string= options "") ;update candidate buffer every time except for that of all project files
+                         (unless (and ,(string= options ,options) ;update candidate buffer every time except for that of all project files
                                       (anything-candidate-buffer))
-                           (with-current-buffer
-                               (anything-candidate-buffer 'local)
-                             (insert
-                              (shell-command-to-string
-                               ,(format "git ls-files $(git rev-parse --show-cdup) %s"
-                                        options)))))))
+                           (call-process-shell-command
+                            ,(format "git ls-files $(git rev-parse --show-cdup) %s" options)
+                            nil
+                            (anything-candidate-buffer 'local)))))
                (candidates-in-buffer)
                (type . file))
              ))))
@@ -85,7 +83,7 @@
 (defun anything-git-project ()
   (interactive)
   (let ((sources '(anything-c-source-git-project-for-modified
-                   ;; anything-c-source-git-project-for-untracked
+                   anything-c-source-git-project-for-untracked
                    anything-c-source-git-project-for-all)))
     (anything-other-buffer sources
      (format "*Anything git project in %s*" default-directory))))
@@ -117,35 +115,38 @@
   ;; (define-key global-map (kbd "C-*") 'anything-gtags-from-here)
   )
 
-(defvar anything-c-sources-local-gem-file
+(setq anything-c-sources-local-gem-file
   '((name . "rubygems")
     (candidates-in-buffer)
     (init . (lambda ()
-              (let ((gemfile-dir (block 'find-gemfile
-                                   (let* ((cur-dir (file-name-directory
-                                                    (expand-file-name (or (buffer-file-name)
-                                                                          default-directory))))
-                                          (cnt 0))
-                                     (while (and (< (setq cnt (+ 1 cnt)) 10)
-                                                 (not (equal cur-dir "/")))
-                                       (when (member "Gemfile" (directory-files cur-dir))
-                                         (return-from 'find-gemfile cur-dir))
-                                       (setq cur-dir (expand-file-name (concat cur-dir "/.."))))
-                                     ))))
+              (let ((gemfile-dir
+                     (block 'find-gemfile
+                       (let* ((cur-dir (file-name-directory
+                                        (expand-file-name (or (buffer-file-name)
+                                                              default-directory))))
+                              (cnt 0))
+                         (while (and (< (setq cnt (+ 1 cnt)) 10)
+                                     (not (equal cur-dir "/")))
+                           (when (member "Gemfile" (directory-files cur-dir))
+                             (return-from 'find-gemfile cur-dir))
+                           (setq cur-dir (expand-file-name (concat cur-dir "/.."))))
+                         ))))
                 (anything-attrset 'gem-command
                                   (concat (if gemfile-dir
-                                              (concat "BUNDLE_GEMFILE=" gemfile-dir "/Gemfile "
-                                                      "bundle exec ")
+                                              (format "BUNDLE_GEMFILE=%s/Gemfile bundle exec "
+                                                      gemfile-dir)
                                             "")
                                           "gem 2>/dev/null"))
                 (unless (anything-candidate-buffer)
-                  (call-process-shell-command (concat (anything-attr 'gem-command) " list")
+                  (call-process-shell-command (format "%s list" (anything-attr 'gem-command))
                                               nil
                                               (anything-candidate-buffer 'local))))))
     (action . (lambda (gem-name)
+                (message (anything-attr 'gem-command))
                 (let ((path (file-name-directory
                              (shell-command-to-string
-                              (concat (anything-attr 'gem-command) " which "
+                              (format "%s which %s"
+                                      (anything-attr 'gem-command)
                                       (replace-regexp-in-string "\s+(.+)$" "" gem-name))))))
                   (if (and path (file-exists-p path))
                       (find-file path)
