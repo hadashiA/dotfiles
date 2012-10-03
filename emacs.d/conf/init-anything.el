@@ -63,34 +63,6 @@
 
 (require 'anything-zsh-history)
 
-(dolist (elt '(("modified" "Modified files (%s)" "--modified")
-               ("untracked" "Untracked files (%s)" "--others --exclude-standard")
-               ("all" "All controlled files in this project (%s)" "")))
-  (destructuring-bind (suffix name options) elt
-    (eval `(setq ,(intern (concat "anything-c-source-git-project-for-" suffix))
-             `((name . ,(format name default-directory))
-               (init . (lambda ()
-                         (unless (and ,(string= options ,options) ;update candidate buffer every time except for that of all project files
-                                      (anything-candidate-buffer))
-                           (call-process-shell-command
-                            ,(format "git ls-files $(git rev-parse --show-cdup) %s" options)
-                            nil
-                            (anything-candidate-buffer 'local)))))
-               (candidates-in-buffer)
-               (type . file))
-             ))))
-
-(defun anything-git-project ()
-  (interactive)
-  (let ((sources '(anything-c-source-git-project-for-modified
-                   anything-c-source-git-project-for-untracked
-                   anything-c-source-git-project-for-all)))
-    (anything-other-buffer sources
-     (format "*Anything git project in %s*" default-directory))))
-
-(define-key global-map (kbd "C-`") 'anything-git-project)
-
-
 (when (require 'anything-gtags)
   ;; imenu, gtags, perlのgtagsから読み込み
   (defun anything-gtags-select-all ()
@@ -175,3 +147,35 @@
    :name 'php
    :look-for '("index.php")
    :exclude-directory-regexp "\\(\\.git\\)"))
+
+(dolist (elt '(("modified" "Modified files (%s)" "--modified")
+               ("untracked" "Untracked files (%s)" "--others --exclude-standard")
+               ("all" "All controlled files in this project (%s)" "")))
+  (destructuring-bind (suffix name options) elt
+    (eval `(setq ,(intern (concat "anything-c-source-git-project-for-" suffix))
+             `((name . ,(format name default-directory))
+               (init . (lambda ()
+                         (unless (and ,(string= options ,options) ;update candidate buffer every time except for that of all project files
+                                      (anything-candidate-buffer))
+                           (call-process-shell-command
+                            ,(format "git ls-files $(git rev-parse --show-cdup) %s" options)
+                            nil
+                            (anything-candidate-buffer 'local)))))
+               (candidates-in-buffer)
+               (type . file))
+             ))))
+
+(defun anything-git-project ()
+  (interactive)
+  ;; (if (> (length (shell-command-to-string "git rev-parse --git-dir 2>/dev/null")) 0)
+  (if t
+      (anything-other-buffer '(anything-c-source-git-project-for-modified
+                               anything-c-source-git-project-for-untracked
+                               anything-c-source-git-project-for-all)
+                             (format "*Anything git project in %s*" default-directory))
+    (anything-project)))
+
+(define-key global-map (kbd "C-+") 'anything-git-project)
+
+
+
