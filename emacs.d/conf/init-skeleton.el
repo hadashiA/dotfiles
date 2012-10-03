@@ -50,6 +50,7 @@
 (add-hook 'python-mode-hook 'skeleton-setup-default)
 (add-hook 'javascript-mode-hook 'skeleton-setup-default)
 (add-hook 'js2-mode-hook 'skeleton-setup-js)
+(add-hook 'js3-mode-hook 'skeleton-setup-js)
 
 (add-hook 'lisp-mode-hook 'skeleton-setup-lisp)
 (add-hook 'emacs-lisp-mode-hook 'skeleton-setup-lisp)

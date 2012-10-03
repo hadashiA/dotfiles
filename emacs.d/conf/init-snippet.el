@@ -33,6 +33,10 @@
           #'(lambda ()
               (setq yas/mode-symbol 'js2-mode)))
 
+  (add-hook 'js3-mode-hook
+          #'(lambda ()
+              (setq yas/mode-symbol 'js3-mode)))
+
   ;; (and (require 'dropdown-list nil t)
   ;;      (setq yas/text-popup-function
   ;;            #'yas/dropdown-list-popup-for-template))

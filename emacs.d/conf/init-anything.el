@@ -115,7 +115,7 @@
   ;; (define-key global-map (kbd "C-*") 'anything-gtags-from-here)
   )
 
-(setq anything-c-sources-local-gem-file
+(defvar anything-c-sources-local-gem-file
   '((name . "rubygems")
     (candidates-in-buffer)
     (init . (lambda ()
@@ -160,8 +160,8 @@
    "*anything local gems*"
   ))
 
-(when (require 'anything-project)
-  (define-key global-map (kbd "C-+") 'anything-project)
+(when (require 'anything-project nil t)
+  (define-key global-map (kbd "C-`") 'anything-project)
   (setq ap:project-files-filters
         (list
          (lambda (files)
