@@ -87,7 +87,7 @@
   ;; (define-key global-map (kbd "C-*") 'anything-gtags-from-here)
   )
 
-(defvar anything-c-sources-local-gem-file
+(defvar anything-c-sources-rubygems-local
   '((name . "rubygems")
     (candidates-in-buffer)
     (init . (lambda ()
@@ -125,10 +125,10 @@
                     (message "no such file or directory: \"%s\"" path))
                   )))))
 
-(defun anything-local-gems ()
+(defun anything-rubygems-local ()
   (interactive)
   (anything-other-buffer
-   '(anything-c-sources-local-gem-file)
+   '(anything-c-sources-rubygems-local)
    "*anything local gems*"
   ))
 
