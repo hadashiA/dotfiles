@@ -9,7 +9,11 @@
               '(js3-auto-indent-p t)
               '(js3-enter-indents-newline t)
               '(js3-indent-on-enter-key t)
-              )))
+              '(js3-indent-dots t)
+              '(js3-lazy-dots t)
+              )
+             (define-key js3-mode-map ";" 'insert-semicolon-and-new-line-and-indent)
+             ))
 
 (add-hook 'align-load-hook
           (lambda ()
@@ -18,7 +22,6 @@
                            (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
                            (repeat . t)
                            (modes  . '(js3-mode))))
-            (define-key js3-mode-map ";" 'insert-semicolon-and-new-line-and-indent)
             ))
 
 (defun insert-semicolon-and-new-line-and-indent ()
