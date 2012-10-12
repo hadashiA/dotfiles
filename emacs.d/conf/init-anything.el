@@ -177,6 +177,3 @@
     (anything-project)))
 
 (define-key global-map (kbd "C-.") 'anything-git-project)
-
-
-
