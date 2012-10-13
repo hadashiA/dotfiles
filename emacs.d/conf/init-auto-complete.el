@@ -1,7 +1,7 @@
 ;; Auto Complete Mode
 ;; http://cx4a.org/software/auto-complete/manual.ja.html#ac-source-yasnippet
 ;; (when (require 'auto-complete nil t)
-(when (require 'auto-complete-config)
+(when (require 'auto-complete-config nil t)
   ;; (ac-config-default)
   (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
   (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
@@ -140,6 +140,12 @@
   ;; (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
   (add-hook 'css-mode-hook 'ac-css-mode-setup)
   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-  
+
+  (add-hook 'js3-mode-hook
+            (lambda ()
+              (auto-complete-mode nil)
+              (auto-complete-mode t)
+              ))
+
   (global-auto-complete-mode t))
 
