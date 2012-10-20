@@ -90,3 +90,5 @@ alias staging="open ~/dotfiles/terminal/Staging.terminal"
 alias www="python -m SimpleHTTPServer 8080"
 
 alias flushcache="sudo dscacheutil -flushcache"
+
+alias emacs-test="/Applications/Emacs.app/Contents/MacOS/Emacs -Q -l ~/.emacs.d/emacs-test-init.el"
