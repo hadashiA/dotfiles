@@ -22,3 +22,6 @@
 [submodule "zsh/modules/zsh-completions"]
 	path = zsh/modules/zsh-completions
 	url = git://github.com/zsh-users/zsh-completions.git
+[submodule "emacs.d/elisp/testkick"]
+	path = emacs.d/elisp/testkick
+	url = git@github.com:f-kubotar/testkick.git
