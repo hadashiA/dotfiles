@@ -134,7 +134,7 @@
   ))
 
 (when (require 'anything-project nil t)
-  (define-key global-map (kbd "C-`") 'anything-project)
+  (define-key global-map (kbd "C-,") 'anything-project)
   (setq ap:project-files-filters
         (list
          (lambda (files)
@@ -176,7 +176,7 @@
                              (format "*Anything git project in %s*" default-directory))
     (anything-project)))
 
-(define-key global-map (kbd "C-+") 'anything-git-project)
+(define-key global-map (kbd "C-.") 'anything-git-project)
 
 
 

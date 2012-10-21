@@ -1,5 +1,5 @@
-(add-to-load-path "~/.emacs.d/elisp/ruby-mode/")
-(require 'testkick)
-
-(global-set-key [?\C-.] 'testkick)
-(global-set-key [?\C-,] 'testkick-toggle)
+(add-to-load-path "~/.emacs.d/elisp/testkick/")
+(when (require 'testkick)
+  (global-set-key (kbd "C-`") 'testkick)
+  (global-set-key (kbd "C-+") 'testkick-toggle)
+  )
