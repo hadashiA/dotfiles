@@ -14,6 +14,7 @@
 (global-set-key (kbd "C-:") 'anything-resume)
 (global-set-key (kbd "C-*") 'anything-execute-extended-command)
 (setq anything-enable-shortcuts 'alphabet)
+(global-set-key (kbd "C-c /") 'ac-complete-filename)
 
 ;; (setq anything-sources
 ;;       `(
