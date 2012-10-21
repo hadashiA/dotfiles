@@ -37,6 +37,8 @@
     (add-hook hook-sym
               (lambda ()
                 (define-key js3-mode-map
+                  (kbd "=") (smartchr '(" = " " == " " === " " != " " !== " "=")))
+                (define-key js3-mode-map
                   (kbd "+") (smartchr '("+" " + " "++" " += ")))
                 (define-key js3-mode-map
                   (kbd "{") (smartchr '("{ `!!' }" "{`!!'}")))
@@ -77,6 +79,8 @@
 
   (add-hook 'php-mode-hook
             (lambda ()
+              (define-key php-mode-map
+                (kbd "=") (smartchr '(" = " " == " " === " " != " " !== " "=")))
               (define-key php-mode-map (kbd "+")
                 (smartchr '("+" " + " " += ")))
               (define-key php-mode-map (kbd "+")
