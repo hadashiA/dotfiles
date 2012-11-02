@@ -158,6 +158,7 @@
 ;; (load "init-irc")
 (load "init-auto-complete")
 (load "init-anything")
+(load "init-testkick")
 
 ;; Meadow用設定を読み込む
 (when (and run-w32 run-meadow)
