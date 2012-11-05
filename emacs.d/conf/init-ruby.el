@@ -100,36 +100,6 @@
                            (modes  . '(ruby-mode))))))
 
 
-(add-to-load-path "~/.emacs.d/elisp/rspec-mode/")
-(when (require 'rspec-mode)
-  (custom-set-variables
-   '(rspec-use-rake-flag nil)
-   '(rspec-spec-command "rspec")
-   ;; '(rspec-use-rvm t)
-   )
-  (custom-set-faces))
-
-(when (require 'ffap)
-  ;; Software Design 2008-02 P152
-  ;; devel/which and ffap
-  ;; http://raa.ruby-lang.org/project/devel-which/
-  (defun ffap-ruby-mode (name)
-    (shell-command-to-string
-     (format "ruby -e '
-Gem::GemPathSercher.new
-require %%[rubygems]
-require %%[devel/which]
-require %%[%s]
-print(which_library(%%[%s]))
-'"
-             name name)))
-  
-  (defun find-rubylib (name)
-    (interactive "sRuby library name: ")
-    (find-file (ffap-ruby-mode name)))
-  
-  (add-to-list 'ffap-alist '(ruby-mode . ffap-ruby-mode)))
-
 ;; Software Design 2008-02 P154
 ;; xmpfilter (rcodetools)
 (when (require 'rcodetools)
