@@ -147,7 +147,9 @@
   (ap:add-project
    :name 'php
    :look-for '("index.php")
-   :exclude-directory-regexp "\\(\\.git\\)"))
+   :include-regexp '("\\.php$" "\\.tpl$" "\\.css$" "\\.js$")
+   :exclude-directory-regexp "\\(\\.git\\|templates_c\\|img\\)"
+   ))
 
 (dolist (elt '(("modified" "Modified files (%s)" "--modified")
                ("untracked" "Untracked files (%s)" "--others --exclude-standard")
