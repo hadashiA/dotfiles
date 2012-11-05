@@ -21,6 +21,7 @@
               ;; '(js3-curly-indent-offset 0)
               )
              (define-key js3-mode-map ";" 'insert-semicolon-and-new-line-and-indent)
+             (define-key js3-mode-map (kbd "C-c C-a") #'align)
              ))
 
 (add-hook 'align-load-hook
