@@ -37,6 +37,7 @@ export CPLUS_INCLUDE_PATH=/usr/local/include:/opt/local/include:$CPLUS_INCLUDE_P
 export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/lib:/opt/local/lib
 export BOOST_ROOT=/usr/local/include:/opt/local/include:$BOOST_ROOT
 
+export NODE_PATH=$HOME/.nvm/v0.8.12/lib/node_modules:$NODE_PATH
 # Python
 export PYTHONPATH="/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:$PYTHONPATH"
 
