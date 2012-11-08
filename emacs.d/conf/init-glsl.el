@@ -1,0 +1,7 @@
+(autoload 'glsl-mode "glsl-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.vsh\\'" . glsl-mode))
+(add-to-list 'auto-mode-alist '("\\.fsh\\'" . glsl-mode))
+(defun glsl-mode-hooks()
+	(add-to-list 'glsl-other-file-alist '("\\.fsh$" (".vsh"))) 
+	(add-to-list 'glsl-other-file-alist '("\\.vsh$" (".fsh")))) 
+(add-hook 'glsl-mode-hook 'glsl-mode-hooks)

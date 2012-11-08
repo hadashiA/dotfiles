@@ -134,6 +134,7 @@
 (load "init-c")
 (load "init-objc")
 (load "init-csharp")
+(load "init-glsl")
 ;;(load "init-perl")
 ;;(load "init-perlysense")
 (load "init-ruby")
