@@ -1,12 +1,14 @@
 (when (require 'smartchr nil)
   (global-set-key (kbd "=") (smartchr '(" = " " == " " != " "=")))
 
-  (add-hook 'cc-mode-hook
+  (add-hook 'c-mode-hook
             (lambda ()
-              (define-key cc-mode-map
+              (define-key c-mode-map
                 (kbd "+") (smartchr '("+" " + " "++" " += ")))
-              (define-key cc-mode-map
+              (define-key c-mode-map
                 (kbd ">") (smartchr '(">" "->" " >> ")))
+              (define-key c++-mode-map
+                (kbd "C-8") (smartchr '("(`!!');" "(`!!')")))
               ))
 
   (add-hook 'c++-mode-hook
@@ -15,6 +17,8 @@
                 (kbd "+") (smartchr '("+" " + " "++" " += ")))
               (define-key c++-mode-map
                 (kbd ">") (smartchr '(">" "->" " >> ")))
+              (define-key c++-mode-map
+                (kbd "C-8") (smartchr '("(`!!');" "(`!!')")))
               ))
 
   (add-hook 'objc-mode-hook
