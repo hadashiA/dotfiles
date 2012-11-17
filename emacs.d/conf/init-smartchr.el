@@ -7,7 +7,7 @@
                 (kbd "+") (smartchr '("+" " + " "++" " += ")))
               (define-key c-mode-map
                 (kbd ">") (smartchr '(">" "->" " >> ")))
-              (define-key c++-mode-map
+              (define-key c-mode-map
                 (kbd "C-8") (smartchr '("(`!!');" "(`!!')")))
               ))
 
