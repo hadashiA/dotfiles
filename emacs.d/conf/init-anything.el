@@ -179,3 +179,5 @@
     (anything-project)))
 
 (define-key global-map (kbd "C-.") 'anything-git-project)
+
+(require 'anything-grep)
