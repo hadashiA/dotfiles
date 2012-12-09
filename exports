@@ -70,7 +70,4 @@ export SDK_PLATFORM=iPhoneOS
 export SDK_VERSION=4.3
 export SDK_PATH=/Developer/Platforms/${SDK_PLATFORM}.platform/Developer/SDKs/${SDK_PLATFORM}${SDK_VERSION}.sdk
 
-export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/mysql/lib
-export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/mysql/lib
-
 export BYOBU_PREFIX=`brew --prefix`
