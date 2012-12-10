@@ -127,6 +127,19 @@ namespace :install do
     end
   end
 
+  desc "install gccunit"
+  task :gccunit do
+    sh "brew install gmp"
+    sh "brew install mpfr"
+    sh "brew install flex"
+
+    cd 'src/gcc-code-assist-0.1-4.4.4' do
+      sh "$ ./configure --program-suffix=-code-assist --enable-languages=c,c++ --disable-bootstrap --disable-multilib --disable-nls --with-gmp-include=/usr/local/include --with-gmp-lib=/usr/local/lib --with-mpfr-include=/usr/local/include --with-mpfr-lib=/usr/local/lib --with-libiconv-prefix=/usr"
+      sh "make # -j2"
+      sh "sudo make install"
+    end
+  end
+
   # Task alias
 
   desc "setup Emacs configuration. write .emacs and .emacs.d"
