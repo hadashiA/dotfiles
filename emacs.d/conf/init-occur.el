@@ -4,7 +4,7 @@
 
 (when (require 'color-moccur nil t)
   (setq moccur-split-word t
-        moccur-use-migemo t
+        moccur-use-migemo nil
         dmoccur-use-list nil
         moccur-kill-moccur-buffer t
         *moccur-buffer-name-exclusion-list* '(".+TAGS.+" "*Completions*" "*Messages*" ".+\.log" "\.git" "\.svn")
@@ -14,3 +14,4 @@
   )
 
 (load "moccur-edit")
+
