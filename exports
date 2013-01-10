@@ -28,6 +28,8 @@ export PATH="$HOME/local/bin:$PATH"
 export PATH="$HOME/local/ruby/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.phpenv/bin:$PATH"
+export PTTH="$HOME/.phpenv/shims:$PATH"
 
 export MANPATH=/opt/local/man:$MANPATH
 export LIBRARY_PATH=/usr/local/lib:/opt/local/lib:$LIBRARY_PATH

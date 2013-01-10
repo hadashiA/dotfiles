@@ -22,4 +22,8 @@ eval "$(rbenv init -)"
 # Node.js nvm
 if [[ -f $HOME/.nvm/nvm.sh ]]; then source $HOME/.nvm/nvm.sh ; fi
 
+# phpenv
+eval "$(phpenv init -)"
+
 #source ~/.zshrc
+
