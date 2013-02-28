@@ -7,7 +7,9 @@
              (setq c-basic-offset 4
                    tab-width 4
                    default-tab-width 4
-                   indent-tabs-mode (string-match "cmsp" (buffer-file-name))
+                   ;; indent-tabs-mode (string-match "cmsp" (buffer-file-name))
+                   indent-tabs-mode nil
+                   c-default-style "linux"
                    )
              ;; (set-default-coding-systems 'euc-jp)
              ;; (set-buffer-file-coding-system 'euc-jp)
