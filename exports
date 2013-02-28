@@ -31,14 +31,13 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.phpenv/bin:$PATH"
 export PTTH="$HOME/.phpenv/shims:$PATH"
 
-export MANPATH=/opt/local/man:$MANPATH
-export LIBRARY_PATH=/usr/local/lib:/opt/local/lib:$LIBRARY_PATH
-export LD_LIBRARY_PATH=/usr/local/lib:/opt/local/lib:$LD_LIBRARY_PATH
-export C_INCLUDE_PATH=/usr/local/include:/opt/local/include:$C_INCLUDE_PATH
-export CPLUS_INCLUDE_PATH=/usr/local/include:/opt/local/include:$CPLUS_INCLUDE_PATH
-export BOOST_ROOT=/usr/local/include:/opt/local/include:$BOOST_ROOT
+export LIBRARY_PATH=/usr/local/lib:$LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+export C_INCLUDE_PATH=/usr/local/include:$C_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=/usr/local/include:$CPLUS_INCLUDE_PATH
+export BOOST_ROOT=/usr/local/include/:$BOOST_ROOT
 
-export NODE_PATH=$HOME/.nvm/v0.8.12/lib/node_modules:$NODE_PATH
+export NODE_PATH=$HOME/.nvm/v0.8.20/lib/node_modules:$NODE_PATH
 # Python
 export PYTHONPATH="/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:$PYTHONPATH"
 

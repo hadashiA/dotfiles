@@ -22,7 +22,7 @@
 ;;        (setq skk-server-host "localhost")
 ;;        (setq skk-server-portnum 1178)))
 
-(setq skk-large-jisyo nil
+(setq skk-large-jisyo "~/Library/Application Support/AquaSKK/SKK-JISYO.L"
       skk-server-host "hadashikick.jp"
       skk-server-portnum 1178
       )
