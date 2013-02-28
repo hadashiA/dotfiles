@@ -2,7 +2,6 @@
 ;;
 ;;; Code:
 
-
 ;;;### (autoloads (coffee-mode) "coffee-mode" "coffee-mode.el" (20783
 ;;;;;;  22595))
 ;;; Generated autoloads from coffee-mode.el
@@ -19,11 +18,9 @@ Major mode for editing CoffeeScript.
 (add-to-list 'auto-mode-alist '("Cakefile\\'" . coffee-mode))
 
 ;;;***
-
 ;;;### (autoloads nil nil ("coffee-mode-pkg.el") (20783 22595 324523))
 
 ;;;***
-
 (provide 'coffee-mode-autoloads)
 ;; Local Variables:
 ;; version-control: never

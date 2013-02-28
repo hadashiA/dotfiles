@@ -131,7 +131,7 @@
 (load "init-html")
 ;;(load "init-css")
 (load "init-javascript")
-(load "init-cofee")
+(load "init-coffee")
 (load "init-cc")
 (load "init-csharp")
 (load "init-glsl")

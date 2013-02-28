@@ -37,6 +37,14 @@
                 (kbd ">") (smartchr '(">" "->" " >> ")))
               ))
 
+  (add-hook 'coffee-mode-hook
+            (lambda ()
+              (define-key coffee-mode-map
+                (kbd "+") (smartchr '("+" " + " "++" " += ")))
+              (define-key csharp-mode-map
+                (kbd ">") (smartchr '(">" " -> ")))
+              ))
+
   (dolist (hook-sym '(js2-mode-hook js3-mode-hook))
     (add-hook hook-sym
               (lambda ()
