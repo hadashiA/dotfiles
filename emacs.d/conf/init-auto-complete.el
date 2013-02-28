@@ -147,5 +147,11 @@
               (auto-complete-mode t)
               ))
 
+  (add-hook 'coffee-mode-hook
+            (lambda ()
+              (auto-complete-mode nil)
+              (auto-complete-mode t)
+              ))
+
   (global-auto-complete-mode t))
 
