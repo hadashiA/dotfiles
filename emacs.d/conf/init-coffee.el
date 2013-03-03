@@ -15,4 +15,15 @@ Major mode for editing CoffeeScript.
               (setq coffee-tab-width 2)
               (setq whitespace-action '(auto-cleanup)) ;; automatically clean up bad whitespace
               (setq whitespace-style '(trailing space-before-tab indentation empty space-after-tab)) ;; only show bad whitespace
+              (define-key coffee-mode-map (kbd "C-c C-l") #'coffee-compile-for-grunt)
               ))
+
+
+(defun coffee-compile-for-grunt ()
+  "coffee-script compile for grunt task"
+  (interactive)
+  (let ((cur-dir (expand-file-name default-directory)))
+    (compile 
+     (if (string-match "/\\(server\\|client\\)s?/" cur-dir)
+         (concat "grunt coffee:" (match-string 1 cur-dir))
+       "grunt coffee"))))
