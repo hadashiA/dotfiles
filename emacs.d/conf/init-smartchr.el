@@ -41,8 +41,11 @@
             (lambda ()
               (define-key coffee-mode-map
                 (kbd "+") (smartchr '("+" " + " "++" " += ")))
-              (define-key csharp-mode-map
+              (define-key coffee-mode-map
                 (kbd ">") (smartchr '(">" " -> ")))
+              (define-key coffee-mode-map
+                  (kbd "C-8")
+                  (smartchr '("(`!!')" "('`!!'')" "(`!!') -> ")))
               ))
 
   (dolist (hook-sym '(js2-mode-hook js3-mode-hook))
