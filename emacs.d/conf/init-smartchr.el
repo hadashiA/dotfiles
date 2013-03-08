@@ -45,7 +45,7 @@
                 (kbd ">") (smartchr '(">" " -> ")))
               (define-key coffee-mode-map
                   (kbd "C-8")
-                  (smartchr '("(`!!')" "('`!!'')" "(`!!') -> ")))
+                  (smartchr '("(`!!')" "(`!!') -> " "('`!!'')" )))
               ))
 
   (dolist (hook-sym '(js2-mode-hook js3-mode-hook))
