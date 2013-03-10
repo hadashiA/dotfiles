@@ -42,7 +42,7 @@
               (define-key coffee-mode-map
                 (kbd "+") (smartchr '("+" " + " "++" " += ")))
               (define-key coffee-mode-map
-                (kbd ">") (smartchr '(">" " -> ")))
+                (kbd ".") (smartchr '("." " -> " "..")))
               (define-key coffee-mode-map
                   (kbd "C-8")
                   (smartchr '("(`!!')" "(`!!') -> " "('`!!'')" )))
