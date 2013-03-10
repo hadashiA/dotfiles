@@ -15,11 +15,17 @@ Major mode for editing CoffeeScript.
               (setq coffee-tab-width 2)
               (setq whitespace-action '(auto-cleanup)) ;; automatically clean up bad whitespace
               (setq whitespace-style '(trailing space-before-tab indentation empty space-after-tab)) ;; only show bad whitespace
-              (define-key coffee-mode-map (kbd "C-c C-j") #'coffee-toggle-js)
-              (define-key js3-mode-map (kbd "C-c C-j") #'coffee-toggle-js)
+              (define-key coffee-mode-map (kbd "C-c o") #'coffee-toggle-js)
+
               (define-key coffee-mode-map (kbd "C-c C-k") #'coffee-compile-file)
               (define-key coffee-mode-map (kbd "C-c C-l") #'coffee-build-for-grunt)
               ))
+
+(add-hook 'js3-mode-hook
+          #'(lambda ()
+              (define-key js3-mode-map (kbd "C-c o") #'coffee-toggle-js)
+              ))
+
 
 ;; (add-hook 'after-save-hook
 ;;           #'(lambda ()
