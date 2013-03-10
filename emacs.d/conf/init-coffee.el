@@ -21,10 +21,10 @@ Major mode for editing CoffeeScript.
               (define-key coffee-mode-map (kbd "C-c C-l") #'coffee-build-for-grunt)
               ))
 
-(add-hook 'after-save-hook
-          #'(lambda ()
-              (when (eq major-mode 'coffee-mode)
-                (coffee-compile-file))))
+;; (add-hook 'after-save-hook
+;;           #'(lambda ()
+;;               (when (eq major-mode 'coffee-mode)
+;;                 (coffee-compile-file))))
 
 (defun coffee-build-for-grunt ()
   "coffee-script compile for grunt task"
