@@ -86,21 +86,31 @@ function extract() {
     fi
 }
 
-# CPU 使用率の高い方から5つ
-function pst() {
-  ps aux | head -n 1
-  ps aux | sort -r -n -k 3 | grep -v "ps aux" | grep -v 'grep' | head -n 5
-}
+# # CPU 使用率の高い方から5つ
+# function pst() {
+#   ps aux | head -n 1
+#   ps aux | sort -r -n -k 3 | grep -v "ps aux" | grep -v 'grep' | head -n 5
+# }
 
-# メモリ占有率の高い方から8つ
-function psm() {
-  ps aux | head -n 1
-  ps aux | sort -r -n -k 4 | grep -v "ps aux" | grep -v grep | head -n 5
-}
+# # メモリ占有率の高い方から8つ
+# function psm() {
+#   ps aux | head -n 1
+#   ps aux | sort -r -n -k 4 | grep -v "ps aux" | grep -v grep | head -n 5
+# }
 
 # 全プロセスから引数の文字列を含むものを grep
-function pgrep() {
-  ps aux | head -n 1
-  ps aux | grep $* | grep -v "ps aux" | grep -v grep
+# function pgrep() {
+#   ps aux | head -n 1
+#   ps aux | grep $* | grep -v "ps aux" | grep -v grep
+# }
+
+pbcopy-buffer() { 
+    print -rn $BUFFER | pbcopy
+    zle -M "pbcopy: ${BUFFER}" 
 }
+
+
+# my function
+zle -N pbcopy-buffer
+bindkey '^x^p' pbcopy-buffer
 

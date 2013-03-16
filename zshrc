@@ -13,6 +13,3 @@ source ~/.zsh/local.zsh
 if [[ -f $HOME/.paperboy ]]; then
     source $HOME/.paperboy
 fi
-
-# autojump
-[[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh

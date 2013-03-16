@@ -56,6 +56,34 @@ zstyle ':completion:*' completer _oldlist _complete _match _ignored \
 autoload -U compinit
 compinit
 
+# run-help
+unalias  run-help 2>/dev/null || true
+autoload run-help
+
+# functions as array
+typeset -ga chpwd_functions
+typeset -ga precmd_functions
+typeset -ga preexec_functions
+
+# source ~/.zsh/env.zsh
+source ~/.zsh/alias.zsh
+source ~/.zsh/function.zsh
+source ~/.zsh/emacs.zsh
+source ~/.zsh/cdd.zsh
+source ~/.zsh/term.compat.zsh
+
+[[ $ZSH_VERSION == (<5->|4.<4->|4.3.<10->)* ]] && source ~/.zsh/term.zsh
+
+fpath=(~/.zsh/modules/zsh-completions /usr/local/share/zsh/site-functions $fpath)
+
+# autojump
+[[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
+
+# zaw
+source ~/.zsh/modules/zaw/zaw.zsh
+bindkey '^R' zaw-history
+
+# auto-fu
 # precompiled source
 function () { # precompile
     local A
@@ -150,35 +178,3 @@ EOT
     bindkey-advice-before "^[" afu+cancel
     bindkey-advice-before "^J" afu+cancel afu+accept-line
 fi
-
-pbcopy-buffer() { 
-    print -rn $BUFFER | pbcopy
-    zle -M "pbcopy: ${BUFFER}" 
-}
-
-zle -N pbcopy-buffer
-bindkey '^x^p' pbcopy-buffer
-
-# run-help
-unalias  run-help 2>/dev/null || true
-autoload run-help
-
-# functions as array
-typeset -ga chpwd_functions
-typeset -ga precmd_functions
-typeset -ga preexec_functions
-
-# source ~/.zsh/env.zsh
-source ~/.zsh/alias.zsh
-source ~/.zsh/function.zsh
-source ~/.zsh/emacs.zsh
-source ~/.zsh/cdd.zsh
-source ~/.zsh/term.compat.zsh
-
-[[ $ZSH_VERSION == (<5->|4.<4->|4.3.<10->)* ]] && source ~/.zsh/term.zsh
-
-source ~/.zsh/modules/zaw/zaw.zsh
-bindkey '^R' zaw-history
-
-fpath=(~/.zsh/modules/zsh-completions /usr/local/share/zsh/site-functions $fpath)
-
