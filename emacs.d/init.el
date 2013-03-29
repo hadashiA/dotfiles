@@ -103,7 +103,7 @@
 ;; (load "init-font")
 (load "init-window")
 (load "init-highlighting")
-(load "init-keymaps")
+(load "init-remaps")
 (load "init-region")
 (load "init-minibuf")
 (load "init-killring")
