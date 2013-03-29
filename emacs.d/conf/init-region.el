@@ -31,8 +31,6 @@
       (setq char-end (char-after))
       (insert right)
 
-      (message "%c %c" char-beg char-end)
-
       (when (or (and (eq char-beg ?') (eq char-end ?')
                      (string-equal left "\""))
                 (and (eq char-beg ?\") (eq char-end ?\")
