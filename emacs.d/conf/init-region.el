@@ -22,10 +22,27 @@
   "Wrap the region in arbitrary text, LEFT goes to the left and RIGHT goes to the right."
   (interactive)
   (save-excursion
-    (goto-char beg)
-    (insert left)
-    (goto-char (+ end (length left)))
-    (insert right)))
+    (let (char-beg char-end)
+      (goto-char beg)
+      (setq char-beg (char-before))
+      (insert left)
+      
+      (goto-char (+ end (length left)))
+      (setq char-end (char-after))
+      (insert right)
+
+      (message "%c %c" char-beg char-end)
+
+      (when (or (and (eq char-beg ?') (eq char-end ?')
+                     (string-equal left "\""))
+                (and (eq char-beg ?\") (eq char-end ?\")
+                     (string-equal left "'"))
+                )
+        (goto-char (+ end (length left) (length right)))
+        (delete-char 1)
+        (goto-char beg)
+        (delete-backward-char 1))
+      )))
 
 (defmacro wrap-region-with-function (left right)
   "Returns a function which, when called, will interactively `wrap-region-or-insert` using LEFT and RIGHT."

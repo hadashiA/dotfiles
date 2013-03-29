@@ -72,6 +72,8 @@
                 (kbd ">") (smartchr '(">" " => " " => '`!!''" " => \"`!!'\"")))
               ;; (define-key ruby-mode-map
               ;;   (kbd "|") (smartchr '("|" " || " " ||= ")))
+              (define-key ruby-mode-map
+                (kbd "#") (smartchr '("#" "#{`!!'}")))
               ))
 
   (add-hook 'python-mode-hook
