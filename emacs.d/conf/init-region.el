@@ -17,64 +17,64 @@
 ;; (transient-mark-mode 1) ;; No region when it is not highlighted
 ;; (setq cua-keep-region-after-copy t) ;; Standard Windows behaviour
 
-;; リージョンを引用符で囲む
-(defun wrap-region (left right beg end)
-  "Wrap the region in arbitrary text, LEFT goes to the left and RIGHT goes to the right."
-  (interactive)
-  (save-excursion
-    (let (char-beg char-end)
-      (goto-char beg)
-      (setq char-beg (char-before))
-      (insert left)
+;; ;; リージョンを引用符で囲む
+;; (defun wrap-region (left right beg end)
+;;   "Wrap the region in arbitrary text, LEFT goes to the left and RIGHT goes to the right."
+;;   (interactive)
+;;   (save-excursion
+;;     (let (char-beg char-end)
+;;       (goto-char beg)
+;;       (setq char-beg (char-before))
+;;       (insert left)
       
-      (goto-char (+ end (length left)))
-      (setq char-end (char-after))
-      (insert right)
+;;       (goto-char (+ end (length left)))
+;;       (setq char-end (char-after))
+;;       (insert right)
 
-      (when (or (and (eq char-beg ?') (eq char-end ?')
-                     (string-equal left "\""))
-                (and (eq char-beg ?\") (eq char-end ?\")
-                     (string-equal left "'"))
-                )
-        (goto-char (+ end (length left) (length right)))
-        (delete-char 1)
-        (goto-char beg)
-        (delete-backward-char 1))
-      )))
+;;       (when (or (and (eq char-beg ?') (eq char-end ?')
+;;                      (string-equal left "\""))
+;;                 (and (eq char-beg ?\") (eq char-end ?\")
+;;                      (string-equal left "'"))
+;;                 )
+;;         (goto-char (+ end (length left) (length right)))
+;;         (delete-char 1)
+;;         (goto-char beg)
+;;         (delete-backward-char 1))
+;;       )))
 
-(defmacro wrap-region-with-function (left right)
-  "Returns a function which, when called, will interactively `wrap-region-or-insert` using LEFT and RIGHT."
-  `(lambda () (interactive)
-     (wrap-region-or-insert ,left ,right)))
+;; (defmacro wrap-region-with-function (left right)
+;;   "Returns a function which, when called, will interactively `wrap-region-or-insert` using LEFT and RIGHT."
+;;   `(lambda () (interactive)
+;;      (wrap-region-or-insert ,left ,right)))
 
-(defun wrap-region-with-tag-or-insert ()
-  (interactive)
-  (if (and mark-active transient-mark-mode)
-      (call-interactively 'wrap-region-with-tag)
-    (insert "<")))
+;; (defun wrap-region-with-tag-or-insert ()
+;;   (interactive)
+;;   (if (and mark-active transient-mark-mode)
+;;       (call-interactively 'wrap-region-with-tag)
+;;     (insert "<")))
 
-(defun wrap-region-with-tag (tag beg end)
-  "Wrap the region in the given HTML/XML tag using `wrap-region'. If any
-attributes are specified then they are only included in the opening tag."
-  (interactive "*sTag (including attributes): \nr")
-  (let* ((elems    (split-string tag " "))
-         (tag-name (car elems))
-         (right    (concat "</" tag-name ">")))
-    (if (= 1 (length elems))
-        (wrap-region (concat "<" tag-name ">") right beg end)
-      (wrap-region (concat "<" tag ">") right beg end))))
+;; (defun wrap-region-with-tag (tag beg end)
+;;   "Wrap the region in the given HTML/XML tag using `wrap-region'. If any
+;; attributes are specified then they are only included in the opening tag."
+;;   (interactive "*sTag (including attributes): \nr")
+;;   (let* ((elems    (split-string tag " "))
+;;          (tag-name (car elems))
+;;          (right    (concat "</" tag-name ">")))
+;;     (if (= 1 (length elems))
+;;         (wrap-region (concat "<" tag-name ">") right beg end)
+;;       (wrap-region (concat "<" tag ">") right beg end))))
 
-(defun wrap-region-or-insert (left right)
-  "Wrap the region with `wrap-region' if an active region is marked, otherwise insert LEFT at point."
-  (interactive)
-  (if (and mark-active transient-mark-mode)
-      (wrap-region left right (region-beginning) (region-end))
-    (insert left)))
+;; (defun wrap-region-or-insert (left right)
+;;   "Wrap the region with `wrap-region' if an active region is marked, otherwise insert LEFT at point."
+;;   (interactive)
+;;   (if (and mark-active transient-mark-mode)
+;;       (wrap-region left right (region-beginning) (region-end))
+;;     (insert left)))
 
-(global-set-key "'"  (wrap-region-with-function "'" "'"))
-(global-set-key "\"" (wrap-region-with-function "\"" "\""))
-(global-set-key "`"  (wrap-region-with-function "`" "`"))
-(global-set-key "("  (wrap-region-with-function "(" ")"))
-(global-set-key "["  (wrap-region-with-function "[" "]"))
-(global-set-key "{"  (wrap-region-with-function "{" "}"))
-(global-set-key "<"  'wrap-region-with-tag-or-insert)
+;; (global-set-key "'"  (wrap-region-with-function "'" "'"))
+;; (global-set-key "\"" (wrap-region-with-function "\"" "\""))
+;; (global-set-key "`"  (wrap-region-with-function "`" "`"))
+;; (global-set-key "("  (wrap-region-with-function "(" ")"))
+;; (global-set-key "["  (wrap-region-with-function "[" "]"))
+;; (global-set-key "{"  (wrap-region-with-function "{" "}"))
+;; (global-set-key "<"  'wrap-region-with-tag-or-insert)
