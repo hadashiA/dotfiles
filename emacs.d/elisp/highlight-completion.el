@@ -809,9 +809,9 @@ the point when done)."
   (interactive)
   (setq hc-stack (cons (concat
 			(car hc-stack)
-			(char-to-string last-command-char))
+			(char-to-string last-command-event))
 		       hc-stack))
-  (insert last-command-char)
+  (insert last-command-event)
   (hc-complete))
 
 (defun hc-complete nil
