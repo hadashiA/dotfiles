@@ -586,7 +586,7 @@ dependent."
   (let ((string
 	 (concat "--" base
 		 (cond
-		  ((skk-face-proportional-p 'modeline)
+		  ((skk-face-proportional-p 'mode-line)
 		   ":")
 		  ((memq mode '(latin abbrev))
 		   "::")
