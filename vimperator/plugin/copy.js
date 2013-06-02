@@ -1,6 +1,6 @@
 var INFO =
-<plugin name="copy" version="0.7.6"
-        href="http://svn.coderepos.org/share/lang/javascript/vimperator-plugins/trunk/copy.js"
+xml`<plugin name="copy" version="0.7.6"
+        href="http://github.com/vimpr/vimperator-plugins/blob/master/copy.js"
         summary="copy strings from the template (like CopyURL+)"
         xmlns="http://vimperator.org/namespaces/liberator">
     <author email="teramako@gmail.com">teramako</author>
@@ -63,7 +63,7 @@ liberator.globalVariables.copy_templates = [
   { label: 'title',          value: '%TITLE%', map: ',y' },
   { label: 'anchor',         value: '<a href="%URL%">%TITLE%</a>' },
   { label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
-  { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' }
+  { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
   { label: 'ASIN',   value: 'copy ASIN code from Amazon', custom: function(){return content.document.getElementById('ASIN').value;} },
 ];
 EOM
@@ -113,19 +113,7 @@ EOM
             <p>wedata から読込まない label のリストを定義します。</p>
         </description>
     </item>
-</plugin>;
-var PLUGIN_INFO =
-<VimperatorPlugin>
-<name>{NAME}</name>
-<description>enable to copy strings from a template (like CopyURL+)</description>
-<description lang="ja">テンプレートから文字列のコピーを可能にします（CopyURL+みたいなもの）</description>
-<minVersion>2.0pre</minVersion>
-<maxVersion>2.0pre</maxVersion>
-<updateURL>http://svn.coderepos.org/share/lang/javascript/vimperator-plugins/trunk/copy.js</updateURL>
-<author mail="teramako@gmail.com" homepage="http://vimperator.g.hatena.ne.jp/teramako/">teramako</author>
-<license>MPL 1.1/GPL 2.0/LGPL 2.1</license>
-<version>0.7.5</version>
-</VimperatorPlugin>;
+</plugin>`;
 
 liberator.plugins.exCopy = (function(){
 var excludeLabelsMap = {};
@@ -265,7 +253,7 @@ function wedataRegister(item){
 
             return function(value, value2){
                 var STORE_KEY = 'plugins-copy-ok-func';
-                var store = storage.newMap(STORE_KEY, true);
+                var store = storage.newMap(STORE_KEY, {store: true});
                 var check = store.get(item.label);
                 var ans;
 
@@ -390,7 +378,7 @@ if (liberator.globalVariables.copy_use_wedata){
         copy_templates.forEach(function(item) excludeLabelsMap[item.label] = item.value);
         if (liberator.globalVariables.copy_wedata_exclude_labels)
             liberator.globalVariables.copy_wedata_exclude_labels.forEach(function(item) excludeLabelsMap[item] = 1);
-        var wedata = new libly.Wedata("vimp%20copy");
+        var wedata = new libly.Wedata("vimp copy");
         wedata.getItems(24 * 60 * 60 * 1000, wedataRegister);
     }
     loadWedata();
