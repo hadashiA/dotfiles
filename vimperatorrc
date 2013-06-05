@@ -104,7 +104,7 @@ javascript <<EOM
     if (m) return m[0];
     
     for (var i = 0; i < e.children.length; i++) {
-      var result = arguments.callee(e.children[i], re);
+      var result = arguments.callee(re, e.children[i]);
       if (result) return result;
     }
     return null;
