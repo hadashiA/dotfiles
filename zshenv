@@ -23,7 +23,7 @@ eval "$(rbenv init -)"
 if [[ -f $HOME/.nvm/nvm.sh ]]; then source $HOME/.nvm/nvm.sh ; fi
 
 # phpenv
-eval "$(phpenv init -)"
+#eval "$(phpenv init -)"
 
 #source ~/.zshrc
 
