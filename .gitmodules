@@ -7,9 +7,6 @@
 [submodule "zsh/modules/auto-fu"]
 	path = zsh/modules/auto-fu
 	url = http://github.com/hchbaw/auto-fu.zsh.git
-[submodule "emacs.d/elisp/twittering-mode"]
-	path = emacs.d/elisp/twittering-mode
-	url = git@github.com:f-kubotar/twittering-mode.git
 [submodule "zsh/autojump"]
 	path = zsh/autojump
 	url = https://github.com/joelthelion/autojump.git

@@ -2,8 +2,6 @@
 
 ;; (require 'twit)
 
-(add-to-list 'load-path "~/.emacs.d/elisp/twittering-mode")
-(require 'twittering-mode)
 (setq twittering-use-master-password t
       twittering-status-format "%i %p%s / %S:\n%FOLD{%T}\n%r %R [%@]"
       ;; twittering-auth-method 'xauth
