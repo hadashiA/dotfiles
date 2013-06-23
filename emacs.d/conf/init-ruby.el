@@ -145,15 +145,8 @@
              '([(control c) (control f)] rct-ri)
              '([(control c) (control d)] xmp)))))
 
-  (add-to-load-path "~/.emacs.d/elisp/rinari/")
-  (setq rinari-minor-mode-prefixes (list "\C-c"))
-  (require 'rinari nil t)
-  
   (add-to-load-path "~/.emacs.d/elisp/rhtml-mode/")
-  (when (require 'rhtml-mode nil t)
-    (add-hook 'rhtml-mode-hook
-              (lambda () (rinari-launch)))))
-
+  (require 'rhtml-mode nil t))
 
 (defvar ruby-elect-keyword
   '("def" "if" "class" "module" "unless" "case"

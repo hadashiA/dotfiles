@@ -80,11 +80,11 @@
 
 ;; apel, emuをロードパスに追加
 ;; w3mかなんかで使う。
-(add-to-load-path "~/.emacs.d/elisp/emu"
-                  "~/.emacs.d/elisp/apel")
+;; (add-to-load-path "~/.emacs.d/elisp/emu"
+;;                   "~/.emacs.d/elisp/apel")
 
-(when (require 'auto-install)
-  (setq auto-install-directory "~/.emacs.d/elisp/"))
+;; (when (require 'auto-install)
+;;   (setq auto-install-directory "~/.emacs.d/elisp/"))
 ;; (auto-install-update-emacswiki-package-name t)
 ;;(auto-install-compatibility-setup)
 
@@ -115,7 +115,7 @@
 (load "init-jump")
 (load "init-matelike")
 (load "init-migemo")
-(load "init-skk")
+;; (load "init-skk")
 (load "init-flymake")
 ;; (load "init-flycheck")
 (load "init-occur")
@@ -135,7 +135,7 @@
 (load "init-javascript")
 (load "init-coffee")
 (load "init-cc")
-(load "init-csharp")
+;; (load "init-csharp")
 (load "init-glsl")
 ;;(load "init-perl")
 ;;(load "init-perlysense")
@@ -157,7 +157,7 @@
 (load "init-twitter")
 ;; (load "init-skype")
 (load "init-autosave-buffers")
-(load "init-evernote")
+;; (load "init-evernote")
 (load "init-genkou")
 ;; (load "init-irc")
 (load "init-auto-complete")

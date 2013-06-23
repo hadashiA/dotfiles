@@ -29,7 +29,7 @@
 
 (let ((migemo-dir "/usr/local/share/migemo"))
   (setq load-path (append load-path (list migemo-dir)))
-  (setq migemo-command "cmigemo")
+  (setq migemo-command "/usr/local/bin/cmigemo")
   (setq migemo-options '("-q" "--emacs" "-i" "\a"))
   (setq migemo-dictionary (format "%s/utf-8/migemo-dict" migemo-dir))
   (setq migemo-user-dictionary nil)
