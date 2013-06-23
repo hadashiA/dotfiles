@@ -35,7 +35,7 @@
 (setq ac-ignore-case t
       ac-use-menu-map t)
 
-(define-key ac-completing-map (kbd "C-c /") 'ac-complete-filename)
+;; (define-key ac-completing-map (kbd "C-c /") 'ac-complete-filename)
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
 
@@ -49,6 +49,8 @@
 
 (require 'auto-complete-ya-gtags)
 (require 'auto-complete-clang-async)
+
+(add-hook 'minibuffer-setup-hook '(lambda () (auto-complete-mode 1)))
 
 (defun ac-cc-mode-setup ()
   (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
