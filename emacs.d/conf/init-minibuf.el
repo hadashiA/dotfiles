@@ -2,9 +2,9 @@
 
 ;; find-file時にハイライトする
 ;; http://www.bookshelf.jp/soft/meadow_23.html#SEC217
-(require 'highlight-completion)
-(setq hc-ctrl-x-c-is-completion t)
-(highlight-completion-mode 1)
+;; (require 'highlight-completion)
+;; (setq hc-ctrl-x-c-is-completion t)
+;; (highlight-completion-mode 1)
 ;; (defadvice hc-expand-file-name
 ;;   (around hc-expand-file-name-del activate)
 ;;   (if name
