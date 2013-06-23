@@ -24,7 +24,7 @@
 ;; これ、必要なの？
 
 ;; exec-path, PATHの追加
-(let* ((pathenv (replace-regexp-in-string "[\r\n]+$" "" (shell-command-to-string "$SHELL -l -c 'echo $PATH'")))
+(let* ((pathenv (replace-regexp-in-string "[\r\n]+$" "" (shell-command-to-string "/usr/bin/env zsh -c 'printenv PATH'")))
        (pathlst (split-string pathenv ":")))
   (setq exec-path pathlst)
   (setq eshell-path-env pathenv)

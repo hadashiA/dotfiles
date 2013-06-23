@@ -96,6 +96,7 @@
 ;; これやっぱ外しておこうとかいうのを調整するのが面倒。
 
 (load "init-env")
+(load "init-shell")
 (load "init-package")
 (load "init-paren")
 (load "init-undo")
@@ -122,7 +123,6 @@
 ;; (load "init-woman") [2010-04-14 別に見易くないような。何が良いんだろう]
 ;;(load "init-abbrves")
 (load "init-templates")
-(load "init-shell")
 (load "init-dired")
 (load "init-sdic")
 (load "init-w3m")

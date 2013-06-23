@@ -42,7 +42,7 @@
 (require 'pos-tip)
 (setq ac-quick-help-prefer-x t)
 
-(add-to-list 'load-path "~/.emacs.d/elisp/company")
+;; (add-to-list 'load-path "~/.emacs.d/elisp/company")
 ;; (require 'ac-company)
 ;; (ac-company-define-source ac-source-company-xcode company-xcode)
 ;; (ac-company-define-source ac-source-company-gtags company-gtags)
