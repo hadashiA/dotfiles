@@ -103,10 +103,6 @@
 ;; Software Design 2008-02 P154
 ;; xmpfilter (rcodetools)
 (when (require 'rcodetools)
-  ;; (and (require 'anything nil t)
-  ;;      (require 'anything-rcodetools nil t)
-  ;;      (setq rct-get-all-methods-command "PAGER=cat fri -l")
-  ;;      (define-key anything-map "\C-z" 'anything-execute-persistent-action))
   
   (setq rct-find-tag-if-available nil)
   

@@ -140,7 +140,7 @@
 ;;(load "init-perl")
 ;;(load "init-perlysense")
 (load "init-ruby")
-(load "init-ruby-refm")
+;; (load "init-ruby-refm")
 (load "init-python")
 (load "init-php")
 (load "init-sql")
@@ -161,7 +161,7 @@
 (load "init-genkou")
 ;; (load "init-irc")
 (load "init-auto-complete")
-(load "init-anything")
+(load "init-helm")
 (load "init-testkick")
 
 ;; Meadow用設定を読み込む
