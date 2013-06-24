@@ -1,11 +1,13 @@
 ;;; skk-tankan.el --- SKK 単漢字変換プログラム -*- coding: iso-2022-jp -*-
 ;; Copyright (C) 2003 YAGI Tatsuya <ynyaaa@ybb.ne.jp>
+;; Copyright (C) 2010 Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
+;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.17 2007/09/20 14:20:40 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.57 2012/11/08 11:32:01 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2007/09/20 14:20:40 $
+;; Last Modified: $Date: 2012/11/08 11:32:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -26,13 +28,19 @@
 
 ;;; Commentary:
 
-;; 使い方
+;; 1. 使い方
 ;;
-;; 読みの最後に、読みの一部として @ を入力してから変換すると、
-;; 一文字のみからなる候補に絞り込んだ上で、
-;; 候補を総画数順でソートしてから変換します。
+;; 1-a. 読みの最後に、読みの一部として @ を入力してから変換すると、
+;;      一文字のみからなる候補に絞り込んだ上で、
+;;      候補を総画数順でソートしてから変換します。
 ;;
-;; 設定方法
+;; 1-b. 「読み」部分が数値であれば、その数値を総画数とする候補を表示します。
+;;        ▽12@<SPC> [Q 1 2 @ <SPC>]
+;;  
+;; 1-c. 「読み」部分が @ であれば、部首変換を開始します。
+;;        ▽@@<SPC> [Q @ @ <SPC>]
+;;
+;; 2. 設定方法
 ;;
 ;; ~/.skk には次の様なことを書いておきます。
 ;;
@@ -59,10 +67,11 @@
 ;; ;; 単漢字検索のキーを @ にする(デフォルト)
 ;; (setq skk-tankan-search-key ?@)
 ;;
-;; ;; @ を入力できるようにする
-;; (setq skk-rom-kana-rule-list
-;;       (append skk-rom-kana-rule-list
-;;	         '(("@" nil "@"))))
+;; ;; ;; @ を入力できるようにする          ; DDSKK 14.2 からは不要です。
+;; ;; (setq skk-rom-kana-rule-list         ; メーリングリスト 2010-11-27
+;; ;;       (append skk-rom-kana-rule-list
+;; ;;	         '(("@" nil "@"))))
+;;
 ;; ;; annotation として画数と部首を表示する
 ;; (setq skk-show-annotation t)
 ;;
@@ -74,10 +83,10 @@
 ;;				     (char-to-string skk-tankan-search-key)))
 ;;			    skk-henkan-key)))
 ;;
-;; ;; 文字 CHAR の ANNOTATION (文字列)を変更したい場合
+;; ;; 文字 CHAR の ANNOTATION (文字列) を変更したい場合
 ;; ;; (skk-tankan-set-char-annotation CHAR ANNOTATION)
 ;;
-;; ;; メモリを節約したい人向け(部首と画数以外のデータを保持しません)
+;; ;; メモリを節約したい人向け (部首と画数以外のデータを保持しません)
 ;; ;; (setq skk-tankan-annotation-table nil)
 
 ;;; Code:
@@ -144,8 +153,241 @@
      (11 12) 12 (11 12 12) 12 13 13 13 (8 13 13)
      14 14 (12 12 15 15) (10 16) (11 16) 17])
 
+(defconst skk-tankan-radical-name
+  ;; 読みは http://ja.wiktionary.org/wiki/Wiktionary:漢字索引 部首
+  ;; から引用した。
+  ["〓"
+   "いち"				;1
+   "ぼう、たてぼう"			;2
+   "てん"				;3
+   "の"					;4
+   "おつ"				;5
+   "はねぼう"				;6
+   "に"					;7
+   "なべぶた"				;8
+   "ひと、ひとがしら"			;9
+   "にんにょう、ひとあし"		;10
+   "いる、いりがしら、いりやね"		;11
+   "はち、はちがしら"			;12
+   "けいがまえ、まきがまえ、どうがまえ"	;13
+   "わかんむり"				;14
+   "にすい"				;15
+   "つくえ、つくえきにょう、かぜかんむり" ;16
+   "かんにょう、うけばこ"		;17
+   "かたな"				;18
+   "ちから"				;19
+   "つつみがまえ"			;20
+   "ひ、あいくち"			;21
+   "はこがまえ"				;22
+   "かくしがまえ"			;23
+   "じゅう"				;24
+   "ぼく、ぼくのと"			;25
+   "ふしづくり"				;26
+   "がんだれ"				;27
+   "む"					;28
+   "また"				;29
+   "くち、くちへん"			;30
+   "くにがまえ"				;31
+   "つち、つちへん"			;32
+   "さむらい、さむらいかんむり"		;33
+   "ふゆがしら、ちかんむり"		;34
+   "すいにょう、なつのあし"		;35
+   "ゆう、ゆうべ"			;36
+   "だい、だいかんむり、だいかしら"	;37
+   "おんな、おんなへん"			;38
+   "こ、こへん"				;39
+   "うかんむり"				;40
+   "すん"				;41
+   "しょう、しょうがしら、なおがしら"	;42
+   "だいのまげあし"			;43
+   "しかばね、しかばねかんむり"		;44
+   "てつ、くさのめ"			;45
+   "やま、やまへん"			;46
+   "まがりかわ"				;47
+   "こう、たくみへん"			;48
+   "こ、き、おのれ、い、すでに、し、み"	;49
+   "はば、はばへん、きんべん"		;50
+   "かん、いちじゅう"			;51
+   "よう、いとがしら"			;52
+   "まだれ"				;53
+   "えんにょう、いんにょう"		;54
+   "きょう、こまぬき"			;55
+   "よく、しきがまえ"			;56
+   "ゆみ、ゆみへん"			;57
+   "けいがしら"				;58
+   "さんづくり、けかざり"		;59
+   "ぎょうにんべん"			;60
+   "こころ"				;61
+   "ほこ、ほこづくり"			;62
+   "と、とかんむり"			;63
+   "て"					;64
+   "しにょう、えだにょう"		;65
+   "ぼくづくり、ぼくにょう、のぶん"	;66
+   "ぶん"				;67
+   "と、とます"				;68
+   "おの、おのづくり"			;69
+   "ほう、ほうへん、かたへん"		;70
+   "なし、むにょう、すでのつくり"	;71
+   "ひ、ひへん、にちへん"		;72
+   "ひらび"				;73
+   "つき、つきへん"			;74
+   "き、きへん"				;75
+   "あくび"				;76
+   "とめる、とめへん"			;77
+   "がつへん、かばねへん"		;78
+   "ほこづくり、るまた"			;79
+   "なかれ、はは"			;80
+   "ならびひ、くらべる"			;81
+   "け"					;82
+   "うじ"				;83
+   "きがまえ"				;84
+   "みず、したみず"			;85
+   "ひ、ひへん"				;86
+   "つめ、そうにょう"			;87
+   "ちち"				;88
+   "こう"				;89
+   "しょう、しょうへん"			;90
+   "かた、かたへん"			;91
+   "きば、きばへん"			;92
+   "うし"				;93
+   "いぬ"				;94
+   "げん"				;95
+   "たま"				;96
+   "うり"				;97
+   "かわら"				;98
+   "あまい"				;99
+   "いきる、うまれる"			;100
+   "もちいる"				;101
+   "た、たへん"				;102
+   "ひき"				;103
+   "やまいだれ"				;104
+   "はつがしら"				;105
+   "しろ"				;106
+   "けがわ、ひのかわ"			;107
+   "さら"				;108
+   "め、めへん"				;109
+   "ほこ、ほこへん"			;110
+   "や、やへん"				;111
+   "いし、いしへん"			;112
+   "しめす"				;113
+   "じゅうのあし"			;114
+   "のぎ、のぎへん"			;115
+   "あな、あなかんむり"			;116
+   "たつ、たつへん"			;117
+   "たけ、たけかんむり"			;118
+   "こめ、こめへん"			;119
+   "いと"				;120
+   "ほとぎ、ほとぎへん、ふ"		;121
+   "あみがしら"				;122
+   "ひつじ、ひつじへん"			;123
+   "はね"				;124
+   "おいかんむり"			;125
+   "しこうして"				;126
+   "らいすき、らいへん"			;127
+   "みみ、みみへん"			;128
+   "いつ、ふでづくり"			;129
+   "にく"				;130
+   "しん"				;131
+   "じ、みずから"			;132
+   "いたる、いたるへん"			;133
+   "うす"				;134
+   "した、したへん"			;135
+   "まいあし"				;136
+   "ふね、ふねへん"			;137
+   "ごん、ごんづくり、ねづくり、うしとら" ;138
+   "いろ"				;139
+   "くさ、くさかんむり"			;140
+   "とらかんむり、とらがしら"		;141
+   "むし、むしへん"			;142
+   "ち"					;143
+   "ぎょうがまえ、ゆきがまえ"		;144
+   "ころも"				;145
+   "にし、おおいかんむり"		;146
+   "みる"				;147
+   "つの、つのへん"			;148
+   "ことば、げん、ごんべん"		;149
+   "たに、たにへん"			;150
+   "まめ、まめへん"			;151
+   "いのこ、いのこへん、ぶた"		;152
+   "むじなへん"				;153
+   "かい、かいへん、こがい"		;154
+   "あか"				;155
+   "はしる、そうにょう"			;156
+   "あし、あしへん"			;157
+   "み、みへん"				;158
+   "くるま、くるまへん"			;159
+   "しん、からい"			;160
+   "しんのたつ"				;161
+   "しんにょう、しんにゅう"		;162
+   "むら"				;163
+   "とりへん、ひよみのとり、さけのとり"	;164
+   "のごめ、のごめへん"			;165
+   "さと、さとへん"			;166
+   "かね、かねへん"			;167
+   "ながい"				;168
+   "もん、もんがまえ、かどがまえ"	;169
+   "おか"				;170
+   "れいづくり"				;171
+   "ふるとり"				;172
+   "あめ、あめかんむり"			;173
+   "あお"				;174
+   "あらず"				;175
+   "めん"				;176
+   "かわへん、つくりがわ"		;177
+   "なめしがわ"				;178
+   "にら"				;179
+   "おと、おとへん"			;180
+   "おおがい"				;181
+   "かぜ"				;182
+   "とぶ"				;183
+   "しょく、しょくへん"			;184
+   "くび"				;185
+   "かおり"				;186
+   "うま、うまへん"			;187
+   "ほね、ほねへん"			;188
+   "たかい"				;189
+   "かみかんむり、かみがしら"		;190
+   "とうがまえ、たたかいがまえ"		;191
+   "ちょう、においざけ"			;192
+   "かなえ"				;193
+   "おに、きにょう"			;194
+   "さかな、うおへん"			;195
+   "とり、とりへん"			;196
+   "しお"				;197
+   "しか"				;198
+   "むぎ、ばくにょう"			;199
+   "あさ、あさかんむり"			;200
+   "き"					;201
+   "きび"				;202
+   "くろ"				;203
+   "ぬいとり、ふつへん、ち"		;204
+   "べんあし、かえる、べん"		;205
+   "かなえ、てい"			;206
+   "つづみ"				;207
+   "ねずみ、ねずみへん"			;208
+   "はな、はなへん"			;209
+   "せい"				;210
+   "は、はへん"				;211
+   "りゅう"				;212
+   "かめ"				;213
+   "やく、ふえ"				;214
+   ]
+  "部首の読み")
+
+;; ;; ↓何かに使えそうな alist
+;; (let ((i 0)
+;;       alist)
+;;   (mapc #'(lambda (radical)
+;; 	    (mapc #'(lambda (yomi)
+;; 		      (setq alist (cons (cons radical yomi) alist)))
+;; 		  (split-string (aref skk-tankan-radical-name i) "、"))
+;; 	    (setq i (1+ i)))
+;; 	(append skk-tankan-radical-vector nil))
+;;   alist)
+
+
 ;;; japanese-jisx0208, japanese-jisx0213-1 用の部首・画数データ
-;; 1-14-1 から 2Byte ずつ使用している
+;; 1面-14区-01点 から 2Byte ずつ使用している
 ;; 1st byte = radical number
 ;; 2nd byte = (sub radical index) << 6 | strokes in radical
 (defconst skk-tankan-radical-stroke-table-0213-1 "\
@@ -1445,19 +1687,17 @@
 ;;; get/set char's annotation
 (defun skk-tankan-get-char-annotation (char)
   (if skk-tankan-annotation-table
-      (static-cond
-       ((eq skk-emacs-type 'xemacs)
-	(get-char-table char skk-tankan-annotation-table))
-       (t
-	(aref skk-tankan-annotation-table char)))
+      (cond ((eval-when-compile (featurep 'xemacs))
+	     (get-char-table char skk-tankan-annotation-table))
+	    (t
+	     (aref skk-tankan-annotation-table char)))
     nil))
 
 (defun skk-tankan-set-char-annotaion (char annotation)
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (put-char-table char annotation skk-tankan-annotation-table))
-   (t
-    (aset skk-tankan-annotation-table char annotation))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (put-char-table char annotation skk-tankan-annotation-table))
+	(t
+	 (aset skk-tankan-annotation-table char annotation))))
 
 ;;; get stroke for radical part
 (defun skk-tankan-stroke-for-radical (radical dat)
@@ -1468,30 +1708,56 @@
 
 ;;; get char's radical, strokes in radical, total strokes
 (defun skk-tankan-get-char-data (char)
-  (let ((fun (cdr (assq (char-charset char)
-			skk-tankan-get-char-data-functions))))
-    (or (and fun (funcall fun char))
+  "文字を表す整数 CHAR を与えると、その文字に関する部首、部首内画数、総画数を
+リストで返す。"
+  ;; (string-to-char "単")
+  ;;   => 57777
+  ;; (skk-tankan-get-char-data 57777)
+  ;;   => (24 7 9)
+  ;; (aref skk-tankan-radical-vector 24)
+  ;;   => "十"
+  (let* ((charset (if (eval-when-compile (and (featurep 'emacs)
+					      (>= emacs-major-version 23)))
+		      ;; GNU Emacs 23.1 or later
+		      (char-charset char skk-charset-list)
+		    (char-charset char))) ; => 'japanese-jisx0208
+					  ;    or 'japanese-jisx0213-2
+	(fun (cdr (assq charset skk-tankan-get-char-data-functions))))
+    ;;
+    (or (and fun
+	     (funcall fun char))	; => skk-tankan-get-char-data-0213-1()
 	(list 0 0 0))))
 
 (defun skk-tankan-get-char-data-0213-1 (char)
-  (skk-tankan-get-char-data-internal char (function skk-tankan-encode-0213-1)
+  (skk-tankan-get-char-data-internal char #'skk-tankan-encode-0213-1
 				     skk-tankan-radical-stroke-table-0213-1))
 
 (defun skk-tankan-get-char-data-0213-2 (char)
-  (skk-tankan-get-char-data-internal char (function skk-tankan-encode-0213-2)
+  (skk-tankan-get-char-data-internal char #'skk-tankan-encode-0213-2
 				     skk-tankan-radical-stroke-table-0213-2))
 
 (defun skk-tankan-get-char-data-internal (char encoder table)
-  (let* ((n (funcall encoder char))
-	 radical dat stroke)
+  (let ((n (funcall encoder char))
+	radical dat stroke)
     (if (null n)
 	nil
-      (setq n (* 2 n)
-	    radical (aref table n)
-	    dat (aref table (1+ n))
-	    stroke (logand 63 dat))
+      (setq n (* 2 n)			; table は、1 文字あたり 2 byte を使用
+	    radical (aref table n)	; 部首番号
+	    dat (aref table (1+ n))	;
+	    stroke (logand 63 dat))	; 部首内画数
       (list radical stroke
 	    (+ stroke (skk-tankan-stroke-for-radical radical dat))))))
+
+;; (string-to-char "亜")  => 55329
+;; (split-char 55329)     => (japanese-jisx0208 48 33)
+;; split-char の結果を 16進に直すと JISコード が得られる。
+;; (format "%x %x" 48 33) => "30 21" 
+
+;; ?! = 33 = 0x21
+;; 01区〜13区までは非漢字領域
+;; 区ひとつ当たり (- (* 16 6) 2) = 94
+
+;; (skk-tankan-encode-0213-1 55329) => 188
 
 (defun skk-tankan-encode-0213-1 (char)
   (let* ((l (split-char char))
@@ -1499,7 +1765,7 @@
     (and (>= n 0) n)))
 
 (defun skk-tankan-encode-0213-2 (char)
-  (let* ((l (split-char char))
+  (let* ((l (skk-split-char char))
 	 (ku (- (nth 1 l) ?!))
 	 (tmp (if (>= ku 77)
 		  (- ku 68)
@@ -1508,83 +1774,296 @@
     (and tmp
 	 (+ (* 94 tmp) (- (nth 2 l) ?!)))))
 
+(defun skk-search-by-stroke-or-radical-sub (high himax lomin lomax num i charset)
+  (let (low char list)
+    (while (<= high himax)
+      (setq low lomin)
+      (while (<= low lomax)
+	(setq char (make-char charset high low))
+	(if (= num (nth i (skk-tankan-get-char-data char)))
+	    (setq list (cons (char-to-string char) list)))
+	(setq low (1+ low)))
+      (setq high (1+ high)))
+    list))
+
+(defun skk-search-by-stroke-or-radical (num method)
+  "JIS X 0208 又は JIS X 0213-[12] の文字集合のうち指定の方法で単漢字を検索する。
+METHOD が 0 であれば数値 NUM は部首番号として、
+METHOD が 2 であれば数値 NUM は総画数として検索を実行する。
+戻り値は (\"力\" \"了\" \"又\" …) のリストである。"
+  ;; TODO
+  ;; 回りくどいループと skk-tankan-get-char-data 経由は明らかに無駄。
+  ;; skk-tankan-radical-stroke-table-0213-1 を直接参照するよう書き換える。
+  ;; ↑の 1st byte が部首番号。
+  ;; ↑の 2nd byte + skk-tankan-stroke-for-radical-vector が総画数。
+  ;; index から char へは skk-tankan-encode-0213-1 を逆算すれば可能。
+
+  (if (or (and (featurep 'emacs)
+	       (>= emacs-major-version 23))
+	  (featurep 'jisx0213))		; Mule-UCS
+      ;; JIS X 0213
+      (append
+       (skk-search-by-stroke-or-radical-sub ?\x2e ?\x7e ?\x21 ?\x7e
+					    num method 'japanese-jisx0213-1)
+       (skk-search-by-stroke-or-radical-sub ?\x21 ?\x21 ?\x21 ?\x7e
+					    num method 'japanese-jisx0213-2)
+       (skk-search-by-stroke-or-radical-sub ?\x23 ?\x25 ?\x21 ?\x7e
+					    num method 'japanese-jisx0213-2)
+       (skk-search-by-stroke-or-radical-sub ?\x28 ?\x28 ?\x21 ?\x7e
+					    num method 'japanese-jisx0213-2)
+       (skk-search-by-stroke-or-radical-sub ?\x2c ?\x2f ?\x21 ?\x7e
+					    num method 'japanese-jisx0213-2)
+       (skk-search-by-stroke-or-radical-sub ?\x6e ?\x7e ?\x21 ?\x7e
+					    num method 'japanese-jisx0213-2)
+       )
+    ;; JIS X 0208
+    (let ((charset 'japanese-jisx0208))
+      (append
+       (skk-search-by-stroke-or-radical-sub ?\x30 ?\x4e ?\x21 ?\x7e num method charset)
+       (skk-search-by-stroke-or-radical-sub ?\x4f ?\x4f ?\x21 ?\x53 num method charset)
+       (skk-search-by-stroke-or-radical-sub ?\x50 ?\x73 ?\x21 ?\x7e num method charset)
+       (skk-search-by-stroke-or-radical-sub ?\x74 ?\x74 ?\x21 ?\x26 num method charset)
+       ))))
+
+(defun skk-tankan-bushu-compread ()
+  "配列 `skk-tankan-radical-vector' の内容を一覧表示して選択する。
+戻り値は数値である。"
+  ;; Memo
+  ;;   skk-tankan-radical-vector は固定値（不変）なので、
+  ;;   本来であれば alist も動的に生成せずに固定値で良い。
+  ;;   ただし、face を導入してしまった(2011-1-3)ので、動的に face を適用させるため
+  ;;   当面は alist も動的に生成する。
+  (let ((i 1)
+	(len (length skk-tankan-radical-vector))
+	alist)
+    (while (< i len)
+      (setq alist (cons (list (concat (format "%03d " i)
+				      (propertize
+				       (aref skk-tankan-radical-vector i)
+				       'face 'skk-tankan-face)
+				      (propertize
+				       (concat " ("
+					       (aref skk-tankan-radical-name i)
+					       ")")
+				       'face 'skk-tankan-radical-name-face)))
+			alist))
+      (setq i (1+ i)))
+
+    (setq i (string-to-number (completing-read "部首を番号で選択（TABで一覧表示）: "
+					       alist nil t)))
+    (message "%s %s"
+	     (aref skk-tankan-radical-vector i)
+	     (aref skk-tankan-radical-name i))
+    i))
+
+(defun skk-tankan-mode ()
+  "Major mode for skk-tankan.
+
+\\{skk-tankan-mode-map}"
+  (kill-all-local-variables)
+  (setq mode-name "skk-tankan"
+	major-mode 'skk-tankan-mode)
+  (use-local-map skk-tankan-mode-map))
+
+(defconst skk-tankan-name-radical-alist
+  (let ((i 1)
+	alist)
+    (mapc #'(lambda (radical)
+	      (mapc #'(lambda (yomi)
+			(setq alist
+			      (cons (cons (format "%-16s (%03d) %s" yomi i radical)
+					  nil)
+				    alist)))
+		    (split-string (aref skk-tankan-radical-name i) "、"))
+	      (setq i (1+ i)))
+	  (cdr (append skk-tankan-radical-vector nil)))
+    alist))
+
+(defun skk-tankan-yomi-compread ()
+  (let ((radical (completing-read "部首を読みで選択（TABで一覧表示）: "
+				  skk-tankan-name-radical-alist nil t)))
+    (if (equal "" radical)
+	0
+      (save-match-data
+	(string-match "(\\(.+\\))" radical)
+	(string-to-number (substring radical (match-beginning 1) (match-end 1)))))))
+
+;;;###autoload
+(defun skk-tankan (arg)
+  "単漢字変換を開始する。
+\\[skk-tankan] で部首変換を、
+\\[universal-argument] 数値 \\[skk-tankan] で総画数変換を開始する。"
+  (interactive "P")
+  (let (tankan)
+    (if (integerp arg)
+	(setq tankan (skk-search-by-stroke-or-radical arg 2))
+      (let ((i (skk-tankan-bushu-compread)))
+	(if (zerop i)
+	    (progn
+	      (setq i (skk-tankan-yomi-compread))
+	      (if (zerop i)
+		  (setq tankan nil)
+		(setq tankan (skk-search-by-stroke-or-radical i 0))))
+	  (setq tankan (skk-search-by-stroke-or-radical i 0)))))
+
+    (when tankan
+      (let ((buf (get-buffer-create "*単漢字*"))
+	    list)
+	(setq skk-tankan-mode-original-window-configuration
+	      (current-window-configuration))
+	(setq list (skk-tankan-select-tankanji-kouho (cons nil tankan)))
+	(set-buffer buf)
+	(setq buffer-read-only nil)
+	(erase-buffer)
+	(set-buffer-multibyte t)
+	(dolist (str list)
+	  (insert (format " %s  %s\n"
+			  (propertize (substring str 0 1) 'face 'skk-tankan-face)
+			  (substring str 2))))
+	(set-buffer-modified-p nil)
+	(setq buffer-read-only t)
+	(pop-to-buffer "*単漢字*")
+	(goto-char (point-min))
+	(skk-tankan-mode)
+	(skk-tankan-overlay)))))
+
+(defun skk-tankan-mode-usage ()
+  (interactive)
+  (message "p/k:prev  n/j:next  w:copy(kill-new)  q:quit"))
+
+(defun skk-tankan-overlay ()
+  (or skk-tankan-overlay
+      (progn
+	(make-local-variable 'skk-tankan-overlay)
+	(setq skk-tankan-overlay (make-overlay (point) (point)))))
+  (move-overlay skk-tankan-overlay
+		(line-beginning-position)
+		(line-end-position))
+  (overlay-put skk-tankan-overlay 'face
+	       'highlight))
+
+(defun skk-tankan-mode-prev ()
+  (interactive)
+  (forward-line -1)
+  (skk-tankan-overlay))
+
+(defun skk-tankan-mode-next ()
+  (interactive)
+  (forward-line)
+  (if (eobp)
+      (forward-line -1))
+  (skk-tankan-overlay))
+
+(defun skk-tankan-mode-copy ()
+  (interactive)
+  (if (eobp)
+      (forward-line -1))
+  (beginning-of-line)
+  (let ((str (char-to-string (char-after (1+ (point))))))
+    (kill-new str)
+    (message "`%s' copied." str)))
+
+(defun skk-tankan-mode-quit ()
+  (interactive)
+  (kill-buffer "*単漢字*")
+  (set-window-configuration skk-tankan-mode-original-window-configuration))
+
+(defun skk-tankan-mode-display-code ()
+  (interactive)
+;;   (skk-display-code (char-after (1+ (point))))
+  )
+
 ;;;###autoload
 (defun skk-tankan-search (func &rest args)
+  "変数 `skk-henkan-key' で指定された「読み」に基づいて単漢字変換を実行する。
+通常は `skk-search-prog-list' の１要素として次の形式で指定される。
+'(skk-tankan-search 'skk-search-jisyo-file
+                    skk-large-jisyo 10000))"
   (when (string-match (format "%s$" (regexp-quote
 				     (char-to-string skk-tankan-search-key)))
 		      skk-henkan-key)
-    (let ((skk-henkan-key (substring skk-henkan-key 0 (match-beginning 0)))
-	  lis top tmp)
+    (let ((skk-henkan-key (substring skk-henkan-key 0 (match-beginning 0))))
       ;; get KOUHO list
-      (setq lis (cons nil (apply func args))
-	    top lis)
-      ;; select TANKANJI KOUHO
-      (while (cdr lis)
-	;; remove annotation
-	(setq tmp (nth 1 lis))
-	(if (string-match ";" tmp)
-	    (setq tmp (substring tmp 0 (match-beginning 0))))
-	(if (not (string-match "^.$" tmp))
-	    (setcdr lis (cdr (cdr lis)))
-	  (setq lis (cdr lis))
-	  (setq tmp (string-to-char tmp)
-		tmp (cons tmp (cons (skk-tankan-get-char-annotation tmp)
-				    (skk-tankan-get-char-data tmp))))
-	  (setcar lis tmp)))
-      ;; sort KOUHO by KAKUSUU(or BUSYU)
-      (setq lis  (sort (cdr top)
-		       (lambda (x y)
-			 (let ((xa (nth 2 x)) (xb (nth 3 x)) (xc (nth 4 x))
-			       (ya (nth 2 y)) (yb (nth 3 y)) (yc (nth 4 y)))
-			   (if (= xc yc)
-			       (if (= xa ya)
-				   (if (= xb yb)
-				       (< (car x) (car y))
-				     (< xb yb))
-				 (< xa ya))
-			     (< xc yc))))))
-      ;; return list with annotation
-      (mapcar (lambda (cell)
-		(let ((anno (if (= 0 (nth 2 cell))
-				(nth 1 cell)
-			      (format "%d画(%s部%d画)%s"
-				      (nth 4 cell)
-				      (aref skk-tankan-radical-vector
-					    (nth 2 cell))
-				      (nth 3 cell)
-				      (or (nth 1 cell) "")
-				      ))))
-		  (if (= 0 (length anno))
-		      (char-to-string (car cell))
-		    (concat (char-to-string (car cell)) ";" anno))))
-	      lis))))
+      (skk-tankan-select-tankanji-kouho
+       (cons nil (cond
+		  ;; ▽12@ <SPC> => 総画数変換
+		  ((string-match "^[0-9]+$" skk-henkan-key)
+		   (skk-search-by-stroke-or-radical
+		    (string-to-number skk-henkan-key) 2))
+		  ;; ▽@@ <SPC> => 部首変換
+		  ((equal (char-to-string skk-tankan-search-key)
+			  skk-henkan-key)
+		   (skk-search-by-stroke-or-radical
+		    (skk-tankan-bushu-compread) 0))
+		  ;; ▽あ <SPC> => "読み"単漢字変換
+		  (t
+		   (apply func args))))))))
+
+(defun skk-tankan-select-tankanji-kouho (lis)
+  (let ((top lis)
+	tmp)
+    ;; select TANKANJI KOUHO
+    (while (cdr lis)
+      ;; remove annotation
+      (setq tmp (nth 1 lis))
+      (if (string-match ";" tmp)
+	  (setq tmp (substring tmp 0 (match-beginning 0))))
+      (if (not (string-match "^.$" tmp))
+	  (setcdr lis (cddr lis))
+	(setq lis (cdr lis))
+	(setq tmp (string-to-char tmp)
+	      tmp (cons tmp (cons (skk-tankan-get-char-annotation tmp)
+				  (skk-tankan-get-char-data tmp))))
+	(setcar lis tmp)))
+    ;; sort KOUHO by KAKUSUU(or BUSYU)
+    (setq lis (sort (cdr top)
+		    (lambda (x y)
+		      (let ((xa (nth 2 x)) (xb (nth 3 x)) (xc (nth 4 x))
+			    (ya (nth 2 y)) (yb (nth 3 y)) (yc (nth 4 y)))
+			(if (= xc yc)
+			    (if (= xa ya)
+				(if (= xb yb)
+				    (< (car x) (car y))
+				  (< xb yb))
+			      (< xa ya))
+			  (< xc yc))))))
+    ;; return list with annotation
+    (mapcar (lambda (cell)
+	      (let ((anno (if (zerop (nth 2 cell))
+			      (nth 1 cell)
+			    (format "%d画(%s部%d画)%s"
+				    (nth 4 cell)
+				    (aref skk-tankan-radical-vector
+					  (nth 2 cell))
+				    (nth 3 cell)
+				    (or (nth 1 cell) "")
+				    ))))
+		(if (zerop (length anno))
+		    (char-to-string (car cell))
+		  (concat (char-to-string (car cell)) ";" anno))))
+	    lis)))
 
 ;;;###autoload
 (defun skk-search-tankanji (&optional jisyo)
   (let ((skk-henkan-key (concat skk-henkan-key
 				(char-to-string skk-tankan-search-key)))
-	(jisyo (or jisyo
-		   skk-large-jisyo
-		   (static-cond
-		    ((fboundp 'locate-file)
-		     (locate-file "skk/SKK-JISYO.L"
-				  (list
-				   (expand-file-name
-				    "../../.."
-				    data-directory))))
-		    ((fboundp 'locate-data-file)
-		     (locate-data-file "SKK-JISYO.L"))
-		    (t
-		     nil))
-		   skk-aux-large-jisyo))
-	(server-prog (assq 'skk-search-server skk-search-prog-list)))
-    (or
-     (if (file-readable-p jisyo)
-	 (skk-tankan-search 'skk-search-jisyo-file jisyo 10000)
-       nil)
-     (if server-prog
-	 (apply #'skk-tankan-search server-prog)
-       nil))))
+	(server-prog (if skk-server-host
+			 (assq 'skk-search-server skk-search-prog-list)
+		       nil)))
+    (or (cond
+	 ((and (stringp jisyo) (file-readable-p jisyo))
+	  (skk-tankan-search 'skk-search-jisyo-file jisyo 10000))
+	 ((and (stringp skk-cdb-large-jisyo)
+	       (file-readable-p skk-cdb-large-jisyo))
+	  (skk-tankan-search 'skk-search-cdb-jisyo skk-cdb-large-jisyo))
+	 ((and (stringp skk-large-jisyo)
+	       (file-readable-p skk-large-jisyo))
+	  (skk-tankan-search 'skk-search-jisyo-file skk-large-jisyo 10000))
+	 (t
+	  (skk-tankan-search 'skk-search-ja-dic-maybe)))
+	(if server-prog
+	    (apply #'skk-tankan-search server-prog)
+	  nil))))
 
 
 ;;; annotation data for japanese-jisx0208
@@ -2936,9 +3415,6 @@
 		  (+ 32 (nth 1 x)))
 		  (nth 2 x)))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-tankan)
-  (require 'skk-version))
+(provide 'skk-tankan)
 
 ;;; skk-tankan.el ends here

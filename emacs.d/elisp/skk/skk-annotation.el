@@ -1,14 +1,14 @@
 ;;; skk-annotation.el --- SKK annotation $B4XO"%W%m%0%i%`(B -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Copyright (C) 2000-2008  SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 2000-2010  SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.146 2010/01/27 03:02:48 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.236 2013/01/13 09:45:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/01/27 03:02:48 $
+;; Last Modified: $Date: 2013/01/13 09:45:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -32,39 +32,33 @@
 ;; $B$3$l$O!"(BSKK $B8D?M<-=q$KIU$1$?%"%N%F!<%7%g%s(B ($BCp<a(B) $B$r3hMQ$9$k%W%m%0(B
 ;; $B%i%`$G$9!#(B
 ;;
-;; <INSTALL>
-;;
-;; SKK $B$rIaDL$K(B make $B$7$F2<$5$$!#FC$K:n6H$OITMW$G$9!#(B
-;;
-;;
 ;; <HOW TO USE>
 ;;
 ;;   (setq skk-show-annotation t)
 ;;
-;; $B$H(B ~/.emacs $B$K=q$-$^$7$g$&!#<-=q$N8uJd$K(B `;' $B$+$i;O$^$kJ8;zNs$,$"$l(B
-;; $B$P!"$=$N3:Ev$N8uJd$,JQ49$5$l$F%P%C%U%!$K=PNO$5$l$?:]!"(B`;' $B0J9_$r$=(B
-;; $B$N8uJd$N%"%N%F!<%7%g%s$H$7$F%(%3!<%(%j%"$KI=<($7$^$9!#(B
+;; $B$H(B ~/.skk $B$K=q$-$^$7$g$&!#<-=q$N8uJd$K(B `;' $B$+$i;O$^$kJ8;zNs$,$"$l$P!"(B
+;; $B$=$N3:Ev$N8uJd$,JQ49$5$l$F%P%C%U%!$K=PNO$5$l$?:]$K(B `;' $B0J9_$r$=$N8u(B
+;; $BJd$N%"%N%F!<%7%g%s$H$7$F%(%3!<%(%j%"$KI=<($7$^$9!#(B
 ;;
 ;;   (setq skk-annotation-show-as-message nil)
 ;;
-;; $B$H(B ~/.emacs $B$K=q$$$?>l9g$O!"(Bother-window $B$r0l;~E*$K3+$$$F%"%N%F!<%7%g(B
+;; $B$H(B ~/.skk $B$K=q$$$?>l9g$O!"(Bother-window $B$r0l;~E*$K3+$$$F%"%N%F!<%7%g(B
 ;; $B%s$rI=<($7$^$9!#(Bother-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd(B
 ;; $B$NA*Br$r;_$a$k(B ($B<!$N8uJd$rA*Br$7$?$j!"(Bquit $B$7$?$j(B) $B$9$k$H<+F0E*$KJD(B
 ;; $B$8$i$l$^$9!#(B
 ;;
-;; SKK $B$G$O(B 5 $BHVL\$N8uJd0J9_$r%(%3!<%(%j%"$r;H$C$FI=<($7$^$9!#=>$$!"(B5
-;; $BHVL\0J9_$N8uJd$K$D$$$F$O!"(Bskk-annotation-show-as-message $B$,(B t $B$G$b(B
-;; $B%&%#%s%I%&$r3+$$$F%"%N%F!<%7%g%s$rI=<($7$^$9!#(B
+;; SKK $B$G$O(B 5 $BHVL\$N8uJd0J9_$O8uJd0lMw(B ($B%j%9%H(B) $B$H$7$FI=<($5$l$k$?$a!"%"(B
+;; $B%N%F!<%7%g%s$O8uJd$H0l=o$KE;$a$GI=<($5$l$^$9!#(B
 ;;
-;; $B$"$kC18l$K$D$$$F!"%"%N%F!<%7%g%s$rIU$1$?$$$H$-$O!"3NDj$7$?D>8e$KF1(B
-;; $B$8%P%C%U%!$G(B
+;; $B$"$kC18l$K%"%N%F!<%7%g%s$rIU$1$?$$$H$-$O!"3NDj$7$?D>8e$KF1$8%P%C%U%!(B
+;; $B$G(B
 ;;
 ;;   M-x skk-annotation-add
 ;;
-;; $B$7$^$7$g$&!#%"%N%F!<%7%g%s$rJT=8$9$k%P%C%U%!$,3+$$$F!"%+%l%s%H%P%C(B
-;; $B%U%!$K$J$j$^$9$N$G!"$=$3$X%"%N%F!<%7%g%s$rIU$1$^$7$g$&!#(B
-;; 1 $B9T$G$"$kI,MW$O$"$j$^$;$s$,!"J#?t9T$N%"%N%F!<%7%g%s$rIU$1$k$H(B echo
-;; area $B$XI=<($5$l$?$H$-$KA4BN$,8+$($J$/$J$j$^$9!#(B
+;; $B$H<B9T$7$^$7$g$&!#%"%N%F!<%7%g%s$rJT=8$9$k%P%C%U%!$,3+$$$F!"%+%l%s%H(B
+;; $B%P%C%U%!$K$J$j$^$9$N$G!"$=$3$X%"%N%F!<%7%g%s$rIU$1$^$7$g$&!#(B
+;; 1 $B9T$G$"$kI,MW$O$"$j$^$;$s$,!"J#?t9T$N%"%N%F!<%7%g%s$rIU$1$k$H%(%3!<(B
+;; $B%(%j%"$KI=<($7$?$H$-$KA4BN$,8+$($J$/$J$j$^$9!#(B
 ;; $B$^$?!"(B`;' $B$NJ8;z<+BN$OF~$l$kI,MW$O$"$j$^$;$s!#(B
 ;; $B:#$^$G$K4{$KIU$1$F$$$?%"%N%F!<%7%g%s$,$"$l$PJT=8%P%C%U%!$,I=<($5$l(B
 ;; $B$?$H$-$K$=$N%"%N%F!<%7%g%s$,(B prefix $BE*$K=PNO$5$l$^$9!#4{B8$N%"%N%F!<(B
@@ -87,7 +81,7 @@
 ;;    $B!V$$$<$s(B /$B0JA0(B;previous/$B0MA3(B;still/$B!W(B
 ;;
 ;; $B%f!<%6%"%N%F!<%7%g%s$H%7%9%F%`%"%N%F!<%7%g%s$r6hJL$9$k$3$H$G!"%f!<(B
-;; $B%6%"%N%F!<%7%g%s$@$1$rI=<($7$?$j!"$"$k$$$O$=$N5U$r9T$J$&$3$H$,2DG=(B
+;; $B%6%"%N%F!<%7%g%s$@$1$rI=<($7$?$j!"$"$k$$$O$=$N5U$r9T$&$3$H$,2DG=(B
 ;; $B$G$9!#(B`skk-annotation-function' $B$KI=<($7$?$$%"%N%F!<%7%g%s$r(B
 ;; non-nil $B$HH=Dj$9$k4X?t$r=q$-$^$7$g$&!#$3$s$J46$8$G$9!#(B
 ;;
@@ -111,54 +105,36 @@
 ;;
 ;; $B$7$F2<$5$$!#(B
 ;;
-;; Viper $BBP:v$O$^$@9T$J$C$F$$$^$;$s!#(B~/.viper $B$K<!$N$h$&$K=q$$$F2<$5$$!#(B
+;; Viper $BBP:v$O$^$@9T$C$F$$$^$;$s!#(B~/.viper $B$K<!$N$h$&$K=q$$$F2<$5$$!#(B
 ;; (viper-harness-minor-mode "skk-annotation")
+;;
+;; <lookup.el $B$+$i$N%"%N%F!<%7%g%s(B>
+;;
+;; $B0J2<$N@_Dj$r(B ~/.skk $B$K$9$k$H4X?t(B skk-lookup-get-content $B$+$i%"%N%F!<(B
+;; $B%7%g%s$,<hF@$5$l$^$9!#(B
+;;
+;; (setq skk-annotation-lookup-lookup t)
+;;
+;; <Mac OS X $B!V<-=q!W%5!<%S%9$+$i$N%"%N%F!<%7%g%s(B>
+;;
+;; Mac $B$N<-=q%"%W%j(B (Dictionary.app) $B$G$OI8=`$G9q8l<-E5$J$IMxMQ$G$-$^$9!#(B
+;; $B$3$N$&$AM%@h=g0L$N9b$$<-=q$+$i%"%N%F!<%7%g%s$r<hF@$9$k5!G=$,MxMQ$G$-$^(B
+;; $B$9!#8=>u$G$O<-=q$N8!:w=g$O(B Dictionary.app $B$N4D6-@_Dj$G@_Dj$9$kI,MW$,$"(B
+;; $B$j$^$9!#(B
+;;
+;; $B$3$N5!G=$rMxMQ$9$k>l9g$O0J2<$N@_Dj$r(B ~/.skk $B$K5-=R$7$F$/$@$5$$!#(B
+;; 
+;; (setq skk-annotation-lookup-DictionaryServices t)
+;;
+;; $B$3$N5!G=$O(B Carbon Emacs 22 $B$^$?$O(B Cocoa Emacs 23 $B0J9_$G%F%9%H$5$l$F$$$^(B
+;; $B$9!#$?$@$7(B Carbon Emacs 22 $B$G$OJQ49A`:n$,B.$9$.$k>l9g$K<-=q%5!<%S%9$+$i<u$1(B
+;; $B$H$C$?J8;zNs$N%G%3!<%I$K<:GT$9$k$3$H$,$"$k$h$&$G$9!#(B
 ;;
 ;; <Wikipedia $B%"%N%F!<%7%g%s(B>
 ;;
 ;; $B"'%b!<%I$K$F(B C-i $B$r%?%$%W$9$k$H!"I=<(Cf$N8uJd$r(B Wikipedia/Wiktionary
 ;; $B$N9`L\$+$iC5$7!$8+$D$+$C$?>l9g$O!"FbMF$NH4?h$r%"%N%F!<%7%g%s$H$7$FI=<((B
-;; $B$7$^$9!#$3$N5!G=$O(B Emacs 22 $B$G%F%9%H$5$l$F$$$^$9!#(BXEmacs 21.5 $B$G$O0J2<(B
-;; $B$N(B 1 $B$H(B 2 $B$rF3F~$9$kI,MW$,$"$j$^$9!#(BXEmacs 21.4 $B$G$O99$K(B 3 $B$bI,MW$G$9!#(B
-;; Emacs 21.4 $B$G$b(B 1, 2, 3 $B$,I,MW$H$J$j$^$9!#(BEmacs 20.7 $B$G$NF0:n$O%5%]!<%H(B
-;; $B$7$^$;$s$,!"(BMULE 4.1 $B%Q%C%A$rEv$F$F$$$l$P(B Emacs 21 $B$HF1MM$KF0:n$9$k2DG=(B
-;; $B@-$,$"$j$^$9!#(B
-;;
-;; 1. html2text.el
-;;
-;;    $B$3$l$OHf3SE*:G6a$N(B gnus $B$K4^$^$l$F$$$^$9!#$7$+$7(B
-;;
-;;    http://www.ring.gr.jp/archives/elisp/gnus/gnus-5.10.8.tar.gz
-;;
-;;    $B$K4^$^$l$k%P!<%8%g%s$G$O%(%i!<$rH/@8$9$k2DG=@-$,$"$j$^$9!#(B
-;;
-;;    $B$b$7(B Wikipedia/Wiktionary $B8!:w$N:]$K%(%i!<$,=P$k$h$&$G$7$?$i!"(B
-;;    html2text.el $B$@$13+H/HG(B No Gnus (ngnus) v0.6 $B0J>e$N$b$N$K:9$7BX$($k(B
-;;    $BI,MW$,$"$j$^$9!#(B
-;;
-;;    http://www.ring.gr.jp/archives/elisp/gnus/snapshots/
-;;
-;;    $B$^$?$O(B CVS $B$h$j:G?7HG$r%$%s%9%H!<%k$7$F$/$@$5$$!#$^$?!"(BEmacs 22.1 $B$K(B
-;;    $BIUB0$9$k(B Gnus 5.11 $B$G$O$3$NLdBj$O=$@5$5$l$F$$$^$9!#(B
-;;
-;; 2. URL $B%Q%C%1!<%8(B
-;;
-;;    $B$3$l$O(B Emacs/W3 $B$K4^$^$l$F$$$?$b$N$N3HD%$G$9!#Nc$($P(B
-;;
-;;    http://ftp.debian.org/debian/pool/main/w/w3-url-e21/
-;;
-;;    $B$J$I$+$i:G?7(B *.orig.tar.gz $B$r<hF@$7$F%$%s%9%H!<%k$7$^$9!#(B
-;;
-;;    XEmacs $B$N>l9g!"(B xemacs-sumo $BCf$N(B w3 $B$K4^$^$l$k(B url.el $B$,FI$_9~$^$l$F$7$^(B
-;;    $B$&$H@5$7$/5!G=$7$J$$$N$G!"Cm0U$7$F$/$@$5$$!#(B
-;;
-;; 3. Mule-UCS
-;;
-;;    UTF-8 $B$N<h$j07$$$KI,MW$H$J$j$^$9!#(B
-;;
-;;    http://www.meadowy.org/~shirai/
-;;
-;;    $B$+$i:G?7HG$,F~<j$G$-$^$9!#(B
+;; $B$7$^$9!#$3$N5!G=$O(B Emacs 22 $B0J>e$G%F%9%H$5$l$F$$$^$9!#(B
 ;;
 ;; <$B5l$$(B SKK $B$+$i$N0\9T(B>
 ;;
@@ -204,7 +180,7 @@
 ;;
 ;;   M-x skk-annotation-update-jisyo-format
 ;;
-;; $B$9$k$3$H$G$3$N:n6H$r9T$J$&$3$H$,$G$-$^$9!#(B
+;; $B$9$k$3$H$G$3$N:n6H$r9T$&$3$H$,$G$-$^$9!#(B
 ;;
 ;; $BC"$7!"4{$K%"%N%F!<%7%g%s$,IU$1$i$l$F$$$k>l9g$O!"$3$N%"%N%F!<%7%g%s(B
 ;; $B<+BN$b8uJd$H6hJL$G$-$:$K(B quote $B$5$l$F$7$^$$$^$9$N$G!"$4Cm0U2<$5$$(B
@@ -217,23 +193,25 @@
   (require 'skk-macs)
   (require 'skk-vars)
 
+  (autoload 'skk-lookup-get-content "skk-lookup")
+  (autoload 'run-python "python")
+  (autoload 'python-send-command "python")
+  (autoload 'python-send-string "python")
+  (autoload 'python-check-comint-prompt "python")
   (autoload 'html2text "html2text")
   (autoload 'html2text-delete-tags "html2text")
   (autoload 'url-hexify-string "url-util")
   (autoload 'url-retrieve "url"))
 
 (eval-when-compile
-  (require 'static)
-
+  (require 'compile)
+  (require 'comint)
+  (defvar python-buffer)
   (defvar mule-version)
   (defvar html2text-remove-tag-list)
-  (defvar html2text-format-tag-list)
+  (defvar html2text-format-tag-list))
 
-  (when (and (string-match "^GNU" (emacs-version))
-	     (= emacs-major-version 20))
-    (defalias 'skk-tooltip-show-at-point 'ignore)))
-
-(static-when (eq skk-emacs-type 'xemacs)
+(when (eval-when-compile (featurep 'xemacs))
   (require 'skk-xemacs))
 
 (unless skk-annotation-mode-map
@@ -252,44 +230,128 @@
 	(cons (cons 'skk-annotation-mode skk-annotation-mode-map)
 	      minor-mode-map-alist)))
 
-;; inline functions.
-(defsubst skk-annotation-erase-buffer ()
+;; functions.
+(defsubst skkannot-in-normal-buffer-p ()
+  (not (or skk-isearch-switch (skk-in-minibuffer-p))))
+
+(defsubst skkannot-clear-msg ()
+  (unless (skkannot-in-normal-buffer-p)
+    (message nil)))
+
+(defsubst skkannot-dict-exec-find ()
+  (ignore-errors (executable-find skk-annotation-dict-program)))
+
+(defun skkannot-check-lookup ()
+  (unless (and (locate-library "lookup")
+	       (locate-library "skk-lookup")
+	       (boundp 'lookup-search-agents)
+	       (symbol-value 'lookup-search-agents))
+    (setq skk-annotation-other-sources
+	  (delq 'lookup.el skk-annotation-other-sources))))
+
+(defun skk-annotation-erase-buffer ()
   (let ((inhibit-read-only t)
 	buffer-read-only)
-    (static-when
-	(fboundp 'set-text-properties)
-      (set-text-properties (point-min) (point-max) nil))
+    (set-text-properties (point-min) (point-max) nil)
     (erase-buffer)))
 
-(defsubst skk-annotation-insert (annotation)
+(defun skk-annotation-insert (annotation)
+  "`skk-annotation-buffer' $B$K(B ANNOTATION $B$rA^F~$9$k(B"
   (with-current-buffer (get-buffer-create skk-annotation-buffer)
     (skk-annotation-erase-buffer)
+    (setq buffer-read-only nil)
     (insert annotation)
-    (goto-char (point-min))))
+    (goto-char (point-min))
+    (set-buffer-modified-p nil)
+    (setq buffer-read-only t)))
 
-;; functions.
 ;;;###autoload
 (defun skk-annotation-get (annotation)
-  (if (string= annotation "")
-      ""
-    (if (eq (aref annotation 0) ?*)
-	(substring annotation 1)
-      annotation)))
+  (cond ((string= annotation "")
+	 "")
+	((eq (aref annotation 0) ?*)
+	 (substring annotation 1))
+	(t
+	 annotation)))
 
+(defun skkannot-sit-for (seconds &optional listing-p)
+  (condition-case nil
+      (sit-for seconds)
+    (quit
+     (with-current-buffer skkannot-buffer-origin
+       (cond
+	(listing-p
+	 (skk-escape-from-show-candidates 0))
+	(t
+	 (keyboard-quit)))))))
+
+;;; $B%"%N%F!<%7%g%sI=<(5!G=(B
 ;;;###autoload
 (defun skk-annotation-find-and-show (pair)
-  ;; $B%_%K%P%C%U%!$K$$$k$H$-M>7W$J%a%C%;!<%8$r%/%j%"$9$k(B
-  (when (or skk-isearch-switch
-	    (skk-in-minibuffer-p))
-    (message nil))
+  "$B3F<o%j%=!<%9$+$i%"%N%F!<%7%g%s$r<hF@$7I=<($9$k!#(B"
+  (skkannot-check-lookup)
+  (skkannot-clear-msg)
   ;;
-  (when (and (car-safe pair)
-	     (not (cdr-safe pair)))
-    ;; Wikipedia $B$N(B URL $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
-    (setcdr pair (or (car (skk-annotation-wikipedia-cache (car pair)))
-		     (when skk-annotation-show-wikipedia-url
-		       (skk-annotation-treat-wikipedia (car pair))))))
-  (skk-annotation-show (or (cdr pair) "") (car pair)))
+  (let ((word (car-safe pair))
+	(note (cdr-safe pair))
+	(srcs skk-annotation-other-sources)
+	list)
+    (when skk-annotation-first-candidate
+      (setq skkannot-remaining-delay skk-annotation-delay
+	    skk-annotation-first-candidate nil))
+    (when (and (skkannot-in-normal-buffer-p)
+	       word
+	       (or skk-annotation-lookup-lookup
+		   skk-annotation-lookup-DictionaryServices
+		   (and skk-annotation-lookup-dict
+			(skkannot-dict-exec-find))))
+      ;; Mac $B$N!V<-=q!W$"$k$$$O(B dict ($B30It%W%m%0%i%`(B) $B$N@_Dj$,$"$l$P(B
+      ;; SKK $B<-=q$N%"%N%F!<%7%g%s$h$jM%@h$5$;$k(B
+      (setq note nil)
+      (when skk-annotation-lookup-lookup
+	(setq note (skk-lookup-get-content word)))
+      (when (and (null note)
+		 (eq system-type 'darwin)
+		 skk-annotation-lookup-DictionaryServices)
+	(catch '$B<-=q(B
+	  (setq note (skk-annotation-lookup-DictionaryServices word))))
+      (when (and (null note)
+		 skk-annotation-lookup-dict
+		 (skkannot-dict-exec-find))
+	(catch 'dict
+	  (setq note (skk-annotation-lookup-dict word))
+	  ;; $BM>M5$,$"$l$P<!8uJd$N0UL#$r@hFI$_(B
+	  (dotimes (i (min (length skk-henkan-list) 4))
+	    (add-to-list 'list (nth i skk-henkan-list) t))
+	  (when list
+	    (dolist (el list)
+	      (setq el (car (skk-treat-strip-note-from-word el)))
+	      (unless (equal word el)
+		(skk-annotation-preread-dict el))))))
+      (unless note
+	(setq note (cdr-safe pair))))
+    (when (and word (not note))
+      ;; Wikipedia $B$J$I$=$NB>$N%j%=!<%9$+$i$N%-%c%C%7%e$,$"$l$P(B
+      ;; $B$=$l$rI=<($9$k!#(B
+      (unless skkannot-cached-srcs
+	(while srcs
+	  (unless (memq (car srcs) '(lookup.el))
+	    (add-to-list 'skkannot-cached-srcs (car srcs) t))
+	  (setq srcs (cdr srcs))))
+      (setq note (car (skkannot-cache word skkannot-cached-srcs))))
+    ;;
+    (setq skkannot-buffer-origin (current-buffer))
+    (cond
+     ((or (<= skkannot-remaining-delay 0)
+	  (skkannot-sit-for skkannot-remaining-delay))
+      (setq skkannot-remaining-delay 0)
+      (skk-annotation-show (or note "") word
+			   (unless skk-annotation-lookup-lookup
+			     skkannot-cached-srcs)))
+     (t
+      (setq skkannot-remaining-delay skk-annotation-delay)
+      (skk-annotation-show "" word (unless skk-annotation-lookup-lookup
+				     skkannot-cached-srcs))))))
 
 ;;;###autoload
 (defun skk-annotation-show (annotation &optional word sources)
@@ -319,207 +381,11 @@
 	  ((and window-system skk-show-tooltip)
 	   (skk-tooltip-show-at-point annotation 'annotation))
 	  ((and skk-annotation-show-as-message
-		(not (or skk-isearch-switch
-			 (skk-in-minibuffer-p))))
+		(skkannot-in-normal-buffer-p))
 	   (skk-annotation-show-as-message annotation))
 	  (t
 	   (skk-annotation-show-buffer annotation)))
     inhibit-wait))
-
-(defun skk-annotation-wait-for-input (annotation notes &optional word sources)
-  (let* ((copy-command (key-binding skk-annotation-copy-key))
-	 (browse-command (key-binding skk-annotation-browse-key))
-	 (list (list copy-command browse-command))
-	 event key command urls note cache char digit)
-    (while (and list
-		(or (eq this-command 'skk-annotation-wikipedia-region)
-		    (eq skk-henkan-mode 'active))
-		(if digit
-		    t
-		  (skk-annotation-message (if (and annotation
-						   (> (length annotation) 0))
-					      'annotation
-					    nil)))
-		(condition-case nil
-		    (progn
-		      (setq event (next-command-event)
-			    key (skk-event-key event)
-			    command (key-binding
-				     (static-if (featurep 'xemacs)
-					 event
-				       key)))
-		      ;; Return value of the following expression is important.
-		      (or (memq command list)
-			  (eq command 'digit-argument)
-			  (eq command 'skk-annotation-wikipedia-region)
-			  (equal (key-description key)
-				 (key-description
-				  skk-annotation-wikipedia-key))))
-		  (quit
-		   (static-when
-		       (and (featurep 'xemacs)
-			    (= emacs-major-version 21)
-			    (<= emacs-minor-version 4))
-		     ;; workaround
-		     (keyboard-quit)))))
-      (cond ((eq command copy-command)
-	     (setq list (delq copy-command list))
-	     (unless (equal annotation "")
-	       (kill-new (substring-no-properties annotation))
-	       (skk-message "$B8=:_$NCm<a$r%3%T!<$7$^$7$?(B"
-			    "Copying the current note...done")
-	       (setq event nil
-		     digit nil
-		     char  nil)
-	       (skk-annotation-show-2 annotation)))
-	    ((eq command browse-command)
-	     (setq list (delq browse-command list))
-;	     (setq urls (delq nil (mapcar #'skk-annotation-find-url notes)))
-	     (when word
-	       (cond ((setq cache
-			    (skk-annotation-wikipedia-cache word sources))
-		      (setq urls
-			    (cons (apply
-				   #'skk-annotation-generate-url
-				   "http://%s.org/wiki/%s"
-				   ;; split-string $B$NHs8_49@-$KG[N8(B
-				   (static-if (and (string-match
-						    "^GNU"
-						    (emacs-version))
-						   (<= emacs-major-version 21))
-				       (cdr (split-string (cdr cache) " "))
-				     (cdr (split-string (cdr cache) " " t))))
-				  urls)))
-		     (skk-annotation-show-wikipedia-url
-		      (add-to-list 'urls
-				   (skk-annotation-generate-url
-				    "http://ja.wikipedia.org/wiki/%s"
-				    word)))))
-	     (unless (equal annotation "")
-	       (cond
-		(urls
-		 (dolist (url urls)
-		   (browse-url url))
-		 (skk-message "$BCm<a$N$?$a$N%5%$%H$r%V%i%&%:$7$F$$$^$9(B..."
-			      "Browsing web sites for the current notes..."))
-		(t
-		 (skk-message "$BCm<a$N$?$a$N%5%$%H$,8+$D$+$j$^$;$s(B"
-			      "No web sites found for the current notes")))
-	       (setq event nil
-		     digit nil
-		     char  nil)
-	       (skk-annotation-show-2 annotation)))
-	    ((eq command 'digit-argument)
-	     (setq char  (static-if (featurep 'xemacs)
-			     key
-			   (if (integerp event)
-			       event
-			     (get event 'ascii-character)))
-		   digit (- (logand char ?\177) ?0)
-		   event nil))
-	    ((or (equal (key-description key)
-			(key-description skk-annotation-wikipedia-key))
-		 (eq command 'skk-annotation-wikipedia-region))
-	     (setq sources
-		   (if (and digit
-			    (> digit 0)
-			    (<= digit
-				(length skk-annotation-wikipedia-sources)))
-		       (list (nth (1- digit)
-				  skk-annotation-wikipedia-sources))
-		     skk-annotation-wikipedia-sources))
-	     (setq event nil
-		   digit nil
-		   char  nil)
-	     (when word
-	       (let ((skk-annotation-show-wikipedia-url nil))
-		 (setq note (skk-annotation-treat-wikipedia word sources))))
-	     (cond ((null note)
-		    (setq note annotation))
-		   (t
-		    (setq annotation note)))
-	     (unless (equal note "")
-	       (add-to-list 'list browse-command)
-	       (add-to-list 'list copy-command)
-	       (skk-annotation-show-2 (or note annotation))))
-	    (t
-	     (setq list nil))))
-    (when event
-      (skk-unread-event event))))
-
-;;;###autoload
-(defun skk-annotation-message (&optional situation)
-  (when (and skk-verbose
-	     (not (or skk-isearch-switch
-		      (skk-in-minibuffer-p))))
-    (unless skk-annotation-wikipedia-message
-      (let* ((key (key-description skk-annotation-wikipedia-key))
-	     (string (format "{prefix %s}" (if (equal key "TAB")
-					       "C-i"
-					     key)))
-	     (i 0)
-	     source)
-	(while (setq source (nth i skk-annotation-wikipedia-sources))
-	  (setq string (format "%s[C-%d]%s" string (1+ i) source))
-	  (setq i (1+ i)))
-	(setq skk-annotation-wikipedia-message string)))
-    (unless skk-annotation-message
-      (let* ((key-copy (or (key-description skk-annotation-copy-key)
-			   "$BL$Dj5A(B"))
-	     (key-browse (or (key-description skk-annotation-browse-key)
-			     "$BL$Dj5A(B")))
-	(setq skk-annotation-message
-	      (format "{$B%"%N%F!<%7%g%s(B}[%s]$B%3%T!<(B[%s]URL$B%V%i%&%:(B"
-		      key-copy key-browse))))
-    (condition-case nil
-	(cond ((eq situation 'annotation)
-	       (if (skk-sit-for skk-verbose-wait)
-		   (let ((i 0))
-		     (catch 'loop
-		       (while (< i 20)
-			 (message "%s" skk-annotation-message)
-			 (unless (skk-sit-for 5.5)
-			   (throw 'loop nil))
-			 (message "%s" skk-annotation-wikipedia-message)
-			 (unless (skk-sit-for 5.5)
-			   (throw 'loop nil))
-			 (setq i (1+ i))))
-		     (message nil))
-		 nil))
-	      (t
-	       (when (skk-sit-for skk-verbose-wait)
-		 (message "%s" skk-annotation-wikipedia-message))))
-      (quit
-       (cond
-	((eq skk-henkan-mode 'active)
-	 (setq skk-henkan-count 0)
-	 (skk-unread-event
-	  (character-to-event
-	   (aref
-	    (car (where-is-internal 'skk-previous-candidate skk-j-mode-map))
-	    0))))
-	(t
-	 (keyboard-quit))))))
-  ;; $B>o$K(B t $B$rJV$9(B
-  t)
-
-(defun skk-annotation-find-url (string)
-  (let (url)
-    (with-temp-buffer
-      (insert string)
-      (goto-char (point-min))
-      (save-match-data
-	(while (and (not url)
-		    (re-search-forward "\\." nil t))
-	  (backward-char 1)
-	  (setq url (thing-at-point 'url))
-	  ;; http://foo $B$N$h$&$J(B URL $B$r@8@.$7$F$7$^$&$N$GBP:v(B
-	  (when (and url
-		     (not (string-match "\\." url)))
-	    (setq url nil))
-	  (unless url
-	    (forward-char 1)))))
-    url))
 
 (defun skk-annotation-show-buffer (annotation)
   (condition-case nil
@@ -527,43 +393,76 @@
 	(let ((minibuf-p (skk-in-minibuffer-p))
 	      event window)
 	  (skk-annotation-insert annotation)
-	  (cond
-	   (minibuf-p
-	    (if (setq window (get-buffer-window (skk-minibuffer-origin)))
-		(select-window window)
-	      (other-window 1))
-	    (unless (eq (next-window) (selected-window))
-	      (delete-other-windows)))
-	   (t
-	    (split-window-vertically)))
-	  (display-buffer skk-annotation-buffer)
+	  (cond (minibuf-p
+		 (if (setq window (get-buffer-window (skk-minibuffer-origin)))
+		     (select-window window)
+		   (other-window 1))
+		 (unless (eq (next-window) (selected-window))
+		   (delete-other-windows)))
+		(t
+		 (split-window-vertically)))
+	  ;;
+	  (skk-fit-window (display-buffer skk-annotation-buffer))
 	  (when minibuf-p
 	    (select-window (minibuffer-window)))
 	  ;;
 	  (skk-annotation-message 'annotation)
 	  ;;
 	  (setq event (next-command-event))
-	  (when (skk-key-binding-member
-		 (skk-event-key event)
-		 '(key-board-quit
-		   skk-kanagaki-bs
-		   skk-kanagaki-esc)
-		 skk-j-mode-map)
+	  (when (skk-key-binding-member (skk-event-key event)
+					'(key-board-quit
+					  skk-kanagaki-bs
+					  skk-kanagaki-esc)
+					skk-j-mode-map)
 	    (signal 'quit nil))
 	  (skk-unread-event event)))
     (quit
      ;; skk-previous-candidate $B$X(B
-     (setq skk-henkan-count 0)
-     (skk-unread-event
-      (character-to-event
-       (aref
-	(car (where-is-internal 'skk-previous-candidate
-				skk-j-mode-map))
-	0))))))
+     (skk-reset-henkan-count 0))))
 
 (defun skk-annotation-show-as-message (annotation)
   (message "%s" annotation))
 
+;;;###autoload
+(defun skk-annotation-display-p (test)
+  ;; TEST $B$O(B 'list $BKt$O(B 'minibuf
+  (skkannot-clear-msg)
+  ;;
+  (cond ((null skk-show-annotation)
+	 nil)
+	((and (listp skk-show-annotation)
+	      (eq (car skk-show-annotation) 'not)
+	      ;; (not ...)
+	      (memq test skk-show-annotation))
+	 ;; (not list), (not minibuf) or (not list minibuf)
+	 nil)
+	(t
+	 ;; non-nil
+	 t)))
+
+;;;###autoload
+(defun skk-annotation-toggle-display-p ()
+  (interactive)
+  (cond ((null skk-show-annotation)
+	 ;; do nothing
+	 nil)
+	((and (listp skk-show-annotation)
+	      (eq (car skk-show-annotation) 'not))
+	 ;; (not ...)
+	 (cond ((memq 'list skk-show-annotation)
+		(if (eq (length skk-show-annotation) 2)
+		    ;; (not list) -> t  i.e. turn on
+		    (setq skk-show-annotation t)
+		  ;; (not list minibuf) -> (not minibuf)
+		  (setq skk-show-annotation '(not minibuf))))
+	       (t
+		;; (not minibuf) -> (not list minibuf)  i.e. turn off
+		(setq skk-show-annotation '(not list minibuf)))))
+	(t
+	 ;; non-nil -> (not list)  i.e. turn off
+	 (setq skk-show-annotation '(not list)))))
+
+;;; $B%"%N%F!<%7%g%sA`:n5!G=(B
 (defun skk-annotation-setup ()
   (let ((skk-henkan-key (skk-get-last-henkan-datum 'henkan-key))
 	(skk-okuri-char (skk-get-last-henkan-datum 'okuri-char))
@@ -605,16 +504,16 @@
 ;;;###autoload
 (defun skk-annotation-add (&optional no-previous-annotation)
   "$B:G8e$K3NDj$7$?8l$K(B annotation $B$rIU$1$k!#(B
-$B4{$KIU$1$i$l$F$$$k(B annotation $B$,$"$l$P$=$l$rJT=8%P%C%U%!$K=PNO$9$k!#(B
-no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj2D(B\)
-$B4{$KIU$1$i$l$F$$$k(B annotation $B$rJT=8%P%C%U%!$K=PNO$7$J$$!#(B"
+$B4{$K(B annotation $B$,IU$1$i$l$F$$$l$P!"$=$l$rJT=8%P%C%U%!$K=PNO$9$k!#(B
+NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-add])
+$B$9$k$H!"4{$KIU$1$i$l$F$$$k(B annotation $B$rJT=8%P%C%U%!$K=PNO$7$J$$!#(B"
   (interactive "P")
   (save-match-data
     (skk-kakutei)
     (skk-annotation-setup)
     (let* ((plist (append
 		   '(intangible t read-only t)
-		   (static-if (eq skk-emacs-type 'xemacs)
+		   (if (featurep 'xemacs)
 		       '(start-closed t end-open t)
 		     '(front-sticky t rear-nonsticky t))))
 	   (wholestring (nth 2 skk-annotation-target-data))
@@ -629,9 +528,11 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
       (setq skk-annotation-original-window-configuration
 	    (current-window-configuration))
       (delete-other-windows)
-      (split-window-vertically)
-      (other-window 1)
-      (switch-to-buffer (get-buffer-create skk-annotation-buffer))
+;;       (split-window-vertically)
+;;       (other-window 1)
+;;       (switch-to-buffer (get-buffer-create skk-annotation-buffer))
+      (pop-to-buffer skk-annotation-buffer)
+
       (setq buffer-read-only nil
 	    skk-annotation-mode t)
       (skk-annotation-erase-buffer)
@@ -640,8 +541,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 ;; Add a note to word `%s' (this line will not be added to the note.)
 "
 	       realword))
-      (static-if (fboundp 'set-text-properties)
-	  (add-text-properties (point-min) (1- (point)) plist))
+      (add-text-properties (point-min) (1- (point)) plist)
       (when (and (not no-previous-annotation)
 		 annotation)
 	(insert annotation))
@@ -735,47 +635,6 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	 (when (re-search-forward ";[^/]*" end t)
 	   (delete-region (match-beginning 0) (match-end 0))))))))
 
-;;;###autoload
-(defun skk-annotation-display-p (test)
-  ;; $B%_%K%P%C%U%!$K$$$k$H$-M>7W$J%a%C%;!<%8$r%/%j%"$9$k(B
-  (when (or skk-isearch-switch
-	    (skk-in-minibuffer-p))
-    (message nil))
-  ;;
-  (cond ((eq skk-show-annotation nil)
-	 nil)
-	((and (listp skk-show-annotation)
-	      (eq (car skk-show-annotation) 'not)
-	      ;; (not ...)
-	      (memq test skk-show-annotation))
-	 ;; (not list), (not minibuf) or (not list minibuf)
-	 nil)
-	(t
-	 ;; non-nil
-	 t)))
-
-;;;###autoload
-(defun skk-annotation-toggle-display-p ()
-  (interactive)
-  (cond ((eq skk-show-annotation nil)
-	 ;; do nothing
-	 nil)
-	((and (listp skk-show-annotation)
-	      (eq (car skk-show-annotation) 'not))
-	 ;; (not ...)
-	 (cond ((memq 'list skk-show-annotation)
-		(if (eq (length skk-show-annotation) 2)
-		    ;; (not list) -> t  i.e. turn on
-		    (setq skk-show-annotation t)
-		  ;; (not list minibuf) -> (not minibuf)
-		  (setq skk-show-annotation '(not minibuf))))
-	       (t
-		;; (not minibuf) -> (not list minibuf)  i.e. turn off
-		(setq skk-show-annotation '(not list minibuf)))))
-	(t
-	 ;; non-nil -> (not list)  i.e. turn off
-	 (setq skk-show-annotation '(not list)))))
-
 (defun skk-annotation-last-word-1 (function)
   ;; funcall FUNCTION with BEG and END where BEG and END are markers.
   (let ((inhibit-quit t)
@@ -799,7 +658,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 			skk-okuri-ari-max nil)
 		    t nil)
 	    (goto-char (match-beginning 1))
-	    (set-marker eol (skk-save-point (end-of-line) (point)))
+	    (set-marker eol (line-end-position))
 	    (when (string-match ";" word)
 	      (setq word (substring word 0 (match-beginning 0))))
 	    (when (re-search-forward
@@ -839,32 +698,543 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	 (unless quiet
 	   (message "%s" "Quoted")))))))
 
+;;; $B%"%N%F!<%7%g%s(B UI $B3HD%5!G=(B
+(defun skk-annotation-wait-for-input (annotation notes &optional word sources)
+  "$B%"%N%F!<%7%g%sI=<(;~$K%-!<F~NO$rJaB*$9$k!#(B
+$B%-!<F~NO$NFbMF$K$h$C$F%"%N%F!<%7%g%s$N%3%T!<!">pJs8;(B URL $B$N%V%i%&%:!"$^$?$O(B
+$BJL$N>pJs8;$+$i$N0UL#<hF@$r9T$&!#(B"
+  (let* ((copy-command (key-binding skk-annotation-copy-key))
+	 (browse-command (key-binding skk-annotation-browse-key))
+	 (list (list copy-command browse-command))
+	 event key command urls note cache char digit exit)
+    (while (and (not exit)
+		list
+		(or (memq this-command
+			  '(skk-annotation-wikipedia-region-or-at-point
+			    skk-annotation-lookup-region-or-at-point))
+		    (eq skk-henkan-mode 'active))
+		(if digit
+		    t
+		  (skk-annotation-message (if (and annotation
+						   (> (length annotation) 0))
+					      'annotation
+					    nil)))
+		(condition-case nil
+		    (progn
+		      (setq event (next-command-event)
+			    key (skk-event-key event)
+			    command (key-binding
+				     (if (featurep 'xemacs) event key)))
+		      ;; Return value of the following expression is important.
+		      (or (memq command list)
+			  (eq command 'digit-argument)
+			  (memq command
+				'(skk-annotation-wikipedia-region-or-at-point
+				  skk-annotation-lookup-region-or-at-point))
+			  (equal (key-description key)
+				 (key-description
+				  skk-annotation-wikipedia-key))))
+		  (quit
+		   (when (eval-when-compile (and (featurep 'xemacs)
+						 (= emacs-major-version 21)
+						 (= emacs-minor-version 4)))
+		     ;; workaround for XEmacs 21.4
+		     (keyboard-quit)))))
+      (cond ((eq command copy-command)
+	     (setq list (delq copy-command list))
+	     (unless (equal annotation "")
+	       (kill-new (substring-no-properties annotation))
+	       (skk-message "$B8=:_$NCm<a$r%3%T!<$7$^$7$?(B"
+			    "Copying the current note...done")
+	       (setq event nil
+		     digit nil
+		     char  nil)
+	       (skk-annotation-show-2 annotation)))
+	    ((eq command browse-command)
+	     (setq list (delq browse-command list))
+	     (setq urls nil)
+	     (when (and word (setq cache (skkannot-cache word sources)))
+	       (let ((url (cond
+			   ((string= (cdr cache) "dict")
+			    (format "dict:///%s" word))
+			   ((string= (cdr cache) "lookup.el")
+			    (list 'lookup-word word))
+			   (t
+			    (apply #'skkannot-generate-url
+				   "http://%s.org/wiki/%s"
+				   (cdr (split-string (cdr cache) " " t)))))))
+		 (when url
+		   (setq urls (cons url urls)))))
+	     (unless (equal annotation "")
+	       (cond
+		(urls
+		 (dolist (url urls)
+		   (cond ((consp url)
+			  (setq exit t)
+			  (apply (car url) (cdr url)))
+			 (t
+			  (browse-url url))))
+		 (skk-message "$BCm<a$N%=!<%9$r%V%i%&%:$7$F$$$^$9(B..."
+			      "Browsing originals for the current notes..."))
+		(t
+		 (skk-message "$BCm<a$N%=!<%9$,8+$D$+$j$^$;$s(B"
+			      "No originals found for the current notes")))
+	       (setq event nil
+		     digit nil
+		     char  nil)
+	       (unless exit
+		 (skk-annotation-show-2 annotation))))
+	    ((eq command 'digit-argument)
+	     (setq char  (cond ((featurep 'xemacs)
+				key)
+			       ((integerp event)
+				event)
+			       (t
+				(get event 'ascii-character)))
+		   digit (- (logand char ?\177) ?0)
+		   event nil))
+	    ((or (equal (key-description key)
+			(key-description skk-annotation-wikipedia-key))
+		 (memq command
+		       '(skk-annotation-wikipedia-region-or-at-point
+			 skk-annotation-lookup-region-or-at-point)))
+	     (setq sources
+		   (if (and digit
+			    (> digit 0)
+			    (<= digit
+				(length skk-annotation-other-sources)))
+		       (list (nth (1- digit)
+				  skk-annotation-other-sources))
+		     skk-annotation-other-sources))
+	     (setq event nil
+		   digit nil
+		   char  nil)
+	     (when word
+	       (setq note (skk-annotation-wikipedia word sources)))
+	     (cond ((null note)
+		    (setq note annotation))
+		   (t
+		    (setq annotation note)))
+	     (unless (equal note "")
+	       (add-to-list 'list browse-command)
+	       (add-to-list 'list copy-command)
+	       (skk-annotation-show-2 (or note annotation))))
+	    (t
+	     (setq list nil))))
+    (when event
+      (skk-unread-event event))))
+
+;;;###autoload
+(defun skk-annotation-message (&optional situation)
+  (when (and skk-verbose (skkannot-in-normal-buffer-p))
+    (unless skk-annotation-wikipedia-message
+      (let ((key (key-description skk-annotation-wikipedia-key))
+	    (string "")
+	    list new)
+	(when (equal key "TAB")
+	  (setq key "C-i"))
+	(setq list
+	      (delete ""
+		      (split-string
+		       (dotimes (i (length skk-annotation-other-sources) string)
+			 (setq string
+			       (format "%s[C-%d %s]%s  "
+				       string
+				       (1+ i)
+				       key
+				       (nth i skk-annotation-other-sources))))
+		       "  ")))
+	(dolist (x list)
+	  (let* ((y (split-string x "]"))
+		 (s1 (car y))
+		 (s2 (nth 1 y)))
+	    (setq new (concat new
+			      (propertize (concat s1 "]") 'face
+					  'skk-verbose-kbd-face)
+			      s2 " "))))
+	(setq skk-annotation-wikipedia-message
+	      (concat (propertize "{$B$I$l$r;2>H(B?}" 'face
+				  'skk-verbose-intention-face)
+		      new))))
+    ;;
+    (unless skk-annotation-message
+      (let ((key-copy (or (key-description skk-annotation-copy-key)
+			  "$BL$Dj5A(B"))
+	    (key-wiki (or (key-description skk-annotation-wikipedia-key)
+			  "$BL$Dj5A(B"))
+	    (key-browse (or (key-description skk-annotation-browse-key)
+			    "$BL$Dj5A(B"))
+	    list new)
+	(when (equal key-wiki "TAB")
+	  (setq key-wiki "C-i"))
+	(setq list
+	      (split-string
+	       (format "[%s]$B%3%T!<(B  [%s]$B%V%i%&%:(B  [%s]$B%G%U%)%k%H$N%=!<%9$r;2>H(B"
+		       key-copy key-browse key-wiki) "  "))
+	(dolist (x list)
+	  (let* ((y (split-string x "]"))
+		 (s1 (car y))
+		 (s2 (nth 1 y)))
+	    (setq new (concat new
+			      (propertize (concat s1 "]") 'face
+					  'skk-verbose-kbd-face)
+			      s2 " "))))
+	(setq skk-annotation-message
+	      (concat (propertize "{$B%"%N%F!<%7%g%s(B}" 'face
+				  'skk-verbose-intention-face)
+		      new))))
+    ;;
+    (condition-case nil
+	(cond ((eq situation 'annotation)
+	       (if (sit-for skk-verbose-wait)
+		   (let ((i 0))
+		     (catch 'loop
+		       (while (< i 20)
+			 (message "%s" skk-annotation-message)
+			 (unless (sit-for skk-verbose-message-interval)
+			   (throw 'loop nil))
+			 (message "%s" skk-annotation-wikipedia-message)
+			 (unless (sit-for skk-verbose-message-interval)
+			   (throw 'loop nil))
+			 (setq i (1+ i))))
+		     (message nil))
+		 nil))
+	      ;;
+	      (t
+	       (when (sit-for skk-verbose-wait)
+		 (message "%s" skk-annotation-wikipedia-message))))
+      (quit
+       (when (eq skk-henkan-mode 'active)
+	 (skk-reset-henkan-count 0)))))
+  ;; $B>o$K(B t $B$rJV$9(B
+  t)
+
+;;;###autoload
+(defun skk-annotation-lookup-region-or-at-point (&optional prefix-arg
+							   start end)
+  "$BA*BrNN0h$^$?$O%]%$%s%H0LCV$NC18l$r<-=q$GD4$Y$k!#(B
+$B<-=q$H$7$F$O(B lookup.el$B!"(BMac OS X $B$N<-=q%5!<%S%9!"(BWikipedia/Wikitionary $B$J$I$,(B
+$BMxMQ$5$l$k!#(B
+
+$BNN0h$,A*Br$5$l$F$$$J$1$l$PC18l$N;O$a$H=*$o$j$r?dB,$7$FD4$Y$k!#(B
+
+$BD4$Y$?7k2L$r(B `skk-annotation-show-as-message' $B$,(B Non-nil $B$G$"$l$P%(%3!<%(%j%"(B
+$B$K!"(Bnil $B$G$"$l$PJL(B window $B$KI=<($9$k!#(B"
+  (interactive (cons (prefix-numeric-value current-prefix-arg)
+		     (cond
+		      ((skk-region-active-p)
+		       (list (region-beginning) (region-end)))
+		      ((eq skk-henkan-mode 'on)
+		       (list (marker-position skk-henkan-start-point)
+			     (point)))
+		      (t
+		       ;; dummy
+		       (list 1 1)))))
+  (skkannot-check-lookup)
+  (skkannot-clear-msg)
+  ;;
+  (let ((word (if (and (= start 1) (= end 1))
+		  ;; region $B$,(B active $B$G$J$$$H$-$O!$%]%$%s%H$K$"$k(B
+		  ;; $BC18l$r?dB,$9$k(B
+		  (thing-at-point 'word)
+		(buffer-substring-no-properties start end)))
+	(sources
+	 (if (and current-prefix-arg
+		  (> prefix-arg 0)
+		  (<= prefix-arg (length skk-annotation-other-sources)))
+	     (list (nth (1- prefix-arg) skk-annotation-other-sources))
+	   skk-annotation-other-sources))
+	note)
+    (when (and word
+	       (> (length word) 0))
+      (setq note (or (car (skkannot-cache word sources))
+		     (skk-annotation-wikipedia word sources)))
+      (skk-annotation-show (or note "") word sources))))
+
+
+;;; Mac OS X $B<-=q%5!<%S%94XO"5!G=(B
+(defsubst skkannot-DictServ-command (word)
+  (format skkannot-DictServ-cmd-format-str word "%" "%"))
+
+(defsubst skkannot-dict-buffer-format (word)
+  "dict $B$NFbMF$r3JG<$9$k%P%C%U%!$N%U%)!<%^%C%H!#(B"
+  (format "  *skk dict %s" word))
+
+(declare-function comint-send-string "comint")
+(defun skkannot-py-send-string (string)
+  "Evaluate STRING in inferior Python process."
+  (require 'comint)
+  (let ((proc (get-buffer-process skkannot-py-buffer)))
+    (comint-send-string proc string)
+    (unless (string-match "\n\\'" string)
+      ;; Make sure the text is properly LF-terminated.
+      (comint-send-string proc "\n"))
+    (when (string-match "\n[ \t].*\n?\\'" string)
+      ;; If the string contains a final indented line, add a second newline so
+      ;; as to make sure we terminate the multiline instruction.
+      (comint-send-string proc "\n"))))
+
+(declare-function compilation-forget-errors "compile")
+(defun skkannot-py-send-command (command)
+  "Like `skkannot-py-send-string' but resets `compilation-shell-minor-mode'."
+  (when (or (eval-when-compile (and (featurep 'emacs)
+				    (= emacs-major-version 22)))
+	    (python-check-comint-prompt (get-buffer-process
+					 skkannot-py-buffer)))
+    (with-current-buffer skkannot-py-buffer
+      (goto-char (point-max))
+      (compilation-forget-errors)
+      (skkannot-py-send-string command)
+      (setq compilation-last-buffer (current-buffer)))))
+
+;;;###autoload
+(defun skk-annotation-start-python (&optional wait)
+  "OS X $B$N!V<-=q!W$rMxMQ$9$k$?$a$K(B python $B$r5/F0$9$k!#(B"
+  (require 'python)
+  (cond
+   ((buffer-live-p skkannot-py-buffer)
+    skkannot-py-buffer)
+   (t
+    ;; python + readline $B$G(B UTF-8 $B$NF~NO$r$9$k$?$a$K(B LANG $B$N@_Dj$,I,MW!#(B
+    (let ((env (getenv "LANG"))
+	  (orig-py-buffer (default-value 'python-buffer)))
+      (unless (equal env "Ja_JP.UTF-8")
+	(setenv "LANG" "ja_JP.UTF-8"))
+      (run-python skk-annotation-python-program t t)
+      (setenv "LANG" env)
+      (with-current-buffer python-buffer
+	(rename-buffer "  *skk python")
+	(setq-default python-buffer orig-py-buffer)
+	(setq python-buffer orig-py-buffer)
+	(setq skkannot-py-buffer (current-buffer))
+	;;
+	(font-lock-mode 0)
+	(set-buffer-multibyte t)
+	(skk-process-kill-without-query (get-buffer-process (current-buffer)))
+	(set-buffer-file-coding-system
+	 (if (eval-when-compile (<= emacs-major-version 22))
+	     'emacs-mule
+	   'utf-8-emacs))
+	(set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)
+	;;
+	(skkannot-py-send-command "import DictionaryServices")
+	(cond ((and wait (skkannot-sit-for 1.0))
+	       (setq skkannot-remaining-delay
+		     (- skkannot-remaining-delay 1.0)))
+	      (wait
+	       (throw '$B<-=q(B nil))
+	      (t
+	       nil))
+	;;
+	skkannot-py-buffer)))))
+
+(defun skkannot-DictServ-cache (word truncate)
+  "OS X $B$N!V<-=q!W$+$i$3$l$^$G$K<hF@:Q$N%"%N%F!<%7%g%s$rC5$9!#(B"
+  (let (success pt)
+    (skk-save-point
+     (goto-char (point-max))
+     (cond
+      ((re-search-backward (regexp-quote
+			    (format " %s in DictionaryServices" word))
+			   nil t)
+       (forward-line 1)
+       (beginning-of-line)
+       (setq pt (point))
+       (setq success (re-search-forward "^>>> " nil t))
+       (unless success
+	 (unless (skkannot-sit-for skk-annotation-loop-interval truncate)
+	   (unless truncate
+	     (throw '$B<-=q(B nil)))
+	 (setq success (re-search-forward "^>>> " nil t)))
+       (cond
+	(success
+	 (forward-line  -1)
+	 (end-of-line)
+	 (when (>= pt (point))
+	   (forward-line 1)
+	   (end-of-line))
+	 (when (eq (point-at-bol) (point-at-eol))
+	   (forward-line -1)
+	   (end-of-line))
+	 (buffer-substring-no-properties pt (point)))
+	(t
+	 nil)))
+      (t
+       nil)))))
+
+;;;###autoload
+(defun skk-annotation-lookup-DictionaryServices (word &optional truncate force)
+  "python $B$r2p$7$F(B DictionaryServices $B$rMxMQ$7%"%N%F!<%7%g%s$r<hF@$9$k!#(B
+$B%*%W%7%g%s0z?t(B TRUNCATE $B$,(B non-nil $B$N>l9g$O8uJd0lMwMQ$KC;$$%"%N%F!<%7%g%s(B
+$B$K9J$j$3$`!#(B"
+  (when (or skk-annotation-lookup-DictionaryServices force)
+    (skk-annotation-start-python (not truncate))
+    (let ((command (skkannot-DictServ-command word))
+	  (process (get-buffer-process skkannot-py-buffer))
+	  (loopint skk-annotation-loop-interval)
+	  output)
+      (with-current-buffer skkannot-py-buffer
+	(unless (setq output (skkannot-DictServ-cache word truncate))
+	  (goto-char (point-max))
+	  (skkannot-py-send-command command)
+	  (cond ((and (skkannot-sit-for loopint truncate)
+		      (not truncate))
+		 (setq skkannot-remaining-delay
+		       (- skkannot-remaining-delay loopint)))
+		(t
+		 (unless truncate
+		   (throw '$B<-=q(B nil))))
+	  (accept-process-output process loopint)
+	  (goto-char (point-max))
+	  (setq output (or (skkannot-DictServ-cache word truncate)
+			   "None")))
+	(unless (string-match skkannot-py-none-regexp output)
+	  (cond
+	   (truncate
+	    (with-temp-buffer
+	      (set-buffer-multibyte t)
+	      (insert output)
+	      (goto-char (point-min))
+	      (when (re-search-forward "[;,.$B!"!#!(!C(B]" nil t)
+		(beginning-of-line)
+		(buffer-substring (point) (match-beginning 0)))))
+	   (t
+	    output)))))))
+
+;;; $B30It%W%m%0%i%`$+$i$N%"%N%F!<%7%g%s<hF@5!G=(B
+(defun skkannot-start-dict-process (buffer word)
+  "dict $B$N%W%m%;%9$r5/F0$9$k!#(B"
+  (let ((process-connection-type nil)
+	(word (encode-coding-string word skk-annotation-dict-coding-system))
+	process)
+    (make-local-variable 'coding-system-for-read)
+    (setq coding-system-for-read 'undecided)
+    (prog1
+	(setq process (apply #'start-process (buffer-name buffer) buffer
+			     skk-annotation-dict-program
+			     (append skk-annotation-dict-program-arguments
+				     (list word))))
+      (skk-process-kill-without-query process))))
+
+;;;###autoload
+(defun skk-annotation-preread-dict (word &optional nowait)
+  "dict $B$N%W%m%;%9$r5/F0$9$k!#@hFI$_$N$?$a$KMQ$$$k!#(B"
+  (let ((buffer (get-buffer-create (skkannot-dict-buffer-format word)))
+	(text "")
+	(loopint 0.01))
+    (setq skkannot-buffer-origin (current-buffer))
+    (with-current-buffer buffer
+      (setq text (buffer-string))
+      (when (string= text "")
+	(unless (get-process (buffer-name buffer))
+	  (skkannot-start-dict-process buffer word)
+	  (unless nowait
+	    (cond ((skkannot-sit-for loopint)
+		   (setq skkannot-remaining-delay
+			 (- skkannot-remaining-delay loopint)))
+		  (t
+		   (throw 'dict nil)))))))))
+
+;;;###autoload
+(defun skk-annotation-lookup-dict (word &optional truncate)
+  "dict $B$N%W%m%;%9$rI,MW$J$i5/F0$7!"7k2L$rD4$Y$k!#(B
+$B0UL#$,<hF@$G$-$?>l9g$K$O7k2L$rJ8;zNs$H$7$FJV$9!#(B"
+  (let ((buffer (get-buffer-create (skkannot-dict-buffer-format word)))
+	(text "")
+	(no-user-input t)
+	(loopint skk-annotation-loop-interval)
+	process)
+    (setq skkannot-buffer-origin (current-buffer))
+    (with-current-buffer buffer
+      (setq text (buffer-string))
+      (when (string= text "")
+	(unless (setq process (get-process (buffer-name buffer)))
+	  (setq process (skkannot-start-dict-process buffer word)))
+	(cond
+	 (truncate
+	  (while (eq (process-status process) 'run)
+	    (sleep-for loopint))
+	  (sleep-for loopint))
+	 (t
+	  (while (and no-user-input
+		      (eq (process-status process) 'run))
+	    (when (setq no-user-input (skkannot-sit-for loopint truncate))
+	      (setq skkannot-remaining-delay
+		    (- skkannot-remaining-delay loopint))))
+	  (if no-user-input
+	      (sleep-for 0.01)
+	    (throw 'dict nil)))))
+      (goto-char (point-max))
+      (forward-line -1)
+      (cond
+       ((looking-at "^Process .+ finished$")
+	(cond
+	 (truncate
+	  (goto-char (point-min))
+	  (cond
+	   ((re-search-forward "[$B!"!#(B]" nil t)
+	    (beginning-of-line)
+	    (setq text (buffer-substring (point) (match-beginning 0))))
+	   (t
+	    (erase-buffer)
+	    (insert " ")
+	    (setq text ""))))
+	 (t
+	  (forward-line -1)
+	  (setq text (buffer-substring (point-min) (point))))))
+       (t
+	(erase-buffer)
+	(insert " ")
+	(setq text ""))))
+    (unless (string= text "")
+      text)))
+
+;;; Wiktionary/Wikipedia $B%"%N%F!<%7%g%s(B
 ;;;###autoload
 (defun skk-annotation-wikipedia (word &optional sources)
   "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$+$i%"%N%F!<%7%g%s$r<hF@$9$k!#(B"
-  (let ((sources (or sources skk-annotation-wikipedia-sources))
+  (let ((sources (or sources skk-annotation-other-sources))
 	source
+	words
 	(string "")
 	(note nil))
     ;; sources $B$K;XDj$5$l$?=gHV$K;2>H$9$k(B
-    (if (catch 'skk-annotation-wikipedia-suspended
+    (if (catch 'skkannot-wikipedia-suspended
 	  (save-match-data
-	    (while (and (not note)
+	    (while (and (or (not note) (equal note ""))
 			sources)
 	      (setq source (car sources))
-	      ;; Wiktionary $B$G$O$=$N$^$^!"(BWikipedia $B$G$OBh(B 1 $BJ8;z$N$_(B upcase
-	      (setq note (skk-annotation-wikipedia-1 word source
-						     (= 1 (length sources))))
-	      ;;
-	      (when (and (null note)
-			 (memq source '(en.wiktionary ja.wiktionary))
-			 (skk-ascii-char-p (aref word 0))
-			 (not (skk-lower-case-p (aref word 0))))
-		;; Wiktionary $B$G$9$Y$F(B downcase $B$9$k>l9g(B
-		(setq note (skk-annotation-wikipedia-1
-			    (downcase word)
-			    source
-			    (= 1 (length sources)))))
+	      (cond
+	       ((memq source '(dict DictionaryServices
+				    en.wiktionary ja.wiktionary))
+		(setq words (list word))
+		(when (skk-ascii-char-p (aref word 0))
+		  (cond
+		   ((skk-lower-case-p (aref word 0))
+		    ;; foo -> Foo, FOO
+		    (setq words (append words (list (upcase-initials word))))
+		    (if (>= (length word) 2)
+			(setq words (append words (list (upcase word))))))
+		   ((and (>= (length word) 2)
+			 (skk-lower-case-p (aref word 1)))
+		    ;; Foo -> foo, FOO
+		    (setq words (append words (list (downcase word) (upcase word)))))
+		   (t
+		    ;; FOO -> foo, Foo
+		    (setq words (append words (list (downcase word))))
+		    (if (>= (length word) 2)
+			(setq words (append words
+					    (list (upcase-initials word)))))))))
+	       (t
+		(setq words (list (upcase-initials word)))
+		(if (>= (length word) 2)
+		    (setq words (append words (list (upcase word)))))))
+	      (while (and (not note) words)
+		(setq note (skk-annotation-wikipedia-1 (car words) source t))
+		(sleep-for 0.01) ; $B$3$l$,$J$$$H;_$^$k$3$H$"$j(B
+		(setq words (cdr words))
+		(when (equal note "")
+		  (setq note nil)))
 	      ;;
 	      (setq string (format (if (string= "" string)
 				       "%s%s"
@@ -881,69 +1251,99 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
       ;;
       note)))
 
-(defun skk-annotation-wikipedia-clean-sup (p1 p2 p3 p4)
+(defun skkannot-wikipedia-clean-sup (p1 p2 p3 p4)
   (put-text-property p2 p3 'face 'underline)
   (save-excursion
     (goto-char p2)
     (insert "^"))
   (html2text-delete-tags p1 p2 (1+ p3) (1+ p4)))
 
-(defun skk-annotation-wikipedia-clean-sub (p1 p2 p3 p4)
+(defun skkannot-wikipedia-clean-sub (p1 p2 p3 p4)
   (put-text-property p2 p3 'face 'underline)
   (save-excursion
     (goto-char p2)
     (insert "_"))
   (html2text-delete-tags p1 p2 (1+ p3) (1+ p4)))
 
-(defun skk-annotation-wikipedia-1 (word source last)
+(defun skk-annotation-wikipedia-1 (word source &optional preserve-case)
   "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$r<B:]$K%@%&%s%m!<%I$7$FD4$Y$k!#(B
 $B3:Ev%Z!<%8(B (html) $B$r%@%&%s%m!<%I$9$k5!G=$O(B Emacs $B$KIUB0$N(B URL $B%Q%C%1!<%8$K0M(B
-$B$k!#E,@Z$J(B URL $B$r@8@.$9$k$?$a$K$O!"(B"
-  (require 'html2text)
-  (require 'url)
-  ;;
-  (setq word (skk-annotation-wikipedia-normalize-word word source))
-  ;;
-  (let ((cache-buffer (format " *skk %s %s" source word))
-	;; html2text $B$,@5$7$/07$($J$$(B tag $B$O0J2<$N%j%9%H$K;XDj$9$k(B
-	(html2text-remove-tag-list
-	 (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "h5" "small"
-		   "code")
-		 html2text-remove-tag-list))
-	(html2text-format-tag-list
-	 (append '(("sup" . skk-annotation-wikipedia-clean-sup)
-		   ("sub" . skk-annotation-wikipedia-clean-sub))
-		 html2text-format-tag-list))
-	buf buffer note)
-    (if (get-buffer cache-buffer)
-	(with-current-buffer cache-buffer
-	  (setq note (buffer-string)))
-      ;; $B%-%c%C%7%e$,$J$$>l9g(B
-      (setq buffer (url-retrieve (skk-annotation-generate-url
-				  "http://%s.org/wiki/%s"
-				  source word)
-				 #'skk-annotation-wikipedia-retrieved
-				 (list (list source))))
-      (while (not buf)
-	(setq buf (catch 'skk-annotation-wikipedia-retrieved
-		    (condition-case nil
-			(sleep-for 0.01)
-		      ((error)
-		       (kill-buffer buffer)
-		       (throw 'skk-annotation-wikipedia-suspended
-			      source))))))
-      (when (and (setq buffer buf)
-		 (buffer-live-p buffer))
-	(skk-annotation-wikipedia-format-buffer source buffer cache-buffer)))))
+$B$k!#(B"
+  (cond
+   ((eq source 'lookup.el)
+    (skk-lookup-get-content word nil))
+   ((eq source '$B<-=q(B)
+    (catch '$B<-=q(B
+      (skk-annotation-lookup-DictionaryServices word nil t)))
+   ((eq source 'dict)
+    (catch 'dict (skk-annotation-lookup-dict word)))
+   (t
+    (require 'html2text)
+    (require 'url)
+    ;;
+    (setq word (skkannot-wikipedia-normalize-word word source preserve-case))
+    ;;
+    (let ((cache-buffer (format "  *skk %s %s" source word))
+	  ;; html2text $B$,@5$7$/07$($J$$(B tag $B$O0J2<$N%j%9%H$K;XDj$9$k(B
+	  (html2text-remove-tag-list
+	   (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "h5" "small"
+		     "code")
+		   html2text-remove-tag-list))
+	  (html2text-format-tag-list
+	   (append '(("sup" . skkannot-wikipedia-clean-sup)
+		     ("sub" . skkannot-wikipedia-clean-sub))
+		   html2text-format-tag-list))
+	  (url-retrieve-func #'url-retrieve)
+	  buf buffer)
+      (if (get-buffer cache-buffer)
+	  (with-current-buffer cache-buffer
+	    (buffer-string))
+	;; $B%-%c%C%7%e$,$J$$>l9g(B
+	(setq buffer (funcall url-retrieve-func
+			      (skkannot-generate-url
+			       "http://%s.org/wiki/%s"
+			       source word)
+			      #'skkannot-wikipedia-retrieved
+			      (list (list source))))
+	(while (not buf)
+	  (setq buf (catch 'skkannot-wikipedia-retrieved
+		      (condition-case nil
+			  (sleep-for 0.01)
+			((error quit)
+			 (kill-buffer buffer)
+			 (throw 'skkannot-wikipedia-suspended
+				source))))))
+	(when (and (setq buffer buf)
+		   (buffer-live-p buffer))
+	  (skkannot-wikipedia-format-buffer source buffer
+						  cache-buffer)))))))
 
-(defun skk-annotation-wikipedia-format-buffer (source buffer cache-buffer)
+(defun skkannot-wikt-preferred-lang-regexp (lang)
+  (let ((head "<h2>.*<span class=\"mw-headline\".+>\\(<a href=.+>\\)?\\(")
+	(tail "\\)\\(</a>\\)?</span></h2>"))
+    (concat head lang tail)))
+
+(defun skkannot-wikt-find-preferred-langs (wiktlang)
+  (let ((langs (cdr (assoc wiktlang
+			   skk-annotation-wiktionary-preferred-lang-alist)))
+	(pt (point))
+	regexp)
+    (catch 'found
+      (dolist (lang langs)
+	(setq regexp (skkannot-wikt-preferred-lang-regexp lang))
+	(if (re-search-forward regexp nil t)
+	    (throw 'found t)
+	  (goto-char pt))))))
+
+(defun skkannot-wikipedia-format-buffer (source buffer cache-buffer)
+  "html $B$NM>7W$JMWAG$r=|5n$7!"(Bhtml2text $B$N5!G=$rMQ$$$F@07A$9$k!#(B"
   (let ((html2text-remove-tag-list
 	 (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "h5" "small"
 		   "code")
 		 html2text-remove-tag-list))
 	(html2text-format-tag-list
-	 (append '(("sup" . skk-annotation-wikipedia-clean-sup)
-		   ("sub" . skk-annotation-wikipedia-clean-sub))
+	 (append '(("sup" . skkannot-wikipedia-clean-sup)
+		   ("sub" . skkannot-wikipedia-clean-sub))
 		 html2text-format-tag-list))
 	note aimai continue nop point top pt1 pt2 btag etag end)
     (with-current-buffer buffer
@@ -969,19 +1369,18 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	    (delete-region (point-min) (point))
 	    ;;
 	    (goto-char (point-min))
-	    (when (re-search-forward
-		   skk-annotation-ja-wiktionary-lang-regexp
-		   nil t)
+	    (when (or (skkannot-wikt-find-preferred-langs "ja")
+		      (re-search-forward
+		       skkannot-ja-wiktionary-lang-regexp
+		       nil t))
 	      (save-excursion
 		(goto-char (match-end 2))
 		(insert ", "))
 	      (delete-region (point-min) (match-beginning 0))
 	      (setq top (point))
-	      (when (re-search-forward
-		     skk-annotation-ja-wiktionary-lang-regexp
-		     nil t)
-		(delete-region (setq pt1 (match-beginning 0))
-			       (point-max))))
+	      (when (re-search-forward skkannot-ja-wiktionary-lang-regexp
+				       nil t)
+		(delete-region (setq pt1 (match-beginning 0)) (point-max))))
 	    ;;
 	    (setq point top)
 	    (goto-char (point-min))
@@ -990,90 +1389,12 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	    (unless
 		(save-excursion
 		  (re-search-forward
-		   skk-annotation-ja-wiktionary-part-of-speech-regexp
+		   skkannot-ja-wiktionary-part-of-speech-regexp
 		   nil t))
 	      (setq point pt1))
 	    ;;
 	    (while (re-search-forward
-		    skk-annotation-ja-wiktionary-part-of-speech-regexp
-		    nil t)
-	      (setq nop t)
-	      (save-match-data
-		(when (looking-at "</h3>")
-		  (delete-region (match-beginning 0) (match-end 0))))
-	      (goto-char (match-beginning 0))
-	      (delete-region (or point (point-min)) (point))
-	      (when (re-search-forward "<\\(ol\\|dl\\)>" nil t)
-		(setq btag (match-string 0)
-		      etag (if (string= btag "<ol>")
-			       "</ol>"
-			     "</dl>")
-		      point nil
-		      pt1 (point)
-		      pt2 nil)
-		(while (and (not point)
-			    (search-forward etag nil t))
-		  (setq pt2 (point))
-		  (goto-char pt1)
-		  (if (and (search-forward btag nil t)
-			   (< (point) pt2))
-		      (progn
-			(goto-char pt2)
-			(setq pt1 (point)))
-		    (setq point pt2)
-		    (goto-char point)))))
-	    ;;
-	    ;; ja.wiktionary $B$N=q<0$,(B en.wiktionary $B$[$I@0$C$F$$$J$$$N$G(B
-	    ;; $B>C$7$9$.$F$7$^$&4m81@-$"$j!#(B
-	    (when point
-	      (delete-region point (point-max)))
-	    ;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
-	    ;; ja.wiktionary $B$O(B en.wiktionary $B$HA4$/E}0l$5$l$?=q$-J}$K$O(B
-	    ;; $B$J$C$F$$$J$$$N$G!"(Bul $B$r=|$/$H>pJs$,$[$H$s$I;D$i$J$$>l9g$,(B
-	    ;; $B$"$k(B
-	    ;; (skk-annotation-wikipedia-remove-nested "<ul>" "</ul>")
-	    (skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
-	    (skk-annotation-wikipedia-remove-nested "<table[^<]*>"
-						    "</table>")
-	    (skk-annotation-wikipedia-remove-nested "\
-<div class=\"\\(infl-table\\|thumb.+\\)\"[^<]*>" "</div>" "<div[^<]*>")
-	    ;;
-	    (goto-char (point-min))
-	    (while (re-search-forward
-		    "<span.*>\\[<a.+>$BJT=8(B</a>\\]</span>"
-		    nil t)
-	      (replace-match ""))))
-	 ;; en.wiktionary
-	 ((eq source 'en.wiktionary)
-	  (goto-char (point-min))
-	  (if (save-excursion
-		(re-search-forward "\
-\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\
-\\|:Badtitle\\)"
-				   nil t))
-	      ;; $B9`L\$,$J$$>l9g(B
-	      (erase-buffer)
-	    (search-forward "<!-- start content -->" nil t)
-	    (delete-region (point-min) (point))
-	    ;;
-	    (goto-char (point-min))
-	    (when (re-search-forward
-		   skk-annotation-en-wiktionary-lang-regexp
-		   nil t)
-	      (save-excursion
-		(goto-char (match-end 2))
-		(insert ", "))
-	      (delete-region (point-min) (match-beginning 0))
-	      (setq top (point))
-	      (when (re-search-forward
-		     skk-annotation-en-wiktionary-lang-regexp
-		     nil t)
-		(delete-region (match-beginning 0) (point-max))))
-	    ;;
-	    (setq point top)
-	    (goto-char (point-min))
-	    (while (re-search-forward
-		    skk-annotation-en-wiktionary-part-of-speech-regexp
+		    skkannot-ja-wiktionary-part-of-speech-regexp
 		    nil t)
 	      (setq nop t)
 	      (save-match-data
@@ -1109,13 +1430,95 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	    (when point
 	      (delete-region point (point-max)))
 	    ;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
-	    (skk-annotation-wikipedia-remove-nested "<ul>" "</ul>")
-	    (skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
-	    (skk-annotation-wikipedia-remove-nested "<table[^<]*>"
+	    ;; ja.wiktionary $B$O(B en.wiktionary $B$HA4$/E}0l$5$l$?=q$-J}$K$O(B
+	    ;; $B$J$C$F$$$J$$$N$G!"(Bul $B$r=|$/$H>pJs$,$[$H$s$I;D$i$J$$>l9g$,(B
+	    ;; $B$"$k(B
+	    (skkannot-wikipedia-remove-nested "<ul>" "</ul>")
+	    (skkannot-wikipedia-remove-nested "<dl>" "</dl>")
+	    (skkannot-wikipedia-remove-nested "<table[^<]*>"
 						    "</table>")
-	    (skk-annotation-wikipedia-remove-nested "\
+	    (skkannot-wikipedia-remove-nested "\
 <div class=\"\\(infl-table\\|thumb.+\\)\"[^<]*>" "</div>" "<div[^<]*>")
-	    (skk-annotation-wikipedia-remove-nested "\
+	    ;;
+	    (goto-char (point-min))
+	    (while (re-search-forward
+		    "<span.*>\\[<a.+>$BJT=8(B</a>\\]</span>"
+		    nil t)
+	      (replace-match ""))))
+	 ;; en.wiktionary
+	 ((eq source 'en.wiktionary)
+	  (goto-char (point-min))
+	  (if (save-excursion
+		(re-search-forward "\
+\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\
+\\|:Badtitle\\)"
+				   nil t))
+	      ;; $B9`L\$,$J$$>l9g(B
+	      (erase-buffer)
+	    (search-forward "<!-- start content -->" nil t)
+	    (delete-region (point-min) (point))
+	    ;;
+	    (goto-char (point-min))
+	    (when (or (skkannot-wikt-find-preferred-langs "en")
+		      (re-search-forward
+		       skkannot-en-wiktionary-lang-regexp
+		       nil t))
+	      (save-excursion
+		(goto-char (match-end 2))
+		(insert ", "))
+	      (delete-region (point-min) (match-beginning 0))
+	      (setq top (point))
+	      (when (re-search-forward
+		     skkannot-en-wiktionary-lang-regexp
+		     nil t)
+		(delete-region (match-beginning 0) (point-max))))
+	    ;;
+	    (setq point top)
+	    (goto-char (point-min))
+	    (while (re-search-forward
+		    skkannot-en-wiktionary-part-of-speech-regexp
+		    nil t)
+	      (setq nop t)
+	      (save-match-data
+		(when (looking-at "</h3>")
+		  (delete-region (match-beginning 0) (match-end 0))))
+	      (goto-char (match-beginning 0))
+	      (delete-region (or point (point-min)) (point))
+	      (cond
+	       ((re-search-forward "<\\(ol\\|dl\\)>" nil t)
+		(setq btag (match-string 0)
+		      etag (if (string= btag "<ol>")
+			       "</ol>"
+			     "</dl>")
+		      point nil
+		      pt1 (point)
+		      pt2 nil)
+		(while (and (not point)
+			    (search-forward etag nil t))
+		  (setq pt2 (point))
+		  (goto-char pt1)
+		  (if (and (search-forward btag nil t)
+			   (< (point) pt2))
+		      (progn
+			(goto-char pt2)
+			(setq pt1 (point)))
+		    (setq point pt2)
+		    (goto-char point))))
+	       (t
+		(goto-char (match-end 0))
+		(when (search-forward "</p>" nil t)
+		  (setq point (point))))))
+	    ;;
+	    (when point
+	      (delete-region point (point-max)))
+	    ;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
+	    (skkannot-wikipedia-remove-nested "<ul>" "</ul>")
+	    (skkannot-wikipedia-remove-nested "<dl>" "</dl>")
+	    (skkannot-wikipedia-remove-nested "<table[^<]*>"
+						    "</table>")
+	    (skkannot-wikipedia-remove-nested "\
+<div class=\"\\(infl-table\\|thumb.+\\)\"[^<]*>" "</div>" "<div[^<]*>")
+	    (skkannot-wikipedia-remove-nested "\
 <span class=\"interProject\">" "</span>")
 	    ;; Wikipedia $B$X$N0FFb$r=|$/(B
 	    (goto-char (point-min))
@@ -1147,18 +1550,13 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 	      (erase-buffer)
 	    (setq aimai
 		  (save-excursion
-		    (re-search-forward "<a href=\"/wiki/Wikipedia:\
-\\(%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF\\|Disambiguation\\)\""
-				       nil t)))
-	    (search-forward "<!-- start content -->" nil t)
-	    (delete-region (point-min) (point))
-	    ;; <div> $B$r=|5n$9$k(B
-	    (skk-annotation-wikipedia-remove-nested "<div.+>" "</div>")
+		    (re-search-forward "\
+wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
 	    ;; <span> $B$r=|5n$9$k(B
 	    (setq point nil)
 	    (goto-char (point-min))
-	    (while (re-search-forward
-		    "<span class=\"\\(.+audiolink.+\\|editsection\\)\".*>" nil t)
+	    (while (re-search-forward "\
+<span class=\"\\(.+audiolink.+\\|editsection\\)\".*>" nil t)
 	      (setq point (match-beginning 0))
 	      (goto-char point)
 	      (search-forward "</span>" nil t)
@@ -1182,14 +1580,13 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		    "<p>.+</a> &gt; \\(<a.+>\\|<b>\\).+</p>" nil t)
 	      (replace-match ""))
 	    ;; <script> $B$r=|5n(B
-	    (skk-annotation-wikipedia-remove-nested "<script.*>" "</script>")
+	    (skkannot-wikipedia-remove-nested "<script.*>" "</script>")
 	    ;; <table> $B$r=|5n(B
-	    (skk-annotation-wikipedia-remove-nested "<table.*>" "</table>")
+	    (skkannot-wikipedia-remove-nested "<table.*>" "</table>")
 	    ;;
 	    (goto-char (point-min))
 	    (when (or (when (re-search-forward
-			     "<p>\\(<br />\n\\|[^\n]*\\)?\
-<b>[^\n]+</b>[^\n]+"
+			     "<p>\\(<br />\n\\|[^\n]*\\)?<b>[^\n]+</b>[^\n]+"
 			     nil t)
 			(goto-char (match-beginning 0))
 			(if (and (save-excursion
@@ -1269,7 +1666,7 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 	  (when aimai
 	    (insert (if (eq source 'ja.wikipedia)
 			"\n($B[#Kf$52sHr$N%Z!<%8(B)"
-		      "\n(Disambiguation)")))
+		      "\n(Disambiguation page)")))
 	  ;;
 	  (goto-char (point-max))
 	  (while (and (looking-at "^$")
@@ -1288,7 +1685,7 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 	  (t
 	   nil))))
 
-(defun skk-annotation-wikipedia-remove-nested (btag etag &optional ibtag)
+(defun skkannot-wikipedia-remove-nested (btag etag &optional ibtag)
   "<dl> <ul> <table> $B$J$I$NF~$l;R9=B$$r=|5n$9$k!#(B"
   (unless ibtag
     (setq ibtag btag))
@@ -1328,204 +1725,88 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		    btag      ibtag))
 	    (goto-char pt1))))))))))
 
-(defun skk-annotation-wikipedia-retrieved (&rest args)
+(defun skkannot-wikipedia-retrieved (&rest args)
   (cond ((or (member "deleted\n" (assq 'error (memq :error (car args))))
 	     (< (buffer-size) 7)
-	     (not (progn
-		    (goto-char (point-max))
-		    (search-backward "</html>" nil t))))
+	     (not (skkannot-wikipedia-test-html-tag)))
 	 ;; $BIT40A4$J(B retrieval $B$K$*$$$F$b(B STATUS $B$,(B nil $B$H$J$k$3$H$,$"$k$N$G(B
 	 ;; $B$3$3$GD4@0$9$k!#(B
 	 (kill-buffer (current-buffer))
 	 (ignore-errors
-	   (throw 'skk-annotation-wikipedia-suspended (cadr args))))
+	   (throw 'skkannot-wikipedia-suspended (cadr args))))
 	(t
-	 (throw 'skk-annotation-wikipedia-retrieved (current-buffer)))))
+	 (throw 'skkannot-wikipedia-retrieved (current-buffer)))))
+
+(defun skkannot-wikipedia-test-html-tag ()
+  ;; html $B%G!<%?$,:G8e$N(B </html> $B%?%0$r;}$D$3$H$r3NG'$9$k(B
+  (goto-char (point-min))
+  (when (re-search-forward "^Content-Encoding: gzip$" nil t)
+    ;; html $B$,(B gzip $B05=L$GAw$i$l$FMh$?>l9g(B
+    (let ((gzip (executable-find "gzip")))
+      (unless gzip
+	(error "$B$3$NFbMF$rI=<($9$k$K$O(B %s $B$,I,MW$G$9(B" "gzip"))
+      (while (and (not (looking-at "^\n"))
+		  (not (eobp)))
+	(forward-line 1))
+      (forward-line 1)
+      (when (< (point) (point-max))
+	(let ((coding-system-for-write 'binary))
+	  (call-process-region (point) (point-max) gzip t t t "-cd")))))
+  (goto-char (point-max))
+  (search-backward "</html>" nil t))
 
 ;;;###autoload
-(defun skk-annotation-treat-wikipedia (word &optional sources)
-  "WORD $B$,A^F~$5$l$k$H$-$KI=<($5$l$k$Y$-Cm<a$r@8@.$9$k!#(B
-$B@8@.$7$?Cm<a$rJV$9!#(B"
-  (save-match-data
-    (let* ((string
-	    (if skk-annotation-show-wikipedia-url
-		;; $B$3$N$H$-$O(B URL $B$rCm<a$H$9$k!#(B
-		(concat "$B%@%_!<(B;"
-			(skk-quote-char
-			 (skk-annotation-generate-url
-			  "http://%s.org/wiki/%s"
-			  (or (car sources)
-			      'ja.wikipedia)
-			  word)))
-	      nil))
-	   (value (if string
-		      ;; $B$^$@!VCm<a$NAu>~!W$r<u$1$F$$$J$$$N$G!"$3$3$G(B
-		      ;; $BE,MQ$9$k!#(B
-		      (if (functionp skk-treat-candidate-appearance-function)
-			  (funcall skk-treat-candidate-appearance-function
-				   string nil)
-			string)
-		    nil)))
-      ;;
-      (cond ((consp value)
-	     ;; ($B8uJd(B . $BCm<a(B) $B$@$,!"8uJd$O(B dummy $B$J$N$GGK4~$9$k!#(B
-	     (cond
-	      ((consp (cdr value))
-	       ;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
-	       ;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
-	       (cddr value))
-	      ((string-match "^;" (cdr value))
-	       ;; ($B8uJd(B . $BCm<a(B)
-	       ;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G(B
-	       ;; $B$$$k(B
-	       (substring (cdr value)
-			  (match-end 0)))
-	      (t
-	       ;; ($B8uJd(B . $BCm<a(B)
-	       ;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F(B
-	       ;; $B$$$k$b$N$HH=CG$9$k(B
-	       (cdr value))))
-	    ;;
-	    ((stringp value)
-	     ;; $BJV$jCM$,J8;zNs$@$C$?>l9g(B
-	     (if (string-match ";" value)
-		 (substring value (match-end 0))
-	       nil))
-	    (t
-	     ;; Wikipedia $B$NFbMF$NI=<($,MW5a$5$l$?>l9g!#(B
-	     (skk-annotation-wikipedia word sources))))))
+(defalias 'skk-annotation-wikipedia-region-or-at-point
+  'skk-annotation-lookup-region-or-at-point)
 
-;;;###autoload
-(defun skk-annotation-wikipedia-cache (word &optional sources)
-  (let ((sources (or sources skk-annotation-wikipedia-sources))
-	(word (skk-annotation-wikipedia-normalize-word word 'en.wiktionary))
-	(cword (skk-annotation-wikipedia-normalize-word word))
-	(ccword (skk-annotation-wikipedia-normalize-word word
-							 'upcase-initials)))
-    (catch 'found
-      (while sources
-	(let* ((source (pop sources))
-	       (ccache-buffer (if (equal word cword)
-				  nil
-				(format " *skk %s %s" source cword)))
-	       (cccache-buffer (if (or (equal word ccword)
-				       (equal cword ccword))
-				   nil
-				 (format " *skk %s %s" source ccword)))
-	       (cache-buffer (format " *skk %s %s" source word))
-	       string)
-	  (setq string
-		(if (and ccache-buffer
-			 (get-buffer ccache-buffer))
-		    ;; Word word
-		    (with-current-buffer (get-buffer ccache-buffer)
-		      (buffer-string))
-		  ""))
-	  (if (> (length string) 0)
-	      (throw 'found (cons string ccache-buffer))
-	    (setq string
-		  (if (and cccache-buffer
-			 (get-buffer cccache-buffer))
-		      ;; Word Word
-		      (with-current-buffer (get-buffer cccache-buffer)
-			(buffer-string))
-		    ""))
-	    (if (> (length string) 0)
-		(throw 'found (cons string cccache-buffer))
-	      (setq string
-		    (if (get-buffer cache-buffer)
-			;; word word
-			(with-current-buffer (get-buffer cache-buffer)
-			  (buffer-string))
-		      ""))
-	      (if (string= string "")
-		  nil
-		(throw 'found (cons string cache-buffer))))))))))
-
-;;;###autoload
-(defun skk-annotation-wikipedia-region (&optional prefix-arg start end)
-  (interactive (cons (prefix-numeric-value current-prefix-arg)
-		     (cond
-		      ((static-if (featurep 'xemacs)
-			   (region-active-p)
-			 (and transient-mark-mode mark-active))
-		       (list (region-beginning) (region-end)))
-		      ((eq skk-henkan-mode 'on)
-		       (list (marker-position skk-henkan-start-point)
-			     (point)))
-		      (t
-		       ;; dummy
-		       (list 1 1)))))
-  ;; $B%_%K%P%C%U%!$K$$$k$H$-M>7W$J%a%C%;!<%8$r%/%j%"$9$k(B
-  (when (or skk-isearch-switch
-	    (skk-in-minibuffer-p))
-    (message nil))
-  ;;
-  (let ((word (if (and (= start 1) (= end 1))
-		  ;; region $B$,(B active $B$G$J$$$H$-$O!$%]%$%s%H$K$"$k(B
-		  ;; $BC18l$r?dB,$9$k(B
-		  (thing-at-point 'word)
-		(buffer-substring-no-properties start end)))
-	(sources
-	 (if (and current-prefix-arg
-		  (> prefix-arg 0)
-		  (<= prefix-arg (length skk-annotation-wikipedia-sources)))
-	     (list (nth (1- prefix-arg) skk-annotation-wikipedia-sources))
-	   skk-annotation-wikipedia-sources))
-	note)
-    (when (and word
-	       (> (length word) 0))
-      (setq note (or (car (skk-annotation-wikipedia-cache word sources))
-		     (skk-annotation-wikipedia word sources)))
-      (skk-annotation-show (or note "") word sources))))
-
-(defun skk-annotation-generate-url (format-string &rest args)
+(defun skkannot-generate-url (format-string &rest args)
   (condition-case nil
       (require 'url-util)
     (error
      (error "%s" "$B?7$7$$(B URL $B%Q%C%1!<%8$,I,MW$G$9(B")))
-  (if (skk-annotation-url-package-available-p)
+  (if (skkannot-url-installed-p)
       (apply #'format format-string
-	     (mapcar #'(lambda (element)
-			 (if (stringp element)
-			     (url-hexify-string element)
-			   element))
+	     (mapcar (lambda (element)
+		       (if (stringp element)
+			   (url-hexify-string element)
+			 element))
 		     args))
     (error "%s" "URL $B%Q%C%1!<%8$^$?$O(B Mule-UCS $B$,MxMQ$G$-$^$;$s(B")))
 
-(defun skk-annotation-wikipedia-normalize-word (word &optional method)
+(defun skkannot-wikipedia-normalize-word (word &optional method preserve-case)
   ;; $B%9%Z!<%9$O(B %20 $B$G$O$J$/!"%"%s%@!<%9%3%"$KJQ49$9$k(B
-  (replace-regexp-in-string " "
-			    "_"
-			    (cond
-			     ((memq method '(ja.wiktionary en.wiktionary))
-			      (if (and (> (length word) 1)
-				       (skk-ascii-char-p (aref word 0))
-				       (skk-lower-case-p (aref word 1)))
-				  ;; $BFsJ8;z$a$,(B lower case $B$J$i(B downcase
-				  (downcase word)
-				;; $B0lJ8;z$@$C$?$i85$N(B case
-				;; $BFsJ8;z$a$,(B upper case $B$J$i85$N(B case
-				;; $B1Q8l0J30$OL$BP1~(B
-				word))
-			      ((eq method 'upcase-initials)
-			       (upcase-initials word))
-			      (t
-			       (concat (vector (upcase (aref word 0)))
-				       (substring word 1))))))
+  (replace-regexp-in-string
+   " " "_"
+   (cond
+    ((memq method '(ja.wiktionary en.wiktionary))
+     (if (and (not preserve-case)
+	      (> (length word) 1)
+	      (skk-ascii-char-p (aref word 0))
+	      (skk-lower-case-p (aref word 1)))
+	 ;; $BFsJ8;z$a$,(B lower case $B$J$i(B downcase
+	 (downcase word)
+       ;; $B0lJ8;z$@$C$?$i85$N(B case
+       ;; $BFsJ8;z$a$,(B upper case $B$J$i85$N(B case
+       ;; $B1Q8l0J30$OL$BP1~(B
+       word))
+    ((eq method 'upcase-initials)
+     (upcase-initials word))
+    (t
+     (if (> (length word) 1)
+	 (concat (vector (upcase (aref word 0)))
+		 (substring word 1))
+       word)))))
 
-(defun skk-annotation-url-package-available-p ()
-  (when (eq skk-annotation-url-package-available-p 'untested)
-    ;; Emacs 22 $B0J9_0J30$G(B URL $B%Q%C%1!<%8$r%F%9%H$9$k(B
+(defun skkannot-url-installed-p ()
+  (when (eq skkannot-url-installed-p 'untested)
+    ;; GNU Emacs 22 $B0J9_0J30$G(B URL $B%Q%C%1!<%8$r%F%9%H$9$k(B
     (cond
-     ((or (and (eq skk-emacs-type 'mule4)
-	       (string-lessp mule-version "4.1"))
-	  (and (not (and (featurep 'xemacs)
-			 (string< "21.5" emacs-version)))
-	       (not (ignore-errors
-		      (require 'un-define)))))
-      ;; Emacs 20.7 (MULE 4.0) $B$G$O%5%]!<%H$7$J$$(B
-      (setq skk-annotation-url-package-available-p nil))
+     ((and (featurep 'xemacs)
+	   (= emacs-major-version 21)
+	   (= emacs-minor-version 4)
+	   (not (featurep 'un-define)))
+      ;; XEmacs 21.4 $B$G(B Mule-UCS $B$b$J$$>l9g(B
+      (setq skkannot-url-installed-p nil))
      (t
       ;; Emacs 21 $B$H(B XEmacs
       (defadvice url-hexify-string (around multibyte-char activate)
@@ -1539,13 +1820,82 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 			   (ad-get-arg 0))
 			 "")))
       ;;
-      (setq skk-annotation-url-package-available-p t))))
+      (setq skkannot-url-installed-p t))))
   ;;
-  skk-annotation-url-package-available-p)
+  skkannot-url-installed-p)
 
-(require 'product)
-(product-provide
-    (provide 'skk-annotation)
-  (require 'skk-version))
+;;; $B3F<o%"%N%F!<%7%g%s!&%=!<%9$N%-%c%C%7%e4IM}(B
+;;;###autoload
+(defun skkannot-cache (word &optional sources)
+  (let ((sources (or sources skk-annotation-other-sources))
+	(word (skkannot-wikipedia-normalize-word word 'en.wiktionary))
+	(cword (skkannot-wikipedia-normalize-word word))
+	(ccword (skkannot-wikipedia-normalize-word word 'upcase-initials)))
+    (catch 'found
+      (while sources
+	(let* ((source (pop sources))
+	       (ccache-buffer (if (equal word cword)
+				  nil
+				(format "  *skk %s %s" source cword)))
+	       (cccache-buffer (if (or (equal word ccword)
+				       (equal cword ccword))
+				   nil
+				 (format "  *skk %s %s" source ccword)))
+	       (cache-buffer (format "  *skk %s %s" source word))
+	       string)
+	  (cond
+	   ((eq source 'lookup.el)
+	    (setq string (skk-lookup-get-content word))
+	    (if (or (null string)
+		    (string= string ""))
+		nil
+	      (throw 'found
+		     (cons string "lookup.el"))))
+	   ((eq source '$B<-=q(B)
+	    (setq string
+		  (catch '$B<-=q(B
+		    (skk-annotation-lookup-DictionaryServices word)))
+	    (if (or (null string)
+		    (string= string ""))
+		nil
+	      (throw 'found
+		     (cons string "dict"))))
+	   ((eq source 'dict)
+	    (setq string (catch 'dict (skk-annotation-lookup-dict word)))
+	    (if (or (null string)
+		    (string= string ""))
+		nil
+	      (throw 'found
+		     (cons string "dict"))))
+	   (t
+	    (setq string
+		  (if (and ccache-buffer
+			   (get-buffer ccache-buffer))
+		      ;; Word word
+		      (with-current-buffer (get-buffer ccache-buffer)
+			(buffer-string))
+		    ""))
+	    (if (> (length string) 0)
+		(throw 'found (cons string ccache-buffer))
+	      (setq string
+		    (if (and cccache-buffer
+			     (get-buffer cccache-buffer))
+			;; Word Word
+			(with-current-buffer (get-buffer cccache-buffer)
+			  (buffer-string))
+		      ""))
+	      (if (> (length string) 0)
+		  (throw 'found (cons string cccache-buffer))
+		(setq string
+		      (if (get-buffer cache-buffer)
+			  ;; word word
+			  (with-current-buffer (get-buffer cache-buffer)
+			    (buffer-string))
+			""))
+		(if (string= string "")
+		    nil
+		  (throw 'found (cons string cache-buffer))))))))))))
+
+(provide 'skk-annotation)
 
 ;;; skk-annotation.el ends here

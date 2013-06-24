@@ -1,3 +1,5 @@
+
+
 ;; Auto Complete Mode
 ;; http://cx4a.org/software/auto-complete/manual.ja.html#ac-source-yasnippet
 ;; (when (require 'auto-complete nil t)
@@ -50,7 +52,7 @@
 (require 'auto-complete-ya-gtags)
 (require 'auto-complete-clang-async)
 
-(add-hook 'minibuffer-setup-hook '(lambda () (auto-complete-mode 1)))
+;; (add-hook 'minibuffer-setup-hook '(lambda () (auto-complete-mode 1)))
 
 (defun ac-cc-mode-setup ()
   (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")

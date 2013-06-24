@@ -5,9 +5,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.38 2010/01/28 03:23:23 skk-cvs Exp $
+;; Version: $Id: skk-cursor.el,v 1.46 2013/01/13 09:45:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/01/28 03:23:23 $
+;; Last Modified: $Date: 2013/01/13 09:45:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -30,26 +30,24 @@
 
 ;;; Code:
 
-(if (not (skk-color-display-p))
-    (error "%s" "SKK-CURSOR requires color display"))
+(unless (skk-color-cursor-display-p)
+  (error "%s" "SKK-CURSOR requires color display"))
 
 (eval-when-compile
-  (require 'static)
   (require 'skk-macs)
   (require 'skk-vars))
 
-(static-unless
-    (eq skk-emacs-type 'xemacs)
-  (require 'ccc))
+(eval-and-compile
+  (when (featurep 'emacs)
+    (require 'ccc)))
 
 ;; Functions.
 
 (defun skk-cursor-default-color ()
-  (static-cond
-   ((featurep 'xemacs)
-    (frame-property (selected-frame) 'cursor-color))
-   (t
-    (frame-cursor-color))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (frame-property (selected-frame) 'cursor-color))
+	(t
+	 (frame-cursor-color))))
 
 ;;;###autoload
 (defun skk-cursor-current-color ()
@@ -60,7 +58,7 @@
     (skk-cursor-default-color))
    ;; `skk-start-henkan' の中では、skk-j-mode フラグを立てながら、
    ;; skk-abbrev-mode フラグも立てている (変換後、直後に入力する文
-   ;; 字が元の入力モードにて行なわれるように)。従い、skk-abbrev-mode
+   ;; 字が元の入力モードにて行われるように)。従い、skk-abbrev-mode
    ;; フラグのチェックの優先度を上げる。
    (skk-abbrev-mode
     skk-cursor-abbrev-color)
@@ -77,8 +75,8 @@
 
 ;;;###autoload
 (defun skk-cursor-set-1 (color)
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     ;;At 10 Jul 2000 16:37:49 +0900,
     ;;Yoshiki Hayashi <t90553@mail.ecc.u-tokyo.ac.jp> wrote:
     ;;> foreground を background に変える必要があること以外は、今の
@@ -98,39 +96,31 @@
 
 ;;;###autoload
 (defun skk-cursor-off-1 ()
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (skk-cursor-set))
-   (t
-    (when default-cursor-color
-      (set-cursor-color-buffer-local nil)))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (skk-cursor-set))
+	(t
+	 (when default-cursor-color
+	   (set-cursor-color-buffer-local nil)))))
 
 ;; advices.
-(static-when (eq skk-emacs-type 'xemacs)
+(when (eval-when-compile (featurep 'xemacs))
   (defadvice minibuffer-keyboard-quit (before skk-cursor-ad activate)
     (unless skk-henkan-mode
       (skk-cursor-set (skk-cursor-default-color)))))
 
 ;; Hooks
-(static-when (eq skk-emacs-type 'xemacs)
-  (add-hook 'isearch-mode-end-hook
-	    #'skk-cursor-set
-	    'append)
+(when (eval-when-compile (featurep 'xemacs))
+  (add-hook 'isearch-mode-end-hook #'skk-cursor-set 'append)
 
-  (add-hook 'minibuffer-setup-hook
-	    #'skk-cursor-set
-	    'append)
+  (add-hook 'minibuffer-setup-hook #'skk-cursor-set 'append)
 
   (add-hook 'minibuffer-exit-hook
-	    #'(lambda ()
-		(with-current-buffer (skk-minibuffer-origin)
-		  (skk-cursor-set))
-		(skk-cursor-set skk-cursor-default-color 'force))
+	    (lambda ()
+	      (with-current-buffer (skk-minibuffer-origin)
+		(skk-cursor-set))
+	      (skk-cursor-set skk-cursor-default-color 'force))
 	    'append))
 
-(require 'product)
-(product-provide
-    (provide 'skk-cursor)
-  (require 'skk-version))
+(provide 'skk-cursor)
 
 ;;; skk-cursor.el ends here

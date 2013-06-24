@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.36 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.54 2013/02/03 10:52:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2013/02/03 10:52:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -39,8 +39,10 @@
 ;; $B$H$$$&9T$,$"$k$H$-!"(B`/now ' $B$H%?%$%W$9$l$P2hLL$K$O8=:_$N;~9o$,I=<($5$l!"(B
 ;; `$B"'(BFri Apr 10 11:41:43 1992' $B$N$h$&$K$J$k!#(B
 ;;
-;; $B$3$3$G;H$($k(B Lisp $B$N%3!<%I$O2~9T$r4^$s$G$$$J$$$b$N$K8B$i$l$k!#$^$?$3$N%3!<(B
-;; $B%I$O7k2L$H$7$FJ8;zNs$rJV$9$b$N$G$J$1$l$P$J$i$J$$!#(B
+;; $B$3$3$G;H$($k(B Lisp $B$N%3!<%I$O(B
+;;   o $BJ8;zNs$rJV$9$3$H(B
+;;   o $B2~9T$r4^$^$J$$$3$H(B
+;; $B$K8B$i$l$k!#(B
 ;;
 ;; $B$3$N%U%!%$%k$O<B9TJQ49%W%m%0%i%`$r=8$a$?$b$N$G$"$k!#(B
 ;;
@@ -49,44 +51,75 @@
 ;; $BM>CL$@$,!"(BX Window $B$G;HMQ$5$l$k(B `Widget' $B$H$$$&8@MU$O!"(B`window'+`gadget'
 ;; $B$+$i:n$i$l$?B$8l$i$7$$!#(B
 
+
+;; $B<-=q%(%s%H%j(B today $B$N2r@b(B
+;; ======================
+;; today /(skk-current-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 0 0 0)) )/
+
+;; 1. lambda() $BA4BN$r0z?t$H$7$F(B skk-current-date() $B$r<B9T$9$k(B
+
+;; 2. skk-current-date() $B$O!"(B
+;;   a. skk-current-date-1() => ("2013" "Jan" "29" "Tue" "22" "59" "50")
+;;   b. format               => nil
+;;   c. (not skk-date-ad)    => t=$B@>Nq(B, nil=$B859f(B
+;;   d. and-time             => nil
+;;  $B$r0z?t$H$7$F(B lambda() $B$r(B funcall $B$9$k(B
+
+;; 3. $B$9$J$o$A!"(Blambda() $B<+?H$N0z?t(B `date-information' `format' `gengo' `and-time' $B$O!"(B
+;;  $B>e5-$N(B a $B!A(B d $B$G$"$k(B
+
+;; 4. $B:G=*E*$K(B skk-default-current-date() $B$,<B9T$5$l$k(B
+;;   e. date-information  [date-information] ... ("2013" "Jan" "29" "Tue" "22" "59" "50")
+;;   f. nil               [format]           ... %s$BG/(B%s$B7n(B%s$BF|(B(%s)%s$B;~(B%s$BJ,(B%s$BIC(B
+;;   g. 3                 [num-type]         ... $BJQ49%?%$%W(B => $B4A?t;z(B
+;;   h. 'gengo            [gengo]            ... non-nil => $BJ?@.Fs==8^G/(B
+;;                                                   nil => $BFs@i==;0G/(B
+;;   i. 0                 [gengo-index]      ... 
+;;   j. 0                 [month-alist-index] ... 
+;;   k. 0                 [dayofweek-alist-index] ...
+;;   opt. and-time 
+
+;; 5. *scratch* $B$GI>2A$7$F$_$k(B
+;;   (skk-default-current-date
+;;     '("2013" "Jan" "29" "Tue" "22" "59" "50") nil 3 t 0 0 0)  [C-j]
+;;   => "$BJ?@.Fs==8^G/0l7nFs==6eF|(B($B2P(B)"
+;;      $B$3$l",$,!"H/C<$G$"$k(B skk-current-date() $B$NLa$jCM$G$"$k(B
+
 ;;; Code:
 
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars)
-  (require 'static))
+  (require 'cl))
 
 ;; -- programs
 ;;;###autoload
 (defun skk-current-date (&optional pp-function format and-time)
-  "`current-time-string' $B$N=PNO$r2C9)$7!"8=:_$NF|;~(B \(string\)$B$rJV$9!#(B
-$B%*%W%7%g%J%k0z?t$N(B PP-FUNCTION $B$r;XDj$9$k$H!"(B`skk-current-date-1'
-$B$NJV$jCM!"(BFORMAT $B$H(B AND-TIME $B$r0z?t$K$7$F(B `funcall' $B$9$k!#(B
-PP-FUNCTION $B$N;XDj$,$J$$>l9g$O(B `skk-default-current-date-function' $B$r(B
+  "`current-time-string' $B$N=PNO$r2C9)$7!"8=:_$NF|;~(B \(string\) $B$rJV$9!#(B
+$B%*%W%7%g%J%k0z?t$N(B PP-FUNCTION $B$r;XDj$9$k$H!"(B
+  `skk-current-date-1' $B$NJV$jCM!"(B FORMAT $B!"(B AND-TIME
+$B$r0z?t$K$7$F(B PP-FUNCTION $B$r(B `funcall' $B$9$k!#(B
+PP-FUNCTION $B$,(B nil $B$N>l9g$O(B `skk-default-current-date-function' $B$r(B
 `funcall' $B$9$k!#(B
-FORMAT $B$O(B `format' $B$NBh0l0z?t$NMM<0(B \(string\)$B$K$h$k=PNO;XDj%F%s%W%l!<%H!#(B
+FORMAT $B$O(B `format' $B$NBh#10z?t$NMM<0(B \(string\) $B$K$h$k=PNO;XDj%F%s%W%l!<%H!#(B
 AND-TIME \(boolean\) $B$r;XDj$9$k$H;~9o$bJV$9!#(B
-`skk-today' $B$H(B `skk-clock' $B$N%5%V%k!<%A%s!#(B"
-  (unless pp-function
-    (setq pp-function skk-default-current-date-function))
-  (funcall pp-function
+`skk-today' $B$H(B `skk-clock' $B$N%5%V%k!<%A%s$G$"$k!#(B"
+  (funcall (if pp-function
+	       pp-function
+	     skk-default-current-date-function)
 	   (skk-current-date-1) format (not skk-date-ad) and-time))
 
 (defun skk-current-date-1 (&optional specified-time)
   "`current-time-string' $B$N=PNO$r2C9)$7!"F|IU!&;~9o>pJs$r%j%9%H$K$7$FJV$9!#(B
-\(year month day day-of-week hour minute second\)"
-  (let* ((str (current-time-string specified-time))
-	 (date (substring str 8 10)))
-    (when (eq (aref date 0) ?\040)
-      (setq date (substring date 1)))
-    (list
-     (substring str 20 24)
-     (substring str 4 7)
-     date
-     (substring str 0 3)
-     (substring str 11 13)
-     (substring str 14 16)
-     (substring str 17 19))))
+\(year month day day-of-week hour minute second\)
+\(\"2013\" \"Jan\" \"29\" \"Tue\" \"22\" \"41\" \"11\"\)
+
+$B%*%W%7%g%J%k0z?t$N(B SPECIFIED-TIME $B$O(B `current-time-string' $B$N(B docstring
+$B$r;2>H$N$3$H!#(B"
+  (multiple-value-bind (dow month day time year)
+      (split-string (current-time-string specified-time))
+    (append (list year month day dow)
+	    (split-string time ":"))))
 
 ;;;###autoload
 (defun skk-default-current-date
@@ -98,45 +131,46 @@ AND-TIME \(boolean\) $B$r;XDj$9$k$H;~9o$bJV$9!#(B
 $B$3$N4X?t$N0z?t$G%+%9%?%^%$%:$G$-$J$$=PNO$r4uK>$9$k>l9g$O!"(B
 `skk-default-current-date-function' $B$K<+A0$N4X?t$r;XDj$9$k!#(B
 
-DATE-INFORMATION $B$O(B `current-time-string' $B$,JV$7$?J8;zNs$r(B
+DATE-INFORMATION $B$O(B
 
   \(year month day day-of-week hour minute second\)
 
-$B$N7A<0$GJQ49$7$?%j%9%H(B \($B3FMWAG$OJ8;zNs(B\)$B!#(B
-FORMAT $B$O(B `format' $B$NBh0l0z?t$NMM<0$K$h$k=PNO7ABV$r;XDj$9$kJ8;zNs!#(B
+$B$N7A<0$N%j%9%H!#3FMWAG$OJ8;zNs!#(B`skk-current-date-1' $B$N=PNO$r;HMQ!#(B
+
+FORMAT $B$O(B `format' $B$NBh#10z?t$NMM<0$K$h$k=PNO7ABV$r;XDj$9$kJ8;zNs!#(B
   nil $B$G$"$l$P(B \"%s$BG/(B%s$B7n(B%s$BF|(B\(%s\)%s$B;~(B%s$BJ,(B%s$BIC(B\" \($B$b$7$/$O(B
   \"%s$BG/(B%s$B7n(B%s$BF|(B\(%s\)\" $B$,;H$o$l$k!#(B
+
 NUM-TYPE \(number\) $B$O(B
-  0 -> $BL5JQ49(B,
-  1 -> $BA43Q?t;z$XJQ49(B,
-  2 -> $B4A?t;z$XJQ49(B \($B0L<h$j$J$7(B\),
-  3 -> $B4A?t;z$XJQ49(B \($B0L<h$j$r$9$k(B\),
-  4 -> $B$=$N?t;z$=$N$b$N$r%-!<$K$7$F<-=q$r:F8!:w(B,
-  5 -> $B4A?t;z(B \($B<j7A$J$I$G;HMQ$9$kJ8;z$r;HMQ(B\)$B$XJQ49(B \($B0L<h$j$r$9$k(B\),
+  0 -> $BL5JQ49(B
+  1 -> $BA43Q?t;z$XJQ49(B
+  2 -> $B4A?t;z$XJQ49(B \($B0L<h$j$J$7(B\)
+  3 -> $B4A?t;z$XJQ49(B \($B0L<h$j$r$9$k(B\)
+  4 -> $B$=$N?t;z$=$N$b$N$r%-!<$K$7$F<-=q$r:F8!:w(B
+  5 -> $B4A?t;z(B \($B<j7A$J$I$G;HMQ$9$kJ8;z$r;HMQ(B\)$B$XJQ49(B \($B0L<h$j$r$9$k(B\)
   9 -> $B>-4}$G;HMQ$9$k?t;z(B \(\"$B#3;M(B\" $B$J$I(B\) $B$KJQ49(B
+
 GENGO $B$O859fI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B
+
 GENGO-INDEX $B$O(B `skk-gengo-alist' $B$N3FMWAG$N(B cadr $B$r(B 0 $B$H$9$k(B index
  \(number\)$B!#(Bnil $B$G$"$l$P(B `current-time-string' $B$N=PNO$N$^$^L5JQ49!#(B
+
 MONTH-ALIST-INDEX $B$O(B `skk-month-alist' $B$N3FMWAG$N(B cadr $B$r(B 0 $B$H$9$k(B
  index \(number\)$B!#(Bnil $B$G$"$l$P(B `current-time-string' $B$N=PNO$N$^$^L5JQ49!#(B
+
 DAYOFWEEK-ALIST-INDEX $B$O(B `skk-day-of-week-alist' $B$N3FMWAG$N(B cadr $B$r(B
  0 $B$H$9$k(B index \(number\)$B!#(Bnil $B$G$"$l$P(B `current-time-string' $B$N=PNO$N$^(B
 $B$^L5JQ49!#(B
+
 AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B"
-  (let ((year (car date-information))
-	(month (nth 1 date-information))
-	(day (nth 2 date-information))
-	(day-of-week (nth 3 date-information))
-	(hour (nth 4 date-information))
-	(minute (nth 5 date-information))
-	(second (nth 6 date-information))
-	v)
+  (multiple-value-bind (year month day day-of-week hour minute second v)
+      date-information
     (when gengo
       (setq v (skk-ad-to-gengo-1 (string-to-number year))))
     (setq year (if gengo
 		   (concat (if gengo-index
 			       (nth gengo-index (car v))
-			     (car (car v)))
+			     (caar v))
 			   (skk-num-exp (number-to-string (cdr v))
 					num-type))
 		 (skk-num-exp year num-type)))
@@ -158,31 +192,105 @@ AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B"
       (format (or format "%s$BG/(B%s$B7n(B%s$BF|(B(%s)") year month day day-of-week))))
 
 ;;;###autoload
+(defun* skk-relative-date (pp-function format and-time &key (yy 0) (mm 0) (dd 0))
+  "`skk-current-date' $B$N3HD%HG!#(BPP-FUNCTION, FORMAT, AND-TIME $B$O(B `skk-current-date' $B$r;2>H$N$3$H!#(B
+$B<B9TNc(B
+ (skk-relative-date) => \"$BJ?@.(B25$BG/(B2$B7n(B03$BF|(B($BF|(B)\"
+ (skk-relative-date (lambda (arg) body) nil nil :dd -1) => \"$BJ?@.(B25$BG/(B2$B7n(B02$BF|(B($BEZ(B)\"
+ (skk-relative-date (lambda (arg) body) nil nil :mm -1) => \"$BJ?@.(B25$BG/(B1$B7n(B03$BF|(B($BLZ(B)\"
+ (skk-relative-date (lambda (arg) body) nil nil :yy  2) => \"$BJ?@.(B27$BG/(B2$B7n(B03$BF|(B($B2P(B)\"
+"
+  (let ((specified-time (multiple-value-bind (sec min hour day month year dow dst zone)
+			    (decode-time)
+			  (encode-time sec min hour
+				       (+ day   dd)
+				       (+ month mm)
+				       (+ year  yy)))))
+    (funcall (if pp-function
+		 pp-function
+	       skk-default-current-date-function)
+	     (skk-current-date-1 specified-time)
+	     format (not skk-date-ad) and-time)))
+
+;; $B$-$N$&(B /(skk-relative-date ; $BJ?@.(B25$BG/(B2$B7n(B02$BF|(B($BEZ(B)
+;;           (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 0 0 0)) nil nil :dd -1)
+;; /(skk-relative-date        ; 2013-2-02(Sat)
+;;    (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s-%s-%s(%s)" 0 nil 0 0 nil)) nil nil :dd -1)
+;; /(skk-relative-date        ; H25$BG/(B2$B7n(B02$BF|(B($BEZ(B)
+;;    (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 1 0 0)) nil nil :dd -1)
+;; /(skk-relative-date        ; $BJ?@.Fs==8^G/Fs7nFsF|(B($BEZ(B)
+;;    (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 3 'gengo 0 0 0)) nil nil :dd -1)
+;; /(skk-relative-date nil nil nil :dd -1)/ ; $BJ?@.#2#5G/#27n#0#2F|(B($BEZ(B)
+
+;; $B$*$H$H$$(B /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 0 0 0)) nil nil :dd -2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s-%s-%s(%s)" 0 nil 0 0 nil)) nil nil :dd -2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 1 0 0)) nil nil :dd -2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 3 'gengo 0 0 0)) nil nil :dd -2)/(skk-relative-date nil nil nil :dd -2)/
+
+;; $B$*$H$D$$(B /ditto/
+
+;; $B$"$9(B /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 0 0 0)) nil nil :dd 1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s-%s-%s(%s)" 0 nil 0 0 nil)) nil nil :dd 1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 1 0 0)) nil nil :dd 1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 3 'gengo 0 0 0)) nil nil :dd 1)/(skk-relative-date nil nil nil :dd 1)/
+
+;; $B$"$7$?(B /ditto/
+
+;; $B$"$5$C$F(B /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 0 0 0)) nil nil :dd 2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s-%s-%s(%s)" 0 nil 0 0 nil)) nil nil :dd 2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 1 0 0)) nil nil :dd 2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 3 'gengo 0 0 0)) nil nil :dd 2)/(skk-relative-date nil nil nil :dd 2)/
+
+;; $B$3$H$7(B /(skk-current-date ; "2013$BG/(B"
+;;           (lambda (date-information format gengo and-time)
+;;             (skk-default-current-date date-information "%s$BG/(B" 0 nil 0 0 0)))
+;; /(skk-current-date        ; "$BJ?@.(B25$BG/(B"
+;;    (lambda (date-information format gengo and-time)
+;;      (skk-default-current-date date-information "%s$BG/(B" 0 'gengo 0 0 0)))
+;; /(skk-current-date        ; "$BJ?@.Fs==8^G/(B"
+;;    (lambda (date-information format gengo and-time)
+;;      (skk-default-current-date date-information "%s$BG/(B" 3 'gengo 0 0 0)))
+;; /(skk-current-date        ; "$BJ?@.#2#5G/(B"
+;;    (lambda (date-information format gengo and-time)
+;;      (skk-default-current-date date-information "%s$BG/(B" 1 'gengo 0 0 0)))/
+
+;; $B$-$g$M$s(B /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 0 nil 0 0 0)) nil nil :yy -1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 0 'gengo 0 0 0)) nil nil :yy -1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 3 'gengo 0 0 0)) nil nil :yy -1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 1 'gengo 0 0 0)) nil nil :yy -1)/
+
+;; $B$*$H$H$7(B /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 0 nil 0 0 0)) nil nil :yy -2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 0 'gengo 0 0 0)) nil nil :yy -2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 3 'gengo 0 0 0)) nil nil :yy -2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 1 'gengo 0 0 0)) nil nil :yy -2)/
+
+;; $B$i$$$M$s(B /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 0 nil 0 0 0)) nil nil :yy 1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 0 'gengo 0 0 0)) nil nil :yy 1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 3 'gengo 0 0 0)) nil nil :yy 1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 1 'gengo 0 0 0)) nil nil :yy 1)/
+
+;; $B$5$i$$$M$s(B /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 0 nil 0 0 0)) nil nil :yy 2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 0 'gengo 0 0 0)) nil nil :yy 2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 3 'gengo 0 0 0)) nil nil :yy 2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s$BG/(B" 1 'gengo 0 0 0)) nil nil :yy 2)/
+
+(defun skk-today-execute-char ()
+  (let (char)
+    (dolist (list (nth 4 skk-rule-tree))
+      (when (memq 'skk-today list)
+	(setq char (char-to-string (car list)))))
+    char))
+
+;;;###autoload
 (defun skk-today (arg)
   "\
-`current-time-string' $B$N=PNO$r2C9)$7!"8=:_$NF|;~$rI=$9J8;zNs$r:n$j!"A^F~$9$k!#(B
-$B<B<AE*$K(B today $B%(%s%H%j$N8F=P$7$J$N$G!"8D?M<-=q$N(B today $B%(%s%H%j$K$h$j%+%9%?%^(B
-$B%$%:$9$k$3$H$,$G$-$k!#(B"
+`current-time-string' $B$N=PNO$r2C9)$7!"8=:_$NF|;~$rI=$9J8;zNs$r:n$j!"A^F~(B
+$B$9$k!#<B<AE*$K!V(Btoday $B%(%s%H%j$N8F$S=P$7!W$@$1$J$N$G!"%+%9%?%^%$%:$O8D?M(B
+$B<-=q$N(B today $B%(%s%H%j$K$h$k!#(B"
   (interactive "p")
-  (unless skk-mode
-    (skk-mode 1))
-  (skk-set-henkan-point-subr)
-  (insert "today")
-  (skk-start-henkan arg))
+  (if (and (eq skk-henkan-mode 'on)	;$B"&%b!<%I(B
+	   (equal (this-command-keys) (skk-today-execute-char))
+	   (< skk-henkan-start-point (point)))
+      (this-command-keys)
+    ;;
+    (unless skk-mode
+      (skk-mode 1))
+    (skk-set-henkan-point-subr)
+    (insert "today")
+    (skk-start-henkan arg)))
 
 ;;;###autoload
 (defun skk-clock (&optional kakutei-when-quit time-signal)
-  "$B%G%8%?%k;~7W$r%_%K%P%C%U%!$KI=<($9$k!#(B
-quit $B$9$k$H$=$N;~E@$NF|;~$r8uJd$H$7$FA^F~$9$k!#(B
+  "$B%_%K%P%C%U%!$K%G%8%?%k;~7W$rI=<($9$k!#(B
+quit $B$9$k$H!"$=$N;~E@$NF|;~$r8uJd$H$7$FA^F~$9$k!#(B
 quit $B$7$?$H$-$K5/F0$7$F$+$i$N7P2a;~4V$r%_%K%P%C%U%!$KI=<($9$k!#(B
 interactive $B$K5/F0$9$kB>!"(B\"clock /(skk-clock)/\" $B$J$I$N%(%s%H%j$r(B SKK $B$N<-=q(B
-$B$K2C$(!"(B\"/clock\"+ SPC $B$GJQ49$9$k$3$H$K$h$C$F$b5/F02D!#(BC-g $B$G;_$^$k!#(B
-$B<B9TJQ49$G5/F0$7$?>l9g$O!"(BC-g $B$7$?;~E@$N;~E@$NF|;~$rA^F~$9$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B KAKUTEI-WHEN-QUIT $B$,(B non-nil $B$G$"$l$P(B C-g $B$7$?$H$-$K3N(B
-$BDj$9$k!#(B
+$B$K2C$(!"(B\"/clock\"+ SPC $B$GJQ49$9$k$3$H$K$h$C$F$b5/F02D!#(B\\[keyboard-quit] $B$G;_$^$k!#(B
+$B<B9TJQ49$G5/F0$7$?>l9g$O!"(B\\[keyboard-quit] $B$7$?;~E@$N;~E@$NF|;~$rA^F~$9$k!#(B
+
+$B%*%W%7%g%J%k0z?t$N(B KAKUTEI-WHEN-QUIT $B$,(B non-nil $B$G$"$l$P(B \\[keyboard-quit] $B$7$?$H$-$K3NDj$9$k!#(B
 $B%*%W%7%g%J%k0z?t$N(B TIME-SIGNAL $B$,(B non-nil $B$G$"$l$P!"(BNTT $B$N;~JsIw$K(B ding $B$9$k!#(B
 $B$=$l$>$l(B \"clock /(skk-clock nil t)/\" $B$N$h$&$J%(%s%H%j$r<-=q$KA^F~$9$l$PNI$$!#(B
-skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#(B"
+`skk-date-ad' $B$H(B `skk-number-style' $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#(B"
   (interactive "*")
   (let ((start (current-time))
 	end
@@ -206,15 +314,15 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
       (setq expr1 "[$B<7H,6e(B]$BIC(B"
 	    expr2 "$B!;IC(B")))
     ;;
-    (static-when (eq skk-emacs-type 'xemacs)
+    (when (eval-when-compile (featurep 'xemacs))
       ;; XEmacs $B$G(B sound $B$,%m!<%I$5$l$F$$$k$+$I$&$+!#(B
       (when (setq snd
 		  (and (boundp 'sound-alist)
 		       (eq t (catch 'tag
 			       (mapc
-				#'(lambda (list)
-				    (when (eq 'drum (cadr (memq :sound list)))
-				      (throw 'tag t)))
+				(lambda (list)
+				  (when (eq 'drum (cadr (memq :sound list)))
+				    (throw 'tag t)))
 				sound-alist)))))
 	(unless (assq 'clink sound-alist)
 	  (load-sound-file "clink" 'clink))))
@@ -246,12 +354,12 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
 		  (if snd
 		      (skk-ding nil 'clink)
 		    (ding)
-		    (unless (skk-sit-for (setq sec (+ sec 0.16))
-					 'nodisplay)
+		    (unless (sit-for (setq sec (+ sec 0.16))
+				     'nodisplay)
 		      (next-command-event)
 		      (signal 'quit nil))
 		    (ding)))))
-	      (unless (skk-sit-for (- 1 sec) 'nodisplay)
+	      (unless (sit-for (- 1 sec) 'nodisplay)
 		(next-command-event)
 		(signal 'quit nil))))
 	(quit
@@ -265,9 +373,9 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
 
 ;;;###autoload
 (defun skk-ad-to-gengo (gengo-index &optional divider tail not-gannen)
-  ;; $B@>Nq$r859f$KJQ49$9$k!#%*%W%7%g%s0z?t$N(B divider $B$,;XDj$5$l$F$$$l$P!"G/9f$H(B
-  ;; $B?t;z$N4V$K!"(Btail $B$,;XDj$5$l$F$$$l$P!"?t;z$NKvHx$K!"$=$l$>$l$NJ8;zNs$rO"7k(B
-  ;; $B$9$k!#(B
+  ;; $B@>Nq$r859f$KJQ49$9$k!#%*%W%7%g%J%k0z?t$N(B DIVIDER $B$,;XDj$5$l$F$$$l$P!"G/9f(B
+  ;; $B$H?t;z$N4V$K!"(BTAIL $B$,;XDj$5$l$F$$$l$P!"?t;z$NKvHx$K!"$=$l$>$l$NJ8;zNs$rO"(B
+  ;; $B7k$9$k!#(B
   ;; $B<-=q8+=P$7Nc(B;
   ;; $B$;$$$l$-(B#$B$M$s(B /(skk-ad-to-gengo 0 nil "$BG/(B")/(skk-ad-to-gengo 0 " " " $BG/(B")/
   (let ((v (skk-ad-to-gengo-1 (string-to-number
@@ -290,7 +398,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
   ;; if NOT-GANNEN is non-nil and calculated year is 1,
   ;; return a value of which cdr is "$B85(B" (string).
   (when (>= 1866 ad)
-    (skk-error "$BJ,$j$^$;$s(B" "Unkown year"))
+    (skk-error "$BJ,$j$^$;$s(B" "Unknown year"))
   (cons (cond ((>= 1911 ad)
 	       (setq ad (- ad 1867))
 	       (cdr (assq 'meiji skk-gengo-alist)))
@@ -309,7 +417,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
 
 ;;;###autoload
 (defun skk-gengo-to-ad (&optional head tail)
-  ;; $B859f$r@>Nq$KJQ49$9$k!#%*%W%7%g%s0z?t$N(B HEAD, TAIL $B$,;XDj$5$l$F$$(B
+  ;; $B859f$r@>Nq$KJQ49$9$k!#%*%W%7%g%J%k0z?t$N(B HEAD, TAIL $B$,;XDj$5$l$F$$(B
   ;; $B$l$P!"$=$NJ8;zNs$r@hF,!"KvHx$KO"7k$9$k!#(B
   ;; $B<-=q8+=P$7Nc(B;
   ;;   $B$7$g$&$o(B#$B$M$s(B /(skk-gengo-to-ad "" "$BG/(B")/(skk-gengo-to-ad "" " $BG/(B")/\
@@ -385,7 +493,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
   ;; $B<-=q8+=P$7Nc(B;
   ;;   $B$k$9$P$s(B /$BN1<iHV(B/(skk-ignore-dic-word "$BN1<iEE(B")/
   ;;   $B$+$/$F$$(B /(skk-ignore-dic-word "$B3NDj(B")/
-  (let (new-word save-okurigana)
+  (let (new-word)
     ;; skk-ignore-dic-word $B<+?H$N%(%s%H%j$r>C$9!#>C$9$Y$-8uJd$O(B
     ;; skk-henkan-list $B$+$iD>@\Cj=P$7$F$$$k$N$G(B delete $B$G$O$J$/(B delq $B$G==J,!#(B
     (setq skk-henkan-list (delq (nth skk-henkan-count skk-henkan-list)
@@ -400,9 +508,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
     ;; $B%+%l%s%H$N8uJd(B (skk-ignore-dic-word $B<+?H$N%(%s%H%j(B) $B$r>C$7$?$N$G!"(B
     ;; skk-henkan-count $B$O<!$N8uJd$r;X$7$F$$$k!#(B
     (setq new-word (or (nth skk-henkan-count skk-henkan-list)
-		       (progn
-			 (setq save-okurigana skk-okuri-char)
-			 (skk-henkan-in-minibuff))))
+		       (skk-henkan-in-minibuff)))
     ;; $B8uJd$,$J$$$H$-!#(B
     (unless new-word
       ;; $B6uJ8;zNs$,EPO?$5$l$?$i<-=qEPO?$NA0$N>uBV$KLa$9!#(B
@@ -426,8 +532,8 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
 
 ;;;###autoload
 (defun skk-gadget-units-conversion (unit-from number unit-to)
-  "`skk-units-alist'$B$r;2>H$7!"49;;$r9T$J$&!#(B
-NUMBER $B$K$D$$$F(B UNIT-FROM $B$+$i(B UNIT-TO $B$X$N49;;$r9T$J$&!#(B"
+  "`skk-units-alist'$B$r;2>H$7!"49;;$r9T$&!#(B
+NUMBER $B$K$D$$$F(B UNIT-FROM $B$+$i(B UNIT-TO $B$X$N49;;$r9T$&!#(B"
   (let ((v (assoc unit-to
 		  (cdr (assoc unit-from skk-units-alist)))))
     (when v
@@ -436,9 +542,6 @@ NUMBER $B$K$D$$$F(B UNIT-FROM $B$+$i(B UNIT-TO $B$X$N49;;$r9T$J$&!#(B"
 
 (run-hooks 'skk-gadget-load-hook)
 
-(require 'product)
-(product-provide
-    (provide 'skk-gadget)
-  (require 'skk-version))
+(provide 'skk-gadget)
 
 ;;; skk-gadget.el ends here

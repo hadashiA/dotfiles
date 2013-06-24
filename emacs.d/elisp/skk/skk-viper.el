@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.42 2009/07/11 02:15:39 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.47 2012/01/15 06:58:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/07/11 02:15:39 $
+;; Last Modified: $Date: 2012/01/15 06:58:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,7 +33,6 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'static)
   (require 'skk-macs)
   (require 'skk-vars))
 (require 'viper)
@@ -56,7 +55,9 @@
 
 (setq skk-use-viper t)
 (save-match-data
-  (unless (string-match (static-if (fboundp 'sentence-end)
+  (unless (string-match (if (eval-when-compile
+			      (and (featurep 'emacs)
+				   (>= emacs-major-version 22)))
 			    (sentence-end)
 			  sentence-end)
 			"。？！．")
@@ -135,8 +136,8 @@
     (setq viper-insert-state-cursor-color skk-cursor-hiragana-color)))
 
 (when (boundp 'viper-insert-state-cursor-color)
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
       (when skk-use-color-cursor
 	(add-hook 'minibuffer-setup-hook
@@ -274,7 +275,7 @@
 ;;;###autoload
 (defun skk-viper-normalize-map ()
   (let ((other-buffer
-	 (static-if (eq skk-emacs-type 'xemacs)
+	 (if (eval-when-compile (featurep 'xemacs))
 	     (local-variable-p 'minor-mode-map-alist nil t)
 	   (local-variable-if-set-p 'minor-mode-map-alist))))
     ;; for current buffer and buffers to be created in the future.
@@ -286,13 +287,10 @@
       ;; the minor-mode-map-alist localized by Viper.
       (skk-loop-for-buffers (buffer-list)
 	(unless (assq 'skk-j-mode minor-mode-map-alist)
-	  (set-modified-alist
-	   'minor-mode-map-alist
-	   (list (cons 'skk-latin-mode skk-latin-mode-map)
-		 (cons 'skk-abbrev-mode skk-abbrev-mode-map)
-		 (cons 'skk-j-mode skk-j-mode-map)
-		 (cons 'skk-jisx0208-latin-mode
-		       skk-jisx0208-latin-mode-map))))
+	  (skk-update-minor-mode-map-alist 'skk-latin-mode skk-latin-mode-map)
+	  (skk-update-minor-mode-map-alist 'skk-abbrev-mode skk-abbrev-mode-map)
+	  (skk-update-minor-mode-map-alist 'skk-j-mode skk-j-mode-map)
+	  (skk-update-minor-mode-map-alist 'skk-jisx0208-mode skk-jisx0208-latin-mode-map))
 	(funcall skk-viper-normalize-map-function)))))
 
 (eval-after-load "viper-cmd"
@@ -330,9 +328,6 @@ Convert hirakana to katakana and vice versa."
 
 (add-hook 'skk-mode-hook 'skk-viper-init-function)
 
-(require 'product)
-(product-provide
-    (provide 'skk-viper)
-  (require 'skk-version))
+(provide 'skk-viper)
 
 ;;; skk-viper.el ends here

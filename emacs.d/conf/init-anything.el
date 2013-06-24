@@ -54,9 +54,9 @@
   (global-set-key (kbd "C-.") 'anything-c-moccur-dmoccur)
   ;; (global-set-key (kbd "C-s") 'anything-c-moccur-isearch-forward)
   ;; (global-set-key (kbd "C-r") 'anything-c-moccur-isearch-backward)
-  (add-hook 'dired-mode-hook
-            '(lambda ()
-               (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
+  ;;(add-hook 'dired-mode-hook
+  ;;          '(lambda ()
+  ;;              (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
   (setq anything-c-moccur-anything-idle-delay 0.2
         anything-c-moccur-higligt-info-line-flag t
         anything-c-moccur-enable-auto-look-flag t

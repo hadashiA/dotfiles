@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.42 2009/07/16 16:28:02 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.52 2013/01/17 13:50:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/07/16 16:28:02 $
+;; Last Modified: $Date: 2013/01/17 13:50:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -99,9 +99,9 @@
 		(nconc skk-henkan-list (list (cons key current))))))
        ;; #4
        (t
-	(let ((l (mapcar (function (lambda (e) (cons key e)))
+	(let ((l (mapcar (lambda (e) (cons key e))
 			 (skk-num-flatten-list convlist))))
-	  (setq current (cdr (car l)))
+	  (setq current (cdar l))
 	  (if (and (> index -1)
 		   (nth index skk-henkan-list))
 	      (progn
@@ -188,43 +188,37 @@
   "与えられたリストの各要素から組み合せ可能な文字列の連接を作る。
 結果はリストで返す。例えば
   ((\"A\" \"B\") \"1\" (\"X\" \"Y\")) -> (\"A1X\" \"A1Y\" \"B1X\" \"B1Y\")"
-  (let ((dst (car list))
-	(src (cdr list))
-	elt)
+  (let ((dst (car list)))
     (unless (listp dst)
       (setq dst (list dst)))
-    (while src
-      (setq elt (car src))
+    (dolist (elt (cdr list))
       (setq dst
 	    (cond
 	     ((consp elt)
 	      (apply #'nconc
-		     (mapcar
-		      #'(lambda (str0)
-			  (mapcar
-			   #'(lambda (str1)
-			       (concat str0 str1))
-			   elt))
-		      dst)))
+		     (mapcar (lambda (str0)
+			       (mapcar (lambda (str1)
+					 (concat str0 str1))
+				       elt))
+			     dst)))
 	     (t
-	      (mapcar
-	       (lambda (str0)
-		 (concat str0 elt))
-	       dst))))
-      (setq src (cdr src)))
+	      (mapcar (lambda (str0)
+			(concat str0 elt))
+		      dst)))))
     dst))
 
 ;;;###autoload
 (defun skk-num-exp (num type)
-  "ascii 数字 (string) の NUM を TYPE に従い変換し、変換後の文字列を返す。
+  "ascii 数字 (string) の NUM を TYPE に従って変換した文字列を返す。
 TYPE は下記の通り。
 0 -> 無変換
 1 -> 全角数字へ変換
-2 -> 漢数字へ変換 (位取りなし)
-3 -> 漢数字へ変換 (位取りをする)
+2 -> 漢数字 (位取りあり) へ変換。例;1024 -> 一〇二四
+3 -> 漢数字 (位取りなし) へ変換。例;1024 -> 千二十四
 4 -> その数字そのものをキーにして辞書を再検索
-5 -> 漢数字 (手形などで使用する文字を使用) へ変換 (位取りをする)
-9 -> 将棋で使用する数字 (\"３四\" など) に変換"
+5 -> 漢数字 (手形などで使用する文字を使用) へ変換
+8 -> 桁区切りへ変換 (1,234,567)
+9 -> 将棋で使用する数字 (\"３四\" など) へ変換"
   (save-match-data
     (let ((fun (cdr (assq type skk-num-type-alist))))
       (when fun
@@ -234,39 +228,37 @@ TYPE は下記の通り。
   "ascii 数字の NUM を全角数字の文字列に変換し、変換後の文字列を返す。
 例えば \"45\" を \"４５\" に変換する。"
   (let ((candidate
-	 (mapconcat (function
-		     (lambda (c)
-		       (skk-num-get-suuji c skk-num-alist-type1)))
+	 (mapconcat (lambda (c)
+		      (skk-num-get-suuji c skk-num-alist-type1))
 		    num "")))
     (unless (string= candidate "")
       candidate)))
 
 (defun skk-num-type2-kanji (num)
-  "ascii 数字 NUM を漢数字の文字列に変換し、変換後の文字列を返す。
-例えば、\"45\" を \"四五\" に変換する。"
+  "ascii 数字 NUM を漢数字の文字列 (位取りあり) に変換し、変換後の文字列を返す。
+例えば、\"1024\" を \"一〇二四\" に変換する。"
   (save-match-data
     (when (skk-num-int-p num)
       (let ((candidate
-	     (mapconcat (function
-			 (lambda (c)
-			   (skk-num-get-suuji
-			    c
-			    skk-num-alist-type2)))
+	     (mapconcat (lambda (c)
+			  (skk-num-get-suuji
+			   c
+			   skk-num-alist-type2))
 			num "")))
 	(unless (string= candidate "")
 	  candidate)))))
 
 (defun skk-num-type3-kanji (num)
-  "ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
-返す。例えば \"1021\" を \"千二十一\" に変換する。"
+  "ascii 数字 NUM を漢数字の文字列 (位取りなし) に変換し、変換後の文字列を返す。
+例えば \"1024\" を \"千二十四\" に変換する。"
   (save-match-data
     (when (skk-num-int-p num)
       ;; 小数点を含まない数
       (skk-num-to-kanji num 'type3))))
 
 (defun skk-num-type5-kanji (num)
-  "ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
-返す。例えば \"1021\" を \"壱阡弐拾壱\" に変換する。"
+  "ascii 数字 NUM を漢数字の文字列に変換し、変換後の文字列を返す。
+例えば \"1021\" を \"壱阡弐拾壱\" に変換する。"
   (save-match-data
     (when (skk-num-int-p num)
       ;; 小数点を含まない数
@@ -349,6 +341,37 @@ TYPE は下記の通り。
     (or v
 	(skk-num-get-suuji ?0 alist))))
 
+(defun add-number-grouping (number &optional separator places)
+  ;; http://www.emacswiki.org/cgi-bin/wiki/AddCommasToNumbers
+  ;; and 玉野健一 <suzu@a7m3.jp>
+  "Add commas to NUMBER and return it as a string.
+    Optional SEPARATOR is the string to use to separate groups.
+    It defaults to a comma.
+    PLACES is the number of places of a group.
+    It defaults to three."
+  (let ((num (number-to-string number))
+	(op (or separator
+		","))
+        (pl (or (if (< places 1) 3 places)
+		3))) 
+    (while (string-match (concat "\\(.*[0-9]\\)\\([0-9]\\{"
+				 (number-to-string pl)
+				 "\\}.*\\)")
+			 num)
+      (setq num (concat (match-string 1 num)
+			op
+			(match-string 2 num))))
+    num))
+
+(defun skk-num-grouping (num)
+  "ascii 数字の NUM を桁区切りへ変換し、変換後の文字列を返す。
+例えば \"1234567\" を \"1,234,567\" へ変換する。
+区切る記号は `skk-num-grouping-separator' で、区切る桁数は `skk-num-grouping-places' で指定する。"
+  (add-number-grouping (string-to-number num)	  ; number
+		       skk-num-grouping-separator ; `,'
+		       skk-num-grouping-places	  ; 3
+		       ))
+
 (defun skk-num-shogi (num)
   "ascii 数字の NUM を将棋で使用される数字表記に変換する。
 例えば \"34\" を \"３四\" に変換する。"
@@ -377,7 +400,7 @@ TYPE は下記の通り。
 	    skk-henkan-okurigana skk-okuri-char skk-use-numeric-conversion)
 	(while skk-current-search-prog-list
 	  (setq result (skk-nunion result (skk-search))))))
-    ;; ここで temp-buffer を出て変換を行なっているカレントバッファに戻る
+    ;; ここで temp-buffer を出て変換を行っているカレントバッファに戻る
     ;; (バッファローカル値である skk-henkan-list を操作したいため)。
     (cond
      ((not result)
@@ -436,7 +459,7 @@ TYPE は下記の通り。
 			 tail3 (substring e3 (match-end 0)))))))
 	(when (and type2and3 type2 type3
 		   ;; 数値変換を示す文字列 "#[23]" の前後の文字列も同一のと
-		   ;; きのみ uniq を行なう。
+		   ;; きのみ uniq を行う。
 		   (string= head2 head3) (string= tail2 tail3))
 	  (if (> index2 index3)
 	      ;; "#3" の方が前にある。
@@ -449,21 +472,21 @@ TYPE は下記の通り。
 (defun skk-num-initialize ()
   "`skk-use-numeric-conversion' 関連の変数を初期化する。"
   (setq skk-last-henkan-data
-	(put-alist 'num-list skk-num-list skk-last-henkan-data)
+	(skk-put-alist 'num-list skk-num-list skk-last-henkan-data)
 	skk-num-list nil
 	skk-num-recompute-key nil))
 
 ;;;###autoload
 (defun skk-num-henkan-key ()
   "適切な変換キーを返す。
-type4 の数値再変換が行なわれたときは、数値自身を返し、それ以外の数値変換
+type4 の数値再変換が行われたときは、数値自身を返し、それ以外の数値変換
 では、`skk-henkan-key' の数値を \"#\" で置き換えたキーを返す。"
   (or skk-num-recompute-key
       (skk-num-compute-henkan-key skk-henkan-key)))
 
 ;;;###autoload
 (defun skk-num-update-jisyo (noconvword word &optional purge)
-  "数字自身を見出し語として辞書のアップデートを行なう。"
+  "数字自身を見出し語として辞書をアップデートする。"
   (when (and skk-num-recompute-key
 	     (save-match-data (string-match "#4" noconvword)))
     (with-current-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)
@@ -476,21 +499,20 @@ type4 の数値再変換が行なわれたときは、数値自身を返し、それ以外の数値変換
 (defun skk-num (str)
   "数字を `skk-number-style' の値に従い変換する。
 `skk-current-date' のサブルーチン。"
-  (mapconcat (function
-	      (lambda (c)
-		(cond
-		 ((or (< ?9 c) (< c 0))
-		  nil)
-		 ((or (not skk-number-style)
-		      (and (numberp skk-number-style)
-			   (= skk-number-style 0)))
-		  (char-to-string c))
-		 ((or (eq skk-number-style t)
-		      (and (numberp skk-number-style)
-			   (= skk-number-style 1)))
-		  (cdr (assq c skk-num-alist-type1)))
-		 (t
-		  (cdr (assq c skk-num-alist-type2))))))
+  (mapconcat (lambda (c)
+	       (cond
+		((or (< ?9 c) (< c 0))
+		 nil)
+		((or (not skk-number-style)
+		     (and (numberp skk-number-style)
+			  (= skk-number-style 0)))
+		 (char-to-string c))
+		((or (eq skk-number-style t)
+		     (and (numberp skk-number-style)
+			  (= skk-number-style 1)))
+		 (cdr (assq c skk-num-alist-type1)))
+		(t
+		 (cdr (assq c skk-num-alist-type2)))))
 	     str ""))
 
 (defadvice skk-kakutei-initialize (after skk-num-ad activate)
@@ -499,9 +521,6 @@ type4 の数値再変換が行なわれたときは、数値自身を返し、それ以外の数値変換
 
 (run-hooks 'skk-num-load-hook)
 
-(require 'product)
-(product-provide
-    (provide 'skk-num)
-  (require 'skk-version))
+(provide 'skk-num)
 
 ;;; skk-num.el ends here
