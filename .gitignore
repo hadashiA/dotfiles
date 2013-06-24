@@ -24,3 +24,4 @@ emacs.d/url/cookies
 .rbenv-version
 emacs.d/**/archive-contents
 emacs.d/elpa/archives
+emacs.d/recentf
