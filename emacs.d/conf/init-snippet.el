@@ -11,8 +11,6 @@
 
 (require 'yasnippet)
 (custom-set-variables '(yas-trigger-key "C-o"))
-(custom-set-variables '(yas-next-field-key "M-n"))
-(custom-set-variables '(yas-prev-field-key "M-p"))
 
 ;; 既存スニペットを挿入する
 (define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
@@ -71,3 +69,4 @@
 
 ;; yasnippet初期化
 (yas-global-mode t)
+

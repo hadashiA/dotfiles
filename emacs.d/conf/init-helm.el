@@ -83,3 +83,7 @@
 (require 'helm-ag)
 (require 'helm-ack)
 (define-key global-map (kbd "C-*") 'helm-ack)
+
+
+(require 'helm-c-yasnippet)
+(define-key global-map (kbd "C-+") 'helm-c-yas-complete)
