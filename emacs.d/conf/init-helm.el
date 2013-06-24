@@ -81,3 +81,5 @@
 (define-key global-map (kbd "C-,") 'helm-projectile)
 
 (require 'helm-ag)
+(require 'helm-ack)
+(define-key global-map (kbd "C-*") 'helm-ack)

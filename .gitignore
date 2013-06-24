@@ -25,3 +25,4 @@ emacs.d/url/cookies
 emacs.d/**/archive-contents
 emacs.d/elpa/archives
 emacs.d/recentf
+emacs.d/projectile-bookmarks.eld
