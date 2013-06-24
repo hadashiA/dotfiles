@@ -2,13 +2,13 @@
 
 ;; find-file時にハイライトする
 ;; http://www.bookshelf.jp/soft/meadow_23.html#SEC217
-;; (require 'highlight-completion)
-;; (setq hc-ctrl-x-c-is-completion t)
-;; (highlight-completion-mode 1)
-;; (defadvice hc-expand-file-name
-;;   (around hc-expand-file-name-del activate)
-;;   (if name
-;;       ad-do-it))
+(require 'highlight-completion)
+(setq hc-ctrl-x-c-is-completion t)
+(highlight-completion-mode 1)
+(defadvice hc-expand-file-name
+  (around hc-expand-file-name-del activate)
+  (if name
+      ad-do-it))
 
 ;; find-file時に、大文字・小文字を区別しない
 ;; http://d.hatena.ne.jp/khiker/20061220/1166643421
@@ -19,18 +19,9 @@
 (ffap-bindings)
 
 ;; ;; M-x時にヒストリを利用
-;; (require 'mcomplete)
-;; (load "mcomplete-history")
-;; (turn-on-mcomplete-mode)
-
-(require 'ido)
-(ido-mode 'file)
-(ido-everywhere t)
-(custom-set-variables '(ido-max-directory-size 'const))
-(custom-set-variables '(ido-enter-matching-directory 'first))
-(custom-set-variables '(ido-ignore-files (cons '"\\`\\." ido-ignore-files)))
-;; (define-key ido-file-dir-completion-map (kbd "SPC") 'ido-exit-minibuffer)     ; ここ
-(define-key ido-file-dir-completion-map (kbd "C-h") 'ido-delete-backward-updir)
+(require 'mcomplete)
+(load "mcomplete-history")
+(turn-on-mcomplete-mode)
 
 ;; [2008-03-03]
 ;; これ、M-!でできるよ？shell-commandをrequireしてるから？
