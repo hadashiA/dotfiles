@@ -4,10 +4,10 @@
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-azik.el,v 1.7 2007/10/19 13:29:41 skk-cvs Exp $
+;; Version: $Id: skk-azik.el,v 1.10 2011/07/19 13:01:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
-;; Last Modified: $Date: 2007/10/19 13:29:41 $
+;; Last Modified: $Date: 2011/07/19 13:01:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -59,8 +59,7 @@
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars)
-  (require 'alist))
+  (require 'skk-vars))
 
 (defvar skk-azik-unnecessary-base-rule-list
   '("cha" "che" "chi" "cho" "chu"
@@ -71,7 +70,6 @@
 (defvar skk-azik-additional-rom-kana-rule-list
   '((";" nil ("ッ" . "っ"))
     ("x;" nil ";")
-    ("b." nil ("ブ" . "ぶ"))
     ("bd" nil ("ベン" . "べん"))
     ("bh" nil ("ブウ" . "ぶう"))
     ("bj" nil ("ブン" . "ぶん"))
@@ -234,7 +232,7 @@
     ("kj" nil ("クン" . "くん"))
     ("kk" nil ("キン" . "きん"))
     ("kl" nil ("コン" . "こん"))
-    ("km" nil ("キ" . "き"))
+    ("km" nil ("カモ" . "かも"))
     ("kn" nil ("カン" . "かん"))
     ("kp" nil ("コウ" . "こう"))
     ("kq" nil ("カイ" . "かい"))
@@ -252,7 +250,6 @@
     ("kyw" nil ("キェイ" . "きぇい"))
     ("kyz" nil ("キャン" . "きゃん"))
     ("kz" nil ("カン" . "かん"))
-    ("m." nil ("ム" . "む"))
     ("md" nil ("メン" . "めん"))
     ("mf" nil ("ム" . "む"))
     ("mga" nil ("ミャ" . "みゃ"))
@@ -290,7 +287,6 @@
     ("myw" nil ("ミェイ" . "みぇい"))
     ("myz" nil ("ミャン" . "みゃん"))
     ("mz" nil ("マン" . "まん"))
-    ("n." nil ("ヌ" . "ぬ"))
     ("nb" nil ("ネバ" . "ねば"))
     ("nd" nil ("ネン" . "ねん"))
     ("nf" nil ("ヌ" . "ぬ"))
@@ -455,7 +451,7 @@
     ("vz" nil ("ヴァン" . "う゛ぁん"))
     ("wA" nil ("ヮ" . "ゎ"))
     ("wd" nil ("ウェン" . "うぇん"))
-    ("wf" nil ("ワ" . "わ"))
+    ("wf" nil ("ワイ" . "わい"))
     ("wha" nil ("ウァ" . "うぁ"))
     ("whe" nil ("ウェ" . "うぇ"))
     ("whi" nil ("ウィ" . "うぃ"))
@@ -512,7 +508,6 @@
     ("yr" nil ("ヨル" . "よる"))
     ("yv" nil ("ユウ" . "ゆう"))
     ("yz" nil ("ヤン" . "やん"))
-    ("z." nil ("ズ" . "ず"))
     ("zc" nil ("ザ" . "ざ"))
     ("zd" nil ("ゼン" . "ぜん"))
     ("zf" nil ("ゼ" . "ぜ"))
@@ -584,7 +579,7 @@
 ;; skk-rom-kana-base-rule-list から変換規則を削除する
 (dolist (str skk-azik-unnecessary-base-rule-list)
   (setq skk-rom-kana-base-rule-list
-	(del-alist str skk-rom-kana-base-rule-list)))
+	(skk-del-alist str skk-rom-kana-base-rule-list)))
 
 ;; AZIK 特有の変換規則を追加する
 (dolist (rule (append skk-azik-keyboard-specific-additional-rom-kana-rule-list
@@ -596,7 +591,7 @@
   '(progn
      (dolist (str skk-azik-unnecessary-base-rule-list)
        (setq skk-jisx0201-base-rule-list
-	     (del-alist str skk-jisx0201-base-rule-list)))
+	     (skk-del-alist str skk-jisx0201-base-rule-list)))
 
      (dolist (rule (append skk-azik-keyboard-specific-additional-rom-kana-rule-list
 			   skk-azik-additional-rom-kana-rule-list))

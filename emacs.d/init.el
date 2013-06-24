@@ -148,7 +148,7 @@
 ;;(load "init-haskell")
 ;;(load "init-scheme")
 (load "init-yaml")
-(load "init-snippet")
+;; (load "init-snippet")
 (load "init-ffap")
 ;;(load "init-hatena")
 ;;(load "init-elscreen")

@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-abbrev.el,v 1.15 2007/09/10 13:44:22 skk-cvs Exp $
+;; Version: $Id: skk-abbrev.el,v 1.17 2013/01/13 09:45:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 23, 1999
-;; Last Modified: $Date: 2007/09/10 13:44:22 $
+;; Last Modified: $Date: 2013/01/13 09:45:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -42,7 +42,7 @@
 ;;
 ;; <how to work>
 ;;   skk-abbrev-mode で変換したとき、補完したときに Emacs original の
-;; abbrev mode を使った変換を行ないます。
+;;   abbrev mode を使って変換します。
 ;;
 ;; skk-look との優先順位は、
 ;;  a.変換については、skk-search-prog-list の中で (skk-abbrev-search) を
@@ -100,9 +100,6 @@
        (delete-region skk-henkan-start-point (point))
        (insert c-word)))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-abbrev)
-  (require 'skk-version))
+(provide 'skk-abbrev)
 
 ;;; skk-abbrev.el ends here

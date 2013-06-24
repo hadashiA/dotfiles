@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.34 2010/01/27 06:26:42 skk-cvs Exp $
+;; Version: $Id: skk-version.el,v 1.68 2013/03/16 05:18:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/01/27 06:26:42 $
+;; Last Modified: $Date: 2013/03/16 05:18:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -27,20 +27,13 @@
 
 ;;; Commentary:
 
-;; This is a copy of elmo-version.el and wl-version.el...
-
 ;;; Code:
+(eval-and-compile
+  (require 'skk-macs))
 
-(require 'product)
-(provide 'skk-version) ; have to declare in the top.
-
-(product-provide 'skk-version
-  (product-define "Daredevil SKK" nil '(14 0 91) "Syounai"))
-
-;; set version-string
-(if (fboundp 'product-version-as-string)
-    (product-version-as-string 'skk-version)
-  (product-string-1 'skk-version))
+(put 'skk-version 'product-name "Daredevil SKK")
+(put 'skk-version 'version-string "15.1")
+(put 'skk-version 'codename "Umeda")
 
 ;;;###autoload
 (defun skk-version (&optional without-codename)
@@ -48,23 +41,17 @@
 If WITHOUT-CODENAME is non-nil, simply return SKK version without
 the codename."
   (interactive "P")
-  (if (interactive-p)
+  (if (skk-called-interactively-p 'interactive)
       (message "%s" (skk-version without-codename))
-    (product-string-1 'skk-version (not without-codename))))
+    (if without-codename
+	(format "%s/%s"
+		(get 'skk-version 'product-name)
+		(get 'skk-version 'version-string))
+      (format "%s/%s (%s)"
+	      (get 'skk-version 'product-name)
+	      (get 'skk-version 'version-string)
+	      (get 'skk-version 'codename)))))
 
-;; for backward compatibility
-;;(defconst skk-version (product-version-string (product-find 'skk-version)))
-;;(make-obsolete-variable
-;; 'skk-version
-;; "use (product-version-string (product-find 'skk-version)) instead.")
-;;
-;; (defconst skk-codename (product-code-name (product-find 'skk-version)))
-;; (make-obsolete-variable
-;;  'skk-codename
-;;  "use (product-code-name (product-find 'skk-version)) instead.")
-;;
-;; (defconst skk-major-version (string-to-int (substring skk-version 0 2)))
-;; (defconst skk-minor-version (string-to-int (substring skk-version 3)))
-;; (defconst skk-branch-name "Daredevil")
+(provide 'skk-version)
 
 ;;; skk-version.el ends here

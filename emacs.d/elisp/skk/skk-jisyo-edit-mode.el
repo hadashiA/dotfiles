@@ -1,6 +1,6 @@
-;;; skk-jisyo-edit-mode.el --- major mode for editing SKK dictionaries -*- coding: euc-jp -*-
+;;; skk-jisyo-edit-mode.el --- major mode for editing SKK dictionaries -*- coding: iso-2022-jp -*-
 
-;; Copyright (C) 2001-2007 SKK Development Team
+;; Copyright (C) 2001-2010 SKK Development Team
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Keywords: japanese, mule, input method
@@ -29,8 +29,12 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'poe)
-  (require 'static)
+  (require 'skk-macs))
+
+(require 'skk-cus)
+(require 'skk-vars)
+
+(eval-when-compile
   (defvar font-lock-defaults))
 
 (defvar skk-jisyo-edit-map nil
@@ -74,8 +78,8 @@
   (setq skk-jisyo-edit-syntax-table (make-syntax-table))
   (set-syntax-table skk-jisyo-edit-syntax-table)
   (let ((map (make-sparse-keymap)))
-    (static-cond
-     ((featurep 'xemacs)
+    (cond
+     ((eval-when-compile (featurep 'xemacs))
       (set-keymap-parents map (list skk-jisyo-edit-map))
       (use-local-map map))
      (t
@@ -95,30 +99,55 @@
 
 ;;;###autoload
 (defun skk-edit-private-jisyo (&optional coding-system)
+  "$B8D?M<-=q%U%!%$%k(B `skk-jisyo' $B$rJT=8$9$k!#(B
+$BG$0U$G$N8D?M<-=qJ]B8$N$"$H!"(B`skk-jisyo' $B$r3+$-!"(B`skk-jisyo-edit-mode' $B$KF~$k!#(B
+$B%m!<%+%k$K(B $B0J2<$N%-!<Dj5A$,DI2C$5$l$k!#(B
+
+key       binding
+---       -------
+C-c C-c   Save & Exit
+C-c C-k   Abort
+
+SKK $B;HMQCf$N>l9g$O(B SKK $B$K$h$k8D?M<-=q%P%C%U%!$N99?7$,6X;_$5$l$k!#(B
+
+$B%*%W%7%g%J%k0z?t(B CODING-SYSTEM $B$K$F8D?M<-=q$N%3!<%I7O$r;XDj2DG=!#(B
+
+$B$3$N5!G=$O=>Mh$N<jF0$G$N8D?M<-=qJT=8$h$jG[N8$5$l$F$$$k$,!"(BSKK $B<-=q$N9=J8$r(B
+$B%A%'%C%/$9$k$3$H$O$G$-$:!"<+8J@UG$$G$NJT=8$G$"$k$3$H$OJQ$o$j$J$$!#(B"
   (interactive "P")
-  (when coding-system
-    (setq coding-system (read-coding-system
-			 "¸Ä¿Í¼­½ñ¤Î¥³¡¼¥É·Ï¤ò»ØÄê: "
-			 (skk-find-coding-system skk-jisyo-code))))
-  (unless coding-system
-    (setq coding-system (skk-find-coding-system skk-jisyo-code)))
-  ;;
-  (when (skk-y-or-n-p "¼­½ñ¤ò¥»¡¼¥Ö¤·¤Þ¤¹¤«¡© "
-		      "Save jisyo? ")
-    (skk-save-jisyo))
-  (message nil)
+  (let (answer)
+    (unless skk-jisyo-edit-user-accepts-editing
+      (setq answer (skk-yes-or-no-p "\
+$B8D?M<-=q$NJT=8$O<-=q$r2u$92DG=@-$,$"$j$^$9!#<+8J@UG$$G$N<B9T$KF10U$7$^$9$+!)(B"
+				    "\
+You must edit your private dictionary at your own risk.  Do you accept it?"))
+      (when answer
+	(skk-cus-set '((skk-jisyo-edit-user-accepts-editing . t))))))
+  (when skk-jisyo-edit-user-accepts-editing
+    (when coding-system
+      (setq coding-system (read-coding-system
+			   "$B8D?M<-=q$N%3!<%G%#%s%0%7%9%F%`$r;XDj(B: "
+			   (skk-find-coding-system skk-jisyo-code))))
+    (unless coding-system
+      (setq coding-system (skk-find-coding-system skk-jisyo-code)))
+    ;;
+    (when (skk-y-or-n-p "$B8D?M<-=q$rJ]B8$7$^$9$+!)(B "
+			"Save private jisyo? ")
+      (skk-save-jisyo))
+    (skk-edit-private-jisyo-1 coding-system)))
+
+(defun skk-edit-private-jisyo-1 (coding-system)
   (setq skk-jisyo-edit-original-window-configuration
 	(current-window-configuration))
-  ;; SKK ¼­½ñ¤Î¥³¡¼¥É¤Ï¸íÈ½Äê¤¬¤¢¤ê¤¦¤ë¤¿¤á¡¢Ãí°Õ¤¹¤ë
+  ;; SKK $B<-=q$NJ8;z%3!<%I$O8mH=Dj$,$"$j$&$k$?$a!"Cm0U$9$k(B
   (let ((coding-system-for-read coding-system))
     (find-file skk-jisyo))
   (unless (eq major-mode 'skk-jisyo-edit-mode)
     (skk-jisyo-edit-mode))
-  (static-when (or (featurep 'xemacs)
-		   (< emacs-major-version 21))
+  (when (eval-when-compile (featurep 'xemacs))
     (make-local-hook 'kill-buffer-hook))
-  ;; ÊÔ½¸Ãæ¤ËºÆÅÙ¼Â¹Ô¤·¤Æ¤â¡¢
-  ;; ¢­ ¤Î¤è¤¦¤Ë¤Ê¤ë¤«¤é skk-update-jisyo-function ¤ÏÉü¸µ¤µ¤ì¤ë¡£
+  ;; $BJT=8Cf$K:FEY<B9T$7$F$b!"(B
+  ;; $B"-(B $B$N$h$&$K$J$k$+$i(B skk-update-jisyo-function $B$OI|85$5$l$k!#(B
   ;; '((lambda nil
   ;;     (setq skk-update-jisyo-function #'ignore))
   ;;   (lambda nil
@@ -139,30 +168,32 @@
   (ad-activate 'skk-henkan-in-minibuff)
   (ad-activate 'skk-purge-from-jisyo)
   (local-set-key "\C-c\C-c"
-		 #'(lambda ()
-		     (interactive)
-		     (when (skk-y-or-n-p "ÊÔ½¸¤ò½ªÎ»¤·¤Þ¤¹¤«¡© "
-					 "Finish editing jisyo? ")
-		       (save-buffer)
-		       (kill-buffer (current-buffer))
-		       (skk-reread-private-jisyo t)
-		       (set-window-configuration
-			skk-jisyo-edit-original-window-configuration))
-		     (message nil)))
+		 (lambda ()
+		   (interactive)
+		   (when (skk-y-or-n-p "$BJT=8$r=*N;$7$^$9$+!)(B "
+				       "Finish editing jisyo? ")
+		     (save-buffer)
+		     (kill-buffer (current-buffer))
+		     (skk-reread-private-jisyo t)
+		     (set-window-configuration
+		      skk-jisyo-edit-original-window-configuration))
+		   (message nil)))
   (local-set-key "\C-c\C-k"
-		 #'(lambda ()
-		     (interactive)
-		     (when (skk-y-or-n-p "ÊÔ½¸¤òÃæ»ß¤·¤Þ¤¹¤«¡© "
-					 "Abort editing jisyo? ")
-		       (set-buffer-modified-p nil)
-		       (kill-buffer (current-buffer))
-		       (set-window-configuration
-			skk-jisyo-edit-original-window-configuration))
-		     (message nil))))
+		 (lambda ()
+		   (interactive)
+		   (when (skk-y-or-n-p "$BJT=8$rCf;_$7$^$9$+!)(B "
+				       "Abort editing jisyo? ")
+		     (set-buffer-modified-p nil)
+		     (kill-buffer (current-buffer))
+		     (set-window-configuration
+		      skk-jisyo-edit-original-window-configuration))
+		   (message nil)))
+  (skk-message "$BJ]B8=*N;(B: C-c C-c, $BJT=8Cf;_(B: C-c C-k"
+	       "Save & Exit: C-c C-c, Abort: C-c C-k"))
 
 (defadvice skk-henkan-in-minibuff (before notify-no-effect disable)
   (ding)
-  (skk-message "¸Ä¿Í¼­½ñ¤ÎÊÔ½¸Ãæ¤Ç¤¹¡£ÅÐÏ¿¤ÏÈ¿±Ç¤µ¤ì¤Þ¤»¤ó¡£"
+  (skk-message "$B8D?M<-=q$NJT=8Cf$G$9!#EPO?$OH?1G$5$l$^$;$s!#(B"
 	       "You are editing private jisyo.  This registration has no effect.")
   (sit-for 1.5))
 
@@ -170,13 +201,10 @@
   (if (eq skk-henkan-mode 'active)
       (progn
 	(ding)
-	(skk-message "¸Ä¿Í¼­½ñ¤ÎÊÔ½¸Ãæ¤Ç¤¹¡£ºï½ü¤Ç¤­¤Þ¤»¤ó¡£"
+	(skk-message "$B8D?M<-=q$NJT=8Cf$G$9!#:o=|$G$-$^$;$s!#(B"
 		     "You are editing private jisyo.  Can't purge."))
     ad-do-it))
 
-(require 'product)
-(product-provide
-    (provide 'skk-jisyo-edit)
-  (require 'skk-version))
+(provide 'skk-jisyo-edit)
 
 ;;; skk-jisyo-edit.el ends here

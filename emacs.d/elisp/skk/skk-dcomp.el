@@ -1,12 +1,14 @@
 ;;; skk-dcomp.el --- SKK dynamic completion -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1999, 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 2008, 2009 IRIE Tetsuya <irie@t.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Author: IRIE Tetsuya <irie@t.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.63 2009/08/13 05:20:17 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.74 2013/01/13 09:45:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/08/13 05:20:17 $
+;; Last Modified: $Date: 2013/01/13 09:45:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -65,10 +67,9 @@
 ;;
 ;;   (Ho) ▽ほ -> ▽ほ-!-んとう
 ;;
-;;   * SKK のコンプリーションは、元来個人辞書のみを参照して行なわれる
-;;     仕様になっていますので、個人辞書にない見出し語のコンプリーション
-;;     は行なわれません。
-;;   * コンプリーションは、送りなし変換の場合しか行なわれません。
+;;   * SKK のコンプリーションは、元来個人辞書のみを参照する仕様になってい
+;;     るので、個人辞書にない見出し語はコンプリーションされません。
+;;   * コンプリーションは、送りなし変換の場合しか行われません。
 ;;   * Ho の入力に対し、「ほんとう」がコンプリーションされるかどうかは個
 ;;     人辞書のエントリの順番次第 (変換順に降順に並んでいる) ですので、人
 ;;     それぞれ違うはずです。
@@ -76,7 +77,7 @@
 ;; 自動的にコンプリーションされた見出し語が、自分の意図したものであれば TAB
 ;; を押すことでポイント位置を動かし、コンプリーションされた見出し語を選択す
 ;; ることができます。そのまま SPC を押して変換するなり、q を押してカタカナ
-;; にするなり SKK 本来の動作を何でも行なうことができます。
+;; にするなり SKK 本来の動作を何でも行うことができます。
 ;;
 ;;   (Ho) ▽ほ -> ▽ほ-!-んとう (TAB) -> ▽ほんとう-!- (TAB)
 ;;
@@ -91,11 +92,11 @@
 ;;
 ;;   (Ho) ▽ほ -> ▽ほ-!-んとう (C-j) -> ほ
 ;;   (Ho) ▽ほ -> ▽ほ-!-んとう (SPC) -> ▼保 (「ほ」を見出し語とした変換が
-;;                                       行なわれる)
+;;                                       行われる)
 ;;   (Ho) ▽ほ -> ▽ほ-!-んとう (q) -> ホ
 ;;
 ;; コンプリーションされた状態から BS を押すと、消されたコンプリーション前の
-;; 見出し語から再度コンプリーションを行ないます。
+;; 見出し語から再度コンプリーションを行います。
 ;;
 ;;   (Ho) ▽ほ -> ▽ほ-!-んとう (ka) -> ▽ほか-!-ん (BS) -> ▽ほ-!-んとう
 
@@ -110,7 +111,7 @@
 ;;; functions.
 ;; (defsubst skk-extentp (object)
 ;;   (static-cond
-;;    ((eq skk-emacs-type 'xemacs) (extentp object))
+;;    ((featurep 'xemacs) (extentp object))
 ;;    (t (overlayp object))))
 
 (defsubst skk-dcomp-face-on (start end)
@@ -134,7 +135,7 @@
        (< skk-dcomp-start-point skk-dcomp-end-point)))
 
 (defun skk-dcomp-cleanup-buffer ()
-  (skk-dcomp-multiple-hide)
+  (skk-delete-overlay skk-dcomp-multiple-overlays)
   (when (and (or skk-dcomp-activate
 		 skk-dcomp-multiple-activate)
 	     (skk-dcomp-marked-p))
@@ -186,12 +187,11 @@
 	 (message nil))))
     (when (and (skk-dcomp-multiple-activate-p)
 	       (skk-dcomp-multiple-available-p))
-      (skk-dcomp-multiple-show
-       (skk-dcomp-multiple-get-candidates
-	(and (string= skk-dcomp-multiple-key
-		      (buffer-substring-no-properties
-		       skk-henkan-start-point (point)))
-	     (string= skk-dcomp-multiple-prefix skk-prefix)))))))
+      (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates
+				(and (string= skk-dcomp-multiple-key
+					      (buffer-substring-no-properties
+					       skk-henkan-start-point (point)))
+				     (string= skk-dcomp-multiple-prefix skk-prefix)))))))
 
 ;; 複数表示のために検索して辞書バッファの point を動かすと、skk-comp の
 ;; 補完候補が狂ってしまうので一旦保存しておき最後に元に戻す
@@ -207,10 +207,11 @@
 	 (goto-char (cdr pair))))))
 
 (defun skk-dcomp-multiple-available-p ()
-  (static-cond ((eq skk-emacs-type 'xemacs) nil)
-	       ((< emacs-major-version 21) nil)
-	       (t (< (1+ skk-dcomp-multiple-rows)
-		     (skk-window-body-height)))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 nil)
+	(t
+	 (< (1+ skk-dcomp-multiple-rows)
+	    (skk-window-body-height)))))
 
 (defun skk-dcomp-multiple-increase-index (index &optional ignore-search-done)
   (cond ((and skk-comp-circulate
@@ -240,6 +241,7 @@
       (incf i))
     (nreverse extract)))
 
+(declare-function skk-comp-get-candidate "skk-comp")
 (defun skk-dcomp-multiple-get-candidates (&optional same-key)
   (let (candidates)
     (cond ( ;; 新規検索
@@ -274,7 +276,7 @@
 		       (not (skk-get-kana skk-current-rule-tree)))
 	       (skk-dcomp-save-point-in-jisyo-buffer
 		(while (and (< i skk-dcomp-multiple-rows)
-			    (setq cand (skk-comp-get-candidate (= i 0))))
+			    (setq cand (skk-comp-get-candidate (zerop i))))
 		  (unless (member cand candidates)
 		    (push cand candidates)
 		    (incf i)))))
@@ -319,7 +321,7 @@
 			      "??")))))))
 
 (defun skk-dcomp-multiple-show (candidates)
-  (skk-dcomp-multiple-hide)
+  (skk-delete-overlay skk-dcomp-multiple-overlays)
   (unless (skk-in-minibuffer-p)
     (let* ((margin 1)
 	   (beg-col (save-excursion
@@ -330,7 +332,7 @@
       (when candidates
 	(when (zerop beg-col)
 	  (setq margin 0))
-	(setq max-width (apply 'max (mapcar 'string-width candidates)))
+	(setq max-width (skk-max-string-width candidates))
 	(dolist (str candidates)
 	  (setq str (concat (make-string margin ? )
 			    str
@@ -369,7 +371,7 @@
 		   ;; after-string に追加する。ただし、EOB の場合は
 		   ;; prefix の overlay と衝突するため
 		   ;; `skk-prefix-overlay' に追加する
-		   (setq ol (if (= i 0)
+		   (setq ol (if (zerop i)
 				(cond ((or (not skk-echo)
 					   (string= "" skk-prefix)
 					   (< (overlay-end skk-prefix-overlay)
@@ -403,8 +405,7 @@
 				    (make-string (- col ol-end-col) ? ))))
 		(setq ol (make-overlay ol-beg (point)))
 		;; 元テキストの face を継承しないように1つ後ろに
-		;; overlay を作って、その face を 'default に指定してお
-		;; く
+		;; overlay を作って、その face を 'default に指定しておく
 		(setq base-ol (make-overlay (point) (1+ (point))))
 		(overlay-put base-ol 'face 'default)
 		(push base-ol skk-dcomp-multiple-overlays)
@@ -422,15 +423,9 @@
 			     (count-screen-lines (window-start) (point))))))
 	  (recenter (- (+ 2 skk-dcomp-multiple-rows))))))))
 
-(defun skk-dcomp-multiple-hide ()
-  (when skk-dcomp-multiple-overlays
-    (dolist (ol skk-dcomp-multiple-overlays)
-      (delete-overlay ol))
-    (setq skk-dcomp-multiple-overlays nil)))
-
 ;;;###autoload
 (defun skk-dcomp-before-kakutei ()
-  (skk-dcomp-multiple-hide)
+  (skk-delete-overlay skk-dcomp-multiple-overlays)
   (when (and (or skk-dcomp-activate
 		 skk-dcomp-multiple-activate)
 	     (eq skk-henkan-mode 'on)
@@ -453,7 +448,7 @@
 	     skk-mode
 	     (eq skk-henkan-mode 'on)
 	     (not skk-hint-inhibit-dcomp))
-    (skk-dcomp-multiple-hide)
+    (skk-delete-overlay skk-dcomp-multiple-overlays)
     (setq skk-dcomp-multiple-select-index -1)
     (when (skk-dcomp-marked-p)
       (skk-dcomp-face-off)
@@ -494,8 +489,7 @@
       (if (skk-get-prefix skk-current-rule-tree)
 	  (when (and (skk-dcomp-multiple-activate-p)
 		     (skk-dcomp-multiple-available-p))
-	    (skk-dcomp-multiple-show
-	     (skk-dcomp-multiple-get-candidates)))
+	    (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates)))
 	(skk-dcomp-do-completion (point)))))))
 
 (defadvice skk-set-henkan-point-subr (around skk-dcomp-ad activate)
@@ -568,8 +562,7 @@
 		      (< skk-dcomp-multiple-select-index 0))
 		 (1- (length skk-comp-stack)))
 		(t (1- skk-dcomp-multiple-select-index))))
-    (skk-dcomp-multiple-show
-     (skk-dcomp-multiple-get-candidates t))))
+    (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates t))))
 
 (defadvice skk-kakutei (around skk-dcomp-ad activate)
   (skk-dcomp-before-kakutei)
@@ -610,8 +603,7 @@
 		  (setq skk-dcomp-multiple-select-index
 			(skk-dcomp-multiple-increase-index
 			 skk-dcomp-multiple-select-index t))
-		  (skk-dcomp-multiple-show
-		   (skk-dcomp-multiple-get-candidates t))))))
+		  (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates t))))))
 	(t
 	 ad-do-it
 	 (when (and (skk-dcomp-multiple-activate-p)
@@ -619,11 +611,10 @@
 	   (setq skk-dcomp-multiple-select-index
 		 (skk-dcomp-multiple-increase-index
 		  skk-dcomp-multiple-select-index))
-	   (skk-dcomp-multiple-show
-	    (skk-dcomp-multiple-get-candidates
-	     ;; skk-comp の C-u TAB を考慮する
-	     (not (and current-prefix-arg
-		       (listp current-prefix-arg)))))))))
+	   (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates
+				     ;; skk-comp の C-u TAB を考慮する
+				     (not (and current-prefix-arg
+					       (listp current-prefix-arg)))))))))
 
 (defadvice skk-comp-do (before skk-dcomp-ad activate)
   (when (and skk-comp-use-prefix
@@ -639,8 +630,7 @@
     (skk-kana-cleanup 'force)
     (setq skk-dcomp-multiple-select-index
 	  (skk-dcomp-multiple-increase-index skk-dcomp-multiple-select-index))
-    (skk-dcomp-multiple-show
-     (skk-dcomp-multiple-get-candidates t))))
+    (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates t))))
 
 (defadvice skk-comp-start-henkan (around skk-dcomp-ad activate)
    (cond ((and (eq skk-henkan-mode 'on)
@@ -674,9 +664,6 @@
     (when active
       (skk-dcomp-after-delete-backward-char))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-dcomp)
-  (require 'skk-version))
+(provide 'skk-dcomp)
 
 ;;; skk-dcomp.el ends here

@@ -5,9 +5,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.29 2008/04/13 11:32:37 skk-cvs Exp $
+;; Version: $Id: skk-kakasi.el,v 1.36 2011/10/22 01:58:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/04/13 11:32:37 $
+;; Last Modified: $Date: 2011/10/22 01:58:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -45,16 +45,12 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'skk-macs)
-  (require 'static))
+  (require 'skk-macs))
 
 (require 'skk-vars)
-;; APEL
-(require 'path-util)
 
-(static-when (fboundp 'modify-coding-system-alist)
-  (let ((euc (cdr (assoc "euc" skk-coding-system-alist))))
-    (modify-coding-system-alist 'process "kakasi" (cons euc euc))))
+(let ((euc (cdr (assoc "euc" skk-coding-system-alist))))
+  (modify-coding-system-alist 'process "kakasi" (cons euc euc)))
 
 ;;;; FUNCTIONS
 ;;;###autoload
@@ -69,6 +65,16 @@
     (delete-region start end)
     (goto-char start)
     (insert-and-inherit str)))
+
+;;;###autoload
+(defun skk-gyakubiki-and-henkan (start end)
+  "$BNN0h$N4A;z$r$R$i$,$J$KJQ49$7!"$=$N$R$i$,$J$r8+=P$78l$H$7$F$+$J4A;zJQ49$r<B9T$9$k!#(B"
+  (interactive "*r")
+  (let ((str (skk-gyakubiki-1 start end nil)))
+    (delete-region start end)
+    (skk-set-henkan-point-subr)
+    (insert-and-inherit str)
+    (skk-start-henkan nil)))
 
 ;;;###autoload
 (defun skk-gyakubiki-message (start end &optional all)
@@ -184,7 +190,9 @@
 (defun skk-hurigana-1 (start end all &optional katakana)
   ;; skk-hurigana-* $B$N%5%V%k!<%A%s!#(B
   ;; $B%*%W%7%g%J%k0z?t$N(B KATAKANA $B$,(B non-nil $B$G$"$l$P!"%+%?%+%J$XJQ49$9$k!#(B
-  (let ((arg (if katakana '("-JK" "-f") '("-JH" "-f"))))
+  (let ((arg (if katakana
+		 '("-JK" "-f")
+	       '("-JH" "-f"))))
     (when skk-allow-spaces-newlines-and-tabs
       (setq arg (cons "-c" arg)))
     (when all
@@ -199,7 +207,7 @@
    \"$B4A;z$+$J:.$8$jJ8$r%m!<%^;z$KJQ49(B\"
     -> \"  kan'zi  kana  ma  ziri  bun'  woro-ma  zi ni hen'kan' \"
 
-skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$KJQ99$9(B
+`skk-romaji-*-by-hepburn' $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$KJQ99$9(B
 $B$k!#Nc$($P!"(B\"$B$7(B\" $B$O%X%\%s<0$G$O(B \"shi\" $B$@$,!"71Na<0$G$O(B \"si\" $B$H$J$k!#(B"
   (interactive "*r")
   (let ((arg '("-Ha" "-Ka" "-Ja" "-Ea" "-ka" "-s"))
@@ -221,7 +229,7 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
    \"$B4A;z$+$J:.$8$jJ8$r%m!<%^;z$KJQ49(B\"
     -> \"  kan'zi  kana  ma  ziri  bun'  woro-ma  zi ni hen'kan' \"
 
-skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$KJQ99$9(B
+`skk-romaji-*-by-hepburn' $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$KJQ99$9(B
 $B$k!#Nc$($P!"(B\"$B$7(B\" $B$O%X%\%s<0$G$O(B \"shi\" $B$@$,!"71Na<0$G$O(B \"si\" $B$H$J$k!#(B"
   (interactive "r")
   (let ((arg '("-Ha" "-Ka" "-Ja" "-Ea" "-ka" "-s")))
@@ -237,8 +245,9 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
   (unless (or skk-use-kakasi
 	      skk-kakasi-command)
     (skk-error
-     "KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$$$+!";HMQ$7$J$$@_Dj$K$J$C$F$$$^$9(B"
-     "KAKASI was not installed, or skk-use-kakasi is nil"))
+     "KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$$$+!";HMQ$7$J$$@_Dj(B(%s)$B$K$J$C$F$$$^$9(B"
+     "KAKASI was not installed, or %s is nil"
+     "skk-use-kakasi"))
   ;; $BJ#?t<-=qBP1~(B
   (dolist (jisyo skk-gyakubiki-jisyo-list)
     (setq arglist (append arglist (list (expand-file-name jisyo)))))
@@ -269,9 +278,6 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
 
 (run-hooks 'skk-kakasi-load-hook)
 
-(require 'product)
-(product-provide
-    (provide 'skk-kakasi)
-  (require 'skk-version))
+(provide 'skk-kakasi)
 
 ;;; skk-kakasi.el ends here

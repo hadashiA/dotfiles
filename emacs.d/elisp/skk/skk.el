@@ -1,13 +1,13 @@
 ;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program) -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1988-1997 Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Copyright (C) 1999-2009 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999-2010 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.487 2009/12/16 02:37:35 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.622 2013/02/21 12:44:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/12/16 02:37:35 $
+;; Last Modified: $Date: 2013/02/21 12:44:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -52,6 +52,7 @@
 (eval-when-compile ; shut up compiler warning.
   (defvar enable-character-translation)
   (defvar epoch::version)
+  (defvar jka-compr-compression-info-list)
   (defvar message-log-max)
   (defvar migemo-isearch-enable-p)
   (defvar minibuffer-local-ns-map)
@@ -64,12 +65,6 @@
 ;; APEL 10.6 $B$O%;%-%e%j%F%#>e$N=EBg$J7g4Y$KBP1~$7$F$$$k$?$a!"I,?\$G$"$k!#(B
 ;; make-temp-file() $B$N7g4Y$K$D$$$F$O4X?t(B skk-save-jisyo-original() $B$N%3%a(B
 ;; $B%s%H$r;2>H!#(B
-(eval-when-compile
-  (require 'static))
-(require 'poe)
-(require 'poem) ; requires pces.
-(require 'pces)
-(require 'alist)
 
 (eval-when-compile
   (require 'cl))
@@ -87,23 +82,14 @@
   (require 'skk-vars)
   (require 'skk-macs)
   ;; SKK version dependent.
-  (static-cond
-   ((memq skk-emacs-type '(mule5 mule6))
-    (require 'skk-e21))
-   ((eq skk-emacs-type 'xemacs)
-    (require 'skk-xemacs)))
+  (cond ((featurep 'xemacs)
+	 (require 'skk-xemacs))
+	(t
+	 (require 'skk-emacs)))
   ;; Shut up, compiler.
   (autoload 'skk-jisx0213-henkan-list-filter "skk-jisx0213")
   (autoload 'skk-kanagaki-initialize "skk-kanagaki")
   (autoload 'skk-rdbms-count-jisyo-candidates "skk-rdbms"))
-
-(when (or (and (string-match "^GNU" (emacs-version))
-	       (= emacs-major-version 20))
-	  (and (featurep 'xemacs)
-	       (= emacs-major-version 21)
-	       (<= emacs-minor-version 4)))
-  (defalias 'skk-tooltip-show-at-point 'ignore)
-  (defalias 'skk-tooltip-hide 'ignore))
 
 ;; aliases.
 (defalias 'skk-toggle-kana 'skk-toggle-characters)
@@ -166,7 +152,7 @@ candidates.
 
 For more information, see the `skk' topic in Info.  \(Japanese only.\)
 
-A tutorial is available in Japanese or English via \"M-x skk-tutorial\".
+A tutorial is available in Japanese or English via \\[skk-tutorial].
 Use a prefix argument to choose the language.  The default is system-
 dependent."
   (interactive "P")
@@ -184,18 +170,18 @@ dependent."
     (unless skk-mode-invoked
       ;; enter `skk-mode' for the first time in this session.
       (skk-mode-invoke))
-    ;; $B0J2<$O(B skk-mode $B$KF~$k$?$S$KKhEY%3!<%k$5$l$k%3!<%I!#(B
+    ;; $B0J2<$O(B skk-mode $B$KF~$k$?$S$KKh2s%3!<%k$5$l$k%3!<%I!#(B
     (skk-create-file skk-jisyo
-		     "SKK $B$N6u<-=q$r:n$j$^$7$?(B"
+		     "$B6u$N(B SKK $B8D?M<-=q$r:n$j$^$7$?(B"
 		     "I have created an empty SKK Jisyo file for you")
-    (static-when (eq skk-emacs-type 'xemacs)
+    (when (eval-when-compile (featurep 'xemacs))
       (easy-menu-add skk-menu))
     (skk-require-module)
     ;; To terminate kana input.
-    (static-unless (memq skk-emacs-type '(mule5 mule6))
+    (when (eval-when-compile (featurep 'xemacs))
       (make-local-hook 'pre-command-hook))
     (skk-add-skk-pre-command)
-    (static-unless (memq skk-emacs-type '(mule5 mule6))
+    (when (eval-when-compile (featurep 'xemacs))
       (make-local-hook 'post-command-hook))
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
     (skk-j-mode-on)
@@ -218,20 +204,15 @@ dependent."
     (run-hooks 'skk-auto-fill-mode-hook)))
 
 (defun skk-kill-emacs-without-saving-jisyo (&optional query)
-  "SKK $B<-=q$r%;!<%V$7$J$$$G!"(BEmacs $B$r=*N;$9$k!#(B"
+  "$B8D?M<-=q$rJ]B8$;$:$K(B Emacs $B$r=*N;$9$k!#(B"
   (interactive "P")
   ;; format $B$r0z?t$K;}$?$;$?>l9g$O!"(Bskk-yes-or-no-p $B$r;H$&$H$+$($C$F>iD9$K$J(B
   ;; $B$k!#(B
   (when (yes-or-no-p
-	 (format
-	  (if skk-japanese-message-and-error
-	      "$B<-=q$NJ]B8$r$;$:$K(B %s $B$r=*N;$7$^$9!#NI$$$G$9$+!)(B"
-	    "Do you really wish to kill %s without saving Jisyo? ")
-	  (static-cond
-	   ((eq skk-emacs-type 'xemacs)
-	    "XEmacs")
-	   (t
-	    "Emacs"))))
+	 (format (if skk-japanese-message-and-error
+		     "$B8D?M<-=q$rJ]B8$;$:$K(B %s $B$r=*N;$7$^$9!#NI$$$G$9$+!)(B"
+		   "Do you really wish to kill %s without saving Jisyo? ")
+		 (if (featurep 'xemacs) "XEmacs" "Emacs")))
     (let ((buff (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
       (remove-hook 'kill-emacs-hook 'skk-save-jisyo)
       (when buff
@@ -242,7 +223,7 @@ dependent."
 
 (defun skk-restart ()
   "`skk-init-file' $B$N:F%m!<%I5Z$S3F<o:F@_Dj$N8e(B SKK $B%b!<%I$r5/F0$9$k!#(B
-$B0lC63F<o%f!<%6JQ?t$r=i4|2=$9$k$N$G!"(B.emacs $B$G(B SKK $B$N@_Dj$r$7$F$$$k>l9g$O(B
+$B3F<o%f!<%6JQ?t$r$$$C$?$s=i4|2=$9$k$N$G!"(B~/.emacs $B$G(B SKK $B$N@_Dj$r$7$F$$$k>l9g$O(B
 $B;H$&$Y$-$G$J$$!#(B
 `skk-kakutei-key' $B$NJQ99$K$OBP1~$G$-$F$$$J$$!#(B"
   (interactive)
@@ -255,16 +236,16 @@ dependent."
   (setq skk-rule-tree nil)
   ;; $B$$$C$=(B unload-feature $B$H$+$7$?$[$&$,$$$$$N$+$b$7$l$J$$!#(B
   ;; skk-kakutei-key $B$K4X$7$F$O(B minibuffer-local-map $B$J$I$N=hM}$b!#(B
-  (mapatoms #'(lambda (sym)
-		;; skk-user-directory, skk-init-file $B0J30$N(B defcustom $B$G@k8@(B
-		;; $B$5$l$?JQ?t$N$&$A!"(Bsaved-value $B$r;}$?$J$$$b$N$r:F=i4|2=!#(B
-		;; $BB>$K$b=|30$9$Y$-JQ?t$,$J$$$+MW8!F$!#(B
-		(when (and (string-match "^skk-" (symbol-name sym))
-			   (not (memq sym '(skk-user-directory skk-init-file)))
-			   (not (plist-member (symbol-plist sym) 'saved-value))
-			   (plist-member (symbol-plist sym) 'standard-value))
-		  (set-default sym
-			       (eval (car (get sym 'standard-value)))))))
+  (mapatoms (lambda (sym)
+	      ;; skk-user-directory, skk-init-file $B0J30$N(B defcustom $B$G@k8@(B
+	      ;; $B$5$l$?JQ?t$N$&$A!"(Bsaved-value $B$r;}$?$J$$$b$N$r:F=i4|2=!#(B
+	      ;; $BB>$K$b=|30$9$Y$-JQ?t$,$J$$$+MW8!F$!#(B
+	      (when (and (string-match "^skk-" (symbol-name sym))
+			 (not (memq sym '(skk-user-directory skk-init-file)))
+			 (not (plist-member (symbol-plist sym) 'saved-value))
+			 (plist-member (symbol-plist sym) 'standard-value))
+		(set-default sym
+			     (eval (car (get sym 'standard-value)))))))
   (dolist (feature '(skk-act skk-azik))
     (when (featurep feature)
       (unload-feature feature)))
@@ -272,6 +253,7 @@ dependent."
     (skk-mode 1)))
 
 (defun skk-require-module ()
+  ;; skk-mode $B$KF~$k$?$S$K<B9T$5$l$k(B
   (when skk-use-viper
     (require 'skk-viper))
   (when (or skk-servers-list
@@ -291,7 +273,10 @@ dependent."
 	    skk-dcomp-multiple-activate)
     (require 'skk-dcomp))
   (when skk-sticky-key
-    (require 'skk-sticky)))
+    (require 'skk-sticky))
+  (when skk-show-mode-show
+    (require 'skk-dcomp)
+    (require 'skk-show-mode)))
 
 (defun skk-mode-exit ()
   (let ((skk-mode t))
@@ -302,10 +287,16 @@ dependent."
 	       'skk-after-point-move
 	       'local)
   (skk-update-modeline)
-  (static-when (eq skk-emacs-type 'xemacs)
-    (delete-menu-item (list (car skk-menu)))))
+  (when (eval-when-compile (featurep 'xemacs))
+    (delete-menu-item (list (car skk-menu))))
+  ;;
+  (dolist (b `("*$B8uJd(B*" "*SKK annotation*" "*$BC14A;z(B*"
+	       " *$B?tCMJQ49%?%$%W(B*" ,skk-list-chars-buffer-name))
+    (when (get-buffer b)
+      (kill-buffer b))))
 
 (defun skk-mode-invoke ()
+  ;; $B0lHV:G=i$N(B skk $B5/F0;~$N$_<B9T$5$l$k(B
   (when skk-user-directory
     (make-directory skk-user-directory t))
   (skk-compile-init-file-maybe)
@@ -313,11 +304,11 @@ dependent."
   (load skk-init-file t)
   (skk-adjust-user-option)
   (skk-setup-modeline)
-  (when skk-share-private-jisyo
+  (when (default-value 'skk-share-private-jisyo)
     (skk-setup-shared-private-jisyo))
   (when skk-keep-record
     (skk-create-file skk-record-file
-		     "SKK $B$N5-O?MQ%U%!%$%k$r:n$j$^$7$?(B"
+		     "SKK $B$NE}7W>pJsMQ%U%!%$%k$r:n$j$^$7$?(B"
 		     "I have created an SKK record file for you"))
   (skk-setup-auto-paren) ; necessary to call before compiling skk-rule-tree.
   ;; SKK $B3HD%F~NO5!G=$N@_Dj(B
@@ -333,19 +324,30 @@ dependent."
 	(skk-use-kana-keyboard
 	 ;; $B2>L>F~NO(B ($BF|K\8l5l(B JIS $B$^$?$O?F;X%7%U%H(B)
 	 (skk-kanagaki-initialize)))
-  (static-when (memq skk-emacs-type '(mule5 mule6))
-    (skk-e21-prepare-menu))
-  (static-when (memq skk-emacs-type '(mule6))
+  (when (eval-when-compile (featurep 'emacs))
+    (skk-emacs-prepare-menu))
+  (when (eval-when-compile (and (featurep 'emacs)
+				(>= emacs-major-version 23)))
     (skk-setup-charset-list))
   (skk-setup-delete-selection-mode)
+  (when skk-annotation-lookup-DictionaryServices
+    (skk-annotation-start-python))
   (setq skk-mode-invoked t))
 
 ;;; setup
 (defun skk-setup-shared-private-jisyo ()
-  (setq skk-jisyo-update-vector (make-vector skk-jisyo-save-count nil))
+  ;; vector $B$ND9$5$O!"(B`skk-save-jisyo' $B$,<:GT$7$J$$A0Ds$J$i$P(B
+  ;; skk-jisyo-save-count $B$HF1$8$G$h$$!#%(%i!<$=$NB>$G<:GT$9$k2DG=@-$r(B
+  ;; $B9MN8$9$k$H!"$=$l$h$j>/$7D9$$J}$,LdBj$,5/$3$j$K$/$$!#(B
+  ;; ($B0J2<$N6qBNE*$J?t;z$K$O:,5r$O$J$$(B)
+  (setq skk-jisyo-update-vector
+	(make-vector (max (* 2 skk-jisyo-save-count)
+			  (+ 20 skk-jisyo-save-count))
+		     nil))
   (setq skk-emacs-id
-	(concat (system-name) ":" (number-to-string (emacs-pid))
-		":" (mapconcat 'int-to-string (current-time) "") ":"))
+	(concat (system-name) ":"
+		(number-to-string (emacs-pid)) ":"
+		(mapconcat 'int-to-string (current-time) "") ":"))
   (skk-create-file skk-emacs-id-file nil nil 384) ; 0600
   (with-temp-buffer
     (insert-file-contents skk-emacs-id-file)
@@ -353,168 +355,76 @@ dependent."
     (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)))
 
 (defun skk-setup-charset-list ()
-  (let ((candidates '(ascii
-		      japanese-jisx0208
-		      japanese-jisx0212
-		      latin-jisx0201
-		      katakana-jisx0201
-		      japanese-jisx0213.2004-1
-		      japanese-jisx0213-1
-		      japanese-jisx0213-2
-		      japanese-jisx0208-1978))
-	candidate
-	(list nil))
-    (while candidates
-      (setq candidate (pop candidates))
-      (when (skk-charsetp candidate)
-	(push candidate list)))
-    (setq skk-charset-list (nreverse list))))
+  (setq skk-charset-list
+	(delq nil (mapcar (lambda (c)
+			    (when (skk-charsetp c)
+			      c))
+			  '(ascii
+			    japanese-jisx0208
+			    japanese-jisx0213-1
+			    japanese-jisx0213-2
+			    japanese-jisx0213.2004-1
+			    katakana-jisx0201
+			    latin-jisx0201
+			    japanese-jisx0212
+			    japanese-jisx0208-1978)))))
 
 (defun skk-setup-keymap ()
-  "SKK $B$N%-!<@_Dj$r9T$&!#(B"
-  (cond
-   (skk-j-mode
-    (skk-define-j-mode-map)
-    (unless (eq (lookup-key skk-j-mode-map
-			    (skk-char-to-unibyte-string skk-try-completion-char))
-		'skk-insert)
-      (when (vectorp skk-kakutei-key)
-	(define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei))
-      (define-key skk-j-mode-map (skk-char-to-unibyte-string skk-try-completion-char)
-	'skk-insert)
-      ;; Workaround for key translation.
-      (static-unless (featurep 'xemacs)
-	(when (eq (char-int skk-try-completion-char) 9)
-	  ;; tab $B%-!<$O(B <tab> $B$NDj5A$,L5$1$l$P(B TAB $B$NDj5A$,3d$jEv$F$i$l$k!#(B
-	  ;; Org-mode $B$J$I$O(B <tab> $B$rDj5A$9$k$N$G!$(BSKK $B$NJ}$G$b(B <tab> $B$rDj5A(B
-	  ;; $B$9$kI,MW$,$"$k!#(B
-	  (define-key skk-j-mode-map [(tab)] 'skk-completion-wrapper)))
-      ;;
-      (unless (featurep 'skk-kanagaki)
-	(define-key skk-j-mode-map (skk-char-to-unibyte-string
-				    skk-previous-candidate-char)
-	  'skk-previous-candidate))
-      (when skk-use-jisx0201-input-method
-	;; This command is autoloaded.
-	(define-key skk-j-mode-map "\C-q" 'skk-toggle-katakana))
-      (unless skk-use-viper
-	(define-key skk-j-mode-map
-	  (skk-char-to-unibyte-string skk-start-henkan-with-completion-char)
-	  'skk-comp-start-henkan)
-	(define-key skk-j-mode-map
-	  (skk-char-to-unibyte-string skk-backward-and-set-henkan-point-char)
-	  'skk-backward-and-set-henkan-point))
-      (skk-setup-delete-backward-char)
-      (skk-setup-undo)))
-   ;;
-   (skk-latin-mode
-    (skk-define-latin-mode-map)
-    (unless (eq (lookup-key skk-latin-mode-map skk-kakutei-key)
-		'skk-kakutei)
-      (define-key skk-latin-mode-map skk-kakutei-key 'skk-kakutei)))
-   ;;
-   (skk-jisx0208-latin-mode
-    (skk-define-jisx0208-latin-mode-map)
-    (unless (eq (lookup-key skk-jisx0208-latin-mode-map skk-kakutei-key)
-		'skk-kakutei)
-      (define-key skk-jisx0208-latin-mode-map skk-kakutei-key 'skk-kakutei)
-      (unless skk-use-viper
-	(define-key skk-jisx0208-latin-mode-map
-	  (skk-char-to-unibyte-string skk-backward-and-set-henkan-point-char)
-	  'skk-backward-and-set-henkan-point))))
-   ;;
-   (skk-abbrev-mode-map
-    (skk-define-abbrev-mode-map)
-    (unless (eq (lookup-key skk-abbrev-mode-map skk-kakutei-key)
-		'skk-kakutei)
-      (define-key skk-abbrev-mode-map skk-kakutei-key 'skk-kakutei)
-      (define-key skk-abbrev-mode-map (skk-char-to-unibyte-string
-				       skk-start-henkan-char)
-	'skk-start-henkan)
-      (define-key skk-abbrev-mode-map (skk-char-to-unibyte-string
-				       skk-try-completion-char)
-	'skk-try-completion)
-      (unless skk-use-viper
-	(define-key skk-abbrev-mode-map
-	  (skk-char-to-unibyte-string skk-start-henkan-with-completion-char)
-	  'skk-start-henkan-with-completion)))))
-  ;;
-  (unless (eq (lookup-key minibuffer-local-map skk-kakutei-key)
-	      'skk-kakutei)
-    (define-key minibuffer-local-map skk-kakutei-key 'skk-kakutei)
-    (define-key minibuffer-local-completion-map skk-kakutei-key 'skk-kakutei)
-    ;; XEmacs doesn't have minibuffer-local-ns-map
-    (when (and (boundp 'minibuffer-local-ns-map)
-	       (keymapp (symbol-value 'minibuffer-local-ns-map)))
-      (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei)))
-  ;;
-  (cond
-   ((eq skk-j-mode-function-key-usage 'conversion)
-    (define-key skk-j-mode-map [f1] 'skk-start-henkan-prog-1)
-    (define-key skk-j-mode-map [f2] 'skk-start-henkan-prog-2)
-    (define-key skk-j-mode-map [f3] 'skk-start-henkan-prog-3)
-    (define-key skk-j-mode-map [f4] 'skk-start-henkan-prog-4)
-    (define-key skk-j-mode-map [f5] 'skk-start-henkan-prog-5)
-    (define-key skk-j-mode-map [f6] 'skk-start-henkan-prog-6)
-    (define-key skk-j-mode-map [f7] 'skk-start-henkan-prog-7)
-    (define-key skk-j-mode-map [f8] 'skk-start-henkan-prog-8)
-    (define-key skk-j-mode-map [f9] 'skk-start-henkan-prog-9)
-    (define-key skk-j-mode-map [f10] 'skk-start-henkan-prog-0))
-   (t
-    nil))
+  "SKK $B$N%-!<$r@_Dj$9$k!#(B"
+  (cond (skk-j-mode
+	 (skk-define-j-mode-map)
+	 (skk-setup-j-mode-map-options))
+	(skk-latin-mode
+	 (skk-define-latin-mode-map)
+	 (skk-setup-latin-mode-map-options))
+	(skk-jisx0208-latin-mode
+	 (skk-define-jisx0208-latin-mode-map)
+	 (skk-setup-jisx0208-latin-mode-map-options))
+	(skk-abbrev-mode
+	 (skk-define-abbrev-mode-map)
+	 (skk-setup-abbrev-mode-map-options)))
+  (skk-define-minibuffer-maps)
   ;;
   (unless skk-rule-tree
-    (setq skk-rule-tree (skk-compile-rule-list
-			 skk-rom-kana-base-rule-list
-			 skk-rom-kana-rule-list))))
+    (setq skk-rule-tree (skk-compile-rule-list skk-rom-kana-base-rule-list
+					       skk-rom-kana-rule-list))))
 
 (defun skk-define-menu (map)
   "SKK $B$N%W%k%@%&%s%a%K%e!<$rDj5A$9$k!#(B"
-  (easy-menu-define skk-menu
-		    map
-		    "Menu used in SKK mode."
-		    skk-menu-items))
+  (easy-menu-define skk-menu map "Menu used in SKK mode." skk-menu-items))
 
 (defun skk-define-j-mode-map ()
   "$B%-!<%^%C%W(B `skk-j-mode-map' $B$rDj5A$9$k!#(B"
   (unless (keymapp skk-j-mode-map)
     (setq skk-j-mode-map (make-sparse-keymap))
-    (set-modified-alist
-     'minor-mode-map-alist
-     (list (cons 'skk-j-mode skk-j-mode-map)
-	   (cons 'skk-jisx0201-mode skk-j-mode-map))))
-  (unless (eq (lookup-key skk-j-mode-map "a")
-	      'skk-insert)
-    (let ((i 32))
-      (while (< i 127)
-	(define-key skk-j-mode-map (skk-char-to-unibyte-string i) 'skk-insert)
-	(setq i (1+ i))))
+    (skk-update-minor-mode-map-alist 'skk-j-mode skk-j-mode-map)
+    (skk-update-minor-mode-map-alist 'skk-jisx0201-mode skk-j-mode-map))
+  (unless (eq (lookup-key skk-j-mode-map "a") 'skk-insert)
+    (dotimes (i 95)			;from " " to "~".
+      (define-key skk-j-mode-map (skk-char-to-unibyte-string (+ 32 i))
+	'skk-insert))
     (skk-define-menu skk-j-mode-map)))
 
 (defun skk-define-latin-mode-map ()
   "$B%-!<%^%C%W(B `skk-latin-mode-map' $B$rDj5A$9$k!#(B"
   (unless (keymapp skk-latin-mode-map)
     (setq skk-latin-mode-map (make-sparse-keymap))
-    (set-modified-alist
-     'minor-mode-map-alist
-     (list (cons 'skk-latin-mode skk-latin-mode-map)))
+    (skk-update-minor-mode-map-alist 'skk-latin-mode skk-latin-mode-map)
     (skk-define-menu skk-latin-mode-map)))
 
 (defun skk-define-jisx0208-latin-mode-map ()
   "$B%-!<%^%C%W(B `skk-jisx0208-latin-mode-map' $B$rDj5A$9$k!#(B"
   (unless (keymapp skk-jisx0208-latin-mode-map)
     (setq skk-jisx0208-latin-mode-map (make-sparse-keymap))
-    (set-modified-alist
-     'minor-mode-map-alist
-     (list (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map))))
+    (skk-update-minor-mode-map-alist 'skk-jisx0208-latin-mode
+				     skk-jisx0208-latin-mode-map))
   (unless (eq (lookup-key skk-jisx0208-latin-mode-map "a")
 	      'skk-jisx0208-latin-insert)
-    (let ((i 0))
-      (while (< i 128)
-	(when (aref skk-jisx0208-latin-vector i)
-	  (define-key skk-jisx0208-latin-mode-map (skk-char-to-unibyte-string i)
-	    'skk-jisx0208-latin-insert))
-	(setq i (1+ i))))
+    (dotimes (i 128)
+      (when (aref skk-jisx0208-latin-vector i)
+	(define-key skk-jisx0208-latin-mode-map
+	  (skk-char-to-unibyte-string i)
+	  'skk-jisx0208-latin-insert)))
     (define-key skk-jisx0208-latin-mode-map "\C-q" 'skk-toggle-characters)
     (skk-define-menu skk-jisx0208-latin-mode-map)))
 
@@ -522,31 +432,119 @@ dependent."
   "$B%-!<%^%C%W(B `skk-abbrev-mode-map' $B$rDj5A$9$k!#(B"
   (unless (keymapp skk-abbrev-mode-map)
     (setq skk-abbrev-mode-map (make-sparse-keymap))
-    (set-modified-alist
-     'minor-mode-map-alist
-     (list (cons 'skk-abbrev-mode skk-abbrev-mode-map)))
-    (let ((i 32))
-      (while (< i 127)
-	(define-key skk-abbrev-mode-map (skk-char-to-unibyte-string i)
-	  'skk-abbrev-insert)
-	(setq i (1+ i))))
+    (skk-update-minor-mode-map-alist 'skk-abbrev-mode skk-abbrev-mode-map)
+    (dotimes (i 95)
+      (define-key skk-abbrev-mode-map (skk-char-to-unibyte-string (+ 32 i))
+	  'skk-abbrev-insert))
     (define-key skk-abbrev-mode-map "," 'skk-abbrev-comma)
     (define-key skk-abbrev-mode-map "." 'skk-abbrev-period)
     (define-key skk-abbrev-mode-map "\C-q" 'skk-toggle-characters)
     (skk-define-menu skk-abbrev-mode-map)))
+
+(defun skk-define-minibuffer-maps ()
+  (unless (eq (lookup-key minibuffer-local-map skk-kakutei-key) 'skk-kakutei)
+    (define-key minibuffer-local-map skk-kakutei-key #'skk-kakutei)
+    (define-key minibuffer-local-completion-map skk-kakutei-key #'skk-kakutei)
+    ;; XEmacs doesn't have minibuffer-local-ns-map
+    (when (and (boundp 'minibuffer-local-ns-map)
+	       (keymapp (symbol-value 'minibuffer-local-ns-map)))
+      (define-key minibuffer-local-ns-map skk-kakutei-key #'skk-kakutei))))
 
 (skk-define-abbrev-mode-map)
 (skk-define-latin-mode-map)
 (skk-define-jisx0208-latin-mode-map)
 (skk-define-j-mode-map)
 
+(defun skk-setup-j-mode-map-options ()
+  (unless (eq (lookup-key skk-j-mode-map
+			  (skk-char-to-unibyte-string skk-try-completion-char))
+	      'skk-insert)
+    (when (vectorp skk-kakutei-key)
+      (define-key skk-j-mode-map skk-kakutei-key #'skk-kakutei))
+    (define-key skk-j-mode-map
+      (skk-char-to-unibyte-string skk-try-completion-char)
+      #'skk-insert)
+
+    ;; Workaround for key translation.
+    (when (eval-when-compile (featurep 'emacs))
+      (when (eq skk-try-completion-char 9)
+	;; tab $B%-!<$O(B <tab> $B$NDj5A$,L5$1$l$P(B TAB $B$NDj5A$,3d$jEv$F$i$l$k!#(B
+	;; Org-mode $B$J$I$O(B <tab> $B$rDj5A$9$k$N$G!$(BSKK $B$NJ}$G$b(B <tab> $B$rDj5A(B
+	;; $B$9$kI,MW$,$"$k!#(B
+	(define-key skk-j-mode-map [(tab)] #'skk-comp-wrapper)))
+
+    ;; comp $B$H(B dcomp $B$G$NA08uJd$XLa$kF0:n$r(B Shift TAB $B$G$b2DG=$H$9$k!#(B
+    (when skk-previous-completion-use-backtab
+      (define-key skk-j-mode-map skk-previous-completion-backtab-key
+	#'skk-previous-comp-maybe))
+    ;;
+    (when (characterp (symbol-value 'skk-previous-candidate-char))
+      (add-to-list 'skk-previous-candidate-keys
+		   (skk-char-to-unibyte-string
+		    (symbol-value 'skk-previous-candidate-char))))
+    (unless (featurep 'skk-kanagaki)
+      (dolist (key skk-previous-candidate-keys)
+	(define-key skk-j-mode-map key #'skk-previous-candidate)))
+    ;;
+    (when skk-use-jisx0201-input-method
+      ;; This command is autoloaded.
+      (define-key skk-j-mode-map "\C-q" #'skk-toggle-katakana))
+    (unless skk-use-viper
+      (define-key skk-j-mode-map
+	(skk-char-to-unibyte-string skk-start-henkan-with-completion-char)
+	#'skk-comp-start-henkan)
+      (define-key skk-j-mode-map
+	(skk-char-to-unibyte-string skk-backward-and-set-henkan-point-char)
+	#'skk-backward-and-set-henkan-point))
+    (skk-setup-delete-backward-char)
+    (skk-setup-undo)
+    ;;
+    (when (eq skk-j-mode-function-key-usage 'conversion)
+      (define-key skk-j-mode-map [f1] #'skk-start-henkan-prog-1)
+      (define-key skk-j-mode-map [f2] #'skk-start-henkan-prog-2)
+      (define-key skk-j-mode-map [f3] #'skk-start-henkan-prog-3)
+      (define-key skk-j-mode-map [f4] #'skk-start-henkan-prog-4)
+      (define-key skk-j-mode-map [f5] #'skk-start-henkan-prog-5)
+      (define-key skk-j-mode-map [f6] #'skk-start-henkan-prog-6)
+      (define-key skk-j-mode-map [f7] #'skk-start-henkan-prog-7)
+      (define-key skk-j-mode-map [f8] #'skk-start-henkan-prog-8)
+      (define-key skk-j-mode-map [f9] #'skk-start-henkan-prog-9)
+      (define-key skk-j-mode-map [f10] #'skk-start-henkan-prog-0))))
+
+(defun skk-setup-latin-mode-map-options ()
+  (unless (eq (lookup-key skk-latin-mode-map skk-kakutei-key) 'skk-kakutei)
+    (define-key skk-latin-mode-map skk-kakutei-key #'skk-kakutei)))
+
+(defun skk-setup-jisx0208-latin-mode-map-options ()
+  (unless (eq (lookup-key skk-jisx0208-latin-mode-map skk-kakutei-key)
+	      'skk-kakutei)
+    (define-key skk-jisx0208-latin-mode-map skk-kakutei-key #'skk-kakutei)
+    (unless skk-use-viper
+      (define-key skk-jisx0208-latin-mode-map
+	(skk-char-to-unibyte-string skk-backward-and-set-henkan-point-char)
+	#'skk-backward-and-set-henkan-point))))
+
+(defun skk-setup-abbrev-mode-map-options ()
+  (unless (eq (lookup-key skk-abbrev-mode-map skk-kakutei-key) 'skk-kakutei)
+    (define-key skk-abbrev-mode-map skk-kakutei-key #'skk-kakutei)
+    (define-key skk-abbrev-mode-map
+      (skk-char-to-unibyte-string skk-start-henkan-char)
+      #'skk-start-henkan)
+    (define-key skk-abbrev-mode-map
+      (skk-char-to-unibyte-string skk-try-completion-char)
+      #'skk-try-completion)
+    (unless skk-use-viper
+      (define-key skk-abbrev-mode-map
+	(skk-char-to-unibyte-string skk-start-henkan-with-completion-char)
+	#'skk-start-henkan-with-completion))))
+
 (defun skk-make-indicator-alist ()
   "SKK $B%$%s%8%1!<%?7?%*%V%8%'%/%H$rMQ0U$7!"O"A[%j%9%H$K$^$H$a$k!#(B"
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (skk-xemacs-prepare-modeline-properties))
-   ((memq skk-emacs-type '(mule5 mule6))
-    (skk-e21-prepare-modeline-properties)))
+   (t
+    (skk-emacs-prepare-modeline-properties)))
   ;;
   (let ((mode-string-list '(skk-latin-mode-string
 			    skk-hiragana-mode-string
@@ -559,27 +557,27 @@ dependent."
       (cons
        (cons 'default
 	     (cons "" (skk-mode-string-to-indicator 'default "")))
-       (mapcar #'(lambda (symbol)
-		   (setq mode (prin1-to-string symbol))
-		   (string-match "skk-\\([-a-z0-9]+\\)-mode-string" mode)
-		   (setq mode (intern (match-string-no-properties 1 mode)))
-		   (setq string (symbol-value symbol))
-		   ;; $BK\Mh$J$i$3$N$h$&$K%f!<%6JQ?t$r2C9)$9$k$N$O$*$+$7$$$,!"(B
-		   ;; $B0\9T4|$N=hCV$H$7$F;CDjE*$K9T$J$&!#(B
-		   (cond
-		    ((string-match "^ +" string)
-		     ;; minor-mode setting
-		     (setq base (substring string (match-end 0))))
-		    ((string-match "^--" string)
-		     ;; mode-line left setting
-		     (setq base (substring string (match-end 0)))
-		     (when (string-match "::*$" base)
-		       (setq base (substring base 0 (match-beginning 0)))))
-		    (t
-		     (setq base string)))
-		   (cons mode
-			 (cons (concat " " base)
-			       (skk-make-indicator-alist-1 mode base))))
+       (mapcar (lambda (symbol)
+		 (setq mode (prin1-to-string symbol))
+		 (string-match "skk-\\([-a-z0-9]+\\)-mode-string" mode)
+		 (setq mode (intern (match-string-no-properties 1 mode)))
+		 (setq string (symbol-value symbol))
+		 ;; $BK\Mh$J$i$3$N$h$&$K%f!<%6JQ?t$r2C9)$9$k$N$O$*$+$7$$$,!"(B
+		 ;; $B0\9T4|$N=hCV$H$7$F;CDjE*$K9T$J$&!#(B
+		 (cond
+		  ((string-match "^ +" string)
+		   ;; minor-mode setting
+		   (setq base (substring string (match-end 0))))
+		  ((string-match "^--" string)
+		   ;; mode-line left setting
+		   (setq base (substring string (match-end 0)))
+		   (when (string-match "::*$" base)
+		     (setq base (substring base 0 (match-beginning 0)))))
+		  (t
+		   (setq base string)))
+		 (cons mode
+		       (cons (concat " " base)
+			     (skk-make-indicator-alist-1 mode base))))
 	       mode-string-list)))))
 
 (defun skk-make-indicator-alist-1 (mode base)
@@ -595,68 +593,48 @@ dependent."
     (skk-mode-string-to-indicator mode string)))
 
 (defun skk-setup-modeline ()
-  "$B%b!<%I9T$X$N%9%F!<%?%9I=<($r=`Hw$9$k!#(B"
+  "$B%b!<%I%i%$%s$X$N%9%F!<%?%9I=<($r=`Hw$9$k!#(B"
   (setq skk-indicator-alist (skk-make-indicator-alist))
-  (cond
-   ((not (eq skk-status-indicator 'left))
-    (when (and (listp mode-line-format)
-	       (equal (car mode-line-format)
-		      "")
-	       (eq 'skk-modeline-input-mode
-		   (nth 1 mode-line-format)))
-      ;; for skk-restart.
-      (setq-default mode-line-format
-		    (nthcdr 2 mode-line-format)))
+  (case skk-status-indicator
+    (left
+     (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
+       (setq-default mode-line-format
+		     (append '("" skk-modeline-input-mode)
+			     (default-value 'mode-line-format))))
+     (skk-loop-for-buffers (buffer-list)
+       (when (and (listp mode-line-format)
+		  (skk-local-variable-p 'mode-line-format)
+		  (null (memq 'skk-modeline-input-mode mode-line-format)))
+	 (setq mode-line-format
+	       (append '("" skk-modeline-input-mode) mode-line-format))))
+     (when skk-icon
+       (unless (memq 'skk-icon (default-value 'mode-line-format))
+	 (setq-default mode-line-format
+		       (append '("" skk-icon)
+			       (default-value 'mode-line-format))))
+       (skk-loop-for-buffers (buffer-list)
+	 (when (and (listp mode-line-format)
+		    (skk-local-variable-p 'mode-line-format)
+		    (null (memq 'skk-icon mode-line-format)))
+	   (setq mode-line-format (append '("" skk-icon) mode-line-format)))))
+     (force-mode-line-update t))
+    ;;
+    (t
+     (when (and (listp mode-line-format)
+		(equal (car mode-line-format) "")
+		(eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
+       ;; for skk-restart.
+       (setq-default mode-line-format
+		     (nthcdr 2 mode-line-format)))
 
-    (skk-loop-for-buffers (buffer-list)
-      (when (and (listp mode-line-format)
-		 (equal (car mode-line-format)
-			"")
-		 (eq 'skk-modeline-input-mode
-		     (nth 1 mode-line-format)))
-	;; for skk-restart.
-	(setq mode-line-format (nthcdr 2 mode-line-format))))
-
-    (setq-default skk-modeline-input-mode "")
-
-    (static-if
-	(memq skk-emacs-type '(xemacs mule5 mule6))
-	(add-minor-mode 'skk-mode 'skk-modeline-input-mode)
-      (setq minor-mode-alist
-	    ;; each element of minor-mode-alist is not cons cell.
-	    (put-alist 'skk-mode
-		       '(skk-modeline-input-mode)
-		       minor-mode-alist))))
-   (t
-    (unless (memq 'skk-modeline-input-mode
-		  (default-value 'mode-line-format))
-      (setq-default mode-line-format
-		    (append '("" skk-modeline-input-mode)
-			    (default-value 'mode-line-format))))
-    (skk-loop-for-buffers (buffer-list)
-      (when (and (listp mode-line-format)
-		 (skk-local-variable-p 'mode-line-format)
-		 (null (memq 'skk-modeline-input-mode
-			     mode-line-format)))
-	(setq mode-line-format
-	      (append '("" skk-modeline-input-mode)
-		      mode-line-format))))
-
-    (when skk-icon
-      (unless (memq 'skk-icon (default-value 'mode-line-format))
-	(setq-default mode-line-format
-		      (append '("" skk-icon)
-			      (default-value 'mode-line-format))))
-      (skk-loop-for-buffers (buffer-list)
-	(when (and (listp mode-line-format)
-		   (skk-local-variable-p 'mode-line-format)
-		   (null (memq 'skk-icon
-			       mode-line-format)))
-	  (setq mode-line-format
-		(append '("" skk-icon)
-			mode-line-format)))))
-
-    (force-mode-line-update t))))
+     (skk-loop-for-buffers (buffer-list)
+       (when (and (listp mode-line-format)
+		  (equal (car mode-line-format) "")
+		  (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
+	 ;; for skk-restart.
+	 (setq mode-line-format (nthcdr 2 mode-line-format))))
+     (setq-default skk-modeline-input-mode "")
+     (add-minor-mode 'skk-mode 'skk-modeline-input-mode))))
 
 (defun skk-setup-emulation-commands (commands emulation)
   (let ((map (if (and (boundp 'overriding-local-map)
@@ -671,57 +649,54 @@ dependent."
 (defun skk-setup-delete-backward-char ()
   "$B!V8eB`!W7O$N%-!<$K%3%^%s%I(B `skk-delete-backward-char' $B$r3dEv$F$k!#(B"
   (skk-setup-emulation-commands
-   '(backward-delete-char-untabify
-     backward-delete-char
-     backward-or-forward-delete-char
-     delete-backward-char
-     picture-backward-clear-column
-     ;; following two are SKK adviced.
-     ;;viper-del-backward-char-in-insert
-     ;;vip-del-backward-char-in-insert
-     )
-   'skk-delete-backward-char))
+   skk-delete-backward-char-commands 'skk-delete-backward-char))
 
 (defun skk-setup-undo ()
-  "$B!V$d$j$J$*$7!W7O$N%-!<$K%3%^%s%I(B `skk-undo' $B$r3dEv$F$k!#(B"
-  (skk-setup-emulation-commands
-  '(undo
-    advertised-undo)
-  'skk-undo))
+  "$B!V$d$jD>$7!W7O$N%-!<$K%3%^%s%I(B `skk-undo' $B$r3dEv$F$k!#(B"
+  (skk-setup-emulation-commands skk-undo-commands 'skk-undo))
 
 (defun skk-setup-verbose-messages ()
   (unless skk-henkan-on-message
-    (let ((string (if (eq skk-j-mode-function-key-usage 'conversion)
-		      "[F5]%s[F6]%s[F7]%s[F8]%s[F9]%s[F10]%s"
-		    "\
-[C-5 SPC]%s[C-6 SPC]%s[C-7 SPC]%s[C-8 SPC]%s[C-9 SPC]%s[C-0 SPC]%s"))
-	  (i 10)
-	  list val)
-      (while (> i 4)
-	(setq val (caar (symbol-value
-			 (intern
-			  (format "skk-search-prog-list-%d"
-				  (if (> i 9)
-				      (- i 10)
-				    i))))))
-	(setq list
-	      (cons (cond ((eq val 'skk-search-tankanji)
-			   "$BC14A;z(B")
-			  ((eq val 'skk-search-identity)
-			   "$BL5JQ49(B")
-			  ((eq val 'skk-search-katakana)
-			   "$B%+%?%+%J(B")
-			  ((eq val 'skk-search-hankaku-katakana)
-			   "$BH>3Q%+%J(B")
-			  ((eq val 'skk-search-jisx0208-romaji)
-			   "$BA43Q%m!<%^(B")
-			  ((eq val 'skk-search-romaji)
-			   "$B%m!<%^(B")
-			  (t
-			   "$B%f!<%6Dj5A(B"))
-		    list))
-	(setq i (1- i)))
-      (setq skk-henkan-on-message (apply 'format string list)))))
+    (let ((list
+	   (split-string
+	    (apply 'format
+		   ;; fotmat#STRING
+		   (case skk-j-mode-function-key-usage
+		     (conversion
+		      "\
+\[F5]%s  [F6]%s  [F7]%s  [F8]%s  [F9]%s  [F10]%s")
+		     (t
+		      "\
+\[C-5 SPC]%s  [C-6 SPC]%s  [C-7 SPC]%s  [C-8 SPC]%s  [C-9 SPC]%s  [C-0 SPC]%s"))
+		   ;; format#OBJECTS
+		   (mapcar
+		    (lambda (x)
+		      (cdr
+		       (assoc (caar (symbol-value
+				     (intern-soft
+				      (format "skk-search-prog-list-%d"
+					      x))))
+			      '((skk-search-tankanji . "$BC14A;z(B")
+				(skk-search-identity . "$BL5JQ49(B")
+				(skk-search-katakana . "$B%+%?%+%J(B")
+				(skk-search-hankaku-katakana . "$BH>3Q%+%J(B")
+				(skk-search-jisx0208-romaji . "$BA43Q%m!<%^(B")
+				(skk-search-romaji . "$B%m!<%^(B")
+				(nil . "$BL$Dj5A(B"))
+			      )))
+		    '(5 6 7 8 9 0))) "  "))
+	  new) ; END varlist
+      ;; BODY
+      (dolist (x list)
+	(let* ((y (split-string x "]"))
+	       (s1 (car y))
+	       (s2 (nth 1 y)))
+	  (setq new (concat new
+			    (propertize (concat s1 "]") 'face
+					'skk-verbose-kbd-face)
+			    s2 " "))))
+      (setq skk-henkan-on-message new))
+    ))
 
 (defun skk-compile-init-file-maybe ()
   "$BI,MW$J$i(B `skk-init-file' $B$r%P%$%H%3%s%Q%$%k$9$k!#(B
@@ -760,16 +735,10 @@ dependent."
   "Delete Selection $B%b!<%I$N$?$a$N@_Dj$r$9$k!#(B
 Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$K(B
 $B%;%C%H%"%C%W$9$k!#(B"
-  (let ((feature (static-cond
-		  ((eq skk-emacs-type 'xemacs)
-		   'pending-del)
-		  (t
-		   'delsel)))
-	(property (static-cond
-		   ((eq skk-emacs-type 'xemacs)
-		    'pending-delete)
-		   (t
-		    'delete-selection)))
+  (let ((property (cond ((featurep 'xemacs)
+			 'pending-delete)
+			(t
+			 'delete-selection)))
 	(funcs '(skk-current-kuten
 		 skk-current-touten
 		 skk-input-by-code-or-menu
@@ -785,29 +754,23 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 (defun skk-setup-auto-paren ()
   (when (and skk-auto-insert-paren
 	     skk-auto-paren-string-alist)
-    ;;
-    (let ((strlst (mapcar 'char-to-string
-			  skk-special-midashi-char-list))
-	  rulealst str alist)
-      (while strlst
-	;; skk-auto-paren-string-alist $B$NCf$+$i!"(B
-	;; skk-special-midashi-char-list $B$NMWAG$K(B
-	;; $B4XO"$9$k$b$N$r<h$j=|$/!#(B
-	(remove-alist 'skk-auto-paren-string-alist (car strlst))
-	(setq strlst (cdr strlst)))
-      (when (memq t (mapcar
-		     #'(lambda (e)
-			 (skk-ascii-char-p (string-to-char (car e))))
-		     skk-auto-paren-string-alist))
-	;;
-	(setq alist skk-auto-paren-string-alist
-	      rulealst (nconc (mapcar #'(lambda (e)
-					  (nth 2 e))
+    ;; skk-auto-paren-string-alist $B$NCf$+$i!"(B
+    ;; skk-special-midashi-char-list $B$NMWAG$K4XO"$9$k$b$N$r<h$j=|$/!#(B
+    (dolist (s (mapcar #'char-to-string
+		       skk-special-midashi-char-list))
+      (skk-remove-alist 'skk-auto-paren-string-alist s))
+
+    (when (memq t (mapcar (lambda (e)
+			    (skk-ascii-char-p (string-to-char (car e))))
+			  skk-auto-paren-string-alist))
+      (let (rulealst str)
+	(setq rulealst (nconc (mapcar (lambda (e)
+					(nth 2 e))
 				      skk-rom-kana-rule-list)
-			      (mapcar #'(lambda (e)
-					  (nth 2 e))
+			      (mapcar (lambda (e)
+					(nth 2 e))
 				      skk-rom-kana-base-rule-list)))
-	(dolist (cell alist)
+	(dolist (cell skk-auto-paren-string-alist)
 	  (setq str (car cell))
 	  (when (and (skk-ascii-char-p (string-to-char str))
 		     ;; $B=PNOJ8;z$,F~$C$F$$$k%;%k$rD4$Y$F!"$$$:$l$+$N(B
@@ -820,29 +783,30 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		     (null (assoc str skk-rom-kana-rule-list)))
 	    ;; skk-auto-paren-string-alist $B$N3FMWAG$N(B car $B$NJ8;z$,(B
 	    ;; ascii char $B$G$"$k>l9g$O!"(Bskk-rom-kana-rule-list,
-	    ;; skk-rom-kana-base-rule-list $B$K$=$NJ8;z$r=q$-9~$`(B ($BK\(B
-	    ;; $BMh$O(B ascii char $B$O(B skk-rom-kana-rule-list,
-	    ;; skk-rom-kana-base-rule-list $B$K=q$/I,MW$,$J$$(B ---
-	    ;; skk-emulate-original-map$B$K$h$kF~NO$,9T$J$o$l$k(B ---
+	    ;; skk-rom-kana-base-rule-list $B$K$=$NJ8;z$r=q$-9~$`!#(B
+	    ;; $BK\Mh$O(B ascii char $B$O(B skk-rom-kana-rule-list,
+	    ;; skk-rom-kana-base-rule-list $B$K=q$/I,MW$,$J$$(B
+	    ;; --- skk-emulate-original-map$B$K$h$kF~NO$,9T$J$o$l$k(B ---
 	    ;; $B$,!"(Bskk-auto-paren-string-alist $B$K;XDj$5$l$?BP$K$J$k(B
 	    ;; $BJ8;z$NA^F~$N$?$a$K$O!"%-!<$H$J$kJ8;z$r=q$$$F$*$/I,MW$,(B
-	    ;; $B$"$k(B)$B!#(B
+	    ;; $B$"$k!#(B
 	    (setq skk-rom-kana-rule-list
 		  (cons (list str nil str)
 			skk-rom-kana-rule-list))))))))
 
 (defun skk-setup-minibuffer ()
-  "$B%+%l%s%H%P%C%U%!$NF~NO%b!<%I$K=>$$%_%K%P%C%U%!$NF~NO%b!<%I$r@_Dj$9$k!#(B"
-  (cond ((eq skk-minibuffer-origin-mode 'hiragana)
-	 (skk-j-mode-on))
-	((eq skk-minibuffer-origin-mode 'katakana)
-	 (skk-j-mode-on t))
-	((eq skk-minibuffer-origin-mode 'abbrev)
-	 (skk-abbrev-mode-on))
-	((eq skk-minibuffer-origin-mode 'latin)
-	 (skk-latin-mode-on))
-	((eq skk-minibuffer-origin-mode 'jisx0208-latin)
-	 (skk-jisx0208-latin-mode-on))))
+  "$B%+%l%s%H%P%C%U%!$NF~NO%b!<%I$K=>$C$F%_%K%P%C%U%!$NF~NO%b!<%I$r@_Dj$9$k!#(B"
+  (case skk-minibuffer-origin-mode
+    (hiragana
+     (skk-j-mode-on))
+    (katakana
+     (skk-j-mode-on t))
+    (abbrev
+     (skk-abbrev-mode-on))
+    (latin
+     (skk-latin-mode-on))
+    (jisx0208-latin
+     (skk-jisx0208-latin-mode-on))))
 
 (defun skk-setup-jisyo-buffer ()
   "SKK $B$N<-=q%P%C%U%!$rMQ0U$9$k!#(B
@@ -872,7 +836,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   ;;
   ;; case-fold-search $B$O!"<-=q%P%C%U%!$G$O>o$K(B nil$B!#(B
   (save-match-data
-    (when (= (buffer-size) 0)
+    (when (zerop (buffer-size))
       ;; $B6u%P%C%U%!$@$C$?$i!"%X%C%@!<$N$_A^F~!#(B
       (insert ";; okuri-ari entries.\n" ";; okuri-nasi entries.\n"))
     (goto-char (point-min))
@@ -913,7 +877,8 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	;; avoid recursive calling of skk-emulate-original-map.
 	(unless (eq command this-command)
 	  (setq this-command command)
-	  (unless (memq command '(undo advertised-undo))
+	  (unless (or (memq command skk-undo-commands)
+		      (memq command skk-delete-backward-char-commands))
 	    (skk-cancel-undo-boundary))
 	  ;; if no bindings are found, call `undefined'.  it's
 	  ;; original behaviour.
@@ -931,9 +896,9 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 
 (defun skk-adjust-user-option ()
   "$B%f!<%6%*%W%7%g%s$NIT@09g$rD4@0$9$k!#(B"
-  (unless (skk-color-display-p)
+  (unless (skk-color-cursor-display-p)
     (setq skk-use-color-cursor nil))
-  ;; $BN>N)$G$-$J$$%*%W%7%g%s$ND4@0$r9T$J$&!#(B
+  ;; $BN>N)$G$-$J$$%*%W%7%g%s$rD4@0$9$k!#(B
   (when skk-process-okuri-early
     ;; skk-process-okuri-early $B$NCM$,(B non-nil $B$G$"$k$H$-$K2<5-$NCM$,(B non-nil
     ;; $B$G$"$l$P@5>o$KF0$+$J$$$N$G$3$NJQ?t$NM%@h=g0L$r9b$/$7$?!#(B
@@ -946,31 +911,15 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
     ;; $B$3$H$K$J$C$F$$$k!#(B
     (setq skk-share-private-jisyo nil)))
 
-(defun skk-try-completion (arg)
-  "$B"&%b!<%I$G8+=P$78l$NJd40$r9T$&!#(B
-$B$=$l0J30$N%b!<%I$G$O!"%*%j%8%J%k$N%-!<3d$jIU$1$N%3%^%s%I$r%(%_%e%l!<%H$9$k!#(B"
-  (interactive "P")
-  (skk-with-point-move
-   (if (eq skk-henkan-mode 'on)
-       (skk-comp (or arg
-		     (not (eq last-command 'skk-comp-do))))
-     (skk-emulate-original-map arg))))
-
-(defun skk-completion-wrapper (&optional arg)
-  "Character $B$G$J$$%-!<$KJd40$r3d$jEv$F$k$?$a$N%3%^%s%I!#(B"
-  (interactive "p")
-  (skk-bind-last-command-char skk-try-completion-char
-    (call-interactively #'skk-insert)))
-
 (defun skk-latin-mode (arg)
-  "SKK $B$N%b!<%I$r(B latin (ascii) $B%b!<%I$KJQ99$9$k!#(B"
+  "SKK $B$N%b!<%I$r%"%9%-!<%b!<%I$KJQ99$9$k!#(B"
   (interactive "P")
   (skk-kakutei)
   (skk-latin-mode-on)
   nil)
 
 (defun skk-jisx0208-latin-mode (arg)
-  "SKK $B$N%b!<%I$rA43Q1Q;zF~NO%b!<%I$KJQ99$9$k!#(B"
+  "SKK $B$N%b!<%I$rA41Q%b!<%I$KJQ99$9$k!#(B"
   (interactive "P")
   (skk-kakutei)
   (skk-jisx0208-latin-mode-on)
@@ -979,23 +928,24 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 (defun skk-abbrev-mode (arg)
   "ascii $BJ8;z$r%-!<$K$7$?JQ49$r9T$&$?$a$NF~NO%b!<%I!#(B"
   (interactive "*P")
-  (cond ((eq skk-henkan-mode 'active)
-	 (skk-kakutei))
-	((eq skk-henkan-mode 'on)
-	 (skk-error "$B4{$K"&%b!<%I$KF~$C$F$$$^$9(B" "Already in $B"&(B mode")))
+  (case skk-henkan-mode
+    (active
+     (skk-kakutei))
+    (on
+     (skk-error "$B4{$K"&%b!<%I$KF~$C$F$$$^$9(B" "Already in $B"&(B mode")))
   (let (skk-dcomp-activate)
     (skk-set-henkan-point-subr))
   (skk-abbrev-mode-on)
   nil)
 
 (defun skk-toggle-characters (arg)
-  "$B"#%b!<%I!""'%b!<%I$G!"$R$i$,$J%b!<%I$H%+%?%+%J%b!<%I$r%H%0%k$G@Z$jBX$($k!#(B
+  "$B"#%b!<%I!""'%b!<%I$G!"$+$J%b!<%I$H%+%J%b!<%I$r%H%0%k$G@Z$jBX$($k!#(B
 $B"&%b!<%I$G$O(B `skk-henkan-start-point' ($B"&$ND>8e(B) $B$H%+!<%=%k$N4V$NJ8;zNs$K$D$$(B
 $B$F!"$R$i$,$J$H%+%?%+%J$rF~$lBX$($k!#(B"
   (interactive "P")
   (cond
    ((eq skk-henkan-mode 'on)
-    (let (char)
+    (let (char-type)
       (skk-save-point
        (goto-char skk-henkan-start-point)
        (while (and (>= skk-save-point (point))
@@ -1003,16 +953,17 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		   (or
 		    ;; "$B!<(B" $B$G$OJ8;z<oJL$,H=JL$G$-$J$$$N$G!"%]%$%s%H$r?J$a$k!#(B
 		    (looking-at "$B!<(B")
-		    (eq 'unknown (setq char (skk-what-char-type)))))
+		    (eq 'unknown (setq char-type (skk-what-char-type)))))
 	 (forward-char 1)))
       (skk-henkan-skk-region-by-func
-       (cond ((eq char 'hiragana) #'skk-katakana-region)
-	     ((eq char 'katakana) #'skk-hiragana-region)
-	     ((eq char 'jisx0208-latin) #'skk-latin-region)
-	     ((eq char 'ascii) #'skk-jisx0208-latin-region))
+       (case char-type
+	 (hiragana #'skk-katakana-region)
+	 (katakana #'skk-hiragana-region)
+	 (jisx0208-latin #'skk-latin-region)
+	 (ascii #'skk-jisx0208-latin-region))
        ;; `skk-katakana-region' $B$N0z?t(B VCONTRACT $B$^$?$O(B
        ;; `skk-hiragana-region' $B$N0z?t(B VEXPAND $B$rM?$($k!#(B
-       (memq char '(hiragana katakana)))))
+       (memq char-type '(hiragana katakana)))))
    ((and (skk-in-minibuffer-p)
 	 (not skk-j-mode))
     ;; $B%_%K%P%C%U%!$X$N=iFMF~;~!#(B
@@ -1038,18 +989,16 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   ;; $B$N$O!"(BSKK $B$NIT6q9g$G$O$J$/!"(Bpicture.el $B$NLdBj(B (move-to-column-force $B4X?t(B
   ;; $B$NCf$G;HMQ$7$F$$$k(B move-to-column $B$GA43QJ8;z$rL5;k$7$?%+%i%`?t$,M?$($i$l(B
   ;; $B$?$H$-$K%+!<%=%k0\F0$,$G$-$J$$$+$i(B) $B$G$"$k!#>C$7$?$$J8;z$K%]%$%s%H$r9g$o(B
-  ;; $B$;!"(BC-c C-d $B$G0lJ8;z$E$D>C$9$7$+J}K!$O$J$$!#(B
+  ;; $B$;!"(BC-c C-d $B$G0lJ8;z$:$D>C$9$7$+J}K!$O$J$$!#(B
   (when skk-mode
     (skk-kill-local-variables)))
 
 (defun skk-kill-local-variables ()
   "SKK $B4XO"$N%P%C%U%!%m!<%+%kJQ?t$rL58z$K$9$k!#(B"
   (skk-mode -1)
-  (let ((lv (buffer-local-variables))
-	v vstr)
-    (while lv
-      (setq v (car (car lv))
-	    lv (cdr lv)
+  (let (v vstr)
+    (dolist (lv (buffer-local-variables))
+      (setq v (car lv)
 	    vstr (prin1-to-string v))
       (when (and (> (length vstr) 3)
 		 (string= "skk-" (substring vstr 0 4)))
@@ -1073,21 +1022,25 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		  (skk-kana-input arg))
 	      ;; $B@\F,<-!&@\Hx<-$N=hM}!#(B
 	      (skk-process-prefix-or-suffix arg)))
-	   (;; start writing a midasi key.
-	    (and (memq ch skk-set-henkan-point-key)
+
+	   ;; start writing a midasi key.
+	   ((and (memq ch skk-set-henkan-point-key)
 		 (or skk-okurigana
 		     (not (skk-get-prefix skk-current-rule-tree))
 		     (not (skk-select-branch skk-current-rule-tree ch))))
 	    ;; normal pattern
 	    ;; skk-set-henkan-point -> skk-kana-input.
 	    (skk-set-henkan-point arg))
+
 	   ;; start conversion.
-	   ((and skk-henkan-mode
-		 (eq ch skk-start-henkan-char))
+	   ((and skk-henkan-mode		; $B"&%b!<%I(B or $B"'%b!<%I(B
+		 (eq ch skk-start-henkan-char)) ; SPC
 	    (skk-start-henkan arg prog-list-number))
+
 	   ;; just input kana.
-	   ((not (eq skk-henkan-mode 'on))
+	   ((not (eq skk-henkan-mode 'on)) ; not $B"&%b!<%I(B
 	    (skk-kana-input arg))
+
 	   ;; for completion.
 	   ;; $B%3%s%W%j!<%7%g%s4XO"$N4X?t$O(B skk-rom-kana-base-rule-list $B$NCf$K2!(B
 	   ;; $B$79~$a!"(Bskk-kana-input $B$NCf$+$i@)8f$9$Y$-!#(B
@@ -1101,17 +1054,20 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	   ;; $B!<%k$,%O!<%I%3!<%G%#%s%0$5$l$k$N$O$^$:$$$+$b(B (skk-comp $B$O;H$C$F$b(B
 	   ;; skk-current-kuten/skk-current-touten $B$O;H$o$J$$!"$H$$$&?M$,$$$k$+(B
 	   ;; $B$b(B)$B!#(B
-	   ((and (eq skk-henkan-mode 'on)
+	   ((and (eq skk-henkan-mode 'on) ; $B"&%b!<%I(B
 		 (eq ch skk-try-completion-char))
 	    (skk-comp (or prog-list-number ; C-u TAB $B$GJd40%-!<$r=i4|2=(B
 			  (not (eq last-command 'skk-comp-do)))))
-	   ((and (eq skk-henkan-mode 'on)
+
+	   ;;
+	   ((and (eq skk-henkan-mode 'on) ; $B"&%b!<%I(B
 		 (memq ch (list skk-next-completion-char
 				skk-previous-completion-char))
 		 (eq last-command 'skk-comp-do))
 	    (skk-comp-previous/next ch))
-	   (t
+
 	   ;; just input Kana.
+	   (t
 	    (skk-kana-input arg)))
      ;; verbose message
      (skk-henkan-on-message))))
@@ -1125,34 +1081,33 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   ;; $B$K$7!"$J$*$+$D!"$3$N%3%^%s%I$,J8;z%-!<$G$J$$F~NO$K$h$j8F$P$l$?$H$-$K$b@\(B
   ;; $BHx<-!&(B $B@\F,<-F~NO$,$G$-$k$h$&$K$9$k!#(B
   (interactive "*p")
-  (cond ((eq skk-henkan-mode 'active)
-	 ;; $B@\Hx<-$N$?$a$N=hM}(B
-	 (skk-kakutei)
-	 (let (skk-kakutei-history)
-	   (skk-set-henkan-point-subr))
-	 (insert-and-inherit ?>))
-	((eq skk-henkan-mode 'on)
-	 ;; $B@\F,<-$N=hM}(B
-	 (skk-kana-cleanup 'force)
-	 (insert-and-inherit ?>)
-	 (skk-set-marker skk-henkan-end-point (point))
-	 (skk-set-henkan-count 0)
-	 (setq skk-henkan-key (buffer-substring-no-properties
-			       skk-henkan-start-point (point))
-	       skk-prefix "")
-	 (setq skk-after-prefix t)
-	 (skk-henkan))
-	((skk-last-command-char)
+  (case skk-henkan-mode
+    (active
+     ;; $B@\Hx<-$N$?$a$N=hM}(B
+     (skk-kakutei)
+     (let (skk-kakutei-history)
+       (skk-set-henkan-point-subr))
+     (insert-and-inherit ?>))
+    (on
+     ;; $B@\F,<-$N=hM}(B
+     (skk-kana-cleanup 'force)
+     (insert-and-inherit ?>)
+     (skk-set-marker skk-henkan-end-point (point))
+     (skk-set-henkan-count 0)
+     (setq skk-henkan-key (buffer-substring-no-properties
+			   skk-henkan-start-point (point))
+	   skk-prefix "")
+     (setq skk-after-prefix t)
+     (skk-henkan))
+    (t
+     (if (skk-last-command-char)
 	 ;; `skk-insert' $B$+$i8F$P$l$k>l9g$K$O!"$3$N%1!<%9$O$J$$!#(B
 	 (let ((i (prefix-numeric-value arg))
 	       (str (skk-char-to-unibyte-string (skk-last-command-char))))
 	   (while (> i 0)
 	     (skk-insert-str str)
-	     (setq i (1- i)))))
-	(t
-	 ;; $B$I$&$9$k$Y$-$+$^$@7h$^$C$F$$$J$$!#(B
-	 ;; (skk-emulate-original-map arg)
-	 )))
+	     (setq i (1- i))))
+       nil))))
 
 (defun skk-kana-input (&optional arg)
   "$B$+$JJ8;z$NF~NO$r9T$&%k!<%A%s!#(B"
@@ -1191,19 +1146,19 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   ;;
   ;; $B=i4|>uBV(B($BLZ$N:,(B)$B$G(B `a' $B$rF~NO$9$k$H(B, $BLZ$N:,$+$i(B
   ;; $B!V$"!W$K0\F0$7$^$9(B. $B<!$K$I$N$h$&$JF~NO$,Mh$F$b(B,
-  ;; $B$=$l$h$j2<$K$?$I$l$J$$$N$G(B, $B!V$"!W$r=PNO$7$F:,$KLa$j$^$9(B.
+  ;; $B$=$l$h$j2<$KC)$l$J$$$N$G(B, $B!V$"!W$r=PNO$7$F:,$KLa$j$^$9(B.
   ;; $B%k!<%k$K<!>uBV$,@_Dj$5$l$F$$$k>l9g$O(B, $B@_Dj$5$l$F$$(B
   ;; $B$kJ8;zNs$r%-%e!<$KLa$7$F$+$i:,$KLa$j$^$9(B.
   ;;
   ;; $B=i4|>uBV$G(B `n' $B$rF~NO$9$k$H(B, $B!V$s!W$K0\F0$7$^$9(B.
-  ;; $B<!$K(B `a' $B$^$?$O(B `n' $B$,F~NO$5$l$l$P$=$l$h$j2<$K$?$I$l$k(B
+  ;; $B<!$K(B `a' $B$^$?$O(B `n' $B$,F~NO$5$l$l$P$=$l$h$j2<$KC)$l$k(B
   ;; $B$N$G<!$NF~NO$r8+$k$^$G$^$@=PNO$7$^$;$s(B.
-  ;; $B<!$K(B `t' $B$,F~NO$5$l$?>l9g$O(B, `t' $B$G$O2<$K$?$I$l$J$$$N$G(B,
+  ;; $B<!$K(B `t' $B$,F~NO$5$l$?>l9g$O(B, `t' $B$G$O2<$KC)$l$J$$$N$G(B,
   ;; $B!V$s!W$r=PNO$7$F(B `t' $B$r%-%e!<$KLa$7$^$9(B.
   ;;
   ;; $B$3$3$G(B, $B=i4|>uBV(B, $B8=>uBV$r$=$l$>$l(B skk-rule-tree,
   ;; skk-current-rule-tree $B$GI=$7(B.
-  ;; $BLZ$r2<$K$?$I$k(B, $B$H$$$&A`:n$O(B, skk-select-branch $B$r(B
+  ;; $BLZ$r2<$KC)$k(B, $B$H$$$&A`:n$O(B, skk-select-branch $B$r(B
   ;; $BMQ$$$F(B,
   ;;
   ;;   (skk-select-branch rule-tree ?a)
@@ -1221,10 +1176,9 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	    (setq skk-current-rule-tree skk-rule-tree))
 	(skk-erase-prefix))
       (setq skk-prefix (concat (skk-get-prefix skk-current-rule-tree)
-			       (skk-char-to-unibyte-string (skk-last-command-char))))
-      (let ((next (skk-select-branch
-		   skk-current-rule-tree
-		   (car queue)))
+			       (skk-char-to-unibyte-string
+				(skk-last-command-char))))
+      (let ((next (skk-select-branch skk-current-rule-tree (car queue)))
 	    data)
 	(cond
 	 (next
@@ -1305,13 +1259,11 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 			      (cdr data))
 			  data))
 		   (pair (when skk-auto-insert-paren
-			   (cdr (assoc
-				 str
-				 skk-auto-paren-string-alist))))
+			   (cdr (assoc str skk-auto-paren-string-alist))))
 		   (count0 arg)
 		   (count1 arg)
 		   (inserted 0))
-	      (when (and (eq skk-henkan-mode 'active)
+	      (when (and (eq skk-henkan-mode 'active) ;$B"'%b!<%I(B
 			 skk-kakutei-early
 			 (not skk-process-okuri-early))
 		(skk-kakutei))
@@ -1324,12 +1276,12 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		(setq count0 (1- count0)))
 	      (when pair
 		(while (> count1 0)
-		  (if (not (string= pair (skk-char-to-unibyte-string (following-char))))
-		      (progn
-			(setq inserted (1+ inserted))
-			(skk-insert-str pair)))
+		  (unless (string= pair
+				   (skk-char-to-unibyte-string (following-char)))
+		    (setq inserted (1+ inserted))
+		    (skk-insert-str pair))
 		  (setq count1 (1- count1)))
-		(unless (= inserted 0)
+		(unless (zerop inserted)
 		  (backward-char inserted)))
 	      (when (and skk-okurigana
 			 (null queue))
@@ -1340,9 +1292,9 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 
 ;;; tree procedure ($B%D%j!<$K%"%/%;%9$9$k$?$a$N%$%s%?!<%U%'!<%9(B)
 (defun skk-search-tree (tree char-list)
-  "TREE $B$N:,$+$i@hC<$X(B CHAR-LIST $B$K=>$C$F$?$I$k!#(B
-$B@.8y$7$?>l9g$O(B nil $B$H(B $B7k2L$NLZ$NAH$rJV$7(B, $B<:GT$7$?>l9g$O$?$I$l$J$+$C$?(B
-CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
+  "TREE $B$N:,$+$i@hC<$X(B CHAR-LIST $B$K=>$C$FC)$k!#(B
+$B@.8y$7$?>l9g$O(B nil $B$H(B $B7k2L$NLZ$NAH$rJV$7!"<:GT$7$?>l9g$OC)$l$J$+$C$?(B
+CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
   (catch 'return
     (let (next char rest)
       (while char-list
@@ -1407,7 +1359,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 (defun skk-compile-rule-list (&rest rule-lists)
   "rule list $B$rLZ$N7A$K%3%s%Q%$%k$9$k!#(B"
   (let ((tree (skk-make-rule-tree nil "" nil nil nil))
-	rule key)
+	key)
     (dolist (rule-list rule-lists)
       (dolist (rule rule-list)
 	(setq key (car rule))
@@ -1426,41 +1378,41 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
     tree))
 
 (defun skk-insert-str (str)
-  "STR $B$rA^F~$9$k!#I,MW$G$"$l$P(B `self-insert-after-hook' $B$r%3!<%k$9$k!#(B
-`overwrite-mode' $B$G$"$l$P!"E,@Z$K>e=q$-$r9T$&!#(B"
+  "STR $B$rA^F~$9$k!#(B
+$BI,MW$G$"$l$P(B `skk-auto-start-henkan' $B$r%3!<%k$9$k!#(B
+$BI,MW$G$"$l$P(B `self-insert-after-hook' $B$r%3!<%k$9$k!#(B
+`overwrite-mode' $B$G$"$l$P!"E,@Z$K>e=q$-$9$k!#(B"
   (insert-and-inherit str)
   (if (eq skk-henkan-mode 'on)
-      ;;
+      ;; $B"&%b!<%I(B
       (when (and skk-auto-start-henkan
 		 (not skk-okurigana))
 	(skk-auto-start-henkan str))
-    ;;
+    ;; $B"&%b!<%I0J30(B
     (when (and (boundp 'self-insert-after-hook)
 	       self-insert-after-hook)
       (funcall self-insert-after-hook
 	       (- (point) (length str))
 	       (point)))
     (when overwrite-mode
-      (skk-del-char-with-pad (skk-ovwrt-len (string-width str)))))
+      (skk-del-char-with-pad (skk-ovwrt-len str))))
   ;; SKK 9.6 $B$G$O$3$N%?%$%_%s%0$G(B fill $B$,9T$o$l$F$$$?$,!"(BSKK 10 $B$G$O9T$o$l$F$$(B
   ;; $B$J$+$C$?!#(B
   (when (and skk-j-mode
 	     (not skk-henkan-mode))
     (skk-do-auto-fill)))
 
-(defun skk-ovwrt-len (len)
+(defun skk-ovwrt-len (str)
   "$B>e=q$-$7$FNI$$D9$5$rJV$9!#(B"
-  (min (string-width
-	(buffer-substring-no-properties
-	 (point) (skk-save-point
-		  (end-of-line)
-		  (point))))
-       len))
+  (min (string-width (buffer-substring-no-properties (point)
+						     (line-end-position)))
+       (string-width str)))
 
 (defun skk-del-char-with-pad (length)
   "$BD9$5(B LENGTH $B$NJ8;z$r>C5n$9$k!#(B
 $BD4@0$N$?$a!"I,MW$G$"$l$P!"KvHx$K%9%Z!<%9$rA^F~$9$k!#(B"
-  (let ((p (point)) (len 0))
+  (let ((p (point))
+	(len 0))
     (while (< len length)
       (forward-char 1)
       (setq len (string-width (buffer-substring-no-properties (point) p))))
@@ -1481,7 +1433,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 		 skk-jisx0208-latin-insert
 		 skk-kakutei-henkan
 		 ;; SKK abbrev $B%b!<%I$G$O!"%"%9%-!<J8;zF~NO$,(B Emacs $B%*%j%8%J(B
-		 ;; $B%k$N(B self-insert-command $B$K$h$j9T$J$o$l$F$$$k$N$G!"(B
+		 ;; $B%k$N(B self-insert-command $B$K$h$j9T$o$l$F$$$k$N$G!"(B
 		 ;; skk-self-insert-non-undo-count $B$r%$%s%/%j%a%s%H$9$k$3$H(B
 		 ;; $B$,$G$-$J$$$N$G!"%"%s%I%%$r%(%_%e%l!<%H$G$-$J$$!#(B
 		 ;; $B$7$+$b!"%+%s%^$d%T%j%*%I$rA^F~$7$?;~E@$G!"(B
@@ -1493,8 +1445,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 		 ;; $BA^F~$9$k$3$H$O$"$^$j$J$/!"LdBj$b>.$5$$$H9M$($i$l$k!#(B
 		 ;;skk-abbrev-comma
 		 ;;skk-abbrev-period
-		 self-insert-command
-		 )))
+		 self-insert-command)))
     (cancel-undo-boundary)
     (when (null skk-current-rule-tree)
       ;; $B$^$@$+$JJ8;z$,40@.$7$F$$$J$$$H$-$O!"(Bundo count $B$r%$%s%/%j%a%s%H(B
@@ -1522,7 +1473,8 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 				skk-henkan-end-point)
 			       (or (skk-okurigana-prefix
 				    (if skk-katakana
-					(skk-katakana-to-hiragana skk-henkan-okurigana)
+					(skk-katakana-to-hiragana
+					 skk-henkan-okurigana)
 				      skk-henkan-okurigana))
 				   skk-okuri-char))
 	skk-prefix "")
@@ -1541,56 +1493,46 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
   (interactive)
   (let ((pt1 (point))
 	pt2 okuri sokuon)
-    (setq okuri
-	  (skk-save-point
-	    (backward-char 1)
-	    (buffer-substring-no-properties
-	     (setq pt2 (point))
-	     pt1)))
+    (setq okuri (skk-save-point
+		 (backward-char 1)
+		 (buffer-substring-no-properties (setq pt2 (point))
+						 pt1)))
     (when okuri
       (unless no-sokuon
-	(setq sokuon
-	      (skk-save-point
-		(backward-char 2)
-		(buffer-substring-no-properties
-		 (point)
-		 pt2)))
+	(setq sokuon (skk-save-point
+		      (backward-char 2)
+		      (buffer-substring-no-properties (point)
+						      pt2)))
 	(unless (member sokuon '("$B$C(B" "$B%C(B"))
 	  (setq sokuon nil)))
       ;;
       (skk-save-point
 	(backward-char (if sokuon 2 1))
-	(skk-set-marker skk-okurigana-start-point
-			(point)))
+	(skk-set-marker skk-okurigana-start-point (point)))
       (setq skk-okuri-char (skk-okurigana-prefix okuri))
       (unless skk-current-search-prog-list
-	(setq skk-current-search-prog-list
-	      skk-search-prog-list))
+	(setq skk-current-search-prog-list skk-search-prog-list))
       (skk-set-okurigana))))
 
 ;;; other inputting functions
 (defun skk-toggle-kutouten ()
   "$B6gFIE@$N<oN`$r%H%0%k$GJQ99$9$k!#(B"
   (interactive)
-  (setq skk-kutouten-type
-	(cond ((eq skk-kutouten-type 'jp)
-	       'en)
-	      ((eq skk-kutouten-type 'en)
-	       'jp-en)
-	      ((eq skk-kutouten-type 'jp-en)
-	       'en-jp)
-	      (t
-	       'jp)))
-  (when (interactive-p)
-    (skk-message "$B6gE@(B: `%s'  $BFIE@(B: `%s'"
-		 "Kuten: `%s'  Touten: `%s'"
-		 (skk-current-kuten nil)
-		 (skk-current-touten nil))))
+  (setq skk-kutouten-type (case skk-kutouten-type
+			    (jp 'en)
+			    (en 'jp-en)
+			    (jp-en 'en-jp)
+			    (t 'jp)))
+  (when (skk-called-interactively-p 'interactive)
+    (skk-message "$BFIE@(B: `%s'  $B6gE@(B: `%s'"
+		 "Touten: `%s'  Kuten: `%s'"
+		 (skk-current-touten nil)
+		 (skk-current-kuten nil))))
 
 (defun skk-current-kuten (arg)
   ;; just ignore arg.
   (if (symbolp skk-kutouten-type)
-      (car (cdr (assq skk-kutouten-type skk-kuten-touten-alist)))
+      (cadr (assq skk-kutouten-type skk-kuten-touten-alist))
     (car skk-kutouten-type)))
 
 (defun skk-current-touten (arg)
@@ -1604,7 +1546,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
   (self-insert-command arg))
 
 (defun skk-abbrev-period (arg)
-  "SKK abbrev $B%b!<%I$G8+=P$7$NJd40Cf$G$"$l$P!"<!$N8uJd$rI=<($9$k!#(B
+  "SKK abbrev $B%b!<%I$G8+=P$78l$NJd40Cf$G$"$l$P!"<!$N8uJd$rI=<($9$k!#(B
 $BJd40$ND>8e$G$J$1$l$P!"%*%j%8%J%k$N%-!<3d$jIU$1$N%3%^%s%I$r%(%_%e%l!<%H$9$k!#(B"
   (interactive "*P")
   (skk-with-point-move
@@ -1615,7 +1557,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
      (skk-emulate-original-map arg))))
 
 (defun skk-abbrev-comma (arg)
-  "SKK abbrev $B%b!<%I$G8+=P$7$NJd40Cf$G$"$l$P!"D>A0$N8uJd$rI=<($9$k!#(B
+  "SKK abbrev $B%b!<%I$G8+=P$78l$NJd40Cf$G$"$l$P!"D>A0$N8uJd$rI=<($9$k!#(B
 $BJd40$ND>8e$G$J$1$l$P!"%*%j%8%J%k$N%-!<3d$jIU$1$N%3%^%s%I$r%(%_%e%l!<%H$9$k!#(B"
   (interactive "*P")
   (skk-with-point-move
@@ -1627,18 +1569,19 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 
 (defun skk-jisx0208-latin-insert (arg)
   "$BA41QJ8;z$r%+%l%s%H%P%C%U%!$KA^F~$9$k!#(B
-`skk-jisx0208-latin-vector' $B$r%F!<%V%k$H$7$F!":G8e$KF~NO$5$l$?%-!<$KBP1~$9$kJ8(B
-$B;z$rA^F~$9$k!#(B
+`skk-jisx0208-latin-vector' $B$r%F!<%V%k$H$7$F!":G8e$KF~NO$5$l$?%-!<$KBP1~$9$k(B
+$BJ8;z$rA^F~$9$k!#(B
 `skk-auto-insert-paren' $B$NCM$,(B non-nil $B$N>l9g$G!"(B`skk-auto-paren-string-alist'
-$B$KBP1~$9$kJ8;zNs$,$"$k$H$-$O!"$=$NBP1~$9$kJ8;zNs(B ($B$+$C$3N`(B) $B$r<+F0E*$KA^F~$9$k!#(B"
+$B$KBP1~$9$kJ8;zNs$,$"$k$H$-$O!"$=$NBP1~$9$kJ8;zNs(B ($B$+$C$3N`(B) $B$r<+F0E*$KA^F~$9(B
+$B$k!#(B"
   (interactive "p")
   (barf-if-buffer-read-only)
   (skk-with-point-move
    (let* ((str (aref skk-jisx0208-latin-vector (skk-last-command-char)))
 	  (arg2 arg)
-	  (pair-str
-	   (and skk-auto-insert-paren
-		(cdr (assoc str skk-auto-paren-string-alist))))
+	  (pair-str (if skk-auto-insert-paren
+			(cdr (assoc str skk-auto-paren-string-alist))
+		      nil))
 	  (pair-str-inserted 0))
      (if (not str)
 	 (skk-emulate-original-map arg)
@@ -1652,7 +1595,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	     (setq pair-str-inserted (1+ pair-str-inserted))
 	     (skk-insert-str pair-str))
 	   (setq arg2 (1- arg2)))
-	 (unless (= pair-str-inserted 0)
+	 (unless (zerop pair-str-inserted)
 	   (backward-char pair-str-inserted)))))))
 
 (defun skk-delete-backward-char (arg)
@@ -1697,8 +1640,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
        (skk-kakutei))
       ;; $BF~NOCf$N8+=P$78l$KBP$7$F$O(B delete-backward-char $B$G(B
       ;; $BI,$:A43QJ8;z(B 1$BJ8;zJ,(B backward $BJ}8~$KLa$C$?J}$,NI$$!#(B
-      ((and skk-henkan-mode
-	    overwrite-mode)
+      ((and skk-henkan-mode overwrite-mode)
        (backward-char count)
        (delete-char count arg))
       (t
@@ -1711,11 +1653,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 ;;; henkan routines
 (defun skk-henkan (&optional prog-list-number)
   "$B%+%J$r4A;zJQ49$9$k%a%$%s%k!<%A%s!#(B"
-  (let (mark
-	prototype
-	new-word
-	pair
-	kakutei-henkan)
+  (let (mark prototype new-word	pair kakutei-henkan)
     (if (string= skk-henkan-key "")
 	(skk-kakutei)
       ;; we use mark to go back to the correct position after henkan
@@ -1730,16 +1668,15 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	       ((and (integerp prog-list-number)
 		     (<= 0 prog-list-number)
 		     (<= prog-list-number 9))
-		(let ((list (symbol-value
-			     (intern
-			      (format "skk-search-prog-list-%d" prog-list-number)))))
+		(let ((list (symbol-value (intern
+					   (format "skk-search-prog-list-%d"
+						   prog-list-number)))))
 		  (or list skk-search-prog-list)))
 	       (t
 		skk-search-prog-list))))
       ;; skk-henkan-1 $B$NCf$+$i%3!<%k$5$l$k(B skk-henkan-show-candidates
       ;; $B$+$i(B throw $B$5$l$k!#$3$3$G%-%c%C%A$7$?>l9g$O!"(B?x $B$,%9%H%j!<%`$K(B
-      ;; $BLa$5$l$F$$$k$N$G!"$3$N4X?t$r=P$F!"(Bskk-previous-candidate $B$X$f(B
-      ;; $B$/!#(B
+      ;; $BLa$5$l$F$$$k$N$G!"$3$N4X?t$r=P$F!"(Bskk-previous-candidate $B$X$f$/!#(B
       (catch 'unread
 	(cond
 	 ((setq prototype (skk-henkan-1))
@@ -1749,7 +1686,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	(setq kakutei-henkan skk-kakutei-flag)
 	(when new-word
 	  (setq pair (skk-insert-new-word new-word))))
-      (skk-inline-hide)
+      (skk-delete-overlay skk-inline-overlays)
       ;;
       (if mark
 	  (progn
@@ -1774,71 +1711,71 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 (defun skk-henkan-1 ()
   "`skk-henkan' $B$N%5%V%k!<%A%s!#(B"
   (let (new-word)
-    (cond
-     ((= (skk-henkan-count) 0)
-      (let ((prog-list-length (when (numberp skk-kakutei-search-prog-limit)
-				(length skk-current-search-prog-list))))
-	(while (and skk-current-search-prog-list
-		    (not new-word))
-	  (setq skk-henkan-list (skk-nunion skk-henkan-list
-					    (skk-search)))
-	  (skk-henkan-list-filter)
-	  (setq new-word (skk-get-current-candidate)))
-	;; $BJQ498uJd$,0l$D$7$+L5$$;~$N3NDjJQ49MQ%A%'%C%/(B
-	(when (and (or (eq skk-kakutei-when-unique-candidate t)
-		       (cond (skk-abbrev-mode
-			      (and (listp skk-kakutei-when-unique-candidate)
-				   (memq 'abbrev
-					 skk-kakutei-when-unique-candidate)))
-			     (skk-henkan-okurigana
-			      (and (listp skk-kakutei-when-unique-candidate)
-				   (memq 'okuri-ari
-					 skk-kakutei-when-unique-candidate)))
-			     (t
-			      ;; $BAw$jL5$7$N$_$rFCJL07$$$7$F$$$?8E$$;EMM$KBP1~(B
-			      (or (eq 'okuri-nasi
-				      skk-kakutei-when-unique-candidate)
-				  (memq 'okuri-nasi
-					skk-kakutei-when-unique-candidate)))))
-		   (= (length skk-henkan-list) 1)
-		   (not skk-undo-kakutei-flag))
-	  (while (and skk-current-search-prog-list
+    (case (skk-henkan-count)
+      (0
+       (let ((prog-list-length (when (numberp skk-kakutei-search-prog-limit)
+				 (length skk-current-search-prog-list))))
+	 (while (and skk-current-search-prog-list
+		     (not new-word))
+	   (setq skk-henkan-list (skk-nunion skk-henkan-list
+					     (skk-search)))
+	   (skk-henkan-list-filter)
+	   (setq new-word (skk-get-current-candidate)))
+	 ;; $BJQ498uJd$,0l$D$7$+L5$$;~$N3NDjJQ49MQ%A%'%C%/(B
+	 (when (and (or (eq skk-kakutei-when-unique-candidate t)
+			(cond (skk-abbrev-mode
+			       (and (listp skk-kakutei-when-unique-candidate)
+				    (memq 'abbrev
+					  skk-kakutei-when-unique-candidate)))
+			      (skk-henkan-okurigana
+			       (and (listp skk-kakutei-when-unique-candidate)
+				    (memq 'okuri-ari
+					  skk-kakutei-when-unique-candidate)))
+			      (t
+			       ;; $BAw$jL5$7$N$_$rFCJL07$$$7$F$$$?8E$$;EMM$KBP1~(B
+			       (or (eq 'okuri-nasi
+				       skk-kakutei-when-unique-candidate)
+				   (memq 'okuri-nasi
+					 skk-kakutei-when-unique-candidate)))))
+		    (= (length skk-henkan-list) 1)
+		    (not skk-undo-kakutei-flag))
+	   (while (and skk-current-search-prog-list
+		       (or (not (numberp skk-kakutei-search-prog-limit))
+			   (< (- prog-list-length
+				 (length skk-current-search-prog-list))
+			      skk-kakutei-search-prog-limit))
+		       (<= (length skk-henkan-list) 1))
+	     (setq skk-henkan-list (skk-nunion skk-henkan-list
+					       (skk-search)))
+	     (skk-henkan-list-filter))
+	   (when (and (= (length skk-henkan-list) 1)
 		      (or (not (numberp skk-kakutei-search-prog-limit))
-			  (< (- prog-list-length
-				(length skk-current-search-prog-list))
-			     skk-kakutei-search-prog-limit))
-		      (<= (length skk-henkan-list) 1))
-	    (setq skk-henkan-list (skk-nunion skk-henkan-list
-					      (skk-search)))
-	    (skk-henkan-list-filter))
-	  (when (and (= (length skk-henkan-list) 1)
-		     (or (not (numberp skk-kakutei-search-prog-limit))
-			 (<= (- prog-list-length
-				(length skk-current-search-prog-list))
-			     skk-kakutei-search-prog-limit)))
-	    (setq skk-kakutei-henkan-flag t)))
-	;; skk-henkan-list-filter $B$rDL$7$?8e$OG0$N0Y$K:F<hF@(B
-	(setq new-word (skk-get-current-candidate))
-	(when (and new-word
-		   (not skk-undo-kakutei-flag)
-		   skk-kakutei-henkan-flag)
-	  ;; found the unique candidate in kakutei jisyo
-	  (setq this-command 'skk-kakutei-henkan
-		skk-kakutei-flag t))))
-     (t
-      ;; $BJQ492s?t$,(B 1 $B0J>e$N$H$-!#(B
-      (setq new-word (skk-get-current-candidate))
-      (unless new-word
-	;; $B?7$7$$8uJd$r8+$D$1$k$+!"(Bskk-current-search-prog-list $B$,6u$K$J(B
-	;; $B$k$^$G(B skk-search $B$rO"B3$7$F%3!<%k$9$k!#(B
-	(while (and skk-current-search-prog-list (not new-word))
-	  (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search)))
-	  (skk-henkan-list-filter)
-	  (setq new-word (skk-get-current-candidate))))
-      (when (and new-word
-		 (> (skk-henkan-count) 3))
-	;; show candidates in minibuffer
-	(setq new-word (skk-henkan-show-candidates)))))
+			  (<= (- prog-list-length
+				 (length skk-current-search-prog-list))
+			      skk-kakutei-search-prog-limit)))
+	     (setq skk-kakutei-henkan-flag t)))
+	 ;; skk-henkan-list-filter $B$rDL$7$?8e$OG0$N0Y$K:F<hF@(B
+	 (setq new-word (skk-get-current-candidate))
+	 (when (and new-word
+		    (not skk-undo-kakutei-flag)
+		    skk-kakutei-henkan-flag)
+	   ;; found the unique candidate in kakutei jisyo
+	   (setq this-command 'skk-kakutei-henkan
+		 skk-kakutei-flag t))))
+      (t
+       ;; $BJQ492s?t$,(B 1 $B0J>e$N$H$-!#(B
+       (setq new-word (skk-get-current-candidate))
+       (unless new-word
+	 ;; $B?7$7$$8uJd$r8+$D$1$k$+!"(Bskk-current-search-prog-list $B$,6u$K$J(B
+	 ;; $B$k$^$G(B skk-search $B$rO"B3$7$F%3!<%k$9$k!#(B
+	 (while (and skk-current-search-prog-list (not new-word))
+	   (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search)))
+	   (skk-henkan-list-filter)
+	   (setq new-word (skk-get-current-candidate))))
+       (when (and new-word
+		  (> (skk-henkan-count) 3))
+	 ;; show candidates in minibuffer
+	 (setq new-word (skk-henkan-show-candidates)))))
     new-word))
 
 (defun skk-get-current-candidate (&optional noconv)
@@ -1855,23 +1792,22 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
   (when (skk-numeric-p)
     (skk-num-uniq)
     (skk-num-multiple-convert))
-  (when (and (featurep 'jisx0213)
+  (when (and (featurep 'jisx0213)	;Mule-UCS
 	     skk-jisx0213-prohibit)
     (skk-jisx0213-henkan-list-filter)))
 
 (defun skk-multiple-line-message-clear ()
   (skk-multiple-line-message nil)
   (remove-hook 'pre-command-hook
-	       (function skk-multiple-line-message-clear)))
+	       'skk-multiple-line-message-clear))
 
 (defun skk-multiple-line-message (fmt &rest args)
-  (if (and (not (eq skk-emacs-type 'xemacs))
-	   (boundp 'emacs-major-version)
-	   (>= emacs-major-version 21))
-      (apply (function message) fmt args)
+  (if (featurep 'emacs)
+      (apply #'message fmt args)
+    ;; XEmacs
     (save-selected-window
       (select-window (minibuffer-window))
-      (let* ((str (if fmt (apply (function format) fmt args) ""))
+      (let* ((str (if fmt (apply #'format fmt args) ""))
 	     (lines 1)
 	     (last-minibuffer-height (window-height))
 	     (tmp str))
@@ -1882,52 +1818,34 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	(condition-case nil
 	    (progn
 	      (enlarge-window (- lines last-minibuffer-height))
-	      (static-if (eq skk-emacs-type 'xemacs)
-		  (apply (function message) fmt args)
-		(let ((buffer-undo-list skk-buffer-undo-list))
-		  (erase-buffer)
-		  (message nil)
-		  (insert str)
-		  (setq skk-buffer-undo-list buffer-undo-list)))
+	      (apply #'message fmt args)
 	      ;; We also need to clear `current-message' in case
 	      ;; running under XEmacs so that the height of
 	      ;; `minibuffer-window' is left unchanged.
-	      (if (equal str "")
-		  (when (eq skk-emacs-type 'mule4)
-		    (let (buffer-undo-list)
-		      (primitive-undo (length skk-buffer-undo-list)
-				      skk-buffer-undo-list)
-		      (setq skk-buffer-undo-list nil)))
+	      (unless (equal str "")
 		;; (make-local-hook 'pre-command-hook)
 		;; (add-hook 'pre-command-hook
 		;;	  (function skk-multiple-line-message-clear))))
 		(add-hook 'pre-command-hook
-			  (function skk-multiple-line-message-clear))))
+			  #'skk-multiple-line-message-clear)))
 	  (quit (shrink-window (- (window-height) last-minibuffer-height))))
 	str))))
 
-(defun skk-multiple-line-string-width (str)
-  (let ((max 0))
-    (while (and (not (equal str "")) (string-match "\n\\|$" str))
-      (setq max (max max (string-width (substring str 0 (match-beginning 0))))
-	    str (substring str (match-end 0))))
-    max))
-
 (defun skk-henkan-show-candidates ()
-  "$B%(%3!<%(%j%"$GJQ49$7$?8uJd72$rI=<($9$k!#(B"
+  "$BJQ49$7$?8uJd72$r%(%3!<%(%j%"$KI=<($9$k!#(B"
   (skk-save-point
    (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
 	  (candidate-keys ; $BI=<(MQ$N%-!<%j%9%H(B
-	   (mapcar
-	    #'(lambda (c)
-		(when (memq c '(?\C-g
-				skk-start-henkan-char	      ; SPC
-				skk-previous-candidate-char)) ; ?x
-		  (skk-error "`%s' $B$KL58z$J%-!<$,;XDj$5$l$F$$$^$9(B"
-			     "Illegal key in `%s'"
-			     "skk-henkan-show-candidates-keys"))
-		(skk-char-to-unibyte-string (upcase c)))
-	    skk-henkan-show-candidates-keys))
+	   (mapcar (lambda (c)
+		     (when (or (memq c '(?\C-g skk-start-henkan-char))
+			       (skk-key-binding-member
+				(skk-char-to-unibyte-string c)
+				'(skk-previous-candidate)))
+		       (skk-error "`%s' $B$KL58z$J%-!<$,;XDj$5$l$F$$$^$9(B"
+				  "Illegal key in `%s'"
+				  "skk-henkan-show-candidates-keys"))
+		     (skk-char-to-unibyte-string (upcase c)))
+		   skk-henkan-show-candidates-keys))
 	  key-num-alist	; $B8uJdA*BrMQ$NO"A[%j%9%H(B
 	  (key-num-alist1 ; key-num-alist $B$rAH$_N)$F$k$?$a$N:n6HMQO"A[%j%9%H!#(B
 	   ;; $B5U$5$^$K$7$F$*$$$F!"I=<($9$k8uJd$N?t$,>/$J$+$C$?$i@h(B
@@ -1983,9 +1901,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	 (setq henkan-list (nthcdr (+ 4 (* loop max-candidates))
 				   skk-henkan-list))))
        (save-window-excursion
-	 (setq n (skk-henkan-show-candidate-subr
-		  candidate-keys
-		  henkan-list))
+	 (setq n (skk-henkan-show-candidate-subr candidate-keys henkan-list))
 	 (when (> n 0)
 	   (condition-case nil
 	       (let* ((event (next-command-event))
@@ -2014,10 +1930,9 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 			   skk-kakutei-flag t
 			   loop nil))
 		    ((or (eq char skk-start-henkan-char) ; SPC
-			 (skk-key-binding-member
-			  key
-			  '(skk-nicola-self-insert-rshift)
-			  skk-j-mode-map))
+			 (skk-key-binding-member key
+						 '(skk-nicola-self-insert-rshift)
+						 skk-j-mode-map))
 		     ;;
 		     (if (or skk-current-search-prog-list
 			     (nthcdr max-candidates henkan-list))
@@ -2044,37 +1959,23 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 		    ((eq char skk-show-candidates-toggle-display-place-char)
 		     (setq skk-show-candidates-always-pop-to-buffer
 			   (not skk-show-candidates-always-pop-to-buffer)))
-		    ((or (eq char skk-previous-candidate-char) ; ?x
-			 (skk-key-binding-member
-			  key
-			  '(skk-previous-candidate
-			    skk-delete-backward-char
-			    skk-undo)
-			  skk-j-mode-map))
-		     (cond
-		      ((= loop 0)
-		       ;; skk-henkan-show-candidates $B$r8F$VA0$N(B
-		       ;; $B>uBV$KLa$9!#(B
-		       (skk-set-henkan-count 4)
-		       (skk-unread-event
-			(character-to-event
-			 (aref (car (where-is-internal
-				     'skk-previous-candidate
-				     skk-j-mode-map))
-			       0)))
-		       ;; skk-henkan $B$^$G0l5$$K(B throw $B$9$k!#(B
-		       (throw 'unread nil))
-		      (t
-		       ;; $B0l$DA0$N8uJd72$r%(%3!<%(%j%"$KI=<($9$k!#(B
-		       (setq reverse t))))
+		    ((skk-key-binding-member key
+					     '(skk-previous-candidate
+					       skk-delete-backward-char
+					       skk-undo)
+					     skk-j-mode-map)
+		     (case loop
+		       (0
+			;; skk-henkan-show-candidates $B$r8F$VA0$N(B
+			;; $B>uBV$KLa$9!#(B
+			(skk-escape-from-show-candidates 4))
+		       (t
+			;; $B0l$DA0$N8uJd72$r%(%3!<%(%j%"$KI=<($9$k!#(B
+			(setq reverse t))))
 		    ((eq char skk-annotation-toggle-display-char)
 		     (skk-annotation-toggle-display-p))
-		    ((skk-key-binding-member
-		      key
-		      '(keyboard-quit
-			skk-kanagaki-bs
-			skk-kanagaki-esc)
-		      skk-j-mode-map)
+		    ((skk-key-binding-member key skk-quit-commands
+					     skk-j-mode-map)
 		     ;;
 		     (signal 'quit nil))
 		    (t
@@ -2085,47 +1986,42 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 		     (sit-for 1)))))
 	     (quit
 	      ;; skk-previous-candidate $B$X(B
-	      (skk-set-henkan-count 0)
-	      (skk-unread-event
-	       (character-to-event
-		(aref (car (where-is-internal
-			    'skk-previous-candidate
-			    skk-j-mode-map))
-		      0)))
-	      ;; skk-henkan $B$^$G0l5$$K(B throw $B$9$k!#(B
-	      (throw 'unread nil)))))) ; end of while loop
+	      (skk-escape-from-show-candidates 0)))))) ; end of while loop
      ;;
      (or (cdr-safe new-one)
 	 new-one))))
 
 (defun skk-henkan-show-candidate-subr (keys candidates)
   "$B8uJd72$rI=<($9$k4X?t!#(B
-KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
-$BK~$?$J$+$C$?$i$=$3$GBG$A@Z$k(B) $B$NJ8;zNs$r:n$j!"%(%3!<%(%j%"$KI=<($9$k!#(B"
+KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
+$BK~$?$J$+$C$?$i$=$3$GBG$A@Z$k(B) $B$NJ8;zNs$r:n$j!"%$%s%i%$%s!"%D!<%k%F%#%C%W!"(B
+$B%(%3!<%(%j%"Kt$O8uJd%P%C%U%!$KI=<($9$k!#(B"
   (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
 	 (workinglst (skk-henkan-candidate-list candidates max-candidates))
-	 str tooltip-str
-	 message-log-max)
+	 str tooltip-str message-log-max)
     (when workinglst
       (dotimes (i (length workinglst))
 	(let ((cand (if (consp (nth i workinglst))
 			(cdr (nth i workinglst))
 		      (nth i workinglst)))
-	      (key (concat (nth i keys) ":")))
-	  (when (and (= (% i 7) 0)	; $B3FNs$N:G=i$N8uJd(B
-		     (not (= i 0)))
+	      (key (concat (propertize (nth i keys) 'face
+				       'skk-henkan-show-candidates-keys-face)
+			   ":")))
+	  (when (and (zerop (% i 7))	; $B3FNs$N:G=i$N8uJd(B
+		     (not (zerop i)))
 	    (setq str (concat str "\n")))
 	  (setq str (concat str
-			    (if (= (% i 7) 0) "" "  ")
+			    (if (zerop (% i 7))	"" "  ")
 			    key cand)
 		tooltip-str (concat tooltip-str key cand "\n"))))
-      (setq str (concat str
-			(format "  [$B;D$j(B %d%s]"
-				(- (length candidates)
-				   (length workinglst))
-				(make-string
-				 (length skk-current-search-prog-list)
-				 ?+)))
+      (setq str (concat str (propertize
+			     (format "  [$B;D$j(B %d%s]"
+				     (- (length candidates)
+					(length workinglst))
+				     (make-string
+				      (length skk-current-search-prog-list)
+				      ?+))
+			     'face 'skk-henkan-rest-indicator-face))
 	    tooltip-str (concat tooltip-str
 				(format "[$B;D$j(B %d%s]"
 					(- (length candidates)
@@ -2134,33 +2030,58 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 					 (length skk-current-search-prog-list)
 					 ?+))))
       (cond
-       ((and skk-show-inline
+       ;; (1) $B8=:_$N%P%C%U%!$NCf$KI=<($9$k(B ($B%$%s%i%$%sI=<((B)
+       ((and (featurep 'emacs)
+	     skk-show-inline
 	     (not skk-isearch-switch)
-	     (not (skk-in-minibuffer-p))
-	     (not (eq skk-emacs-type 'xemacs))
-	     (<= 21 emacs-major-version))
-	;; $B8=:_$N%P%C%U%!$NCf$KI=<($9$k(B ($B%$%s%i%$%sI=<((B)
-	(if (and (eq 'vertical skk-show-inline)
-		 ;; window $B$,8uJd72$rI=<($G$-$k9b$5$,$"$k$+%A%'%C%/(B
-		 (< (1+ max-candidates)
-		    (skk-window-body-height)))
-	    (skk-inline-show-vertical tooltip-str skk-inline-show-face)
-	  (skk-inline-show str skk-inline-show-face)))
+	     (not (skk-in-minibuffer-p)))
+	(skk-inline-show str skk-inline-show-face tooltip-str max-candidates))
+
+       ;; (2) tooptip $B$GI=<($9$k(B
        ((and window-system
 	     skk-show-tooltip
-	     (not (eq (symbol-function 'skk-tooltip-show-at-point)
-		      'ignore)))
-	;; tooptip $B$GI=<($9$k(B
-	(skk-tooltip-show-at-point tooltip-str 'listing))
+	     (not (eq (symbol-function 'skk-tooltip-show-at-point) 'ignore)))
+	(when (and (not (eval-when-compile (featurep 'xemacs)))
+		   skk-henkan-rest-indicator)
+	  (let* ((body (substring tooltip-str 0 (string-match "\\[$B;D$j(B" tooltip-str)))
+		 (rest (substring tooltip-str (- (length body) (length tooltip-str)))))
+	    (setq tooltip-str (concat body
+				      (make-string (- (car (skk-tooltip-max-tooltip-size))
+						      (string-width rest) 3)
+						   ? )
+				      rest))))
+	(funcall skk-tooltip-function tooltip-str))
+
+       ;; (3) $B%(%3!<%(%j%"$r;H$&(B
        ((and (not skk-show-candidates-always-pop-to-buffer)
-	     (> (frame-width) (skk-multiple-line-string-width str)))
-	;; $B%(%3!<%(%j%"$r;H$&(B
+	     (> (frame-width) (skk-max-string-width (split-string str "\n"))))
+	(when skk-henkan-rest-indicator
+	  (let* ((body (substring str 0 (string-match "  \\[$B;D$j(B" str)))
+		 (rest (substring str (- (length body) (length str)))))
+	    (setq str (concat body
+			      (make-string (- (frame-width)
+					      (string-width str) 1) ? )
+			      rest))))
 	(skk-multiple-line-message "%s" str))
+
+       ;; (4) $B0l;~%P%C%U%!$r(B pop up $B$7$F;H$&(B
        (t
-	;; $B0l;~%P%C%U%!$r(B pop up $B$7$F;H$&(B
 	(skk-henkan-show-candidates-buffer str keys))))
     ;; $BI=<($9$k8uJd?t$rJV$9!#(B
     (length workinglst)))
+
+(defun skk-check-treat-candidate-appearance-function ()
+  (when (or (eq skk-annotation-lookup-lookup 'always)
+	    (eq skk-annotation-lookup-DictionaryServices 'always))
+    ;; Mac OS X $B$N<-=q%5!<%S%9$r8uJd0lMw$G$b;H$&>l9g$O!"(B
+    ;; `skk-treat-candidate-appearance-function' $B$rD4@a$9$kI,MW$"$j(B
+    (setq skk-treat-candidate-appearance-function
+	  'skk-treat-candidate-sample2))
+  ;;
+  (functionp skk-treat-candidate-appearance-function))
+
+(defun skk-treat-candidate-appearance (candidate listing-p)
+  (funcall skk-treat-candidate-appearance-function candidate listing-p))
 
 (defun skk-henkan-candidate-list (candidates max)
   ;; CANDIDATES $B$N@hF,$N(B max $B8D$N$_$N%j%9%H$rJV$9!#(B
@@ -2174,7 +2095,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
       (cond
        (e
 	;; $B$^$@8uJd$,;D$C$F$$$k>l9g(B
-	(when (functionp skk-treat-candidate-appearance-function)
+	(when (skk-check-treat-candidate-appearance-function)
 	  ;; skk-treat-candidate-appearance-function $B$K$h$C$F%f!<%6$O(B
 	  ;; $BG$0U$K8uJdJ8;zNs$HCm<aJ8;zNs$r2C9)!&=$>~$9$k$3$H$,$G$-$k!#(B
 	  ;; $B%f!<%6$,JV$9CM$O(B cons cell $B$^$?$OJ8;zNs$H$J$k!#(B
@@ -2182,8 +2103,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 			 ;; $B8uJd0lMwI=<($N:]$O(B
 			 ;; skk-treat-candidate-appearance-function $B$N(B
 			 ;; $BBh(B 2 $B0z?t$r(B non-nil $B$H$9$k!#(B
-			 (funcall skk-treat-candidate-appearance-function
-				  e 'list))))
+			 (skk-treat-candidate-appearance e 'list))))
 	    (cond
 	     ((consp value)
 	      ;; $BJV$jCM$,(B cons cell $B$@$C$?>l9g(B
@@ -2232,9 +2152,8 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	;; $B$3$3$G7k9g$7$F$*$/!#(B
 	(setq e (concat (skk-eval-string e)
 			sep
-			(if note
-			    (skk-eval-string
-			     (skk-annotation-get note)))))
+			(when note
+			  (skk-eval-string (skk-annotation-get note)))))
 	;; $BA4$F$N2C9)=hM}=*$o$j!#JQ?t$K%;%C%H$9$k!#(B
 	(setq v     (cons e v)
 	      count (1+ count)))
@@ -2245,14 +2164,14 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
     (nreverse v)))
 
 (defun skk-henkan-show-candidates-buffer (str keys)
-  ;; $B%(%3!<%(%j%"$NBe$o$j$K%P%C%U%!$r(B pop up $B$7$F8uJd0lMw$rI=<($9$k!#(B
+  ;; $B%(%3!<%(%j%"$NBe$o$j$K0l;~%P%C%U%!$r(B pop up $B$7$F8uJd0lMw$rI=<($9$k!#(B
   (let ((buff (get-buffer-create "*$B8uJd(B*"))
 	(case-fold-search t))
     (with-current-buffer buff
       (erase-buffer)
       (insert str)
       (goto-char (point-min))
-      ;; 1 $B8uJd$K(B 1 $B9T$r$o$j$"$F$k!#(B
+      ;; 1 $B8uJd$K(B 1 $B9T$r3d$jEv$F$k!#(B
       (forward-char 2)
       (while (re-search-forward
 	      (concat "  "
@@ -2275,10 +2194,16 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  (insert "\n  ")
 	  (forward-line -1))
 	(forward-line 1))
+      ;; [$B;D$j(B 99++] $B$r1&C<$X(B
+      (when skk-henkan-rest-indicator
+	(let ((col (progn (goto-char (point-max))
+			  (skk-screen-column))))
+	  (beginning-of-line)
+	  (insert-char 32 (- (frame-width) col 1))))
       (goto-char (point-min)))
+
     (let ((minibuf-p (skk-in-minibuffer-p))
-	  (window (get-buffer-window
-		   (skk-minibuffer-origin))))
+	  (window (get-buffer-window (skk-minibuffer-origin))))
       (when minibuf-p
 	(if window
 	    (select-window window)
@@ -2294,22 +2219,24 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  (when (> lines (1- (window-height)))
 	    (enlarge-window (- lines (1- (window-height))))))
 	(unless (pos-visible-in-window-p)
-	  (recenter '(1))))
+	  (recenter '(1)))
+	;;
+	(skk-fit-window)
+	(when skk-candidate-buffer-background-color
+	  (let ((ovl (make-overlay (point-min) (point-max))))
+	    (overlay-put ovl 'face
+			 `(:background ,skk-candidate-buffer-background-color)))))
       (when minibuf-p
 	(select-window (minibuffer-window))))))
 
 (defun skk-henkan-in-minibuff ()
   "$B<-=qEPO?%b!<%I$KF~$j!"EPO?$7$?C18l$NJ8;zNs$rJV$9!#(B"
   (unless (numberp skk-henkan-in-minibuff-nest-level)
-    (setq skk-henkan-in-minibuff-nest-level
-	  (minibuffer-depth)))
+    (setq skk-henkan-in-minibuff-nest-level (minibuffer-depth)))
   (when (and window-system skk-show-tooltip)
     (skk-tooltip-hide))
   (when skk-show-inline
-    (skk-inline-show "$B"-<-=qEPO?Cf"-(B"
-		     (if (featurep 'font-lock)
-			 'font-lock-warning-face
-		       'bold)))
+    (skk-inline-show "$B"-<-=qEPO?Cf"-(B" 'skk-jisyo-registration-badge-face))
   (save-match-data
     (let ((enable-recursive-minibuffers t)
 	  (depth (- (1+ (minibuffer-depth)) skk-henkan-in-minibuff-nest-level))
@@ -2321,28 +2248,27 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 		  (skk-save-point
 		   (forward-char 1)
 		   (point-marker))))
-	  ;; $BJQ49Cf$K(B isearch message $B$,=P$J$$$h$&$K$9$k!#(B
-	  skk-isearch-message orglen new-one pair)
+	  skk-isearch-message	; $BJQ49Cf$K(B isearch message $B$,=P$J$$$h$&$K$9$k(B
+	  orglen new-one pair)
       (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
       (add-hook 'minibuffer-setup-hook 'skk-add-skk-pre-command)
       (save-window-excursion
 	(skk-show-num-type-info)
 	(condition-case nil
-	    (setq new-one
-		  (read-from-minibuffer
-		   (format "%s$B<-=qEPO?(B%s %s "
-			   (make-string depth ?\[)
-			   (make-string depth ?\])
-			   (or (and (skk-numeric-p)
-				    (skk-num-henkan-key))
-			       (if skk-okuri-char
-				   (skk-compute-henkan-key2)
-				 skk-henkan-key)))
-		   (when (and (not skk-okuri-char)
-			      skk-read-from-minibuffer-function)
-		     (funcall skk-read-from-minibuffer-function))))
+	    (setq new-one (read-from-minibuffer
+			   (format "%s$B<-=qEPO?(B%s %s: "
+				   (make-string depth ?\[)
+				   (make-string depth ?\])
+				   (or (and (skk-numeric-p)
+					    (skk-num-henkan-key))
+				       (if skk-okuri-char
+					   (skk-compute-henkan-key2)
+					 skk-henkan-key)))
+			   (when (and (not skk-okuri-char)
+				      skk-read-from-minibuffer-function)
+			     (funcall skk-read-from-minibuffer-function))))
 	  (quit
-	   (skk-inline-hide)
+	   (skk-delete-overlay skk-inline-overlays)
 	   (setq new-one ""))))
       (when (and skk-check-okurigana-on-touroku
 		 ;; $BAw$j$"$jJQ49$G$b(B skk-okuri-char $B$@$1$@$HH=CG$G$-$J$$!#(B
@@ -2350,7 +2276,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	(setq new-one (skk-remove-redundant-okurigana new-one)))
       (cond
        ((string= new-one "")
-	(skk-inline-hide)
+	(skk-delete-overlay skk-inline-overlays)
 	(if (skk-exit-show-candidates)
 	    ;; $B%(%3!<%(%j%"$KI=<($7$?8uJd$,?T$-$F<-=qEPO?$KF~$C$?$,!"6uJ8;z(B
 	    ;; $BNs$,EPO?$5$l$?>l9g!#:G8e$K%(%3!<%(%j%"$KI=<($7$?8uJd72$r:FI=(B
@@ -2406,6 +2332,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
       ;; $BF~$C$F$$$k!#(Bskk-henkan-count $B$r%$%s%/%j%a%s%H$9$kI,MW$O$J$$!#(B
       ;; new-one $B$,6uJ8;zNs$@$C$?$i(B nil $B$rJV$9!#(B
       (unless (string= new-one "")
+	(setq skk-jisyo-updated t)	; skk-update-jisyo $B$G;2>H(B
 	new-one))))
 
 (defun skk-compute-henkan-key2 ()
@@ -2442,22 +2369,19 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 		  str1)))
       (when (and str
 		 (string-match "^[$B$!(B-$B$s(B]$" str1)
-		 (or (eq skk-check-okurigana-on-touroku
-			 'auto)
+		 (or (eq skk-check-okurigana-on-touroku 'auto)
 		     (skk-y-or-n-p
-		      (format
-		       "%s: `%s' $B$r=|$$$FEPO?$7$^$9$+!)(B"
-		       word str)
-		      (format
-		       "%s: Remove `%s' when register?"
-		       word str))))
+		      (format "%s: `%s' $B$r=|$$$FEPO?$7$^$9$+!)(B"
+			      word str)
+		      (format "%s: Remove `%s' when register?"
+			      word str))))
 	;; $B%f!<%6$N;X<($K=>$$Aw$j2>L>$r<h$j=|$/!#(B
 	(message "")
-	(setq word (substring
-		    word 0
-		    (if (string-match "^[$B$!(B-$B$s(B]$" str2)
-			(- len 2)
-		      (1- len)))))))
+	(setq word (substring word
+			      0
+			      (if (string-match "^[$B$!(B-$B$s(B]$" str2)
+				  (- len 2)
+				(1- len)))))))
   ;;
   word)
 
@@ -2476,11 +2400,10 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 #3 $B4A?t;z$G0L<h$j$J$7(B     e.g. $B8^@i8^I4(B
 #4 $B?tCM:FJQ49(B
 #5 $B6b3[I=5-(B               e.g. $B0mot6eI46e=&8`(B
-#9 $B>-4}MQ(B"))
+#9 $B>-4}4}IhMQ(B"))
       ;; skk-henkan-show-candidates-buffer $B$+$i$R$C$Q$C$F$-$?%3!<%I(B
       (let ((minibuf-p (skk-in-minibuffer-p))
-	    (window (get-buffer-window
-		     (skk-minibuffer-origin))))
+	    (window (get-buffer-window (skk-minibuffer-origin))))
 	(when minibuf-p
 	  (if window
 	      (select-window window)
@@ -2489,6 +2412,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 	  (delete-other-windows))
 	(save-selected-window
 	  (pop-to-buffer buff)
+	  (skk-fit-window)
 	  (unless (pos-visible-in-window-p)
 	    (recenter '(1))))
 	(when minibuf-p
@@ -2496,7 +2420,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 
 (defun skk-previous-candidate (&optional arg)
   "$B"'%b!<%I$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
-$B"'%b!<%I0J30$G$O%+%l%s%H%P%C%U%!$K(B `skk-previous-candidate-char' $B$rA^F~$9$k!#(B
+$B"'%b!<%I0J30$G$O%+%l%s%H%P%C%U%!$K%?%$%W$7$?J8;z$rA^F~$9$k!#(B
 $B3NDj<-=q$K$h$k3NDj$ND>8e$K8F$V$H3NDj$r%"%s%I%%$7!"8+=P$7$KBP$9$k<!8uJd$rI=<($9$k!#(B
 $B:G8e$K3NDj$7$?$H$-$N8uJd$O%9%-%C%W$5$l$k!#(B"
   (interactive "*p")
@@ -2517,36 +2441,36 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 		    (point-marker))))
 	   pair)
        (skk-save-point
-	(cond
-	 ((= (skk-henkan-count) 0)
-	  (when skk-okuri-char
-	    ;; roman prefix for okurigana should be removed.
-	    (setq skk-henkan-key (substring skk-henkan-key 0 -1)))
-	  (when skk-katakana
-	    (setq skk-henkan-key
-		  (skk-hiragana-to-katakana skk-henkan-key)))
-	  (skk-set-henkan-count -1)
-	  (setq skk-henkan-in-minibuff-flag nil
-		skk-henkan-list nil
-		skk-henkan-okurigana nil
-		skk-okuri-char nil
-		skk-okuri-index-min -1
-		skk-okuri-index-max -1
-		skk-okurigana nil
-		skk-prefix "")
-	  (when (skk-numeric-p)
-	    (skk-num-initialize))
-	  ;; Emacs 19.28 $B$@$H(B Overlay $B$r>C$7$F$*$+$J$$$H!"<!$K(B insert $B$5$l(B
-	  ;; $B$k(B skk-henkan-key $B$K2?8N$+(B Overlay $B$,$+$+$C$F$7$^$&!#(B
-	  (when skk-use-face
-	    (skk-henkan-face-off))
-	  (delete-region skk-henkan-start-point skk-henkan-end-point)
-	  (goto-char skk-henkan-end-point)
-	  (insert-and-inherit skk-henkan-key)
-	  (skk-change-marker-to-white))
-	 (t
-	  (skk-set-henkan-count (1- (skk-henkan-count)))
-	  (setq pair (skk-insert-new-word (skk-get-current-candidate))))))
+	(case (skk-henkan-count)
+	  (0
+	   (when skk-okuri-char
+	     ;; roman prefix for okurigana should be removed.
+	     (setq skk-henkan-key (substring skk-henkan-key 0 -1)))
+	   (when skk-katakana
+	     (setq skk-henkan-key
+		   (skk-hiragana-to-katakana skk-henkan-key)))
+	   (skk-set-henkan-count -1)
+	   (setq skk-henkan-in-minibuff-flag nil
+		 skk-henkan-list nil
+		 skk-henkan-okurigana nil
+		 skk-okuri-char nil
+		 skk-okuri-index-min -1
+		 skk-okuri-index-max -1
+		 skk-okurigana nil
+		 skk-prefix "")
+	   (when (skk-numeric-p)
+	     (skk-num-initialize))
+	   ;; Emacs 19.28 $B$@$H(B Overlay $B$r>C$7$F$*$+$J$$$H!"<!$K(B insert $B$5$l(B
+	   ;; $B$k(B skk-henkan-key $B$K2?8N$+(B Overlay $B$,$+$+$C$F$7$^$&!#(B
+	   (when skk-use-face
+	     (skk-henkan-face-off))
+	   (delete-region skk-henkan-start-point skk-henkan-end-point)
+	   (goto-char skk-henkan-end-point)
+	   (insert-and-inherit skk-henkan-key)
+	   (skk-change-marker-to-white))
+	  (t
+	   (skk-set-henkan-count (1- (skk-henkan-count)))
+	   (setq pair (skk-insert-new-word (skk-get-current-candidate))))))
        ;;
        (if mark
 	   (progn
@@ -2582,68 +2506,19 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 
 (defun skk-insert-new-word (word)
   "$B8+=P$78l$r>C$7!"$=$N>l=j$XJQ497k2L$NJ8;zNs$rA^F~$9$k!#(B"
-  ;; Emacs 19.28 $B$@$H(B Overlay $B$r>C$7$F$*$+$J$$$H!"<!$K(B insert $B$5$l$k(B
-  ;; skk-henkan-key $B$K2?8N$+(B Overlay $B$,$+$+$C$F$7$^$&!#(B
   (save-match-data
-    (let (note face next-word)
-      (while (stringp
-	      (setq next-word
-		    (catch 'next-word
-		      (when (stringp next-word)
-			(setq word next-word))
-		      (setq note nil)
-		      ;; `skk-ignore-dic-word' $B$K$h$j8=:_$N(B word $B$,(B skip $B$5$l!"(B
-		      ;; $B?7$7$$8l$,JV$C$F$-$?>l9g!"%k!<%W$7$F=hM}$r$d$jD>$9!#(B
-
-		      ;; $B8uJd0lMw$GA*Br$5$l$?8uJd$rA^F~$9$k:]$O!"(B
-		      ;; skk-kakutei-flag $B$,(B t $B$K$J$C$F$$$k!#$3$N>l9g$OAu>~(B
-		      ;; $B$7$F$b$7$+$?$J$$!#(B
-		      (when (and (not skk-kakutei-flag)
-				 (functionp
-				  skk-treat-candidate-appearance-function))
-			;; skk-treat-candidate-appearance-function $B$K$h$C$F(B
-			;; $B%f!<%6$OG$0U$K8uJdJ8;zNs$HCm<aJ8;zNs$r2C9)!&=$>~(B
-			;; $B$9$k$3$H$,$G$-$k!#(B
-			;; $B%f!<%6$,JV$9CM$O(B cons cell $B$^$?$OJ8;zNs$H$J$k!#(B
-			(save-match-data
-			  (let ((value (funcall
-					skk-treat-candidate-appearance-function
-					word nil)))
-			    (if (consp value)
-				;; $BJV$jCM$,(B cons cell $B$@$C$?>l9g(B
-				(setq word (car value)
-				      note (cond
-					    ((consp (cdr value))
-					     ;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
-					     ;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
-					     (cddr value))
-					    ((string-match "^;" (cdr value))
-					     ;; ($B8uJd(B . $BCm<a(B)
-					     ;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G(B
-					     ;; $B$$$k(B
-					     (substring (cdr value)
-							(match-end 0)))
-					    (t
-					     ;; ($B8uJd(B . $BCm<a(B)
-					     ;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F(B
-					     ;; $B$$$k$b$N$HH=CG$9$k(B
-					     (cdr value))))
-			      ;; $BJV$jCM$,J8;zNs$@$C$?>l9g(B
-			      (setq word value)))))
-		      ;; $B%f!<%6$N0U?^$K$h$C$FCm<a$,4{$K@_Dj$5$l$F(B
-		      ;; $B$$$k>l9g$O(BSKK $B$NJ}$G$OBP=h$7$J$$!#(B
-		      (when (and (not (stringp note))
-				 (string-match ";" word))
-			(setq note (substring word (match-end 0))
-			      word (substring word 0 (match-beginning 0))))
-		      ;; word $B$NJ}$,(B S $B<0$NJ8;zNs$@$C$?$i!"$=$l$rI>2A$7$?(B
-		      ;; $BJ8;zNs$rJV$9!#(B
-		      ;; note $B$NJ}$b(B S $B<0$N>l9g$,$"$j$&$k$,!"$=$l$NI>2A$O(B
-		      ;; skk-annotation $B$,$d$C$F$/$l$k!#(B
-		      (setq word (skk-eval-string word))
-		      nil)))
+    (let (retval note face)
+      (while (and (setq retval (skk-treat-new-word (or retval word)))
+		  (stringp retval))
+	;; nextword-or-retval $B$KJ8;zNs$,BeF~$5$l$?>l9g(B (`skk-ignore-dic-word'
+	;; $B$K$h$C$FA0$N8uJd$,%9%-%C%W$5$l$?>l9g(B) $B$O$=$NJ8;zNs$r?7$7$$8uJd$H$7$F(B
+	;; $B=hM}$r7+$jJV$9!#J8;zNs0J30$,BeF~$5$l$?$i%k!<%W$r=*N;$9$k!#(B
 	())
-      (unless (eq next-word 'none)
+      (when (consp retval)
+	(setq word (car retval)
+	      note (cdr retval)))
+      (unless (eq retval 'none)
+	;; $BA^F~$9$Y$-8uJd$,$"$k!#(B
 	(when skk-use-face
 	  (skk-henkan-face-off))
 	(delete-region skk-henkan-start-point skk-henkan-end-point)
@@ -2664,14 +2539,71 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 	  (skk-kakutei))
 	(cons word note)))))
 
-(defun skk-treat-strip-note-from-word (word)
-  "$BJQ498uJdJ8;zNs(B WORD $B$r8uJd$=$N$b$N$HCm<a$KJ,3d$9$k!#(B
-$B8uJd$=$N$b$N$HCm<a$H$N(B cons cell $B$rJV$9!#8uJd$=$N$b$N$HCm<a$H$N%;%Q%l!<%?$O(B
-\";\"$B$G$"$kI,MW$,$"$k!#J,3d$N%k!<%k$O0J2<$N$h$&$K$J$C$F$$$k!#(B
+(defun skk-treat-new-word (word)
+  "`skk-insert-new-word' $B$N%5%V%k!<%A%s!#A^F~$9$Y$-C18l$rAu>~$9$k!#(B
+$B%k!<%WFb$G$h$P$l$k!#=hM}Cf$K(B `skk-ignore-dic-word' $B$,8F$P$l$?>l9g$O$=$3$+$i(B
+catch $B$9$k!#(Bcatch $B$7$?CM$,J8;zNs$J$i$P!"$=$l$rJV$9(B (word $B$r$=$l$KCV$-49$($F(B
+$B:FEY8F$S=P$5$l$k(B)$B!#(B catch $B$7$J$+$C$?>l9g$OA^F~$9$Y$-J8;zNs$,F@$i$l$k!#$3$N>l9g(B
+$B$OCm<a$HJ8;zNs$N(B cons cell $B$rJV$9!#(B"
+  (let (note)
+    (catch 'next-word
+      ;; $B%k!<%W(B 1 $B2sL\$G$O(B next-word $B$O(B nil$B!#(B
+      ;; `skk-ignore-dic-word' $B$K$h$j8=:_$N(B word $B$,(B skip $B$5$l!"(B
+      ;; $B?7$7$$8l$,JV$C$F$-$?>l9g!"(Bnext-word $B$KJ8;zNs$,%;%C%H$5$l$F$$$k!#(B
+      ;; $B$3$N>l9g(B word $B$r(B next-word $B$KCV$-49$($F=hM}$r$d$jD>$9!#(B
 
-\"word\" --> (\"word\" . nil)
-\"word;\" --> (\"word\" . \"\")
-\"word;note\" --> (\"word\" . \"note\")
+      ;; $B8uJd0lMw$GA*Br$5$l$?8uJd$rA^F~$9$k:]$O!"(B
+      ;; skk-kakutei-flag $B$,(B t $B$K$J$C$F$$$k!#$3$N>l9g$OAu>~(B
+      ;; $B$7$F$b$7$+$?$J$$!#(B
+      (when (and (not skk-kakutei-flag)
+		 (skk-check-treat-candidate-appearance-function))
+	;; skk-treat-candidate-appearance-function $B$K$h$C$F(B
+	;; $B%f!<%6$OG$0U$K8uJdJ8;zNs$HCm<aJ8;zNs$r2C9)!&=$>~(B
+	;; $B$9$k$3$H$,$G$-$k!#(B
+	;; $B%f!<%6$,JV$9CM$O(B cons cell $B$^$?$OJ8;zNs$H$J$k!#(B
+	(save-match-data
+	  (let ((value (skk-treat-candidate-appearance word nil)))
+	    (if (consp value)
+		;; $BJV$jCM$,(B cons cell $B$@$C$?>l9g(B
+		(setq word (car value)
+		      note (cond
+			    ((consp (cdr value))
+			     ;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
+			     ;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
+			     (cddr value))
+			    ((string-match "^;" (cdr value))
+			     ;; ($B8uJd(B . $BCm<a(B)
+			     ;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G(B
+			     ;; $B$$$k(B
+			     (substring (cdr value) (match-end 0)))
+			    (t
+			     ;; ($B8uJd(B . $BCm<a(B)
+			     ;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F(B
+			     ;; $B$$$k$b$N$HH=CG$9$k(B
+			     (cdr value))))
+	      ;; $BJV$jCM$,J8;zNs$@$C$?>l9g(B
+	      (setq word value)))))
+      ;; $B%f!<%6$N0U?^$K$h$C$FCm<a$,4{$K@_Dj$5$l$F(B
+      ;; $B$$$k>l9g$O(BSKK $B$NJ}$G$OBP=h$7$J$$!#(B
+      (when (and (not (stringp note))
+		 (string-match ";" word))
+	(setq note (substring word (match-end 0))
+	      word (substring word 0 (match-beginning 0))))
+      ;; word $B$NJ}$,(B S $B<0$NJ8;zNs$@$C$?$i!"$=$l$rI>2A$7$?(B
+      ;; $BJ8;zNs$rJV$9!#(B
+      ;; note $B$NJ}$b(B S $B<0$N>l9g$,$"$j$&$k$,!"$=$l$NI>2A$O(B
+      ;; skk-annotation $B$,$d$C$F$/$l$k!#(B
+      (setq word (skk-eval-string word))
+      (cons word note))))
+
+(defun skk-treat-strip-note-from-word (word)
+  "$BJQ498uJd$NJ8;zNs(B WORD $B$r!"8uJd$=$N$b$N$HCm<a$H$KJ,3d$7$F(B cons cell $B$rJV$9!#(B
+$B8uJd$=$N$b$N$HCm<a$H$N%;%Q%l!<%?$O(B \";\" $B$G$"$kI,MW$,$"$k!#(B
+$BJ,3d$N%k!<%k$O0J2<$N$H$*$j!#(B
+
+  \"word\" --> (\"word\" . nil)
+  \"word;\" --> (\"word\" . \"\")
+  \"word;note\" --> (\"word\" . \"note\")
 "
   (save-match-data
     (let (cand note)
@@ -2682,7 +2614,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
       (cons cand note))))
 
 (defun skk-kakutei (&optional arg word)
-  "$B8=:_I=<($5$l$F$$$k8l$G3NDj$7!"<-=q$N99?7$r9T$&!#(B
+  "$B8=:_I=<($5$l$F$$$k8l$G3NDj$7!"<-=q$r99?7$9$k!#(B
 $B%+%l%s%H%P%C%U%!$G(B SKK $B%b!<%I$K$J$C$F$$$J$+$C$?$i(B SKK $B%b!<%I$KF~$k!#(B
 $B%*%W%7%g%J%k0z?t$N(B WORD $B$rEO$9$H!"8=:_I=<($5$l$F$$$k8uJd$H$OL54X78$K(B
 WORD $B$G3NDj$9$k!#(B"
@@ -2691,93 +2623,93 @@ WORD $B$G3NDj$9$k!#(B"
   (interactive "P")
   (let ((inhibit-quit t)
 	converted kakutei-word)
-    (when skk-henkan-mode
-      (cond
-       ((eq skk-henkan-mode 'active)
-	(setq kakutei-word
-	      ;; $B3NDj<-=q$N8l$G3NDj$7$?$H$-$O!"<-=q$K$=$N8l$r=q$-9~$`I,MW$b$J(B
-	      ;; $B$$$7!"99?7$9$kI,MW$b$J$$$H;W$C$F$$$?$,!"Jd40$r9T$J$&$H$-$O!"(B
-	      ;; $B8D?M<-=q$r;2>H$9$k(B ($B3NDj<-=q$O;2>H$7$J$$(B) $B$N$G!"B?>/;q8;$H;~(B
-	      ;; $B4V$rL5BL$K$7$F$b!"8D?M<-=q$K3NDj<-=q$N%(%s%H%j$r=q$-9~$s$G99(B
-	      ;; $B?7$b$7$F$*$/!#(B
-	      (or word (skk-get-current-candidate 'noconv)))
-	(when (and kakutei-word
-		   (skk-update-jisyo-p kakutei-word))
-	  (skk-update-jisyo kakutei-word)
-	  ;; $B@\Hx<-!&@\F,<-$K4X$9$k=hM}(B
-	  (cond
-	   ((not skk-learn-combined-word)
-	    ;; $B%f!<%6$,4uK>$7$J$$8B$j2?$N=hM}$b$7$J$$!#(B
-	    (setq skk-after-prefix nil))
-	   ((and skk-after-prefix
-		 (not (string-match "^[^\000-\177]+>$" skk-henkan-key)))
-	    ;; $B$3$N%P%C%U%!$K$*$$$F!"@\F,<-$KB3$/F~NO$,?J9TCf!#(B
-	    (let* ((history (cdr skk-kakutei-history))
-		   (list1 (car skk-kakutei-history)) ; ($B$j$h$&(B $BMxMQ(B)
-		   (list2 (catch 'list ; ($B$5$$(B> $B:F(B)
-			    (while history
-			      (if (eq (nth 2 list1) (nth 2 (car history)))
-				  ;; $BF1$8%P%C%U%!$@$C$?$i(B
-				  (throw 'list (car history))
-				(setq history (cdr history))))))
-		   (list1-word (car (skk-treat-strip-note-from-word
-				     (nth 1 list1))))
-		   (list2-word (car (skk-treat-strip-note-from-word
-				     (nth 1 list2))))
-		   skk-henkan-key comb-word)
-	      (when (and (stringp list2-word)
-			 (string-match "^[^\000-\177]+>$" (car list2))
-			 (skk-save-point
-			  (ignore-errors
-			    (goto-char (- skk-henkan-start-point
-					  (length list1-word)))
-			    (looking-at list2-word))))
-		(setq skk-henkan-key
-		      (concat (substring (car list2)
-					 0
-					 (1- (length (car list2))))
-			      (car list1)) ; $B$5$$$j$h$&(B
-		      comb-word (concat list2-word list1-word)) ; $B:FMxMQ(B
-		(skk-update-jisyo comb-word))
-	      (setq skk-after-prefix nil)))
-	   ((and (stringp (caar skk-kakutei-history))
-		 (string-match "^>[^\000-\177]+$" (caar skk-kakutei-history)))
-	    ;; $B:#2s$N3NDj$,@\Hx<-$@$C$?>l9g!"A02s$N3NDj$H:#2s$N@\Hx<-$r(B
-	    ;; $B9g$o$;$?8l$r<-=qEPO?$9$k!#(B
-	    (let* ((history (cdr skk-kakutei-history))
-		   (list1 (car skk-kakutei-history)) ; (>$B$F$-(B $BE*(B)
-		   (list2 (catch 'list ; ($B$+$s$I$&(B $B46F0(B)
-			    (while history
-			      (if (eq (nth 2 list1) (nth 2 (car history)))
-				  ;; $BF1$8%P%C%U%!$@$C$?$i(B
-				  (throw 'list (car history))
-				(setq history (cdr history))))))
-		   (list1-word (car (skk-treat-strip-note-from-word
-				     (nth 1 list1))))
-		   (list2-word (car (skk-treat-strip-note-from-word
-				     (nth 1 list2))))
-		   skk-henkan-key comb-word)
-	      (when (stringp list2-word)
-		(setq skk-henkan-key
-		      (concat (car list2)
-			      (substring (car list1) 1)) ; $B$+$s$I$&$F$-(B
-		      comb-word (concat list2-word list1-word)) ; $B46F0E*(B
-		(skk-update-jisyo comb-word)))))
-	  ;;
-	  (when (skk-numeric-p)
-	    (setq converted (skk-get-current-candidate))
-	    (skk-num-update-jisyo kakutei-word converted))))
-       (t
-	;; $B"&%b!<%I$G3NDj$7$?>l9g!#JX59E*$K8=:_$N%]%$%s%H$^$G$r8+=P$78l$r07$$(B
-	;; $B$7$FMzNr$r99?7$9$k!#(B
-	(when (and (> skk-kakutei-history-limit 0)
-		   (< skk-henkan-start-point (point))
-		   (skk-save-point
-		    (goto-char skk-henkan-start-point)
-		    (eq (skk-what-char-type) 'hiragana)))
-	  (skk-update-kakutei-history
-	   (buffer-substring-no-properties
-	    skk-henkan-start-point (point))))))
+    (when skk-henkan-mode		;'on or 'active
+      (case skk-henkan-mode
+	(active				;$B"'%b!<%I(B
+	 (setq kakutei-word
+	       ;; $B3NDj<-=q$N8l$G3NDj$7$?$H$-$O!"<-=q$K$=$N8l$r=q$-9~$`I,MW$b$J(B
+	       ;; $B$$$7!"99?7$9$kI,MW$b$J$$$H;W$C$F$$$?$,!"Jd40$r9T$&$H$-$O!"(B
+	       ;; $B8D?M<-=q$r;2>H$9$k(B ($B3NDj<-=q$O;2>H$7$J$$(B) $B$N$G!"B?>/;q8;$H;~(B
+	       ;; $B4V$rL5BL$K$7$F$b!"8D?M<-=q$K3NDj<-=q$N%(%s%H%j$r=q$-9~$s$G99(B
+	       ;; $B?7$b$7$F$*$/!#(B
+	       (or word (skk-get-current-candidate 'noconv)))
+	 (when (and kakutei-word
+		    (skk-update-jisyo-p kakutei-word))
+	   (skk-update-jisyo kakutei-word)
+	   ;; $B@\Hx<-!&@\F,<-$K4X$9$k=hM}(B
+	   (cond
+	    ((not skk-learn-combined-word)
+	     ;; $B%f!<%6$,4uK>$7$J$$8B$j2?$N=hM}$b$7$J$$!#(B
+	     (setq skk-after-prefix nil))
+	    ((and skk-after-prefix
+		  (not (string-match "^[^\000-\177]+>$" skk-henkan-key)))
+	     ;; $B$3$N%P%C%U%!$K$*$$$F!"@\F,<-$KB3$/F~NO$,?J9TCf!#(B
+	     (let* ((history (cdr skk-kakutei-history))
+		    (list1 (car skk-kakutei-history)) ; ($B$j$h$&(B $BMxMQ(B)
+		    (list2 (catch 'list ; ($B$5$$(B> $B:F(B)
+			     (while history
+			       (if (eq (nth 2 list1) (nth 2 (car history)))
+				   ;; $BF1$8%P%C%U%!$@$C$?$i(B
+				   (throw 'list (car history))
+				 (setq history (cdr history))))))
+		    (list1-word (car (skk-treat-strip-note-from-word
+				      (nth 1 list1))))
+		    (list2-word (car (skk-treat-strip-note-from-word
+				      (nth 1 list2))))
+		    skk-henkan-key comb-word)
+	       (when (and (stringp list2-word)
+			  (string-match "^[^\000-\177]+>$" (car list2))
+			  (skk-save-point
+			   (ignore-errors
+			     (goto-char (- skk-henkan-start-point
+					   (length list1-word)))
+			     (looking-at list2-word))))
+		 (setq skk-henkan-key
+		       (concat (substring (car list2)
+					  0
+					  (1- (length (car list2))))
+			       (car list1)) ; $B$5$$$j$h$&(B
+		       comb-word (concat list2-word list1-word)) ; $B:FMxMQ(B
+		 (skk-update-jisyo comb-word))
+	       (setq skk-after-prefix nil)))
+	    ((and (stringp (caar skk-kakutei-history))
+		  (string-match "^>[^\000-\177]+$" (caar skk-kakutei-history)))
+	     ;; $B:#2s$N3NDj$,@\Hx<-$@$C$?>l9g!"A02s$N3NDj$H:#2s$N@\Hx<-$r(B
+	     ;; $B9g$o$;$?8l$r<-=qEPO?$9$k!#(B
+	     (let* ((history (cdr skk-kakutei-history))
+		    (list1 (car skk-kakutei-history)) ; (>$B$F$-(B $BE*(B)
+		    (list2 (catch 'list ; ($B$+$s$I$&(B $B46F0(B)
+			     (while history
+			       (if (eq (nth 2 list1) (nth 2 (car history)))
+				   ;; $BF1$8%P%C%U%!$@$C$?$i(B
+				   (throw 'list (car history))
+				 (setq history (cdr history))))))
+		    (list1-word (car (skk-treat-strip-note-from-word
+				      (nth 1 list1))))
+		    (list2-word (car (skk-treat-strip-note-from-word
+				      (nth 1 list2))))
+		    skk-henkan-key comb-word)
+	       (when (stringp list2-word)
+		 (setq skk-henkan-key
+		       (concat (car list2)
+			       (substring (car list1) 1)) ; $B$+$s$I$&$F$-(B
+		       comb-word (concat list2-word list1-word)) ; $B46F0E*(B
+		 (skk-update-jisyo comb-word)))))
+	   ;;
+	   (when (skk-numeric-p)
+	     (setq converted (skk-get-current-candidate))
+	     (skk-num-update-jisyo kakutei-word converted))))
+	(t
+	 ;; $B"&%b!<%I$G3NDj$7$?>l9g!#JX59E*$K8=:_$N%]%$%s%H$^$G$r8+=P$78l$r07$$(B
+	 ;; $B$7$FMzNr$r99?7$9$k!#(B
+	 (when (and (> skk-kakutei-history-limit 0)
+		    (< skk-henkan-start-point (point))
+		    (skk-save-point
+		     (goto-char skk-henkan-start-point)
+		     (eq (skk-what-char-type) 'hiragana)))
+	   (skk-update-kakutei-history
+	    (buffer-substring-no-properties
+	     skk-henkan-start-point (point))))))
       (when (and window-system skk-show-tooltip)
 	(skk-tooltip-hide))
       (when skk-mode
@@ -2801,6 +2733,7 @@ WORD $B$G3NDj$9$k!#(B"
 	 (if (skk-numeric-p)
 	     (cons kakutei-word converted)
 	   kakutei-word))))
+
     (skk-do-auto-fill)
     (when (and skk-undo-kakutei-return-previous-point
 	       (numberp skk-undo-kakutei-previous-point)
@@ -2817,41 +2750,44 @@ WORD $B$G3NDj$9$k!#(B"
 		      0))))
     (setq skk-undo-kakutei-previous-point nil
 	  skk-undo-kakutei-previous-length nil)
-    (if skk-mode
-	(if skk-undo-kakutei-prev-state
-	    (progn
-	      (cond ((cdr (assq 'skk-latin-mode skk-undo-kakutei-prev-state))
-		     (skk-latin-mode-on))
-		    ((cdr (assq 'skk-jisx0208-latin-mode skk-undo-kakutei-prev-state))
-		     (skk-jisx0208-latin-mode-on))
-		    ;; skk-mode $B$,%*%U$N>uBV$KLa$=$&$H$9$k$H(B
-		    ;; `skk-mode-exit' $BFb$G:FEY(B `skk-kakutei' $B$r8F$V$?(B
-		    ;; $B$aL58B%k!<%W$K$J$C$F$7$^$&(B
-;; 		    ((not (cdr (assq 'skk-mode skk-undo-kakutei-prev-state)))
-;; 		     (skk-mode -1))
-		    )
-	      (setq skk-undo-kakutei-prev-state nil))
-	  (unless (or skk-j-mode
-		      skk-jisx0201-mode)
-	    (skk-j-mode-on skk-katakana)))
-      ;; $B%+%l%s%H%P%C%U%!$G$^$@(B skk-mode $B$,(B
-      ;; $B%3!<%k$5$l$F$$$J$+$C$?$i!"%3!<%k$9$k!#(B
-      (skk-mode 1)))
+    (cond
+     ((not skk-mode)
+       (skk-mode 1))
+     (skk-undo-kakutei-prev-state
+      (cond ((cdr (assq 'skk-latin-mode skk-undo-kakutei-prev-state))
+	     (skk-latin-mode-on))
+	    ((cdr (assq 'skk-jisx0208-latin-mode skk-undo-kakutei-prev-state))
+	     (skk-jisx0208-latin-mode-on))
+	    ;; skk-mode $B$,%*%U$N>uBV$KLa$=$&$H$9$k$H(B
+	    ;; `skk-mode-exit' $BFb$G:FEY(B `skk-kakutei' $B$r8F$V$?(B
+	    ;; $B$aL58B%k!<%W$K$J$C$F$7$^$&(B
+;;	    ((not (cdr (assq 'skk-mode skk-undo-kakutei-prev-state)))
+;;	     (skk-mode -1))
+	    ((cdr (assq 'skk-j-mode skk-undo-kakutei-prev-state))
+	     ;; M-x skk-undo-kakutei $B$G(B skk-abbrev-mode $B$KLa$C$?:]!"(B
+	     ;; $B3NDj8e$K(B skk-j-mode $B$KLa$k$?$a$K$O0J2<$,I,MW!#(B
+	     (skk-j-mode-on skk-katakana)))
+      (setq skk-undo-kakutei-prev-state nil))
+     ((not (or skk-j-mode skk-jisx0201-mode))
+      (skk-j-mode-on skk-katakana))))
   nil)
 
 (defun skk-update-jisyo-p (word)
   "WORD $B$,8D?M<-=q$KEPO?$5$l$k$Y$-$+H]$+$rH=Dj$9$k!#(B
-$BJQ?t(B `skk-search-excluding-word-pattern-function' $B$,4X?t$G$"$l$P!"$=$N4X?t$r(B
-WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $B$O(B nil $B$rJV(B
-$B$9!#(B
-`skk-search-excluding-word-pattern-function' $B$,4X?t$N%j%9%H$G$"$l$P!"$=$l$>(B
-$B$l$r(B WORD $B$r0z?t$K$7$F8F$S!$$=$N$&$A$N$R$H$D$G$b(B non-nil $B$rJV$;$P(B nil $B$rJV$9!#(B"
+$BJQ?t(B `skk-search-excluding-word-pattern-function' $B$,4X?t$G$"$l$P!"(BWORD $B$r(B
+$B0z?t$K$7$F$=$N4X?t$r<B9T$7!"La$jCM$,(B non-nil $B$G$"$l$P(B `skk-update-jisyo-p' $B$O(B
+ nil $B$rJV$9!#(B
+$BJQ?t(B `skk-search-excluding-word-pattern-function' $B$,4X?t$N%j%9%H$G$"$l$P!"(B
+ WORD $B$r0z?t$K$7$F$=$l$>$l$N4X?t$r<B9T$7!"$=$N$&$A$N$R$H$D$G$b(B non-nil $B$r(B
+$BJV$;$P(B `skk-update-jisyo-p' $B$O(B nil $B$rJV$9!#(B
+
+$BJQ?t(B `skk-search-excluding-word-pattern-function' $B$N(B docstring $B$b;2>H$N$3$H!#(B"
   (save-match-data
     (not (run-hook-with-args-until-success
 	 'skk-search-excluding-word-pattern-function word))))
 
 (defun skk-kakutei-cleanup-buffer ()
-  "$B3NDjD>8e$N%P%C%U%!$N@07A$r9T$&!#(B"
+  "$B3NDjD>8e$N%P%C%U%!$r@07A$9$k!#(B"
   (when skk-okurigana
     ;; $B3NDjJQ49$N$H$-$K$3$3$K$/$k!#(B
     ;; $B:FJQ49$N:]$KAw$j2>L>4XO"%U%i%0$,(B clear $B$5$l$F$$$k$H$h$m$7$/$J$$$N$G(B
@@ -2863,11 +2799,8 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (funcall self-insert-after-hook
 	     skk-henkan-start-point (point)))
   (when overwrite-mode
-    (skk-del-char-with-pad
-     (skk-ovwrt-len
-      (string-width
-       (buffer-substring-no-properties
-	skk-henkan-start-point (point)))))))
+    (skk-del-char-with-pad (skk-ovwrt-len (buffer-substring-no-properties
+					   skk-henkan-start-point (point))))))
 
 (defun skk-kakutei-initialize (&optional kakutei-word)
   "$B3NDj;~$KJQ?t$N=i4|2=$H%"%s%I%%$N$?$a$NJQ?t$NJ]B8$r9T$&!#(B"
@@ -2886,8 +2819,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 		       (delete kakutei-word skk-henkan-list)))
 	   (cons 'henkan-buffer (current-buffer))
 	   (cons 'henkan-point
-		 (let ((hpoint
-			(skk-get-last-henkan-datum 'henkan-point)))
+		 (let ((hpoint (skk-get-last-henkan-datum 'henkan-point)))
 		   (if hpoint
 		       (set-marker hpoint (point))
 		     (point-marker))))
@@ -2901,7 +2833,6 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
   (skk-set-henkan-count -1)
   (skk-set-exit-show-candidates nil)
   (setq skk-abbrev-mode nil
-
 	skk-henkan-in-minibuff-flag nil
 	skk-henkan-key nil
 	skk-henkan-list nil
@@ -2917,29 +2848,32 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	))
 
 (defun skk-undo-kakutei ()
-  "$B0lHV:G8e$N3NDj$r%"%s%I%%$7!"8+=P$7$KBP$9$k8uJd$rI=<($9$k!#(B
+  "$B0lHV:G8e$N3NDj$r%"%s%I%%$7!"8+=P$78l$KBP$9$k8uJd$rI=<($9$k!#(B
 $B:G8e$K3NDj$7$?$H$-$N8uJd$O%9%-%C%W$5$l$k!#(B
-$B8uJd$,B>$K$J$$$H$-$O!"%(%3!<%(%j%"$G$N<-=qEPO?$KF~$k!#(B"
+$BB>$K8uJd$,$J$$$H$-$O!"%(%3!<%(%j%"$G$N<-=qEPO?$KF~$k!#(B"
   (interactive)
-  (skk-with-point-move
-   (cond ((eq last-command 'skk-undo-kakutei)
-	  (skk-error "$B3NDj%"%s%I%%$OO"B3;HMQ$G$-$^$;$s(B"
-		     "Cannot undo kakutei repeatedly"))
-	 ((eq skk-henkan-mode 'active)
-	  (skk-error "$B"'%b!<%I$G$O3NDj%"%s%I%%$G$-$^$;$s(B"
-		     "Cannot undo kakutei in $B"'(B mode"))
-	 ( ; skk-henkan-key may be nil or "".
-	  (or (not (skk-get-last-henkan-datum 'henkan-key))
-	      (string= (skk-get-last-henkan-datum 'henkan-key) "")
-	      (null skk-henkan-end-point))
-	  (skk-error "$B%"%s%I%%%G!<%?$,$"$j$^$;$s(B"
-		     "Lost undo data")))
-   (condition-case nil
-       (skk-undo-kakutei-subr)
-     ;; skk-undo-kakutei $B$+$iESCf$GH4$1$?>l9g$O!"3F<o%U%i%0$r=i4|2=$7$F$*$+$J$$(B
-     ;; $B$H<!$NF0:n$r$7$h$&$H$7$?$H$-$K%(%i!<$K$J$k!#(B
-     ((error quit)
-      (skk-kakutei)))))
+  (let (jmsg emsg)
+    (cond ((eq last-command 'skk-undo-kakutei)
+	   (setq jmsg "$B3NDj%"%s%I%%$OO"B3;HMQ$G$-$^$;$s(B"
+		 emsg "Cannot undo kakutei repeatedly"))
+	  ((eq skk-henkan-mode 'active)
+	   (setq jmsg "$B"'%b!<%I$G$O3NDj%"%s%I%%$G$-$^$;$s(B"
+		 emsg "Cannot undo kakutei in $B"'(B mode"))
+	  ((or (not (skk-get-last-henkan-datum 'henkan-key))
+	       (string= (skk-get-last-henkan-datum 'henkan-key) "")
+	       (null skk-henkan-end-point))
+	   ;; skk-henkan-key may be nil or "".
+	   (setq jmsg "$B%"%s%I%%%G!<%?$,$"$j$^$;$s(B"
+		 emsg "Lost undo data")))
+    (if jmsg
+	(skk-message jmsg emsg)
+      (skk-with-point-move
+       (condition-case nil
+	   (skk-undo-kakutei-subr)
+	 ;; skk-undo-kakutei $B$+$iESCf$GH4$1$?>l9g$O!"3F<o%U%i%0$r=i4|2=$7$F(B
+	 ;; $B$*$+$J$$$H<!$NF0:n$r$7$h$&$H$7$?$H$-$K%(%i!<$K$J$k!#(B
+	 ((error quit)
+	  (skk-kakutei)))))))
 
 (defun skk-undo-kakutei-subr ()
   (let ((end (if (skk-get-last-henkan-datum 'henkan-okurigana)
@@ -2977,7 +2911,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 		(cons 'skk-katakana skk-katakana)))
     (cond ((skk-get-last-henkan-datum 'abbrev-mode)
 	   (skk-abbrev-mode-on))
-	  ((or skk-latin-mode skk-jisx0208-latin-mode)
+	  ((or (not skk-mode) skk-latin-mode skk-jisx0208-latin-mode)
 	   (skk-j-mode-on)))
     (when (and skk-undo-kakutei-return-previous-point
 	       (markerp skk-henkan-end-point)
@@ -3090,7 +3024,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   (setq skk-prefix "")
 	   (skk-set-henkan-count 0)
 	   (skk-henkan)
-	   (delete-backward-char 2))
+	   (delete-char -2))
 	  (t
 	   (setq skk-henkan-key (concat
 				 (buffer-substring-no-properties
@@ -3101,7 +3035,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   (setq skk-prefix "")
 	   (skk-set-henkan-count 0)
 	   (skk-henkan)
-	   (delete-backward-char 1)))
+	   (delete-char -1)))
 	 ;; we set skk-kana-start-point here, since the marker may no
 	 ;; longer point at the correct position after skk-henkan.
 	 (skk-set-marker skk-kana-start-point (point)))
@@ -3149,7 +3083,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 			  (skk-in-minibuffer-p)))
 		 (eq skk-henkan-mode 'on)
 		 (< (marker-position skk-henkan-start-point) (point))
-		 (skk-sit-for skk-verbose-wait))
+		 (sit-for skk-verbose-wait))
 	(skk-setup-verbose-messages)
 	(message "%s" skk-henkan-on-message))
     (quit
@@ -3158,19 +3092,19 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 
 (defun skk-start-henkan (arg &optional prog-list-number)
   "$B"&%b!<%I$G$O4A;zJQ49$r3+;O$9$k!#"'%b!<%I$G$O<!$N8uJd$rI=<($9$k!#(B
-$B"&%b!<%I$G!"%+%?%+%J%b!<%I$N$^$^4A;zJQ49$r3+;O$9$k$H!"8+=P$78l$rJ?2>L>$K(B
-$BJQ498e!"4A;zJQ49$r3+;O$9$k!#(B
-$B8+=P$78l$NJQ49$;$:$K$=$N$^$^4A;zJQ49$r9T$J$$$?$1$l$P!"(BC-u SPC \(arg $B$,(B 4
-$B$K$J$k(B\) $B$H%?%$%W$9$k!#(B"
+$B"&%b!<%I$G%+%J%b!<%I$N$^$^4A;zJQ49$r3+;O$7$?>l9g$O!"8+=P$78l$rJ?2>L>$K(B
+$BJQ49$7$F$+$i4A;zJQ49$r3+;O$9$k!#(B
+$B8+=P$78l$rJQ49$;$:$K$=$N$^$^4A;zJQ49$r9T$$$?$1$l$P!"(B\\[universal-argument] SPC (arg $B$,(B 4 $B$K$J$k(B) $B$H%?%$%W$9$k!#(B"
   (interactive "*p")
   (unless prog-list-number
     (setq prog-list-number current-prefix-arg))
   (skk-with-point-move
    (cancel-undo-boundary)
-   (if (eq skk-henkan-mode 'active)
+   (if (eq skk-henkan-mode 'active)	;$B"'%b!<%I(B
        (progn
 	 (skk-set-henkan-count (1+ (skk-henkan-count)))
 	 (skk-henkan))
+     ;; $B"&%b!<%I(B
      (save-match-data
        (let (pos)
 	 (skk-kana-cleanup 'force)
@@ -3181,9 +3115,8 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 		      "Have unfixed skk-prefix"))
 	 (setq pos (point))
 	 (when (< pos skk-henkan-start-point)
-	   (skk-error
-	    "$B%+!<%=%k$,JQ493+;OCOE@$h$jA0$K$"$j$^$9(B"
-	    "Henkan end point must be after henkan start point"))
+	   (skk-error "$B%+!<%=%k$,JQ493+;OCOE@$h$jA0$K$"$j$^$9(B"
+		      "Henkan end point must be after henkan start point"))
 	 (setq skk-henkan-key (buffer-substring-no-properties
 			       skk-henkan-start-point pos))
 	 (when (and skk-katakana
@@ -3193,9 +3126,8 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   (setq skk-henkan-key (skk-katakana-to-hiragana skk-henkan-key)))
 	 (when (and skk-okurigana
 		    (string-match "\\* *$" skk-henkan-key))
-	   (skk-error
-	    "$B6u$NAw$j2>L>$G4A;z$rEPO?$7$h$&$H$7$F$$$^$9(B"
-	    "No okurigana!"))
+	   (skk-error "$B6u$NAw$j2>L>$G4A;z$rEPO?$7$h$&$H$7$F$$$^$9(B"
+		      "No okurigana!"))
 	 (if skk-allow-spaces-newlines-and-tabs
 	     ;; skk-henkan-key $B$NCf$N(B "[ \n\t]+" $B$r40A4$K<h$j=|$/!#(B
 	     (while (string-match "[ \n\t]+" skk-henkan-key)
@@ -3205,16 +3137,16 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   (skk-save-point
 	    (beginning-of-line)
 	    (when (> (point) skk-henkan-start-point)
-	      (skk-error
-	       "$BJQ49%-!<$K2~9T$,4^$^$l$F$$$^$9(B"
-	       "Henkan key may not contain a new line character")))
-	   ;; $B:G=i$N%9%Z!<%9$G(B skk-henkan-key $B$r$A$g$s@Z$k$@$1!#(B
+	      (skk-error "$BJQ49%-!<$K2~9T$,4^$^$l$F$$$^$9(B"
+			 "Henkan key may not contain a new line character")))
+	   ;; $B:G=i$N%9%Z!<%9$G(B skk-henkan-key $B$r%+%C%H$9$k$@$1!#(B
 	   (setq skk-henkan-key (substring skk-henkan-key
 					   0
 					   (string-match " "
 							 skk-henkan-key))))
 	 (skk-set-marker skk-henkan-end-point pos)
 	 (skk-set-henkan-count 0)
+	 (setq skk-annotation-first-candidate t)
 	 (skk-henkan prog-list-number)
 	 (when (and skk-abbrev-mode
 		    (eq skk-henkan-mode 'active))
@@ -3223,93 +3155,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   (skk-j-mode-on skk-katakana)
 	   (setq skk-abbrev-mode t)))))))
 
-(defun skk-start-henkan-prog-null-handler (arg)
-  (condition-case nil
-      (skk-emulate-original-map arg)
-    (error
-     (let ((key (this-command-keys)))
-       (when (keymapp (let (skk-j-mode)
-			(key-binding key)))
-	 (define-key skk-j-mode-map key nil)
-	 (skk-unread-event (if (vectorp key)
-			       (aref key 0)
-			     (string-to-char key))))))))
-
-(defun skk-start-henkan-prog-1 (arg)
-  (interactive "*p")
-  (if (and (eq skk-henkan-mode 'on)
-	   skk-search-prog-list-1)
-      (skk-start-henkan arg 1)
-    (skk-start-henkan-prog-null-handler arg)))
-
-(defun skk-start-henkan-prog-2 (arg)
-  (interactive "*p")
-  (if (and (eq skk-henkan-mode 'on)
-	   skk-search-prog-list-2)
-      (skk-start-henkan arg 2)
-    (skk-start-henkan-prog-null-handler arg)))
-
-(defun skk-start-henkan-prog-3 (arg)
-  (interactive "*p")
-  (if (and (eq skk-henkan-mode 'on)
-	   skk-search-prog-list-3)
-      (skk-start-henkan arg 3)
-    (skk-start-henkan-prog-null-handler arg)))
-
-(defun skk-start-henkan-prog-4 (arg)
-  (interactive "*p")
-  (if (and (eq skk-henkan-mode 'on)
-	   skk-search-prog-list-4)
-      (skk-start-henkan arg 4)
-    (skk-start-henkan-prog-null-handler arg)))
-
-(defun skk-start-henkan-prog-5 (arg)
-  (interactive "*p")
-  (if (and (eq skk-henkan-mode 'on)
-	   skk-search-prog-list-5)
-      (skk-start-henkan arg 5)
-    (skk-start-henkan-prog-null-handler arg)))
-
-(defun skk-start-henkan-prog-6 (arg)
-  (interactive "*p")
-  (if (and (eq skk-henkan-mode 'on)
-	   skk-search-prog-list-6)
-      (skk-start-henkan arg 6)
-    (skk-start-henkan-prog-null-handler arg)))
-
-(defun skk-start-henkan-prog-7 (arg)
-  (interactive "*p")
-  (if (and (eq skk-henkan-mode 'on)
-	   skk-search-prog-list-7)
-      (skk-start-henkan arg 7)
-    (skk-start-henkan-prog-null-handler arg)))
-
-(defun skk-start-henkan-prog-8 (arg)
-  (interactive "*p")
-  (if (and (eq skk-henkan-mode 'on)
-	   skk-search-prog-list-8)
-      (skk-start-henkan arg 8)
-    (skk-start-henkan-prog-null-handler arg)))
-
-(defun skk-start-henkan-prog-9 (arg)
-  (interactive "*p")
-  (if (and (eq skk-henkan-mode 'on)
-	   skk-search-prog-list-9)
-      (skk-start-henkan arg 9)
-    (skk-start-henkan-prog-null-handler arg)))
-
-(defun skk-start-henkan-prog-0 (arg)
-  (interactive "*p")
-  (if (and (eq skk-henkan-mode 'on)
-	   skk-search-prog-list-0)
-      (skk-start-henkan arg 0)
-    (skk-start-henkan-prog-null-handler arg)))
-
 (defun skk-auto-start-henkan (str)
-  "$B$"$k>r7o2<$K$*$$$F!"<+F0E*$KJQ49$r3+;O$9$k!#(B
-`skk-auto-start-henkan-keyword-list' $B$NMWAG$NJ8;zNs$rA^F~$7$?$H$-$K<+F0E*$K(B
-\($B%9%Z!<%9$rBG80$7$J$/$H$b(B) $BJQ49$r3+;O$9$k!#%(!<!_%$%=%U%H<R$N(B MSDOS $BMQ(B $B$N(B
- FEP$B!"(BWX2+ $BIw!#(B"
+  "STR $B$,(B `skk-auto-start-henkan-keyword-list' $B$NMWAG$H0lCW(B (member) $B$9$k>l9g$KJQ49$r3+;O$9$k!#(B
+$B4X?t(B `skk-insert-str' $B$N<B9TCf!"JQ?t(B `skk-auto-start-henkan' $B$,(B non-nil $B$N$H$-$K$3$N4X?t$,%3!<%k$5$l$k!#(B"
   (when (member str skk-auto-start-henkan-keyword-list)
     (skk-save-point
      (backward-char 1)
@@ -3322,8 +3170,8 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 $B%+!<%=%k$ND>A0$K$"$kJ8;z(B ($B%9%Z!<%9J8;z!"%?%VJ8;z!"D92;$rI=$o$9!V!<!W(B $B$OL5>r7o(B
 $B$K%9%-%C%W$5$l$k(B) $B$r(B `skk-what-char-type' $B$K$FH=JL$7!"F1<o$NJ8;zNs$r$R$H$+$?$^(B
 $B$j$H$7$F8eJ}$X%9%-%C%W$9$k!#(B
-$BC"$7!"$R$i$+$J$N>l9g$O!V$r!W$ND>A0$G!"%+%?%+%J$N>l9g$O!V%r!W$ND>A0$G;_$^$k!#(B
-C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
+$BC"$7!"$R$i$,$J$N>l9g$O!V$r!W$ND>A0$G!"%+%?%+%J$N>l9g$O!V%r!W$ND>A0$G;_$^$k!#(B
+\\[universal-argument] ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$&!#(B"
   (interactive "*P")
   (if (not skk-mode)
       (skk-emulate-original-map arg)
@@ -3390,19 +3238,23 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 (defun skk-backward-and-set-henkan-point-1 (type)
   "`skk-backward-and-set-henkan-point' $B$N%5%V%k!<%A%s!#(B
 TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#(B"
-  (cond ((eq type 'hiragana)
-	 ;; "$B$r(B" $B$NA0$G;_$^$C$?J}$,JXMx!)(B
-	 (skip-chars-backward "$B!3!4!5!6!7!<$s$!(B-$B$q(B"))
-	((eq type 'katakana)
-	 ;; "$B%r(B" $B$NA0$G;_$^$C$?J}$,JXMx!)(B
-	 (skip-chars-backward "$B!3!4!5!6!7!<%s%!(B-$B%q(B"))
-	((eq type 'jisx0208-latin)
-	 (skip-chars-backward "$B!!(B-$B#z(B"))
-	((eq type 'ascii)
-	 (skip-chars-backward " -~"))))
+  (skip-chars-backward
+   (case type
+     (hiragana
+      ;; "$B$r(B" $B$NA0$G;_$^$C$?J}$,JXMx!)(B
+      "$B!3!4!5!6!7!<$s$!(B-$B$q(B")
+     (katakana
+      ;; "$B%r(B" $B$NA0$G;_$^$C$?J}$,JXMx!)(B
+      "$B!3!4!5!6!7!<%s%!(B-$B%q(B")
+     (jisx0208-latin
+      "$B!!(B-$B#z(B")
+     (ascii
+      " -~"))))
 
 (defun skk-what-char-type ()
-  "$B8=:_$N%]%$%s%H$K$"$kJ8;z$,$I$s$J<oN`$+$rH=JL$9$k!#(B"
+  "$B8=:_$N%]%$%s%H$K$"$kJ8;z$N<oN`$rH=JL$9$k!#(B
+$BJ8;z$N<oN`$K1~$8$F!"<!$N$$$:$l$+$N%7%s%\%k$rJV$9!#(B
+'hiragana 'katakana 'jisx0208-latin 'ascii 'unknown"
   (save-match-data
     (cond ((looking-at "[$B$!(B-$B$s(B]")
 	   'hiragana)
@@ -3508,6 +3360,43 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
       (setq skk-okuri-char nil
 	    skk-henkan-okurigana nil))))
 
+;; "[F7] $B%+%?%+%J(B" $B$N$h$&$J4JC1$JJQ495!G=$r3d$jEv$F$k$?$a$N%3%^%s%IDj5A(B
+(defun skk-start-henkan-prog-null-handler (arg)
+  (condition-case nil
+      (skk-emulate-original-map arg)
+    (error
+     (let ((key (this-command-keys)))
+       (when (keymapp (let (skk-j-mode)
+			(key-binding key)))
+	 (define-key skk-j-mode-map key nil)
+	 (skk-unread-event (if (vectorp key)
+			       (aref key 0)
+			     (string-to-char key))))))))
+
+(defun skk-start-henkan-prog-i (i arg)
+  (cond ((and skk-henkan-mode
+	      (symbol-value (intern (format "skk-search-prog-list-%d" i))))
+	 (when (eq skk-henkan-mode 'active)
+	   (let ((skk-verbose-wait 0))
+	     (skk-henkan-inactivate)))
+	 (skk-start-henkan arg i))
+	(t
+	 (skk-start-henkan-prog-null-handler arg))))
+
+(eval-when-compile
+  (defmacro skk-define-start-henkan-progs ()
+    (let (list)
+      (dotimes (i 10)
+	(setq list
+	      (nconc
+	       list
+	       `((defun ,(intern (format "skk-start-henkan-prog-%d" i)) (arg)
+		   (interactive "*p")
+		   (skk-start-henkan-prog-i ,i arg))))))
+      (cons 'progn list))))
+
+(skk-define-start-henkan-progs)
+
 ;;; jisyo related functions
 (defun skk-purge-from-jisyo (&optional arg)
   "$B"'%b!<%I$G8=:_$N8uJd$r<-=q%P%C%U%!$+$i>C5n$9$k!#(B"
@@ -3562,11 +3451,12 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
   (interactive "P")
   ;; skk.el $B0J30$GDs6!$5$l$k<-=q%;!<%V5!G=$rMxMQ$G$-$k$h$&$K4X?t$r(B funcall $B$9$k(B
   ;; $B7A$K$7$F$*$/!#(B
-  (funcall skk-save-jisyo-function quiet))
+  (unless noninteractive
+    (funcall skk-save-jisyo-function quiet)))
 
 (defun skk-save-jisyo-original (&optional quiet)
   "SKK $B$N<-=q%P%C%U%!$r%;!<%V$9$k!#(B
-$B%*%W%7%g%s0z?t(B QUIET $B$,(B non-nil $B$G$"$l$P!"<-=q%;!<%V;~$N%a%C%;!<%8$r=P$5$J$$!#(B"
+$B%*%W%7%g%J%k0z?t(B QUIET $B$,(B non-nil $B$G$"$l$P!"<-=q%;!<%V;~$N%a%C%;!<%8$r=P$5$J$$!#(B"
   (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
     (if (not (and jisyo-buffer
 		  (buffer-modified-p jisyo-buffer)))
@@ -3581,13 +3471,6 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
 	  (when (skk-jisyo-is-shared-p)
 	    (skk-update-shared-jisyo)))
 	(let ((inhibit-quit t)
-	      ;; ($BCm(B) Emacs 21.1 $B$+$i(B 21.4 $B$^$G$N%P!<%8%g%s$O(B make-temp-file()
-	      ;; $B$NDj5A$r;}$D$,!"%U%!%$%k$,B>$N%f!<%6$+$iJ]8n$5$l$J$$7g4Y$,$"(B
-	      ;; $B$k!#$3$l$O(B Emacs 22 $B$G=$@5$5$l$F$$$k$,!"$=$l0JA0$N%P!<%8%g%s$N(B
-	      ;; $B$?$a$NBP:v$,(B APEL 10.6 $B$K$*$$$F40N;$7$F$*$j!"(BDDSKK $B$O$=$l$K0M(B
-	      ;; $BB8$7$F$$$k!#>\$7$/$O(B Emacs 22 $B$N(B files.el $B$K$*$1$k(B
-	      ;; make-temp-file() $B<BAu(B, poe.el $B$N(B make-temp-file() $B<BAu$H%3%a%s(B
-	      ;; $B%H$J$I$r;2>H!#(B
 	      (tempo-file (make-temp-file "skk")))
 	  (unless quiet
 	    (skk-message "SKK $B<-=q$rJ]B8$7$F$$$^$9(B..."
@@ -3640,13 +3523,13 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
 		(setq list (aref skk-jisyo-update-vector index)))
       ;; skk-update-jisyo-1, skk-search-jisyo
       ;; $B$G;2>H$5$l$k(B skk-henkan-key $B$r%;%C%H$9$k(B
-      (setq skk-henkan-key (car list))
-      (skk-update-jisyo-1
-       ;; okurigana    word
-       (nth 1 list) (nth 2 list)
-       (skk-search-jisyo (nth 1 list) 0 'delete)
-       ;; purge
-       (nth 3 list))
+      (when (setq skk-henkan-key (car list))
+	(skk-update-jisyo-1
+	 ;; okurigana    word
+	 (nth 1 list) (nth 2 list)
+	 (skk-search-jisyo (nth 1 list) 0 'delete)
+	 ;; purge
+	 (nth 3 list)))
       (setq index (1+ index)))))
 
 (defun skk-save-jisyo-as (file)
@@ -3665,9 +3548,9 @@ Header line for okuri-ari entries is missing!  Stop saving SKK jisyo"))
 $BAw$j$J$7%(%s%H%j$N%X%C%@!<$,$"$j$^$;$s(B $B!*(B SKK $B<-=q$N%;!<%V$rCf;_$7$^$9(B"
 	 "\
 Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
-    (write-region-as-coding-system
-     (skk-find-coding-system skk-jisyo-code)
-     1 (point-max) file nil 'nomsg)))
+    (let ((coding-system-for-write (skk-find-coding-system skk-jisyo-code))
+	  jka-compr-compression-info-list)
+      (write-region 1 (point-max) file nil 'nomsg))))
 
 (defun skk-check-size-and-do-save-jisyo (new-file)
   (skk-bind-last-command-char nil
@@ -3675,18 +3558,18 @@ Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
 	  old-size
 	  ;; yes-or-no-p $B$K2sEz$7!"(Bnewline $B$9$k$H!"(Bthis-command $B$,JQ$C$F$7$^$&!#(B
 	  this-command this-command-char last-command)
-      (when (= new-size 0)
+      (when (zerop new-size)
 	(delete-file new-file)
 	(skk-error "SKK $B<-=q$,6u$K$J$C$F$$$^$9!*(B $B<-=q$N%;!<%V$rCf;_$7$^$9(B"
 		   "Null SKK jisyo!  Stop saving jisyo"))
       (cond
        ((or (not skk-compare-jisyo-size-when-saving)
-	    ;; $B5l<-=q$H$N%5%$%:Hf3S$r9T$J$o$J$$!#(B
+	    ;; $B5l<-=q$H$N%5%$%:$rHf3S$7$J$$!#(B
 	    (progn
 	      ;; (1)skk-jisyo $B$,$J$$$+!"(B
 	      ;; (2)new-file $B$H(B skk-jisyo $B$,F10l$N%5%$%:$+(B
 	      ;;    (skk-(aux-)large-jisyo $B$+$i?75,$NC18l$rFI$_9~$^$J$+$C$?$j!"(B
-	      ;;    $B?75,C18l$NEPO?$r9T$J$o$J$+$C$?>l9g$O%5%$%:$,F1$8(B)$B!"(B
+	      ;;    $B?75,C18l$NEPO?$r9T$o$J$+$C$?>l9g$O%5%$%:$,F1$8(B)$B!"(B
 	      ;; (3)new-file $B$NJ}$,Bg$-$$(B
 	      ;; $B>l9g(B ($B>e5-$N(B 3 $BDL$j$G$"$l$P$$$:$l$b@5>o(B)$B!#(B
 	      (setq old-size (nth 7 (file-attributes skk-jisyo)))
@@ -3694,12 +3577,10 @@ Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
 		  (>= new-size old-size))))
 	(skk-make-new-jisyo new-file))
        ((skk-yes-or-no-p
-	 (format
-	  "skk-jisyo $B$,(B %dbytes $B>.$5$/$J$j$^$9$,!"%;!<%V$7$FNI$$$G$9$+!)(B"
-	  (- old-size new-size))
-	 (format
-	  "New %s will be %dbytes smaller.  Save anyway?"
-	  skk-jisyo (- old-size new-size)))
+	 (format "%s $B$,(B %dbytes $B>.$5$/$J$j$^$9$,!"%;!<%V$7$FNI$$$G$9$+!)(B"
+		 skk-jisyo (- old-size new-size))
+	 (format "New %s will be %dbytes smaller.  Save anyway?"
+		 skk-jisyo (- old-size new-size)))
 	;; $B$H$K$+$/%;!<%V!#(B
 	(skk-make-new-jisyo new-file))
        (t
@@ -3708,20 +3589,21 @@ Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
 	(with-output-to-temp-buffer "*SKK warning*"
 	  (if skk-japanese-message-and-error
 	      (princ "\
-$B%;!<%V$7$h$&$H$9$k<-=q$N%5%$%:$,85$N$b$N$h$j$b>.$5$/$J$C$F$7$^$&$N$G!"(B
-$B%;!<%V$rCf;_$7$^$7$?!#<-=q$N%5%$%:$,>.$5$/$J$C$?860x$K$ONc$($P!"(B
+$B%;!<%V$7$h$&$H$9$k<-=q$N%5%$%:$,85$N%5%$%:$h$j$b>.$5$/$J$C$F$7$^$&$?$a!"(B
+$B%;!<%V$rCf;_$7$^$7$?!#<-=q$N%5%$%:$,>.$5$/$J$C$?860x$K$O!"Nc$($P!"(B
 
     (a) M-x skk-purge-from-jisyo $B$r<B9T$7$?!#(B
 
-    (b) ~/.skk-jisyo $B$N4A;z%3!<%I$H!"0c$&4A;z%3!<%I$G(B \" *.skk-jisyo*\"
+    (b) ~/.skk-jisyo $B$NJ8;z%3!<%I$H$O0[$J$kJ8;z%3!<%I$G(B \" *.skk-jisyo*\"
        $B%P%C%U%!$,J]B8$5$l$h$&$H$7$F$$$k!#(B
 
     (c) \" *.skk-jisyo*\" $B%P%C%U%!$r<+J,$GJT=8$7$?!#(B
 
-$B$J$I$,$"$j$^$9!#(Ba $B$H(B b $B$N>l9g$O!"0[>o$G$O$"$j$^$;$s!#(Bc $B$N>l9g$O!"JT=8$N(B
-$BFbMF$K$h$j$^$9!#860x$r3NG'8e!"?5=E$K<-=q$rJ]B8$9$k$3$H$r$*4+$a$7$^$9!#(B
+$B$J$I$,$"$j$^$9!#(B(a) $B$H(B (b) $B$N>l9g$O0[>o$G$O$"$j$^$;$s!#(B
+\(c) $B$N>l9g$OJT=8$NFbMF$K$h$j$^$9!#860x$r?5=E$K3NG'$7$F$+$i<-=q$rJ]B8$9$k$3(B
+$B$H$r$*4+$a$7$^$9!#(B
 
-$B85$N<-=q$r:FEYFI$_9~$`$K$O!"(B
+$B85$N<-=q$r:F$SFI$_9~$`$K$O!"(B
 
     M-x skk-reread-private-jisyo
 
@@ -3741,7 +3623,7 @@ Either the case (a) or (b) is not strange.  Probability of the case (c)
 depends on how you edited the buffer.  Anyway, it is strongly recommended
 that you check each of the cases above and save the dictionary carefully.
 
-If you want to restore the dictionary from the disc, try
+If you want to restore the dictionary from your drive, try
 
     M-x skk-reread-private-jisyo
 ")))
@@ -3777,7 +3659,7 @@ If you want to restore the dictionary from the disc, try
 		   "Cannot reread private JISYO!")))))
 
 (defun skk-record-jisyo-data ()
-  "$B<-=q%G!<%?$r(B `skk-record-file' $B$K%;!<%V$9$k!#(B"
+  "$B8D?M<-=q$K4X$9$kE}7W>pJs$r(B `skk-record-file' $B$KJ]B8$9$k!#(B"
   (unless (or (not skk-keep-record)
 	      (> 1 skk-kakutei-count))
     (with-temp-file skk-record-file
@@ -3840,7 +3722,7 @@ If you want to restore the dictionary from the disc, try
   ;; (interactive "f$B<-=q%U%!%$%k(B: ")
   (let ((count (funcall skk-count-jisyo-candidates-function
 			file-or-table)))
-    (if (interactive-p)
+    (if (skk-called-interactively-p 'interactive)
 	(message (if (= count 1)
 		     "%d candidate"
 		   "%d candidates")
@@ -3856,8 +3738,8 @@ If you want to restore the dictionary from the disc, try
       (save-match-data
 	(let ((count 0)
 	      (min (point-min))
-	      (max (and (interactive-p) (point-max)))
-	      (interactive-p (interactive-p)))
+	      (max (and (skk-called-interactively-p 'interactive) (point-max)))
+	      (interactive-p (skk-called-interactively-p 'interactive)))
 	  (goto-char min)
 	  (unless (and
 		   ;; $B$3$A$i$O(B skk-save-point $B$r;H$o$:!"%]%$%s%H$r0\F0$5$;$k!#(B
@@ -3892,7 +3774,7 @@ If you want to restore the dictionary from the disc, try
 
 (defun skk-create-file (file &optional japanese english modes)
   "FILE $B$,$J$1$l$P!"(BFILE $B$H$$$&L>A0$N6u%U%!%$%k$r:n$k!#(B
-$B%*%W%7%g%s0z?t$N(B JAPANESE/ENGLISH $B$r;XDj$9$k$H!"%U%!%$%k:n@.8e$=$N%a%C%;!<%8(B
+$B%*%W%7%g%J%k0z?t$N(B JAPANESE/ENGLISH $B$r;XDj$9$k$H!"%U%!%$%k:n@.8e$=$N%a%C%;!<%8(B
 $B$r%(%3!<%(%j%"$KI=<($9$k!#(B"
   (let ((file (expand-file-name file)))
     (if (file-exists-p file)
@@ -3910,7 +3792,7 @@ If you want to restore the dictionary from the disc, try
 
 (defun skk-get-jisyo-buffer (file &optional nomsg)
   "FILE $B$r3+$$$F(B SKK $B<-=q%P%C%U%!$r:n$j!"%P%C%U%!$rJV$9!#(B
-$B%*%W%7%g%s0z?t$N(B NOMSG $B$r;XDj$9$k$H%U%!%$%kFI$_9~$_$N:]$N%a%C%;!<%8$rI=<($7$J(B
+$B%*%W%7%g%J%k0z?t$N(B NOMSG $B$r;XDj$9$k$H%U%!%$%kFI$_9~$_$N:]$N%a%C%;!<%8$rI=<($7$J(B
 $B$$!#(B"
   (when file
     (let* ((inhibit-quit t)
@@ -3952,25 +3834,25 @@ If you want to restore the dictionary from the disc, try
 	    (skk-message "SKK $B<-=q(B %s $B$r%P%C%U%!$KFI$_9~$s$G$$$^$9(B..."
 			 "Inserting contents of %s ..."
 			 (file-name-nondirectory file)))
-	  (condition-case obj
-	      (insert-file-contents-as-coding-system code file)
+	  (condition-case nil
+	      (let ((coding-system-for-read code)
+		    format-alist)
+		(insert-file-contents file))
 	    (error
-	     (if (buffer-live-p buf)
-		 (kill-buffer buf))
+	     (when (buffer-live-p buf)
+	       (kill-buffer buf))
 	     (skk-error "`%s'$B$rFI$_9~$a$^$;$s(B" "Cannot load `%s'." file)))
 	  (unless nomsg
-	    (skk-message
-	     "SKK $B<-=q(B %s $B$r%P%C%U%!$KFI$_9~$s$G$$$^$9(B...$B40N;!*(B"
-	     "Inserting contents of %s ...done"
-	     (file-name-nondirectory file)))
+	    (skk-message "SKK $B<-=q(B %s $B$r%P%C%U%!$KFI$_9~$s$G$$$^$9(B...$B40N;!*(B"
+			 "Inserting contents of %s ...done"
+			 (file-name-nondirectory file)))
 	  (skk-setup-jisyo-buffer)
 	  (set-buffer-modified-p nil)))
       buf)))
 
 (defun skk-search ()
-  "$B8!:w$r9T$&!#(B
-`skk-current-search-prog-list' $B$NMWAG$K$J$C$F$$$k%W%m%0%i%`$rI>2A$7$F!"(B
-`skk-henkan-key' $B$r%-!<$K$7$F8!:w$r9T$&!#(B"
+  "`skk-henkan-key' $B$r%-!<$H$7$F8!:w$9$k!#(B
+`skk-current-search-prog-list' $B$NMWAG$K$J$C$F$$$k%W%m%0%i%`$rI>2A$9$k!#(B"
   (let (l prog)
     (while (and (null l) skk-current-search-prog-list)
       (setq prog (car skk-current-search-prog-list))
@@ -3986,22 +3868,36 @@ If you want to restore the dictionary from the disc, try
 		(let (skk-use-numeric-conversion)
 		  (eval prog))))
       (setq skk-current-search-prog-list (cdr skk-current-search-prog-list)))
+    (setq skk-search-state (list skk-henkan-key prog l))
     l))
+
+(defun skk-search-state ()
+  (interactive)
+  (with-output-to-temp-buffer "*skk search state*"
+    (with-current-buffer standard-output
+      (insert (format "skk-henkan-key: %s\n" (nth 0 skk-search-state))
+	      (format "skk-search-prog: %s\n" (nth 1 skk-search-state))
+	      (format "skk-search() result: %s\n\n" (nth 2 skk-search-state)))
+      (when (equal (nth 1 skk-search-state)
+		   '(skk-search-extra-jisyo-files))
+	(mapconcat #'(lambda (x)
+		       (insert (format "%s\n" x)))
+		       skk-search-ex-state "")))))
 
 (defun skk-numeric-program-p (program)
   "$B<-=q8!:w%W%m%0%i%`(B PROGRAM $B$,?tCMJQ49M-8z$+$I$&$+H=Dj$9$k!#(B
-$B$b$7%W%m%0%i%`$,(B `skk-non-numeric-prog-list' $B$K;XDj$5$l$F$$$?$i(B
-nil $B$rJV$9!#$5$b$J$1$l$P(B non-nil $B$rJV$9!#(B"
+$B$b$7%W%m%0%i%`$,(B `skk-non-numeric-prog-list' $B$K;XDj$5$l$F$$$?$i(B nil $B$rJV$9!#(B
+$B$5$b$J$1$l$P(B non-nil $B$rJV$9!#(B"
   (not (or (memq (car program) skk-non-numeric-prog-list)
 	   (member program skk-non-numeric-prog-list))))
 
 (defun skk-search-jisyo-file (file limit &optional nomsg)
-  "SKK $B<-=q%U%)!<%^%C%H$N(B FILE $B$G(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$r9T$&!#(B
+  "SKK $B<-=q%U%)!<%^%C%H$N(B FILE $B$G(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$9$k!#(B
 $B8!:wNN0h$,(B LIMIT $B0J2<$K$J$k$^$G%P%$%J%j%5!<%A$r9T$$!"$=$N8e%j%K%"%5!<%A$r9T$&!#(B
 LIMIT $B$,(B 0 $B$G$"$l$P!"%j%K%"%5!<%A$N$_$r9T$&!#(B
-$B<-=q$,%=!<%H$5$l$F$$$J$$$N$G$"$l$P!"(BLIMIT $B$r(B 0 $B$9$kI,MW$,$"$k!#(B
-$B%*%W%7%g%s0z?t$N(B NOMSG $B$,(B non-nil $B$G$"$l$P(B `skk-get-jisyo-buffer' $B$N(B
-$B%a%C%;!<%8$r=PNO$7$J$$$h$&$K$9$k!#(B
+$B<-=q$,%=!<%H$5$l$F$$$J$$>l9g$O(B LIMIT $B$r(B 0 $B$H$9$kI,MW$,$"$k!#(B
+$B%*%W%7%g%J%k0z?t$N(B NOMSG $B$,(B non-nil $B$G$"$l$P(B `skk-get-jisyo-buffer' $B$N(B
+$B%a%C%;!<%8$r=PNO$7$J$$!#(B
 
 FILE $B$K$O<-=q%U%!%$%k$@$1$G$J$/!"(B
   ($B<-=q%U%!%$%k(B . $B%3!<%G%#%s%0%7%9%F%`(B)
@@ -4012,15 +3908,35 @@ FILE $B$K$O<-=q%U%!%$%k$@$1$G$J$/!"(B
   (skk-search-jisyo-buf (skk-get-jisyo-buffer file nomsg)
 			limit))
 
+(defun skk-search-extra-jisyo-files ()
+  (setq skk-search-ex-state nil)
+  (let (candidates words)
+    (dolist (file skk-extra-jisyo-file-list)
+      (setq words (skk-search-jisyo-file file 10000))
+      (when words
+	(add-to-list 'skk-search-ex-state (cons file words)))
+      (setq candidates (nconc candidates words)))
+    candidates))
+
+(defun skk-search-itaiji ()
+  ;; http://mail.ring.gr.jp/skk/200303/msg00071.html
+  (and (= (length skk-henkan-key) 1)
+       skk-itaiji-jisyo
+       (skk-search-jisyo-file skk-itaiji-jisyo 0 t)))
+
 (defun skk-search-server (file limit &optional nomsg)
-  "SKK $B%5!<%P!<$r;HMQ$7$F(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$r9T$&!#(B
-SKK $B%5!<%P!<$,;HMQ$G$-$J$$$H$-$O!"(BFILE $B$r%P%C%U%!$KFI$_9~$s$G8!:w$r9T$&!#(B
-LIMIT $B$H(B NOMSG $B$O(B SKK $B%5!<%P!<$r;HMQ$7$J$$$H$-$N$_;H$&!#(B
-$B$3$l$i$N0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H!#(B"
+  "$B<-=q%5!<%P$r;HMQ$7$F(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$9$k!#(B
+$B<-=q%5!<%P$,;HMQ$G$-$J$$$H$-$O!"(BFILE $B$r%P%C%U%!$KFI$_9~$s$G8!:w$9$k!#(B
+LIMIT $B$H(B NOMSG $B$O<-=q%5!<%P$,;HMQ$G$-$J$$$H$-$N$_M-8z!#(B
+$B$3$l$i$N0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H$N$3$H!#(B"
   (if (or skk-server-host
 	  skk-servers-list)
       (skk-search-server-1 file limit)
-    (skk-search-jisyo-file file limit nomsg)))
+    ;; $B<-=q%5!<%P$,MxMQ2DG=$G$J$1$l$P(B file $B$r8!:w$9$k!#(B
+    ;; $B0z?t(B file $B$ODL>o(B `skk-aux-large-jisyo' $B$,;XDj$5$l$k!#(B
+    (when (and (stringp file)
+	       (file-readable-p file))
+      (skk-search-jisyo-file file limit nomsg))))
 
 (defun skk-okuri-search ()
   "$B8+=P$78l$rAw$j2>L>$r4^$`$b$N$H$7$F8!:w$9$k!#(B
@@ -4052,7 +3968,7 @@ LIMIT $B$H(B NOMSG $B$O(B SKK $B%5!<%P!<$r;HMQ$7$J$$$H$-$N$_;H$&!#(B
 (defun skk-search-jisyo (okurigana limit &optional delete)
   "$B%+%l%s%H%P%C%U%!$r<-=q$H$7$F8!:w$9$k!#(B
 `skk-compute-henkan-lists' $B$r;HMQ$7!"8+=P$78l$K$D$$$F$N8uJd$N>pJs$rJV$9!#(B
-DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k!#(B"
+DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k!#(B"
   (let ((key (concat "\n" skk-henkan-key " /"))
 	min max size p)
     (save-match-data
@@ -4063,16 +3979,15 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 	(setq min skk-okuri-nasi-min
 	      max (point-max)))
       (when (> limit 0)
-	(while (progn
-		 (setq size (- max min))
-		 (> size limit))
+	;; $BFsJ,C5:w(B
+	(while (> (setq size (- max min)) limit)
 	  (goto-char (+ min (/ size 2)))
 	  (beginning-of-line)
 	  (setq p (point))
 	  (if (= p min)
 	      (setq max min)	; return
 	    (let ((p-is-further
-		   ;; $BAw$j$"$j$J$i5U=g$KHf3S$r9T$J$&!#(B
+		   ;; $BAw$j$"$j$J$i5U=g$KHf3S$9$k!#(B
 		   (if okurigana
 		       (skk-string< (buffer-substring-no-properties
 				 p (1- (search-forward  " ")))
@@ -4154,9 +4069,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
   (cond
    ((not okurigana)
     (list (split-string (buffer-substring-no-properties
-			 (point) (progn
-				   (end-of-line)
-				   (1- (point))))
+			 (point) (1- (line-end-position)))
 			"/")
 	  nil nil nil))
    (t
@@ -4226,7 +4139,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 		e2 (car list2)
 		origlist1 list1)
 	  (catch 'found
-	    (while (setq e1 (car (cdr list1)))
+	    (while (setq e1 (cadr list1))
 	      (cond
 	       ((equal e1 e2)
 		(throw 'found nil))
@@ -4248,12 +4161,11 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 
 ;;;###autoload
 (defun skk-remove-duplicates (list)
-  "LIST $B$+$i=EJ#$r$J$/$7$?%j%9%H$rJV$9!#(B"
+  "LIST $B$+$i!"=EJ#$9$kMWAG$r=|30$7$?%j%9%H$rJV$9!#(B"
   (let (new)
-    (while list
-      (or (member (car list) new)
-	  (setq new (cons (car list) new)))
-      (setq list (cdr list)))
+    (dolist (x list)
+      (or (member x new)
+	  (setq new (cons x new))))
     (nreverse new)))
 
 (defun skk-search-kakutei-jisyo-file (file limit &optional nomsg)
@@ -4265,16 +4177,21 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
   (setq skk-kakutei-henkan-flag (skk-search-jisyo-file file limit nomsg)))
 
 (defun skk-update-jisyo (word &optional purge)
-  (funcall skk-update-jisyo-function word purge))
+  (funcall skk-update-jisyo-function word purge)
+  (when (and skk-save-jisyo-instantly
+	     (or skk-jisyo-updated	; skk-henkan-in-minibuff $B$G(B setq
+		 purge))
+    (skk-save-jisyo 'quiet)
+    (setq skk-jisyo-updated nil)))
 
 (defun skk-update-jisyo-original (word &optional purge)
-  "WORD $B$,<!$NJQ49;~$K:G=i$N8uJd$K$J$k$h$&$K!"%W%i%$%Y!<%H<-=q$r99?7$9$k!#(B
+  "$B<!$NJQ49;~$K(B WORD $B$,:G=i$N8uJd$K$J$k$h$&$K!"8D?M<-=q$r99?7$9$k!#(B
 PURGE $B$,(B non-nil $B$G(B WORD $B$,6&M-<-=q$K$"$k8uJd$J$i(B `skk-ignore-dic-word'
-$B4X?t$G%/%)!<%H$7$?8uJd$r%W%i%$%Y!<%H<-=q$K:n$j!"<!$NJQ49$+$i=PNO$7$J(B
+$B4X?t$G%/%)!<%H$7$?8uJd$r8D?M<-=q$K:n$j!"<!$NJQ49$+$i=PNO$7$J(B
 $B$$$h$&$K$9$k!#(B
-WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
+WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
   ;;
-  ;; SKK 9.x $B$h$j!"%W%i%$%Y!<%H<-=q$N%(%s%H%j$NA^F~$NJ}K!$rJQ99$7$?(B (9.3 $B$N$_(B
+  ;; SKK 9.x $B$h$j!"8D?M<-=q$N%(%s%H%j$NA^F~$NJ}K!$rJQ99$7$?(B (9.3 $B$N$_(B
   ;; $B$ONc30(B)$B!#(B
   ;;
   ;; $B!ZJQ99A0![(B
@@ -4312,10 +4229,10 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
   ;; skk-auto-okuri-process $B$,(B non-nil $B$N$H$-$K!"(B(j-okuri-search $B2~$a(B)
   ;; skk-okuri-search $B$O8+=P$78l$ND9$$=g$K8uJd$rJV$9I,MW$,$"$k!#(B
   ;; SKK 8.6 $B$^$G$O!"(Bskk-okuri-search $B$,(B j-okuri-ari-min $B$+$i(B j-okuri-ari-max
-  ;; $B$^$G$r=g$KC5$7!"8+$D$1$?$b$N=g$K8uJd$rJV$9$?$a$K%W%i%$%Y!<%H<-=q$,8+=P$7(B
+  ;; $B$^$G$r=g$KC5$7!"8+$D$1$?$b$N=g$K8uJd$rJV$9$?$a$K8D?M<-=q$,8+=P$7(B
   ;; $B8l$r%-!<$H$7$F9_=g$K%=!<%H$5$l$F$$$kI,MW$,$"$C$?!#(B
   ;; SKK 9.x $B$G$O!"(Bskk-okuri-search $B$,!"8+IU$1$?8uJd$r8+=P$78l$r%-!<$H$7$F>:=g(B
-  ;; $B$K%=!<%H$7$FJV$9$?$a!"%W%i%$%Y!<%H<-=q$N%=!<%H$OI,MW$G$J$$!#$h$C$F!":G8e(B
+  ;; $B$K%=!<%H$7$FJV$9$?$a!"8D?M<-=q$N%=!<%H$OI,MW$G$J$$!#$h$C$F!":G8e(B
   ;; $B$KJQ49$7$?$b$N$r(B (j-okuri-ari-min $B2~$a(B) skk-okuri-ari-min $B$N0LCV$KA^F~$9(B
   ;; $B$k!#(B
   ;;
@@ -4324,8 +4241,7 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 	 (midasi (if (and (skk-numeric-p)
 			  (or (string-match "#[0-9]" cand)
 			      (skk-lisp-prog-p cand)))
-		     (skk-num-compute-henkan-key
-		      skk-henkan-key)
+		     (skk-num-compute-henkan-key skk-henkan-key)
 		   skk-henkan-key))
 	 (henkan-buffer (and skk-update-end-function
 			     (current-buffer))))
@@ -4359,19 +4275,19 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 			      purge)
 	  ;; $BJ#?t$N(B emacs $B$G(B SKK $B$,5/F0$5$l$F$$$k$H$-$K8D?M<-=q$r@09gE*$K(B
 	  ;; $B99?7$9$k$?$a$K3NDj$NF0:n$r5-O?$9$k!#(B
-	  (when (skk-share-private-jisyo-p)
+	  (when (and (skk-share-private-jisyo-p)
+		     (< skk-jisyo-save-count (length skk-jisyo-update-vector)))
 	    (aset skk-jisyo-update-vector skk-update-jisyo-count
 		  (list midasi okurigana word purge)))
 	  (dolist (function skk-update-end-function)
 	    (funcall function henkan-buffer midasi okurigana word purge))
 	  (setq skk-update-jisyo-count (1+ skk-update-jisyo-count))
-	  (let ((save-count (if (skk-share-private-jisyo-p)
-				(length skk-jisyo-update-vector)
-			      skk-jisyo-save-count)))
-	    (when (and save-count
-		       (<= save-count skk-update-jisyo-count))
-	      ;; auto save.
-	      (skk-save-jisyo 'quiet))))))))
+	  ;; skk-share-private-jisyo $B$,(B non-nil $B$N$H$-$O(B skk-jisyo-save-count
+	  ;; $B$b(B non-nil $B$G$"$k$3$H$rA0Ds$H$9$k(B
+	  (when (and skk-jisyo-save-count
+		     (<= skk-jisyo-save-count skk-update-jisyo-count))
+	    ;; auto save.
+	    (skk-save-jisyo 'quiet)))))))
 
 (defun skk-update-jisyo-1 (okurigana word old-words-list purge)
   "$B8D?M<-=q$K?7$7$$%(%s%H%j$rA^F~$9$k!#(B
@@ -4432,22 +4348,17 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 	      ;; $B$&$JAw$j2>L>$N$_$N8uJd$r:n$i$J$$$h$&$K$9$k(B ($BI,MW$G(B
 	      ;; $B$"$l$P!"(Bwords2 $B$N:G8eJ}$H(B) words4 $B$N@hF,$N(B "]" $B$r:o=|!#(B
 	      (let* ((len (length words2))
-		     (last2 (cond
-			     ((= len 0)
-			      nil)
-			     ((= len 1)
-			      (list nil (car words2)))
-			     (t
-			      (nthcdr (- (length words2) 2)
-				      words2)))))
+		     (last2 (case len
+			      (0 nil)
+			      (1 (list nil (car words2)))
+			      (t (nthcdr (- (length words2) 2)
+					 words2)))))
 		;; words2 $B$N:G8eJ}$O>o$K(B "[$BAw$j2>L>(B" $B$H$O8B$i$J$$!#(B
 		(when (and last2 (string= (nth 1 last2)
 					  (concat "[" okurigana)))
-		  (cond
-		   ((= len 1)
-		    (setq words2 nil))
-		   (t
-		    (setcdr last2 nil))))
+		  (case len
+		    (1 (setq words2 nil))
+		    (t (setcdr last2 nil))))
 		;; words4 $B$N@hF,$O>o$K(B "]"$B!#(B
 		(setq words4 (cdr words4)))))))
 	 (t
@@ -4495,7 +4406,7 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 
 (defun skk-quote-char (word)
   "WORD $B$r<-=q%(%s%H%j$H$7$F@5$7$$7A$K@07A$9$k!#(B
-$B<-=q$N@)8B$+$i<-=q%(%s%H%jFb$K4^$a$F$O$J$i$J$$J8;z$,(B WORD $B$NCf$K$"$l$P!"(B
+$B<-=q7A<0$N@)8B$+$i!"<-=q%(%s%H%jFb$K4^$a$F$O$J$i$J$$J8;z$,(B WORD $B$NCf$K$"$l$P!"(B
 $BI>2A$7$?$H$-$K$=$NJ8;z$H$J$k$h$&$J(B Lisp $B%3!<%I$rJV$9!#(B"
   (save-match-data
     (cond
@@ -4567,7 +4478,7 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
   "$BL5;k$9$Y$-8uJd$r$^$H$a$k!#(B
 WORDS $B$NCf$K(B `skk-ignore-dic-word' $B4X?t$G%/%)!<%H$7$?8uJd$,$"$l$P!"0l$D$N8uJd(B
 $B$K$^$H$a$k!#(B
-$B%*%W%7%g%s0z?t$N(B ADD $B$,;XDj$5$l$F$$$?$i!"(BADD $B$r4^$a$?(B `skk-ignore-dic-word'
+$B%*%W%7%g%J%k0z?t$N(B ADD $B$,;XDj$5$l$F$$$?$i!"(BADD $B$r4^$a$?(B `skk-ignore-dic-word'
 $B8uJd72$r:n$k!#(B
 $B?7$7$$(B `skk-ignore-dic-word' $B8uJd$r(B car $B$K!"$=$l0J30$N8uJd$r(B cdr $B$K$7$?%;%k(B
 \($B%j%9%H(B)$B$rJV$9!#(B"
@@ -4615,32 +4526,35 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
    (t
     str)))
 
+(defun skk-search-katakana-maybe ()
+  (when skk-search-katakana
+    (skk-search-katakana (eq skk-search-katakana 'jisx0201-kana))))
+
 (defun skk-search-katakana (&optional jisx0201-kana)
   "$B8+=P$78l$r%+%?%+%J$K$7$F!"%j%9%H$K$7$FJV$9!#(B
 $B$3$l$O(B `skk-search-prog-list' $B$KDI2C$5$l$k$Y$-5!G=$G!"JQ49%-!<$rC1=c$K%+(B
 $B%?%+%J$KJQ49$7$?$b$N$r8uJd$H$7$FJV$9!#(B
 $B0lHLE*$J(B FEP $B$OC1=c$K%+%?%+%J$KJQ49$7$?$b$N$,8uJd$K8=$l$k$b$N$,B?$$$,!"(B
 $B$=$N$h$&$J5sF0$,9%$_$N>l9g$K$O$3$N4X?t$rMQ$$$k$H$h$$!#(B"
-  (unless skk-henkan-okurigana
+  (unless (or skk-henkan-okurigana
+	      (string-match ">$" skk-henkan-key) ; $B@\F,<-(B
+	      (string-match "^>" skk-henkan-key)) ; $B@\Hx<-(B
     (let ((key skk-henkan-key)
-	  char
-	  words)
+	  char words)
       (with-temp-buffer
 	(insert key)
 	;; $B@\F,<-!&@\Hx<-$NF~NO$@$C$?$i(B ">" $B$r>C$7$F$*$/!#(B
-	(goto-char (1- (point)))
-	(when (looking-at ">")
+	(goto-char (1- (point)))	;
+	(when (looking-at ">")		;(looking-back ">")
 	  (delete-char 1))
 	(goto-char (point-min))
 	(when (looking-at ">")
 	  (delete-char 1))
 	;;
-	(while (and
-		(not (eobp))
-		(or
-		 ;; "$B!<(B" $B$G$OJ8;z<oJL$,H=JL$G$-$J$$$N$G!"%]%$%s%H$r?J$a$k!#(B
-		 (looking-at "$B!<(B")
-		 (eq 'unknown (setq char (skk-what-char-type)))))
+	(while (and (not (eobp))
+		    ;; "$B!<(B" $B$G$OJ8;z<o$,H=JL$G$-$J$$$N$G(B point $B$r?J$a$k!#(B
+		    (or (looking-at "$B!<(B")
+			(eq 'unknown (setq char (skk-what-char-type)))))
 	  (forward-char 1))
 	(when (eq char 'hiragana)
 	  (skk-katakana-region (point-min) (point-max) t)
@@ -4658,30 +4572,32 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 (defun skk-search-romaji (&optional jisx0208)
   "$BJQ49%-!<$r%m!<%^;z$KJQ49$7$?8uJd$rJV$9!#(B"
-  (when (and (not skk-henkan-okurigana)
-	     (exec-installed-p "kakasi"))
-    (let ((key skk-henkan-key)
-	  words chars)
-      (with-temp-buffer
-	(insert key)
-	;; $B@\F,<-!&@\Hx<-$NF~NO$@$C$?$i(B ">" $B$r>C$7$F$*$/!#(B
-	(goto-char (1- (point)))
-	(when (looking-at ">")
-	  (delete-char 1))
-	(goto-char (point-min))
-	(when (looking-at ">")
-	  (delete-char 1))
-	;;
-	(while (not (eobp))
-	  (add-to-list 'chars (skk-what-char-type))
-	  (forward-char 1))
-	(when (memq 'hiragana chars)
-	  (skk-romaji-region (point-min) (point-max))
-	  (setq words (list (buffer-string))))
-	(when (and jisx0208 words)
-	  (skk-jisx0208-latin-region (point-min) (point-max))
-	  (setq words (nconc words (list (buffer-string))))))
-      words)))
+  (when (executable-find "kakasi")
+    (unless (or skk-henkan-okurigana
+		(string-match ">$" skk-henkan-key) ; $B@\F,<-(B
+		(string-match "^>" skk-henkan-key)) ; $B@\Hx<-(B
+      (let ((key skk-henkan-key)
+	    words chars)
+	(with-temp-buffer
+	  (insert key)
+	  ;; $B@\F,<-!&@\Hx<-$NF~NO$@$C$?$i(B ">" $B$r>C$7$F$*$/!#(B
+	  (goto-char (1- (point)))
+	  (when (looking-at ">")
+	    (delete-char 1))
+	  (goto-char (point-min))
+	  (when (looking-at ">")
+	    (delete-char 1))
+	  ;;
+	  (while (not (eobp))
+	    (add-to-list 'chars (skk-what-char-type))
+	    (forward-char 1))
+	  (when (memq 'hiragana chars)
+	    (skk-romaji-region (point-min) (point-max))
+	    (setq words (list (buffer-string))))
+	  (when (and jisx0208 words)
+	    (skk-jisx0208-latin-region (point-min) (point-max))
+	    (setq words (nconc words (list (buffer-string))))))
+	words))))
 
 (defun skk-search-jisx0208-romaji ()
   "$B8+=P$78l$rA43Q%m!<%^;z$KJQ49$7$F!"%j%9%H$K$7$FJV$9!#(B"
@@ -4705,8 +4621,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 (defun skk-search-function-usage ()
   "Emacs Lisp $B4X?t$N(B usage $B$rJV$9!#(B"
-  (static-when (and (string-match "^GNU" (emacs-version))
-		    (>= emacs-major-version 22))
+  (when (eval-when-compile (featurep 'emacs))
     (unless skk-henkan-okurigana
       (let* ((symbol (intern (format "%s" skk-henkan-key)))
 	     def doc usage arglist result)
@@ -4762,6 +4677,10 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	    (setq words (skk-nunion words (list word))))))
       words)))
 
+(defun skk-search-sagyo-henkaku-maybe ()
+  (when skk-search-sagyo-henkaku
+    (skk-search-sagyo-henkaku nil (eq skk-search-sagyo-henkaku 'anything))))
+
 (defun skk-search-sagyo-henkaku (&optional okuri-list anything)
   "$B8+=P$78l$r%59TJQ3J3hMQ$NF0;l$H$_$J$7$F!"Aw$j$"$j8uJd$r8!:w$9$k!#(B"
   (unless okuri-list
@@ -4772,6 +4691,18 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
     (skk-search-progs (substring skk-henkan-key
 				 0
 				 (1- (length skk-henkan-key))))))
+
+(defun skk-search-ja-dic-maybe ()
+  (when (eval-when-compile (featurep 'emacs))
+    (unless (or (and (stringp skk-large-jisyo)
+		     (file-readable-p skk-large-jisyo))
+		(and (stringp skk-aux-large-jisyo)
+		     (file-readable-p skk-aux-large-jisyo))
+		(and (stringp skk-cdb-large-jisyo)
+		     (file-readable-p skk-cdb-large-jisyo))
+		skk-server-host
+		skk-inhibit-ja-dic-search)
+      (skk-search-ja-dic))))
 
 (defun skk-search-with-suffix ()
   (unless (or skk-henkan-okurigana
@@ -4800,14 +4731,12 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 $B0z?t$N(B START $B$H(B END $B$O?t;z$G$b%^!<%+!<$G$bNI$$!#(B"
   (interactive "*r\nP")
   (when vcontract
-    (skk-search-and-replace
-     start end "$B$&!+(B"
-     #'(lambda (matched)
-	 nil "$B%t(B")))
-  (skk-search-and-replace
-   start end "[$B$!(B-$B$s(B]+"
-   #'(lambda (matched)
-       (skk-hiragana-to-katakana matched))))
+    (skk-search-and-replace start end "$B$&!+(B"
+			    (lambda (matched)
+			      nil "$B%t(B")))
+  (skk-search-and-replace start end "[$B$!(B-$B$s(B]+"
+			  (lambda (matched)
+			    (skk-hiragana-to-katakana matched))))
 
 (defun skk-hiragana-region (start end &optional vexpand)
   "$BNN0h$N%+%?%+%J$r$R$i$,$J$KJQ49$9$k!#(B
@@ -4817,31 +4746,28 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 $B%+%?%+%J$H$7$F$O07$o$l$J$$!#(B"
   (interactive "*r\nP")
   (when vexpand
-    (skk-search-and-replace
-     start end "$B%t(B"
-     #'(lambda (matched)
-	 nil "$B$&!+(B")))
-  (skk-search-and-replace
-   start end "[$B%!(B-$B%s(B]+"
-   #'(lambda (matched)
-       (skk-katakana-to-hiragana matched))))
+    (skk-search-and-replace start end "$B%t(B"
+			    (lambda (matched)
+			      nil "$B$&!+(B")))
+  (skk-search-and-replace start end "[$B%!(B-$B%s(B]+"
+			  (lambda (matched)
+			    (skk-katakana-to-hiragana matched))))
 
 (defun skk-jisx0208-latin-region (start end)
   "$BNN0h$N(B ascii $BJ8;z$rBP1~$9$kA43Q1QJ8;z$KJQ49$9$k!#(B"
   (interactive "*r")
-  (skk-search-and-replace
-   start end "[ -~]"
-   #'(lambda (matched)
-       (aref skk-default-jisx0208-latin-vector (string-to-char matched)))))
+  (skk-search-and-replace start end "[ -~]"
+			  (lambda (matched)
+			    (aref skk-default-jisx0208-latin-vector
+				  (string-to-char matched)))))
 
 (defun skk-latin-region (start end)
   "$BNN0h$NA43Q1QJ8;z$rBP1~$9$k(B ascii $BJ8;z$KJQ49$9$k!#(B"
   (interactive "*r")
-  (skk-search-and-replace
-   start end "\\cj"
-   #'(lambda (matched)
-       (or (skk-jisx0208-to-ascii matched)
-	   matched))))
+  (skk-search-and-replace start end "\\cj"
+			  (lambda (matched)
+			    (or (skk-jisx0208-to-ascii matched)
+				matched))))
 
 (defun skk-search-and-replace (start end regexp func)
   (let (matched replace)
@@ -4867,68 +4793,65 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
   (require 'japan-util)
   (let ((char (get-char-code-property (string-to-char string)
 				      'ascii)))
-    ;;
     (if char
 	(char-to-string char)
       nil)))
 
 (defun skk-henkan-skk-region-by-func (func &optional arg)
   "`skk-henkan-start-point' $B$H(B `skk-henkan-end-point' $B$N4V$NJ8;zNs$rJQ49$9$k!#(B
-$BJQ492DG=$+$I$&$+$N%A%'%C%/$r$7$?8e$K(B ARGS $B$r0z?t$H$7$F(B FUNC $B$rE,MQ$7!"(B
+$BJQ492DG=$+$I$&$+$N%A%'%C%/$r$7$?8e$K(B ARG $B$r0z?t$H$7$F(B FUNC $B$rE,MQ$7!"(B
 `skk-henkan-start-point' $B$H(B `skk-henkan-end-point' $B$N4V$NJ8;zNs$rJQ49$9$k!#(B"
   (skk-with-point-move
-   (cond
-    ((eq skk-henkan-mode 'active)
-     nil)
-    ((eq skk-henkan-mode 'on)
-     (skk-set-marker skk-henkan-end-point (point))
-     (when (and (> skk-kakutei-history-limit 0)
-		(< skk-henkan-start-point (point))
-		(skk-save-point
-		 (goto-char skk-henkan-start-point)
-		 (eq (skk-what-char-type) 'hiragana)))
-       (skk-update-kakutei-history
-	(buffer-substring-no-properties
-	 skk-henkan-start-point (point))))
-     ;; $BJQ492DG=$+$I$&$+$N:G=*%A%'%C%/(B
-     (when (skk-get-prefix skk-current-rule-tree)
-       (skk-error "$BF~NOESCf$N2>L>%W%l%U%#%C%/%9$,$"$j$^$9(B"
-		  "There remains a kana prefix"))
+   (case skk-henkan-mode
+     (active				;$B"'%b!<%I(B
+      nil)
+     (on				;$B"&%b!<%I(B
+      (skk-set-marker skk-henkan-end-point (point))
+      (when (and (> skk-kakutei-history-limit 0)
+		 (< skk-henkan-start-point (point))
+		 (skk-save-point
+		  (goto-char skk-henkan-start-point)
+		  (eq (skk-what-char-type) 'hiragana)))
+	(skk-update-kakutei-history
+	 (buffer-substring-no-properties
+	  skk-henkan-start-point (point))))
+      ;; $BJQ492DG=$+$I$&$+$N:G=*%A%'%C%/(B
+      (when (skk-get-prefix skk-current-rule-tree)
+	(skk-error "$BF~NOESCf$N2>L>%W%l%U%#%C%/%9$,$"$j$^$9(B"
+		   "There remains a kana prefix"))
 
-     (when (< (point) skk-henkan-start-point)
-       (skk-error "$B%+!<%=%k$,JQ493+;OCOE@$h$jA0$K$"$j$^$9(B"
-		  "Henkan end point must be after henkan start point"))
+      (when (< (point) skk-henkan-start-point)
+	(skk-error "$B%+!<%=%k$,JQ493+;OCOE@$h$jA0$K$"$j$^$9(B"
+		   "Henkan end point must be after henkan start point"))
 
-     (when (and (not skk-allow-spaces-newlines-and-tabs)
-		(skk-save-point
-		 (beginning-of-line)
-		 (> (point) skk-henkan-start-point)))
-       (skk-error "$BJQ49%-!<$K2~9T$,4^$^$l$F$$$^$9(B"
-		  "Henkan key may not contain a line feed"))
-     ;;
-     (apply func skk-henkan-start-point skk-henkan-end-point
-	    (if arg (list arg) nil))
-     (skk-kakutei))
-    (t
-     (skk-emulate-original-map arg)))))
+      (when (and (not skk-allow-spaces-newlines-and-tabs)
+		 (skk-save-point
+		  (beginning-of-line)
+		  (> (point) skk-henkan-start-point)))
+	(skk-error "$BJQ49%-!<$K2~9T$,4^$^$l$F$$$^$9(B"
+		   "Henkan key may not contain a line feed"))
+      ;;
+      (apply func skk-henkan-start-point skk-henkan-end-point
+	     (if arg (list arg) nil))
+      (skk-kakutei))
+     (t
+      (skk-emulate-original-map arg)))))
 
 (defun skk-hiragana-to-katakana (hiragana)
   (let ((diff (- ?$B%"(B ?$B$"(B)))
-    (mapconcat
-     #'(lambda (e)
-	 (if (and (<= ?$B$!(B e) (>= ?$B$s(B e))
-	     (char-to-string (+ e diff))
-	   (char-to-string e)))
-     (string-to-int-list hiragana) "")))
+    (mapconcat (lambda (e)
+		 (if (and (<= ?$B$!(B e) (>= ?$B$s(B e))
+		     (char-to-string (+ e diff))
+		   (char-to-string e)))
+	       (string-to-int-list hiragana) "")))
 
 (defun skk-katakana-to-hiragana (katakana)
   (let ((diff (- ?$B%"(B ?$B$"(B)))
-    (mapconcat
-     #'(lambda (e)
-	 (if (and (<= ?$B%!(B e) (>= ?$B%s(B e))
-	     (char-to-string (- e diff))
-	   (char-to-string e)))
-     (string-to-int-list katakana) "")))
+    (mapconcat (lambda (e)
+		 (if (and (<= ?$B%!(B e) (>= ?$B%s(B e))
+		     (char-to-string (- e diff))
+		   (char-to-string e)))
+	       (string-to-int-list katakana) "")))
 
 (defun skk-splice-in (org offset spliced)
   ;; ORG := '(A B C), SPLICED := '(X Y), OFFSET := 1
@@ -4977,32 +4900,28 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
     (skk-detach-extent skk-henkan-overlay)))
 
 (defun skk-detach-extent (object)
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (when (extentp object)
-      (detach-extent object)))
-   (t
-    (when (overlayp object)
-      (delete-overlay object)))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (when (extentp object)
+	   (detach-extent object)))
+	(t
+	 (when (overlayp object)
+	   (delete-overlay object)))))
 
 (defun skk-make-face (face)
-  "$B?7$7$$(B FACE $B$r:n@.$9$k!#(B"
-  ;; hilit-lookup-face-create $B$N%5%V%;%C%H!#(Btutorial $B$G?'IU$1$r9T$J$&>l9g$G$b(B
+  "$B?7$7$$(B FACE $B$r:n@.$9$k!#(B
+FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj$9$k!#(B"
+  ;; hilit-lookup-face-create $B$N%5%V%;%C%H!#(Btutorial $B$G?'IU$1$r9T$&>l9g$G$b(B
   ;; hilit19 $B$K0MB8$;$:$H$j$"$($:(B face $B$r<+A0$G:n$k$3$H$,$G$-$k$h$&$K!"$H$$$&(B
   ;; $BL\E*$G:n$C$?$b$N$G!"4JC1$J?'IU$1$7$+$G$-$J$$!#$"$^$j8-$/$O$J$$!#J#;($J(B
   ;; face $B$r:n$j$?$$?M$O(B hilit-lookup-face-create $BEy$r;H$C$F2<$5$$!#(B
   (unless (car (memq face (face-list)))
-    (let ((face-name (symbol-name face)))
-      (setq face (make-face face))
-      (save-match-data
-	(if (not (string-match "/" face-name))
-	    (set-face-foreground face face-name)
-	  (set-face-foreground
-	   face
-	   (substring face-name 0 (match-beginning 0)))
-	  (set-face-background
-	   face
-	   (substring face-name (1+ (match-beginning 0))))))))
+    (save-match-data
+      (let* ((list (split-string (symbol-name face) "/"))
+	     (bg (nth 1 list)))
+	(setq face (make-face face))
+	(set-face-foreground face (car list))
+	(when bg
+	  (set-face-background face bg)))))
   face)
 
 ;; skk-auto.el, skk-rdbms.el $B$NN>J}$G;H$&$N$G!"(Bskk-auto.el $B$h$j0\F0$7$?!#(B
@@ -5013,7 +4932,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 $BNc$($P!"(BWORD == $B;}$C$F$-$?(B $B$G$"$l$P!"(B`skk-henkan-key' := $B$b(Bt ,
 `skk-henkan-okurigana' := $B$C$F(B , WORD := $B;}(B $B$N$h$&$KJ,2r$7!"(BWORD $B$rJV$9!#(B
 `skk-auto-okuri-process' $B$NCM$,(B non-nil $B$G$"$k$H$-$K$3$N4X?t$r;HMQ$9$k!#(B
-$BJQ49$,9T$J$o$l$?%P%C%U%!$G%3!<%k$5$l$k(B ($B<-=q%P%C%U%!$G$O$J$$(B)$B!#(B"
+$BJQ49$,9T$o$l$?%P%C%U%!$G%3!<%k$5$l$k(B ($B<-=q%P%C%U%!$G$O$J$$(B)$B!#(B"
   (when (and (not (skk-numeric-p))
 	     (not skk-abbrev-mode)
 	     (or skk-henkan-in-minibuff-flag
@@ -5147,47 +5066,43 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 ;; ??? Workaround for XEmacs isearch.
 (defun skk-henkan-count ()
-  (static-cond
-   ((featurep 'xemacs)
-    (if skk-isearch-switch
-	(with-current-buffer skk-isearch-working-buffer
-	  skk-henkan-count)
-      skk-henkan-count))
-   (t
-    skk-henkan-count)))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (if skk-isearch-switch
+	     (with-current-buffer skk-isearch-working-buffer
+	       skk-henkan-count)
+	   skk-henkan-count))
+	(t
+	 skk-henkan-count)))
 
 ;; ??? Workaround for XEmacs isearch.
 (defun skk-set-henkan-count (i)
-  (static-cond
-   ((featurep 'xemacs)
-    (if skk-isearch-switch
-	(with-current-buffer skk-isearch-working-buffer
-	  (setq skk-henkan-count i))
-      (setq skk-henkan-count i)))
-   (t
-    (setq skk-henkan-count i))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (if skk-isearch-switch
+	     (with-current-buffer skk-isearch-working-buffer
+	       (setq skk-henkan-count i))
+	   (setq skk-henkan-count i)))
+	(t
+	 (setq skk-henkan-count i))))
 
 ;; ??? Workaround for XEmacs isearch.
 (defun skk-exit-show-candidates ()
-  (static-cond
-   ((featurep 'xemacs)
-    (if skk-isearch-switch
-	(with-current-buffer skk-isearch-working-buffer
-	  skk-exit-show-candidates)
-      skk-exit-show-candidates))
-   (t
-    skk-exit-show-candidates)))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (if skk-isearch-switch
+	     (with-current-buffer skk-isearch-working-buffer
+	       skk-exit-show-candidates)
+	   skk-exit-show-candidates))
+	(t
+	 skk-exit-show-candidates)))
 
 ;; ??? Workaround for XEmacs isearch.
 (defun skk-set-exit-show-candidates (list)
-  (static-cond
-   ((featurep 'xemacs)
-    (if skk-isearch-switch
-	(with-current-buffer skk-isearch-working-buffer
-	  (setq skk-exit-show-candidates list))
-      (setq skk-exit-show-candidates list)))
-   (t
-    (setq skk-exit-show-candidates list))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (if skk-isearch-switch
+	     (with-current-buffer skk-isearch-working-buffer
+	       (setq skk-exit-show-candidates list))
+	   (setq skk-exit-show-candidates list)))
+	(t
+	 (setq skk-exit-show-candidates list))))
 
 ;;; functions for hooks.
 (defun skk-after-point-move ()
@@ -5198,17 +5113,14 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
      (skk-erase-prefix 'clean))))
 
 (defun skk-pre-command ()
-  (when (and (memq last-command
-		   '(skk-insert skk-previous-candidate))
-	     (null (memq this-command
-			 skk-kana-cleanup-command-list)))
+  (when (and (memq last-command '(skk-insert skk-previous-candidate))
+	     (null (memq this-command skk-kana-cleanup-command-list)))
     (skk-kana-cleanup t)))
 
 (defun skk-remove-minibuffer-setup-hook (&rest args)
   ;; Remove all args from minibuffer-setup-hook.
-  (while args
-    (remove-hook 'minibuffer-setup-hook (car args))
-    (setq args (cdr args))))
+  (dolist (hook args)
+    (remove-hook 'minibuffer-setup-hook hook)))
 
 (defun skk-add-skk-pre-command ()
   (add-hook 'pre-command-hook 'skk-pre-command nil 'local))
@@ -5221,38 +5133,51 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 ;; add 'skk-save-jisyo only to remove easily.
 (add-hook 'kill-emacs-hook #'skk-save-jisyo)
 (add-hook 'minibuffer-exit-hook
-	  #'(lambda ()
-	      (skk-remove-skk-pre-command)
-	      (skk-remove-minibuffer-setup-hook
-	       'skk-j-mode-on 'skk-setup-minibuffer 'skk-add-skk-pre-command)
-	      (skk-exit-henkan-in-minibuff)))
+	  (lambda ()
+	    (skk-remove-skk-pre-command)
+	    (skk-remove-minibuffer-setup-hook 'skk-j-mode-on
+					      'skk-setup-minibuffer
+					      'skk-add-skk-pre-command)
+	    (skk-exit-henkan-in-minibuff)))
 
 ;;;###autoload
 (defun skk-preload ()
-  "$BJQ?t(B `skk-preload' $B$,Hs(B nil $B$N$H$-!"(B`after-init-hook' $B$+$i8F$P$l$k!#(B
-$B$"$i$+$8$a(B SKK $B$r8F$s$G$*$/$3$H$G!"(B SKK $B$N=i2s5/F0$rB.$/$9$k!#(B"
+  "Emacs $B5/F0;~$K$"$i$+$8$a(B SKK $B$r8F$V$3$H$G(B SKK $B$N1~Ez$rB.$/$9$k!#(B
+$B@hFI$_$NBP>]$K$J$k$N$O0J2<!#(B
+1. skk.el $B$H4XO"$9$k$$$/$D$+$N%U%!%$%k(B ($B=i2s5/F0;~$NCY1d$r4KOB(B)
+2. $B6&M-<-=q72(B ($B=iJQ49;~$NCY1d$r4KOB(B)
+$BJQ?t(B `skk-preload' $B$,(B non-nil $B$N$H$-(B `after-init-hook' $B$+$i8F$P$l$k!#(B
+$B$=$N$?$a(B Emacs $B$N5/F0;~4V$,D9$/$J$kE@$K$OCm0U$rMW$9$k!#(B"
   (with-temp-buffer
     (skk-mode 1))
   (dolist (item skk-search-prog-list)
     (when (eq (car item) 'skk-search-jisyo-file)
-      (catch 'tag
-	(let ((jisyo (cadr item)))
-	  (cond
-	   ((eq jisyo 'skk-jisyo)
-	    (throw 'tag nil))
-	   ((symbolp jisyo)
-	    (setq jisyo (symbol-value jisyo))
-	    (unless (and (stringp jisyo)
-			 (file-readable-p jisyo))
-	      (throw 'tag nil)))
-	   ((and (listp jisyo)
-		 (memq (car jisyo) '(cons quote)))
-	    (setq jisyo (ignore-errors (eval jisyo)))
-	    (unless (and (consp jisyo)
-			 (stringp (car jisyo))
-			 (file-readable-p (car jisyo)))
-	      (throw 'tag nil))))
-	  (skk-get-jisyo-buffer jisyo 'nomsg))))))
+      (skk-preload-jisyo (cadr item))))
+  (dolist (item skk-extra-jisyo-file-list)
+    (skk-preload-jisyo item))
+  (when skk-annotation-lookup-DictionaryServices
+    (skk-annotation-start-python)))
+
+(defun skk-preload-jisyo (jisyo)
+  (cond
+   ((eq jisyo 'skk-jisyo)
+    (setq jisyo nil))
+   ;;
+   ((symbolp jisyo)
+    (setq jisyo (symbol-value jisyo))
+    (unless (and (stringp jisyo)
+		 (file-readable-p jisyo))
+      (setq jisyo nil)))
+   ;;
+   ((and (listp jisyo)
+	 (memq (car jisyo) '(cons quote)))
+    (setq jisyo (ignore-errors (eval jisyo)))
+    (unless (and (consp jisyo)
+		 (stringp (car jisyo))
+		 (file-readable-p (car jisyo)))
+      (setq jisyo nil))))
+  (when jisyo
+    (skk-get-jisyo-buffer jisyo 'nomsg)))
 
 (defun skk-toggle-isearch-mode (&optional arg)
   "skk-isearch $B$rMxMQ$9$k$+$I$&$+$r%H%0%k$GJQ99$9$k!#(B
@@ -5269,234 +5194,74 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
     (if skk-isearch-mode-enable
 	(setq migemo-isearch-enable-p nil)
       (setq migemo-isearch-enable-p t)))
-  (if skk-isearch-mode-enable
-      (message "SKK isearch is enabled")
-    (message "SKK isearch is disabled")))
+  (message "SKK isearch is %s" (if skk-isearch-mode-enable
+				 "enabled"
+			       "disabled")))
 
-(defun skk-add-background-color (string color)
-  "STRING $B$N$J$+$GGX7J?';XDj$,$J$$J8;z$K$@$1(B COLOR $B$NGX7J?'$r$D$1$k!#(B"
-  (when (and string color (not (featurep 'xemacs)))
-    (let ((start 0)
-	  (end 1)
-	  orig-face)
-      (while (< start (length string))
-	(setq orig-face (get-text-property start 'face string))
-	(while (and (< end (length string))
-		    (eq orig-face (get-text-property end 'face string)))
-	  (setq end (1+ end)))
-	(cond
-	 ((not orig-face)
-	  (put-text-property start end 'face
-			     `(:background ,color)
-			     string))
-	 ((and (facep orig-face) (not (face-background orig-face)))
-	  (put-text-property start end 'face
-			     `(:inherit ,orig-face
-			       :background ,color)
-			     string))
-	 ((and (listp orig-face)
-	       (not (plist-get (get-text-property start 'face string)
-			       :background))
-	       (not (and (plist-get (get-text-property start 'face start)
-				    :inherit)
-			 (face-background
-			  (plist-get (get-text-property start 'face start)
-				     :inherit)))))
-	  (put-text-property start end 'face
-			     (cons
-			      `(:background ,color)
-			      orig-face)
-			     string)))
-	(setq start (max (1+ start) end)
-	      end (1+ start)))))
-  string)
+(defun skk-henkan-inactivate ()
+  "$B"'%b!<%I$r%-%c%s%;%k$7$F"&%b!<%I$KLa$k!#J8;zNs$O0];}$9$k!#(B"
+  (skk-set-henkan-count 0)
+  (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
+      (let ((count (length skk-henkan-okurigana)))
+	(skk-previous-candidate nil)
+	;; $B$3$3$G$O(B delete-backward-char $B$KBhFs0z?t$rEO$5$J$$J}$,%Y%?!<!)(B
+	(delete-char (- 0 count)))
+    (skk-previous-candidate nil)))
 
-(defun skk-inline-show (string face)
-  (skk-inline-hide)
-  (unless (skk-in-minibuffer-p)
-    (let ((ol (make-overlay (point) (point)))
-	  (base-ol (make-overlay (point) (1+ (point)))))
-      (overlay-put base-ol 'face 'default)
-      (push base-ol skk-inline-overlays)
-      (push ol skk-inline-overlays)
-      (when face
-	(setq string (propertize string 'face face)))
-      (when skk-inline-show-background-color
-	(setq string (skk-add-background-color
-		      string skk-inline-show-background-color)))
-      (overlay-put ol 'after-string string))))
-
-(defun skk-inline-show-vertical (string face)
-  (skk-inline-hide)
-  (unless (skk-in-minibuffer-p)
-    (let* ((margin 2)
-	   (beg-col (- (skk-screen-column) margin))
-	   (candidates (split-string string "\n"))
-	   (max-width (apply 'max (mapcar 'string-width candidates)))
-	   (i 0)
-	   bottom col ol invisible)
-      (dolist (str candidates)
-	(setq str (concat (when (/= 0 i) (make-string margin ? ))
-			  str
-			  (make-string (+ (- max-width (string-width str))
-					  margin)
-				       ? )))
-	(when face
-	  (setq str (propertize str 'face face)))
-	(when skk-inline-show-background-color
-	  (setq str (skk-add-background-color
-		     str skk-inline-show-background-color)))
-	(save-excursion
-	  (scroll-left (max 0
-			    (- (+ beg-col margin max-width margin 1)
-			       (window-width) (window-hscroll))))
-
-	  (unless (zerop (window-hscroll))
-	    (setq beg-col
-		  (save-excursion (goto-char skk-henkan-start-point)
-				  (- (current-column) margin))))
-	  (cond
-	   ((= 0 i)
-	    (setq col (skk-screen-column)))
-	   (t
-	    (setq bottom (> i (vertical-motion i)))
-	    (cond
-	     (bottom
-	      ;; $B%P%C%U%!:G=*9T$G$OIaDL$K(B overlay $B$rDI2C$7$F$$$/J}K!$@(B
-	      ;; $B$H(B overlay $B$NI=<($5$l$k=gHV$,68$&$3$H$,$"$C$F$&$^$/$J(B
-	      ;; $B$$!#$7$?$,$C$FA02s$N(B overlay $B$N(B after-string $B$KDI2C$9(B
-	      ;; $B$k!#(B
-	      (setq ol (cond ((< (overlay-end
-				  (car skk-inline-overlays))
-				 (point))
-			      (make-overlay (point) (point)))
-			     (t (pop skk-inline-overlays))))
-	      (setq str (concat (overlay-get ol 'after-string)
-				"\n" (make-string beg-col ? ) str)))
-	     (t
-	      (setq col (skk-move-to-screen-column beg-col))
-	      (cond ((> beg-col col)
-		     ;; $B7e9g$o$;$N6uGr$rDI2C(B
-		     (setq str (concat (make-string (- beg-col col) ? )
-				       str)))
-		    ;; overlay $B$N:8C<$,%^%k%AI}J8;z$H=E$J$C$?$H$-$NHyD4@0(B
-		    ((< beg-col col)
-		     (backward-char)
-		     (setq col (skk-screen-column))
-		     (setq str (concat (make-string (- beg-col col) ? )
-				       str))))))))
-	  ;; $B$3$N;~E@$G(B overlay $B$N3+;O0LCV$K(B point $B$,$"$k(B
-	  (unless bottom
-	    (let ((ol-beg (point))
-		  (ol-end-col (+ col (string-width str)))
-		  base-ol)
-	      (setq col (skk-move-to-screen-column ol-end-col))
-	      ;; overlay $B$N1&C<$,%^%k%AI}J8;z$H=E$J$C$?$H$-$NHyD4@0(B
-	      (when (< ol-end-col col)
-		(setq str (concat str
-				  (make-string (- col ol-end-col) ? ))))
-	      (setq ol (make-overlay ol-beg (point)))
-	      ;; $B85%F%-%9%H$N(B face $B$r7Q>5$7$J$$$h$&$K(B1$B$D8e$m$K(B overlay
-	      ;; $B$r:n$C$F!"$=$N(B face $B$r(B 'default $B$K;XDj$7$F$*$/(B
-	      (setq base-ol (make-overlay (point) (1+ (point))))
-	      (overlay-put base-ol 'face 'default)
-	      (push base-ol skk-inline-overlays)
-	      ;; $B8uJd$,2D;k$+$I$&$+%A%'%C%/(B
-	      (unless (pos-visible-in-window-p (point))
-		(setq invisible t)))))
-	(overlay-put ol 'invisible t)
-	(overlay-put ol 'after-string str)
-	(push ol skk-inline-overlays)
-	(incf i))
-      (when (or invisible
-		(and bottom
-		     (> (1+ (* 7 skk-henkan-show-candidates-rows))
-			(- (skk-window-body-height)
-			   (count-screen-lines (window-start) (point))))))
-	(recenter (- (1+ (* 7 skk-henkan-show-candidates-rows))))))))
-
-(defun skk-inline-hide ()
-  (when skk-inline-overlays
-    (dolist (ol skk-inline-overlays)
-      (delete-overlay ol))
-    (setq skk-inline-overlays nil)))
+(defun skk-henkan-off-by-quit ()
+  "$B"&%b!<%I$r%-%c%s%;%k$7$F"#%b!<%I$KLa$k!#J8;zNs$OGK4~$9$k!#(B"
+  (if (memq 'skk-comp-do (list last-command this-command))
+      (skk-with-point-move
+       (delete-region skk-henkan-start-point (point))
+       (insert skk-comp-key)
+       (when skk-verbose
+	 (setq last-command 'keyboard-quit))
+       (setq this-command 'keyboard-quit))
+    (skk-erase-prefix 'clean)
+    (delete-region skk-henkan-start-point
+		   (if (> (point) skk-henkan-start-point)
+		       (point)
+		     skk-previous-point))
+    (skk-kakutei)))
 
 ;;; cover to original functions.
-(skk-defadvice keyboard-quit (around skk-ad activate)
+(skk-defadvice keyboard-quit (around skk-ad activate preactivate)
   "$B"'%b!<%I$G$"$l$P!"8uJd$NI=<($r$d$a$F"&%b!<%I$KLa$9(B ($B8+=P$78l$O;D$9(B)$B!#(B
 $B"&%b!<%I$G$"$l$P!"8+=P$78l$r:o=|$9$k!#(B
 $B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B `keyboard-quit' $B$HF1$8F0:n$r$9$k!#(B"
-  (cond
-   ;; SKK is not invoked in the current buffer.
-   ((not skk-mode)
-    ad-do-it)
-   ;; $B"#(B mode (Kakutei input mode).
-   ((not skk-henkan-mode)
-    (cond ((skk-get-prefix skk-current-rule-tree)
-	   (skk-erase-prefix 'clean))
-	  (t
-	   ad-do-it)))
-   ;; $B"'(B mode (Conversion mode).
-   ((eq skk-henkan-mode 'active)
-    (skk-set-henkan-count 0)
-    (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
-	(let ((count (length skk-henkan-okurigana)))
-	  (skk-previous-candidate)
-	  ;; $B$3$3$G$O(B delete-backward-char $B$KBhFs0z?t$rEO$5$J$$J}$,%Y%?!<!)(B
-	  (delete-backward-char count))
-      (skk-previous-candidate)))
-   ;; $B"&(B mode (Midashi input mode).
-   (t
-    (if (eq last-command 'skk-comp-do)
-	(skk-with-point-move
-	 (delete-region skk-henkan-start-point (point))
-	 (insert skk-comp-key)
-	 (setq this-command 'keyboard-quit))
-      (skk-erase-prefix 'clean)
-      (delete-region skk-henkan-start-point
-		     (if (> (point) skk-henkan-start-point)
-			 (point)
-		       skk-previous-point))
-      (skk-kakutei)))))
+  (if (not skk-mode)
+      ad-do-it
+    (cond
+      ((eq skk-henkan-mode 'active)
+       (skk-henkan-inactivate))
+      ((eq skk-henkan-mode 'on)
+       (skk-henkan-off-by-quit))
+      (t
+       (if (skk-get-prefix skk-current-rule-tree)
+	   (skk-erase-prefix 'clean)
+	 ad-do-it)))))
 
-(skk-defadvice abort-recursive-edit (around skk-ad activate)
+(skk-defadvice abort-recursive-edit (around skk-ad activate preactivate)
   "$B"'%b!<%I$G$"$l$P!"8uJd$NI=<($r$d$a$F"&%b!<%I$KLa$9(B ($B8+=P$78l$O;D$9(B)$B!#(B
 $B"&%b!<%I$G$"$l$P!"8+=P$78l$r:o=|$9$k!#(B
 $B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B `abort-recursive-edit' $B$HF1$8F0:n$r$9$k!#(B"
   ;; subr command but no arg.
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer 'skk-add-skk-pre-command)
-  (cond ((not skk-mode)
-	 ad-do-it)
-	((not skk-henkan-mode)
-	 (cond ((skk-get-prefix skk-current-rule-tree)
-		(skk-erase-prefix 'clean))
-	       (t
-		ad-do-it)))
-	((eq skk-henkan-mode 'active)
-	 (skk-set-henkan-count 0)
-	 (if (and skk-delete-okuri-when-quit
-		  skk-henkan-okurigana)
-	     (let ((count (length skk-henkan-okurigana)))
-	       (skk-previous-candidate)
-	       ;; $B$3$3$G$O(B delete-backward-char $B$K(B
-	       ;; $BBhFs0z?t$rEO$5$J$$J}$,%Y%?!<!)(B
-	       (delete-backward-char count))
-	   (skk-previous-candidate)))
-	(t
-	 (if (eq last-command 'skk-comp-do)
-	     (skk-with-point-move
-	       (delete-region skk-henkan-start-point (point))
-	       (insert skk-comp-key))
+  (if (not skk-mode)
+      ad-do-it
+    (cond
+      ((eq skk-henkan-mode 'active)
+       (skk-henkan-inactivate))
+      ((eq skk-henkan-mode 'on)
+       (skk-henkan-off-by-quit))
+      (t
+       (if (skk-get-prefix skk-current-rule-tree)
 	   (skk-erase-prefix 'clean)
-	   (delete-region skk-henkan-start-point
-			  (if (> (point) skk-henkan-start-point)
-			      (point)
-			    skk-previous-point))
-	   (skk-kakutei)))))
+	 ad-do-it)))))
 
 (defadvice newline (around skk-ad activate)
-  "`skk-egg-like-newline' $B$@$C$?$i!"JQ49Cf$O3NDj$N$_9T$$!"2~9T$7$J$$!#(B"
+  "`skk-egg-like-newline' $B$,(B non-nil $B$G$"$l$P!"3NDj$N$_9T$$!"2~9T$7$J$$!#(B"
   (if (not (or skk-j-mode
 	       skk-jisx0201-mode
 	       skk-abbrev-mode))
@@ -5506,7 +5271,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	  ;; $BL5>r7o$K(B nil $B$K$J$k$N$G!"J]B8$7$F$*$/I,MW$,$"$k!#(B
 	  (no-newline (and skk-egg-like-newline
 			   skk-henkan-mode))
-	  (auto-fill-function (if (interactive-p)
+	  (auto-fill-function (if (skk-called-interactively-p 'interactive)
 				  auto-fill-function
 				nil)))
       ;; fill $B$5$l$F$b(B nil $B$,5"$C$F$/$k(B :-<
@@ -5526,14 +5291,14 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	ad-do-it))))
 
 (defadvice newline-and-indent (around skk-ad activate)
-  "`skk-egg-like-newline' $B$@$C$?$i!"JQ49Cf$O3NDj$N$_9T$$!"2~9T$7$J$$!#(B"
+  "`skk-egg-like-newline' $B$,(B non-nil $B$G$"$l$P!"3NDj$N$_9T$$!"2~9T$7$J$$!#(B"
   (if (not (or skk-j-mode
 	       skk-jisx0201-mode
 	       skk-abbrev-mode))
       ad-do-it
     (let ((no-newline (and skk-egg-like-newline
 			   skk-henkan-mode))
-	  (auto-fill-function (if (interactive-p)
+	  (auto-fill-function (if (skk-called-interactively-p 'interactive)
 				  auto-fill-function
 				nil)))
       (when skk-mode
@@ -5544,7 +5309,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 (skk-defadvice exit-minibuffer (around skk-ad activate)
   ;; subr command but no arg.
-  "`skk-egg-like-newline' $B$@$C$?$i!"JQ49Cf$O3NDj$N$_9T$&!#(B"
+  "`skk-egg-like-newline' $B$,(B non-nil $B$G$"$l$P!"3NDj$N$_9T$$!"2~9T$7$J$$!#(B"
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer 'skk-add-skk-pre-command)
   (if (not (or skk-j-mode
@@ -5584,13 +5349,14 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
     (skk-kakutei)))
 
 (defmacro skk-wrap-newline-command (cmd)
-  "[return]$B%-!<$K3dEv$F$i$l$F$$$k$@$m$&%3%^%s%I(B(CMD)$B$r%i%C%W$7$F!"(Bskk$B$NF0:n$H@09g$5$;$k!#(B
- [return]$B%-!<$K%3%^%s%I$r3dEv$F$F$$$k%a!<%8%c%b!<%I$G(B skk $B$r;H$&$H!"(Bskk $B$,(B
-`skk-kakutei' $B$r8F$S=P$95!2q$,$J$$$?$a!"JQ49$r3NDj$G$-$:(B`$B"'(B'$B$,%P%C%U%!$K;D$C$F(B
-$B$7$^$&$H$$$&LdBj$,$"$k!#(B
+  "[return]$B%-!<$K3d$jEv$F$i$l$F$$$k$G$"$m$&%3%^%s%I(B (CMD) $B$r%i%C%W$7$F!"(B
+skk $B$NF0:n$H@09g$5$;$k!#(B
+ [return]$B%-!<$K%3%^%s%I$r3d$jEv$F$F$$$k%a!<%8%c%b!<%I$G(B skk $B$r;H$&$H!"(Bskk $B$,(B
+`skk-kakutei' $B$r8F$S=P$95!2q$,$J$$$?$a$KJQ49$r3NDj$G$-$:(B `$B"'(B' $B$,%P%C%U%!$K(B
+$B;D$C$F$7$^$&$H$$$&LdBj$,$"$k!#(B
 
-$BK\%^%/%m$rMQ$$$k$H!"JQ49$r3NDj$7$F$+$i(B CMD $BK\BN$r<B9T$9$k$h$&$K(B CMD $B$r%i%C%W(B
-$B$9$k!#(B"
+$BK\%^%/%m$rMQ$$$k$H!"JQ49$r3NDj$7$F$+$i(B (skk-kakutei() $B$r<B9T$7$F$+$i(B) CMD $BK\(B
+$BBN$r<B9T$9$k$h$&$K(B CMD $B$r%i%C%W$9$k!#(B"
   `(defadvice ,cmd (around skk-ad activate compile)
      (cond (skk-henkan-mode
 	    (skk-kakutei)
@@ -5598,6 +5364,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	      ad-do-it))
 	   (t
 	    ad-do-it))))
+
 (skk-wrap-newline-command comint-send-input)
 (skk-wrap-newline-command ielm-return)
 (skk-wrap-newline-command rcirc-send-input)
@@ -5607,24 +5374,21 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 ;;;###autoload
 (add-hook 'after-init-hook
-	  #'(lambda ()
-	      (when (and (symbol-value 'init-file-user)
-			 skk-preload)
-		(skk-preload)))
+	  (lambda ()
+	    (when (and (symbol-value 'init-file-user)
+		       skk-preload)
+	      (skk-preload)))
 	  t)
 
 (add-hook 'kill-buffer-hook
 	  ;; SKK $B$N"'%b!<%I$@$C$?$i!"3NDj$7$F$+$i%P%C%U%!$r%-%k$9$k!#(B
-	  #'(lambda ()
-	      (when (and skk-mode
-			 skk-henkan-mode)
-		(skk-kakutei))))
+	  (lambda ()
+	    (when (and skk-mode
+		       skk-henkan-mode)
+	      (skk-kakutei))))
 
 (run-hooks 'skk-load-hook)
 
-(require 'product)
-(product-provide
-    (provide 'skk)
-  (require 'skk-version))
+(provide 'skk)
 
 ;;; skk.el ends here

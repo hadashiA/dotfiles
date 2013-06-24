@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.53 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.66 2013/01/13 09:45:48 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2013/01/13 09:45:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -30,8 +30,8 @@
 ;; ある語 A' を確定した場合に、A' 及びその見出し語 A に対して、直前に
 ;; 変換した語 B' とその見出し語 B を関連語として登録しておき、再度 A
 ;; の変換を行ったときに、B 及び B' のペアが直前の何回かに確定した語の
-;; 中に見つかれば、を優先して出力する単純な学習効果を提供するプログラ
-;; ムです。
+;; 中に見つかれば、A' を優先して出力する単純な学習効果を提供するプログ
+;; ラムです。
 ;;
 ;; 昔 SKK ML で話題になった単語の属性の保存のために、skk-attr.el を作
 ;; りましたが、機能を欲張りすぎてものになりませんでした。直前の変換と
@@ -66,31 +66,38 @@
 ;;  (okuri-nasi .
 ;;            (("かみ" . ((("きr" . "切") . ("紙"))))
 ;;             ...)))
-;;
 ;; <TODO>
-;; 科学、法律などとテーマを決めて、バッファ毎に学習データを切り替えで
-;; きると便利かも。-> experimental/skk-study.el で実現されています。
-
+;;
 
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl))
+  (require 'cl)
+  (defvar jka-compr-compression-info-list)
+  (defvar print-quoted))
 
-(require 'pym)
 (require 'skk-macs)
 (require 'skk-vars)
 (require 'ring)
 
-(defun-maybe ring-elements (ring)
-  "Return a list of the elements of RING."
-  ;; ring.el of Emacs 20 does not have ring-elements.
-  (mapcar #'identity (cddr ring)))
+(defconst skk-study-file-format-version "0.3")
+(skk-deflocalvar skk-study-current-buffer-theme nil)
 
 ;;;; inline functions.
 (defsubst skk-study-get-last-henkan-data (index)
   (and (> (ring-length skk-study-data-ring) index)
        (ring-ref skk-study-data-ring index)))
+
+(defsubst skk-study-get-current-alist (&optional theme)
+  (let ((base-alist (cdr (if theme
+			     (assoc theme skk-study-alist)
+			   (or (assoc skk-study-current-buffer-theme
+				      skk-study-alist)
+			       (assoc "general" skk-study-alist))))))
+    (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
+		 'okuri-ari)
+		(t 'okuri-nasi))
+	  base-alist)))
 
 (add-to-list 'skk-search-end-function 'skk-study-search)
 (add-to-list 'skk-update-end-function 'skk-study-update)
@@ -105,14 +112,7 @@
     (with-current-buffer henkan-buffer
       ;; (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
       ;;  ("なk" . ((("こども" . "子供") . ("泣")))))
-      (let ((alist
-	     (cdr
-	      (assoc
-	       midasi
-	       (cdr (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
-				 'okuri-ari)
-				(t 'okuri-nasi))
-			  skk-study-alist))))))
+      (let ((alist (cdr (assoc midasi (cdr (skk-study-get-current-alist))))))
 	(when alist
 	  (setq entry (skk-study-search-1 alist midasi okurigana entry))))))
   entry)
@@ -121,7 +121,7 @@
   (do ((index 0 (1+ index))
        (times skk-study-search-times (1- times))
        last-data associates e exit)
-      ((or exit (= times 0)) entry)
+      ((or exit (zerop times)) entry)
     (and
      (setq last-data (skk-study-get-last-henkan-data index))
      ;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
@@ -164,10 +164,7 @@
 		      (and (string= midasi (car last-data))
 			   (string= word (cdr last-data))))))
 	(or skk-study-alist (skk-study-read))
-	(setq grandpa (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
-				   'okuri-ari)
-				  (t 'okuri-nasi))
-			    skk-study-alist)
+	(setq grandpa (skk-study-get-current-alist)
 	      ;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
 	      papa (assoc midasi (cdr grandpa)))
 	(cond (
@@ -196,71 +193,146 @@
 
 ;;;###autoload
 (defun skk-study-save (&optional nomsg)
-  "`skk-study-file' に学習結果を保存する。
-オプショナル引数の NOMSG が non-nil であれば、保存メッセージを出力しない。"
+  "学習結果を `skk-study-file' へ保存する。
+オプショナル引数の NOMSG が non-nil であれば、保存メッセージを表示しない。"
   (interactive "P")
+  (if (or (and (null skk-study-alist) (not nomsg))
+	  (not skk-study-last-read)
+	  (and skk-study-last-save
+	       (skk-study-time-lessp
+		skk-study-last-save skk-study-last-read)))
+      (progn
+	(skk-message "SKK の学習結果をセーブする必要はありません"
+		     "No SKK study need saving")
+	(sit-for 1))
+    (skk-study-save-1 nomsg)))
+
+(defun skk-study-save-1 (nomsg)
   (let ((inhibit-quit t)
-	(last-time
-	 (nth 5 (file-attributes (expand-file-name skk-study-file))))
 	e)
-    (if (or (and (null skk-study-alist) (not nomsg))
-	    (not skk-study-last-read)
-	    (and skk-study-last-save
-		 (skk-study-time-lessp
-		  skk-study-last-save skk-study-last-read)))
-	(progn
-	  (skk-message "SKK の学習結果をセーブする必要はありません"
-		       "No SKK study need saving")
-	  (sit-for 1))
-      (when (not nomsg)
-	(skk-message "%s に SKK の学習結果をセーブしています..."
-		     "Saving SKK study to %s..." skk-study-file))
-      (and skk-study-backup-file
-	   (file-exists-p (expand-file-name skk-study-file))
-	   (cond ((eq system-type 'ms-dos)
-		  (with-temp-file skk-study-backup-file
-		    (erase-buffer)
-		    (insert-file-contents skk-study-file)))
-		 (t
-		  (copy-file (expand-file-name skk-study-file)
-			     (expand-file-name skk-study-backup-file)
-			     'ok-if-already-exists 'keep-date))))
-      (with-temp-buffer
-	(insert
-	 (format ";;; skk-study-file format version %s\n"
-		 skk-study-file-format-version))
-	(when skk-study-sort-saving
-	  ;; sort is not necessary, but make an alist rather readable.
-	  (setq e (assq 'okuri-ari skk-study-alist))
-	  (setcdr e (sort (cdr e)
-			  (function (lambda (a b)
-				      (skk-string< (car a) (car b))))))
-	  (setq e (assq 'okuri-nasi skk-study-alist))
-	  (setcdr e (sort (cdr e)
-			  (function (lambda (a b)
-				      (skk-string< (car a) (car b)))))))
-	(skk-study-prin1 skk-study-alist (current-buffer))
-	(write-region-as-coding-system
-	 (skk-find-coding-system skk-jisyo-code)
-	 (point-min) (point-max) skk-study-file))
-      (setq skk-study-last-save (current-time))
-      (when (not nomsg)
-	(skk-message "%s に SKK の学習結果をセーブしています...完了！"
-		     "Saving SKK study to %s...done" skk-study-file)
-	(sit-for 1)
-	(message "")))))
+    (when (not nomsg)
+      (skk-message "SKK の学習結果を %s にセーブしています..."
+		   "Saving SKK study to %s..." skk-study-file))
+    (and skk-study-backup-file
+	 (file-exists-p (expand-file-name skk-study-file))
+	 (cond ((eq system-type 'ms-dos)
+		(with-temp-file skk-study-backup-file
+		  (erase-buffer)
+		  (insert-file-contents skk-study-file)))
+	       (t
+		(copy-file (expand-file-name skk-study-file)
+			   (expand-file-name skk-study-backup-file)
+			   'ok-if-already-exists 'keep-date))))
+    (with-temp-buffer
+      (insert (format ";;; skk-study-file format version %s\n"
+		      skk-study-file-format-version))
+      (when skk-study-sort-saving
+	;; sort is not necessary, but make an alist rather readable.
+	(setq e (assq 'okuri-ari skk-study-alist))
+	(setcdr e (sort (cdr e)
+			(lambda (a b)
+			  (skk-string< (car a) (car b)))))
+	(setq e (assq 'okuri-nasi skk-study-alist))
+	(setcdr e (sort (cdr e)
+			(lambda (a b)
+			  (skk-string< (car a) (car b))))))
+      (skk-study-prin1 skk-study-alist (current-buffer))
+      (let ((coding-system-for-write (skk-find-coding-system skk-jisyo-code))
+	    jka-compr-compression-info-list)
+	(write-region (point-min) (point-max) skk-study-file)))
+    (setq skk-study-last-save (current-time))
+    (when (not nomsg)
+      (skk-message "SKK の学習結果を %s にセーブしています...完了！"
+		   "Saving SKK study to %s...done" skk-study-file)
+      (sit-for 1)
+      (message ""))))
+
+;;;###autoload
+(defun skk-study-switch-current-theme (theme)
+  "カレントバッファに対して skk-study の学習テーマ THEME を設定する。
+学習テーマ名 THEME には任意の文字列を指定できる。
+カレントバッファに学習テーマが設定されないときは、学習テーマ
+\"general\" に対して学習が行われる。"
+  (interactive
+   (list (completing-read
+	  "Theme of current buffer: (default: general) "
+	  (when (or skk-study-alist (skk-study-read))
+	    (let ((n 0))
+	      (mapcar (lambda (e)
+			(setq n (1+ n))
+			(cons e n))
+		      (mapcar 'car skk-study-alist)))))))
+  (setq skk-study-current-buffer-theme theme)
+  (let ((alist (assoc theme skk-study-alist)))
+    (unless alist
+      (setq skk-study-alist
+	    (cons
+	     (cons theme '((okuri-ari) (okuri-nasi)))
+	     skk-study-alist)))))
+
+;;;###autoload
+(defun skk-study-remove-theme (theme)
+  "skk-study の学習テーマ THEME を削除する。"
+  (interactive
+   (list (completing-read
+	  "Remove skk-study theme: "
+	  (when (or skk-study-alist (skk-study-read))
+	    (let ((n 0))
+	      (mapcar (lambda (e)
+			(setq n (1+ n))
+			(cons e n))
+		      (mapcar 'car skk-study-alist))))
+	  nil 'require-match)))
+  (if (string= theme "general")
+      (skk-message "学習テーマ `general' は削除できません"
+		 "Cannot remove skk-study theme `general'")
+    (setq skk-study-alist (delq (assoc theme skk-study-alist)
+				skk-study-alist))
+    (when (and skk-study-current-buffer-theme
+	       (string= skk-study-current-buffer-theme theme))
+      (setq skk-study-current-buffer-theme nil))))
+
+;;;###autoload
+(defun skk-study-copy-theme (from to)
+  "skk-study の学習テーマ FROM を TO にコピーする。
+TO の既存データは破壊される。"
+  (interactive
+   (list (completing-read "Copy skk-study theme from: "
+			  (when (or skk-study-alist (skk-study-read))
+			    (let ((n 0))
+			      (mapcar (lambda (e)
+					(setq n (1+ n))
+					(cons e n))
+				      (mapcar 'car skk-study-alist))))
+			  nil 'require-match)
+	 (completing-read "Copy skk-study theme to: "
+			  (let ((n 0))
+			    (mapcar (lambda (e)
+				      (setq n (1+ n))
+				      (cons e n))
+				    (mapcar 'car skk-study-alist))))))
+  (when (string= from to)
+    (skk-error "コピー元とコピー先のテーマが同一です"
+	       "FROM and TO is the same theme"))
+  (let ((fromalist (copy-tree (cdr (assoc from skk-study-alist))))
+	(toalist (assoc to skk-study-alist)))
+    (unless fromalist
+      (skk-error "コピー元の学習データがありません"
+		 "FROM study data is null"))
+    (if toalist
+	(setcdr toalist fromalist)
+      (setq skk-study-alist (cons (cons to fromalist) skk-study-alist)))))
 
 ;;;###autoload
 (defun skk-study-read (&optional nomsg force)
   "`skk-study-file' から学習結果を読み込む。
 オプショナル引数の FORCE が non-nil であれば、破棄の確認をしない。"
   (interactive "P")
-  (skk-create-file
-   skk-study-file
-   (if (not nomsg)
-       (if skk-japanese-message-and-error
-	   "SKK の学習結果ファイルを作りました"
-	 "I have created an SKK study file for you")))
+  (skk-create-file skk-study-file
+		   (if (not nomsg)
+		       (if skk-japanese-message-and-error
+			   "SKK の学習結果ファイルを作りました"
+			 "I have created an SKK study file for you")))
   (when (or (null skk-study-alist)
 	    force
 	    (skk-yes-or-no-p
@@ -275,9 +347,8 @@
     (setq skk-study-alist (skk-study-read-1 skk-study-file))
     (setq skk-study-last-read (current-time))
     (when (and skk-study-alist (not nomsg))
-      (skk-message
-       "%s の SKK 学習結果を展開しています...完了！"
-       "Expanding SKK study of %s ...done"
+      (skk-message "%s の SKK 学習結果を展開しています...完了！"
+		   "Expanding SKK study of %s ...done"
        (file-name-nondirectory skk-study-file))
       (sit-for 1)
       (message ""))))
@@ -287,76 +358,85 @@
   (with-temp-buffer
     (let ((version-string
 	   (format ";;; skk-study-file format version %s\n"
-		   skk-study-file-format-version)))
-      (insert-file-contents-as-coding-system
-       (skk-find-coding-system skk-jisyo-code) file)
-      (when (= (buffer-size) 0)
+		   skk-study-file-format-version))
+	  version)
+      (let ((coding-system-for-read (skk-find-coding-system skk-jisyo-code))
+	    format-alist)
+	(insert-file-contents file))
+      (when (zerop (buffer-size))
 	;; bare alist
-	(insert version-string "((okuri-ari) (okuri-nasi))"))
+	(insert version-string
+		"((\"general\" . ((okuri-ari) (okuri-nasi))))"))
       (goto-char (point-min))
-      (if (looking-at (regexp-quote version-string))
-	  (read (current-buffer))
-	(skk-error
-	 "skk-study-file フォーマットのバージョンが一致しません"
-	 "skk-study-file format version is inconsistent")))))
+      (when (looking-at "^;;; skk-study-file format version \\([.0-9]+\\)\n")
+	(setq version (match-string 1)))
+      (cond ((not version)
+	     (skk-error "skk-study-file が壊れています"
+			"Broken skk-study-file"))
+	    ((string= version skk-study-file-format-version)
+	     (read (current-buffer)))
+	    (t
+	     ;; convert the format to new one
+	     (list (cons "general" (read (current-buffer)))))))))
 
-(defun skk-study-check-alist-format (alist-file)
-  "ALIST-FILE の連想リストのフォーマットをチェックする。"
+(defun skk-study-check-alist-format (file)
+  "skk-study の学習データファイル FILE のフォーマットをチェックする。"
   (interactive
    (list (read-file-name
-	  (format "Alist file to check: (default: %s) " skk-study-file)
+	  (format "File to check: (default: %s) " skk-study-file)
 	  default-directory skk-study-file)))
-  (skk-message "%s ファイルの連想リストのフォーマットチェックを行なっています..."
-	       "Checking %s file alist format..." alist-file)
-  (or (skk-study-check-alist-format-1 (skk-study-read-1 alist-file))
-      (skk-error "%s の連想リストのフォーマットは壊れています"
-		 "%s alist format is corrupt" alist-file))
-  (skk-message
-   "%s ファイルの連想リストのフォーマットチェックを行なっています...完了!"
-   "Checking %s file alist format... done" alist-file)
+  (skk-message "%s のフォーマットをチェックしています..."
+	       "Checking format of %s..." file)
+  (or (skk-study-check-alist-format-1 (skk-study-read-1 file))
+      (skk-error "%s のフォーマットは壊れています"
+		 "%s format is broken" file))
+  (skk-message "%s のフォーマットをチェックしています...完了!"
+	       "Checking format of %s...done" file)
   (sit-for 1)
   (message ""))
 
 (defun skk-study-check-alist-format-1 (alist)
-  (when (and (= (length alist) 2)
-	     (assq 'okuri-ari alist)
-	     (assq 'okuri-nasi alist))
-    (catch 'exit
-      (let ((index '(okuri-ari okuri-nasi))
-	    (func (function
-		   (lambda (str)
-		     (let ((len (length str)))
-		       (and
-			(> len 1)
-			(skk-ascii-char-p (aref str (1- len))))))))
-	    alist2 e f)
-	(while index
-	  (and (eq (car index) 'okuri-nasi)
-	       (setq func
-		     (function
-		      (lambda (str)
+  (let (a)
+    (dolist (elm alist)
+      (when (and (= (length elm) 3)
+		 (stringp (car elm))
+		 (setq a (cdr elm))
+		 (assq 'okuri-ari a)
+		 (assq 'okuri-nasi a))
+	(catch 'exit
+	  (let ((index '(okuri-ari okuri-nasi))
+		(func (lambda (str)
 			(let ((len (length str)))
-			  (cond ((= len 1))
-				((not (skk-ascii-char-p (aref str (1- len)))))
-				((skk-ascii-char-p (aref str (- len 2))))))))))
-	  (setq alist2 (cdr (assq (car index) alist)))
-	  (while alist2
-	    (setq e (car alist2))
-	    (or (funcall func (car e))
-		;; 見出し語のチェック
-		(throw 'exit nil))
-	    (setq f (cdr e))
-	    (while f
-	      (if (not (and
-			;; 直前の変換の情報
-			(consp (car (car f)))
-			;; 関連語リスト
-			(listp (cdr (car f)))))
-		  (throw 'exit nil))
-	      (setq f (cdr f)))
-	    (setq alist2 (cdr alist2)))
-	  (setq index (cdr index)))
-	t))))
+			  (and
+			   (> len 1)
+			   (skk-ascii-char-p (aref str (1- len)))))))
+		a2 e f)
+	    (while index
+	      (and (eq (car index) 'okuri-nasi)
+		   (setq func
+			 (lambda (str)
+			   (let ((len (length str)))
+			     (cond ((= len 1))
+				   ((not (skk-ascii-char-p (aref str (1- len)))))
+				   ((skk-ascii-char-p (aref str (- len 2)))))))))
+	      (setq a2 (cdr (assq (car index) a)))
+	      (while a2
+		(setq e (car a2))
+		(or (funcall func (car e))
+		    ;; 見出し語のチェック
+		    (throw 'exit nil))
+		(setq f (cdr e))
+		(while f
+		  (if (not (and
+			    ;; 直前の変換の情報
+			    (consp (caar f))
+			    ;; 関連語リスト
+			    (listp (cdar f))))
+		      (throw 'exit nil))
+		  (setq f (cdr f)))
+		(setq a2 (cdr a2)))
+	      (setq index (cdr index)))
+	    t))))))
 
 (defun skk-study-prin1 (form &optional stream)
   (let ((print-readably t)
@@ -381,11 +461,9 @@
 	target)
     (when (and last last2)
       (setq target (assoc (car last)
-			  (assq (cond ((skk-get-last-henkan-datum 'okuri-char)
-				       'okuri-ari)
-				      (t 'okuri-nasi))
-				skk-study-alist)))
-      (setq target (delq (assoc last2 (cdr target)) target)))))
+			  ;; skk-undo-kakutei is called in henkan buffer
+			  (skk-study-get-current-alist))
+	    target (delq (assoc last2 (cdr target)) target)))))
 
 ;; time utilities...
 ;;  from ls-lisp.el.  Welcome!
@@ -398,6 +476,6 @@
 
 (add-hook 'kill-emacs-hook 'skk-study-save)
 
-(require 'product)
-(product-provide (provide 'skk-study) (require 'skk-version))
+(provide 'skk-study)
+
 ;;; skk-study.el ends here

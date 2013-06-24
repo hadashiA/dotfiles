@@ -4,10 +4,8 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.55 2009/08/13 05:21:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2009/08/13 05:21:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -44,18 +42,17 @@
 ;;     換します。
 ;;
 ;; `skk-jisx0201-roman-rule-list' に JISX0201.1976 Japanese Roman
-;;  (latin-jisx0201) の文字列を定義しています。ただし JISX0201.1976 Japanese
-;;  Roman 入力は今のところ Emacs 20.3 以降と XEmacs 21 以降でしか出来ていませ
-;; ん。ｶﾅ と roman を切り替える機能 `skk-toggle-jisx0201' にはキー定義してい
-;; ません。
+;; (latin-jisx0201) の文字列を定義しています。ただし GNU Emacs 23 以降、ファ
+;; イル保存時に JIS X 0201 Roman と ASCII の区別がされなくなったようです (円
+;; 記号およびオーバーラインを除く)。したがってこのファイルの現行版では、これ
+;; らの 2 文字以外は ASCII の文字が定義されています。
 ;;
+;; ｶﾅ と roman を切り替える機能 `skk-toggle-jisx0201' にはキー定義していませ
+;; ん。
 ;;
 ;; <業務連絡>
 ;;
-;; このファイルを編集するときは、できれば XEmacs を使ってください。 Emacs 20
-;; はデフォルトでは JISX0201.1976 Japanese Roman を自動的に US-ASCII に変換す
-;; るようになっているからです。 Emacs 20.3 以降でこのファイルを編集する場合は、
-;; このファイルを開く前に
+;; GNU Emacs 20.3 〜 22 でこのファイルを編集する場合は、ファイルを開く前に
 ;;
 ;; (setq standard-translation-table-for-decode (make-translation-table nil))
 ;;
@@ -65,8 +62,7 @@
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars)
-  (require 'static))
+  (require 'skk-vars))
 
 (require 'japan-util)
 
@@ -243,10 +239,8 @@
      (skk-jisx0201-zenkaku-region skk-henkan-start-point
 				  skk-okurigana-start-point))
     ;;
-    (let* ((pt1 (point))
-	   pt2
-	   okuri
-	   sokuon)
+    (let ((pt1 (point))
+	  pt2 okuri sokuon)
       (setq okuri
 	    (skk-save-point
 	     (backward-char 1)
@@ -284,7 +278,7 @@
     ad-do-it)))
 
 (defadvice skk-insert (around skk-jisx0201-ad activate)
-  "SKK JIS X 0201 モードの文字入力を行なう。"
+  "SKK JIS X 0201 モードの文字入力を行う。"
   (cond
    (skk-jisx0201-mode
     (let ((arg (ad-get-arg 0))
@@ -411,22 +405,19 @@
   (skk-search-and-replace
    start end
    "[ぁ-ん。、・ー゛゜]+"
-   #'(lambda (matched)
-       (save-match-data
-	 (skk-jisx0201-hankaku matched)))))
+   (lambda (matched)
+     (save-match-data
+       (skk-jisx0201-hankaku matched)))))
 
 ;;;###autoload
 (defun skk-katakana-to-jisx0201-region (start end)
   (skk-search-and-replace
    start end
    "[ァ-ヴ。、・ー゛゜]+"
-   #'(lambda (matched)
-       (save-match-data
-	 (skk-jisx0201-hankaku matched)))))
+   (lambda (matched)
+     (save-match-data
+       (skk-jisx0201-hankaku matched)))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-jisx0201)
-  (require 'skk-version))
+(provide 'skk-jisx0201)
 
 ;;; skk-jisx0201.el ends here

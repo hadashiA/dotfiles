@@ -4,6 +4,8 @@
 ;;
 ;; Author: Masatake YAMATO <jet@gyve.org>
 ;; Created: Tue May 13 19:12:23 2003
+;; Version: $Id: context-skk.el,v 1.17 2013/01/13 09:45:48 skk-cvs Exp $
+;; Last Modified: $Date: 2013/01/13 09:45:48 $
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -22,77 +24,80 @@
 ;;
 ;;
 ;;; Commentary:
-;; このプログラムはskkの動作、振舞いに関して2つの機能を提供します。
+;; このプログラムは skk の動作、振舞いに関して2つの機能を提供します。
 ;;
-;; (1) 編集の文脈に応じて自動的にskkのモードをlatinに切り替えます。
-;; 明かにskkによる日本語入力が必要ない個所で、skkをオンにしたまま
-;; キー操作を行なったためにemacsからエラーの報告を受けたり、わざわざ
-;; skkをオフにしてテキストを修正するのは不快です。これを抑制するこ
-;; とが、この機能の目的です。
+;; (1) 編集の文脈に応じて自動的に skk のモードを latin に切り替えます。
+;;   明らかに skk による日本語入力が必要ない個所で、skk をオンにしたまま
+;;   キー操作したために emacs からエラーの報告を受けたり、わざわざ
+;;   skk をオフにしてテキストを修正するのは不快です。これを抑制することが
+;;   この機能の目的です。
 ;;
-;; 文脈の判定はemacs lispによって記述できます。このプログラムには、次の3つ
-;; の文脈に対する判定関数が含まれています。
+;; 文脈の判定は emacs lisp によって記述できます。このプログラムには、次の
+;; 3つの文脈に対する判定関数が含まれています。
 ;;
-;; 1A. read-onlyかどうか
+;; (1)-A. read-only かどうか
 ;; --------------------
-;;    read-onlyバッファでは、日本語入力の必要はないし、できないので、日
-;;    本語入力をオフにします。またread-onlyの領域でも同様に日本語入力を
-;;    offにします。エラーの報告を受けるかわりにskkによってシャドウされ
+;;    read-only バッファでは、日本語入力の必要はないし、できないので、日
+;;    本語入力をオフにします。また read-only の領域でも同様に日本語入力を
+;;    off にします。エラーの報告を受けるかわりにskkによってシャドウされ
 ;;    た元のキーに割当てられたコマンドを実行できます。
 ;;
-;; 1B. プログラムコード中でのコメントや文字列の内側にいるか
+;; (1)-B. プログラムコード中でのコメントや文字列の内側にいるか
 ;; -------------------------------------------------------
-;;    あるプログラミング言語でプログラムを書いているとき、日本語入力の必要が
-;;    あるのは一般に、そのプログラミング言語の文字列中かコメント中に限られま
-;;    す。文字列、コメントの「外」を編集するときは、多くの場合日本語入力は必
-;;    要ありません。
-;;    たとえば emacs lispでは、
+;;    あるプログラミング言語でプログラムを書いているとき、日本語入力の必
+;;    要があるのは一般に、そのプログラミング言語の文字列中かコメント中に
+;;    限られます。文字列、コメントの「外」を編集するときは、多くの場合日
+;;    本語入力は必要ありません。
+;;    たとえば emacs lisp では、
 ;;
 ;;    "〜" や ;; 〜
 ;;
 ;;    といった個所でだけ日本語入力が必要となります。
 ;; 
 ;;    現在の文字列とコメントの「外」で編集開始と同時に
-;;    (skkがオンであれば)skkの入力モードをlatinに切り替えます。「外」での編集
-;;    を開始するにあたって、日本語入力がonになっていたために発生する入力誤り
-;;    とその修正操作を回避することができます。
+;;    (skk がオンであれば) skk の入力モードを latin に切り替えます。
+;;    「外」での編集を開始するにあたって、日本語入力が on になっていたた
+;;    めに発生する入力誤りとその修正操作を回避することができます。
 ;;    
-;; 1C. キーマップが登録されているかどうかを判定
+;; (1)-C. キーマップが登録されているかどうかを判定
 ;; -------------------------------------------
-;;    ポイント下に`keymap'あるいは`local-map'の属性を持つ文字あるいはオーバレイが
-;;    あるかどうかを調べます。キーマップが設定されている場合、さらにskkで母音
-;;    の入力に使う ?a, ?i, ?u, ?e, ?oのキーがキーマップ中に定義されているか調
-;;    べます。定義されている場合、キーマップ中のキーに割当てられた機能を実行
-;;    できるよう日本語入力をオフにします。
+;;    ポイント下に `keymap' あるいは `local-map' の属性を持つ文字あるいは
+;;    オーバレイがあるかどうかを調べます。キーマップが設定されている場合、
+;;    さらに skk で母音の入力に使う ?a, ?i, ?u, ?e, ?oのキーがキーマップ
+;;    中に定義されているか調べます。定義されている場合、キーマップ中のキー
+;;    に割当てられた機能を実行できるよう日本語入力をオフにします。
 ;;
-;; 自身でskkをオフにする文脈を定義するには、
+;; skk をオフにする文脈をユーザ自身が定義するには、
 ;; `context-skk-context-check-hook'
-;; 変数を使います。skkの文字入力関数`skk-insert'の実行直前に引数無しで呼び出
-;; され、skkをオフにする文脈にあるときnon-nilを返す関数を定義して、この変数
-;; に`add-hook'して下さい。
+;; 変数を使います。skk の文字入力関数 `skk-insert' の実行直前に引数無しで
+;; 呼び出され「skk をオフにする文脈にあるとき non-nil を返す関数」を定義
+;; して、この変数に `add-hook' して下さい。
 ;;
-;; (2) 編集の文脈に応じてskkの設定を変更します。
-;; skkの文字入力関数`skk-insert'のまわりに`let'を配置して、文字入力中に一時的
-;; に変数の束縛を変更して、文字入力のたびにskkの設定を変更できます。このプログ
-;; ラムには、skkによるテキストの入力先のバッファをスキャンし、(句読点の種類を
-;; 表す)`skk-kutouten-type'を変更する関数が含まれています。
+;; (2) 編集の文脈に応じて skk の設定を変更します。
+;;   skk の文字入力関数 `skk-insert' のまわりに `let' を配置して、文字入
+;;   力中に一時的に変数の束縛を変更して、文字入力のたびに skk の設定を変
+;;   更できます。このプログラムには、skk によるテキストの入力先のバッファ
+;;   をスキャンし、(句読点の種類を表す) `skk-kutouten-type' を変更する関
+;;   数が含まれています。
 ;;
 ;; 独自に変数を設定したい場合、関数を書く必要があります。
-;; `context-skk-custumize-functions'のドキュメントに従い、関数を書き、
+;; `context-skk-custumize-functions' のドキュメントに従い、関数を書き、
 ;;
 ;; (add-to-list 'context-skk-custumize-functions 
 ;;	        'your-on-the-fly-customize-func)
 ;;
-;; として登録します。M-x context-skk-dump-customize による現在のポイントに対して、
-;; context-skkによって一次的に束縛される変数とその値の組を確認できます。デバッグ
-;; に活用して下さい。
+;; として登録します。M-x context-skk-dump-customize による現在のポイント
+;; に対して、context-skk によって一次的に束縛される変数とその値の組を確認
+;; できます。デバッグに活用して下さい。
 ;;
-;; 上述した2つの機能はcontext-skk-modeというマイナーモードとして実装してあります。
+;; 上述した2つの機能は context-skk-mode というマイナーモードとして実装し
+;; てあります。
 ;; M-x context-skk-mode
-;; で オン/オフをできます。モードラインに ";▽" が表示されている
-;; 場合、このマイナーモードがonになっていることを意味します。
+;; で オン/オフをできます。モードラインに ";▽" が表示されている場合、こ
+;; のマイナーモードが on になっていることを意味します。
 ;;
-;; - インストール - .emacs に以下を記述します。
+;; - インストール -
+;; ~/.emacs に以下を記述します。
 ;;
 ;; (add-hook 'skk-load-hook
 ;;	  (lambda ()
@@ -117,20 +122,21 @@
   '(context-skk-out-of-string-or-comment-in-programming-mode-p
     context-skk-on-keymap-defined-area-p
     context-skk-in-read-only-p)
-  "*日本語入力を自動的にoffにしたい「コンテキスト」にいればtを返す関数を登録する。"
+  "*日本語入力を自動的に off にしたい「コンテキスト」にいれば t を返す
+関数を登録する。"
   :type 'hook
   :group 'context-skk)
 
 ;;;###autoload
 (defcustom context-skk-custumize-functions 
   '(context-skk-customize-kutouten)
-  "*skkによる入力開始直前に、入力のカスタマイズを行うための関数を登録する。
+  "*skk による入力開始直前に、入力をカスタマイズする関数を登録する。
 関数は以下の形式のデータを要素とするリストを返すものとする: 
 
   \(VARIABLE VALUE\)
 
-`skk-insert'をかこむ`let'によってVARIABLEはVALUEに束縛される。
-特にその場でカスタマイズすべき変数がない場合 `nil'を返せば良い。
+`skk-insert' を囲む `let' によって VARIABLE は VALUE に束縛される。
+特にその場でカスタマイズすべき変数がない場合 `nil' を返せば良い。
 関数には何も引数が渡されない。"
   :type 'hook				; hook? list of function?
   :group 'context-skk)
@@ -146,8 +152,32 @@
     prolog-mode ps-mode postscript-mode ruby-mode scheme-mode sh-mode simula-mode
     ;; sql-mode
     tcl-mode vhdl-mode emacs-lisp-mode)
-  "*context-skkにて「プログラミングモード」とみなすモードのリスト"
+  "*context-skk にて「プログラミングモード」と見做すモードのリスト"
   :type '(repeat (symbol))
+  :group 'context-skk)
+
+;;;###autoload
+(defcustom context-skk-mode-hook nil
+  "*`context-skk-mode' を切り替える際に呼ばれるフック。"
+  :type 'hook
+  :group 'context-skk)
+
+;;;###autoload
+(defcustom context-skk-mode-on-hook nil
+  "*`context-skk-mode' が on になる際に呼ばれるフック。"
+  :type 'hook
+  :group 'context-skk)
+
+;;;###autoload
+(defcustom context-skk-mode-off-hook nil
+  "*`context-skk-mode' が off になる際に呼ばれるフック。"
+  :type 'hook
+  :group 'context-skk)
+
+;;;###autoload
+(defcustom context-skk-mode-off-message "[context-skk] 日本語入力 off"
+  "*`context-skk-mode' が off になったときにエコーエリアに表示するメッセージ。"
+  :type 'string
   :group 'context-skk)
 
 ;;
@@ -156,32 +186,31 @@
 ;; Change autoload cookie for XEmacs.
 ;;;###autoload (autoload 'context-skk-mode "context-skk" "文脈に応じて自動的にskkの入力モードをlatinに切り換えるマイナーモード。" t)
 (define-minor-mode context-skk-mode
-  "文脈に応じて自動的にskkの入力モードをlatinに切り換えるマイナーモード。"
+  "文脈に応じて自動的に skk の入力モードを latin に切り換えるマイナーモード。"
   t 
   :lighter " ;▽")
 
 ;;
 ;; Advices
 ;;
-(defadvice skk-insert (around skk-insert-ctx-switch activate)
-  "文脈に応じて自動的にskkの入力モードをlatinにする。"
-  (if (and context-skk-mode (context-skk-context-check))
-      (context-skk-insert) 
-    (eval `(let ,(context-skk-custumize)
-	     ad-do-it))))
+(defmacro define-context-skk-advice (target)
+  `(defadvice ,target (around ,(intern (concat (symbol-name target) "-ctx-switch")) activate)
+     "文脈に応じて自動的に skk の入力モードを latin にする。"
+     (if context-skk-mode
+	 (if (context-skk-context-check)
+	     (context-skk-insert) 
+	   (eval `(let ,(context-skk-custumize)
+		    ad-do-it)))
+       ad-do-it)))
 
-(defadvice skk-jisx0208-latin-insert (around skk-jisx0208-latin-insert-ctx-switch activate)
-  "文脈に応じて自動的にskkの入力モードをlatinにする。"
-  (if (and context-skk-mode (context-skk-context-check))
-      (context-skk-insert) 
-    (eval `(let ,(context-skk-custumize)
-	     ad-do-it))))
+(define-context-skk-advice skk-insert)
+(define-context-skk-advice skk-jisx0208-latin-insert)
 
 ;;
 ;; Helper
 ;;
 (defun context-skk-context-check ()
-  "日本語入力を自動的にoffにしたい「コンテキスト」にいればtを返す"
+  "日本語入力を自動的に off にしたい「コンテキスト」にいれば t を返す"
   (run-hook-with-args-until-success 'context-skk-context-check-hook))
 
 (defun context-skk-custumize ()
@@ -202,8 +231,8 @@
       (pp customized-pairs))))
 
 (defun context-skk-insert ()
-  "skk-latin-modeをonにした上`this-command-keys'に対する関数を呼び出し直す。"
-  (message "[context-skk] 日本語入力 off")
+  "skk-latin-mode を on にした上 `this-command-keys' に対する関数を呼び出し直す。"
+  (message "%s" context-skk-mode-off-message)
   (skk-latin-mode t)
   (let* ((keys (this-command-keys))
 	 ;; `this-command-keys' が tab を返したときなど function-key-map や
@@ -245,9 +274,9 @@
 ;; コメントを編集中かどうか
 ;;
 (defun context-skk-out-of-string-or-comment-in-programming-mode-p ()
-  "プログラミングモードにあって文字列あるいはコメントの外にいればnon-nilを返す。
-プログラミングモードにいない場合はnilを返す。
-プログラミングモードにあって文字列あるいはコメントの中にいる場合nilを返す。"
+  "プログラミングモードにあって文字列あるいはコメントの外にいれば non-nil を返す。
+プログラミングモードにいない場合は nil を返す。
+プログラミングモードにあって文字列あるいはコメントの中にいる場合 nil を返す。"
   (and (context-skk-in-programming-mode-p) 
        (not (or (context-skk-in-string-p)
 		(context-skk-in-comment-p)))))
@@ -262,7 +291,7 @@
   (nth 4 (parse-partial-sexp (point) (point-min))))
 
 ;;
-;; 現在のポイント下にkeymapが定義されているかどうか？
+;; 現在のポイント下に keymap が定義されているかどうか？
 ;;
 (defun context-skk-on-keymap-defined-area-p ()
   (or (context-skk-on-vowel-key-reserved-p 'keymap)
@@ -271,7 +300,7 @@
 (defun context-skk-on-vowel-key-reserved-p (map-symbol)
   (let ((map (get-char-property (point) map-symbol)))
     (when map
-      ;; "あいうえお"を入力することを想定してチェックする。
+      ;; "あいうえお" を入力することを想定してチェックする。
       (or (lookup-key map "a")
 	  (lookup-key map "i")
 	  (lookup-key map "u")
@@ -285,7 +314,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;
-;; 句読点(skk-kutouten-type)
+;; 句読点 (skk-kutouten-type)
 ;;
 ;; Based on a post to skk ml by 
 ;; Kenichi Kurihara (kenichi_kurihara at nifty dot com)

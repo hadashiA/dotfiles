@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-auto.el,v 1.20 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-auto.el,v 1.23 2011/06/04 01:14:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2011/06/04 01:14:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -50,9 +50,7 @@
 	    skk-okuri-index-max (+ skk-okuri-index-min (length l)))
       (if (not skk-katakana)
 	  l
-	(mapcar (function
-		 (lambda (e)
-		   (skk-hiragana-to-katakana e)))
+	(mapcar 'skk-hiragana-to-katakana
 		l)))))
 
 (defun skk-okuri-search-subr-original ()
@@ -77,9 +75,7 @@
 	  (when (and (<= len2 len)
 			(string= key2 (substring henkan-key 0 len2)))
 	    (let ((cont t))
-	      (skk-save-point
-	       (end-of-line)
-	       (setq q (point)))
+	      (setq q (line-end-position))
 	      (while (and cont (search-forward "/[" q t))
 		(setq r (point))
 		(setq okuri3 (buffer-substring-no-properties
@@ -111,13 +107,10 @@
 		    ;; any more
 		    (setq cont nil)))))))
 	;; key3 の長いもの順にソートして返す。
-	(mapcar (function
-		 (lambda (x)
-		   (cdr x)))
+	(mapcar 'cdr
 		(sort (nreverse key-cand-alist)
-		      (function
-		       (lambda (x y)
-			 (skk-string< (car y) (car x))))))))))
+		      (lambda (x y)
+			(skk-string< (car y) (car x)))))))))
 
 ;;;###autoload
 (defun skk-adjust-search-prog-list-for-auto-okuri ()
@@ -148,9 +141,6 @@
 
 (run-hooks 'skk-auto-load-hook)
 
-(require 'product)
-(product-provide
-    (provide 'skk-auto)
-  (require 'skk-version))
+(provide 'skk-auto)
 
 ;;; skk-auto.el ends here

@@ -18,10 +18,19 @@
 ;; pointがある箇所のファイルを開く
 (ffap-bindings)
 
-;; M-x時にヒストリを利用
-(require 'mcomplete)
-(load "mcomplete-history")
-(turn-on-mcomplete-mode)
+;; ;; M-x時にヒストリを利用
+;; (require 'mcomplete)
+;; (load "mcomplete-history")
+;; (turn-on-mcomplete-mode)
+
+(require 'ido)
+(ido-mode 'file)
+(ido-everywhere t)
+(custom-set-variables '(ido-max-directory-size 'const))
+(custom-set-variables '(ido-enter-matching-directory 'first))
+(custom-set-variables '(ido-ignore-files (cons '"\\`\\." ido-ignore-files)))
+;; (define-key ido-file-dir-completion-map (kbd "SPC") 'ido-exit-minibuffer)     ; ここ
+(define-key ido-file-dir-completion-map (kbd "C-h") 'ido-delete-backward-updir)
 
 ;; [2008-03-03]
 ;; これ、M-!でできるよ？shell-commandをrequireしてるから？
