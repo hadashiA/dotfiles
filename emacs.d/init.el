@@ -116,7 +116,7 @@
 (load "init-jump")
 (load "init-matelike")
 (load "init-migemo")
-;; (load "init-skk")
+(load "init-skk")
 (load "init-flymake")
 ;; (load "init-flycheck")
 (load "init-occur")
