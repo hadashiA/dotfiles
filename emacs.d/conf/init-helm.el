@@ -11,6 +11,11 @@
 (define-key global-map (kbd "C-,") 'helm-projectile)
 (define-key global-map (kbd "C-*") 'helm-ag)
 
+(eval-after-load 'helm
+  '(progn
+     (define-key helm-map (kbd "C-h") 'delete-backward-char)
+     ))
+
 (require 'helm-c-yasnippet)
 ;; (define-key global-map (kbd "C-") 'helm-c-yas-complete)
 
