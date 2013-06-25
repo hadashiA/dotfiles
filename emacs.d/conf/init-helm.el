@@ -12,7 +12,7 @@
 (define-key global-map (kbd "C-*") 'helm-ag)
 
 (require 'helm-c-yasnippet)
-(define-key global-map (kbd "C-.") 'helm-c-yas-complete)
+;; (define-key global-map (kbd "C-") 'helm-c-yas-complete)
 
 ;; \M-y でキルリング履歴
 (setq kill-ring-max 200) ;; kill-ring の最大値. デフォルトは 30.
@@ -79,4 +79,5 @@
 ;;    '(anything-c-sources-rubygems-local)
 ;;    "*anything local gems*"
 ;;   ))
+
 

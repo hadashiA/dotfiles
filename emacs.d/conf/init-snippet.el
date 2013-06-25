@@ -61,12 +61,6 @@
 ;;                (flymake-mode-on)
 ;;                (setq flymake-is-active-flag nil))))
 
-;; http://d.hatena.ne.jp/rubikitch/20080420/1208641182
-(defadvice skk-j-mode-on (after yasnippet activate)
-  (yas/minor-mode-off))
-(defadvice skk-latin-mode-on (after yasnippet activate)
-  (yas/minor-mode-on))
-
 ;; yasnippet初期化
 (setq yas-snippet-dirs
       '("~/.emacs.d/snippets"            ;; personal snippets
