@@ -19,20 +19,20 @@
       (let ((system-time-locale "C"))
         ad-do-it))))
 
-(when (require 'dired-x)
-  (setq dired-guess-shell-alist-user
-        '(("\\.tar\\.gz\\'"  "tar ztvf")
-          ("\\.taz\\'" "tar ztvf")
-          ("\\.tar\\.bz2\\'" "tar Itvf")
-          ("\\.zip\\'" "unzip -l")
-          ("\\.\\(g\\|\\) z\\'" "zcat")
-          ("\\.\\(jpg\\|JPG\\|gif\\|GIF\\)\\'" (when run-carbon-emacs "open"))
-          ))
+(require 'dired-x)
+(setq dired-guess-shell-alist-user
+      '(("\\.tar\\.gz\\'"  "tar ztvf")
+        ("\\.taz\\'" "tar ztvf")
+        ("\\.tar\\.bz2\\'" "tar Itvf")
+        ("\\.zip\\'" "unzip -l")
+        ("\\.\\(g\\|\\) z\\'" "zcat")
+        ("\\.\\(jpg\\|JPG\\|gif\\|GIF\\)\\'" (when run-carbon-emacs "open"))
+        ))
 
-  (global-set-key "\C-x\C-d" 'dired-jump)
-  ;; (global-set-key "\C-x\C-j" 'skk-auto-fill-mode)
-  (global-set-key "\C-x\C-j" 'skk-mode)
-  )
+(global-set-key "\C-x\C-d" 'dired-jump)
+;; (global-set-key "\C-x\C-j" 'skk-auto-fill-mode)
+(global-set-key "\C-x\C-j" 'skk-mode)
+  
 
 (add-hook 'dired-load-hook
           (lambda ()
