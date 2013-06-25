@@ -68,5 +68,8 @@
   (yas/minor-mode-on))
 
 ;; yasnippet初期化
-(yas-global-mode t)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"            ;; personal snippets
+        ))
+(yas-global-mode 1)
 
