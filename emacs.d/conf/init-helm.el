@@ -1,15 +1,18 @@
 ;; ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-;") 'helm-for-files)
-(global-set-key (kbd "C-:") 'helm-resume)
-
-;; (global-set-key (kbd "C-*") 'anything-execute-extended-command)
-
 (setq helm-enable-shortcuts 'alphabet)
 (setq helm-display-function 'pop-to-buffer)
 (setq helm-display-function 'helm-default-display-buffer)
 
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-;") 'helm-for-files)
+(global-set-key (kbd "C-:") 'helm-resume)
+
+(define-key global-map (kbd "C-,") 'helm-projectile)
+(define-key global-map (kbd "C-*") 'helm-ag)
+
+(require 'helm-c-yasnippet)
+(define-key global-map (kbd "C-.") 'helm-c-yas-complete)
 
 ;; \M-y でキルリング履歴
 (setq kill-ring-max 200) ;; kill-ring の最大値. デフォルトは 30.
@@ -77,13 +80,3 @@
 ;;    "*anything local gems*"
 ;;   ))
 
-(require 'helm-projectile)
-(define-key global-map (kbd "C-,") 'helm-projectile)
-
-(require 'helm-ag)
-(require 'helm-ack)
-(define-key global-map (kbd "C-*") 'helm-ack)
-
-
-(require 'helm-c-yasnippet)
-(define-key global-map (kbd "C-+") 'helm-c-yas-complete)

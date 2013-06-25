@@ -37,8 +37,8 @@
 (add-hook 'dired-load-hook
           (lambda ()
             (when run-darwin
-              (setq insert-directory-program "gls"))
-            (setq insert-directory-program "gls" dired-use-ls-dired t) 
+              (setq insert-directory-program "gls")
+              (setq insert-directory-program "gls" dired-use-ls-dired t))
             (require 'sorter)))
 
 ;; ディレクトリを移動してもソート方法が変化しない
