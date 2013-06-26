@@ -1,24 +1,39 @@
 ;; ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-(setq helm-enable-shortcuts 'alphabet)
 (setq helm-display-function 'pop-to-buffer)
 (setq helm-display-function 'helm-default-display-buffer)
 
-(define-key helm-map (kbd "C-v") 'helm-next-source)
-(define-key helm-map (kbd "M-v") 'helm-previous-source)
+(eval-after-load 'helm
+  '(progn
+     (define-key helm-map (kbd "C-h") 'delete-backward-char)
+     (define-key helm-map (kbd "C-v") 'helm-next-source)
+     (define-key helm-map (kbd "M-v") 'helm-previous-source)
+     ))
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-;") 'helm-for-files)
 (global-set-key (kbd "C-:") 'helm-resume)
 
-(define-key global-map (kbd "C-,") 'helm-projectile)
 (define-key global-map (kbd "C-*") 'helm-ag)
 
+;; (define-key global-map (kbd "C-,") 'helm-projectile)
+(require 'helm-project)
+(define-key global-map (kbd "C-,") 'helm-project)
+(setq hp:project-files-filters
+      (list
+       (lambda (files)
+         (remove-if 'file-directory-p files))))
 
-(eval-after-load 'helm
-  '(progn
-     (define-key helm-map (kbd "C-h") 'delete-backward-char)
-     ))
+(hp:add-project
+ :name 'ruby
+ :look-for '("Gemfile" "Rakefile")
+ :exclude-directory-regexp "\\(vendor\\|tmp\\|log\\|doc\\|\\.git\\|work\\)")
+
+(hp:add-project
+ :name 'php
+ :look-for '("index.php")
+ :include-regexp '("\\.php$" "\\.tpl$" "\\.css$" "\\.js$")
+ :exclude-directory-regexp "\\(\\.git\\|templates_c\\|img\\)")
 
 (require 'helm-c-yasnippet)
 ;; (define-key global-map (kbd "C-") 'helm-c-yas-complete)
