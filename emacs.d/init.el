@@ -101,6 +101,7 @@
 (load "init-paren")
 (load "init-undo")
 (load "init-color")
+(load "init-search")
 ;; (load "init-font")
 (load "init-window")
 (load "init-highlighting")
