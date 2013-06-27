@@ -1,8 +1,8 @@
 (add-to-load-path "~/.emacs.d/elisp/testkick/")
-(when (require 'testkick)
-  (global-set-key (kbd "C-`") 'testkick)
-  (global-set-key (kbd "C-+") 'testkick-toggle)
-  )
+(require 'testkick)
+(global-set-key (kbd "C-M-@") 'testkick)
+(global-set-key (kbd "C-M-;") 'testkick-toggle)
+  
 
 ;; Coloring on the results of shell command. Handle escape sequences correctly
 (autoload 'ansi-color-apply-on-region "ansi-color"

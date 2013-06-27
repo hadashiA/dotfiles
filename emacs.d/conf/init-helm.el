@@ -11,9 +11,19 @@
      ))
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
+
+;; for files
+;; (setq helm-for-files-preferred-list
+;;       '(helm-source-ls-git-status
+;;         helm-source-buffers-list
+;;         helm-source-recentf
+;;         helm-source-bookmarks
+;;         helm-source-file-cache
+;;         helm-source-files-in-current-dir
+;;         helm-source-locate
+;;         ))
 (global-set-key (kbd "C-;") 'helm-for-files)
 (global-set-key (kbd "C-:") 'helm-resume)
-
 (define-key global-map (kbd "C-*") 'helm-ag)
 
 ;; (define-key global-map (kbd "C-,") 'helm-projectile)
@@ -52,11 +62,13 @@
 
 (require 'helm-gtags)
 (add-hook 'c-mode-common-hook (lambda () (helm-gtags-mode)))
+(add-hook 'php-mode-hook (lambda () (helm-gtags-mode)))
 (add-hook 'helm-gtags-mode-hook
           '(lambda ()
              (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
              (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
              (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+             (local-set-key (kbd "C-+") 'helm-gtags-select)
              (local-set-key (kbd "C-S-t") 'helm-gtags-pop-stack)))
 
 ;; (defvar anything-c-sources-rubygems-local
