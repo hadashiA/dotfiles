@@ -93,7 +93,6 @@
                              (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
                              (repeat . t)
                              (modes  . '(objc-mode))))))
-(setq c-delete-function 'matelike-delete-pair)
 
 
 ;; c++
