@@ -31,6 +31,7 @@
  '(ido-max-directory-size 'const)
  '(ido-enter-matching-directory 'first))
 ;; (define-key ido-file-dir-completion-map (kbd "SPC") 'ido-exit-minibuffer)
+(setq ido-use-filename-at-point 'guess)
 (add-hook 'ido-setup-hook 
           (lambda () 
             (define-key ido-file-dir-completion-map (kbd "C-h") 'ido-delete-backward-updir)
