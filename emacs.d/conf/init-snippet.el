@@ -10,13 +10,11 @@
                                               (buffer-name (current-buffer))))))))
 
 (require 'yasnippet)
-(custom-set-variables '(yas-trigger-key "C-o"))
 
-;; 既存スニペットを挿入する
-(define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
-;; 新規スニペットを作成するバッファを用意する
+(define-key yas-minor-mode-map (kbd "C-o") 'yas-expand-from-trigger-key)
+(define-key yas-minor-mode-map (kbd "C-n") 'yas-next-field)
+(define-key yas-minor-mode-map (kbd "C-p") 'yas-prev-field)
 (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
-;; 既存スニペットを閲覧・編集する
 (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
 
 (setq yas-use-menu nil
@@ -39,7 +37,9 @@
 ;;      (setq yas/text-popup-function
 ;;            #'yas/dropdown-list-popup-for-template))
 (require 'dropdown-list)
-(setq yas-prompt-functions '(yas/dropdown-prompt))
+(setq yas-prompt-functions '(yas-dropdown-prompt
+                             yas-ido-prompt
+                             yas-completing-prompt))
 
 ;;; [2008-03-17]
 ;;; yasnippet展開中はflymakeを無効にする

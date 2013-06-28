@@ -50,7 +50,7 @@
  :exclude-directory-regexp "\\(\\.git\\|templates_c\\|img\\)")
 
 (require 'helm-c-yasnippet)
-;; (define-key global-map (kbd "C-") 'helm-c-yas-complete)
+(define-key yas-minor-mode-map (kbd "C-x i i") 'helm-c-yas-complete)
 
 ;; \M-y でキルリング履歴
 (setq kill-ring-max 200) ;; kill-ring の最大値. デフォルトは 30.
