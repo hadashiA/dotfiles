@@ -1,7 +1,11 @@
 ;; ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-(setq helm-display-function 'pop-to-buffer)
-(setq helm-display-function 'helm-default-display-buffer)
+(setq helm-display-function
+      (lambda (buf)
+        (when (one-window-p)
+          (split-window-horizontally))
+        (other-window 1)
+        (switch-to-buffer buf)))
 
 (eval-after-load 'helm
   '(progn
