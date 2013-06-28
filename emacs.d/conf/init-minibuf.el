@@ -18,10 +18,24 @@
 ;; pointがある箇所のファイルを開く
 (ffap-bindings)
 
-;; ;; M-x時にヒストリを利用
+;; M-x時にヒストリを利用
 (require 'mcomplete)
 (load "mcomplete-history")
 (turn-on-mcomplete-mode)
+
+(require 'ido)
+(ido-mode t)
+(ido-everywhere t)
+(setq ido-enable-flex-matching t)
+(custom-set-variables
+ '(ido-max-directory-size 'const)
+ '(ido-enter-matching-directory 'first))
+;; (define-key ido-file-dir-completion-map (kbd "SPC") 'ido-exit-minibuffer)
+(add-hook 'ido-setup-hook 
+          (lambda () 
+            (define-key ido-file-dir-completion-map (kbd "C-h") 'ido-delete-backward-updir)
+            ))
+(global-set-key (kbd "C-x C-f") 'ido-find-file)
 
 ;; [2008-03-03]
 ;; これ、M-!でできるよ？shell-commandをrequireしてるから？
@@ -32,14 +46,14 @@
 
 ;; ミニバッファのセッションを保存
 ;; http://d.hatena.ne.jp/higepon/20061230/1167447339
-(when (require 'session nil t)
-  (setq session-initialize '(de-saveplace session keys menus)
-        session-globals-include '((kill-ring 50)
-                                  (session-file-alist 500 t)
-                                  (file-name-history 10000)))
-  (setq session-globals-max-string 100000000)
-  (setq history-length t)
-  (add-hook 'after-init-hook 'session-initialize))
+(require 'session)
+(setq session-initialize '(de-saveplace session keys menus)
+      session-globals-include '((kill-ring 50)
+                                (session-file-alist 500 t)
+                                (file-name-history 10000)))
+(setq session-globals-max-string 100000000)
+(setq history-length t)
+(add-hook 'after-init-hook 'session-initialize)
 
 ;; 同名ファイルが複数ある時に、わかりやすくする
 ;; http://clouder.jp/yoshiki/mt/archives/000673.html

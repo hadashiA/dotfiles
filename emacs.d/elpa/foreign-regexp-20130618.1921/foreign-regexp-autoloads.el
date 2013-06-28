@@ -4,7 +4,7 @@
 (add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
 ;;;### (autoloads nil nil ("foreign-regexp-pkg.el" "foreign-regexp.el")
-;;;;;;  (20939 43194 902314 0))
+;;;;;;  (20941 14843 750343 0))
 
 ;;;***
 

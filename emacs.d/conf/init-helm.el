@@ -10,7 +10,7 @@
      (define-key helm-map (kbd "M-v") 'helm-previous-source)
      ))
 
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
+;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;; for files
 ;; (setq helm-for-files-preferred-list

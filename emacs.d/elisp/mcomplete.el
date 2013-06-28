@@ -1,12 +1,12 @@
 ;;; mcomplete.el --- minibuffer completion with prefix and substring matching
 
-;; Copyright (C) 2000 Yuji 'bmonkey' Minejima <ggb01164@nifty.ne.jp>
+;; Copyright (C) 2000-2004, 2011-2012 Yuji Minejima <bmonkey@nifty.com>
 
-;; Author: Yuji Minejima <ggb01164@nifty.ne.jp>
-;; $Revision: 1.5 $
-;; Keywords: local, help, abbrev
+;; Author: Yuji Minejima <bmonkey@nifty.com>
+;; $Revision: 1.10 $
+;; Keywords: completion convenience
 
-;; This file is NOT part of GNU Emacs.
+;; This file is not part of GNU Emacs.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -19,37 +19,42 @@
 ;; General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
 
-;; This program borrows the ideas and the design of the following
-;; programs:
+;; This program borrows ideas and the design of the following packages:
 ;;
 ;;  icomplete.el --- minibuffer completion incremental feedback
-;;  Copyright (C) 1992, 1993, 1994, 1997 Free Software Foundation, Inc.
-;;  Author: Ken Manheimer <klm@python.org>
+;;  Copyright (C) 1992-1994, 1997, 1999, 2001-2012 Free Software Foundation, Inc.
+;;  Author: Ken Manheimer <klm@i.am>
 ;;
 ;;  iswitchb.el --- switch between buffers using substrings
-;;  Copyright (C) 1996, 1997  Free Software Foundation, Inc.
-;;  Author: Stephen Eglen <stephen@anc.ed.ac.uk>
+;;  Copyright (C) 1996-1997, 2000-2012  Free Software Foundation, Inc.
+;;  Author: Stephen Eglen <stephen@gnu.org>
 ;;
 ;; All of these are distributed under GPL.
-;; Thanks to the authors for writing these excellent programs.
+;; Thanks to the authors for writing these excellent packages.
 
 
 ;;; Commentary:
 
-;; This package enhances Emacs's minibuffer completion mechanism.
+;; Recommendation:
+;; * Before using this package, try using the standard package icomplete.el which
+;;   is bundled with GNU Emacs.
+;; * After using this package and you like it but you want more features like
+;;   regexp matching. Try using icicles package.
 ;;
-;; In short, this is icomplete.el + iswitchb.el +/- something.
+;; This package enhances Emacs's minibuffer completion mechanism.
+;; It tries to handle all minibuffer inputs.
 ;;
 ;; Features:
 ;;  * supports 2 completion methods (prefix and substring matching).
-;;    Prefix matching is the Emacs's default completion method.
+;;    Prefix matching is a straight forward method where the
+;;    completion commands tries to match your input with the beginning
+;;    of the possible completions.
+;;
 ;;    Substring matching is a completion method where all the
 ;;    completion commands work in terms of a substring of the
-;;    all possible completions.
+;;    possible completions.
 ;;    e.g.  "buffer" matches "backup-buffer", "buffer-name",
 ;;                                   ^^^^^^    ^^^^^^
 ;;          "exit-minibuffer", ...
@@ -76,26 +81,17 @@
 ;;  * supports faces (highlights the display).
 ;;
 ;;  * supports customization per user command.
+;;
+;;
 
 
 ;;; Requirements:
 
-;; Tested with GNU Emacs 20.7.2, GNU Emacs 21.0.91.1 and XEmacs 21.1.9.
+;; Tested with GNU Emacs 24.1(I no longer use XEmacs).
 
 
 ;;; Compatibility:
 
-;; complete.el
-;;   tab, space, ... is used for mcomplete-mode.
-;;   M-tab, M-SPACE, ... might work.
-;;
-;; completing-help.el (>= version 3.3)
-;;   With this packege, short descriptions on completions is displayed
-;;   by pressing `?'.
-;;
-;;   You can get completing-help.el at
-;;   http://homepage1.nifty.com/bmonkey/emacs/elisp/completing-help.el
-;;
 ;; icomplete.el
 ;;   icomplete-mode gets turned off when mcomplete-mode is activated.
 ;;
@@ -104,14 +100,11 @@
 ;;
 ;; iswitchb.el
 ;;   Both work. iswitchb commands take precedence.
-;;
 
 
 ;;; Install:
 
 ;; 1: Put this file in one of the directories listed in `load-path'.
-;;    You can see the contents of `load-path' by entering
-;;    `M-x customize-option <RET> load-path'.
 ;;
 ;; 2: Enter `M-x byte-compile-file <RET>
 ;;          <DIR-YOU-PUT-THIS-FILE-IN>/mcomplete.el <RET>'
@@ -180,7 +173,7 @@
 ;;          ;; using the value of `completion-ignore-case'.
 ;;         ))
 ;;
-;;  Here's code for bookmark-jump a la iswitch-buffer.
+;;  Here's a code snippet for bookmark-jump a la iswitch-buffer.
 ;;  (put 'bookmark-jump
 ;;       'mcomplete-mode
 ;;       '(:method-set (mcomplete-substr-method mcomplete-prefix-method)
@@ -203,19 +196,22 @@
 ;;    |
 ;;    v
 ;; (run-hooks 'minibuffer-setup-hook) -+
-;;    |                                |
-;;    |                                v
-;;    |           `mcomplete-minibuffer-setup'
-;;    |              (when (mcomplete-p)
-;;    |                 (run-hooks 'mcomplete-minibuffer-setup-hook))
-;;    |                                |
-;;    |                                v
-;;    |           `mcomplete-setup-command-hooks'
-;;    |              * registers `mcomplete-pre-command-hook' in
-;;    |                the buffer local `pre-command-hook'.
-;;    |              * registers `mcomplete-post-command-hook' in
-;;    |                the buffer local `post-command-hook'.
-;;    v
+;;                                     |
+;;                                     v
+;;                `mcomplete-minibuffer-setup'
+;;                   (when (mcomplete-p)
+;;                      (run-hooks 'mcomplete-minibuffer-setup-hook))
+;;                                     |
+;;                                     v
+;;                `mcomplete-setup-command-hooks'
+;;                   * registers `mcomplete-pre-command-hook' in
+;;                     the buffer local `pre-command-hook'.
+;;                   * registers `mcomplete-post-command-hook' in
+;;                     the buffer local `post-command-hook'.
+;;                                     |
+;;    +--------------------------------+
+;;    |
+;     v
 ;; The minibuffer session begins
 ;;    |
 ;;    v
@@ -223,13 +219,16 @@
 ;;    |
 ;;    v
 ;; (run-hooks 'pre-command-hook) -+
-;;    |                           |
-;;    |                           v
-;;    |           (run-hooks 'mcomplete-pre-command-hook)
-;;    |                           |
-;;    |                           v
-;;    |           `mcomplete-pre-command-tidy'
-;;    |               * clears information display in the minibuffer.
+;;                                |
+;;                                v
+;;                (run-hooks 'mcomplete-pre-command-hook)
+;;                                |
+;;                                v
+;;                `mcomplete-pre-command-tidy'
+;;                    * clears information displayed in the minibuffer.
+;;                                |
+;;    +---------------------------+
+;;    |
 ;;    v
 ;; The command for the key is executed
 ;;    |
@@ -246,8 +245,6 @@
 
 ;;; TODO:
 
-;; * more doc.
-;;
 ;; * M-x apr
 ;;     >> M-x apr[opos]{,-command,-documentation,-value,-zippy}
 ;;     C-s C-s
@@ -267,22 +264,38 @@
 ;;        ^^^^^^^^^^^
 ;;        highlighted
 ;;
-;; * Allow more aggressive customization per command, per method.
-;;   (put 'your-command
-;;        'mcomplete-mode
-;;        '(:method-set (mcomplete-substr-method mcomplete-prefix-method)
-;;          :ignore-case on
-;;          :substr-method (:ignore-case off :exhibit off)
-;;          :prefix-method (:ignore-case on  :exhibit on)
-;;         ))
-;;
-;; * Add more matching methods.
-;;       + partial matching method a la complete.el.
-;;       + regexp matching method
-;;
+;;;; The following commens are my old thoughts. Now I think this package has
+;;;; enough features as it is.
+;;;; * Allow more aggressive customization per command, per method.
+;;;;   (put 'your-command
+;;;;        'mcomplete-mode
+;;;;        '(:method-set (mcomplete-substr-method mcomplete-prefix-method)
+;;;;          :ignore-case on
+;;;;          :substr-method (:ignore-case off :exhibit off)
+;;;;          :prefix-method (:ignore-case on  :exhibit on)
+;;;;         ))
+;;;;
+;;;; * Add more matching methods.
+;;;;       + partial matching method a la complete.el.
+;;;;       + regexp matching method
 
 
 ;;; Change Log:
+
+;; Version 1.10 (28 Sat 2012)
+;; I just started using GNU Emacs(24.1) again.
+;; * fix a bug where clicking on an item in *Completions* buffer emits an error in
+;;   the substring match mode.
+;;   This error is due to the following reason:
+;;   `choose-completion-delete-max-match' was made obsolete by
+;;   `choose-completion-guess-base-position' on GNU Emacs as of 23.2.
+;;   So I added defadvice for choose-completion-guess-base-position.
+
+;; Version 1.6 (07 Mar 2011)
+;; Ze'ev Clementson informed me that `make-local-hook' was no longer needed
+;; and not supported in Emacs24.
+;; Thus, change to call `make-local-hook' only if (fboundp 'make-local-hook)
+;; returns true.
 
 ;; Version 1.5 (21 Aug 2004)
 ;;  * Apply a patch from J.D. Smith which changes the way completion candidates
@@ -306,8 +319,6 @@
 ;;  * Use `minibuffer-prompt-end' if available for Emacs 21
 ;;  * Avoid "FSF Emacs" and use "GNU Emacs" since that seems more appropriate.
 
-;;  * 
-;;
 
 
 ;;; Code:
@@ -396,7 +407,7 @@ With ARG, turn the mode on if ARG is positive, off otherwise."
   (when mcomplete-mode
     (when (and (boundp 'icomplete-mode) icomplete-mode)
       (icomplete-mode -1)))
-  (when (interactive-p)
+  (when (called-interactively-p 'interactive)
     (message "mcomplete-mode %s" (if mcomplete-mode "enabled" "disabled"))))
 
 ;;;###autoload
@@ -550,12 +561,19 @@ Work almost the same as `minibuffer-message'."
 
 
 ;;; *Completions* buffer
+;; These functions are called when a user press RET or clicks a mouse button
+;; in the "*Completions*" buffer.
 (defadvice choose-completion-delete-max-match
   ;; The original function is defined in GNU Emacs's simple.el,
   ;; and XEmacs's list-mode.el.
-  ;; Actually, this advise is not necessary for GNU Emacs.
-  ;; This function is called when a user press RET or clicks a mouse button
-  ;; in the "*Completions*" buffer.
+  ;; This function is obsolete as of GNU Emacs 23.2
+  (around mcomplete last activate compile preactivate)
+  "Delete appropriate piece of input string in the current minibuffer."
+  (if (mcomplete-p)
+      (delete-region (mcomplete-prompt-end) (point-max))
+    ad-do-it))
+(defadvice choose-completion-guess-base-position
+  ;; this function is defined in simple.el of GNU Emacs.
   (around mcomplete last activate compile preactivate)
   "Delete appropriate piece of input string in the current minibuffer."
   (if (mcomplete-p)
@@ -629,7 +647,6 @@ These bindings are used when an exact match is required."
 (defun mcomplete-setup-command-hooks ()
   "Setup `pre-command-hook' and `post-command-hook' for `mcomplete-mode'."
   ;; setup PRE-COMMAND-HOOK
-  ;; (make-local-hook 'pre-command-hook)
   (if (fboundp 'make-local-hook)
       (make-local-hook 'pre-command-hook))
   (add-hook 'pre-command-hook
@@ -638,7 +655,6 @@ These bindings are used when an exact match is required."
             t)                          ; t means a local hook
 
   ;; setup POST-COMMAND-HOOK
-  ;; (make-local-hook 'post-command-hook)
   (if (fboundp 'make-local-hook)
       (make-local-hook 'post-command-hook))
   (add-hook 'post-command-hook
@@ -1094,17 +1110,16 @@ Otherwise try to complete it."
 
 (add-hook 'mcomplete-minibuffer-setup-hook 'mcomplete-setup-command-env)
 
-(mapcar #'(lambda (f) (put f 'mcomplete-mode '(:mode off)))
-        '(iswitchb-buffer iswitchb-buffer-other-window
-          iswitchb-display-buffer iswitchb-buffer-other-frame
-          
-          ido-find-file ido-find-alternate-file ido-write-file
-          ido-insert-file ido-switch-buffer ido-insert-buffer
-          ido-kill-buffer ido-find-file-other-window
-          ido-find-file-other-window ido-switch-buffer-other-window
-          ido-display-buffer ido-find-file-other-frame
-          ido-switch-buffer-other-frame))
-
+(mapc #'(lambda (f) (put f 'mcomplete-mode '(:mode off)))
+      '(iswitchb-buffer iswitchb-buffer-other-window
+        iswitchb-display-buffer iswitchb-buffer-other-frame
+        
+        ido-find-file ido-find-alternate-file ido-write-file
+        ido-insert-file ido-switch-buffer ido-insert-buffer
+        ido-kill-buffer ido-find-file-other-window
+        ido-find-file-other-window ido-switch-buffer-other-window
+        ido-display-buffer ido-find-file-other-frame
+        ido-switch-buffer-other-frame))
 
 ;; ------------------------------------------------------------------
 ;;; default plist for all methods

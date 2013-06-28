@@ -1,10 +1,11 @@
-;;; goto-last-change.el --- Move point through buffer-undo-list positions -*-unibyte: t; coding: iso-8859-1;-*-
+;;; goto-last-change.el --- Move point through buffer-undo-list positions
 
-;; Copyright © 2003 Kevin Rodgers
+;; Copyright Â© 2003 Kevin Rodgers
 
 ;; Author: Kevin Rodgers <ihs_4664@yahoo.com>
 ;; Created: 17 Jun 2003
-;; Version: $Revision: 1.2 $
+;; Version: 20121115.1014
+;; X-Original-Version: $Revision: 1.2 $
 ;; Keywords: convenience
 ;; RCS: $Id: goto-last-change.el,v 1.2 2003/07/30 17:43:47 kevinr Exp kevinr $
 
@@ -139,3 +140,4 @@ in a sequence of invocations."
 ;; (global-set-key "\C-x\C-\\" 'goto-last-change)
 
 ;;; goto-last-change.el ends here
+

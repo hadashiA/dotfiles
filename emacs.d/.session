@@ -1,0 +1,2736 @@
+;;; Automatically generated on Fri Jun 28 16:57:48 2013
+;;; Invoked by hadashi@mattaira2.local using 24.3.50.1
+(setq-default kill-ring '(#("
+" 0 1 (fontified t)) "(put 'shell 'ido 'ignore)
+(defadvice ido-read-buffer (around ido-read-buffer-possibly-ignore activate)
+  \"Check to see if use wanted to avoid using ido\"
+  (if (eq (get this-command 'ido) 'ignore)
+      (let ((read-buffer-function nil))
+        (run-hook-with-args 'ido-before-fallback-functions 'read-buffer)
+        (setq ad-return-value (apply 'read-buffer (ad-get-args 0))))
+    ad-do-it))" "exe" #("(define-key ido-completion-map [tab] 'ido-complete)" 0 51 (fontified t)) #("(define-key ido-file-dir-completion-map (kbd \"C-h\") 'ido-delete-backward-updir)" 0 45 (fontified t) 45 50 (fontified t face font-lock-string-face) 50 79 (fontified t)) "(add-hook 'ido-setup-hook 
+          (lambda () 
+            (define-key ido-completion-map [tab] 'ido-complete))" #("file" 0 4 (fontified t)) #("helm-find-files" 0 15 (fontified t)) #(";; (global-set-key (kbd \"C-x C-f\") 'helm-find-files)" 0 3 (fontified t face font-lock-comment-delimiter-face) 3 52 (fontified t face font-lock-comment-face)) #("buffer" 0 6 (fontified t)) #("(setq ido-enable-flex-matching t)
+" 0 32 (fontified t) 32 33 (fontified t rear-nonsticky t) 33 34 (fontified t)) "(setq ido-enable-flex-matching t)" "ha" #("
+
+;;; mcomplete.el --- minibuffer completion with prefix and substring matching
+
+;; Copyright (C) 2000 Yuji 'bmonkey' Minejima <ggb01164@nifty.ne.jp>
+
+;; Author: Yuji Minejima <ggb01164@nifty.ne.jp>
+;; $Revision: 1.5 $
+;; Keywords: local, help, abbrev
+
+;; This file is NOT part of GNU Emacs.
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 2, or (at your option)
+;; any later version.
+
+;; This program is distributed in the hope that it will be useful, but
+;; WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
+
+;; This program borrows the ideas and the design of the following
+;; programs:
+;;
+;;  icomplete.el --- minibuffer completion incremental feedback
+;;  Copyright (C) 1992, 1993, 1994, 1997 Free Software Foundation, Inc.
+;;  Author: Ken Manheimer <klm@python.org>
+;;
+;;  iswitchb.el --- switch between buffers using substrings
+;;  Copyright (C) 1996, 1997  Free Software Foundation, Inc.
+;;  Author: Stephen Eglen <stephen@anc.ed.ac.uk>
+;;
+;; All of these are distributed under GPL.
+;; Thanks to the authors for writing these excellent programs.
+
+
+;;; Commentary:
+
+;; This package enhances Emacs's minibuffer completion mechanism.
+;;
+;; In short, this is icomplete.el + iswitchb.el +/- something.
+;;
+;; Features:
+;;  * supports 2 completion methods (prefix and substring matching).
+;;    Prefix matching is the Emacs's default completion method.
+;;    Substring matching is a completion method where all the
+;;    completion commands work in terms of a substring of the
+;;    all possible completions.
+;;    e.g.  \"buffer\" matches \"backup-buffer\", \"buffer-name\",
+;;                                   ^^^^^^    ^^^^^^
+;;          \"exit-minibuffer\", ...
+;;                    ^^^^^^
+;;
+;;    You can cycle through the completion methods by `C-n' and
+;;    `C-p' in the minibuffer.
+;;
+;;  * displays possible completion candidates in the minibuffer.
+;;    e.g. When you enter `M-x apr', the minibuffer looks like
+;;         the following:
+;;         M-x apr[opos]{,-command,-documentation,-value,-zippy}
+;;
+;;  * `RET' in the minibuffer picks the first candidate displayed.
+;;    e.g. `M-x apr RET' selects `apropos' command (and execute it).
+;;
+;;    You can cycle through the candidates by `C-s' and `C-r'.
+;;
+;;    When you want to give the exact string you entered, use `M-RET'
+;;    or `ESC RET'.
+;;
+;;  * `C-c' in the minibuffer toggles case significance in completion.
+;;
+;;  * supports faces (highlights the display).
+;;
+;;  * supports customization per user command.
+
+
+;;; Requirements:
+
+;; Tested with GNU Emacs 20.7.2, GNU Emacs 21.0.91.1 and XEmacs 21.1.9.
+
+
+;;; Compatibility:
+
+;; complete.el
+;;   tab, space, ... is used for mcomplete-mode.
+;;   M-tab, M-SPACE, ... might work.
+;;
+;; completing-help.el (>= version 3.3)
+;;   With this packege, short descriptions on completions is displayed
+;;   by pressing `?'.
+;;
+;;   You can get completing-help.el at
+;;   http://homepage1.nifty.com/bmonkey/emacs/elisp/completing-help.el
+;;
+;; icomplete.el
+;;   icomplete-mode gets turned off when mcomplete-mode is activated.
+;;
+;; ido.el (http://hjem.get2net.dk/storm/emacs/)
+;;   Both work. ido commands take precedence.
+;;
+;; iswitchb.el
+;;   Both work. iswitchb commands take precedence.
+;;
+
+
+;;; Install:
+
+;; 1: Put this file in one of the directories listed in `load-path'.
+;;    You can see the contents of `load-path' by entering
+;;    `M-x customize-option <RET> load-path'.
+;;
+;; 2: Enter `M-x byte-compile-file <RET>
+;;          <DIR-YOU-PUT-THIS-FILE-IN>/mcomplete.el <RET>'
+;;    to speed up the execution of this package.
+;;
+;; 3: Put the following lines in your .emacs file.
+;;
+;;    (autoload 'mcomplete-mode \"mcomplete\"
+;;      \"Toggle minibuffer completion with prefix and substring matching.\"
+;;      t nil)
+;;    (autoload 'turn-on-mcomplete-mode \"mcomplete\"
+;;      \"Turn on minibuffer completion with prefix and substring matching.\"
+;;      t nil)
+;;    (autoload 'turn-off-mcomplete-mode \"mcomplete\"
+;;      \"Turn off minibuffer completion with prefix and substring matching.\"
+;;      t nil)
+;;
+;;    If you want to activate this package as you start Emacs,
+;;    add the following line, too:
+;;    (turn-on-mcomplete-mode)
+;;
+;; 4: Restart Emacs or enter `M-x load-library <RET> mcomplete'.
+
+
+;;; Activation:
+
+;; * Enter `M-x turn-on-mcomplete-mode' to activate this package.
+;; * Enter `M-x turn-off-mcomplete-mode' to deactivate this package.
+
+
+;;; Customization:
+
+;; * Enter `M-x customize-group <RET> mcomplete' to customize this
+;;   package.
+;;   You might need to enter `M-x load-library <RET> mcomplete' in
+;;   advance.
+;;
+;; * To control the mcomplete-mode's behavior for a specific command,
+;;   write something like the following in your .emacs file.
+;;   (put 'YOUR-COMMAND
+;;        'mcomplete-mode
+;;        '(:mode on
+;;          ;; `on' means turning on `mcomplete-mode' temporarily for
+;;          ;; your-command irrespective of the current state of
+;;          ;; mcomplete-mode.
+;;          ;; `off' means the reverse of the above.
+;;          ;; `nil' or omitting the pair of :mode and its value means
+;;          ;; respecting the current state of `mcomplete-mode'.
+;;
+;;          :method-set
+;;          (mcomplete-substr-method   ; 1st matching method for your-command
+;;           mcomplete-prefix-method)  ; 2nd matching method for your-command
+;;          ;; `nil' or omitting the pair of :method-set and its value means
+;;          ;; using the value of `mcomplete-default-method-set'
+;;
+;;          :exhibit-start-chars 2
+;;          ;; Number of input characters to start to exhibit completion
+;;          ;; information.
+;;          ;; `nil' or omitting the pair of :exhibit-start-chars and its value
+;;          ;; means using the value of `mcomplete-default-exhibit-start-chars'
+;;
+;;          :ignore-case on
+;;          ;; `on' means case is not significant in completion.
+;;          ;; `off' means case is significant in completion.
+;;          ;; `nil' or omitting the pair of :ignore-case and its value means
+;;          ;; using the value of `completion-ignore-case'.
+;;         ))
+;;
+;;  Here's code for bookmark-jump a la iswitch-buffer.
+;;  (put 'bookmark-jump
+;;       'mcomplete-mode
+;;       '(:method-set (mcomplete-substr-method mcomplete-prefix-method)
+;;         :exhibit-start-chars 0))
+
+
+;;; Distribution:
+
+;; You can find the latest version of this package at:
+;; http://homepage1.nifty.com/bmonkey/emacs/elisp/mcomplete.el
+
+
+;;; How this package works:
+
+;; On loading this package,
+;; `mcomplete-minibuffer-setup' is registered in `minibuffer-setup-hook'.
+;;
+;;
+;; Some command tries to begin a minibuffer session
+;;    |
+;;    v
+;; (run-hooks 'minibuffer-setup-hook) -+
+;;    |                                |
+;;    |                                v
+;;    |           `mcomplete-minibuffer-setup'
+;;    |              (when (mcomplete-p)
+;;    |                 (run-hooks 'mcomplete-minibuffer-setup-hook))
+;;    |                                |
+;;    |                                v
+;;    |           `mcomplete-setup-command-hooks'
+;;    |              * registers `mcomplete-pre-command-hook' in
+;;    |                the buffer local `pre-command-hook'.
+;;    |              * registers `mcomplete-post-command-hook' in
+;;    |                the buffer local `post-command-hook'.
+;;    v
+;; The minibuffer session begins
+;;    |
+;;    v
+;; Some key is pressed in the minibuffer
+;;    |
+;;    v
+;; (run-hooks 'pre-command-hook) -+
+;;    |                           |
+;;    |                           v
+;;    |           (run-hooks 'mcomplete-pre-command-hook)
+;;    |                           |
+;;    |                           v
+;;    |           `mcomplete-pre-command-tidy'
+;;    |               * clears information display in the minibuffer.
+;;    v
+;; The command for the key is executed
+;;    |
+;;    v
+;; (run-hooks 'post-command-hook) -+
+;;                                 |
+;;                                 v
+;;                 (run-hooks 'mcomplete-post-command-hook)
+;;                                 |
+;;                                 v
+;;                 `mcomplete-post-command-exhibit'
+;;                    * displays information in the minibuffer.
+
+
+;;; TODO:
+
+;; * more doc.
+;;
+;; * M-x apr
+;;     >> M-x apr[opos]{,-command,-documentation,-value,-zippy}
+;;     C-s C-s
+;;     >> M-x apr[opos]{-documentation,-value,-zippy,,-command}
+;;     TAB
+;;     >> M-x apropos{,-command,-documentation,-value,-zippy}
+;;     should be
+;;     >> M-x apropos{-documentation,-value,-zippy,,-command}
+;;
+;; * XEmacs only.
+;;     M-x apropos C-a C-@ C-e
+;;     >> M-x apropos-!-{,-command,-documentation,-value,-zippy}
+;;        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+;;                         highlighted
+;;     should be
+;;     >> M-x apropos-!-{,-command,-documentation,-value,-zippy}
+;;        ^^^^^^^^^^^
+;;        highlighted
+;;
+;; * Allow more aggressive customization per command, per method.
+;;   (put 'your-command
+;;        'mcomplete-mode
+;;        '(:method-set (mcomplete-substr-method mcomplete-prefix-method)
+;;          :ignore-case on
+;;          :substr-method (:ignore-case off :exhibit off)
+;;          :prefix-method (:ignore-case on  :exhibit on)
+;;         ))
+;;
+;; * Add more matching methods.
+;;       + partial matching method a la complete.el.
+;;       + regexp matching method
+;;
+
+
+;;; Change Log:
+
+;; Version 1.5 (21 Aug 2004)
+;;  * Apply a patch from J.D. Smith which changes the way completion candidates
+;;    are sorted in subtring match method to combine the best of both
+;;    prefix and substring completion methods. By this change, completion
+;;    candidates which match the prefix are sorted to show up *before*
+;;    candidates which match in the middle.
+;;    So in substring match method, when you enter `M-x set-v', you get
+;;    M-x set-v<set-variable, set-visited-file-name customize-set-value,...>
+;;    Instead of
+;;    M-x set-v<customize-set-value, set-variable, set-visited-file-name,...>
+;;    Any comments are welcome about this change.
+
+;; Version 0.20 (18 Dec 2003)
+;;  * To get along with howm-1.1, apply patch from HIRAOKA Kazuyuki <hira@ics.saitama-u.ac.jp>
+;;  * Correct doc error in the last line of Activation section
+;;    (`M-x turn-on-mcomplete-mode' should be `M-x turn-off-mcomplete-mode'),
+;;    which Stephen Eglen reported.
+
+;; Version 0.18 (28 Oct 2001)
+;;  * Use `minibuffer-prompt-end' if available for Emacs 21
+;;  * Avoid \"FSF Emacs\" and use \"GNU Emacs\" since that seems more appropriate.
+
+;;  * 
+;;
+
+
+;;; Code:
+(eval-when-compile
+  (defvar obarray)
+  (defvar deactivate-mark)
+  (defvar buffer-undo-list)
+  (defvar quit-flag)
+  (defvar unread-command-events)
+  (defvar this-command)
+  (defvar last-command)
+  (defvar executing-kbd-macro)
+  (defvar minibuffer-local-completion-map)
+  (defvar minibuffer-local-must-match-map)
+  (defvar minibuffer-completion-table)
+  (defvar minibuffer-completion-predicate)
+  (defvar minibuffer-completion-confirm)
+  (defvar minibuffer-scroll-window)
+  (defvar completion-auto-help)
+  (defvar completion-ignore-case)
+  (defvar minibuffer-setup-hook)
+  (defvar pre-command-hook)
+  (defvar post-command-hook))
+
+
+;;; Customization group
+(defgroup mcomplete nil
+  \"This package enhances Emacs's minibuffer completion mechanism.
+
+In short, this is icomplete.el + iswitchb.el +/- something.
+
+Features:
+ * supports 2 completion methods.
+   Prefix matching is the Emacs's default completion method.
+   Substring matching is a completion method where all the
+   completion commands work in terms of a substring of the
+   all possible completions.
+   e.g.  \\\"buffer\\\" matches \\\"backup-buffer\\\", \\\"buffer-name\\\",
+         \\\"exit-minibuffer\\\", ...
+
+   You can toggle the completion methods by `C-n' and `C-p' in
+   the minibuffer.
+
+ * displays possible completion candidates in the minibuffer.
+   e.g. When you enter `M-x apr', the minibuffer looks like
+        the following:
+        M-x apr[opos]{,-command,-documentation,-value,-zippy}
+
+ * `RET' in the minibuffer picks the first candidate displayed.
+   e.g. `M-x apr RET' selects `apropos' command (and execute it).
+
+   You can cycle through the candidates by `C-s' and `C-r'.
+
+   When you want to give the exact string you entered to the command,
+   use `M-RET' or `ESC RET'.
+
+ * supports faces (highlights the display).\"
+  :group 'minibuffer)
+
+(defcustom mcomplete-mode nil
+  \"Toggle minibuffer completion with prefix and substring matching.
+Setting this variable directly does not take effect;
+use either \\\\[customize] or the commands `mcomplete-mode',
+`turn-on-mcomplete-mode', and `turn-off-mcomplete-mode'.\"
+  :set        #'(lambda (symbol value) (mcomplete-mode (if value 1 -1)))
+  :initialize 'custom-initialize-default
+  :type       'boolean
+  :group      'mcomplete
+  :require    'mcomplete)
+
+
+;;; Mode switch
+(eval-when-compile
+  (defvar icomplete-mode)
+  (autoload 'icomplete-mode \"icomplete\"))
+
+
+;;;###autoload
+(defun mcomplete-mode (&optional arg)
+  \"Toggle minibuffer completion with prefix and substring matching.
+With ARG, turn the mode on if ARG is positive, off otherwise.\"
+  (interactive \"P\")
+  (setq mcomplete-mode (if (null arg)
+                           (not mcomplete-mode)
+                         (> (prefix-numeric-value arg) 0)))
+  (when mcomplete-mode
+    (when (and (boundp 'icomplete-mode) icomplete-mode)
+      (icomplete-mode -1)))
+  (when (interactive-p)
+    (message \"mcomplete-mode %s\" (if mcomplete-mode \"enabled\" \"disabled\"))))
+
+;;;###autoload
+(defun turn-on-mcomplete-mode ()
+  \"Turn on minibuffer completion with prefix and substring matching.\"
+  (interactive)
+  (mcomplete-mode 1))
+
+;;;###autoload
+(defun turn-off-mcomplete-mode ()
+  \"Turn off minibuffer completion with prefix and substring matching.\"
+  (interactive)
+  (mcomplete-mode -1))
+
+
+;;; Utilities
+(defun mcomplete-rotate-list (list count)
+  \"Rotate LIST COUNT times destructively.
+\\(mcomplete-rotate-list (list 1 2 3) 1) => (2 3 1).
+\\(mcomplete-rotate-list (list 1 2 3) -1) => (3 1 2).\"
+  (when list
+    (let* ((len (length list))
+           (count (mod count len))
+           new-top new-last)
+      (if (zerop count)
+          list
+        (setq new-last (nthcdr (1- count) list)
+              new-top  (cdr new-last))
+        (setcdr (last new-top) list)
+        (setcdr new-last nil)
+        new-top))))
+
+
+;;; Completion methods
+(defvar mcomplete-method-default-plist) ; defined later
+
+(defcustom mcomplete-default-method-set
+  '(mcomplete-prefix-method mcomplete-substr-method)
+  \"List of completion methods.  The first method is applied first.\"
+  :type  '(repeat function)
+  :group 'mcomplete)
+
+(defvar mcomplete-current-method-set
+  nil
+  \"List of completion method symbols for the current minibuffer.
+Users can activate these methods during a minibuffer session.\")
+(make-variable-buffer-local 'mcomplete-current-method-set)
+
+(defun mcomplete-current-method ()
+  \"Return the completion method symbol for the current minibuffer.\"
+  (car mcomplete-current-method-set))
+
+(defun mcomplete-get (property &optional method)
+  \"Return PROPERTY of completion METHOD (default current method).\"
+  (unless method (setq method (mcomplete-current-method)))
+  (if (memq property (symbol-value method))
+      (plist-get (symbol-value method) property)
+    (plist-get mcomplete-method-default-plist property)))
+
+
+(defvar mcomplete-display-current-method-name-sec 0.5
+  \"Number of seconds to display the current method name when it's changed.\")
+
+(defun mcomplete-display-current-method-name ()
+  \"Display the current method name in the minibuffer.\"
+  (unless (input-pending-p)
+    (let ((name (mcomplete-get :name))
+          (sec  mcomplete-display-current-method-name-sec))
+      (unless (stringp name)
+        (error \"mcomplete: name not defined for method %s\"
+               (mcomplete-current-method)))
+      (mcomplete-message (format \" [%s]\" name) sec))))
+
+
+;;; minibuffer utilities
+(defun mcomplete-prompt-end ()
+  (if (fboundp 'minibuffer-prompt-end)
+      (minibuffer-prompt-end)
+      (point-min)))
+
+(defsubst mcomplete-minibuffer-string ()
+  (buffer-substring (mcomplete-prompt-end) (point-max)))
+
+(defsubst mcomplete-clear-minibuffer ()
+  (delete-region (mcomplete-prompt-end) (point-max)))
+
+
+(defun mcomplete-message (str &optional sec)
+  \"Display STR at the end of the minibuffer for SEC (default 2) seconds.
+The minibuffer must be the current buffer.
+Stop displaying when the next input event arrives.
+Work almost the same as `minibuffer-message'.\"
+  (unless sec (setq sec 2))
+  (let ((buffer-undo-list t)            ; prevent undo recording
+        (pt-max (point-max))
+        (inhibit-quit t))
+    (save-excursion
+      (message nil)
+      (goto-char (point-max))
+      (insert str))
+    (sit-for sec)
+    (delete-region pt-max (point-max))
+    (when quit-flag
+      (let ((quit-char (if (fboundp 'current-input-mode)
+                           (nth 3 (current-input-mode))
+                         ?\\^G))
+            (char-to-event (if (fboundp 'character-to-event)
+                               'character-to-event
+                             'identity)))
+        (cond
+         ;; check new features first
+         ((boundp 'unread-command-events)
+          (setq unread-command-events (list (funcall char-to-event quit-char))
+                quit-flag nil))
+         ;;;((boundp 'unread-command-event)
+         ;;; (setq unread-command-event (funcall char-to-event quit-char)
+         ;;;       quit-flag nil))
+         ;;;
+         ;;;((boundp 'unread-command-char)
+         ;;; (setq unread-command-char quit-char
+         ;;;       quit-flag nil))
+         (t
+          (error \"mcomplete-message: %S is not bound.\"
+                 'unread-command-events)))))))
+
+;;; Minibuffer setup hook
+(defun mcomplete-p ()
+  \"Return non-nil if `mcomplete-mode' is applicable to the current minibuffer.\"
+  (and (symbolp this-command)
+       (let ((mode (plist-get (get this-command 'mcomplete-mode) :mode)))
+         (cond ((eq mode 'on)  t)
+               ((eq mode 'off) nil)
+               ((eq mode 'nil) mcomplete-mode)))
+       (window-minibuffer-p (selected-window))
+       (not executing-kbd-macro)
+       (not (functionp minibuffer-completion-table))
+       minibuffer-completion-table))
+
+(defvar mcomplete-minibuffer-setup-hook nil
+  \"`minibuffer-setup-hook' hook for `mcomplete-mode'.\")
+
+(defun mcomplete-minibuffer-setup ()
+  \"Run `mcomplete-minibuffer-setup-hook' if `mcomplete-mode' is active.\"
+  (when (mcomplete-p)
+    (run-hooks 'mcomplete-minibuffer-setup-hook)
+    (when (featurep 'xemacs)
+      ;; needed when mcomplete-exhibit-start-chars is 0
+      (run-hooks (mcomplete-get :post-command-hook)))))
+
+(add-hook 'minibuffer-setup-hook 'mcomplete-minibuffer-setup)
+
+
+;;; *Completions* buffer
+(defadvice choose-completion-delete-max-match
+  ;; The original function is defined in GNU Emacs's simple.el,
+  ;; and XEmacs's list-mode.el.
+  ;; Actually, this advise is not necessary for GNU Emacs.
+  ;; This function is called when a user press RET or clicks a mouse button
+  ;; in the \"*Completions*\" buffer.
+  (around mcomplete last activate compile preactivate)
+  \"Delete appropriate piece of input string in the current minibuffer.\"
+  (if (mcomplete-p)
+      (delete-region (mcomplete-prompt-end) (point-max))
+    ad-do-it))
+
+
+;;; Key maps
+(defcustom mcomplete-permissive-completion-map-alist
+  '((\"\\t\"   . MComplete-complete)
+    (\" \"    . MComplete-complete-word)
+    (\"?\"    . MComplete-completion-help)
+    (\"\\r\"   . MComplete-exit-minibuffer)
+    (\"\\e\\r\" . exit-minibuffer)
+    (\"\\n\"   . MComplete-exit-minibuffer)
+    (\"\\e\\n\" . exit-minibuffer)
+    (\"\\C-c\" . MComplete-toggle-ignore-case)
+    (\"\\C-n\" . MComplete-next-method)
+    (\"\\C-p\" . MComplete-previous-method)
+    (\"\\C-s\" . MComplete-next-candidate)
+    (\"\\C-r\" . MComplete-previous-candidate))
+  \"Alist of key bindings to override `minibuffer-local-completion-map'.
+These bindings are used when an exact match is NOT required.\"
+  :type  '(repeat
+           (cons (choice string
+                         (restricted-sexp :match-alternatives (vectorp)))
+                 ;; the vector designator can be more elaborate (using
+                 ;; :inline) but I found they were harder to input in
+                 ;; the customization buffer.
+                 function))
+  :group 'mcomplete)
+
+(defcustom mcomplete-must-match-completion-map-alist
+  '((\"\\t\"   . MComplete-complete)
+    (\" \"    . MComplete-complete-word)
+    (\"?\"    . MComplete-completion-help)
+    (\"\\r\"   . MComplete-complete-and-exit)
+    (\"\\n\"   . MComplete-complete-and-exit)
+    (\"\\C-c\" . MComplete-toggle-ignore-case)
+    (\"\\C-n\" . MComplete-next-method)
+    (\"\\C-p\" . MComplete-previous-method)
+    (\"\\C-s\" . MComplete-next-candidate)
+    (\"\\C-r\" . MComplete-previous-candidate))
+  \"Alist of key bindings to override `minibuffer-local-must-match-map'.
+These bindings are used when an exact match is required.\"
+  :type  '(repeat
+           (cons (choice string
+                         (restricted-sexp :match-alternatives (vectorp)))
+                 function))
+  :group 'mcomplete)
+
+(defun mcomplete-setup-local-keymap ()
+  \"Setup local keymap for `mcomplete-mode'.\"
+  (let* ((old-map (current-local-map))
+         (new-map (copy-keymap old-map))
+         (alist   (if (eq (lookup-key old-map \"\\n\")
+                          (lookup-key minibuffer-local-completion-map \"\\n\"))
+                      ;; For GNU Emacs, we can simply get away with (eq old-map
+                      ;; minibuffer-local-completion-map), but XEmacs makes
+                      ;; a copy and defines a help-key binding in it.
+                      mcomplete-permissive-completion-map-alist
+                    mcomplete-must-match-completion-map-alist)))
+    (use-local-map new-map)
+    (mapcar #'(lambda (assoc) (define-key new-map (car assoc) (cdr assoc)))
+            alist)))
+  
+(add-hook 'mcomplete-minibuffer-setup-hook 'mcomplete-setup-local-keymap)
+
+
+;;; Pre/Post-Command hooks
+(defun mcomplete-setup-command-hooks ()
+  \"Setup `pre-command-hook' and `post-command-hook' for `mcomplete-mode'.\"
+  ;; setup PRE-COMMAND-HOOK
+  ;; (make-local-hook 'pre-command-hook)
+  (if (fboundp 'make-local-hook)
+      (make-local-hook 'pre-command-hook))
+  (add-hook 'pre-command-hook
+            #'(lambda () (run-hooks (mcomplete-get :pre-command-hook)))
+            nil                         ; nil means prepend
+            t)                          ; t means a local hook
+
+  ;; setup POST-COMMAND-HOOK
+  ;; (make-local-hook 'post-command-hook)
+  (if (fboundp 'make-local-hook)
+      (make-local-hook 'post-command-hook))
+  (add-hook 'post-command-hook
+            #'(lambda () (run-hooks (mcomplete-get :post-command-hook)))
+            nil                         ; nil means prepend
+            t))                         ; t means a local hook
+
+(add-hook 'mcomplete-minibuffer-setup-hook 'mcomplete-setup-command-hooks)
+
+
+(defvar mcomplete-input \"\"
+  \"Minibuffer contents without completion information.\")
+(make-variable-buffer-local 'mcomplete-input)
+
+(defvar mcomplete-pre-command-hook nil
+  \"`pre-command-hook' for `mcomplete-mode'.\")
+
+(defun mcomplete-pre-command-tidy ()
+  \"Delete completion information in the minibuffer.\"
+  (let ((buffer-undo-list t)      ; prevent undo recording
+        (deactivate-mark nil))   ; protect the original value
+    (delete-region (+ (mcomplete-prompt-end) (length mcomplete-input))
+                   (point-max))
+    (remove-text-properties (mcomplete-prompt-end) (point-max) '(face nil))
+    ;(set-buffer-modified-p nil)         ; clear modified flag
+    ))
+(add-hook 'mcomplete-pre-command-hook 'mcomplete-pre-command-tidy)
+
+(defvar mcomplete-post-command-hook nil
+  \"`post-command-hook' for `mcomplete-mode'.\")
+
+(defcustom mcomplete-default-exhibit-start-chars 1
+  \"Number of input characters to start to exhibit completion information.\"
+  :type  'integer
+  :group 'mcomplete)
+
+(defvar mcomplete-exhibit-start-chars nil
+  \"Current number of input characters to start to exhibit information.\")
+
+(defun mcomplete-post-command-exhibit ()
+  \"Exhibit completion information.\"
+  (setq mcomplete-input (mcomplete-minibuffer-string))
+  (when (and (not (input-pending-p))
+             (>= (length (mcomplete-minibuffer-string))
+                 mcomplete-exhibit-start-chars))
+    (catch 'input-pending
+      (save-match-data
+        (save-excursion
+          (let* ((buffer-undo-list t)   ; prevent undo recording
+                 (deactivate-mark nil)  ; protect the original value
+                 (str (mcomplete-minibuffer-string)))
+            (goto-char (point-max))
+                   
+            (funcall (mcomplete-get :exhibit)
+                     str
+                     (mcomplete-all-completions str \"abort on input\")
+                     (mcomplete-try-completion  str \"abort on input\"))
+            nil))))))
+
+(add-hook 'mcomplete-post-command-hook 'mcomplete-post-command-exhibit)
+
+
+;;; Method enter/leave hooks
+(defvar mcomplete-method-enter-hook nil
+  \"Hook run when entering a completion method.\")
+(add-hook 'mcomplete-method-enter-hook 'mcomplete-display-current-method-name)
+
+(defvar mcomplete-method-leave-hook nil
+  \"Hook run when leaving a completion method.\")
+
+
+
+;;; completion core functions
+(defvar mcomplete-ignore-case nil
+  \"Non-nil means case is not considered significant in completion.\")
+(make-variable-buffer-local 'mcomplete-ignore-case)
+
+
+(defun mcomplete-exact-match-p (str table &optional pred)
+  \"Return t if an exact match for STR, satisfying PRED, exists in TABLE.\"
+  (let ((ignore-case mcomplete-ignore-case))
+    (cond
+     ((listp table)                     ; alist or nil
+      (let ((assoc (funcall (if ignore-case 'assoc-ignore-case 'assoc)
+                            str table)))
+        (and assoc (or (null pred) (funcall pred assoc)))))
+
+     ((vectorp table)                   ; obarray
+      (if (and (or (string= str \"nil\")
+                   (and ignore-case (string= (downcase str) \"nil\")))
+               (eq table obarray))
+          t                             ; We catch the `nil' here
+        (let* ((lowercase-str (downcase str))
+               (symbol (if (not ignore-case)
+                           (intern-soft str table)
+                         (catch 'found
+                           (mapatoms
+                            #'(lambda (s)
+                                (when (string= lowercase-str
+                                               (downcase (symbol-name s)))
+                                  (throw 'found s)))
+                            table)))))
+          (and symbol (or (null pred) (funcall pred symbol))))))
+     
+     (t                                 ; programmed completion
+      (funcall table str pred 'lambda)))))
+
+
+(defun mcomplete-predicate-with-input-check (arg)
+  \"Throw signal if input is pending, or call `minibuffer-completion-predicate'.\"
+  (cond
+   ((input-pending-p)
+    (throw 'input-pending t))
+   (minibuffer-completion-predicate
+    (funcall minibuffer-completion-predicate arg))
+   (t t)))
+
+
+;; caching facility
+(defun mcomplete-with-cache (func cache-var method str abort-on-input)
+  \"Call FUNC chaching the result.\"
+  (let ((cache (symbol-value cache-var))
+        (table minibuffer-completion-table)
+        (pred  minibuffer-completion-predicate)
+        result)
+    (if (and (eq    method (plist-get cache :method))
+             (equal str    (plist-get cache :str))
+             (eq    table  (plist-get cache :table))
+             (eq    pred   (plist-get cache :pred))
+             (eq    mcomplete-ignore-case (plist-get cache :ignore-case)))
+        (plist-get cache :result)
+      (setq result (funcall func str abort-on-input))
+      (set cache-var (list :method method :str str :table table :pred pred
+                           :ignore-case mcomplete-ignore-case
+                           :result result))
+      result)))
+
+
+;; all-completions with cache
+(defvar mcomplete-all-completions-cache
+  '(:str nil :table nil :pred nil :method nil :result nil)
+  \"Cache for `mcomplete-all-completions'.\")
+(make-variable-buffer-local 'mcomplete-all-completions-cache)
+
+(defun mcomplete-all-completions (str &optional abort-on-input)
+  \"Call the current method's `all-completions'.\"
+  (mcomplete-with-cache (mcomplete-get :all-completions)
+                        'mcomplete-all-completions-cache
+                        (mcomplete-current-method)
+                        str abort-on-input))
+
+;; try-completion
+(defvar mcomplete-try-completion-cache
+  '(:str nil :table nil :pred nil :method nil :result nil)
+  \"Cache for `mcomplete-try-completion'.\")
+
+(defun mcomplete-try-completion (str &optional abort-on-input)
+  \"Call the current method's `try-completion'.\"
+  (mcomplete-with-cache (mcomplete-get :try-completion)
+                        'mcomplete-try-completion-cache
+                        (mcomplete-current-method)
+                        str abort-on-input))
+
+
+;;; default completion commands
+(defvar mcomplete-last-exact-completion
+  nil
+  \"Private variable to hold a state of `mcomplete-do-completion'.\")
+
+(add-hook 'mcomplete-minibuffer-setup-hook
+          #'(lambda () (setq mcomplete-last-exact-completion nil)))
+
+(defun mcomplete-do-completion ()
+  \"Perform completion in the minibuffer.\"
+  (let* ((str        (mcomplete-minibuffer-string))
+         (completion (mcomplete-try-completion str))
+         (status     '(t))
+         (last       mcomplete-last-exact-completion))
+    (setq mcomplete-last-exact-completion nil)
+
+    (cond
+     ((null completion)
+      (mcomplete-message \" [No match]\")
+      nil)                              ; nil: no possible completion
+     ((eq completion t) t)              ; t:   was already an exact and
+                                        ;      unique completion
+     (t
+      (when (> (length completion) (length str)) ; completed
+        (add-to-list 'status 'completed)
+        (mcomplete-clear-minibuffer)
+        (insert completion))
+      (when (mcomplete-exact-match-p str
+                                     minibuffer-completion-table
+                                     minibuffer-completion-predicate)
+        (add-to-list 'status 'exact)
+        (unless (memq 'completed status)
+          (setq mcomplete-last-exact-completion str)
+          (when (equal last str)
+            (mcomplete-completion-help))))
+      (when (equal status '(t))
+        (if completion-auto-help
+            (mcomplete-completion-help)
+          (mcomplete-message \" [Next char not unique]\")))
+      status))))
+
+
+(defun mcomplete-complete ()
+  \"Complete the minibuffer contents as far as possible.\"
+  (unless (eq last-command this-command)
+    (setq minibuffer-scroll-window nil))
+  (let* ((help-win-exists (and (windowp       minibuffer-scroll-window)
+                               (window-buffer minibuffer-scroll-window)
+                               (buffer-name   (window-buffer
+                                               minibuffer-scroll-window))))
+         status)
+    (if help-win-exists
+        (with-current-buffer (window-buffer minibuffer-scroll-window)
+          (if (pos-visible-in-window-p (point-max) minibuffer-scroll-window)
+              (set-window-start minibuffer-scroll-window (point-min))
+            (scroll-other-window)))
+      (setq status (mcomplete-do-completion))
+      (cond
+       ((null status) nil)
+       ((eq status t)
+        (mcomplete-message \" [Sole completion]\"))
+       ((and (not (memq 'completed status)) (memq 'exact status))
+        (mcomplete-message \" [Complete, but not unique]\")))
+      status)))
+
+
+(defun mcomplete-complete-and-exit ()
+  \"Completes the minibuffer contents, and exit.\"
+  (if (or (string= (mcomplete-minibuffer-string) \"\")
+          (mcomplete-exact-match-p (mcomplete-minibuffer-string)
+                                   minibuffer-completion-table
+                                   minibuffer-completion-predicate))
+      (throw 'exit nil)
+    (let ((status (mcomplete-do-completion)))
+      (cond
+       ((eq status t) (throw 'exit nil))
+       ((memq 'exact status)
+        (if (and (memq 'completed status) minibuffer-completion-confirm)
+            (mcomplete-message \" [Confirm]\")
+          (throw 'exit nil)))))))
+
+
+(defun mcomplete-insert-1st-candidate ()
+  (let* ((str (mcomplete-minibuffer-string))
+         (first (unless (< (length (mcomplete-minibuffer-string))
+                           mcomplete-exhibit-start-chars)
+                    (car (mcomplete-all-completions str)))))
+    (when first
+      (mcomplete-clear-minibuffer)
+      (insert first)
+      t)))
+
+(defun mcomplete-pick-1st-candidate-and-exit ()
+  \"Pick the first completion candidate, and exit (for strict completion).\"
+  (if (or (mcomplete-insert-1st-candidate)
+          (string= (mcomplete-minibuffer-string) \"\"))
+      (throw 'exit nil)
+    (mcomplete-do-completion)))
+
+(defun mcomplete-exit-minibuffer ()
+  \"Pick the first completion candidate, and exit (for permissive completion).\"
+  (mcomplete-insert-1st-candidate)
+  (exit-minibuffer))
+
+(defvar mcomplete-complete-word-high-priority-strings
+  '(\" \"  \"-\")
+  \"The default value should make `mcomplete-complete-word' act like `minibuffer-complete-word'.\")
+
+
+(defun mcomplete-complete-word ()
+  \"Complete the minibuffer contents by at most a single word.\"
+  (let* ((str        (mcomplete-minibuffer-string))
+         (completion (mcomplete-try-completion str))
+         (suffix     (when (stringp completion)
+                       (string-match (regexp-quote str) completion)
+                       (substring completion (match-end 0)))))
+    (cond
+     ((null completion)
+      (mcomplete-message \" [No match]\") nil)
+     ((eq completion t)
+      (mcomplete-message \" [Sole completion]\") nil)
+     ((string= suffix \"\")
+      (let ((strings mcomplete-complete-word-high-priority-strings))
+        (unless (catch 'inserted
+                  (while strings
+                    (when (mcomplete-try-completion (concat str (car strings)))
+                      (goto-char (point-max))
+                      (insert (car strings))
+                      (throw 'inserted t))
+                    (setq strings (cdr strings))))
+          (if completion-auto-help
+              (mcomplete-completion-help)
+            (mcomplete-message \" [Next char not unique]\")))))
+     ((string-match \"\\\\`\\\\sw*\\\\Sw?\" suffix)
+      (goto-char (point-max))
+      (insert (match-string 0 suffix))
+      t)
+     (t (error \"mcomplete-complete-word: logical error\")))))
+  ;; Completion behavior of GNU Emacs's `minibuffer-complete-word'
+  ;;
+  ;; (completing-read \"test: \" '((\"bm-emacs_something.el\")))
+  ;; <SPACE>
+  ;; bm-<SPACE>
+  ;; bm-emacs_<SPACE>
+  ;; bm-emacs_something.<SPACE>
+  ;; bm-emacs_something.el
+  ;;
+  ;; (completing-read \"test: \" '((\"space wins\") (\"space_wins\") (\"space-wins\") (\"spacewinds\")))
+  ;; <SPACE>
+  ;; \"space<SPACE>\"
+  ;; \"space <SPACE>\"
+  ;; \"space wins\"
+  ;;
+  ;; (completing-read \"test: \" '((\"hyphen-wins\") (\"hyphen_wins\")))
+  ;; <SPACE>
+  ;; hyphen<SPACE>
+  ;; hyphen-<SPACE>
+  ;; hyphen-wins
+  ;;
+  ;; (completing-read \"test: \" '((\"can't_decide\") (\"can'tdecide\")))
+  ;; <SPACE>
+  ;; can'<SPACE>
+  ;; can't<SPACE>
+  ;; [open help window]
+  ;;
+
+
+(defun mcomplete-completion-help ()
+  \"Display a list of possible completions of the current minibuffer contents.\"
+  (message \"Making completion list...\")
+  (let ((completions (mcomplete-all-completions
+                      (mcomplete-minibuffer-string))))
+    (message nil)
+    (cond
+     ((null completions)
+      (ding)
+      (mcomplete-message \" [No completions]\"))
+     (t
+      (with-output-to-temp-buffer \"*Completions*\"
+        (display-completion-list completions))))))
+
+
+;;; Minibuffer commands
+(defun MComplete-complete ()
+  \"Complete the minibuffer contents as far as possible.\"
+  (interactive)
+  (funcall (mcomplete-get :complete)))
+
+(defun MComplete-complete-word ()
+  \"Complete the minibuffer contents by at most a single word.\"
+  (interactive)
+  (funcall (mcomplete-get :complete-word)))
+
+(defun MComplete-complete-and-exit ()
+  \"If the minibuffer contents is a valid completion then exit.
+Otherwise try to complete it.\"
+  (interactive)
+  (funcall (mcomplete-get :complete-and-exit)))
+
+(defun MComplete-exit-minibuffer ()
+  \"Exit the minibuffer.\"
+  (interactive)
+  (funcall (mcomplete-get :exit-minibuffer)))
+
+
+(defun MComplete-toggle-ignore-case ()
+  \"Toggle case significance in completion.\"
+  (interactive)
+  (setq mcomplete-ignore-case (not mcomplete-ignore-case))
+  (mcomplete-message (format \"[Case is %ssignificant]\"
+                             (if mcomplete-ignore-case
+                                 \"NOT \"
+                               \"\"))
+                     0.5))
+                                    
+
+(defun MComplete-completion-help ()
+  \"Display a list of possible completions of the current minibuffer contents.\"
+  (interactive)
+  (funcall (mcomplete-get :completion-help)))
+
+(defun mcomplete-rotate-current-method-set (count-or-method)
+  (run-hooks (mcomplete-get :method-leave-hook))
+  (let ((count (if (integerp count-or-method)
+                   count-or-method
+                 (catch 'count
+                   (let ((list  mcomplete-current-method-set)
+                         (count 0))
+                     (while list
+                       (when (eq (car list) count-or-method)
+                         (throw 'count count))
+                       (setq count (1+ count)
+                             list  (cdr list)))
+                     (error \"Method symbol %S not found\" count-or-method))))))
+    (setq mcomplete-current-method-set
+          (mcomplete-rotate-list mcomplete-current-method-set count)))
+  (run-hooks (mcomplete-get :method-enter-hook)))
+
+(defun MComplete-next-method (&optional arg)
+  \"Change the completion method to the next one.\"
+  (interactive \"p\")
+  (unless arg (setq arg 1))
+  (mcomplete-rotate-current-method-set arg))
+
+(defun MComplete-previous-method (&optional arg)
+  \"Change the completion method to the previous one.\"
+  (interactive \"p\")
+  (unless arg (setq arg 1))
+  (mcomplete-rotate-current-method-set (- arg)))
+
+(defun MComplete-next-candidate (&optional arg)
+  \"Change the default completion candidate to the next one.\"
+  (interactive \"p\")
+  (unless arg (setq arg 1))
+  (let ((plist mcomplete-all-completions-cache))
+    (plist-put plist
+               :result
+               (mcomplete-rotate-list (plist-get plist :result) arg))))
+
+(defun MComplete-previous-candidate (&optional arg)
+  \"Change the default completion candidate to the previous one.\"
+  (interactive \"p\")
+  (unless arg (setq arg 1))
+  (let ((plist mcomplete-all-completions-cache))
+    (plist-put plist
+               :result
+               (mcomplete-rotate-list (plist-get plist :result) (- arg)))))
+
+
+;; ------------------------------------------------------------------
+;;; Per command customization
+;; ------------------------------------------------------------------
+(defun mcomplete-get-command-default-plist ()
+  (cons :method-set (list mcomplete-default-method-set)))
+
+(defun mcomplete-setup-command-env ()
+  (let ((plist (append (get this-command 'mcomplete-mode)
+                       (mcomplete-get-command-default-plist))))
+    (setq mcomplete-current-method-set
+          (apply 'list (plist-get plist :method-set)))
+    (setq mcomplete-exhibit-start-chars
+          (or (plist-get plist :exhibit-start-chars)
+              mcomplete-default-exhibit-start-chars))
+    (setq mcomplete-ignore-case
+          (let ((ignore (plist-get plist :ignore-case)))
+            (cond ((eq ignore 'on)  t)
+                  ((eq ignore 'off) nil)
+                  ((eq ignore 'nil) completion-ignore-case))))))
+
+(add-hook 'mcomplete-minibuffer-setup-hook 'mcomplete-setup-command-env)
+
+(mapcar #'(lambda (f) (put f 'mcomplete-mode '(:mode off)))
+        '(iswitchb-buffer iswitchb-buffer-other-window
+          iswitchb-display-buffer iswitchb-buffer-other-frame
+          
+          ido-find-file ido-find-alternate-file ido-write-file
+          ido-insert-file ido-switch-buffer ido-insert-buffer
+          ido-kill-buffer ido-find-file-other-window
+          ido-find-file-other-window ido-switch-buffer-other-window
+          ido-display-buffer ido-find-file-other-frame
+          ido-switch-buffer-other-frame))
+
+
+;; ------------------------------------------------------------------
+;;; default plist for all methods
+;; ------------------------------------------------------------------
+(defvar mcomplete-method-default-plist
+  '(;; Name
+    :name                 nil
+
+    ;; Core functions
+    :all-completions      nil
+    :try-completion       nil
+
+    ;; Method enter/leave hooks
+    :method-enter-hook    mcomplete-method-enter-hook
+    :method-leave-hook    mcomplete-method-leave-hook
+
+    ;; Minibuffer commands
+    :complete             mcomplete-complete
+    :complete-word        mcomplete-complete-word
+    :completion-help      mcomplete-completion-help
+    :complete-and-exit    mcomplete-pick-1st-candidate-and-exit
+    :exit-minibuffer      mcomplete-exit-minibuffer
+
+    ;; Pre/Post command hooks and functions
+    :pre-command-hook     mcomplete-pre-command-hook
+    :post-command-hook    mcomplete-post-command-hook)
+    \"Default property list for completion methods of `mcomplete-mode'.\")
+
+
+;; ------------------------------------------------------------------
+;;; prefix match method
+;; ------------------------------------------------------------------
+
+(defvar mcomplete-prefix-method
+  '(:name    \"Prefix match\"
+    ;; Core functions
+    :try-completion  mcomplete-prefix-method-try-completion
+    :all-completions mcomplete-prefix-method-all-completions
+    ;; Candidates exhibition
+    :exhibit mcomplete-prefix-method-exhibit)
+  \"Property list for prefix matching completion method.\")
+
+(defun mcomplete-prefix-method-try-completion (str abort-on-input)
+  \"`try-completion' for prefix matching method.\"
+  (let ((completion-ignore-case mcomplete-ignore-case))
+    (try-completion str
+                    minibuffer-completion-table
+                    (if (and minibuffer-completion-predicate abort-on-input)
+                        'mcomplete-predicate-with-input-check
+                      minibuffer-completion-predicate))))
+
+
+(defun mcomplete-prefix-method-all-completions (str abort-on-input)
+  \"`all-completions' for prefix matching method.\"
+  (let ((completion-ignore-case mcomplete-ignore-case))
+    (sort
+     (all-completions str
+                      minibuffer-completion-table
+                      (if (and minibuffer-completion-predicate abort-on-input)
+                          'mcomplete-predicate-with-input-check
+                        minibuffer-completion-predicate))
+     'string<)))
+
+
+(defface mcomplete-prefix-method-fixed-part-face
+  '((t (:bold t :foreground \"Aquamarine\")))
+  \"Face to highlight the fixed part of input for prefix matching method.\"
+  :group      'mcomplete)
+                     
+(defface mcomplete-prefix-method-alternative-part-face
+  '((t (:foreground \"Aquamarine\")))
+  \"Face to highlight the alternative part of input for prefix matching method.\"
+  :group      'mcomplete)
+
+(defun mcomplete-prefix-method-exhibit (str all try)
+  \"Exhibit prefix matching completion information in the minibuffer.\"
+  (let* ((f-face 'mcomplete-prefix-method-fixed-part-face)
+         (a-face 'mcomplete-prefix-method-alternative-part-face))
+    (unless (null try)
+      (put-text-property (mcomplete-prompt-end) (point-max) 'face f-face))
+    (cond
+     ((null try) (insert \" [No match]\"))
+     ((eq try t) (insert \" [Sole completion]\"))
+     (t
+      (let* ((fixed (substring try (length str)))
+             (tail1 (substring (car all) (length try)))
+             (rest  (cdr all))
+             tail)
+        (unless (string= fixed \"\")
+          (put-text-property 0 (length fixed) 'face f-face fixed)
+          (insert (concat \"[\" fixed \"]\")))
+        (when (or rest (not (string= tail1 \"\")))
+          (insert \"{\")
+          (put-text-property 0 (length tail1) 'face a-face tail1)
+          (insert tail1)
+          (while (and rest
+                      (< (+ (point-max)
+                            (length (setq tail (substring (car rest)
+                                                          (length try))))
+                            4)
+                         (window-width)))
+            (insert \",\" tail)
+            (setq rest (cdr rest)))
+          (insert (if rest \",..}\" \"}\"))))))))
+
+
+;; ------------------------------------------------------------------
+;;; substring match method
+;; ------------------------------------------------------------------
+
+(defvar mcomplete-substr-method
+  '(:name                 \"Substring match\"
+
+    ;; Core functions
+    :try-completion       mcomplete-substr-method-try-completion
+    :all-completions      mcomplete-substr-method-all-completions
+
+    ;; Candidates exhibition
+    :exhibit              mcomplete-substr-method-exhibit)
+  \"Property list for substring matching completion method.\")
+
+
+
+(defun mcomplete-substr-method-all-completions (str abort-on-input)
+  \"`all-completions' for substring match method of `mcomplete-mode'.\"
+  (let ((table minibuffer-completion-table)
+        (pred  (if abort-on-input
+                   'mcomplete-predicate-with-input-check
+                 minibuffer-completion-predicate)))
+    (let ((case-fold-search mcomplete-ignore-case)
+          (regexp (regexp-quote str))
+	  (len (length str))
+          list)
+      (cond
+       ((listp table)                   ; alist or nil
+        (let ((rest table))
+          (while rest
+            (when (and (string-match regexp (caar rest))
+                       (or (null pred) (funcall pred (car rest))))
+              (setq list (cons (caar rest) list)))
+            (setq rest (cdr rest)))))
+
+       ((vectorp table)                 ; obarray
+        (mapatoms
+         #'(lambda (s)
+             (when (and (string-match regexp (symbol-name s))
+                        (or (null pred) (funcall pred s)))
+               (setq list (cons (copy-sequence (symbol-name s)) list))))
+         table))
+
+       (t
+        (error \"Invalid TABLE\")))
+      
+      (sort list (lambda (a b)
+		   (let ((a-prefix (eq (compare-strings a 0 len str 0 len) t))
+			 (b-prefix (eq (compare-strings b 0 len str 0 len) t)))
+		     (cond 
+		      ;; Sort prefix matches first
+		      ((and a-prefix (not b-prefix)) t)
+		      ((and b-prefix (not a-prefix)) nil)
+		      (t (string< a b)))))))))
+
+
+(defun mcomplete-substr-method-try-completion (str abort-on-input)
+  \"`try-completion' for substring match method of `mcomplete-mode'.\"
+  (let* ((completions (mcomplete-all-completions str abort-on-input)))
+    (cond
+     ((null completions)                ; 0 candidate
+      nil)
+
+     ((null (cdr completions))          ; 1 candidate
+      (if (string= str (car completions))
+          t
+        (car completions)))
+
+     (t                                 ; multiple candidates
+      (let* ((regexp (regexp-quote str))
+             (tails-alist (mapcar #'(lambda (item)
+                                      (string-match regexp item)
+                                      (list (substring item (match-end 0))))
+                                  completions)))
+        (concat str (try-completion \"\" tails-alist)))))))
+
+
+(defface mcomplete-substr-method-fixed-part-face
+  '((t (:bold t :foreground \"SpringGreen\")))
+  \"Face to highlight the fixed part of input for substring matching method.\"
+  :group      'mcomplete)
+                     
+(defface mcomplete-substr-method-alternative-part-face
+  '((t (:foreground \"SpringGreen\")))
+  \"Face to highlight alternative parts of input for substring matching method.\"
+  :group      'mcomplete)
+
+
+(defun mcomplete-substr-method-exhibit (str all try)
+  \"Exhibit substring matching completion information in the minibuffer.\"
+  (let* ((f-face 'mcomplete-substr-method-fixed-part-face)
+         (a-face 'mcomplete-substr-method-alternative-part-face))
+    (unless (null try)
+      (put-text-property (mcomplete-prompt-end) (point-max) 'face f-face))
+    (cond
+     ((null try) (insert \" [No match]\"))
+     ((eq try t) (insert \" [Sole completion]\"))
+     (t
+      (let* ((fixed (progn
+                      (string-match (regexp-quote str) try)
+                      (substring try (match-end 0))))
+             (alt1 (copy-sequence (car all)))
+             (rest (cdr all)))
+        (unless (string= fixed \"\")
+          (put-text-property 0 (length fixed) 'face f-face fixed)
+          (insert (concat \"[\" fixed \"]\")))
+        (insert \"<\")
+        (string-match (regexp-quote try) alt1)
+        (put-text-property 0 (match-beginning 0) 'face a-face alt1)
+        (put-text-property (match-end 0) (length alt1) 'face a-face alt1)
+        (put-text-property (match-beginning 0) (match-end 0) 'face f-face alt1)
+        (insert alt1)
+        (while (and rest (< (+ (point-max) (length (car rest)) 4)
+                            (window-width)))
+          (insert \",\" (car rest))
+          (setq rest (cdr rest)))
+        (insert (if rest \",..>\" \">\")))))))
+
+
+;;; completing-help.el support
+(if (featurep 'completing-help)
+    (add-to-list 'completing-help-commands 'MComplete-completion-help)
+  (add-hook 'completing-help-load-hook
+            #'(lambda () (add-to-list 'completing-help-commands
+                                      'MComplete-completion-help))))
+
+(defvar mcomplete-load-hook nil
+  \"Hook to run at the end of loading mcomplete.\")
+
+(provide 'mcomplete)
+(run-hooks 'mcomplete-load-hook)
+
+;;; mcomplete.el ends here
+" 0 1 (fontified t) 1 2 (fontified t) 2 6 (face font-lock-comment-delimiter-face fontified t) 6 80 (face font-lock-comment-face fontified t) 80 81 (fontified t) 81 84 (face font-lock-comment-delimiter-face fontified t) 84 150 (face font-lock-comment-face fontified t) 150 151 (fontified t) 151 154 (face font-lock-comment-delimiter-face fontified t) 154 199 (face font-lock-comment-face fontified t) 199 202 (face font-lock-comment-delimiter-face fontified t) 202 219 (face font-lock-comment-face fontified t) 219 222 (face font-lock-comment-delimiter-face fontified t) 222 252 (face font-lock-comment-face fontified t) 252 253 (fontified t) 253 256 (face font-lock-comment-delimiter-face fontified t) 256 292 (face font-lock-comment-face fontified t) 292 293 (fontified t) 293 296 (face font-lock-comment-delimiter-face fontified t) 296 365 (face font-lock-comment-face fontified t) 365 368 (face font-lock-comment-delimiter-face fontified t) 368 437 (face font-lock-comment-face fontified t) 437 440 (face font-lock-comment-delimiter-face fontified t) 440 508 (face font-lock-comment-face fontified t) 508 511 (face font-lock-comment-delimiter-face fontified t) 511 530 (face font-lock-comment-face fontified t) 530 531 (fontified t) 531 534 (face font-lock-comment-delimiter-face fontified t) 534 602 (face font-lock-comment-face fontified t) 602 605 (face font-lock-comment-delimiter-face fontified t) 605 664 (face font-lock-comment-face fontified t) 664 667 (face font-lock-comment-delimiter-face fontified t) 667 733 (face font-lock-comment-face fontified t) 733 736 (face font-lock-comment-delimiter-face fontified t) 736 777 (face font-lock-comment-face fontified t) 777 778 (fontified t) 778 781 (face font-lock-comment-delimiter-face fontified t) 781 847 (face font-lock-comment-face fontified t) 847 850 (face font-lock-comment-delimiter-face fontified t) 850 916 (face font-lock-comment-face fontified t) 916 919 (face font-lock-comment-delimiter-face fontified t) 919 980 (face font-lock-comment-face fontified t) 980 983 (face font-lock-comment-delimiter-face fontified t) 983 1011 (face font-lock-comment-face fontified t) 1011 1012 (fontified t) 1012 1015 (face font-lock-comment-delimiter-face fontified t) 1015 1078 (face font-lock-comment-face fontified t) 1078 1081 (face font-lock-comment-delimiter-face fontified t) 1081 1091 (face font-lock-comment-face fontified t) 1091 1093 (face font-lock-comment-delimiter-face fontified t) 1093 1094 (face font-lock-comment-face fontified t) 1094 1098 (face font-lock-comment-delimiter-face fontified t) 1098 1158 (face font-lock-comment-face fontified t) 1158 1162 (face font-lock-comment-delimiter-face fontified t) 1162 1230 (face font-lock-comment-face fontified t) 1230 1234 (face font-lock-comment-delimiter-face fontified t) 1234 1273 (face font-lock-comment-face fontified t) 1273 1275 (face font-lock-comment-delimiter-face fontified t) 1275 1276 (face font-lock-comment-face fontified t) 1276 1280 (face font-lock-comment-delimiter-face fontified t) 1280 1336 (face font-lock-comment-face fontified t) 1336 1340 (face font-lock-comment-delimiter-face fontified t) 1340 1397 (face font-lock-comment-face fontified t) 1397 1401 (face font-lock-comment-delimiter-face fontified t) 1401 1446 (face font-lock-comment-face fontified t) 1446 1448 (face font-lock-comment-delimiter-face) 1448 1449 (face font-lock-comment-face) 1449 1452 (face font-lock-comment-delimiter-face) 1452 1492 (face font-lock-comment-face) 1492 1495 (face font-lock-comment-delimiter-face) 1495 1555 (face font-lock-comment-face) 1557 1561 (face font-lock-comment-delimiter-face) 1561 1573 (face font-lock-comment-face) 1574 1577 (face font-lock-comment-delimiter-face) 1577 1640 (face font-lock-comment-face) 1640 1642 (face font-lock-comment-delimiter-face) 1642 1643 (face font-lock-comment-face) 1643 1646 (face font-lock-comment-delimiter-face) 1646 1706 (face font-lock-comment-face) 1706 1708 (face font-lock-comment-delimiter-face) 1708 1709 (face font-lock-comment-face) 1709 1712 (face font-lock-comment-delimiter-face) 1712 1722 (face font-lock-comment-face) 1722 1726 (face font-lock-comment-delimiter-face) 1726 1791 (face font-lock-comment-face) 1791 1797 (face font-lock-comment-delimiter-face) 1797 1855 (face font-lock-comment-face) 1855 1861 (face font-lock-comment-delimiter-face) 1861 1917 (face font-lock-comment-face) 1917 1923 (face font-lock-comment-delimiter-face) 1923 1979 (face font-lock-comment-face) 1979 1985 (face font-lock-comment-delimiter-face) 1985 2011 (face font-lock-comment-face) 2011 2017 (face font-lock-comment-delimiter-face) 2017 2072 (face font-lock-comment-face) 2072 2109 (face font-lock-comment-delimiter-face) 2109 2126 (face font-lock-comment-face) 2126 2138 (face font-lock-comment-delimiter-face) 2138 2161 (face font-lock-comment-face) 2161 2183 (face font-lock-comment-delimiter-face) 2183 2190 (face font-lock-comment-face) 2190 2192 (face font-lock-comment-delimiter-face) 2192 2193 (face font-lock-comment-face) 2193 2199 (face font-lock-comment-delimiter-face) 2199 2248 (face font-lock-comment-face) 2248 2251 (face \.\.\.) 2251 2257 (face font-lock-comment-face) 2257 2263 (face font-lock-comment-delimiter-face) 2263 2264 (face font-lock-comment-face) 2264 2267 (face \.\.\.) 2267 2288 (face font-lock-comment-face) 2288 2290 (face font-lock-comment-delimiter-face) 2290 2291 (face font-lock-comment-face) 2291 2295 (face font-lock-comment-delimiter-face) 2295 2356 (face font-lock-comment-face) 2356 2362 (face font-lock-comment-delimiter-face) 2362 2419 (face font-lock-comment-face) 2419 2430 (face font-lock-comment-delimiter-face) 2430 2445 (face font-lock-comment-face) 2445 2456 (face font-lock-comment-delimiter-face) 2456 2510 (face font-lock-comment-face) 2510 2512 (face font-lock-comment-delimiter-face) 2512 2513 (face font-lock-comment-face) 2513 2517 (face font-lock-comment-delimiter-face) 2517 2520 (face font-lock-comment-face) 2520 2523 (face \.\.\.) 2523 2580 (face font-lock-comment-face) 2580 2586 (face font-lock-comment-delimiter-face) 2586 2614 (face font-lock-comment-face) 2614 2621 (face \.\.\.) 2621 2649 (face font-lock-comment-face) 2649 2651 (face font-lock-comment-delimiter-face) 2651 2652 (face font-lock-comment-face) 2652 2658 (face font-lock-comment-delimiter-face) 2658 2699 (face font-lock-comment-face) 2699 2702 (face \.\.\.) 2702 2709 (face font-lock-comment-face) 2709 2712 (face \.\.\.) 2712 2715 (face font-lock-comment-face) 2715 2717 (face font-lock-comment-delimiter-face) 2717 2718 (face font-lock-comment-face) 2718 2724 (face font-lock-comment-delimiter-face) 2724 2781 (face font-lock-comment-face) 2781 2786 (face \.\.\.) 2786 2788 (face font-lock-comment-face) 2788 2794 (face font-lock-comment-delimiter-face) 2794 2808 (face font-lock-comment-face) 2808 2810 (face font-lock-comment-delimiter-face) 2810 2811 (face font-lock-comment-face) 2811 2815 (face font-lock-comment-delimiter-face) 2815 2818 (face font-lock-comment-face) 2818 2821 (face \.\.\.) 2821 2882 (face font-lock-comment-face) 2882 2884 (face font-lock-comment-delimiter-face) 2884 2885 (face font-lock-comment-face) 2885 2889 (face font-lock-comment-delimiter-face) 2889 2932 (face font-lock-comment-face) 2932 2934 (face font-lock-comment-delimiter-face) 2934 2935 (face font-lock-comment-face) 2935 2939 (face font-lock-comment-delimiter-face) 2939 2982 (face font-lock-comment-face) 2984 2988 (face font-lock-comment-delimiter-face) 2988 3002 (face font-lock-comment-face) 3003 3006 (face font-lock-comment-delimiter-face) 3006 3075 (face font-lock-comment-face) 3077 3081 (face font-lock-comment-delimiter-face) 3081 3096 (face font-lock-comment-face) 3097 3100 (face font-lock-comment-delimiter-face) 3100 3112 (face font-lock-comment-face) 3112 3117 (face font-lock-comment-delimiter-face) 3117 3161 (face font-lock-comment-face) 3161 3166 (face font-lock-comment-delimiter-face) 3166 3198 (face font-lock-comment-face) 3198 3200 (face font-lock-comment-delimiter-face) 3200 3201 (face font-lock-comment-face) 3201 3204 (face font-lock-comment-delimiter-face) 3204 3240 (face font-lock-comment-face) 3240 3245 (face font-lock-comment-delimiter-face) 3245 3311 (face font-lock-comment-face) 3311 3316 (face font-lock-comment-delimiter-face) 3316 3333 (face font-lock-comment-face) 3333 3335 (face font-lock-comment-delimiter-face) 3335 3336 (face font-lock-comment-face) 3336 3341 (face font-lock-comment-delimiter-face) 3341 3375 (face font-lock-comment-face) 3375 3380 (face font-lock-comment-delimiter-face) 3380 3446 (face font-lock-comment-face) 3446 3448 (face font-lock-comment-delimiter-face) 3448 3449 (face font-lock-comment-face) 3449 3452 (face font-lock-comment-delimiter-face) 3452 3465 (face font-lock-comment-face) 3465 3470 (face font-lock-comment-delimiter-face) 3470 3535 (face font-lock-comment-face) 3535 3537 (face font-lock-comment-delimiter-face) 3537 3538 (face font-lock-comment-face) 3538 3541 (face font-lock-comment-delimiter-face) 3541 3586 (face font-lock-comment-face) 3586 3591 (face font-lock-comment-delimiter-face) 3591 3632 (face font-lock-comment-face) 3632 3634 (face font-lock-comment-delimiter-face) 3634 3635 (face font-lock-comment-face) 3635 3638 (face font-lock-comment-delimiter-face) 3638 3650 (face font-lock-comment-face) 3650 3655 (face font-lock-comment-delimiter-face) 3655 3701 (face font-lock-comment-face) 3701 3703 (face font-lock-comment-delimiter-face) 3703 3704 (face font-lock-comment-face) 3706 3710 (face font-lock-comment-delimiter-face) 3710 3719 (face font-lock-comment-face) 3720 3723 (face font-lock-comment-delimiter-face) 3723 3777 (face font-lock-comment-face) 3777 3786 (face \.\.\.) 3786 3789 (face font-lock-comment-face) 3789 3795 (face font-lock-comment-delimiter-face) 3795 3824 (face font-lock-comment-face) 3824 3833 (face \.\.\.) 3833 3847 (face font-lock-comment-face) 3847 3853 (face font-lock-comment-delimiter-face) 3853 3893 (face font-lock-comment-face) 3893 3895 (face font-lock-comment-delimiter-face) 3895 3896 (face font-lock-comment-face) 3896 3899 (face font-lock-comment-delimiter-face) 3899 3937 (face font-lock-comment-face) 3937 3949 (face font-lock-comment-delimiter-face) 3949 3996 (face font-lock-comment-face) 3996 4002 (face font-lock-comment-delimiter-face) 4002 4045 (face font-lock-comment-face) 4045 4047 (face font-lock-comment-delimiter-face) 4047 4048 (face font-lock-comment-face) 4048 4051 (face font-lock-comment-delimiter-face) 4051 4099 (face font-lock-comment-face) 4099 4101 (face font-lock-comment-delimiter-face) 4101 4102 (face font-lock-comment-face) 4102 4108 (face font-lock-comment-delimiter-face) 4108 4146 (face font-lock-comment-face) 4146 4154 (face font-lock-comment-delimiter-face) 4154 4221 (face font-lock-comment-face) 4221 4229 (face font-lock-comment-delimiter-face) 4229 4236 (face font-lock-comment-face) 4236 4242 (face font-lock-comment-delimiter-face) 4242 4288 (face font-lock-comment-face) 4288 4296 (face font-lock-comment-delimiter-face) 4296 4364 (face font-lock-comment-face) 4364 4372 (face font-lock-comment-delimiter-face) 4372 4379 (face font-lock-comment-face) 4379 4385 (face font-lock-comment-delimiter-face) 4385 4432 (face font-lock-comment-face) 4432 4440 (face font-lock-comment-delimiter-face) 4440 4509 (face font-lock-comment-face) 4509 4517 (face font-lock-comment-delimiter-face) 4517 4524 (face font-lock-comment-face) 4524 4526 (face font-lock-comment-delimiter-face) 4526 4527 (face font-lock-comment-face) 4527 4533 (face font-lock-comment-delimiter-face) 4533 4590 (face font-lock-comment-face) 4590 4596 (face font-lock-comment-delimiter-face) 4596 4625 (face font-lock-comment-face) 4625 4631 (face font-lock-comment-delimiter-face) 4631 4656 (face font-lock-comment-face) 4656 4658 (face font-lock-comment-delimiter-face) 4658 4659 (face font-lock-comment-face) 4659 4662 (face font-lock-comment-delimiter-face) 4662 4724 (face font-lock-comment-face) 4726 4730 (face font-lock-comment-delimiter-face) 4730 4742 (face font-lock-comment-face) 4743 4746 (face font-lock-comment-delimiter-face) 4746 4809 (face font-lock-comment-face) 4809 4812 (face font-lock-comment-delimiter-face) 4812 4878 (face font-lock-comment-face) 4880 4884 (face font-lock-comment-delimiter-face) 4884 4899 (face font-lock-comment-face) 4900 4903 (face font-lock-comment-delimiter-face) 4903 4967 (face font-lock-comment-face) 4967 4972 (face font-lock-comment-delimiter-face) 4972 4981 (face font-lock-comment-face) 4981 4986 (face font-lock-comment-delimiter-face) 4986 5048 (face font-lock-comment-face) 5048 5053 (face font-lock-comment-delimiter-face) 5053 5062 (face font-lock-comment-face) 5062 5064 (face font-lock-comment-delimiter-face) 5064 5065 (face font-lock-comment-face) 5065 5068 (face font-lock-comment-delimiter-face) 5068 5135 (face font-lock-comment-face) 5135 5140 (face font-lock-comment-delimiter-face) 5140 5196 (face font-lock-comment-face) 5196 5201 (face font-lock-comment-delimiter-face) 5201 5220 (face font-lock-comment-face) 5220 5230 (face font-lock-comment-delimiter-face) 5230 5246 (face font-lock-comment-face) 5246 5256 (face font-lock-comment-delimiter-face) 5256 5267 (face font-lock-comment-face) 5267 5279 (face font-lock-comment-delimiter-face) 5279 5283 (face font-lock-comment-face) 5283 5285 (face \.\.\.) 5285 5305 (face font-lock-comment-face) 5305 5319 (face \.\.\.) 5319 5337 (face font-lock-comment-face) 5337 5349 (face font-lock-comment-delimiter-face) 5349 5402 (face font-lock-comment-face) 5402 5414 (face font-lock-comment-delimiter-face) 5414 5433 (face font-lock-comment-face) 5433 5445 (face font-lock-comment-delimiter-face) 5445 5449 (face font-lock-comment-face) 5449 5452 (face \.\.\.) 5452 5486 (face font-lock-comment-face) 5486 5498 (face font-lock-comment-delimiter-face) 5498 5502 (face font-lock-comment-face) 5502 5505 (face \.\.\.) 5505 5557 (face font-lock-comment-face) 5557 5569 (face font-lock-comment-delimiter-face) 5569 5605 (face font-lock-comment-face) 5605 5619 (face \.\.\.) 5619 5622 (face font-lock-comment-face) 5622 5624 (face font-lock-comment-delimiter-face) 5624 5625 (face font-lock-comment-face) 5625 5637 (face font-lock-comment-delimiter-face) 5637 5649 (face font-lock-comment-face) 5649 5661 (face font-lock-comment-delimiter-face) 5661 5727 (face font-lock-comment-face) 47357 47394 (fontified t) 47394 47400 (face font-lock-keyword-face fontified t) 47400 47635 (fontified t) 47635 47637 (face font-lock-string-face fontified t) 47637 47660 (fontified t) 47660 47667 (face font-lock-keyword-face fontified t) 47667 47668 (fontified t) 47668 47707 (face font-lock-variable-name-face fontified t) 47707 47716 (fontified t) 47716 47721 (face font-lock-builtin-face fontified t) 47721 47724 (fontified t) 47724 47735 (face font-lock-builtin-face fontified t) 47735 47736 (fontified t) 47736 47749 (face font-lock-string-face fontified t) 47749 47755 (fontified t) 47755 47829 (face font-lock-doc-face fontified t) 47829 47832 (fontified t) 47832 47838 (face font-lock-builtin-face fontified t) 47838 47878 (fontified t) 47878 47879 (fontified t) 47879 47886 (face font-lock-keyword-face fontified t) 47886 47887 (fontified t) 47887 47932 (face font-lock-variable-name-face fontified t) 47932 47941 (fontified t) 47941 47952 (face font-lock-builtin-face fontified t) 47952 47953 (fontified t) 47953 47966 (face font-lock-string-face fontified t) 47966 47972 (fontified t) 47972 48049 (face font-lock-doc-face fontified t) 48049 48052 (fontified t) 48052 48058 (face font-lock-builtin-face fontified t) 48058 48079 (fontified t) 48079 48084 (face font-lock-keyword-face fontified t) 48084 48085 (fontified t) 48085 48116 (face font-lock-function-name-face fontified t) 48116 48133 (fontified t) 48133 48203 (face font-lock-doc-face fontified t) 48203 48207 (fontified t) 48207 48211 (face font-lock-keyword-face fontified t) 48211 48334 (fontified t) 48334 48340 (face font-lock-keyword-face fontified t) 48340 48427 (fontified t) 48427 48432 (fontified t) 48432 48436 (face font-lock-keyword-face fontified t) 48436 48462 (fontified t) 48462 48475 (face font-lock-string-face fontified t) 48475 48503 (fontified t) 48503 48523 (face font-lock-string-face fontified t) 48523 48541 (fontified t) 48541 48545 (face font-lock-keyword-face fontified t) 48545 48555 (fontified t) 48555 48560 (face font-lock-keyword-face fontified t) 48560 48761 (fontified t) 48761 48767 (face font-lock-keyword-face fontified t) 48767 48783 (fontified t) 48783 48785 (face font-lock-string-face fontified t) 48785 48879 (fontified t) 48879 48882 (face font-lock-string-face fontified t) 48882 48889 (fontified t) 48889 48892 (face font-lock-string-face fontified t) 48892 48912 (fontified t) 48912 48915 (face font-lock-string-face fontified t) 48915 48964 (fontified t) 48964 49217 (fontified t) 49217 49222 (face font-lock-keyword-face fontified t) 49222 49337 (fontified t) 49337 49340 (face font-lock-string-face fontified t) 49340 49404 (fontified t) 49404 49406 (face font-lock-keyword-face fontified t) 49406 49412 (fontified t) 49412 49418 (face font-lock-string-face fontified t) 49418 49419 (fontified t) 49419 49422 (face font-lock-string-face fontified t) 49422 49432 (fontified t) 49432 49436 (face font-lock-comment-delimiter-face fontified t) 49436 49463 (face font-lock-comment-face fontified t) 49463 49464 (fontified t) 49464 49466 (face font-lock-keyword-face fontified t) 49466 49468 (fontified t) 49468 49476 (face font-lock-keyword-face fontified t) 49476 49478 (fontified t) 49478 49493 (face font-lock-constant-face fontified t) 49493 49495 (fontified t) 49495 49620 (fontified t) 49620 49626 (face font-lock-keyword-face fontified t) 49626 49740 (fontified t) 49740 49746 (face font-lock-keyword-face fontified t) 49746 49747 (fontified t) 49747 49766 (face font-lock-variable-name-face fontified t) 49766 49773 (fontified t) 49773 49819 (face font-lock-doc-face fontified t) 49819 49823 (fontified t) 49823 49830 (face font-lock-keyword-face fontified t) 49830 49832 (fontified t) 49832 49841 (face font-lock-constant-face fontified t) 49841 49877 (fontified t) 49877 49881 (face font-lock-comment-delimiter-face fontified t) 49881 49904 (face font-lock-comment-face fontified t)) ";;; mcomplete.el --- minibuffer completion with prefix and substring matching
+
+;; Copyright (C) 2000-2004, 2011-2012 Yuji Minejima <bmonkey@nifty.com>
+
+;; Author: Yuji Minejima <bmonkey@nifty.com>
+;; $Revision: 1.10 $
+;; Keywords: completion convenience
+
+;; This file is not part of GNU Emacs.
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 2, or (at your option)
+;; any later version.
+
+;; This program is distributed in the hope that it will be useful, but
+;; WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
+
+;; This program borrows ideas and the design of the following packages:
+;;
+;;  icomplete.el --- minibuffer completion incremental feedback
+;;  Copyright (C) 1992-1994, 1997, 1999, 2001-2012 Free Software Foundation, Inc.
+;;  Author: Ken Manheimer <klm@i.am>
+;;
+;;  iswitchb.el --- switch between buffers using substrings
+;;  Copyright (C) 1996-1997, 2000-2012  Free Software Foundation, Inc.
+;;  Author: Stephen Eglen <stephen@gnu.org>
+;;
+;; All of these are distributed under GPL.
+;; Thanks to the authors for writing these excellent packages.
+
+
+;;; Commentary:
+
+;; Recommendation:
+;; * Before using this package, try using the standard package icomplete.el which
+;;   is bundled with GNU Emacs.
+;; * After using this package and you like it but you want more features like
+;;   regexp matching. Try using icicles package.
+;;
+;; This package enhances Emacs's minibuffer completion mechanism.
+;; It tries to handle all minibuffer inputs.
+;;
+;; Features:
+;;  * supports 2 completion methods (prefix and substring matching).
+;;    Prefix matching is a straight forward method where the
+;;    completion commands tries to match your input with the beginning
+;;    of the possible completions.
+;;
+;;    Substring matching is a completion method where all the
+;;    completion commands work in terms of a substring of the
+;;    possible completions.
+;;    e.g.  \"buffer\" matches \"backup-buffer\", \"buffer-name\",
+;;                                   ^^^^^^    ^^^^^^
+;;          \"exit-minibuffer\", ...
+;;                    ^^^^^^
+;;
+;;    You can cycle through the completion methods by `C-n' and
+;;    `C-p' in the minibuffer.
+;;
+;;  * displays possible completion candidates in the minibuffer.
+;;    e.g. When you enter `M-x apr', the minibuffer looks like
+;;         the following:
+;;         M-x apr[opos]{,-command,-documentation,-value,-zippy}
+;;
+;;  * `RET' in the minibuffer picks the first candidate displayed.
+;;    e.g. `M-x apr RET' selects `apropos' command (and execute it).
+;;
+;;    You can cycle through the candidates by `C-s' and `C-r'.
+;;
+;;    When you want to give the exact string you entered, use `M-RET'
+;;    or `ESC RET'.
+;;
+;;  * `C-c' in the minibuffer toggles case significance in completion.
+;;
+;;  * supports faces (highlights the display).
+;;
+;;  * supports customization per user command.
+;;
+;;
+
+
+;;; Requirements:
+
+;; Tested with GNU Emacs 24.1(I no longer use XEmacs).
+
+
+;;; Compatibility:
+
+;; icomplete.el
+;;   icomplete-mode gets turned off when mcomplete-mode is activated.
+;;
+;; ido.el (http://hjem.get2net.dk/storm/emacs/)
+;;   Both work. ido commands take precedence.
+;;
+;; iswitchb.el
+;;   Both work. iswitchb commands take precedence.
+
+
+;;; Install:
+
+;; 1: Put this file in one of the directories listed in `load-path'.
+;;
+;; 2: Enter `M-x byte-compile-file <RET>
+;;          <DIR-YOU-PUT-THIS-FILE-IN>/mcomplete.el <RET>'
+;;    to speed up the execution of this package.
+;;
+;; 3: Put the following lines in your .emacs file.
+;;
+;;    (autoload 'mcomplete-mode \"mcomplete\"
+;;      \"Toggle minibuffer completion with prefix and substring matching.\"
+;;      t nil)
+;;    (autoload 'turn-on-mcomplete-mode \"mcomplete\"
+;;      \"Turn on minibuffer completion with prefix and substring matching.\"
+;;      t nil)
+;;    (autoload 'turn-off-mcomplete-mode \"mcomplete\"
+;;      \"Turn off minibuffer completion with prefix and substring matching.\"
+;;      t nil)
+;;
+;;    If you want to activate this package as you start Emacs,
+;;    add the following line, too:
+;;    (turn-on-mcomplete-mode)
+;;
+;; 4: Restart Emacs or enter `M-x load-library <RET> mcomplete'.
+
+
+;;; Activation:
+
+;; * Enter `M-x turn-on-mcomplete-mode' to activate this package.
+;; * Enter `M-x turn-off-mcomplete-mode' to deactivate this package.
+
+
+;;; Customization:
+
+;; * Enter `M-x customize-group <RET> mcomplete' to customize this
+;;   package.
+;;   You might need to enter `M-x load-library <RET> mcomplete' in
+;;   advance.
+;;
+;; * To control the mcomplete-mode's behavior for a specific command,
+;;   write something like the following in your .emacs file.
+;;   (put 'YOUR-COMMAND
+;;        'mcomplete-mode
+;;        '(:mode on
+;;          ;; `on' means turning on `mcomplete-mode' temporarily for
+;;          ;; your-command irrespective of the current state of
+;;          ;; mcomplete-mode.
+;;          ;; `off' means the reverse of the above.
+;;          ;; `nil' or omitting the pair of :mode and its value means
+;;          ;; respecting the current state of `mcomplete-mode'.
+;;
+;;          :method-set
+;;          (mcomplete-substr-method   ; 1st matching method for your-command
+;;           mcomplete-prefix-method)  ; 2nd matching method for your-command
+;;          ;; `nil' or omitting the pair of :method-set and its value means
+;;          ;; using the value of `mcomplete-default-method-set'
+;;
+;;          :exhibit-start-chars 2
+;;          ;; Number of input characters to start to exhibit completion
+;;          ;; information.
+;;          ;; `nil' or omitting the pair of :exhibit-start-chars and its value
+;;          ;; means using the value of `mcomplete-default-exhibit-start-chars'
+;;
+;;          :ignore-case on
+;;          ;; `on' means case is not significant in completion.
+;;          ;; `off' means case is significant in completion.
+;;          ;; `nil' or omitting the pair of :ignore-case and its value means
+;;          ;; using the value of `completion-ignore-case'.
+;;         ))
+;;
+;;  Here's a code snippet for bookmark-jump a la iswitch-buffer.
+;;  (put 'bookmark-jump
+;;       'mcomplete-mode
+;;       '(:method-set (mcomplete-substr-method mcomplete-prefix-method)
+;;         :exhibit-start-chars 0))
+
+
+;;; Distribution:
+
+;; You can find the latest version of this package at:
+;; http://homepage1.nifty.com/bmonkey/emacs/elisp/mcomplete.el
+
+
+;;; How this package works:
+
+;; On loading this package,
+;; `mcomplete-minibuffer-setup' is registered in `minibuffer-setup-hook'.
+;;
+;;
+;; Some command tries to begin a minibuffer session
+;;    |
+;;    v
+;; (run-hooks 'minibuffer-setup-hook) -+
+;;                                     |
+;;                                     v
+;;                `mcomplete-minibuffer-setup'
+;;                   (when (mcomplete-p)
+;;                      (run-hooks 'mcomplete-minibuffer-setup-hook))
+;;                                     |
+;;                                     v
+;;                `mcomplete-setup-command-hooks'
+;;                   * registers `mcomplete-pre-command-hook' in
+;;                     the buffer local `pre-command-hook'.
+;;                   * registers `mcomplete-post-command-hook' in
+;;                     the buffer local `post-command-hook'.
+;;                                     |
+;;    +--------------------------------+
+;;    |
+;     v
+;; The minibuffer session begins
+;;    |
+;;    v
+;; Some key is pressed in the minibuffer
+;;    |
+;;    v
+;; (run-hooks 'pre-command-hook) -+
+;;                                |
+;;                                v
+;;                (run-hooks 'mcomplete-pre-command-hook)
+;;                                |
+;;                                v
+;;                `mcomplete-pre-command-tidy'
+;;                    * clears information displayed in the minibuffer.
+;;                                |
+;;    +---------------------------+
+;;    |
+;;    v
+;; The command for the key is executed
+;;    |
+;;    v
+;; (run-hooks 'post-command-hook) -+
+;;                                 |
+;;                                 v
+;;                 (run-hooks 'mcomplete-post-command-hook)
+;;                                 |
+;;                                 v
+;;                 `mcomplete-post-command-exhibit'
+;;                    * displays information in the minibuffer.
+
+
+;;; TODO:
+
+;; * M-x apr
+;;     >> M-x apr[opos]{,-command,-documentation,-value,-zippy}
+;;     C-s C-s
+;;     >> M-x apr[opos]{-documentation,-value,-zippy,,-command}
+;;     TAB
+;;     >> M-x apropos{,-command,-documentation,-value,-zippy}
+;;     should be
+;;     >> M-x apropos{-documentation,-value,-zippy,,-command}
+;;
+;; * XEmacs only.
+;;     M-x apropos C-a C-@ C-e
+;;     >> M-x apropos-!-{,-command,-documentation,-value,-zippy}
+;;        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+;;                         highlighted
+;;     should be
+;;     >> M-x apropos-!-{,-command,-documentation,-value,-zippy}
+;;        ^^^^^^^^^^^
+;;        highlighted
+;;
+;;;; The following commens are my old thoughts. Now I think this package has
+;;;; enough features as it is.
+;;;; * Allow more aggressive customization per command, per method.
+;;;;   (put 'your-command
+;;;;        'mcomplete-mode
+;;;;        '(:method-set (mcomplete-substr-method mcomplete-prefix-method)
+;;;;          :ignore-case on
+;;;;          :substr-method (:ignore-case off :exhibit off)
+;;;;          :prefix-method (:ignore-case on  :exhibit on)
+;;;;         ))
+;;;;
+;;;; * Add more matching methods.
+;;;;       + partial matching method a la complete.el.
+;;;;       + regexp matching method
+
+
+;;; Change Log:
+
+;; Version 1.10 (28 Sat 2012)
+;; I just started using GNU Emacs(24.1) again.
+;; * fix a bug where clicking on an item in *Completions* buffer emits an error in
+;;   the substring match mode.
+;;   This error is due to the following reason:
+;;   `choose-completion-delete-max-match' was made obsolete by
+;;   `choose-completion-guess-base-position' on GNU Emacs as of 23.2.
+;;   So I added defadvice for choose-completion-guess-base-position.
+
+;; Version 1.6 (07 Mar 2011)
+;; Ze'ev Clementson informed me that `make-local-hook' was no longer needed
+;; and not supported in Emacs24.
+;; Thus, change to call `make-local-hook' only if (fboundp 'make-local-hook)
+;; returns true.
+
+;; Version 1.5 (21 Aug 2004)
+;;  * Apply a patch from J.D. Smith which changes the way completion candidates
+;;    are sorted in subtring match method to combine the best of both
+;;    prefix and substring completion methods. By this change, completion
+;;    candidates which match the prefix are sorted to show up *before*
+;;    candidates which match in the middle.
+;;    So in substring match method, when you enter `M-x set-v', you get
+;;    M-x set-v<set-variable, set-visited-file-name customize-set-value,...>
+;;    Instead of
+;;    M-x set-v<customize-set-value, set-variable, set-visited-file-name,...>
+;;    Any comments are welcome about this change.
+
+;; Version 0.20 (18 Dec 2003)
+;;  * To get along with howm-1.1, apply patch from HIRAOKA Kazuyuki <hira@ics.saitama-u.ac.jp>
+;;  * Correct doc error in the last line of Activation section
+;;    (`M-x turn-on-mcomplete-mode' should be `M-x turn-off-mcomplete-mode'),
+;;    which Stephen Eglen reported.
+
+;; Version 0.18 (28 Oct 2001)
+;;  * Use `minibuffer-prompt-end' if available for Emacs 21
+;;  * Avoid \"FSF Emacs\" and use \"GNU Emacs\" since that seems more appropriate.
+
+
+
+;;; Code:
+(eval-when-compile
+  (defvar obarray)
+  (defvar deactivate-mark)
+  (defvar buffer-undo-list)
+  (defvar quit-flag)
+  (defvar unread-command-events)
+  (defvar this-command)
+  (defvar last-command)
+  (defvar executing-kbd-macro)
+  (defvar minibuffer-local-completion-map)
+  (defvar minibuffer-local-must-match-map)
+  (defvar minibuffer-completion-table)
+  (defvar minibuffer-completion-predicate)
+  (defvar minibuffer-completion-confirm)
+  (defvar minibuffer-scroll-window)
+  (defvar completion-auto-help)
+  (defvar completion-ignore-case)
+  (defvar minibuffer-setup-hook)
+  (defvar pre-command-hook)
+  (defvar post-command-hook))
+
+
+;;; Customization group
+(defgroup mcomplete nil
+  \"This package enhances Emacs's minibuffer completion mechanism.
+
+In short, this is icomplete.el + iswitchb.el +/- something.
+
+Features:
+ * supports 2 completion methods.
+   Prefix matching is the Emacs's default completion method.
+   Substring matching is a completion method where all the
+   completion commands work in terms of a substring of the
+   all possible completions.
+   e.g.  \\\"buffer\\\" matches \\\"backup-buffer\\\", \\\"buffer-name\\\",
+         \\\"exit-minibuffer\\\", ...
+
+   You can toggle the completion methods by `C-n' and `C-p' in
+   the minibuffer.
+
+ * displays possible completion candidates in the minibuffer.
+   e.g. When you enter `M-x apr', the minibuffer looks like
+        the following:
+        M-x apr[opos]{,-command,-documentation,-value,-zippy}
+
+ * `RET' in the minibuffer picks the first candidate displayed.
+   e.g. `M-x apr RET' selects `apropos' command (and execute it).
+
+   You can cycle through the candidates by `C-s' and `C-r'.
+
+   When you want to give the exact string you entered to the command,
+   use `M-RET' or `ESC RET'.
+
+ * supports faces (highlights the display).\"
+  :group 'minibuffer)
+
+(defcustom mcomplete-mode nil
+  \"Toggle minibuffer completion with prefix and substring matching.
+Setting this variable directly does not take effect;
+use either \\\\[customize] or the commands `mcomplete-mode',
+`turn-on-mcomplete-mode', and `turn-off-mcomplete-mode'.\"
+  :set        #'(lambda (symbol value) (mcomplete-mode (if value 1 -1)))
+  :initialize 'custom-initialize-default
+  :type       'boolean
+  :group      'mcomplete
+  :require    'mcomplete)
+
+
+;;; Mode switch
+(eval-when-compile
+  (defvar icomplete-mode)
+  (autoload 'icomplete-mode \"icomplete\"))
+
+
+;;;###autoload
+(defun mcomplete-mode (&optional arg)
+  \"Toggle minibuffer completion with prefix and substring matching.
+With ARG, turn the mode on if ARG is positive, off otherwise.\"
+  (interactive \"P\")
+  (setq mcomplete-mode (if (null arg)
+                           (not mcomplete-mode)
+                         (> (prefix-numeric-value arg) 0)))
+  (when mcomplete-mode
+    (when (and (boundp 'icomplete-mode) icomplete-mode)
+      (icomplete-mode -1)))
+  (when (called-interactively-p 'interactive)
+    (message \"mcomplete-mode %s\" (if mcomplete-mode \"enabled\" \"disabled\"))))
+
+;;;###autoload
+(defun turn-on-mcomplete-mode ()
+  \"Turn on minibuffer completion with prefix and substring matching.\"
+  (interactive)
+  (mcomplete-mode 1))
+
+;;;###autoload
+(defun turn-off-mcomplete-mode ()
+  \"Turn off minibuffer completion with prefix and substring matching.\"
+  (interactive)
+  (mcomplete-mode -1))
+
+
+;;; Utilities
+(defun mcomplete-rotate-list (list count)
+  \"Rotate LIST COUNT times destructively.
+\\(mcomplete-rotate-list (list 1 2 3) 1) => (2 3 1).
+\\(mcomplete-rotate-list (list 1 2 3) -1) => (3 1 2).\"
+  (when list
+    (let* ((len (length list))
+           (count (mod count len))
+           new-top new-last)
+      (if (zerop count)
+          list
+        (setq new-last (nthcdr (1- count) list)
+              new-top  (cdr new-last))
+        (setcdr (last new-top) list)
+        (setcdr new-last nil)
+        new-top))))
+
+
+;;; Completion methods
+(defvar mcomplete-method-default-plist) ; defined later
+
+(defcustom mcomplete-default-method-set
+  '(mcomplete-prefix-method mcomplete-substr-method)
+  \"List of completion methods.  The first method is applied first.\"
+  :type  '(repeat function)
+  :group 'mcomplete)
+
+(defvar mcomplete-current-method-set
+  nil
+  \"List of completion method symbols for the current minibuffer.
+Users can activate these methods during a minibuffer session.\")
+(make-variable-buffer-local 'mcomplete-current-method-set)
+
+(defun mcomplete-current-method ()
+  \"Return the completion method symbol for the current minibuffer.\"
+  (car mcomplete-current-method-set))
+
+(defun mcomplete-get (property &optional method)
+  \"Return PROPERTY of completion METHOD (default current method).\"
+  (unless method (setq method (mcomplete-current-method)))
+  (if (memq property (symbol-value method))
+      (plist-get (symbol-value method) property)
+    (plist-get mcomplete-method-default-plist property)))
+
+
+(defvar mcomplete-display-current-method-name-sec 0.5
+  \"Number of seconds to display the current method name when it's changed.\")
+
+(defun mcomplete-display-current-method-name ()
+  \"Display the current method name in the minibuffer.\"
+  (unless (input-pending-p)
+    (let ((name (mcomplete-get :name))
+          (sec  mcomplete-display-current-method-name-sec))
+      (unless (stringp name)
+        (error \"mcomplete: name not defined for method %s\"
+               (mcomplete-current-method)))
+      (mcomplete-message (format \" [%s]\" name) sec))))
+
+
+;;; minibuffer utilities
+(defun mcomplete-prompt-end ()
+  (if (fboundp 'minibuffer-prompt-end)
+      (minibuffer-prompt-end)
+      (point-min)))
+
+(defsubst mcomplete-minibuffer-string ()
+  (buffer-substring (mcomplete-prompt-end) (point-max)))
+
+(defsubst mcomplete-clear-minibuffer ()
+  (delete-region (mcomplete-prompt-end) (point-max)))
+
+
+(defun mcomplete-message (str &optional sec)
+  \"Display STR at the end of the minibuffer for SEC (default 2) seconds.
+The minibuffer must be the current buffer.
+Stop displaying when the next input event arrives.
+Work almost the same as `minibuffer-message'.\"
+  (unless sec (setq sec 2))
+  (let ((buffer-undo-list t)            ; prevent undo recording
+        (pt-max (point-max))
+        (inhibit-quit t))
+    (save-excursion
+      (message nil)
+      (goto-char (point-max))
+      (insert str))
+    (sit-for sec)
+    (delete-region pt-max (point-max))
+    (when quit-flag
+      (let ((quit-char (if (fboundp 'current-input-mode)
+                           (nth 3 (current-input-mode))
+                         ?\\^G))
+            (char-to-event (if (fboundp 'character-to-event)
+                               'character-to-event
+                             'identity)))
+        (cond
+         ;; check new features first
+         ((boundp 'unread-command-events)
+          (setq unread-command-events (list (funcall char-to-event quit-char))
+                quit-flag nil))
+         ;;;((boundp 'unread-command-event)
+         ;;; (setq unread-command-event (funcall char-to-event quit-char)
+         ;;;       quit-flag nil))
+         ;;;
+         ;;;((boundp 'unread-command-char)
+         ;;; (setq unread-command-char quit-char
+         ;;;       quit-flag nil))
+         (t
+          (error \"mcomplete-message: %S is not bound.\"
+                 'unread-command-events)))))))
+
+;;; Minibuffer setup hook
+(defun mcomplete-p ()
+  \"Return non-nil if `mcomplete-mode' is applicable to the current minibuffer.\"
+  (and (symbolp this-command)
+       (let ((mode (plist-get (get this-command 'mcomplete-mode) :mode)))
+         (cond ((eq mode 'on)  t)
+               ((eq mode 'off) nil)
+               ((eq mode 'nil) mcomplete-mode)))
+       (window-minibuffer-p (selected-window))
+       (not executing-kbd-macro)
+       (not (functionp minibuffer-completion-table))
+       minibuffer-completion-table))
+
+(defvar mcomplete-minibuffer-setup-hook nil
+  \"`minibuffer-setup-hook' hook for `mcomplete-mode'.\")
+
+(defun mcomplete-minibuffer-setup ()
+  \"Run `mcomplete-minibuffer-setup-hook' if `mcomplete-mode' is active.\"
+  (when (mcomplete-p)
+    (run-hooks 'mcomplete-minibuffer-setup-hook)
+    (when (featurep 'xemacs)
+      ;; needed when mcomplete-exhibit-start-chars is 0
+      (run-hooks (mcomplete-get :post-command-hook)))))
+
+(add-hook 'minibuffer-setup-hook 'mcomplete-minibuffer-setup)
+
+
+;;; *Completions* buffer
+;; These functions are called when a user press RET or clicks a mouse button
+;; in the \"*Completions*\" buffer.
+(defadvice choose-completion-delete-max-match
+  ;; The original function is defined in GNU Emacs's simple.el,
+  ;; and XEmacs's list-mode.el.
+  ;; This function is obsolete as of GNU Emacs 23.2
+  (around mcomplete last activate compile preactivate)
+  \"Delete appropriate piece of input string in the current minibuffer.\"
+  (if (mcomplete-p)
+      (delete-region (mcomplete-prompt-end) (point-max))
+    ad-do-it))
+(defadvice choose-completion-guess-base-position
+  ;; this function is defined in simple.el of GNU Emacs.
+  (around mcomplete last activate compile preactivate)
+  \"Delete appropriate piece of input string in the current minibuffer.\"
+  (if (mcomplete-p)
+      (delete-region (mcomplete-prompt-end) (point-max))
+    ad-do-it))
+
+
+;;; Key maps
+(defcustom mcomplete-permissive-completion-map-alist
+  '((\"\\t\"   . MComplete-complete)
+    (\" \"    . MComplete-complete-word)
+    (\"?\"    . MComplete-completion-help)
+    (\"\\r\"   . MComplete-exit-minibuffer)
+    (\"\\e\\r\" . exit-minibuffer)
+    (\"\\n\"   . MComplete-exit-minibuffer)
+    (\"\\e\\n\" . exit-minibuffer)
+    (\"\\C-c\" . MComplete-toggle-ignore-case)
+    (\"\\C-n\" . MComplete-next-method)
+    (\"\\C-p\" . MComplete-previous-method)
+    (\"\\C-s\" . MComplete-next-candidate)
+    (\"\\C-r\" . MComplete-previous-candidate))
+  \"Alist of key bindings to override `minibuffer-local-completion-map'.
+These bindings are used when an exact match is NOT required.\"
+  :type  '(repeat
+           (cons (choice string
+                         (restricted-sexp :match-alternatives (vectorp)))
+                 ;; the vector designator can be more elaborate (using
+                 ;; :inline) but I found they were harder to input in
+                 ;; the customization buffer.
+                 function))
+  :group 'mcomplete)
+
+(defcustom mcomplete-must-match-completion-map-alist
+  '((\"\\t\"   . MComplete-complete)
+    (\" \"    . MComplete-complete-word)
+    (\"?\"    . MComplete-completion-help)
+    (\"\\r\"   . MComplete-complete-and-exit)
+    (\"\\n\"   . MComplete-complete-and-exit)
+    (\"\\C-c\" . MComplete-toggle-ignore-case)
+    (\"\\C-n\" . MComplete-next-method)
+    (\"\\C-p\" . MComplete-previous-method)
+    (\"\\C-s\" . MComplete-next-candidate)
+    (\"\\C-r\" . MComplete-previous-candidate))
+  \"Alist of key bindings to override `minibuffer-local-must-match-map'.
+These bindings are used when an exact match is required.\"
+  :type  '(repeat
+           (cons (choice string
+                         (restricted-sexp :match-alternatives (vectorp)))
+                 function))
+  :group 'mcomplete)
+
+(defun mcomplete-setup-local-keymap ()
+  \"Setup local keymap for `mcomplete-mode'.\"
+  (let* ((old-map (current-local-map))
+         (new-map (copy-keymap old-map))
+         (alist   (if (eq (lookup-key old-map \"\\n\")
+                          (lookup-key minibuffer-local-completion-map \"\\n\"))
+                      ;; For GNU Emacs, we can simply get away with (eq old-map
+                      ;; minibuffer-local-completion-map), but XEmacs makes
+                      ;; a copy and defines a help-key binding in it.
+                      mcomplete-permissive-completion-map-alist
+                    mcomplete-must-match-completion-map-alist)))
+    (use-local-map new-map)
+    (mapcar #'(lambda (assoc) (define-key new-map (car assoc) (cdr assoc)))
+            alist)))
+  
+(add-hook 'mcomplete-minibuffer-setup-hook 'mcomplete-setup-local-keymap)
+
+
+;;; Pre/Post-Command hooks
+(defun mcomplete-setup-command-hooks ()
+  \"Setup `pre-command-hook' and `post-command-hook' for `mcomplete-mode'.\"
+  ;; setup PRE-COMMAND-HOOK
+  (if (fboundp 'make-local-hook)
+      (make-local-hook 'pre-command-hook))
+  (add-hook 'pre-command-hook
+            #'(lambda () (run-hooks (mcomplete-get :pre-command-hook)))
+            nil                         ; nil means prepend
+            t)                          ; t means a local hook
+
+  ;; setup POST-COMMAND-HOOK
+  (if (fboundp 'make-local-hook)
+      (make-local-hook 'post-command-hook))
+  (add-hook 'post-command-hook
+            #'(lambda () (run-hooks (mcomplete-get :post-command-hook)))
+            nil                         ; nil means prepend
+            t))                         ; t means a local hook
+
+(add-hook 'mcomplete-minibuffer-setup-hook 'mcomplete-setup-command-hooks)
+
+
+(defvar mcomplete-input \"\"
+  \"Minibuffer contents without completion information.\")
+(make-variable-buffer-local 'mcomplete-input)
+
+(defvar mcomplete-pre-command-hook nil
+  \"`pre-command-hook' for `mcomplete-mode'.\")
+
+(defun mcomplete-pre-command-tidy ()
+  \"Delete completion information in the minibuffer.\"
+  (let ((buffer-undo-list t)      ; prevent undo recording
+        (deactivate-mark nil))   ; protect the original value
+    (delete-region (+ (mcomplete-prompt-end) (length mcomplete-input))
+                   (point-max))
+    (remove-text-properties (mcomplete-prompt-end) (point-max) '(face nil))
+    ;(set-buffer-modified-p nil)         ; clear modified flag
+    ))
+(add-hook 'mcomplete-pre-command-hook 'mcomplete-pre-command-tidy)
+
+(defvar mcomplete-post-command-hook nil
+  \"`post-command-hook' for `mcomplete-mode'.\")
+
+(defcustom mcomplete-default-exhibit-start-chars 1
+  \"Number of input characters to start to exhibit completion information.\"
+  :type  'integer
+  :group 'mcomplete)
+
+(defvar mcomplete-exhibit-start-chars nil
+  \"Current number of input characters to start to exhibit information.\")
+
+(defun mcomplete-post-command-exhibit ()
+  \"Exhibit completion information.\"
+  (setq mcomplete-input (mcomplete-minibuffer-string))
+  (when (and (not (input-pending-p))
+             (>= (length (mcomplete-minibuffer-string))
+                 mcomplete-exhibit-start-chars))
+    (catch 'input-pending
+      (save-match-data
+        (save-excursion
+          (let* ((buffer-undo-list t)   ; prevent undo recording
+                 (deactivate-mark nil)  ; protect the original value
+                 (str (mcomplete-minibuffer-string)))
+            (goto-char (point-max))
+                   
+            (funcall (mcomplete-get :exhibit)
+                     str
+                     (mcomplete-all-completions str \"abort on input\")
+                     (mcomplete-try-completion  str \"abort on input\"))
+            nil))))))
+
+(add-hook 'mcomplete-post-command-hook 'mcomplete-post-command-exhibit)
+
+
+;;; Method enter/leave hooks
+(defvar mcomplete-method-enter-hook nil
+  \"Hook run when entering a completion method.\")
+(add-hook 'mcomplete-method-enter-hook 'mcomplete-display-current-method-name)
+
+(defvar mcomplete-method-leave-hook nil
+  \"Hook run when leaving a completion method.\")
+
+
+
+;;; completion core functions
+(defvar mcomplete-ignore-case nil
+  \"Non-nil means case is not considered significant in completion.\")
+(make-variable-buffer-local 'mcomplete-ignore-case)
+
+
+(defun mcomplete-exact-match-p (str table &optional pred)
+  \"Return t if an exact match for STR, satisfying PRED, exists in TABLE.\"
+  (let ((ignore-case mcomplete-ignore-case))
+    (cond
+     ((listp table)                     ; alist or nil
+      (let ((assoc (funcall (if ignore-case 'assoc-ignore-case 'assoc)
+                            str table)))
+        (and assoc (or (null pred) (funcall pred assoc)))))
+
+     ((vectorp table)                   ; obarray
+      (if (and (or (string= str \"nil\")
+                   (and ignore-case (string= (downcase str) \"nil\")))
+               (eq table obarray))
+          t                             ; We catch the `nil' here
+        (let* ((lowercase-str (downcase str))
+               (symbol (if (not ignore-case)
+                           (intern-soft str table)
+                         (catch 'found
+                           (mapatoms
+                            #'(lambda (s)
+                                (when (string= lowercase-str
+                                               (downcase (symbol-name s)))
+                                  (throw 'found s)))
+                            table)))))
+          (and symbol (or (null pred) (funcall pred symbol))))))
+     
+     (t                                 ; programmed completion
+      (funcall table str pred 'lambda)))))
+
+
+(defun mcomplete-predicate-with-input-check (arg)
+  \"Throw signal if input is pending, or call `minibuffer-completion-predicate'.\"
+  (cond
+   ((input-pending-p)
+    (throw 'input-pending t))
+   (minibuffer-completion-predicate
+    (funcall minibuffer-completion-predicate arg))
+   (t t)))
+
+
+;; caching facility
+(defun mcomplete-with-cache (func cache-var method str abort-on-input)
+  \"Call FUNC chaching the result.\"
+  (let ((cache (symbol-value cache-var))
+        (table minibuffer-completion-table)
+        (pred  minibuffer-completion-predicate)
+        result)
+    (if (and (eq    method (plist-get cache :method))
+             (equal str    (plist-get cache :str))
+             (eq    table  (plist-get cache :table))
+             (eq    pred   (plist-get cache :pred))
+             (eq    mcomplete-ignore-case (plist-get cache :ignore-case)))
+        (plist-get cache :result)
+      (setq result (funcall func str abort-on-input))
+      (set cache-var (list :method method :str str :table table :pred pred
+                           :ignore-case mcomplete-ignore-case
+                           :result result))
+      result)))
+
+
+;; all-completions with cache
+(defvar mcomplete-all-completions-cache
+  '(:str nil :table nil :pred nil :method nil :result nil)
+  \"Cache for `mcomplete-all-completions'.\")
+(make-variable-buffer-local 'mcomplete-all-completions-cache)
+
+(defun mcomplete-all-completions (str &optional abort-on-input)
+  \"Call the current method's `all-completions'.\"
+  (mcomplete-with-cache (mcomplete-get :all-completions)
+                        'mcomplete-all-completions-cache
+                        (mcomplete-current-method)
+                        str abort-on-input))
+
+;; try-completion
+(defvar mcomplete-try-completion-cache
+  '(:str nil :table nil :pred nil :method nil :result nil)
+  \"Cache for `mcomplete-try-completion'.\")
+
+(defun mcomplete-try-completion (str &optional abort-on-input)
+  \"Call the current method's `try-completion'.\"
+  (mcomplete-with-cache (mcomplete-get :try-completion)
+                        'mcomplete-try-completion-cache
+                        (mcomplete-current-method)
+                        str abort-on-input))
+
+
+;;; default completion commands
+(defvar mcomplete-last-exact-completion
+  nil
+  \"Private variable to hold a state of `mcomplete-do-completion'.\")
+
+(add-hook 'mcomplete-minibuffer-setup-hook
+          #'(lambda () (setq mcomplete-last-exact-completion nil)))
+
+(defun mcomplete-do-completion ()
+  \"Perform completion in the minibuffer.\"
+  (let* ((str        (mcomplete-minibuffer-string))
+         (completion (mcomplete-try-completion str))
+         (status     '(t))
+         (last       mcomplete-last-exact-completion))
+    (setq mcomplete-last-exact-completion nil)
+
+    (cond
+     ((null completion)
+      (mcomplete-message \" [No match]\")
+      nil)                              ; nil: no possible completion
+     ((eq completion t) t)              ; t:   was already an exact and
+                                        ;      unique completion
+     (t
+      (when (> (length completion) (length str)) ; completed
+        (add-to-list 'status 'completed)
+        (mcomplete-clear-minibuffer)
+        (insert completion))
+      (when (mcomplete-exact-match-p str
+                                     minibuffer-completion-table
+                                     minibuffer-completion-predicate)
+        (add-to-list 'status 'exact)
+        (unless (memq 'completed status)
+          (setq mcomplete-last-exact-completion str)
+          (when (equal last str)
+            (mcomplete-completion-help))))
+      (when (equal status '(t))
+        (if completion-auto-help
+            (mcomplete-completion-help)
+          (mcomplete-message \" [Next char not unique]\")))
+      status))))
+
+
+(defun mcomplete-complete ()
+  \"Complete the minibuffer contents as far as possible.\"
+  (unless (eq last-command this-command)
+    (setq minibuffer-scroll-window nil))
+  (let* ((help-win-exists (and (windowp       minibuffer-scroll-window)
+                               (window-buffer minibuffer-scroll-window)
+                               (buffer-name   (window-buffer
+                                               minibuffer-scroll-window))))
+         status)
+    (if help-win-exists
+        (with-current-buffer (window-buffer minibuffer-scroll-window)
+          (if (pos-visible-in-window-p (point-max) minibuffer-scroll-window)
+              (set-window-start minibuffer-scroll-window (point-min))
+            (scroll-other-window)))
+      (setq status (mcomplete-do-completion))
+      (cond
+       ((null status) nil)
+       ((eq status t)
+        (mcomplete-message \" [Sole completion]\"))
+       ((and (not (memq 'completed status)) (memq 'exact status))
+        (mcomplete-message \" [Complete, but not unique]\")))
+      status)))
+
+
+(defun mcomplete-complete-and-exit ()
+  \"Completes the minibuffer contents, and exit.\"
+  (if (or (string= (mcomplete-minibuffer-string) \"\")
+          (mcomplete-exact-match-p (mcomplete-minibuffer-string)
+                                   minibuffer-completion-table
+                                   minibuffer-completion-predicate))
+      (throw 'exit nil)
+    (let ((status (mcomplete-do-completion)))
+      (cond
+       ((eq status t) (throw 'exit nil))
+       ((memq 'exact status)
+        (if (and (memq 'completed status) minibuffer-completion-confirm)
+            (mcomplete-message \" [Confirm]\")
+          (throw 'exit nil)))))))
+
+
+(defun mcomplete-insert-1st-candidate ()
+  (let* ((str (mcomplete-minibuffer-string))
+         (first (unless (< (length (mcomplete-minibuffer-string))
+                           mcomplete-exhibit-start-chars)
+                    (car (mcomplete-all-completions str)))))
+    (when first
+      (mcomplete-clear-minibuffer)
+      (insert first)
+      t)))
+
+(defun mcomplete-pick-1st-candidate-and-exit ()
+  \"Pick the first completion candidate, and exit (for strict completion).\"
+  (if (or (mcomplete-insert-1st-candidate)
+          (string= (mcomplete-minibuffer-string) \"\"))
+      (throw 'exit nil)
+    (mcomplete-do-completion)))
+
+(defun mcomplete-exit-minibuffer ()
+  \"Pick the first completion candidate, and exit (for permissive completion).\"
+  (mcomplete-insert-1st-candidate)
+  (exit-minibuffer))
+
+(defvar mcomplete-complete-word-high-priority-strings
+  '(\" \"  \"-\")
+  \"The default value should make `mcomplete-complete-word' act like `minibuffer-complete-word'.\")
+
+
+(defun mcomplete-complete-word ()
+  \"Complete the minibuffer contents by at most a single word.\"
+  (let* ((str        (mcomplete-minibuffer-string))
+         (completion (mcomplete-try-completion str))
+         (suffix     (when (stringp completion)
+                       (string-match (regexp-quote str) completion)
+                       (substring completion (match-end 0)))))
+    (cond
+     ((null completion)
+      (mcomplete-message \" [No match]\") nil)
+     ((eq completion t)
+      (mcomplete-message \" [Sole completion]\") nil)
+     ((string= suffix \"\")
+      (let ((strings mcomplete-complete-word-high-priority-strings))
+        (unless (catch 'inserted
+                  (while strings
+                    (when (mcomplete-try-completion (concat str (car strings)))
+                      (goto-char (point-max))
+                      (insert (car strings))
+                      (throw 'inserted t))
+                    (setq strings (cdr strings))))
+          (if completion-auto-help
+              (mcomplete-completion-help)
+            (mcomplete-message \" [Next char not unique]\")))))
+     ((string-match \"\\\\`\\\\sw*\\\\Sw?\" suffix)
+      (goto-char (point-max))
+      (insert (match-string 0 suffix))
+      t)
+     (t (error \"mcomplete-complete-word: logical error\")))))
+  ;; Completion behavior of GNU Emacs's `minibuffer-complete-word'
+  ;;
+  ;; (completing-read \"test: \" '((\"bm-emacs_something.el\")))
+  ;; <SPACE>
+  ;; bm-<SPACE>
+  ;; bm-emacs_<SPACE>
+  ;; bm-emacs_something.<SPACE>
+  ;; bm-emacs_something.el
+  ;;
+  ;; (completing-read \"test: \" '((\"space wins\") (\"space_wins\") (\"space-wins\") (\"spacewinds\")))
+  ;; <SPACE>
+  ;; \"space<SPACE>\"
+  ;; \"space <SPACE>\"
+  ;; \"space wins\"
+  ;;
+  ;; (completing-read \"test: \" '((\"hyphen-wins\") (\"hyphen_wins\")))
+  ;; <SPACE>
+  ;; hyphen<SPACE>
+  ;; hyphen-<SPACE>
+  ;; hyphen-wins
+  ;;
+  ;; (completing-read \"test: \" '((\"can't_decide\") (\"can'tdecide\")))
+  ;; <SPACE>
+  ;; can'<SPACE>
+  ;; can't<SPACE>
+  ;; [open help window]
+  ;;
+
+
+(defun mcomplete-completion-help ()
+  \"Display a list of possible completions of the current minibuffer contents.\"
+  (message \"Making completion list...\")
+  (let ((completions (mcomplete-all-completions
+                      (mcomplete-minibuffer-string))))
+    (message nil)
+    (cond
+     ((null completions)
+      (ding)
+      (mcomplete-message \" [No completions]\"))
+     (t
+      (with-output-to-temp-buffer \"*Completions*\"
+        (display-completion-list completions))))))
+
+
+;;; Minibuffer commands
+(defun MComplete-complete ()
+  \"Complete the minibuffer contents as far as possible.\"
+  (interactive)
+  (funcall (mcomplete-get :complete)))
+
+(defun MComplete-complete-word ()
+  \"Complete the minibuffer contents by at most a single word.\"
+  (interactive)
+  (funcall (mcomplete-get :complete-word)))
+
+(defun MComplete-complete-and-exit ()
+  \"If the minibuffer contents is a valid completion then exit.
+Otherwise try to complete it.\"
+  (interactive)
+  (funcall (mcomplete-get :complete-and-exit)))
+
+(defun MComplete-exit-minibuffer ()
+  \"Exit the minibuffer.\"
+  (interactive)
+  (funcall (mcomplete-get :exit-minibuffer)))
+
+
+(defun MComplete-toggle-ignore-case ()
+  \"Toggle case significance in completion.\"
+  (interactive)
+  (setq mcomplete-ignore-case (not mcomplete-ignore-case))
+  (mcomplete-message (format \"[Case is %ssignificant]\"
+                             (if mcomplete-ignore-case
+                                 \"NOT \"
+                               \"\"))
+                     0.5))
+                                    
+
+(defun MComplete-completion-help ()
+  \"Display a list of possible completions of the current minibuffer contents.\"
+  (interactive)
+  (funcall (mcomplete-get :completion-help)))
+
+(defun mcomplete-rotate-current-method-set (count-or-method)
+  (run-hooks (mcomplete-get :method-leave-hook))
+  (let ((count (if (integerp count-or-method)
+                   count-or-method
+                 (catch 'count
+                   (let ((list  mcomplete-current-method-set)
+                         (count 0))
+                     (while list
+                       (when (eq (car list) count-or-method)
+                         (throw 'count count))
+                       (setq count (1+ count)
+                             list  (cdr list)))
+                     (error \"Method symbol %S not found\" count-or-method))))))
+    (setq mcomplete-current-method-set
+          (mcomplete-rotate-list mcomplete-current-method-set count)))
+  (run-hooks (mcomplete-get :method-enter-hook)))
+
+(defun MComplete-next-method (&optional arg)
+  \"Change the completion method to the next one.\"
+  (interactive \"p\")
+  (unless arg (setq arg 1))
+  (mcomplete-rotate-current-method-set arg))
+
+(defun MComplete-previous-method (&optional arg)
+  \"Change the completion method to the previous one.\"
+  (interactive \"p\")
+  (unless arg (setq arg 1))
+  (mcomplete-rotate-current-method-set (- arg)))
+
+(defun MComplete-next-candidate (&optional arg)
+  \"Change the default completion candidate to the next one.\"
+  (interactive \"p\")
+  (unless arg (setq arg 1))
+  (let ((plist mcomplete-all-completions-cache))
+    (plist-put plist
+               :result
+               (mcomplete-rotate-list (plist-get plist :result) arg))))
+
+(defun MComplete-previous-candidate (&optional arg)
+  \"Change the default completion candidate to the previous one.\"
+  (interactive \"p\")
+  (unless arg (setq arg 1))
+  (let ((plist mcomplete-all-completions-cache))
+    (plist-put plist
+               :result
+               (mcomplete-rotate-list (plist-get plist :result) (- arg)))))
+
+
+;; ------------------------------------------------------------------
+;;; Per command customization
+;; ------------------------------------------------------------------
+(defun mcomplete-get-command-default-plist ()
+  (cons :method-set (list mcomplete-default-method-set)))
+
+(defun mcomplete-setup-command-env ()
+  (let ((plist (append (get this-command 'mcomplete-mode)
+                       (mcomplete-get-command-default-plist))))
+    (setq mcomplete-current-method-set
+          (apply 'list (plist-get plist :method-set)))
+    (setq mcomplete-exhibit-start-chars
+          (or (plist-get plist :exhibit-start-chars)
+              mcomplete-default-exhibit-start-chars))
+    (setq mcomplete-ignore-case
+          (let ((ignore (plist-get plist :ignore-case)))
+            (cond ((eq ignore 'on)  t)
+                  ((eq ignore 'off) nil)
+                  ((eq ignore 'nil) completion-ignore-case))))))
+
+(add-hook 'mcomplete-minibuffer-setup-hook 'mcomplete-setup-command-env)
+
+(mapc #'(lambda (f) (put f 'mcomplete-mode '(:mode off)))
+      '(iswitchb-buffer iswitchb-buffer-other-window
+        iswitchb-display-buffer iswitchb-buffer-other-frame
+        
+        ido-find-file ido-find-alternate-file ido-write-file
+        ido-insert-file ido-switch-buffer ido-insert-buffer
+        ido-kill-buffer ido-find-file-other-window
+        ido-find-file-other-window ido-switch-buffer-other-window
+        ido-display-buffer ido-find-file-other-frame
+        ido-switch-buffer-other-frame))
+
+;; ------------------------------------------------------------------
+;;; default plist for all methods
+;; ------------------------------------------------------------------
+(defvar mcomplete-method-default-plist
+  '(;; Name
+    :name                 nil
+
+    ;; Core functions
+    :all-completions      nil
+    :try-completion       nil
+
+    ;; Method enter/leave hooks
+    :method-enter-hook    mcomplete-method-enter-hook
+    :method-leave-hook    mcomplete-method-leave-hook
+
+    ;; Minibuffer commands
+    :complete             mcomplete-complete
+    :complete-word        mcomplete-complete-word
+    :completion-help      mcomplete-completion-help
+    :complete-and-exit    mcomplete-pick-1st-candidate-and-exit
+    :exit-minibuffer      mcomplete-exit-minibuffer
+
+    ;; Pre/Post command hooks and functions
+    :pre-command-hook     mcomplete-pre-command-hook
+    :post-command-hook    mcomplete-post-command-hook)
+    \"Default property list for completion methods of `mcomplete-mode'.\")
+
+
+;; ------------------------------------------------------------------
+;;; prefix match method
+;; ------------------------------------------------------------------
+
+(defvar mcomplete-prefix-method
+  '(:name    \"Prefix match\"
+    ;; Core functions
+    :try-completion  mcomplete-prefix-method-try-completion
+    :all-completions mcomplete-prefix-method-all-completions
+    ;; Candidates exhibition
+    :exhibit mcomplete-prefix-method-exhibit)
+  \"Property list for prefix matching completion method.\")
+
+(defun mcomplete-prefix-method-try-completion (str abort-on-input)
+  \"`try-completion' for prefix matching method.\"
+  (let ((completion-ignore-case mcomplete-ignore-case))
+    (try-completion str
+                    minibuffer-completion-table
+                    (if (and minibuffer-completion-predicate abort-on-input)
+                        'mcomplete-predicate-with-input-check
+                      minibuffer-completion-predicate))))
+
+
+(defun mcomplete-prefix-method-all-completions (str abort-on-input)
+  \"`all-completions' for prefix matching method.\"
+  (let ((completion-ignore-case mcomplete-ignore-case))
+    (sort
+     (all-completions str
+                      minibuffer-completion-table
+                      (if (and minibuffer-completion-predicate abort-on-input)
+                          'mcomplete-predicate-with-input-check
+                        minibuffer-completion-predicate))
+     'string<)))
+
+
+(defface mcomplete-prefix-method-fixed-part-face
+  '((t (:bold t :foreground \"Aquamarine\")))
+  \"Face to highlight the fixed part of input for prefix matching method.\"
+  :group      'mcomplete)
+                     
+(defface mcomplete-prefix-method-alternative-part-face
+  '((t (:foreground \"Aquamarine\")))
+  \"Face to highlight the alternative part of input for prefix matching method.\"
+  :group      'mcomplete)
+
+(defun mcomplete-prefix-method-exhibit (str all try)
+  \"Exhibit prefix matching completion information in the minibuffer.\"
+  (let* ((f-face 'mcomplete-prefix-method-fixed-part-face)
+         (a-face 'mcomplete-prefix-method-alternative-part-face))
+    (unless (null try)
+      (put-text-property (mcomplete-prompt-end) (point-max) 'face f-face))
+    (cond
+     ((null try) (insert \" [No match]\"))
+     ((eq try t) (insert \" [Sole completion]\"))
+     (t
+      (let* ((fixed (substring try (length str)))
+             (tail1 (substring (car all) (length try)))
+             (rest  (cdr all))
+             tail)
+        (unless (string= fixed \"\")
+          (put-text-property 0 (length fixed) 'face f-face fixed)
+          (insert (concat \"[\" fixed \"]\")))
+        (when (or rest (not (string= tail1 \"\")))
+          (insert \"{\")
+          (put-text-property 0 (length tail1) 'face a-face tail1)
+          (insert tail1)
+          (while (and rest
+                      (< (+ (point-max)
+                            (length (setq tail (substring (car rest)
+                                                          (length try))))
+                            4)
+                         (window-width)))
+            (insert \",\" tail)
+            (setq rest (cdr rest)))
+          (insert (if rest \",..}\" \"}\"))))))))
+
+
+;; ------------------------------------------------------------------
+;;; substring match method
+;; ------------------------------------------------------------------
+
+(defvar mcomplete-substr-method
+  '(:name                 \"Substring match\"
+
+    ;; Core functions
+    :try-completion       mcomplete-substr-method-try-completion
+    :all-completions      mcomplete-substr-method-all-completions
+
+    ;; Candidates exhibition
+    :exhibit              mcomplete-substr-method-exhibit)
+  \"Property list for substring matching completion method.\")
+
+
+
+(defun mcomplete-substr-method-all-completions (str abort-on-input)
+  \"`all-completions' for substring match method of `mcomplete-mode'.\"
+  (let ((table minibuffer-completion-table)
+        (pred  (if abort-on-input
+                   'mcomplete-predicate-with-input-check
+                 minibuffer-completion-predicate)))
+    (let ((case-fold-search mcomplete-ignore-case)
+          (regexp (regexp-quote str))
+	  (len (length str))
+          list)
+      (cond
+       ((listp table)                   ; alist or nil
+        (let ((rest table))
+          (while rest
+            (when (and (string-match regexp (caar rest))
+                       (or (null pred) (funcall pred (car rest))))
+              (setq list (cons (caar rest) list)))
+            (setq rest (cdr rest)))))
+
+       ((vectorp table)                 ; obarray
+        (mapatoms
+         #'(lambda (s)
+             (when (and (string-match regexp (symbol-name s))
+                        (or (null pred) (funcall pred s)))
+               (setq list (cons (copy-sequence (symbol-name s)) list))))
+         table))
+
+       (t
+        (error \"Invalid TABLE\")))
+      
+      (sort list (lambda (a b)
+		   (let ((a-prefix (eq (compare-strings a 0 len str 0 len) t))
+			 (b-prefix (eq (compare-strings b 0 len str 0 len) t)))
+		     (cond 
+		      ;; Sort prefix matches first
+		      ((and a-prefix (not b-prefix)) t)
+		      ((and b-prefix (not a-prefix)) nil)
+		      (t (string< a b)))))))))
+
+
+(defun mcomplete-substr-method-try-completion (str abort-on-input)
+  \"`try-completion' for substring match method of `mcomplete-mode'.\"
+  (let* ((completions (mcomplete-all-completions str abort-on-input)))
+    (cond
+     ((null completions)                ; 0 candidate
+      nil)
+
+     ((null (cdr completions))          ; 1 candidate
+      (if (string= str (car completions))
+          t
+        (car completions)))
+
+     (t                                 ; multiple candidates
+      (let* ((regexp (regexp-quote str))
+             (tails-alist (mapcar #'(lambda (item)
+                                      (string-match regexp item)
+                                      (list (substring item (match-end 0))))
+                                  completions)))
+        (concat str (try-completion \"\" tails-alist)))))))
+
+
+(defface mcomplete-substr-method-fixed-part-face
+  '((t (:bold t :foreground \"SpringGreen\")))
+  \"Face to highlight the fixed part of input for substring matching method.\"
+  :group      'mcomplete)
+                     
+(defface mcomplete-substr-method-alternative-part-face
+  '((t (:foreground \"SpringGreen\")))
+  \"Face to highlight alternative parts of input for substring matching method.\"
+  :group      'mcomplete)
+
+
+(defun mcomplete-substr-method-exhibit (str all try)
+  \"Exhibit substring matching completion information in the minibuffer.\"
+  (let* ((f-face 'mcomplete-substr-method-fixed-part-face)
+         (a-face 'mcomplete-substr-method-alternative-part-face))
+    (unless (null try)
+      (put-text-property (mcomplete-prompt-end) (point-max) 'face f-face))
+    (cond
+     ((null try) (insert \" [No match]\"))
+     ((eq try t) (insert \" [Sole completion]\"))
+     (t
+      (let* ((fixed (progn
+                      (string-match (regexp-quote str) try)
+                      (substring try (match-end 0))))
+             (alt1 (copy-sequence (car all)))
+             (rest (cdr all)))
+        (unless (string= fixed \"\")
+          (put-text-property 0 (length fixed) 'face f-face fixed)
+          (insert (concat \"[\" fixed \"]\")))
+        (insert \"<\")
+        (string-match (regexp-quote try) alt1)
+        (put-text-property 0 (match-beginning 0) 'face a-face alt1)
+        (put-text-property (match-end 0) (length alt1) 'face a-face alt1)
+        (put-text-property (match-beginning 0) (match-end 0) 'face f-face alt1)
+        (insert alt1)
+        (while (and rest (< (+ (point-max) (length (car rest)) 4)
+                            (window-width)))
+          (insert \",\" (car rest))
+          (setq rest (cdr rest)))
+        (insert (if rest \",..>\" \">\")))))))
+
+
+;;; completing-help.el support
+(if (featurep 'completing-help)
+    (add-to-list 'completing-help-commands 'MComplete-completion-help)
+  (add-hook 'completing-help-load-hook
+            #'(lambda () (add-to-list 'completing-help-commands
+                                      'MComplete-completion-help))))
+
+(defvar mcomplete-load-hook nil
+  \"Hook to run at the end of loading mcomplete.\")
+
+(provide 'mcomplete)
+(run-hooks 'mcomplete-load-hook)
+
+;;; mcomplete.el ends here
+" "ido-" "conf/"))
+(setq-default session-file-alist '(("~/dotfiles/emacs.d/conf/init-minibuf.el" 1255 1038 1 nil nil 643 (overwrite-mode)) ("~/dotfiles/emacs.d/elisp/mcomplete.el" 1 50882 1 nil nil 50882 (overwrite-mode))))
+(setq-default file-name-history '("~/.emacs.d/conf/init-helm.el" "/usr/local/Cellar/emacs/HEAD/share/emacs/24.3.50/lisp/ido.el.gz" "~/dotfiles/emacs.d/conf/init-minibuf.el" "~/.emacs.d/bookmarks" "~/.emacs.d/elisp/mcomplete.el" "~/.emacs.d/elpa/session-20120511.0/session-autoloads.el" "~/.emacs.d/elpa/session-readme.txt" "~/.emacs.d/elpa/archives/melpa/archive-contents" "~/.emacs.d/elpa/archives/gnu/archive-contents" "~/.emacs.d/elpa/archives/marmalade/archive-contents" "~/.emacs.d/init.el" "~/.emacs.d/elpa/helm-20130621.830/helm-files.el" "~/dotfiles/emacs.d/conf/init-ffap.el" "~/.emacs.d/elpa/multiple-cursors-20130608.1031/multiple-cursors-autoloads.el" "~/.emacs.d/elpa/multiple-cursors-readme.txt" "~/.emacs.d/elpa/foreign-regexp-20130618.1921/foreign-regexp-autoloads.el" "~/.emacs.d/elpa/foreign-regexp-readme.txt" "~/.emacs.d/elpa/expand-region-20130610.737/expand-region-autoloads.el" "~/.emacs.d/elpa/expand-region-readme.txt" "~/.emacs.d/conf/init-region.el" "~/dev/hitasura/Hitasura/libs/kawaii/actor.h" "~/unko"))
+(setq-default command-history '((helm-apropos) (execute-extended-command nil "helm-apropos") (describe-key "\370" 1 nil) (ido-find-file) (execute-extended-command nil "ido-find-file")))
+(setq-default extended-command-history '("helm-apropos" "ido-find-file"))
+(setq-default helm-c-source-projects-history '((name . "Projects history") (candidates lambda nil hp:history) (action ("helm project" lambda \.\.\. \.\.\.))))
+(setq-default helm-source-complex-command-history '((name . "Complex Command History") (candidates lambda nil (mapcar \.\.\. command-history)) (type . sexp)))
+(setq-default helm-source-ff-file-name-history '((name . "File name history") (init lambda nil (when helm-ff-file-name-history-use-recentf \.\.\. \.\.\.)) (candidates lambda nil (if helm-ff-file-name-history-use-recentf recentf-list file-name-history)) (persistent-action . ignore) (filtered-candidate-transformer . helm-file-name-history-transformer) (action ("Find file" lambda \.\.\. \.\.\. \.\.\.) ("Find file in helm" lambda \.\.\. \.\.\.))))
+(setq-default helm-source-file-name-history '((name . "File Name History") (candidates . file-name-history) (type . file)))
+(setq-default mcomplete-history-minibuf-history '("ido-find-file"))
+(setq-default minibuffer-history '("init-helm" "init-mini" "ido-mode"))
+(setq-default occur-collect-regexp-history '("\\1"))
