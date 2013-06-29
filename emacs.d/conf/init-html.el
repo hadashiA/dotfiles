@@ -18,9 +18,6 @@
 ;;             (define-key html-mode-map (kbd "M-n") 'sgml-skip-tag-forward)
 ;;             (define-key html-mode-map "\M-p" 'sgml-skip-tag-backward)))
 
-(require 'haml-mode)
-(require 'sass-mode)
-
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
