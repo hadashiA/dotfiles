@@ -75,7 +75,7 @@
 (add-hook 'objc-mode-hook
           (lambda ()
             (add-to-list 'ac-sources 'ac-source-ya-gtags)
-            (ac-clang-launch-completion-process)
+            ;; (ac-clang-launch-completion-process)
             ;; (add-to-list 'ac-sources 'ac-source-company-xcode)
             ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
             ;; (auto-complete)
