@@ -11,7 +11,7 @@
 
 (require 'yasnippet)
 
-(define-key yas-minor-mode-map (kbd "C-o") 'yas-expand-from-trigger-key)
+(define-key yas-minor-mode-map (kbd "C-o") 'yas-expand)
 (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
 (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
 
