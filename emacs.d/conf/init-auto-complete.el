@@ -56,35 +56,16 @@
 
 (defun ac-cc-mode-setup ()
   (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
-  (add-to-list '(ac-source-clang-async))
-  (add-to-list '(ac-source-ya-gtags))
+  (add-to-list 'ac-sources '(ac-source-clang-async))
+  (add-to-list 'ac-sources '(ac-source-ya-gtags))
   (ac-clang-launch-completion-process)
   )
 
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (add-to-list 'ac-sources 'ac-source-ya-gtags)
-            ;; (ac-clang-launch-completion-process)
-            (add-to-list 'ac-sources 'ac-source-dictionary)
-            ;; (add-to-list 'ac-sources 'ac-source-company-xcode)
-            ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
-            ))
+(add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
 
 ;; objc-mode
 (add-to-list 'ac-modes 'objc-mode)
-(add-hook 'objc-mode-hook
-          (lambda ()
-            (add-to-list 'ac-sources 'ac-source-ya-gtags)
-            ;; (ac-clang-launch-completion-process)
-            ;; (add-to-list 'ac-sources 'ac-source-company-xcode)
-            ;; (add-to-list 'ac-sources 'ac-source-company-gtags)
-            ;; (auto-complete)
-            
-            ;; (setq ac-clang-prefix-header "~/dotfiles/doc/cocos2d.h.pch"
-            ;;       ac-clang-flags (list "-Wall" "-Wextra" "-fsyntax-only"
-            ;;                            "-x" "objective-c"
-            ;;                            "-isysroot" xcode:sdk:path))
-            ))
+(add-hook 'objc-mode-hook 'ac-cc-mode-setup)
 
 (add-to-list 'ac-modes 'csharp-mode)
 (add-hook 'csharp-mode-hook
@@ -98,7 +79,6 @@
             (add-to-list 'ac-sources 'ac-source-functions)
             (add-to-list 'ac-sources 'ac-source-symbols)
             (add-to-list 'ac-sources 'ac-source-variables)))
-
 
 ;; Rsense
 ;; http://cx4a.org/software/rsense/manual.ja.html
