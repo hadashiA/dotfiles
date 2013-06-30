@@ -46,7 +46,7 @@
 
 ;; (defadvice yas/expand-snippet
 ;;   (before inhibit-flymake-syntax-checking-while-expanding-snippet activate)
-;;   (setq flymake-is-active-flag
+;;   (setq flymake-is-active-flag.el
 ;;         (or flymake-is-active-flag
 ;;             (assoc-default 'flymake-mode (buffer-local-variables))))
 ;;   (when flymake-is-active-flag
@@ -63,5 +63,6 @@
 (setq yas-snippet-dirs
       '("~/.emacs.d/snippets"            ;; personal snippets
         ))
+
 (yas-global-mode 1)
 
