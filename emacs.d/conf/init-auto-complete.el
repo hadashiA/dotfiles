@@ -61,7 +61,8 @@
   (ac-clang-launch-completion-process)
   )
 
-(add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+(add-hook 'c-mode-hook 'ac-cc-mode-setup)
+(add-hook 'c++-mode-hook 'ac-cc-mode-setup)
 
 ;; objc-mode
 (add-to-list 'ac-modes 'objc-mode)
