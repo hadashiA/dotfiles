@@ -15,3 +15,4 @@
 (global-set-key (kbd "M-<") 'mc/mark-previous-lines)
 (global-set-key (kbd "C-c M-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c C-@") 'set-rectangular-region-anchor)
+(global-set-key (kbd "C-c C-SPC") 'set-rectangular-region-anchor)

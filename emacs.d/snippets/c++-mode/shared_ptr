@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: shared_ptr
+# key: sh
+# --
+shared_ptr<$1>$0

@@ -37,3 +37,5 @@
         ("\\.doc" "qlmanage -p")
         ("\\.xls" "qlmanage -p")
         ("\\.ppt" "qlmanage -p")))
+
+(setq x-select-enable-clipboard t)
