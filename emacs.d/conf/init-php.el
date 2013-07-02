@@ -57,4 +57,3 @@
 
 ;; (define-key ctl-x-map "\C-r"  'reopen-file)
 
-(add-to-list 'auto-mode-alist '("\\.tpl$" . html-mode))
