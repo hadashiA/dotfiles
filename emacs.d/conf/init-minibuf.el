@@ -27,6 +27,7 @@
 (ido-mode t)
 (ido-everywhere t)
 (setq ido-enable-flex-matching t)
+(setq ido-create-new-buffer 'always)
 (custom-set-variables
  '(ido-max-directory-size 'const)
  '(ido-enter-matching-directory 'first))

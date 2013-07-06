@@ -40,4 +40,3 @@
 
 (global-set-key "\C-c\C-a" 'align)
 
-(define-key global-map [?¥] [?\\])  ;; ¥の代わりにバックスラッシュを入力する
