@@ -1,31 +1,6 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 ;; ruby-mode
-;; http://pub.cozmixng.org/~the-rwiki/rw-cgi.rb?cmd=view;name=Emacs 
-(add-to-load-path "~/.emacs.d/elisp/ruby-mode/")
-;; (require 'rvm)
-;; (rvm-use "1.9.3" "ruby")
-;; (rvm-use-default)
 
-(require 'ruby-mode)
-;; magickコメントを入れない
-(defun ruby-mode-set-encoding () ())
-
-(setq ruby-indent-level 2
-      ruby-indent-tabs-mode nil
-      ;; ruby-deep-indent-paren-style nil
-      ;; ruby-deep-indent-paren-style t
-      ruby-deep-indent-paren-style 'space
-      )
-
-(add-to-list 'auto-coding-alist '("\\.rb\\'" . utf-8-unix))
-
-;; (mapc '(lambda (arg)
-;;          (cons arg auto-mode-alist))
-;;       (list '("\\.rb$"   . ruby-mode)
-;;             '("\\.rash$" . ruby-mode)
-;;             '("\\.rake$" . ruby-mode)
-;;             '("\\.rjs$"  . ruby-mode)
-;;             '("Rakefile" . ruby-mode)))
 
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
@@ -39,40 +14,28 @@
 (add-to-list 'auto-mode-alist '(".\\?irbrc" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rash$" . ruby-mode))
 
-(define-key ruby-mode-map "\C-m" 'reindent-then-newline-and-indent)
+(add-to-list 'auto-coding-alist '("\\.rb\\'" . utf-8-unix))
 
-(define-key ruby-mode-map "\M-n" 'ruby-end-of-block)
-(define-key ruby-mode-map "\M-p" 'ruby-beginning-of-block)
+(setq ruby-indent-level 2
+      ruby-indent-tabs-mode nil
+      ;; ruby-deep-indent-paren-style nil
+      ;; ruby-deep-indent-paren-style t
+      ruby-deep-indent-paren-style 'space
+      )
 
-;; [2010-03-28]
-;; yasnippetとか、regionをクォートするやつとかと競合するのでコメント
-;; アウト
-;; (and (require 'ruby-electric nil t)
-;;      ;; (setq ruby-electric-expand-delimiters-list nil)    
-;;      (add-hook 'ruby-mode-hook
-;;                '(lambda ()
-;;                   (ruby-electric-mode 1))))
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            ;; マジックコメント入れない
+            (defun ruby-mode-set-encoding () ())
+            (define-key ruby-mode-map "\C-m" 'reindent-then-newline-and-indent)
+            (define-key ruby-mode-map "\M-n" 'ruby-end-of-block)
+            (define-key ruby-mode-map "\M-p" 'ruby-beginning-of-block)
+            (define-key ruby-mode-map "d" 'ruby-elect-end)))
 
-;; (and (require 'inf-ruby nil t)
-;;      (setq interpreter-mode-alist
-;;            (cons '("ruby" . ruby-mode) interpreter-mode-alist))
-;;      (let
-;;          ((ruby (executable-find "ruby"))
-;;           (irb (locate-library "irb" nil exec-path))
-;;           (args (list "--inf-ruby-mode" "-Ku")))
-       
-;;        (and irb
-;;             (setq ruby-program-name
-;;                   (mapconcat #'identity
-;;                              `(,ruby ,irb ,@args) " "))
-            
-;;             (add-hook 'ruby-mode-hook
-;;                       '(lambda ()
-;;                          (inf-ruby-keys))))))
 
-(when (require 'ruby-block)
-  (setq ruby-block-highlight-toggle t)
-  (ruby-block-mode t))
+(require 'ruby-block)
+(setq ruby-block-highlight-toggle t)
+(ruby-block-mode t)
 
 ;; M-x alignの設定 for Ruby - (rubikitch loves (Emacs Ruby CUI))
 ;; http://d.hatena.ne.jp/rubikitch/20080227/1204051280
@@ -192,7 +155,3 @@
            ((or (char-equal c ?\n) (char-equal c ?\()) (throw 'loop t))
            ((or (char-equal c 32) (char-equal c ?\t)) ())
            (t (throw 'loop nil))))))))
-
-(add-hook 'ruby-mode-hook
-          (lambda ()
-            (define-key ruby-mode-map "d" 'ruby-elect-end)))
