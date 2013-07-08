@@ -178,3 +178,19 @@ EOT
     bindkey-advice-before "^[" afu+cancel
     bindkey-advice-before "^J" afu+cancel afu+accept-line
 fi
+
+function do_enter() {
+    if [ -n "$BUFFER" ]; then
+        zle accept-line
+        return 0
+    fi
+    # ↓おすすめ
+    # ls_abbrev
+    if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
+        git status
+    fi
+    zle reset-prompt
+    return 0
+}
+zle -N do_enter
+bindkey '^m' do_enter

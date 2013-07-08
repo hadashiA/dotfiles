@@ -75,6 +75,9 @@
              (local-set-key (kbd "C-+") 'helm-gtags-select)
              (local-set-key (kbd "C-S-t") 'helm-gtags-pop-stack)))
 
+(helm-descbinds-mode)
+(global-set-key (kbd "C-x b") 'helm-descbinds)
+
 (defvar helm-c-sources-rubygems-local
   '((name . "rubygems")
     (candidates-in-buffer)

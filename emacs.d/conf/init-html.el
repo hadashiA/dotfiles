@@ -26,3 +26,16 @@
 (add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+
+;;; インデント数
+(add-hook 'web-mode-hook
+          (lambda ()
+            (setq web-mode-html-offset   2)
+            (setq web-mode-css-offset    2)
+            (setq web-mode-script-offset 2)
+            (setq web-mode-php-offset    2)
+            (setq web-mode-java-offset   2)
+            (setq web-mode-asp-offset    2)
+            
+            (define-key web-mode-map (kbd "C-;") 'helm-for-files)
+            ))
