@@ -75,49 +75,49 @@
              (local-set-key (kbd "C-+") 'helm-gtags-select)
              (local-set-key (kbd "C-S-t") 'helm-gtags-pop-stack)))
 
-;; (defvar anything-c-sources-rubygems-local
-;;   '((name . "rubygems")
-;;     (candidates-in-buffer)
-;;     (init . (lambda ()
-;;               (let ((gemfile-dir
-;;                      (block 'find-gemfile
-;;                        (let* ((cur-dir (file-name-directory
-;;                                         (expand-file-name (or (buffer-file-name)
-;;                                                               default-directory))))
-;;                               (cnt 0))
-;;                          (while (and (< (setq cnt (+ 1 cnt)) 10)
-;;                                      (not (equal cur-dir "/")))
-;;                            (when (member "Gemfile" (directory-files cur-dir))
-;;                              (return-from 'find-gemfile cur-dir))
-;;                            (setq cur-dir (expand-file-name (concat cur-dir "/.."))))
-;;                          ))))
-;;                 (anything-attrset 'gem-command
-;;                                   (concat (if gemfile-dir
-;;                                               (format "BUNDLE_GEMFILE=%s/Gemfile bundle exec "
-;;                                                       gemfile-dir)
-;;                                             "")
-;;                                           "gem 2>/dev/null"))
-;;                 (unless (anything-candidate-buffer)
-;;                   (call-process-shell-command (format "%s list" (anything-attr 'gem-command))
-;;                                               nil
-;;                                               (anything-candidate-buffer 'local))))))
-;;     (action . (lambda (gem-name)
-;;                 (message (anything-attr 'gem-command))
-;;                 (let ((path (file-name-directory
-;;                              (shell-command-to-string
-;;                               (format "%s which %s"
-;;                                       (anything-attr 'gem-command)
-;;                                       (replace-regexp-in-string "\s+(.+)$" "" gem-name))))))
-;;                   (if (and path (file-exists-p path))
-;;                       (find-file path)
-;;                     (message "no such file or directory: \"%s\"" path))
-;;                   )))))
+(defvar helm-c-sources-rubygems-local
+  '((name . "rubygems")
+    (candidates-in-buffer)
+    (init . (lambda ()
+              (let ((gemfile-dir
+                     (block 'find-gemfile
+                       (let* ((cur-dir (file-name-directory
+                                        (expand-file-name (or (buffer-file-name)
+                                                              default-directory))))
+                              (cnt 0))
+                         (while (and (< (setq cnt (+ 1 cnt)) 10)
+                                     (not (equal cur-dir "/")))
+                           (when (member "Gemfile" (directory-files cur-dir))
+                             (return-from 'find-gemfile cur-dir))
+                           (setq cur-dir (expand-file-name (concat cur-dir "/.."))))
+                         ))))
+                (helm-attrset 'gem-command
+                                  (concat (if gemfile-dir
+                                              (format "BUNDLE_GEMFILE=%s/Gemfile bundle exec "
+                                                      gemfile-dir)
+                                            "")
+                                          "gem 2>/dev/null"))
+                (unless (helm-candidate-buffer)
+                  (call-process-shell-command (format "%s list" (helm-attr 'gem-command))
+                                              nil
+                                              (helm-candidate-buffer 'local))))))
+    (action . (lambda (gem-name)
+                (message (helm-attr 'gem-command))
+                (let ((path (file-name-directory
+                             (shell-command-to-string
+                              (format "%s which %s"
+                                      (helm-attr 'gem-command)
+                                      (replace-regexp-in-string "\s+(.+)$" "" gem-name))))))
+                  (if (and path (file-exists-p path))
+                      (find-file path)
+                    (message "no such file or directory: \"%s\"" path))
+                  )))))
 
-;; (defun anything-rubygems-local ()
-;;   (interactive)
-;;   (anything-other-buffer
-;;    '(anything-c-sources-rubygems-local)
-;;    "*anything local gems*"
-;;   ))
+(defun helm-rubygems-local ()
+  (interactive)
+  (helm-other-buffer
+   '(helm-c-sources-rubygems-local)
+   "*anything local gems*"
+  ))
 
 
