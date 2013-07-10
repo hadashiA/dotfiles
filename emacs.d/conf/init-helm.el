@@ -40,17 +40,6 @@
 ;;        (lambda (files)
 ;;          (remove-if 'file-directory-p files))))
 
-(hp:add-project
- :name 'ruby
- :look-for '("Gemfile" "Rakefile")
- :exclude-directory-regexp "\\(vendor\\|tmp\\|log\\|doc\\|\\.git\\|work\\)")
-
-(hp:add-project
- :name 'php
- :look-for '("index.php")
- :include-regexp '("\\.php$" "\\.tpl$" "\\.css$" "\\.js$")
- :exclude-directory-regexp "\\(\\.git\\|templates_c\\|img\\)")
-
 (require 'helm-c-yasnippet)
 (define-key yas-minor-mode-map (kbd "C-x i i") 'helm-c-yas-complete)
 
