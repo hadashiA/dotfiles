@@ -63,13 +63,21 @@
              (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
              (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
              ;; (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
-             (local-set-key (kbd "C-+") 'helm-gtags-select)
              (local-set-key (kbd "C-S-t") 'helm-gtags-pop-stack)))
+
+(require 'helm-imenu)
+(defun my/helm-tags ()
+  (interactive)
+  (helm :sources '(helm-source-imenu
+                   helm-source-gtags-select)
+        :buffer "*helm gtasg and imenu*"))
+
+(global-set-key (kbd "C-+") 'my/helm-tags)
 
 (helm-descbinds-mode)
 (global-set-key (kbd "C-x b") 'helm-descbinds)
 
-(defvar helm-c-sources-rubygems-local
+(defvar helm-c-source-rubygems-local
   '((name . "rubygems")
     (candidates-in-buffer)
     (init . (lambda ()
@@ -96,21 +104,29 @@
                                               nil
                                               (helm-candidate-buffer 'local))))))
     (action . (lambda (gem-name)
-                (message (helm-attr 'gem-command))
-                (let ((path (file-name-directory
-                             (shell-command-to-string
-                              (format "%s which %s"
-                                      (helm-attr 'gem-command)
-                                      (replace-regexp-in-string "\s+(.+)$" "" gem-name))))))
-                  (if (and path (file-exists-p path))
-                      (find-file path)
-                    (message "no such file or directory: \"%s\"" path))
-                  )))))
+                ;; (message (helm-attr 'gem-command))
+                (let ((gem-which (shell-command-to-string
+                                  (format "%s which %s"
+                                          (helm-attr 'gem-command)
+                                          (replace-regexp-in-string "\s+(.+)$" "" gem-name))))
+                      (path))
+                  (print gem-which)
+                  (if (or (null gem-which)
+                          (string= "" gem-which)
+                          (string-match "^ERROR:" gem-which))
+                      (message "Can't find ruby library file or shared library %s" gem-name)
+                    (setq path (file-name-directory gem-which))
+                    (if (and path (file-exists-p path))
+                        (find-file path)
+                      (message "no such file or directory: \"%s\"" path))
+                    )
+                  )))
+    ))
 
 (defun helm-rubygems-local ()
   (interactive)
   (helm-other-buffer
-   '(helm-c-sources-rubygems-local)
+   '(helm-c-source-rubygems-local)
    "*anything local gems*"
   ))
 
