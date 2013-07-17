@@ -49,6 +49,7 @@
 (global-set-key "\M-y" 'helm-show-kill-ring)
 
 (require 'helm-c-moccur)
+(setq helm-c-moccur-enable-initial-pattern t)
 (global-set-key (kbd "M-o") 'helm-c-moccur-occur-by-moccur)
 (global-set-key (kbd "C-M-o") 'helm-c-moccur-dmoccur)
 (add-hook 'dired-mode-hook
