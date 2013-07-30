@@ -59,9 +59,10 @@
   (add-to-list 'ac-sources '(ac-source-clang-async))
   (add-to-list 'ac-sources '(ac-source-ya-gtags))
   (ac-clang-launch-completion-process)
+  (message "ac-cc-mode-setup")
   )
 
-(add-hook 'c-mode-hook 'ac-cc-mode-setup)
+(add-hook 'cc-mode-hook 'ac-cc-mode-setup)
 (add-hook 'c++-mode-hook 'ac-cc-mode-setup)
 
 ;; objc-mode

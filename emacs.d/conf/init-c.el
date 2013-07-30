@@ -49,7 +49,7 @@
 ;; (setq c-default-style "gnu")
 ;; (setq c-default-style "linux")
 (setq c-default-style "java")
-(add-hook 'cc-mode-hook
+(add-hook 'c-mode-common-hook
             '(lambda ()
                (c-toggle-hungry-state t)
                (c-toggle-auto-state t)               
@@ -62,11 +62,6 @@
 
 (add-hook 'c++-mode-hook
           (lambda ()
-            (c-toggle-hungry-state t)
-            (c-toggle-auto-state t)               
-            (setq c-basic-offset 4 indent-tabs-mode nil)
-            (define-key c++-mode-map (kbd "C-c o") 'ff-find-other-file)
-            (define-key c++-mode-map (kbd "C-c ,") 'compile-and-go-go)
             (c-set-offset 'access-label '-)
             (c-set-offset 'innamespace 0)
             (c-set-offset 'template-args-cont 0)
@@ -77,9 +72,6 @@
           (lambda ()
             (c-set-offset 'label '-)
             (c-toggle-auto-newline t)
-            (define-key objc-mode-map (kbd "C-c o") 'ff-find-other-file)
-            (define-key objc-mode-map (kbd "C-c ,") 'compile-and-go-go)
-            ;; (c-set-offset 'objc-method-call-cont '+)
             ))
 
 (add-hook 'align-load-hook
