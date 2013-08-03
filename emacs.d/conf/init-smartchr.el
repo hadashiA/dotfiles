@@ -76,6 +76,12 @@
                 (kbd "#") (smartchr '("#" "#{`!!'}")))
               ))
 
+  (add-hook 'puppet-mode-hook
+            (lambda ()
+              (define-key puppet-mode-map
+                (kbd ">") (smartchr '(">" " => ")))
+              ))
+
   (add-hook 'python-mode-hook
             (lambda ()
               ;; (define-key python-mode-map (kbd "+") (smartchr '("+" " + " " += ")))
