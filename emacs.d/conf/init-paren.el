@@ -1,4 +1,4 @@
-;; autopair
+;; autoxpair
 (autopair-global-mode)
 
 ;; delete-selection-mode
