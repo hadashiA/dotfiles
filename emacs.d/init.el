@@ -140,6 +140,7 @@
 ;;(load "init-perl")
 ;;(load "init-perlysense")
 (load "init-ruby")
+(load "init-puppet")
 ;; (load "init-ruby-refm")
 (load "init-python")
 (load "init-php")

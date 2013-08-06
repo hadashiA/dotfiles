@@ -41,9 +41,10 @@ function echo_prompt () {
     fi
 
     print "%F{$maincolor}──%f"
-    print -n "%F{$maincolor}└%f"
     if [[ -n $SSH_CONNECTION ]]; then
-        print -n "%F{$maincolor}[%f%F{yellow}%m%f%F{$maincolor}]%f%F{red}→%f"
+        print -n "%F{$maincolor}└[%f%F{yellow}%m%f%F{$maincolor}]%f%F{red}→%f"
+    else
+        print -n "%F{$maincolor}└→%f"
     fi
     print -n " %B"
 }
