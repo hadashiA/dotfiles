@@ -37,9 +37,9 @@ Major mode for editing CoffeeScript.
   (interactive)
   (let ((cur-dir (expand-file-name default-directory)))
     (compile 
-     (if (string-match "public/\\(js\\|javascripts?\\)" cur-dir)
+     (if (string-match "client" cur-dir)
          "grunt client"
-       "grunt"))))
+       "grunt server"))))
 
 (defun coffee-toggle-js ()
   "open for coffee-script compiled js or reverse"

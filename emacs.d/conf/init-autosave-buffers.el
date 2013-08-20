@@ -5,7 +5,13 @@
 
 (setq auto-save-buffers-enhanced-interval 0.75
       auto-save-buffers-enhanced-include-regexps '(".+")
-      auto-save-buffers-enhanced-exclude-regexps '("^not-save-file" "\\.ignore$" ".*\\.howm$" "^save$" "\\.omm"))
+      auto-save-buffers-enhanced-exclude-regexps '("^not-save-file"
+                                                   "\\.ignore$"
+                                                   ".*\\.howm$"
+                                                   "^save$"
+                                                   "\\.omm"
+                                                   "\\.coffee"
+                                                   ))
 
 (require 'auto-save-buffers-enhanced)
 (auto-save-buffers-enhanced t)

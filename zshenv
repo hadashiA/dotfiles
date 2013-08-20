@@ -20,7 +20,7 @@ source ~/.exports
 eval "$(rbenv init - zsh)"
 
 # Node.js nvm
-if [[ -f $HOME/.nvm/nvm.sh ]]; then source $HOME/.nvm/nvm.sh ; fi
+# if [[ -f $HOME/.nvm/nvm.sh ]]; then source $HOME/.nvm/nvm.sh ; fi
 
 # phpenv
 #eval "$(phpenv init -)"
