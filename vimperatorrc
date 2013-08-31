@@ -63,6 +63,7 @@ map <C-r> :restart<CR>
 " autocmd LocationChange 'mail\.google\.com/mail' :fmap c / j k n p o u e x s r a y # [ ] z ? gi gs gt gd ga gc
 " autocmd LocationChange 'www\.google\.com/reader' :fmap! -vkey j k n p m s t v A r S N P X O gh ga gs gt gu / ?
 " autocmd LocationChange 'www\.google\.co\.jp/reader' :fmap! -vkey j k n p m s t v A r S N P
+autocmd LocationChange .* :js modes.passAllKeys = /feedly\.com/.test(buffer.URL)
 
 " Plugins
 " ===================================================
