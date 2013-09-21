@@ -31,6 +31,9 @@
 (define-key global-map (kbd "C-*") 'helm-ag)
 
 (define-key global-map (kbd "C-,") 'helm-projectile)
+
+
+(setq helm-ff-transformer-show-only-basename nil)
 ;; (setq projectile-enable-caching t)
 (setq projectile-use-native-indexing t)
 ;; (require 'helm-project)
