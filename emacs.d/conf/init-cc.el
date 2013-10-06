@@ -22,26 +22,6 @@
                           (t "gcc"))))
       (compile (concat command " " path " && ./a.out")))))
 
-(setq ff-other-file-alist
-      '(("\\.mm?$" (".h"))
-        ("\\.cc$"  (".hh" ".h"))
-        ("\\.hh$"  (".cc" ".C"))
-
-        ("\\.c$"   (".h"))
-        ("\\.h$"   (".c" ".cc" ".C" ".CC" ".cxx" ".cpp" ".m" ".mm"))
-
-        ("\\.C$"   (".H"  ".hh" ".h"))
-        ("\\.H$"   (".C"  ".CC"))
-
-        ("\\.CC$"  (".HH" ".H"  ".hh" ".h"))
-        ("\\.HH$"  (".CC"))
-
-        ("\\.cxx$" (".hh" ".h"))
-        ("\\.cpp$" (".hpp" ".hh" ".h"))
-        
-        ("\\.hpp$" (".cpp" ".c"))))
-
-
 ;; (setq c-default-style "gnu")
 ;; (setq c-default-style "linux")
 (setq c-default-style "java")
