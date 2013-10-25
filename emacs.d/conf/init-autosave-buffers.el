@@ -17,3 +17,11 @@
 (auto-save-buffers-enhanced t)
 (global-set-key "\C-xas" 'auto-save-buffers-enhanced-toggle-activity)
 
+(defun my/save-some-buffers ()
+  (interactive)
+  (save-some-buffers t))
+
+
+(def my/save-some-buffers)
+
+(global-set-key "\C-xs"  'my/save-some-buffers)
