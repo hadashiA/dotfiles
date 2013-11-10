@@ -37,6 +37,9 @@ Major mode for editing CoffeeScript.
   (interactive)
   (let ((cur-dir (expand-file-name default-directory)))
     (compile 
-     (if (string-match "client" cur-dir)
-         "grunt client"
-       "grunt server"))))
+     (cond ((string-match "client" cur-dir) "grunt coffee:client")
+           ((string-match "server" cur-dir) "grunt coffee:server")
+           (t "grunt coffee"))
+     )))
+
+
