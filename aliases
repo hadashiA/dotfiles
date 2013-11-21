@@ -30,7 +30,7 @@ alias systemlog='tail -f -n0 /var/log/system.log'
 alias apachelog='tail -f -n0 /var/log/apache*/*log'
 
 # rails stuff
-alias r='bundle exec rails'
+alias s='brunch w -s'
 alias bake='bundle exec rake'
 alias ss='ruby ./script/server'
 alias sc='ruby ./script/console'
