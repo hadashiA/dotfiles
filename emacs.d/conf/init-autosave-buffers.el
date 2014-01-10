@@ -9,7 +9,8 @@
                                                    "\\.ignore$"
                                                    ".*\\.howm$"
                                                    "^save$"
-                                                   "\\.omm"
+                                                   "\\.omm$"
+                                                   "\\.txt$"
                                                    ;; "\\.coffee"
                                                    ))
 
