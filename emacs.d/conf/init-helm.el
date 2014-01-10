@@ -35,7 +35,7 @@
 
 (setq helm-ff-transformer-show-only-basename nil)
 ;; (setq projectile-enable-caching t)
-(setq projectile-use-native-indexing t)
+;; (setq projectile-use-native-indexing t)
 ;; (require 'helm-project)
 ;; (define-key global-map (kbd "C-,") 'helm-project)
 ;; (setq hp:project-files-filters
