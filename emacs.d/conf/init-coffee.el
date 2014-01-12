@@ -17,7 +17,7 @@ Major mode for editing CoffeeScript.
               (setq whitespace-style '(trailing space-before-tab indentation empty space-after-tab)) ;; only show bad whitespace
               (define-key coffee-mode-map (kbd "C-c o") #'coffee-compile-buffer)
 
-              (define-key coffee-mode-map (kbd "C-c C-k") #'coffee-compile-file)
+              (define-key coffee-mode-map (kbd "C-c C-k") #'coffee-compile-buffer)
               (define-key coffee-mode-map (kbd "C-c C-l") #'coffee-build-for-grunt)
               ))
 
