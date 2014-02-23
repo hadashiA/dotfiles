@@ -98,7 +98,7 @@
 (load "init-env")
 (load "init-shell")
 (load "init-package")
-;; (load "init-paren")
+(load "init-paren")
 (load "init-undo")
 (load "init-color")
 ;; (load "init-font")
