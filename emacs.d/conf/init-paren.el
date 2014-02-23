@@ -1,12 +1,6 @@
 ;; autoxpair
 (autopair-global-mode)
 
-;; delete-selection-mode
-(delete-selection-mode)
-
-;; wrap-region
-(wrap-region-global-mode)
-
 ;; By an unknown contributor
 (global-set-key "%" 'match-paren)
 (global-set-key (kbd "C-%")
