@@ -1,15 +1,16 @@
-;;; magit-blame.el --- blame support for magit
+;;; magit-blame.el --- blame support for Magit
 
-;; Copyright (C) 2012  Rüdiger Sonderfeld
-;; Copyright (C) 2012  Yann Hodique
-;; Copyright (C) 2011  byplayer
-;; Copyright (C) 2010  Alexander Prusov
-;; Copyright (C) 2009  Tim Moore
-;; Copyright (C) 2008  Linh Dang
-;; Copyright (C) 2008  Marius Vollmer
+;; Copyright (C) 2012-2014  The Magit Project Developers
+;;
+;; For a full list of contributors, see the AUTHORS.md file
+;; at the top-level directory of this distribution and at
+;; https://raw.github.com/magit/magit/master/AUTHORS.md
 
 ;; Author: Yann Hodique <yann.hodique@gmail.com>
-;; Keywords:
+;; Package: magit
+
+;; Contains code from Egg (Emacs Got Git) <https://github.com/byplayer/egg>,
+;; released under the GNU General Public License version 3 or later.
 
 ;; Magit is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by
@@ -26,12 +27,30 @@
 
 ;;; Commentary:
 
-;; This code has been backported from Egg (Magit fork) to Magit
+;; Control git-blame from Magit.
+;; This code has been backported from Egg (Magit fork) to Magit.
 
 ;;; Code:
 
-(eval-when-compile (require 'cl))
+(eval-when-compile (require 'cl-lib))
 (require 'magit)
+(require 'easymenu)
+
+;;; Options
+
+(defgroup magit-blame nil
+  "Git-blame support for Magit."
+  :group 'magit-extensions)
+
+(defcustom magit-blame-ignore-whitespace t
+  "Ignore whitespace when determining blame information."
+  :group 'magit-blame
+  :type 'boolean)
+
+(defcustom magit-time-format-string "%Y-%m-%dT%T%z"
+  "How to format time in magit-blame header."
+  :group 'magit-blame
+  :type 'string)
 
 (defface magit-blame-header
   '((t :inherit magit-header))
@@ -39,8 +58,7 @@
   :group 'magit-faces)
 
 (defface magit-blame-sha1
-  '((t :inherit (magit-log-sha1
-                 magit-blame-header)))
+  '((t :inherit (magit-log-sha1 magit-blame-header)))
   "Face for blame sha1."
   :group 'magit-faces)
 
@@ -59,8 +77,10 @@
   "Face for blame tag line."
   :group 'magit-faces)
 
-(defconst magit-blame-map
-  (let ((map (make-sparse-keymap "Magit:Blame")))
+;;; Keymaps
+
+(defvar magit-blame-map
+  (let ((map (make-sparse-keymap)))
     (define-key map (kbd "l") 'magit-blame-locate-commit)
     (define-key map (kbd "RET") 'magit-blame-locate-commit)
     (define-key map (kbd "q") 'magit-blame-mode)
@@ -69,8 +89,18 @@
     map)
   "Keymap for an annotated section.\\{magit-blame-map}")
 
-(defvar magit-blame-buffer-read-only)
-(make-variable-buffer-local 'magit-blame-buffer-read-only)
+(easy-menu-define magit-blame-mode-menu magit-blame-map
+  "Magit blame menu"
+  '("Blame"
+    ["Locate Commit" magit-blame-locate-commit t]
+    ["Next" magit-blame-next-chunk t]
+    ["Previous" magit-blame-previous-chunk t]
+    "---"
+    ["Quit" magit-blame-mode t]))
+
+;;; Mode
+
+(defvar-local magit-blame-buffer-read-only nil)
 
 ;;;###autoload
 (define-minor-mode magit-blame-mode
@@ -78,20 +108,20 @@
   :keymap magit-blame-map
   :lighter " blame"
   (unless (buffer-file-name)
-    (error "Current buffer has no associated file!"))
+    (user-error "Current buffer has no associated file!"))
   (when (and (buffer-modified-p)
              (y-or-n-p (format "save %s first? " (buffer-file-name))))
     (save-buffer))
 
-  (if magit-blame-mode
-      (progn
-        (setq magit-blame-buffer-read-only buffer-read-only)
-        (magit-blame-file-on (current-buffer))
-        (set-buffer-modified-p nil)
-        (setq buffer-read-only t))
-    (magit-blame-file-off (current-buffer))
-    (set-buffer-modified-p nil)
-    (setq buffer-read-only magit-blame-buffer-read-only)))
+  (cond (magit-blame-mode
+         (setq magit-blame-buffer-read-only buffer-read-only)
+         (magit-blame-file-on (current-buffer))
+         (set-buffer-modified-p nil)
+         (setq buffer-read-only t))
+        (t
+         (magit-blame-file-off (current-buffer))
+         (set-buffer-modified-p nil)
+         (setq buffer-read-only magit-blame-buffer-read-only))))
 
 (defun magit-blame-file-off (buffer)
   (save-excursion
@@ -99,8 +129,8 @@
       (with-current-buffer buffer
         (widen)
         (mapc (lambda (ov)
-                (if (overlay-get ov :blame)
-                    (delete-overlay ov)))
+                (when (overlay-get ov :blame)
+                  (delete-overlay ov)))
               (overlays-in (point-min) (point-max)))))))
 
 (defun magit-blame-file-on (buffer)
@@ -109,10 +139,12 @@
     (with-current-buffer buffer
       (save-restriction
         (with-temp-buffer
-          (magit-git-insert (list "blame" "--porcelain" "--"
-                                  (file-name-nondirectory
-                                   (buffer-file-name buffer))))
+          (apply 'magit-git-insert "blame" "--porcelain"
+                 `(,@(and magit-blame-ignore-whitespace (list "-w")) "--"
+                   ,(file-name-nondirectory (buffer-file-name buffer))))
           (magit-blame-parse buffer (current-buffer)))))))
+
+;;; Commands
 
 (defun magit-blame-locate-commit (pos)
   "Jump to a commit in the branch history from an annotated blame section."
@@ -120,67 +152,34 @@
   (let ((overlays (overlays-at pos))
         sha1)
     (dolist (ov overlays)
-      (if (overlay-get ov :blame)
-          (setq sha1 (plist-get (nth 3 (overlay-get ov :blame)) :sha1))))
-    (if sha1
-        (magit-show-commit sha1))))
+      (when (overlay-get ov :blame)
+        (setq sha1 (plist-get (nth 3 (overlay-get ov :blame)) :sha1))))
+    (when sha1
+      (magit-show-commit sha1))))
 
-(defun magit-find-next-overlay-change (BEG END PROP)
-  "Return the next position after BEG where an overlay matching a
-property PROP starts or ends. If there are no matching overlay
-boundaries from BEG to END, the return value is nil."
-  (save-excursion
-    (goto-char BEG)
-    (catch 'found
-      (flet ((overlay-change (pos)
-                             (if (< BEG END) (next-overlay-change pos)
-                               (previous-overlay-change pos)))
-             (within-bounds-p (pos)
-                              (if (< BEG END) (< pos END)
-                                (> pos END))))
-        (let ((ov-pos BEG))
-          ;; iterate through overlay changes from BEG to END
-          (while (within-bounds-p ov-pos)
-            (let* ((next-ov-pos (overlay-change ov-pos))
-                   ;; search for an overlay with a PROP property
-                   (next-ov
-                    (let ((overlays (overlays-at next-ov-pos)))
-                      (while (and overlays
-                                  (not (overlay-get (car overlays) PROP)))
-                        (setq overlays (cdr overlays)))
-                      (car overlays))))
-              (if next-ov
-                  ;; found the next overlay with prop PROP at next-ov-pos
-                  (throw 'found next-ov-pos)
-                ;; no matching overlay found, keep looking
-                (setq ov-pos next-ov-pos)))))))))
-
-(defun magit-blame-next-chunk (pos)
+(defun magit-blame-next-chunk ()
   "Go to the next blame chunk."
-  (interactive "d")
-  (let ((next-chunk-pos (magit-find-next-overlay-change pos (point-max) :blame)))
-    (when next-chunk-pos
-      (goto-char next-chunk-pos))))
+  (interactive)
+  (let ((next (next-single-property-change (point) :blame)))
+    (when next
+      (goto-char next))))
 
-(defun magit-blame-previous-chunk (pos)
+(defun magit-blame-previous-chunk ()
   "Go to the previous blame chunk."
-  (interactive "d")
-  (let ((prev-chunk-pos (magit-find-next-overlay-change pos (point-min) :blame)))
-    (when prev-chunk-pos
-      (goto-char prev-chunk-pos))))
+  (interactive)
+  (let ((prev (previous-single-property-change (point) :blame)))
+    (when prev
+      (goto-char prev))))
 
-(defcustom magit-time-format-string "%Y-%m-%dT%T%z"
-  "How to format time in magit-blame header."
-  :group 'magit
-  :type 'string)
+;;; Parse
 
 (defun magit-blame-decode-time (unixtime &optional tz)
   "Decode UNIXTIME into (HIGH LOW) format.
 
 The second argument TZ can be used to add the timezone in (-)HHMM
 format to UNIXTIME.  UNIXTIME should be either a number
-containing seconds since epoch or Emacs's (HIGH LOW
-. IGNORED) format."
+containing seconds since epoch or Emacs's (HIGH LOW . IGNORED)
+format."
   (when (numberp tz)
     (unless (numberp unixtime)
       (setq unixtime (float-time unixtime)))
@@ -221,7 +220,9 @@ officially supported at the moment."
       (with-current-buffer blame-buf
         (goto-char (point-min))
         ;; search for a ful commit info
-        (while (re-search-forward "^\\([0-9a-f]\\{40\\}\\) \\([0-9]+\\) \\([0-9]+\\) \\([0-9]+\\)$" nil t)
+        (while (re-search-forward
+                "^\\([0-9a-f]\\{40\\}\\) \\([0-9]+\\) \\([0-9]+\\) \\([0-9]+\\)$"
+                nil t)
           (setq commit (match-string-no-properties 1)
                 old-line (string-to-number
                           (match-string-no-properties 2))
@@ -300,4 +301,7 @@ officially supported at the moment."
           (overlay-put ov 'before-string blame))))))
 
 (provide 'magit-blame)
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 ;;; magit-blame.el ends here
