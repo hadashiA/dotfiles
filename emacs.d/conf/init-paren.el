@@ -1,3 +1,4 @@
+(require 'smartparens-config)
 (smartparens-global-mode t)
 
 ;; By an unknown contributor
