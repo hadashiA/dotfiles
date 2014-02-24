@@ -1,11 +1,5 @@
-;; autoxpair
-(autopair-global-mode)
-
-;; delete-selection-mode
-(delete-selection-mode)
-
-;; wrap-region
-(wrap-region-global-mode)
+(require 'smartparens-config)
+(smartparens-global-mode t)
 
 ;; By an unknown contributor
 (global-set-key "%" 'match-paren)
@@ -14,20 +8,20 @@
                    (interactive)
                    (insert "%")))
 
-(defun match-paren (arg)
-  "Go to the matching paren if on a paren; otherwise insert %."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-        (t (self-insert-command (or arg 1)))))
+;; (defun match-paren (arg)
+;;   "Go to the matching paren if on a paren; otherwise insert %."
+;;   (interactive "p")
+;;   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+;;         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+;;         (t (self-insert-command (or arg 1)))))
 
-(defvar matelike-delete-pair-alist
-  '((?{ . ?})
-    (?[ . ?])
-    (?( . ?))
-    (?\" . ?\")
-    (?\' . ?\'))
-  "*pair of parentheses alist")
+;; (defvar matelike-delete-pair-alist
+;;   '((?{ . ?})
+;;     (?[ . ?])
+;;     (?( . ?))
+;;     (?\" . ?\")
+;;     (?\' . ?\'))
+;;   "*pair of parentheses alist")
 
 ;; (defun matelike-delete-pair ()
 ;;   (interactive)
@@ -61,25 +55,25 @@
 ;;             ))
 ;;       )))
 
-(defadvice backward-delete-char-untabify
-  (around matelike-backward-delete-pair activate)
-  (if (assoc (char-before (point)) matelike-delete-pair-alist)
-      (progn
-        (backward-char)
-        (condition-case nil
-            (delete-pair)
-          (error (progn
-                   (forward-char)
-                   ad-do-it))))
-    ad-do-it))
+;; (defadvice backward-delete-char-untabify
+;;   (around matelike-backward-delete-pair activate)
+;;   (if (assoc (char-before (point)) matelike-delete-pair-alist)
+;;       (progn
+;;         (backward-char)
+;;         (condition-case nil
+;;             (delete-pair)
+;;           (error (progn
+;;                    (forward-char)
+;;                    ad-do-it))))
+;;     ad-do-it))
 
-(defun matelike-delete-pair (&optional n)
-  "wrap delete-pair only specify char"
-  (interactive)
-  (if (assoc (char-after (point)) matelike-delete-pair-alist)
-      (condition-case nil
-          (delete-pair)
-        (error (delete-char 1)))
-    (delete-char 1)))
-(global-set-key "\C-d" 'matelike-delete-pair)
+;; (defun matelike-delete-pair (&optional n)
+;;   "wrap delete-pair only specify char"
+;;   (interactive)
+;;   (if (assoc (char-after (point)) matelike-delete-pair-alist)
+;;       (condition-case nil
+;;           (delete-pair)
+;;         (error (delete-char 1)))
+;;     (delete-char 1)))
+;; (global-set-key "\C-d" 'matelike-delete-pair)
 
