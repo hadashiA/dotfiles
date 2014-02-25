@@ -2,11 +2,11 @@
 (smartparens-global-mode t)
 
 ;; By an unknown contributor
-(global-set-key "%" 'match-paren)
-(global-set-key (kbd "C-%")
-                '(lambda ()
-                   (interactive)
-                   (insert "%")))
+;; (global-set-key "%" 'match-paren)
+;; (global-set-key (kbd "C-%")
+;;                 '(lambda ()
+;;                    (interactive)
+;;                    (insert "%")))
 
 ;; (defun match-paren (arg)
 ;;   "Go to the matching paren if on a paren; otherwise insert %."
