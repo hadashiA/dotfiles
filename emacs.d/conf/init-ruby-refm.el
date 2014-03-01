@@ -5,6 +5,8 @@
 (setq anything-refe-index-file-path "~/dotfiles/doc/ruby-refm/bitclust/refe.index")
 (setq anything-refe-private-dict-path "~/dotfiles/doc/ruby-refm-mydict") ;最後にスラッシュは付けない
 
+(setq ruby-deep-indent-paren-style nil)
+
 (when (require 'anything)
   (defvar anything-c-source-refe
     `((name . "refe")

@@ -13,3 +13,6 @@ source ~/.zsh/local.zsh
 if [[ -f $HOME/.paperboy ]]; then
     source $HOME/.paperboy
 fi
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

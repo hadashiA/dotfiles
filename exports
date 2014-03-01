@@ -38,7 +38,6 @@ export C_INCLUDE_PATH=/usr/local/include:$C_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/usr/local/include:$CPLUS_INCLUDE_PATH
 export BOOST_ROOT=/usr/local/include/:$BOOST_ROOT
 
-export NODE_PATH=$HOME/.nvm/v0.8.20/lib/node_modules:$NODE_PATH
 # Python
 export PYTHONPATH="/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine:$PYTHONPATH"
 

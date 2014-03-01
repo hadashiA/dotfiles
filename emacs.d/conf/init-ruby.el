@@ -19,8 +19,8 @@
 (setq ruby-indent-level 2
       ruby-indent-tabs-mode nil
       ;; ruby-deep-indent-paren-style nil
-      ;; ruby-deep-indent-paren-style t
-      ruby-deep-indent-paren-style 'space
+      ruby-deep-indent-paren-style nil
+      ;; ruby-deep-indent-paren-style 'space
       )
 
 (add-hook 'ruby-mode-hook
