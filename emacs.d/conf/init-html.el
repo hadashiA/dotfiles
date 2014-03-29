@@ -30,6 +30,8 @@
 (add-to-list 'auto-mode-alist '("\\.haml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jade\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.hbs\\'" . handlebars-mode))
+(add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode))
 
 ;;; インデント数
 (add-hook 'web-mode-hook
