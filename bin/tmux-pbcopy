@@ -1,0 +1,9 @@
+#! /bin/sh
+
+tmux save-buffer /tmp/.tmux_to_pbcopy
+cat /tmp/.tmux_to_pbcopy | pbcopy
+
+# 下記は表示だけなのでなくてもOK
+HEAD=`head -1 /tmp/.tmux_to_pbcopy`
+TAIL=`tail -1 /tmp/.tmux_to_pbcopy`
+tmux display-message "Copy:  $HEAD  -  $TAIL"

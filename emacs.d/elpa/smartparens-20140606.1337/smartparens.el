@@ -424,6 +424,7 @@ Symbol is defined as a chunk of text recognized by
                          inferior-emacs-lisp-mode
                          lisp-interaction-mode
                          scheme-mode
+                         scheme-interaction-mode
                          inferior-scheme-mode
                          geiser-repl-mode
                          lisp-mode
@@ -443,6 +444,7 @@ Symbol is defined as a chunk of text recognized by
                          nxml-mode
                          web-mode
                          jinja2-mode
+                         html-erb-mode
                          )
   "List of HTML modes.")
 
@@ -986,7 +988,11 @@ setting affect all the navigation and manipulation functions
 where it make sense.
 
 Also, special handling of strings is enabled, where the whole
-string delimited with \"\" is considered as one token."
+string delimited with \"\" is considered as one token.
+
+WARNING: This is a legacy setting and changing its value to NIL
+may break many things.  It is kept only for backward
+compatibility and will be removed in the next major release."
   :type 'boolean
   :group 'smartparens)
 
@@ -1309,7 +1315,7 @@ beginning."
 
 (defun sp--back-to-indentation (old-column old-indentation)
   (let ((offset (sp--calculate-indentation-offset old-column old-indentation)))
-    (goto-char (+ (line-beginning-position) offset))))
+    (move-to-column offset)))
 
 (defmacro sp--keep-indentation (&rest body)
   "Execute BODY and restore the indentation."
@@ -2619,7 +2625,10 @@ would execute if smartparens-mode were disabled."
               (when (and (eq sp-last-operation 'sp-self-insert)
                          sp-point-inside-string
                          sp-autoescape-string-quote
-                         (eq (preceding-char) ?\"))
+                         (or (and (eq (preceding-char) ?\")
+                                  (eq sp-point-inside-string ?\"))
+                             (and (eq (preceding-char) ?')
+                                  (eq sp-point-inside-string ?'))))
                 (save-excursion
                   (backward-char 1)
                   (insert sp-escape-char))))))
@@ -3291,8 +3300,8 @@ followed by word.  It is disabled by default.  See
                                 (not (equal open-pair close-pair)))))
                           (not (run-hook-with-args-until-success
                                 'sp-autoinsert-inhibit-functions
-                                open-pair
-                                (or sp-point-inside-string (sp-point-in-comment))))))
+                                 open-pair
+                                 (or sp-point-inside-string (sp-point-in-comment))))))
                  (when pair (delete-char (- (length pair))))))
           ;; if this pair could not be inserted, we try the procedure
           ;; again with this pair removed from sp-pair-list to give
@@ -3324,16 +3333,18 @@ followed by word.  It is disabled by default.  See
           (when (and sp-autoescape-string-quote
                      sp-point-inside-string
                      (or
-                      (and (equal open-pair "\"") (equal close-pair "\""))
-                      (and (equal open-pair "'") (equal close-pair "'")))
+                      (and (equal open-pair "\"") (equal close-pair "\"")
+                           (eq sp-point-inside-string ?\"))
+                      (and (equal open-pair "'") (equal close-pair "'")
+                           (eq sp-point-inside-string ?')))
                      (or (not (memq major-mode sp-autoescape-string-quote-if-empty))
                          ;; Test if the string is empty here, by which
                          ;; we mean the point is surrounded by the
                          ;; string delimiters.  This enables us to
                          ;; write e.g. """""" in python docs.
-                         (flet ((check-quote (delimiter)
-                                             (and (equal (char-after (1+ (point))) delimiter)
-                                                  (equal (char-before (1- (point))) delimiter))))
+                         (cl-flet ((check-quote (delimiter)
+                                                (and (equal (char-after (1+ (point))) delimiter)
+                                                     (equal (char-before (1- (point))) delimiter))))
                            (not (or (check-quote ?\")
                                     (check-quote ?'))))))
             (save-excursion
@@ -3680,32 +3691,51 @@ pairs!"
   (let ((case-fold-search nil))
     (search-forward-regexp regexp bound noerror count)))
 
-(defmacro sp--get-bounds (name docstring test)
-  "Generate a function called NAME that return the bounds of
-object bounded by TEST."
-  (declare (indent 1)
-           (debug (&define name stringp def-form)))
-  `(defun ,name ()
-     ,docstring
-     (when ,test
-       (let ((open (save-excursion
-                     (while (and ,test (not (bobp)))
-                       (forward-char -1))
-                     (if (bobp) (point) (1+ (point)))))
-             (close (save-excursion
-                      (while (and ,test (not (eobp)))
-                        (forward-char 1))
-                      (if (eobp) (point) (1- (point))))))
-         (cons open close)))))
-
-(sp--get-bounds sp-get-quoted-string-bounds
+(defun sp-get-quoted-string-bounds ()
   "If the point is inside a quoted string, return its bounds."
-  (nth 3 (syntax-ppss)))
+  (when (nth 3 (syntax-ppss))
+    (let ((open (save-excursion
+                  (while (and (not (bobp))
+                              (nth 3 (syntax-ppss)))
+                    (backward-char 1))
+                  (point)))
+          (close (save-excursion
+                   (while (and (not (eobp))
+                               (nth 3 (syntax-ppss)))
+                     (forward-char 1))
+                   (point))))
+      (cons open close))))
 
-(sp--get-bounds sp-get-comment-bounds
+;; TODO: the repeated conditions are ugly, refactor this!
+(defun sp-get-comment-bounds ()
   "If the point is inside a comment, return its bounds."
-  (or (sp-point-in-comment)
-      (looking-at "[[:space:]]+;;")))
+  (when (or (sp-point-in-comment)
+            (looking-at "[[:space:]]+\\s<"))
+    (let ((open (save-excursion
+                  (while (and (not (bobp))
+                              (or (sp-point-in-comment)
+                                  (save-excursion
+                                    (backward-char 1)
+                                    (looking-at "[[:space:]]+\\s<"))))
+                    (backward-char 1))
+                  (when (not (or (bobp)
+                                 (or (sp-point-in-comment)
+                                     (save-excursion
+                                       (backward-char 1)
+                                       (looking-at "[[:space:]]+\\s<")))))
+                    (forward-char))
+                  (point)))
+          (close (save-excursion
+                   (while (and (not (eobp))
+                               (or (sp-point-in-comment)
+                                   (looking-at "[[:space:]]+\\s<")))
+                     (forward-char 1))
+                   (when (not (or (eobp)
+                                  (or (sp-point-in-comment)
+                                      (looking-at "[[:space:]]+\\s<"))))
+                     (backward-char 1))
+                   (point))))
+      (cons open close))))
 
 (defun sp--get-string-or-comment-bounds ()
   "Get the bounds of string or comment the point is in."
@@ -3762,6 +3792,7 @@ Non-nil return value means to skip the result."
                     (not (sp--looking-back "\\?\\\\\\\\" 3 t)))
                (and (not (sp-point-in-string-or-comment))
                     (sp--looking-back "\\?" 1 t) ;;TODO surely we can do better
+                    (not (sp--looking-back "\\\\\\?" 2 t))
                     (not (sp--looking-back "\\s_\\?" 2 t))
                     (not (sp--looking-back "\\sw\\?" 2 t))))))))
 
@@ -3780,16 +3811,31 @@ Non-nil return value means to skip the result."
 
 The expressions considered are those delimited by pairs on
 `sp-pair-list'."
-  (let* ((search-fn (if (not back) 'sp--search-forward-regexp 'sp--search-backward-regexp))
-         (global-skip-fn (cdr (--first (memq major-mode (car it)) sp-navigate-skip-match)))
-         (pair-list (sp--get-allowed-pair-list))
-         (in-string-or-comment (sp-point-in-string-or-comment))
-         (string-bounds (and in-string-or-comment (sp--get-string-or-comment-bounds)))
-         (fw-bound (if in-string-or-comment (cdr string-bounds) (point-max)))
-         (bw-bound (if in-string-or-comment (car string-bounds) (point-min)))
-         s e active-pair forward mb me ms r done
-         possible-pairs possible-interfering-pairs possible-ops possible-cls)
-    (save-excursion
+  (save-excursion
+    (let* ((search-fn (if (not back) 'sp--search-forward-regexp 'sp--search-backward-regexp))
+           (global-skip-fn (cdr (--first (memq major-mode (car it)) sp-navigate-skip-match)))
+           (pair-list (sp--get-allowed-pair-list))
+           ;; TODO UGLY HACK!!!  When the situation is:
+           ;; ..)|;; comment
+           ;; the context the point gets is the comment.  But if we
+           ;; are searching backward, that is incorrect, because in
+           ;; that case we want the context of the closing pair.
+           ;; Therefore, if the direction is backward, we need to move
+           ;; one point backward, then test the comment/string thing,
+           ;; then compute the correct bounds, and then restore the
+           ;; point so the search will pick up the )
+           (in-string-or-comment (-if-let (soc (sp-point-in-string-or-comment))
+                                     (if back
+                                         (save-excursion
+                                           (backward-char)
+                                           (sp-point-in-string-or-comment))
+                                       soc)
+                                   soc))
+           (string-bounds (and in-string-or-comment (sp--get-string-or-comment-bounds)))
+           (fw-bound (if in-string-or-comment (cdr string-bounds) (point-max)))
+           (bw-bound (if in-string-or-comment (car string-bounds) (point-min)))
+           s e active-pair forward mb me ms r done
+           possible-pairs possible-interfering-pairs possible-ops possible-cls)
       (while (not done)
         ;; search for the first opening pair.  Here, only consider tags
         ;; that are allowed in the current context.
@@ -3798,14 +3844,18 @@ The expressions considered are those delimited by pairs on
                                    (if back bw-bound fw-bound)
                                    r mb me ms)
         (unless (sp--skip-match-p ms mb me :global-skip global-skip-fn)
-          (when (not (sp-point-in-string-or-comment))
+          (when (not (if (not back)
+                         (sp-point-in-string-or-comment (1- (point)))
+                       (sp-point-in-string-or-comment)))
             (setq in-string-or-comment nil))
           ;; if the point originally wasn't inside of a string or comment
           ;; but now is, jump out of the string/comment and only search
           ;; the code.  This ensures that the comments and strings are
           ;; skipped if we search inside code.
           (if (and (not in-string-or-comment)
-                   (sp-point-in-string-or-comment))
+                   (if (not back)
+                       (sp-point-in-string-or-comment (1- (point)))
+                     (sp-point-in-string-or-comment)))
               (let* ((bounds (sp--get-string-or-comment-bounds))
                      (jump-to (if back (1- (car bounds)) (1+ (cdr bounds)))))
                 (goto-char jump-to))
@@ -3853,7 +3903,10 @@ The expressions considered are those delimited by pairs on
             (sp--search-and-save-match search-fn needle b r mb me ms)
             (if r
                 (unless (or (and (not in-string-or-comment)
-                                 (sp-point-in-string-or-comment))
+                                 (if forward (save-excursion
+                                               (backward-char)
+                                               (sp-point-in-string-or-comment))
+                                   (sp-point-in-string-or-comment)))
                             ;; check the individual pair skipper.  We
                             ;; need to test all the possible-ops,
                             ;; which makes it a bit ugly :/
@@ -3876,20 +3929,21 @@ The expressions considered are those delimited by pairs on
                 (unless (minibufferp)
                   (sp-message :unmatched-expression))
                 nil)
-            (cond
-             ((or (and (sp-point-in-string-or-comment s) (not (sp-point-in-string-or-comment e)))
-                  (and (not (sp-point-in-string-or-comment s)) (sp-point-in-string-or-comment e)))
-              (unless (minibufferp)
-                (sp-message :delimiter-in-string))
-              nil)
-             (t
-              (let* ((op (if forward open close)))
-                (list :beg s
-                      :end e
-                      :op op
-                      :cl (if forward close open)
-                      :prefix (sp--get-prefix s op)
-                      :suffix (sp--get-suffix e op)))))))))))
+            (let ((end-in-cos (sp-point-in-string-or-comment (1- e)))) ;; fix the "point on comment" issue
+              (cond
+               ((or (and (sp-point-in-string-or-comment s) (not end-in-cos))
+                    (and (not (sp-point-in-string-or-comment s)) end-in-cos))
+                (unless (minibufferp)
+                  (sp-message :delimiter-in-string))
+                nil)
+               (t
+                (let* ((op (if forward open close)))
+                  (list :beg s
+                        :end e
+                        :op op
+                        :cl (if forward close open)
+                        :prefix (sp--get-prefix s op)
+                        :suffix (sp--get-suffix e op))))))))))))
 
 ;; TODO: this does not consider unbalanced quotes in comments!!!
 (defun sp--find-next-stringlike-delimiter (needle search-fn-f &optional limit skip-fn)
@@ -4081,14 +4135,14 @@ See `sp-get-hybrid-sexp' for definition."
   "Get the end of hybrid sexp.
 See `sp-get-hybrid-sexp' for definition."
   (save-excursion
-    (flet ((skip-prefix-backward
-            (p)
-            (save-excursion
-              (goto-char p)
-              (save-restriction
-                (sp--narrow-to-line)
-                (skip-syntax-backward " .")
-                (point)))))
+    (cl-flet ((skip-prefix-backward
+               (p)
+               (save-excursion
+                 (goto-char p)
+                 (save-restriction
+                   (sp--narrow-to-line)
+                   (skip-syntax-backward " .")
+                   (point)))))
       (let ((p (progn (when (sp-point-in-symbol) (sp-backward-sexp)) (point)))
             (le (line-end-position))
             (cur (--if-let (save-excursion (sp-forward-sexp)) it (list :beg (1+ (point-max))))) ;hack
@@ -4308,13 +4362,17 @@ This function simply transforms BOUNDS, which is a cons (BEG
 . END) into format compatible with `sp-get-sexp'."
   (let* ((bob (= (point-min) (car bounds)))
          (eob (= (point-max) (cdr bounds)))
-         (cl (char-to-string (char-after (if eob (1- (cdr bounds)) (cdr bounds))))))
-    (list :beg (if bob (car bounds) (1- (car bounds)))
-          :end (if eob (cdr bounds) (1+ (cdr bounds)))
-          :op cl
-          :cl cl
-          :prefix ""
-          :suffix "")))
+         ;; if the closing and opening isn't the same token, we should
+         ;; return nil
+         (op (char-to-string (char-after (car bounds))))
+         (cl (char-to-string (char-before (cdr bounds)))))
+    (when (equal op cl)
+      (list :beg (car bounds)
+            :end (cdr bounds)
+            :op cl
+            :cl cl
+            :prefix ""
+            :suffix ""))))
 
 (defun sp-get-string (&optional back)
   "Find the nearest string after point, or before if BACK is non-nil.
@@ -4334,8 +4392,8 @@ returned by `sp-get-sexp'."
           (sp--get-string r))
       (save-excursion
         (sp-skip-into-string back)
-        (let ((r (sp-get-quoted-string-bounds)))
-          (when r (sp--get-string r)))))))
+        (--when-let (sp-get-quoted-string-bounds)
+          (sp--get-string it))))))
 
 (defun sp-get-whitespace ()
   "Get the whitespace around point.
@@ -5140,12 +5198,18 @@ Examples:
                       ;; if the expression is empty remove everything inside
                       (if (sp-compare-sexps ok prev)
                           (sp-get ok (delete-region :beg-in :end-in))
-                        (delete-region (sp-get prev :end) (point)))))
+                        (when (save-excursion
+                                (skip-chars-backward " \t\n")
+                                (= (point) (sp-get prev :end-suf)))
+                          (delete-region (sp-get prev :end-suf) (point))))))
                 (goto-char (sp-get ok :beg-in))
                 (let ((next (sp-get-thing)))
                   (if (sp-compare-sexps ok next)
                       (sp-get ok (delete-region :beg-in :end-in))
-                    (delete-region (point) (sp-get next :beg))))))))
+                    (when (save-excursion
+                            (skip-chars-forward " \t\n")
+                            (= (point) (sp-get next :beg-prf)))
+                      (delete-region (point) (sp-get next :beg-prf)))))))))
       ;; on forward up, we can detect that the pair was not closed.
       ;; Therefore, jump sexps backwards until we hit the error, then
       ;; extract the opening pair and insert it at point.  Only works
@@ -5376,6 +5440,14 @@ t.  All the special prefix arguments work the same way."
   (interactive "P")
   (save-excursion
     (sp-kill-sexp (sp--negate-argument arg) t)))
+
+(defun sp-clone-sexp ()
+  (interactive)
+  (-when-let (ok (sp-get-thing))
+    (sp-get ok
+      (goto-char :end-suf)
+      (sp-newline)
+      (insert (buffer-substring-no-properties :beg-prf :end-suf)))))
 
 (defun sp-kill-hybrid-sexp (arg)
   "Kill a line as if with `kill-line', but respecting delimiters.
@@ -6022,7 +6094,8 @@ Examples:
         (forward-fn (if forward 'forward-char 'backward-char))
         (next-char-fn (if forward 'following-char 'preceding-char))
         (looking (if forward 'sp--looking-at 'sp--looking-back))
-        (eob-test (if forward '(eobp) '(bobp))))
+        (eob-test (if forward '(eobp) '(bobp)))
+        (comment-bound (if forward 'cdr 'car)))
     `(let ((in-comment (sp-point-in-comment))
            ;; HACK: if we run out of current context this might skip a
            ;; pair that was not allowed before.  However, such a call is
@@ -6044,7 +6117,10 @@ Examples:
                                  (,looking allowed-strings))))
                    (or (member (char-syntax (,next-char-fn)) '(?< ?> ?! ?| ?\ ?\\ ?\" ?' ?.))
                        (unless in-comment (sp-point-in-comment))))
-         (,forward-fn 1)))))
+         (when (and (not in-comment)
+                    (sp-point-in-comment))
+           (goto-char (,comment-bound (sp-get-comment-bounds))))
+         (when (not ,eob-test) (,forward-fn 1))))))
 
 (defun sp-skip-forward-to-symbol (&optional stop-at-string stop-after-string stop-inside-string)
   "Skip whitespace and comments moving forward.
