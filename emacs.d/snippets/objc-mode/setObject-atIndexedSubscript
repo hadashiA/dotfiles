@@ -1,0 +1,4 @@
+#name : setObject:atIndexedSubscript
+#group : JSValue
+# --
+setObject:${1:(id)object} atIndexedSubscript:${2:(NSUInteger)index}

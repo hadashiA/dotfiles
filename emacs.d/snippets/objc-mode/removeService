@@ -1,0 +1,4 @@
+#name : removeService
+#group : CBPeripheralManager
+# --
+removeService:${1:(CBMutableService *)service}

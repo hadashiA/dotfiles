@@ -1,0 +1,4 @@
+#name : setNanosecond
+#group : NSCalendar
+# --
+setNanosecond:${1:(NSInteger)value}

@@ -1,0 +1,4 @@
+#name : objectForKeyedSubscript
+#group : JSValue
+# --
+objectForKeyedSubscript:${1:(id)key}

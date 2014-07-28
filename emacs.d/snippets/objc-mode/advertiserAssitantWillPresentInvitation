@@ -1,0 +1,4 @@
+#name : advertiserAssitantWillPresentInvitation
+#group : MCAdvertiserAssistant
+# --
+advertiserAssitantWillPresentInvitation:${1:(MCAdvertiserAssistant *)advertiserAssistant}
