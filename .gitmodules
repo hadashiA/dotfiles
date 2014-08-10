@@ -7,9 +7,6 @@
 [submodule "emacs.d/elisp/rspec-mode"]
 	path = emacs.d/elisp/rspec-mode
 	url = https://github.com/pezra/rspec-mode.git
-[submodule "zsh/modules/zaw"]
-	path = zsh/modules/zaw
-	url = https://github.com/zsh-users/zaw.git
 [submodule "zsh/modules/zsh-completions"]
 	path = zsh/modules/zsh-completions
 	url = git://github.com/zsh-users/zsh-completions.git
