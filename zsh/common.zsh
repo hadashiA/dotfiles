@@ -79,10 +79,6 @@ fpath=(~/.zsh/modules/zsh-completions /usr/local/share/zsh/site-functions $fpath
 # autojump
 [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
 
-# zaw
-source ~/.zsh/modules/zaw/zaw.zsh
-bindkey '^R' zaw-history
-
 # auto-fu
 # precompiled source
 function () { # precompile
