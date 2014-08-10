@@ -1,9 +1,6 @@
 [submodule "zsh/modules/auto-fu"]
 	path = zsh/modules/auto-fu
 	url = http://github.com/hchbaw/auto-fu.zsh.git
-[submodule "zsh/autojump"]
-	path = zsh/autojump
-	url = https://github.com/joelthelion/autojump.git
 [submodule "emacs.d/elisp/rspec-mode"]
 	path = emacs.d/elisp/rspec-mode
 	url = https://github.com/pezra/rspec-mode.git

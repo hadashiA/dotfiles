@@ -76,9 +76,6 @@ source ~/.zsh/term.compat.zsh
 
 fpath=(~/.zsh/modules/zsh-completions /usr/local/share/zsh/site-functions $fpath)
 
-# autojump
-[[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
-
 # auto-fu
 # precompiled source
 function () { # precompile
