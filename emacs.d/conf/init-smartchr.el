@@ -27,6 +27,8 @@
                 (kbd "+") (smartchr '("+" " + " "++" " += ")))
               (define-key objc-mode-map
                 (kbd ">") (smartchr '(">" "->" " >> ")))
+              (define-key objc-mode-map
+                (kbd ".") (smartchr '("." "->")))
               ))
 
   (add-hook 'csharp-mode-hook

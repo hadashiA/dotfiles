@@ -18,12 +18,3 @@ source ~/.exports
 # Ruby 
 # if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi
 eval "$(rbenv init - zsh)"
-
-# Node.js nvm
-# if [[ -f $HOME/.nvm/nvm.sh ]]; then source $HOME/.nvm/nvm.sh ; fi
-
-# phpenv
-#eval "$(phpenv init -)"
-
-#source ~/.zshrc
-
