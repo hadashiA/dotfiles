@@ -22,5 +22,4 @@ export BOOST_ROOT=/usr/local/include/:$BOOST_ROOT
 
 export ARCHFLAGS='-arch x86'
 
-export GOPATH="$HOME/.go"
-export PATH="$GOPATH/bin:$PATH"
+export GOPATH=$HOME
