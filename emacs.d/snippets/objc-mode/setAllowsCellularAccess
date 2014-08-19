@@ -1,0 +1,4 @@
+#name : setAllowsCellularAccess
+#group : NSURLRequest
+# --
+setAllowsCellularAccess:${1:(BOOL)allow}

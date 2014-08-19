@@ -1,0 +1,4 @@
+#name : addService
+#group : CBPeripheralManager
+# --
+addService:${1:(CBMutableService *)service}

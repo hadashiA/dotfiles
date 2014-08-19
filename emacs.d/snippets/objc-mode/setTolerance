@@ -1,0 +1,4 @@
+#name : setTolerance
+#group : NSTimer
+# --
+setTolerance:${1:(NSTimeInterval)tolerance}
