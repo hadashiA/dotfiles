@@ -1,6 +1,8 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: mark
-# key: mark
+# name: if
+# key: if
 # binding: direct-keybinding
 # --
-#pragma mark - $0
+if (${1:condition}) {
+    $0
+}

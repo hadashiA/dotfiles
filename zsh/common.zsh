@@ -81,9 +81,9 @@ source ~/.zsh/term.compat.zsh
 source ~/.zsh/auto-fu-config.zsh
 source ~/.zsh/peco-config.zsh
 
+bindkey '^r' peco-select-history
+bindkey '^@' peco-cdr
+
 [[ $ZSH_VERSION == (<5->|4.<4->|4.3.<10->)* ]] && source ~/.zsh/term.zsh
 
 fpath=(~/.zsh/modules/zsh-completions /usr/local/share/zsh/site-functions $fpath)
-
-bindkey '^r' peco-select-history
-bindkey '^@' peco-cdr
