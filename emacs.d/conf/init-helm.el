@@ -31,6 +31,7 @@
 (define-key global-map (kbd "C-*") 'helm-ag)
 
 (define-key global-map (kbd "C-,") 'helm-projectile)
+(define-key global-map (kbd "C-{") 'helm-ghq)
 
 
 (setq helm-ff-transformer-show-only-basename nil)
