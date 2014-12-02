@@ -21,9 +21,9 @@ Major mode for editing CoffeeScript.
               (define-key coffee-mode-map (kbd "C-c C-l") #'coffee-build-for-grunt)
               ))
 
-(add-hook 'js3-mode-hook
+(add-hook 'js2-mode-hook
           #'(lambda ()
-              (define-key js3-mode-map (kbd "C-c o") #'ff-find-other-file)
+              (define-key js2-mode-map (kbd "C-c o") #'ff-find-other-file)
               ))
 
 

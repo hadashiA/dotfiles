@@ -123,7 +123,7 @@
 (add-hook 'css-mode-hook 'ac-css-mode-setup)
 (add-hook 'auto-complete-mode-hook 'ac-common-setup)
 
-(add-hook 'js3-mode-hook
+(add-hook 'js2-mode-hook
           (lambda ()
             (auto-complete-mode nil)
             (auto-complete-mode t)

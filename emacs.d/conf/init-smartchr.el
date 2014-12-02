@@ -52,20 +52,18 @@
                 (kbd "#") (smartchr '("#" "#{`!!'}")))
               ))
 
-  (dolist (hook-sym '(js2-mode-hook js3-mode-hook))
-    (add-hook hook-sym
-              (lambda ()
-                (define-key js3-mode-map
-                  (kbd "=") (smartchr '(" = " " == " " === " " != " " !== " "=")))
-                (define-key js3-mode-map
-                  (kbd "+") (smartchr '("+" " + " "++" " += ")))
-                (define-key js3-mode-map
-                  (kbd "{") (smartchr '("{ `!!' }" "{`!!'}")))
-                
-                (define-key js3-mode-map
-                  (kbd "C-8") (smartchr '("(`!!');" "('`!!'');" "({ `!!' });" "(function(`!!') {  });")))
-                ))    
-    )nil
+  (add-hook 'js2-mode-hook
+            (lambda ()
+              (define-key js2-mode-map
+                (kbd "=") (smartchr '(" = " " == " " === " " != " " !== " "=")))
+              (define-key js2-mode-map
+                (kbd "+") (smartchr '("+" " + " "++" " += ")))
+              (define-key js2-mode-map
+                (kbd "{") (smartchr '("{ `!!' }" "{`!!'}")))
+              
+              (define-key js2-mode-map
+                (kbd "C-8") (smartchr '("(`!!');" "('`!!'');" "({ `!!' });" "(function(`!!') {  });")))
+              ))
   
 
   (add-hook 'ruby-mode-hook

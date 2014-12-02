@@ -23,7 +23,7 @@ print(which_library(%%[%s]))
    (format "node -e 'try { require(\"util\").print(require.resolve(\"%s\")) } catch(e) {}'"
            name)))
 
-(add-to-list 'ffap-alist '(js3-mode . ffap-nodejs))
+(add-to-list 'ffap-alist '(js2-mode . ffap-nodejs))
 
 
 (setq ff-other-file-alist

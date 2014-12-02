@@ -1,36 +1,36 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-(autoload 'js3-mode "js3-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.\\(js\\|as\\|json\\|jsn\\)\\'" . js3-mode))
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.\\(js\\|as\\|json\\|jsn\\)\\'" . js2-mode))
 
-(add-hook 'js3-mode-hook
+(add-hook 'js2-mode-hook
           '(lambda ()
              (custom-set-variables
-              '(js3-auto-indent-p t)
-              '(js3-enter-indents-newline t)
-              '(js3-indent-on-enter-key t)
-              '(js3-indent-dots nil)
-              '(js3-lazy-dots nil)
-              '(js3-mirror-mode t)
-              '(js3-mode-dev-mode-p t)
-              '(js3-compact-expr t)
-              '(js3-consistent-level-indent-inner-bracket t)
-              ;; '(js3-expr-indent-offset 0)
-              ;; '(js3-paren-indent-offset 0)
-              ;; '(js3-square-indent-offset 0)
-              ;; '(js3-curly-indent-offset 0)
+              '(js2-auto-indent-p t)
+              '(js2-enter-indents-newline t)
+              '(js2-indent-on-enter-key t)
+              '(js2-indent-dots nil)
+              '(js2-lazy-dots nil)
+              '(js2-mirror-mode t)
+              '(js2-mode-dev-mode-p t)
+              '(js2-compact-expr t)
+              '(js2-consistent-level-indent-inner-bracket t)
+              ;; '(js2-expr-indent-offset 0)
+              ;; '(js2-paren-indent-offset 0)
+              ;; '(js2-square-indent-offset 0)
+              ;; '(js2-curly-indent-offset 0)
               )
-             (define-key js3-mode-map ";" 'insert-semicolon-and-new-line-and-indent)
-             (define-key js3-mode-map (kbd "C-c C-a") #'align)
+             (define-key js2-mode-map ";" 'insert-semicolon-and-new-line-and-indent)
+             (define-key js2-mode-map (kbd "C-c C-a") #'align)
              ))
 
 (add-hook 'align-load-hook
           (lambda ()
             (add-to-list 'align-rules-list
-                         '(js3-assignment-literal
+                         '(js2-assignment-literal
                            (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
                            (repeat . t)
-                           (modes  . '(js3-mode))))
+                           (modes  . '(js2-mode))))
             ))
 
 (defun insert-semicolon-and-new-line-and-indent ()
