@@ -1,4 +1,0 @@
-#name : objectAtIndexedSubscript
-#group : JSValue
-# --
-objectAtIndexedSubscript:${1:(NSUInteger)index}

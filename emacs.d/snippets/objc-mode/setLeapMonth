@@ -1,4 +1,0 @@
-#name : setLeapMonth
-#group : NSCalendar
-# --
-setLeapMonth:${1:(BOOL)lm}

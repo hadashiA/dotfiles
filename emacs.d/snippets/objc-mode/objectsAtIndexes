@@ -1,4 +1,0 @@
-#name : objectsAtIndexes
-#group : NSOrderedSet
-# --
-objectsAtIndexes:${1:(NSIndexSet *)indexes}

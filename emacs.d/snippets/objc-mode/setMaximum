@@ -1,4 +1,0 @@
-#name : setMaximum
-#group : NSNumberFormatter
-# --
-setMaximum:${1:(NSNumber *)number}
