@@ -23,8 +23,8 @@
 ;;        (setq skk-server-portnum 1178)))
 
 (setq skk-large-jisyo "~/Library/Application Support/AquaSKK/SKK-JISYO.L"
-      skk-server-host "hadashikick.jp"
-      skk-server-portnum 1178
+      ;; skk-server-host "hadashikick.jp"
+      ;; skk-server-portnum 1178
       )
 
 ;; SKKの設定
