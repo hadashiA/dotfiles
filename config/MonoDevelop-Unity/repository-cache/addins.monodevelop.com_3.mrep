@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>MonoDevelop Add-in Repository (Beta channel)</Name>
+  <Url>http://addins.monodevelop.com/Beta/Mac/2.4/root.mrep</Url>
+  <Addin>
+    <Url>MonoDevelop.VersionControl.Bazaar-2.4.1.mpack</Url>
+    <Addin>
+      <Id>VersionControl.Bazaar</Id>
+      <Namespace>MonoDevelop</Namespace>
+      <Name>Bazaar support for the Version Control Addin</Name>
+      <Version>2.4.1</Version>
+      <BaseVersion />
+      <Author>MonoDevelop-Bazaar Team</Author>
+      <Copyright>GPL</Copyright>
+      <Url>http://bazaar-vcs.org/MonoDevelop</Url>
+      <Description>Bazaar support for the Version Control Addin</Description>
+      <Category>Version Control</Category>
+      <Dependencies />
+      <OptionalDependencies />
+      <Properties>
+        <Property name="DownloadSize">31425</Property>
+      </Properties>
+    </Addin>
+  </Addin>
+</Repository>

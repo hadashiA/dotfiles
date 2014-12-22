@@ -1,4 +1,0 @@
-#name : setSearchItems
-#group : NSMetadata
-# --
-setSearchItems:${1:(NSArray *)items}

@@ -5,6 +5,8 @@
 ;; (when (require 'auto-complete nil t)
 (require 'auto-complete-config)
 
+(require 'go-autocomplete)
+
 ;; (ac-config-default)
 (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
@@ -81,6 +83,9 @@
             (add-to-list 'ac-sources 'ac-source-functions)
             (add-to-list 'ac-sources 'ac-source-symbols)
             (add-to-list 'ac-sources 'ac-source-variables)))
+
+;; go
+(add-to-list 'ac-modes 'go-mode)
 
 ;; Rsense
 ;; http://cx4a.org/software/rsense/manual.ja.html

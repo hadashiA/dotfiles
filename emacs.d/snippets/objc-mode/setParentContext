@@ -1,4 +1,0 @@
-#name : setParentContext
-#group : NSManagedObjectContext
-# --
-setParentContext:${1:(NSManagedObjectContext*)parent}

@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: - (id)method;
-# group: definitions
-# --
-- (${1:id})${2:method}

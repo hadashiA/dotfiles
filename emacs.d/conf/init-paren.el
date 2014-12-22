@@ -1,8 +1,8 @@
 (require 'smartparens-config)
 (smartparens-global-mode t)
 
-(define-key sp-keymap (kbd "S-C-f") 'sp-end-of-sexp)
-(define-key sp-keymap (kbd "S-C-b") 'sp-beginning-of-sexp)
+(define-key sp-keymap (kbd "S-C-f") 'sp-end-of-next-sexp)
+(define-key sp-keymap (kbd "S-C-b") 'sp-beginning-of-previous-sexp)
 (define-key sp-keymap (kbd "S-C-d") 'sp-down-sexp)
 (define-key sp-keymap (kbd "S-C-u") 'sp-up-sexp)
 ;; (define-key sp-keymap (kbd "C-9") 'sp-splice-sexp)

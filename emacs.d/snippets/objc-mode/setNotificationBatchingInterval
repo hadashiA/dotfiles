@@ -1,4 +1,0 @@
-#name : setNotificationBatchingInterval
-#group : NSMetadata
-# --
-setNotificationBatchingInterval:${1:(NSTimeInterval)ti}

@@ -1,4 +1,0 @@
-#name : setCount
-#group : NSPointerArray
-# --
-setCount:${1:(NSUInteger)count}

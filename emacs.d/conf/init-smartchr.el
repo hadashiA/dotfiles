@@ -11,16 +11,6 @@
                 (kbd "C-8") (smartchr '("(`!!');" "(`!!')")))
               ))
 
-  (add-hook 'c++-mode-hook
-            (lambda ()
-              (define-key c++-mode-map
-                (kbd "+") (smartchr '("+" " + " "++" " += ")))
-              (define-key c++-mode-map
-                (kbd ">") (smartchr '(">" "->" " >> ")))
-              (define-key c++-mode-map
-                (kbd "C-8") (smartchr '("(`!!');" "(`!!')")))
-              ))
-
   (add-hook 'objc-mode-hook
             (lambda ()
               (define-key objc-mode-map
@@ -117,4 +107,12 @@
               (define-key php-mode-map
                 (kbd "[") (smartchr '("[`!!']" "['`!!']" "[\"`!!'\"]")))
               ))
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (define-key go-mode-map
+                (kbd "=") (smartchr '(" = " " := " " == " " != ")))
+              (define-key go-mode-map (kbd "+")
+                (smartchr '("+" " + " " += ")))
+              ))
+
   )

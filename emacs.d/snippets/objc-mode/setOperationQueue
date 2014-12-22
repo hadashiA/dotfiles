@@ -1,4 +1,0 @@
-#name : setOperationQueue
-#group : NSMetadata
-# --
-setOperationQueue:${1:(NSOperationQueue *)operationQueue}

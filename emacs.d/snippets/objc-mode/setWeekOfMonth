@@ -1,4 +1,0 @@
-#name : setWeekOfMonth
-#group : NSCalendar
-# --
-setWeekOfMonth:${1:(NSInteger)w}
