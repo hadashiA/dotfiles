@@ -94,34 +94,48 @@
 
 ;; 個別の設定をロードしまくりパート
 
-;; 特定ディレクトリ以下を自動でロードするようにしてもいいけど、順番とか、
-;; これやっぱ外しておこうとかいうのを調整するのが面倒。
-
 (load "init-env")
+(load "init-color")
 (load "init-shell")
 (load "init-package")
-(load "init-smartparens")
-(load "init-point-undo")
-(load "init-color")
 (load "init-window")
-(load "init-highlighting")
 (load "init-remaps")
-(load "init-expand-region")
-(load "init-foreign-regexp")
+
+;; Emacs feature settings
 (load "init-minibuf")
 (load "init-killring")
+(load "init-dired")
+(load "init-ffap")
+
+;; Global extensions
+(load "init-smartparens")
+(load "init-point-undo")
+(load "init-highlighting")
+(load "init-expand-region")
+(load "init-foreign-regexp")
 (load "init-smartchr")
 (load "init-junk-file")
 (load "init-vimlike")
 (load "init-jump")
 ;; (load "init-migemo")
+
+;; Coding 
 (load "init-skk")
 (load "init-flycheck")
-(load "init-dired")
-(load "init-sdic")
-(load "init-w3m")
-(load "init-translate")
+(load "init-yasnippet")
+(load "init-auto-complete")
+(load "init-autosave-buffers")
+(load "init-helm")
 (load "init-tags")
+(load "init-testkick")
+
+;; Web interface
+(load "init-sdic")
+(load "init-translate")
+;; (load "init-w3m")
+(load "init-twitter")
+
+;; Major modes
 (load "init-vcs")
 (load "init-markdown")
 (load "init-html")
@@ -137,14 +151,7 @@
 (load "init-sql")
 (load "init-lisp")
 (load "init-yaml")
-(load "init-yasnippet")
-(load "init-ffap")
-(load "init-twitter")
-(load "init-autosave-buffers")
 (load "init-genkou")
-(load "init-auto-complete")
-(load "init-helm")
-(load "init-testkick")
 
 ;; Meadow用設定を読み込む
 (when (and run-w32 run-meadow)

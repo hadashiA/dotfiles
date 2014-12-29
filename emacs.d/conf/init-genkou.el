@@ -7,6 +7,7 @@
 ;;     * genkou-tex-export 「TeXにエクスポート」
 ;;     * genkou-count-preview 「プレビュー」
 (add-to-list 'auto-mode-alist '("\\.omm$" . genkou-mode))
+(add-to-list 'auto-mode-alist '("\\.txt$" . genkou-mode))
 (autoload 'genkou-mode "genkou" "minor mode for Japanese manuscript." t)
 (add-hook 'genkou-mode-hook
           '(lambda ()

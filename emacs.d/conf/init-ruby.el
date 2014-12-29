@@ -79,14 +79,14 @@
                   '(lambda (arg)
                      (string-match buffer-name-base
                                    (buffer-name arg)))
-                  (buffer-list))))))
+                  (buffer-list)))))))
     
     (with-current-buffer (get-buffer-create
                           (format "*%s<%s>*"
                                   buffer-name-base
                                   exist-buffer-count))
       (ruby-mode)
-      (current-buffer))))
+      (current-buffer)))
 
 (defun ruby-scratch ()
   (interactive)
@@ -103,7 +103,6 @@
            ;; '([(control c) (control t)] ruby-toggle-buffer)
            '([(control c) (control f)] rct-ri)
            '([(control c) (control d)] xmp)))))
-)
 
 (defvar ruby-elect-keyword
   '("def" "if" "class" "module" "unless" "case"
