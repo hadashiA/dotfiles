@@ -110,6 +110,7 @@
 ;; Minor modes
 (load "init-smartparens")
 (load "init-point-undo")
+(load "init-undo-tree")
 (load "init-highlighting")
 (load "init-expand-region")
 (load "init-foreign-regexp")
