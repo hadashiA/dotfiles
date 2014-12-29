@@ -107,7 +107,7 @@
 (load "init-dired")
 (load "init-ffap")
 
-;; Global extensions
+;; Minor modes
 (load "init-smartparens")
 (load "init-point-undo")
 (load "init-highlighting")
@@ -118,8 +118,6 @@
 (load "init-vimlike")
 (load "init-jump")
 ;; (load "init-migemo")
-
-;; Coding 
 (load "init-skk")
 (load "init-flycheck")
 (load "init-yasnippet")
@@ -130,10 +128,10 @@
 (load "init-testkick")
 
 ;; Web interface
-;; (load "init-sdic")
 (load "init-translate")
-;; (load "init-w3m")
 (load "init-twitter")
+;; (load "init-w3m")
+;; (load "init-sdic")
 
 ;; Major modes
 (load "init-vcs")
