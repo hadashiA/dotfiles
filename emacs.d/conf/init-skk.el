@@ -1,34 +1,9 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
-;; SKK install howto
-;; http://memolet.blog22.fc2.com/blog-entry-1204.html
-
-(add-to-load-path "~/.emacs.d/elisp/skk")
-
-(require 'skk-setup)
-
-;; [2008-03-13]
-;; 時々勝手に立ち上がってウザいのでコメントアウト。
-
-;; SKK tutorial
-;; (setq skk-tut-file (expand-file-name "~/.skk/SKK.tut"))
-
-;; Mac上での動作が前提。AquaSKKのskkserve機能を利用。
-;; VMWareのネットワーク設定をちゃんとしないとだめ。
-;;  - darwin = VMWareのホストOS (Mac)
-;; (cond (run-darwin
-;;        ;; skkservを使うのでラージ辞書いらない
-;;        (setq skk-large-jisyo nil)
-;;        (setq skk-server-host "localhost")
-;;        (setq skk-server-portnum 1178)))
-
 (setq skk-large-jisyo "~/Library/Application Support/AquaSKK/SKK-JISYO.L"
       ;; skk-server-host "hadashikick.jp"
       ;; skk-server-portnum 1178
       )
-
-;; SKKの設定
-;; http://www.bookshelf.jp/soft/meadow_21.html#SEC194
 
 ;; 変換時，改行でも確定
 (setq skk-egg-like-newline t)

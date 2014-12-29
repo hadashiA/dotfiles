@@ -15,8 +15,6 @@
      ))
 
 ;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
-
-;; for files
 ;; (setq helm-for-files-preferred-list
 ;;       '(helm-source-ls-git-status
 ;;         helm-source-buffers-list
@@ -27,14 +25,19 @@
 ;;         helm-source-locate
 ;;         ))
 (global-set-key (kbd "C-;") 'helm-for-files)
+(setq helm-ff-transformer-show-only-basename nil)
+
 (global-set-key (kbd "C-:") 'helm-resume)
+
+;; 
+;; find files
+;; 
 (define-key global-map (kbd "C-*") 'helm-ag)
 
+;; 
+;; profectile
+;; 
 (define-key global-map (kbd "C-,") 'helm-projectile)
-(define-key global-map (kbd "C-{") 'helm-ghq)
-
-
-(setq helm-ff-transformer-show-only-basename nil)
 ;; (setq projectile-enable-caching t)
 ;; (setq projectile-use-native-indexing t)
 ;; (require 'helm-project)
@@ -44,26 +47,24 @@
 ;;        (lambda (files)
 ;;          (remove-if 'file-directory-p files))))
 
-(require 'helm-c-yasnippet)
+;; 
+;; ghq
+;; 
+(define-key global-map (kbd "C-{") 'helm-ghq)
+
 (define-key yas-minor-mode-map (kbd "C-x i i") 'helm-c-yas-complete)
 
+;; 
+;; kill-ring
+;; 
 ;; \M-y でキルリング履歴
 (setq kill-ring-max 200) ;; kill-ring の最大値. デフォルトは 30.
 (setq helm-kill-ring-threshold 10) ;; anything で対象とするkill-ring の要素の長さの最小値.デフォルトは 10.
 (global-set-key "\M-y" 'helm-show-kill-ring)
 
-(require 'helm-c-moccur)
-(setq helm-c-moccur-enable-initial-pattern t
-      helm-c-moccur-enable-auto-look-flag t
-      helm-c-moccur-higligt-info-line-flag t
-      )
-(global-set-key (kbd "M-o") 'helm-c-moccur-occur-by-moccur)
-(global-set-key (kbd "C-M-o") 'helm-c-moccur-dmoccur)
-(add-hook 'dired-mode-hook
-          '(lambda ()
-             (local-set-key (kbd "O") 'helm-c-moccur-dired-do-moccur-by-moccur)))
-
-(require 'helm-gtags)
+;; 
+;; helm-gtags
+;; 
 (add-hook 'c-mode-common-hook (lambda () (helm-gtags-mode)))
 (add-hook 'php-mode-hook (lambda () (helm-gtags-mode)))
 (add-hook 'helm-gtags-mode-hook
@@ -73,7 +74,6 @@
              ;; (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
              (local-set-key (kbd "C-S-t") 'helm-gtags-pop-stack)))
 
-(require 'helm-imenu)
 (defun my/helm-tags ()
   (interactive)
   (helm :sources '(helm-source-imenu
@@ -82,9 +82,20 @@
 
 (global-set-key (kbd "C-+") 'my/helm-tags)
 
+;; 
+;; helm-descbinds
+;; 
 (helm-descbinds-mode)
 (global-set-key (kbd "C-x b") 'helm-descbinds)
 
+;; 
+;; helm-swoop
+;; 
+(global-set-key (kbd "M-o") 'helm-swoop)
+
+;; 
+;; helm-rubygems-local
+;; 
 (defvar helm-c-source-rubygems-local
   '((name . "rubygems")
     (candidates-in-buffer)
