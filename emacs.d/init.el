@@ -129,6 +129,7 @@
 (load "init-helm")
 (load "init-tags")
 (load "init-testkick")
+(load "init-git-gutter")
 
 ;; Web interface
 (load "init-translate")
