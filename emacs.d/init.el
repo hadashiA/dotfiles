@@ -114,6 +114,7 @@
 (load "init-expand-region")
 (load "init-foreign-regexp")
 (load "init-smartchr")
+(load "init-rainbow-delimiters")
 (load "init-junk-file")
 (load "init-vimlike")
 (load "init-jump")
