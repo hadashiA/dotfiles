@@ -114,7 +114,7 @@
 (load "init-junk-file")
 (load "init-vimlike")
 (load "init-jump")
-(load "init-migemo")
+;; (load "init-migemo")
 (load "init-skk")
 (load "init-flymake")
 (load "init-templates")
