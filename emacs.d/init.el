@@ -130,7 +130,7 @@
 (load "init-testkick")
 
 ;; Web interface
-(load "init-sdic")
+;; (load "init-sdic")
 (load "init-translate")
 ;; (load "init-w3m")
 (load "init-twitter")
