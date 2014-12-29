@@ -1,15 +1,18 @@
-
-
 ;; Auto Complete Mode
 ;; http://cx4a.org/software/auto-complete/manual.ja.html#ac-source-yasnippet
 ;; (when (require 'auto-complete nil t)
 (require 'auto-complete-config)
 
-(require 'go-autocomplete)
-
 ;; (ac-config-default)
 (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+
+(setq-default ac-sources
+              '(ac-source-abbrev
+                ac-source-dictionary
+                ac-source-words-in-same-mode-buffers
+                ac-source-filename
+                ac-source-yasnippet))
 
 ;; (setq ac-sources
 ;;       '(;; ac-source-abbrev
@@ -43,18 +46,19 @@
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
 
+;; (add-hook 'minibuffer-setup-hook '(lambda () (auto-complete-mode 1)))
+
 (require 'pos-tip)
 (setq ac-quick-help-prefer-x t)
 
-;; (add-to-list 'load-path "~/.emacs.d/elisp/company")
-;; (require 'ac-company)
-;; (ac-company-define-source ac-source-company-xcode company-xcode)
-;; (ac-company-define-source ac-source-company-gtags company-gtags)
-
 (require 'auto-complete-ya-gtags)
-(require 'auto-complete-clang-async)
 
-;; (add-hook 'minibuffer-setup-hook '(lambda () (auto-complete-mode 1)))
+(add-hook 'auto-complete-mode-hook 'ac-common-setup)
+
+;; 
+;; c/c++
+;; 
+(require 'auto-complete-clang-async)
 
 (defun ac-cc-mode-setup ()
   (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
@@ -64,28 +68,36 @@
   (message "ac-cc-mode-setup")
   )
 
+;; (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
 (add-hook 'cc-mode-hook 'ac-cc-mode-setup)
 (add-hook 'c++-mode-hook 'ac-cc-mode-setup)
 
-;; objc-mode
-(add-to-list 'ac-modes 'objc-mode)
-(add-hook 'objc-mode-hook 'ac-cc-mode-setup)
+;; 
+;; go
+;; 
+(add-to-list 'ac-modes 'go-mode)
+(require 'go-autocomplete)
 
+;; 
+;; c#
+;; 
 (add-to-list 'ac-modes 'csharp-mode)
 (add-hook 'csharp-mode-hook
           (lambda ()
             (add-to-list 'ac-sources 'ac-source-ya-gtags)
             ))
 
+(add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
+
+;; 
+;; elisp
+;; 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (add-to-list 'ac-sources 'ac-source-features)
             (add-to-list 'ac-sources 'ac-source-functions)
             (add-to-list 'ac-sources 'ac-source-symbols)
             (add-to-list 'ac-sources 'ac-source-variables)))
-
-;; go
-(add-to-list 'ac-modes 'go-mode)
 
 ;; Rsense
 ;; http://cx4a.org/software/rsense/manual.ja.html
@@ -102,32 +114,14 @@
             (auto-complete-mode t)
             ) t)
 
-(defun ac-pycomplete-candidates ()
-  (pycomplete-pycomplete (py-symbol-near-point) (py-find-global-imports)))
-
-(ac-define-source pycomplete
-  '((prefix "\\(?:\\.\\|->\\)\\(\\(?:[a-zA-Z_][a-zA-Z0-9_]*\\)?\\)" nil 1)      
-    (candidates . ac-pycomplete-candidates)
-    (requires . 0)))
-
-(add-hook 'python-mode-hook
-          (lambda ()
-            (add-to-list 'ac-sources 'ac-source-pycomplete)
-            (global-set-key (kbd "M-TAB") 'ac-complete-pycomplete)
-            ))
-
-(setq-default ac-sources
-              '(ac-source-abbrev
-                ac-source-dictionary
-                ac-source-words-in-same-mode-buffers
-                ac-source-filename
-                ac-source-yasnippet))
-
-(add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
-;; (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+;; 
+;; css
+;; 
 (add-hook 'css-mode-hook 'ac-css-mode-setup)
-(add-hook 'auto-complete-mode-hook 'ac-common-setup)
 
+;; 
+;; javascript
+;; 
 (add-hook 'js2-mode-hook
           (lambda ()
             (auto-complete-mode nil)

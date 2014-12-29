@@ -4,9 +4,6 @@
 ;; C-x 3した時も折り返されるようになる
 (setq truncate-partial-width-windows nil)
 
-;; [2008-03-13]
-;; これ使ってないなー。
-
 ;; windmove
 ;; http://hovav.net/elisp/
 (require 'windmove)

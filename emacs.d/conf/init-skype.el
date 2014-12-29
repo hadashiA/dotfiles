@@ -1,5 +1,0 @@
-(add-to-list 'load-path "~/.emacs.d/elisp/emacs-skype")
-(when (featurep 'dbus)
-  (require 'skype)
-  (setq skype--my-user-handle "hadashikick")
-  )
