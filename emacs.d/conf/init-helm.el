@@ -52,6 +52,10 @@
 ;; 
 (define-key global-map (kbd "C-{") 'helm-ghq)
 
+;;
+;; helm-c-yasnippet
+;; 
+(require 'helm-c-yasnippet)
 (define-key yas-minor-mode-map (kbd "C-x i i") 'helm-c-yas-complete)
 
 ;; 
@@ -65,8 +69,8 @@
 ;; 
 ;; helm-gtags
 ;; 
-(add-hook 'c-mode-common-hook (lambda () (helm-gtags-mode)))
-(add-hook 'php-mode-hook (lambda () (helm-gtags-mode)))
+(require 'helm-gtags)
+(add-hook 'prog-mode-hook 'helm-gtags-mode)
 (add-hook 'helm-gtags-mode-hook
           '(lambda ()
              (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
@@ -74,6 +78,7 @@
              ;; (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
              (local-set-key (kbd "C-S-t") 'helm-gtags-pop-stack)))
 
+(require 'helm-imenu)
 (defun my/helm-tags ()
   (interactive)
   (helm :sources '(helm-source-imenu

@@ -1,7 +1,5 @@
-;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
-
 (autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.\\(js\\|as\\|json\\|jsn\\)\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(js\\|jsx\\)\\'" . js2-mode))
 
 (add-hook 'js2-mode-hook
           '(lambda ()
@@ -41,7 +39,3 @@
            (back-to-indentation)
            (point))))
     (skip-chars-forward "\s " point-of-indentation)))
-
-(autoload 'jade-mode "jade-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
-
