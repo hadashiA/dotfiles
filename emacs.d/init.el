@@ -98,10 +98,13 @@
 (load "init-color")
 (load "init-shell")
 (load "init-package")
-(load "init-window")
-(load "init-remaps")
 
-;; Emacs feature settings
+;; Keymaps
+(load "init-remaps")
+(load "init-smartrep")
+
+;; Settings for each emacs features
+(load "init-window")
 (load "init-minibuf")
 (load "init-killring")
 (load "init-dired")
