@@ -39,3 +39,9 @@
            (back-to-indentation)
            (point))))
     (skip-chars-forward "\s " point-of-indentation)))
+
+
+(add-hook 'json-mode-hook
+          (lambda ()
+            (make-variable-buffer-local 'js-indent-level)
+            (setq js-indent-level 2)))
