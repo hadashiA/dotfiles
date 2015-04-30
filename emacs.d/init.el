@@ -87,7 +87,6 @@
 (load "init-env")
 (load "init-color")
 (load "init-shell")
-(load "init-minibuf")
 (load "init-ffap")
 (load "init-remaps")
 (load "init-window")
@@ -97,6 +96,7 @@
 (load "init-highlighting")
 (load "init-vimlike")
 (load "init-dired")
+(load "init-minibuf")
 
 (load "init-cc")
 (load "init-genkou-mode")

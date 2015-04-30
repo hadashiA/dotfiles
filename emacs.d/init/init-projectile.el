@@ -1,11 +1,17 @@
 (require 'helm-projectile)
 
-(define-key global-map (kbd "C-,") 'helm-projectile)
-(setq projectile-enable-caching t)
-(setq projectile-use-native-indexing t)
+(setq projectile-completion-system 'helm
+      projectile-enable-caching t
+      projectile-use-native-indexing t
+      projectile-indexing-method 'native)
 
-;; (setq hp:project-files-filters
-;;       (list
-;;        (lambda (files)
-;;          (remove-if 'file-directory-p files))))
+(projectile-global-mode)
+(helm-projectile-on)
+
+(define-key global-map (kbd "C-,") 'helm-projectile)
+
+(setq hp:project-files-filters
+      (list
+       (lambda (files)
+         (remove-if 'file-directory-p files))))
 
