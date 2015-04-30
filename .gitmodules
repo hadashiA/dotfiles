@@ -1,12 +1,6 @@
 [submodule "zsh/modules/auto-fu"]
 	path = zsh/modules/auto-fu
 	url = http://github.com/hchbaw/auto-fu.zsh.git
-[submodule "emacs.d/elisp/rspec-mode"]
-	path = emacs.d/elisp/rspec-mode
-	url = https://github.com/pezra/rspec-mode.git
 [submodule "zsh/modules/zsh-completions"]
 	path = zsh/modules/zsh-completions
 	url = git://github.com/zsh-users/zsh-completions.git
-[submodule "emacs.d/elisp/testkick"]
-	path = emacs.d/elisp/testkick
-	url = git@github.com:f-kubotar/testkick.git

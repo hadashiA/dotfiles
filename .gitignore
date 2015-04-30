@@ -1,6 +1,7 @@
 .DS_Store
 ._.DS_Store
 *.swp
+.#*
 history-*
 zsh/history
 zsh/modules/auto-fu/auto-fu
@@ -12,16 +13,12 @@ fish_read_history
 fishd.*
 vim/.netrwhist
 vimperator/info
-emacs.d/auto-save-list
-emacs.d/anything-c-adaptive-history
 screen/.temp
 screen/exchange
-.#*
+emacs.d/auto-save-list
+emacs.d/anything-c-adaptive-history
 emacs.d/bookmarks
-emacs.d/conf/twitter-password.el
-doc/ruby-refm*
 emacs.d/url/cookies
-.rbenv-version
 emacs.d/**/archive-contents
 emacs.d/elpa/archives
 emacs.d/recentf
@@ -30,3 +27,9 @@ emacs.d/projectile-bookmarks.eld
 emacs.d/.mc-lists.el
 emacs.d/ido.last
 emacs.d/projectile.cache
+*.elc
+emacs.d/el-get
+emacs.d/elpa
+emacs.d/info
+emacs.d/ac-dict
+emacs.d/auto-save-list

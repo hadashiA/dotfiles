@@ -1,8 +1,11 @@
-;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
 
-(byte-recompile-directory "~/.emacs.d/elisp/")
-(byte-recompile-directory "~/.emacs.d/conf/")
-;; (require 'isearch)
+(require 'generic-x)
+(setq default-tab-width 4)
 
 ;; 実行環境を判別する。
 ;; http://d.hatena.ne.jp/hito-d/20060220#1140445790
@@ -74,89 +77,29 @@
        (autoload function file docstring interactive type)))
 
 
-;; elispと設定ファイルのディレクトリをload-pathに追加
 (add-to-load-path "~/.emacs.d/elisp"
-                  "~/.emacs.d/conf")
-
-;; apel, emuをロードパスに追加
-;; w3mかなんかで使う。
-;; (add-to-load-path "~/.emacs.d/elisp/emu"
-;;                   "~/.emacs.d/elisp/apel")
-
-;; (when (require 'auto-install)
-;;   (setq auto-install-directory "~/.emacs.d/elisp/"))
-;; (auto-install-update-emacswiki-package-name t)
-;;(auto-install-compatibility-setup)
-
-(require 'generic-x)
-
-(setq default-tab-width 4)
-
-;; 個別の設定をロードしまくりパート
+                  "~/.emacs.d/init"
+                  "~/.emacs.d/el-get/el-get")
+;;
+;; Standard Settings
+;;
 
 (load "init-env")
 (load "init-color")
 (load "init-shell")
-(load "init-package")
-
-;; Keymaps
+(load "init-minibuf")
+(load "init-ffap")
 (load "init-remaps")
-(load "init-smartrep")
-
-;; Settings for each emacs features
 (load "init-window")
 (load "init-minibuf")
 (load "init-killring")
-(load "init-dired")
 (load "init-ffap")
-
-;; Minor modes
-(load "init-smartparens")
-(load "init-point-undo")
-(load "init-undo-tree")
-(load "init-undohist")
 (load "init-highlighting")
-(load "init-expand-region")
-(load "init-foreign-regexp")
-(load "init-smartchr")
-(load "init-rainbow-delimiters")
-(load "init-junk-file")
 (load "init-vimlike")
-(load "init-jump")
-;; (load "init-migemo")
-(load "init-skk")
-(load "init-flycheck")
-(load "init-yasnippet")
-(load "init-auto-complete")
-(load "init-autosave-buffers")
-(load "init-helm")
-(load "init-tags")
-(load "init-testkick")
-(load "init-git-gutter")
+(load "init-dired")
 
-;; Web interface
-(load "init-translate")
-(load "init-twitter")
-;; (load "init-w3m")
-;; (load "init-sdic")
-
-;; Major modes
-(load "init-vcs")
-(load "init-markdown")
-(load "init-html")
-(load "init-css")
-(load "init-javascript")
-(load "init-coffee")
+(load "init-genkou-mode")
 (load "init-cc")
-(load "init-glsl")
-(load "init-ruby")
-(load "init-puppet")
-(load "init-python")
-(load "init-php")
-(load "init-sql")
-(load "init-lisp")
-(load "init-yaml")
-(load "init-genkou")
 
 ;; Meadow用設定を読み込む
 (when (and run-w32 run-meadow)
@@ -169,15 +112,98 @@
 ;; Linux
 (when run-linux
   (load "init-linux"))
+ 
+;; 半角と全角の比を1:2に
+(setq face-font-rescale-alist
+      '((".*Hiragino_Mincho_pro.*" . 1.2)))
+
+;;
+;; packages
+;;
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/recipes")
+(setq el-get-user-package-directory (locate-user-emacs-file "init"))
+
+(el-get-bundle smartrep
+  :features smartrep)
+(el-get-bundle mcomplete
+  :type github
+  :pkgname "emacsmirror/mcomplete"
+  :features mcomplete)
+(el-get-bundle session)
+(el-get-bundle smartparens)
+(el-get-bundle auto-save-buffers-enhanced
+  :type github
+  :pkgname "kentaro/auto-save-buffers-enhanced")
+(el-get-bundle point-undo
+  :type github
+  :pkgname "emacsmirror/point-undo")
+(el-get-bundle undo-tree)
+(el-get-bundle undohist
+  :features undohist)
+(el-get-bundle expand-region)
+(el-get-bundle foreign-regexp
+  :type github
+  :pkgname "k-talo/foreign-regexp.el")
+(el-get-bundle smartchr)
+(el-get-bundle rainbow-delimiters)
+(el-get-bundle open-junk-file)
+(el-get-bundle ace-jump-mode)
+(el-get-bundle ddskk)
+(el-get-bundle flycheck)
+(el-get-bundle go-flymake
+  :features go-flycheck)
+(el-get-bundle dropdown-list
+  :features dropdown-list)
+(el-get-bundle yasnippet)
+(el-get-bundle pos-tip)
+(el-get-bundle go-autocomplete)
+(el-get-bundle auto-complete)
+(el-get-bundle auto-complete-ya-gtags
+  :type github
+  :pkgname "whitypig/auto-complete-ya-gtags"
+  :features auto-complete-ya-gtags)
+(el-get-bundle gtags)
+(el-get-bundle git-gutter)
+(el-get-bundle helm)
+(el-get-bundle helm-ag)
+(el-get-bundle projectile)
+(el-get-bundle helm-ghq)
+(el-get-bundle helm-c-yasnippet)
+(el-get-bundle helm-gtags)
+(el-get-bundle helm-descbinds)
+(el-get-bundle helm-swoop)
+(el-get-bundle magit)
+(el-get-bundle markdown-mode)
+(el-get-bundle twittering-mode)
+(el-get-bundle web-mode)
+(el-get-bundle css-mode)
+(el-get-bundle js2-mode)
+(el-get-bundle json-mode)
+(el-get-bundle yaml-mode)
+(el-get-bundle jade-mode)
+(el-get-bundle coffee-mode)
+(el-get-bundle go-mode)
+(el-get-bundle puppet-mode)
+(el-get-bundle php-mode)
+(el-get-bundle ruby-mode)
+(el-get-bundle ruby-block)
+(el-get-bundle rcodetools)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(rspec-spec-command "rspec")
- '(rspec-use-rake-flag nil)
- '(rspec-use-rvm t)
- '(safe-local-variable-values (quote ((encoding . utf-8) (encoding . UTF-8) (Coding . utf-8) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby")))))
+ '(ido-enter-matching-directory (quote first))
+ '(ido-max-directory-size (quote const))
+ '(package-selected-packages (quote (nil css-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -195,16 +221,3 @@
  '(region ((((class color) (min-colors 88) (background dark)) (:background "#49483E"))))
  '(show-paren-match ((((class color) (background dark)) (:background "#3E3D32"))))
  '(variable-pitch ((t (:family "DejaVu Sans")))))
-(put 'narrow-to-region 'disabled nil)
-
-
- 
-;; 日本語
-(set-fontset-font
- nil 'japanese-jisx0208
- ;; (font-spec :family "Hiragino Mincho Pro")) ;; font
- (font-spec :family "Hiragino Kaku Gothic ProN")) ;; font
- 
-;; 半角と全角の比を1:2に
-(setq face-font-rescale-alist
-      '((".*Hiragino_Mincho_pro.*" . 1.2)))

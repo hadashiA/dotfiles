@@ -40,6 +40,7 @@ alias b='bundle exec'
 alias br='./bin/rails'
 alias brake='./bin/rake'
 alias brspec='./bin/rspec'
+alias bspring='./bin/spring'
 
 # GAE stuff
 alias gae='dev_appserver.py --debug .'
