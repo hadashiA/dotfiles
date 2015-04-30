@@ -1,6 +1,7 @@
 (require 'smartparens-config)
 (smartparens-global-mode t)
-
+(smartparens-strict-mode)
+r
 (define-key sp-keymap (kbd "S-C-f") 'sp-end-of-next-sexp)
 (define-key sp-keymap (kbd "S-C-b") 'sp-beginning-of-previous-sexp)
 (define-key sp-keymap (kbd "S-C-d") 'sp-down-sexp)

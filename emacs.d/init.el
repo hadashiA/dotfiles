@@ -98,8 +98,8 @@
 (load "init-vimlike")
 (load "init-dired")
 
-(load "init-genkou-mode")
 (load "init-cc")
+(load "init-genkou-mode")
 
 ;; Meadow用設定を読み込む
 (when (and run-w32 run-meadow)
@@ -195,7 +195,7 @@
 (el-get-bundle php-mode)
 (el-get-bundle ruby-mode)
 (el-get-bundle ruby-block)
-(el-get-bundle ruby-electric)
+;; (el-get-bundle ruby-electric)
 (el-get-bundle rcodetools)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
