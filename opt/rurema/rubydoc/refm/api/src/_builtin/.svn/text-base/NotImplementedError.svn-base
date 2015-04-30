@@ -1,3 +1,0 @@
-= class NotImplementedError < ScriptError
-
-実装されていない機能が呼び出されたときに発生します。

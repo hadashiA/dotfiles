@@ -1,4 +1,0 @@
-= class StopIteration < IndexError
-
-イテレーションを止めるときに発生する例外です。
-

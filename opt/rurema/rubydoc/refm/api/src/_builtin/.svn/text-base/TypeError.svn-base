@@ -1,3 +1,0 @@
-= class TypeError < StandardError
-
-不正な型の値を評価したときに発生します。
