@@ -68,7 +68,6 @@
 ;; go
 ;; 
 (add-to-list 'ac-modes 'go-mode)
-(require 'go-autocomplete)
 
 ;; 
 ;; c#

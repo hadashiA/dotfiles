@@ -164,7 +164,8 @@
   :features dropdown-list)
 (el-get-bundle yasnippet)
 (el-get-bundle pos-tip)
-(el-get-bundle go-autocomplete)
+(el-get-bundle go-autocomplete
+  :features go-autocomplete)
 (el-get-bundle auto-complete)
 (el-get-bundle auto-complete-ya-gtags
   :type github
@@ -188,13 +189,13 @@
 (el-get-bundle js2-mode)
 (el-get-bundle json-mode)
 (el-get-bundle yaml-mode)
-(el-get-bundle jade-mode)
 (el-get-bundle coffee-mode)
 (el-get-bundle go-mode)
 (el-get-bundle puppet-mode)
 (el-get-bundle php-mode)
 (el-get-bundle ruby-mode)
 (el-get-bundle ruby-block)
+(el-get-bundle ruby-electric)
 (el-get-bundle rcodetools)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

@@ -1,7 +1,3 @@
-;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
-;; ruby-mode
-
-
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rjs$" . ruby-mode))
@@ -29,9 +25,7 @@
             (defun ruby-mode-set-encoding () ())
             (define-key ruby-mode-map "\C-m" 'reindent-then-newline-and-indent)
             (define-key ruby-mode-map "\M-n" 'ruby-end-of-block)
-            (define-key ruby-mode-map "\M-p" 'ruby-beginning-of-block)
-            (define-key ruby-mode-map "d" 'ruby-elect-end)))
-
+            (define-key ruby-mode-map "\M-p" 'ruby-beginning-of-block)))
 
 ;; M-x alignの設定 for Ruby - (rubikitch loves (Emacs Ruby CUI))
 ;; http://d.hatena.ne.jp/rubikitch/20080227/1204051280
@@ -57,7 +51,6 @@
                            (regexp . "\\(\\s-*\\)# => [^#\t\n]")
                            (repeat . nil)
                            (modes  . '(ruby-mode))))))
-
 
 (defvar ruby-elect-regex (mapconcat (lambda (x) (format "\\<%s\\>" x)) ruby-elect-keyword "\\|"))
 
