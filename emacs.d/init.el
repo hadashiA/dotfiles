@@ -85,6 +85,7 @@
 ;;
 
 (load "init-env")
+(load "init-server")
 (load "init-color")
 (load "init-shell")
 (load "init-ffap")

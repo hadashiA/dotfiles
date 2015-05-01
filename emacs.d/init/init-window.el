@@ -1,5 +1,7 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
+(setq scroll-step 1)
+
 ;; 分割したウィンドウでも折り返し
 ;; C-x 3した時も折り返されるようになる
 (setq truncate-partial-width-windows nil)
