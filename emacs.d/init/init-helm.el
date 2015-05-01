@@ -28,6 +28,7 @@
 (setq helm-ff-transformer-show-only-basename nil)
 
 (global-set-key (kbd "C-:") 'helm-resume)
+(global-set-key (kbd "M-x") 'helm-M-x)
 
 ;; 
 ;; kill-ring

@@ -133,10 +133,10 @@
 
 (el-get-bundle smartrep
   :features smartrep)
-(el-get-bundle mcomplete
-  :type github
-  :pkgname "emacsmirror/mcomplete"
-  :features mcomplete)
+;; (el-get-bundle mcomplete
+;;   :type github
+;;   :pkgname "emacsmirror/mcomplete"
+;;   :features mcomplete)
 (el-get-bundle session)
 (el-get-bundle smartparens)
 (el-get-bundle auto-save-buffers-enhanced
