@@ -4,87 +4,107 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
-(require 'generic-x)
+;;
+;; Global Variables
+;;
+
+;; スタートアップ時のメッセージを抑制
+(setq inhibit-startup-message t)
+
+(when window-system
+ (menu-bar-mode 0)
+ (tool-bar-mode 0))
+
+;; エンコーディングは基本的にUTF-8
+;; (add-hook 'set-language-environment-hook 
+;; 	  (lambda ()
+;; 	    (when (equal "ja_JP.UTF-8" (getenv "LANG"))
+;; 	      (setq default-process-coding-system '(utf-8 . utf-8))
+;; 	      (setq default-file-name-coding-system 'utf-8))
+;; 	    (when (equal "Japanese" current-language-environment)
+;; 	      (setq default-buffer-file-coding-system 'iso-2022-jp))))
+(set-language-environment "Japanese")
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8)
+(setq default-process-coding-system '(utf-8 . utf-8))
+(setq default-file-name-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(setenv "LANG" "ja_JP.UTF-8")
+
+;; ヴィジブルベルを抑制
+(setq visible-bell nil)
+
+;; ビープ音を抑制
+(setq ring-bell-function '(lambda ()))
+
+;; カーソルの点滅を抑制
+(blink-cursor-mode 0)
+
+;; 行数、列数を表示
+(line-number-mode t)
+(column-number-mode t)
+
+;; バックアップしない
+(setq make-backup-files nil)
+
+;; 自動保存したファイルを削除する。
+(setq delete-auto-save-files t)
+
+;; 自動セーブしない。
+(setq auto-save-default nil)
+
+;; yes/noを、y/nで選択できるようにする。
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; kill-lineで行末の改行文字も削除
+(setq kill-whole-line t)
+
+;; リージョンをC-hで削除
+;;(delete-selection-mode 1)
+
+;; シフト + 矢印で範囲選択
+;; (setq pc-select-selection-keys-only t)
+;; (pc-selection-mode 1)
+
+;; インデントはスペースで
+(setq-default indent-tabs-mode nil)
 (setq default-tab-width 4)
 
-;; 実行環境を判別する。
-;; http://d.hatena.ne.jp/hito-d/20060220#1140445790
+;; 改行と同時にインデント
+(global-set-key "\C-m" 'newline-and-indent)
+;; (global-set-key "\C-m" 'comment-indent-new-line)
 
-;; OSを判別
-(defvar run-unix
-  (or (equal system-type 'gnu/linux)
-      (or (equal system-type 'usg-unix-v)
-          (or  (equal system-type 'berkeley-unix)
-               (equal system-type 'cygwin)))))
+;; バッファにファイルをドラッグドロップした際のファイルをinsertする動作に変更されている。
+;; (define-key global-map [ns-drag-file] 'ns-insert-file)
+;; Emacs22の時の動作は find-fileですので同じにするには以下を .emacs に記述します
+(define-key global-map [ns-drag-file] 'ns-find-file)
 
-(defvar run-linux
-  (equal system-type 'gnu/linux))
-(defvar run-system-v
-  (equal system-type 'usg-unix-v))
-(defvar run-bsd
-  (equal system-type 'berkeley-unix))
-(defvar run-cygwin ;; cygwinもunixグループにしておく
-  (equal system-type 'cygwin))
-(defvar run-w32
-  (and (null run-unix)
-       (or (equal system-type 'windows-nt)
-           (equal system-type 'ms-dos))))
+(setq dnd-open-file-other-window nil)
 
-(defvar run-darwin (equal system-type 'darwin))
+;; 個人用infoディレクトリを追加
+(setq Info-default-directory-list
+      (cons (expand-file-name "~/.emacs.d/info/") Info-default-directory-list))
 
-;; Emacsenの種類とヴァージョンを判別
-(defvar run-emacs20
-  (and (equal emacs-major-version 20)
-       (null (featurep 'xemacs))))
-(defvar run-emacs21
-  (and (equal emacs-major-version 21)
-       (null (featurep 'xemacs))))
-(defvar run-emacs22
-  (and (equal emacs-major-version 22)
-       (null (featurep 'xemacs))))
-(defvar run-meadow (featurep 'meadow))
-(defvar run-meadow1 (and run-meadow run-emacs20))
-(defvar run-meadow2 (and run-meadow run-emacs21))
-(defvar run-meadow3 (and run-meadow run-emacs22))
-(defvar run-xemacs (featurep 'xemacs))
-(defvar run-xemacs-no-mule
-  (and run-xemacs (not (featurep 'mule))))
-(defvar run-carbon-emacs (and run-darwin window-system))
+(turn-off-auto-fill)
 
-(eval-when-compile (require 'cl))
+;; ファイルの末尾に改行を付加しない
+(setq require-final-newline nil)
 
-;; ユーティリティ関数
+(add-to-list 'load-path "~/.emacs.d/elisp")
+(add-to-list 'load-path "~/.emacs.d/init")
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-;; 引数をload-pathへ追加する
-(defun add-to-load-path (&rest paths)
-  (mapc '(lambda (path)
-           (add-to-list 'load-path path))
-        (mapcar 'expand-file-name paths)))
+;; 半角と全角の比を1:2に
+(setq face-font-rescale-alist
+      '((".*Hiragino_Mincho_pro.*" . 1.2)))
 
-;; eval-safe
-;; 安全な評価。評価に失敗してもそこで止まらない。
-;; http://www.sodan.org/~knagano/emacs/dotemacs.html#eval-safe
-(defmacro eval-safe (&rest body)
-  `(condition-case err
-       (progn ,@body)
-     (error (message "[eval-safe] %s" err))))
-
-;; dot.emacs
-;; http://www.sodan.org/~knagano/emacs/dotemacs.html
-(defun autoload-if-found (function file &optional docstring interactive type)
-  "set autoload iff. FILE has found."
-  (and (locate-library file)
-       (autoload function file docstring interactive type)))
-
-
-(add-to-load-path "~/.emacs.d/elisp"
-                  "~/.emacs.d/init"
-                  "~/.emacs.d/el-get/el-get")
 ;;
-;; Standard Settings
+;; Standard Libraries
 ;;
 
-(load "init-env")
 (load "init-server")
 (load "init-color")
 (load "init-shell")
@@ -97,29 +117,13 @@
 (load "init-highlighting")
 (load "init-vimlike")
 (load "init-dired")
-(load "init-minibuf")
-
 (load "init-cc")
 (load "init-genkou-mode")
-
-;; Meadow用設定を読み込む
-(when (and run-w32 run-meadow)
-  (load "init-meadow"))
-
-;; Mac用設定を読み込む
-(when run-darwin
-  (load "init-mac"))
-
-;; Linux
-(when run-linux
-  (load "init-linux"))
- 
-;; 半角と全角の比を1:2に
-(setq face-font-rescale-alist
-      '((".*Hiragino_Mincho_pro.*" . 1.2)))
+(load "init-generic-x")
+(load "init-os")
 
 ;;
-;; packages
+;; Packages
 ;;
 
 (unless (require 'el-get nil 'noerror)
@@ -194,7 +198,8 @@
 (el-get-bundle go-mode)
 (el-get-bundle puppet-mode)
 (el-get-bundle php-mode)
-(el-get-bundle ruby-mode)
+(el-get-bundle ru
+               by-mode)
 (el-get-bundle ruby-block)
 ;; (el-get-bundle ruby-electric)
 (el-get-bundle rcodetools)

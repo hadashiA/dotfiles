@@ -20,7 +20,7 @@
       (append (list '(alpha . (90 90))) default-frame-alist))
 
 ;; Macではメニューバーは邪魔にならないので表示
-(eval-safe (menu-bar-mode 1))
+(menu-bar-mode 1)
 
 ;; ¥の代わりにバックスラッシュを入力する
 (define-key global-map [?¥] [?\\])

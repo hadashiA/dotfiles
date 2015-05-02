@@ -23,9 +23,6 @@
 (global-set-key (kbd "C-<") 'beginning-of-buffer)
 (global-set-key (kbd "C->") 'end-of-buffer)
 
-;; Terminal.appでC-/が効かないので、M-zで代用
-(when run-linux (global-set-key "\M-z" 'undo))
-
 ;; キーボードレイアウトをカスタマイズして、[をCtrl、 ]をMetaにしてるの
 ;; M-} と M-{ を再設定
 (global-set-key "\M-9" 'forward-paragraph)
