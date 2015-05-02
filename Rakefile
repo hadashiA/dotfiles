@@ -1,8 +1,6 @@
-# coding: utf-8
-
 desc "install the dot files into user's home directory"
-task :default => :install
-task :install => 'install:all'
+task default: :install
+task install: 'install:all'
 
 def dot(file)
   File.expand_path("~/.#{file}")
