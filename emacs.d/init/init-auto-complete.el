@@ -75,16 +75,15 @@
 (add-to-list 'ac-modes 'csharp-mode)
 (add-hook 'csharp-mode-hook
           (lambda ()
-            (add-to-list 'ac-sources 'ac-source-ya-gtags)
+            (add-to-list 'ac-sources 'ac-source-omnisharp)
             ))
-
-(add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
 
 ;; 
 ;; elisp
 ;; 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
+            (ac-emacs-lisp-mode-setup)
             (add-to-list 'ac-sources 'ac-source-features)
             (add-to-list 'ac-sources 'ac-source-functions)
             (add-to-list 'ac-sources 'ac-source-symbols)

@@ -203,6 +203,10 @@
 (el-get-bundle ruby-block)
 ;; (el-get-bundle ruby-electric)
 (el-get-bundle rcodetools)
+(el-get-bundle csharp-mode)
+(el-get-bundle omnisharp-mode)
+(el-get-bundle dash-at-point)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
