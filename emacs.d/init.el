@@ -191,6 +191,7 @@
 (el-get-bundle twittering-mode)
 (el-get-bundle web-mode)
 (el-get-bundle css-mode)
+(el-get-bundle rainbow-mode)
 (el-get-bundle js2-mode)
 (el-get-bundle json-mode)
 (el-get-bundle yaml-mode)
@@ -198,8 +199,7 @@
 (el-get-bundle go-mode)
 (el-get-bundle puppet-mode)
 (el-get-bundle php-mode)
-(el-get-bundle ru
-               by-mode)
+(el-get-bundle ruby-mode)
 (el-get-bundle ruby-block)
 ;; (el-get-bundle ruby-electric)
 (el-get-bundle rcodetools)

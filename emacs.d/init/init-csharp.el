@@ -2,6 +2,7 @@
 
 (add-hook 'csharp-mode-hook
           '(lambda()
+             (electric-pair-mode 0)
              (c-toggle-auto-newline t)
              (setq comment-column 40)
              (setq c-basic-offset 4)
