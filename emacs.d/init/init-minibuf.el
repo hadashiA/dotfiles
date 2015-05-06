@@ -23,5 +23,3 @@
 ;; http://clouder.jp/yoshiki/mt/archives/000673.html
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-
-(require 'minibuf-isearch)

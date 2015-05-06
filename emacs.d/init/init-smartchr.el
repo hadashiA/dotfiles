@@ -27,6 +27,8 @@
               (kbd "+") (smartchr '("+" " + " "++" " += ")))
             (define-key csharp-mode-map
               (kbd ">") (smartchr '(">" "->" " >> ")))
+            (define-key csharp-mode-map
+              (kbd "C-8") (smartchr '("(`!!');" "(\"`!!'\");")))
             ))
 
 (add-hook 'coffee-mode-hook

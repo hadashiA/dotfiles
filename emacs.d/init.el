@@ -163,6 +163,7 @@
 (el-get-bundle ace-jump-mode)
 (el-get-bundle ddskk)
 (el-get-bundle flycheck)
+(el-get-bundle flycheck-pos-tip)
 (el-get-bundle go-flymake
   :features go-flycheck)
 (el-get-bundle dropdown-list

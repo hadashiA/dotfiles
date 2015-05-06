@@ -2,7 +2,6 @@
 
 (add-hook 'csharp-mode-hook
           '(lambda()
-             (electric-pair-mode 0)
              (c-toggle-auto-newline t)
              (setq comment-column 40)
              (setq c-basic-offset 4)
@@ -10,6 +9,9 @@
              (c-set-offset 'case-label '+)
              (c-set-offset 'arglist-intro '+)
              (c-set-offset 'arglist-close 0)
+             
              (turn-on-eldoc-mode)
+             (electric-pair-mode 0)
+             (auto-complete-mode)
              )
           )
