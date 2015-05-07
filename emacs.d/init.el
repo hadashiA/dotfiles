@@ -65,6 +65,8 @@
 ;; リージョンをC-hで削除
 ;;(delete-selection-mode 1)
 
+(transient-mark-mode t)
+
 ;; シフト + 矢印で範囲選択
 ;; (setq pc-select-selection-keys-only t)
 ;; (pc-selection-mode 1)
@@ -110,7 +112,6 @@
 (load "init-shell")
 (load "init-ffap")
 (load "init-minibuf")
-(load "init-region")
 (load "init-remaps")
 (load "init-window")
 (load "init-killring")
@@ -154,6 +155,7 @@
 (el-get-bundle undohist
   :features undohist)
 (el-get-bundle expand-region)
+(el-get-bundle multiple-cursors)
 (el-get-bundle foreign-regexp
   :type github
   :pkgname "k-talo/foreign-regexp.el")
