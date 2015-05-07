@@ -110,6 +110,7 @@
 (load "init-shell")
 (load "init-ffap")
 (load "init-minibuf")
+(load "init-region")
 (load "init-remaps")
 (load "init-window")
 (load "init-killring")
@@ -206,15 +207,17 @@
 (el-get-bundle csharp-mode)
 (el-get-bundle omnisharp-mode)
 (el-get-bundle dash-at-point)
+(el-get-bundle haml-mode)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(flycheck-display-errors-function (function flycheck-pos-tip-error-messages))
  '(ido-enter-matching-directory (quote first))
  '(ido-max-directory-size (quote const))
- '(package-selected-packages (quote (nil css-mode))))
+ '(package-selected-packages (quote (rainbow-mode css-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
