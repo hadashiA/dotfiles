@@ -12,20 +12,21 @@
 
 (add-to-list 'auto-coding-alist '("\\.rb\\'" . utf-8-unix))
 
-(setq ruby-indent-level 2
-      ruby-indent-tabs-mode nil
-      ;; ruby-deep-indent-paren-style nil
-      ruby-deep-indent-paren-style nil
-      ;; ruby-deep-indent-paren-style 'space
-      )
-
 (add-hook 'ruby-mode-hook
           (lambda ()
             ;; マジックコメント入れない
             (defun ruby-mode-set-encoding () ())
             (define-key ruby-mode-map "\C-m" 'reindent-then-newline-and-indent)
             (define-key ruby-mode-map "\M-n" 'ruby-end-of-block)
-            (define-key ruby-mode-map "\M-p" 'ruby-beginning-of-block)))
+            (define-key ruby-mode-map "\M-p" 'ruby-beginning-of-block)
+
+            (setq ruby-indent-level 2
+                  ruby-indent-tabs-mode nil
+                  ;; ruby-deep-indent-paren-style nil
+                  ruby-deep-indent-paren-style nil
+                  ;; ruby-deep-indent-paren-style 'space
+                  )
+            ))
 
 ;; M-x alignの設定 for Ruby - (rubikitch loves (Emacs Ruby CUI))
 ;; http://d.hatena.ne.jp/rubikitch/20080227/1204051280

@@ -193,6 +193,8 @@
 (el-get-bundle markdown-mode)
 (el-get-bundle twittering-mode)
 (el-get-bundle web-mode)
+(el-get-bundle haml-mode)
+(el-get-bundle handlebars-mode)
 (el-get-bundle css-mode)
 (el-get-bundle rainbow-mode)
 (el-get-bundle js2-mode)
@@ -209,7 +211,7 @@
 (el-get-bundle csharp-mode)
 (el-get-bundle omnisharp-mode)
 (el-get-bundle dash-at-point)
-(el-get-bundle haml-mode)
+(el-get-bundle swift-mode)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

@@ -35,7 +35,7 @@
 ;; 
 ;; \M-y でキルリング履歴
 (setq kill-ring-max 200) ;; kill-ring の最大値. デフォルトは 30.
-(setq helm-kill-ring-threshold 10) ;; anything で対象とするkill-ring の要素の長さの最小値.デフォルトは 10.
+(setq helm-kill-ring-threshold 50) ;; anything で対象とするkill-ring の要素の長さの最小値.デフォルトは 10.
 (global-set-key "\M-y" 'helm-show-kill-ring)
 
 (require 'helm-imenu)
