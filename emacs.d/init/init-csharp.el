@@ -13,5 +13,6 @@
              (turn-on-eldoc-mode)
              (electric-pair-mode 0)
              (auto-complete-mode)
-             )
-          )
+
+             (local-set-key (kbd "{") 'c-electric-brace)
+             ))
