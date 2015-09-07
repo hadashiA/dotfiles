@@ -50,12 +50,12 @@
               (kbd "=") (smartchr '(" = " " == " " === " " != " " !== " "=")))
             (define-key js2-mode-map
               (kbd "+") (smartchr '("+" " + " "++" " += ")))
-            (define-key coffee-mode-map
-              (kbd "$") (smartchr '("$" "${`!!'}")))
-            (define-key coffee-mode-map
-              (kbd ".") (smartchr '("." " (`!!') => ")))
             (define-key js2-mode-map
-              (kbd "C-8") (smartchr '("(`!!');\n" "('`!!'');\n" "({ `!!' });\n" "(function(`!!') {  });\n")))
+              (kbd "$") (smartchr '("$" "${`!!'}")))
+            (define-key js2-mode-map
+              (kbd ".") (smartchr '("." " () => { `!!' }")))
+            (define-key js2-mode-map
+              (kbd "C-8") (smartchr '("(`!!');\n" "('`!!'');\n" "({ `!!' });\n" "((`!!') => {  });\n" "(function(`!!') {  });\n")))
             ))
 
 
