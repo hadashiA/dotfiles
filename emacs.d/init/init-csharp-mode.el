@@ -1,5 +1,3 @@
-(require 'csharp-mode)
-
 (defun my/insert-semicolon-and-new-line-and-indent ()
   "insert semicolon and newline and indentation."
   (interactive)
@@ -22,14 +20,6 @@
              (electric-pair-mode 0)
              (auto-complete-mode)
 
-             (define-key csharp-mode-map ";" 'insert-semicolon-and-new-line-and-indent)
+             (define-key csharp-mode-map ";" 'my/insert-semicolon-and-new-line-and-indent)
              (local-set-key (kbd "{") 'c-electric-brace)
              ))
-
-
-
-
-
-
-
-
