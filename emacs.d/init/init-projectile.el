@@ -9,9 +9,6 @@
 (helm-projectile-on)
 
 (define-key global-map (kbd "C-,") 'helm-projectile)
+(define-key projectile-mode-map (kbd "C-c o") 'projectile-toggle-between-implementation-and-test)
 
-(setq hp:project-files-filters
-      (list
-       (lambda (files)
-         (remove-if 'file-directory-p files))))
-
+(setq projectile-indexing-method 'alien)
