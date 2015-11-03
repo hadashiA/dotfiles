@@ -56,7 +56,7 @@
 ;; c/c++
 ;; 
 (defun ac-cc-mode-setup ()
-  (add-to-list 'ac-sources '(ac-source-ya-gtags))
+  (add-to-list 'ac-sources 'ac-source-ya-gtags)
   (message "ac-cc-mode-setup"))
 
 ;; (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)

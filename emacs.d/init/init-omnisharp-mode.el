@@ -1,4 +1,10 @@
 (require 'omnisharp)
-(add-hook 'csharp-mode-hook 'omnisharp-mode)
 (setq omnisharp-server-executable-path
       (expand-file-name "~/src/omnisharp-server/OmniSharp/bin/Debug/OmniSharp.exe"))
+
+(add-hook 'csharp-mode-hook
+          '(lambda()
+             (omnisharp-mode)
+             (define-key csharp-mode-map (kbd ".") 'omnisharp-add-dot-and-auto-complete)
+             (define-key csharp-mode-map (kbd "M-t") 'omnisharp-go-to-definition)
+             ))

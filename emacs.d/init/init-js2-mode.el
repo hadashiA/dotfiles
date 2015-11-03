@@ -3,14 +3,14 @@
 
 (add-hook 'js2-mode-hook
           '(lambda ()
-             (setq-default js2-basic-offset 2)
-             (custom-set-variables
-              '(js2-missing-semi-one-line-override t)
-              '(js2-expr-indent-offset 0)
-              '(js2-paren-indent-offset 0)
-              '(js2-square-indent-offset 0)
-              '(js2-curly-indent-offset 0)
-              )
+             (setq js2-basic-offset 2)
+             (setq js2-strict-missing-semi-warning nil)
+             (setq js2-missing-semi-one-line-override nil)
+             (setq js2-strict-trailing-comma-warning t)
+             (setq js2-expr-indent-offset 0)
+             (setq js2-paren-indent-offset 0)
+             (setq js2-square-indent-offset 0)
+             (setq js2-curly-indent-offset 0)
              (define-key js2-mode-map ";" 'insert-semicolon-and-new-line-and-indent)
              (define-key js2-mode-map (kbd "C-c C-a") #'align)
              ))
