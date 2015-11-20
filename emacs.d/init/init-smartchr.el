@@ -53,7 +53,7 @@
             (define-key js2-mode-map
               (kbd "$") (smartchr '("$" "${`!!'}")))
             (define-key js2-mode-map
-              (kbd ".") (smartchr '("." " () => { `!!' }")))
+              (kbd ".") (smartchr '("." "(`!!') => ")))
             (define-key js2-mode-map
               (kbd "C-8") (smartchr '("(`!!')" "('`!!'')" "({ `!!' })" "((`!!') => {  })" "(function(`!!') {  })")))
             ))
