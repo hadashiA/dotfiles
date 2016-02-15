@@ -3,6 +3,9 @@
 ;; (when (require 'auto-complete nil t)
 (require 'auto-complete-config)
 
+(add-to-list 'load-path "~/src/github.com/nsf/gocode/emacs")
+(require 'go-autocomplete)
+
 ;; (ac-config-default)
 (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
