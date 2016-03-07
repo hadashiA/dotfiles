@@ -1,6 +1,6 @@
 (require 'omnisharp)
 (setq omnisharp-server-executable-path
-      (expand-file-name "~/src/src/github.com/OmniSharp/omnisharp-server/OmniSharp/bin/Debug/OmniSharp.exe"))
+      (expand-file-name "~/src/github.com/OmniSharp/omnisharp-server/OmniSharp/bin/Debug/OmniSharp.exe"))
 
 (add-hook 'csharp-mode-hook
           '(lambda()
