@@ -103,4 +103,7 @@
    "*anything local gems*"
   ))
 
+;; 
+;; omnisharp
+;;
 

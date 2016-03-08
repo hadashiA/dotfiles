@@ -75,10 +75,10 @@
 ;; c#
 ;; 
 (add-to-list 'ac-modes 'csharp-mode)
-(add-hook 'csharp-mode-hook
-          (lambda ()
-            (add-to-list 'ac-sources 'ac-source-omnisharp)
-            ))
+;; (add-hook 'csharp-mode-hook
+;;           (lambda ()
+;;             (add-to-list 'ac-sources 'ac-source-omnisharp)
+;;             ))
 
 ;; 
 ;; elisp

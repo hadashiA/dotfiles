@@ -5,6 +5,6 @@
 (add-hook 'csharp-mode-hook
           '(lambda()
              (omnisharp-mode)
-             (define-key csharp-mode-map (kbd ".") 'omnisharp-add-dot-and-auto-complete)
+             (define-key csharp-mode-map (kbd "C-.") 'omnisharp-add-dot-and-auto-complete)
              (define-key csharp-mode-map (kbd "M-t") 'omnisharp-go-to-definition)
              ))
