@@ -6,5 +6,6 @@
           '(lambda()
              (omnisharp-mode)
              (define-key csharp-mode-map (kbd "C-.") 'omnisharp-add-dot-and-auto-complete)
+             (define-key csharp-mode-map (kbd "C-M-i") 'omnisharp-auto-complete)
              (define-key csharp-mode-map (kbd "M-t") 'omnisharp-go-to-definition)
              ))
