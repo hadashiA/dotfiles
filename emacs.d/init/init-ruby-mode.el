@@ -20,6 +20,8 @@
             (define-key ruby-mode-map "\M-n" 'ruby-end-of-block)
             (define-key ruby-mode-map "\M-p" 'ruby-beginning-of-block)
 
+            (inf-ruby-minor-mode)
+
             (setq ruby-indent-level 2
                   ruby-indent-tabs-mode nil
                   ;; ruby-deep-indent-paren-style nil
