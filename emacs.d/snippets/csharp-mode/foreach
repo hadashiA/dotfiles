@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: foreach
+# key: foreach
+# binding: C-c C-c i
+# --
+foreach (var ${1:v} in ${2:collection}) {
+    $0
+}

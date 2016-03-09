@@ -18,8 +18,6 @@
              
              (turn-on-eldoc-mode)
              (electric-pair-mode 0)
-             (auto-complete-mode)
-
              (define-key csharp-mode-map ";" 'my/insert-semicolon-and-new-line-and-indent)
              (local-set-key (kbd "{") 'c-electric-brace)
              ))

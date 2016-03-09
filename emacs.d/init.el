@@ -172,13 +172,8 @@
   :features dropdown-list)
 (el-get-bundle yasnippet)
 (el-get-bundle pos-tip)
-(el-get-bundle go-autocomplete
-  :features go-autocomplete)
-(el-get-bundle auto-complete)
-(el-get-bundle auto-complete-ya-gtags
-  :type github
-  :pkgname "whitypig/auto-complete-ya-gtags"
-  :features auto-complete-ya-gtags)
+(el-get-bundle company-mode)
+(el-get-bundle company-inf-ruby)
 (el-get-bundle gtags)
 (el-get-bundle git-gutter)
 (el-get-bundle helm)
