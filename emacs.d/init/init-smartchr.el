@@ -26,7 +26,7 @@
             (define-key csharp-mode-map
               (kbd "+") (smartchr '("+" " + " "++" " += ")))
             (define-key csharp-mode-map
-              (kbd ">") (smartchr '(">" "->" " >> ")))
+              (kbd ">") (smartchr '(">" "`!!' => " "() => `!!'" "(`!!') => ")))
             (define-key csharp-mode-map
               (kbd "C-8") (smartchr '("(`!!');" "(\"`!!'\");")))
             ))
@@ -53,7 +53,7 @@
             (define-key js2-mode-map
               (kbd "$") (smartchr '("$" "${`!!'}")))
             (define-key js2-mode-map
-              (kbd ".") (smartchr '("." "`!!' => " "(`!!') => ")))
+              (kbd ">") (smartchr '(">" "`!!' => " "() => `!!'" "(`!!') => ")))
             (define-key js2-mode-map
               (kbd "C-8") (smartchr '("(`!!')" "('`!!'')" "({ `!!' })" "((`!!') => {  })" "(function(`!!') {  })")))
             ))
@@ -71,12 +71,6 @@
               (kbd "#") (smartchr '("#" "#{`!!'}")))
             ))
 
-(add-hook 'puppet-mode-hook
-          (lambda ()
-            (define-key puppet-mode-map
-              (kbd ">") (smartchr '(">" " => ")))
-            ))
-
 (add-hook 'python-mode-hook
           (lambda ()
             ;; (define-key python-mode-map (kbd "+") (smartchr '("+" " + " " += ")))
@@ -89,27 +83,6 @@
               (smartchr '("=" "=\"`!!'\"" "=\"{% `!!' %}\"" "=\"{{ `!!' }}\"")))
             ))
 
-(add-hook 'jade-mode-hook
-          (lambda ()
-            (define-key jade-mode-map (kbd "=")
-              (smartchr '("=" "=\"`!!'\"" "=\"{% `!!' %}\"" "=\"{{ `!!' }}\"")))
-            ))
-
-(add-hook 'php-mode-hook
-          (lambda ()
-            (define-key php-mode-map
-              (kbd "=") (smartchr '(" = " " == " " === " " != " " !== " "=")))
-            (define-key php-mode-map (kbd "+")
-              (smartchr '("+" " + " " += ")))
-            (define-key php-mode-map (kbd "+")
-              (smartchr '("+" " + " " += ")))
-            (define-key php-mode-map (kbd ">")
-              (smartchr '(">" " => " " => '`!!''" " => \"`!!'\"")))
-            (define-key php-mode-map (kbd ".")
-              (smartchr '("." "->")))
-            (define-key php-mode-map
-              (kbd "[") (smartchr '("[`!!']" "['`!!']" "[\"`!!'\"]")))
-            ))
 (add-hook 'go-mode-hook
           (lambda ()
             (define-key go-mode-map
