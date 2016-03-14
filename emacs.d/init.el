@@ -192,9 +192,10 @@
 (el-get-bundle css-mode)
 (el-get-bundle rainbow-mode)
 (el-get-bundle js2-mode)
+(el-get-bundle coffee-mode)
+(el-get-bundle typescript-mode)
 (el-get-bundle json-mode)
 (el-get-bundle yaml-mode)
-(el-get-bundle coffee-mode)
 (el-get-bundle go-mode)
 (el-get-bundle puppet-mode)
 (el-get-bundle php-mode)
@@ -216,7 +217,8 @@
  '(flycheck-display-errors-function (function flycheck-pos-tip-error-messages))
  '(ido-enter-matching-directory (quote first))
  '(ido-max-directory-size (quote const))
- '(package-selected-packages (quote (nil rainbow-mode))))
+ '(package-selected-packages (quote (typescript-mode nil rainbow-mode)))
+ '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
