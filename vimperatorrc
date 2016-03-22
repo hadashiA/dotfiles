@@ -85,6 +85,7 @@ let g:styles = "vimperator"
 let g:smooziee_scroll_amount="200"
 let g:smooziee_scroll_interval="10"
 
+
 "" hatenabookmark
 "nnoremap s :hbt<Space>
 "nnoremap S :hbtc<Space>

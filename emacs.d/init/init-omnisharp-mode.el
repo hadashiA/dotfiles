@@ -1,4 +1,3 @@
-(require 'omnisharp)
 (setq omnisharp-server-executable-path
       (expand-file-name "~/src/github.com/OmniSharp/omnisharp-server/OmniSharp/bin/Debug/OmniSharp.exe"))
 
