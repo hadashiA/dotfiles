@@ -151,9 +151,9 @@
 (el-get-bundle point-undo
   :type github
   :pkgname "emacsmirror/point-undo")
-(el-get-bundle undo-tree)
-(el-get-bundle undohist
-  :features undohist)
+(el-get-bundle goto-last-change)
+;; (el-get-bundle undohist
+;;   :features undohist)
 (el-get-bundle expand-region)
 (el-get-bundle multiple-cursors)
 (el-get-bundle foreign-regexp
