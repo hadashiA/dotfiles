@@ -1,0 +1,1 @@
+/Users/hadashi/.config/fisherman/flash/fish_right_prompt.fish

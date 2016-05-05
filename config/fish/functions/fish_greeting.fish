@@ -1,0 +1,1 @@
+/Users/hadashi/.config/fisherman/budspencer/fish_greeting.fish
