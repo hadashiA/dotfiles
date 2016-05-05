@@ -1,3 +1,4 @@
+set SHELL /usr/local/bin/fish
 set PATH ~/bin $PATH
 set PATH /opt/local/bin $PATH
 set PATH /opt/local/sbin $PATH
