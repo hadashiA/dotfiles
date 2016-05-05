@@ -1,1 +1,1 @@
-/Users/hadashi/.config/fisherman/flash/fish_prompt.fish
+/Users/hadashi/.config/fisherman/pure/fish_prompt.fish

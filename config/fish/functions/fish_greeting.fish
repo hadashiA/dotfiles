@@ -1,1 +1,1 @@
-/Users/hadashi/.config/fisherman/budspencer/fish_greeting.fish
+/Users/hadashi/.config/fisherman/pure/fish_greeting.fish
