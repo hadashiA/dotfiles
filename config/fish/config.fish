@@ -1,7 +1,6 @@
 set SHELL /usr/local/bin/fish
+set PATH $HOME/.rbenv/bin $PATH
 set PATH ~/bin $PATH
-set PATH /opt/local/bin $PATH
-set PATH /opt/local/sbin $PATH
 
 set EDITOR /usr/bin/vim
 set BROWSER "open -a Firefox"
