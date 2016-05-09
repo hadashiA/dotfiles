@@ -11,22 +11,12 @@
               (kbd "C-8") (smartchr '("(`!!');" "(`!!')")))
             ))
 
-(add-hook 'objc-mode-hook
-          (lambda ()
-            (define-key objc-mode-map
-              (kbd "+") (smartchr '("+" " + " "++" " += ")))
-            (define-key objc-mode-map
-              (kbd ">") (smartchr '(">" "->" " >> ")))
-            (define-key objc-mode-map
-              (kbd ".") (smartchr '("." "->")))
-            ))
-
 (add-hook 'csharp-mode-hook
           (lambda ()
             (define-key csharp-mode-map
               (kbd "+") (smartchr '("+" " + " "++" " += ")))
             (define-key csharp-mode-map
-              (kbd ">") (smartchr '(">" "`!!' => " "() => `!!'" "(`!!') => ")))
+              (kbd ">") (smartchr '(">" " => `!!'" "() => `!!'" "(`!!') => ")))
             (define-key csharp-mode-map
               (kbd "C-8") (smartchr '("(`!!');" "(\"`!!'\");")))
             ))
@@ -53,7 +43,7 @@
             (define-key js2-mode-map
               (kbd "$") (smartchr '("$" "${`!!'}")))
             (define-key js2-mode-map
-              (kbd ">") (smartchr '(">" "`!!' => " "() => `!!'" "(`!!') => ")))
+              (kbd ">") (smartchr '(">" " => `!!'" "() => `!!'" "(`!!') => ")))
             (define-key js2-mode-map
               (kbd "C-8") (smartchr '("(`!!')" "('`!!'')" "({ `!!' })" "((`!!') => {  })" "(function(`!!') {  })")))
             ))

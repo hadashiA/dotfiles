@@ -13,6 +13,9 @@
              (setq js2-curly-indent-offset 0)
              (define-key js2-mode-map ";" 'insert-semicolon-and-new-line-and-indent)
              (define-key js2-mode-map (kbd "C-c C-a") #'align)
+             (define-key js2-mode-map "\M-j" 'vimlike-f)
+             (define-key js2-mode-map "\M-k" 'vimlike-F)
+             (define-key js2-mode-map "\M-u" 'vimlike-semicolon)
              ))
 
 (add-hook 'align-load-hook
