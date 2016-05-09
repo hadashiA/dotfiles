@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Debug.Log
+# key: l
+# binding: direct-keybinding
+# --
+Debug.Log("$0");

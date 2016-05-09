@@ -80,12 +80,13 @@ source ~/.zsh/function.zsh
 source ~/.zsh/emacs.zsh
 source ~/.zsh/cdd.zsh
 source ~/.zsh/term.compat.zsh
-source ~/.zsh/auto-fu-config.zsh
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/peco-config.zsh
 
 bindkey '^r' peco-select-history
 bindkey '^@' peco-cdr
 bindkey '^[' peco-src
+bindkey '^i' autosuggest-accept
 
 [[ $ZSH_VERSION == (<5->|4.<4->|4.3.<10->)* ]] && source ~/.zsh/term.zsh
 

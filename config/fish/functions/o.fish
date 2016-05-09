@@ -1,3 +1,0 @@
-function o
-    open .
-end

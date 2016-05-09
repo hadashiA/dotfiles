@@ -1,0 +1,1 @@
+/Users/hadashi/.config/fisherman/pure/installer.fish

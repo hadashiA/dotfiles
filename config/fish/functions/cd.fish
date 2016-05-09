@@ -1,4 +1,3 @@
 function cd
-	cd $argv
-  la
+	cd::cd $argv
 end
