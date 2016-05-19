@@ -1,1 +1,1 @@
-/Users/usr0600211/.config/fisherman/pure/fish_right_prompt.fish
+/Users/hadashi/.config/fisherman/pure/fish_right_prompt.fish

@@ -1,1 +1,1 @@
-/Users/usr0600211/.config/fisherman/pure/installer.fish
+/Users/hadashi/.config/fisherman/pure/installer.fish

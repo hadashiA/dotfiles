@@ -188,14 +188,10 @@
 (el-get-bundle twittering-mode)
 (el-get-bundle web-mode)
 (el-get-bundle haml-mode)
+(el-get-bundle handlebars-mode)
 (el-get-bundle css-mode)
 (el-get-bundle rainbow-mode)
 (el-get-bundle js2-mode)
-(el-get-bundle rust-mode)
-(el-get-bundle racer)
-(el-get-bundle cargo
-  :type github
-  :pkgname "kwrooijen/cargo.el")
 (el-get-bundle coffee-mode)
 (el-get-bundle typescript-mode)
 (el-get-bundle json-mode)
@@ -218,7 +214,7 @@
  '(flycheck-display-errors-function (function flycheck-pos-tip-error-messages))
  '(ido-enter-matching-directory (quote first))
  '(ido-max-directory-size (quote const))
- '(package-selected-packages (quote (cargo racer typescript-mode nil rainbow-mode)))
+ '(package-selected-packages (quote (typescript-mode nil rainbow-mode)))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

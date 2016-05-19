@@ -1,1 +1,1 @@
-/Users/usr0600211/.config/fisherman/pure/__parse_git_branch.fish
+/Users/hadashi/.config/fisherman/pure/__parse_git_branch.fish

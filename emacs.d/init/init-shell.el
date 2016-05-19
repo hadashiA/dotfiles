@@ -1,5 +1,5 @@
 ;; exec-path, PATHの追加
-(let* ((pathenv (replace-regexp-in-string "[\r\n]+$" "" (shell-command-to-string "/usr/bin/env bash -c 'printenv PATH'")))
+(let* ((pathenv (replace-regexp-in-string "[\r\n]+$" "" (shell-command-to-string "/usr/bin/env zsh -c 'printenv PATH'")))
        (pathlst (split-string pathenv ":")))
   (setq exec-path pathlst)
   (setq eshell-path-env pathenv)
@@ -11,7 +11,7 @@
 (add-hook 'comint-output-filter-functions
           'comint-watch-for-password-prompt)
 
-(setq explicit-shell-file-name "/bin/bash")
+(setq explicit-shell-file-name "/usr/loca/bin/zsh")
 
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)

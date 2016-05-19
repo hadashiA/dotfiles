@@ -1,1 +1,1 @@
-/Users/usr0600211/.config/fisherman/pure/fish_title.fish
+/Users/hadashi/.config/fisherman/pure/fish_title.fish

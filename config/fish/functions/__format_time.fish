@@ -1,1 +1,1 @@
-/Users/usr0600211/.config/fisherman/pure/__format_time.fish
+/Users/hadashi/.config/fisherman/pure/__format_time.fish

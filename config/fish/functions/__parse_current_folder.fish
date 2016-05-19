@@ -1,1 +1,1 @@
-/Users/usr0600211/.config/fisherman/pure/__parse_current_folder.fish
+/Users/hadashi/.config/fisherman/pure/__parse_current_folder.fish
