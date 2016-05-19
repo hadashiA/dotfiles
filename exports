@@ -2,23 +2,8 @@ export LANGUAGE=ja
 export LANG=ja_JP.UTF-8
 export EDITOR='vim'
 
-export PATH="/usr/local/mysql/bin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/usr/local/bin:$PATH"
-
-export PATH="$HOME/local/bin:$PATH"
-export PATH="$HOME/local/ruby/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="$HOME/.phpenv/bin:$PATH"
-export PTTH="$HOME/.phpenv/shims:$PATH"
-
-export LIBRARY_PATH=/usr/local/lib:$LIBRARY_PATH
-export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-export C_INCLUDE_PATH=/usr/local/include:$C_INCLUDE_PATH
-export CPLUS_INCLUDE_PATH=/usr/local/include:$CPLUS_INCLUDE_PATH
-export BOOST_ROOT=/usr/local/include/:$BOOST_ROOT
-
-export ARCHFLAGS='-arch x86'
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
 
 export GOPATH=$HOME
