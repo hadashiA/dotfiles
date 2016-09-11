@@ -196,7 +196,13 @@
 (el-get-bundle typescript-mode)
 (el-get-bundle json-mode)
 (el-get-bundle yaml-mode)
-(el-get-bundle go-mode)
+(el-get-bundle rust-mode)
+(el-get-bundle cargo
+  :type github
+  :pkgname "kwrooijen/cargo.el")
+(el-get-bundle racer
+  :type github
+  :pkgname "racer-rust/emacs-racer")
 (el-get-bundle ruby-mode)
 (el-get-bundle ruby-block)
 (el-get-bundle inf-ruby)

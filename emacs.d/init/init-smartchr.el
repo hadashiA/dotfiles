@@ -73,11 +73,11 @@
               (smartchr '("=" "=\"`!!'\"" "=\"{% `!!' %}\"" "=\"{{ `!!' }}\"")))
             ))
 
-(add-hook 'go-mode-hook
-          (lambda ()
-            (define-key go-mode-map
-              (kbd "=") (smartchr '(" = " " := " " == " " != ")))
-            (define-key go-mode-map (kbd "+")
-              (smartchr '("+" " + " " += ")))
-            ))
 
+(add-hook 'rust-mode-hook
+          (lambda ()
+            (define-key rust-mode-map
+              (kbd "+") (smartchr '("+" " + " " += ")))
+            (define-key rust-mode-map
+              (kbd ">") (smartchr '(">" " => " " => '`!!''" " => \"`!!'\"")))
+            ))

@@ -1,11 +1,3 @@
-(defun my/insert-semicolon-and-new-line-and-indent ()
-  "insert semicolon and newline and indentation."
-  (interactive)
-  (insert ";")
-  (newline-and-indent)
-  )
-
-
 (add-hook 'csharp-mode-hook
           '(lambda()
              (c-toggle-auto-newline t)
@@ -18,6 +10,5 @@
              
              (turn-on-eldoc-mode)
              (electric-pair-mode 0)
-             (define-key csharp-mode-map ";" 'my/insert-semicolon-and-new-line-and-indent)
              (local-set-key (kbd "{") 'c-electric-brace)
              ))
