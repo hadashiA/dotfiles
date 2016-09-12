@@ -132,6 +132,7 @@
 (setq el-get-user-package-directory (locate-user-emacs-file "init"))
 
 (el-get-bundle s)
+(el-get-bundle dash)
 (el-get-bundle smartrep
   :features smartrep)
 ;; (el-get-bundle mcomplete
@@ -185,7 +186,6 @@
 (el-get-bundle web-mode)
 (el-get-bundle haml-mode)
 (el-get-bundle handlebars-mode)
-(el-get-bundle css-mode)
 (el-get-bundle rainbow-mode)
 (el-get-bundle js2-mode)
 (el-get-bundle coffee-mode)
