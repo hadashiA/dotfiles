@@ -6,8 +6,6 @@
                                                    "^save$"
                                                    "\\.omm$"
                                                    "\\.txt$"
-                                                   "\\.cs$"
-                                                   ;; "\\.coffee"
                                                    ))
 
 (require 'auto-save-buffers-enhanced)
