@@ -29,6 +29,7 @@
 
 (global-set-key (kbd "C-:") 'helm-resume)
 (global-set-key (kbd "M-x") 'helm-M-x)
+(define-key global-map (kbd "C-,") 'helm-projectile)
 
 ;; 
 ;; kill-ring

@@ -1,9 +1,3 @@
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
-
 ;;
 ;; Global Variables
 ;;
@@ -137,6 +131,7 @@
 (add-to-list 'el-get-recipe-path "~/.emacs.d/recipes")
 (setq el-get-user-package-directory (locate-user-emacs-file "init"))
 
+(el-get-bundle s)
 (el-get-bundle smartrep
   :features smartrep)
 ;; (el-get-bundle mcomplete
@@ -175,9 +170,10 @@
 (el-get-bundle company-mode)
 (el-get-bundle gtags)
 (el-get-bundle git-gutter)
+(el-get-bundle projectile)
 (el-get-bundle helm)
 (el-get-bundle helm-ag)
-(el-get-bundle projectile)
+(el-get-bundle helm-projectile)
 (el-get-bundle helm-ghq)
 (el-get-bundle helm-c-yasnippet)
 (el-get-bundle helm-gtags)
