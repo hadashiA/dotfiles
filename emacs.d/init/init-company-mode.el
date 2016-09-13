@@ -1,8 +1,9 @@
 (global-company-mode t)
 
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 2)
-(setq company-selection-wrap-around t)
+(setq company-idle-delay 0
+      company-minimum-prefix-length 2
+      company-selection-wrap-around t
+      company-dabbrev-downcase nil)
 
 (set-face-attribute 'company-tooltip nil
                     :foreground "black" :background "lightgrey")
