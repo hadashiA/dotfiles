@@ -3,6 +3,13 @@
 ;;
 
 ;; スタートアップ時のメッセージを抑制
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (setq inhibit-startup-message t)
 
 (when window-system
@@ -152,9 +159,6 @@
 ;;   :features undohist)
 (el-get-bundle expand-region)
 (el-get-bundle multiple-cursors)
-(el-get-bundle foreign-regexp
-  :type github
-  :pkgname "k-talo/foreign-regexp.el")
 (el-get-bundle smartchr)
 (el-get-bundle rainbow-delimiters)
 (el-get-bundle open-junk-file)
