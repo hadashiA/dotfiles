@@ -134,3 +134,5 @@ the directories in the INCLUDE environment variable."
 ;; (setq c-objc-method-arg-min-delta-to-bracket 1
 ;;       c-objc-method-arg-unfinished-offset 1
 ;;       c-objc-method-parameter-offset 1)
+
+(setq c-hanging-semi&comma-criteria nil)

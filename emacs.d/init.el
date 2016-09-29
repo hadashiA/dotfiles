@@ -185,6 +185,7 @@
 (el-get-bundle helm-descbinds)
 (el-get-bundle helm-swoop)
 (el-get-bundle magit)
+(el-get-bundle google-translate)
 (el-get-bundle markdown-mode)
 (el-get-bundle twittering-mode)
 (el-get-bundle web-mode)
