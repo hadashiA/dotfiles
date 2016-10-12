@@ -1,5 +1,5 @@
 (global-flycheck-mode)
 (setq flycheck-idle-change-delay 4)
 (setq flycheck-keymap-prefix (kbd "C-!"))
-(define-key flycheck-mode-map (kbd "M-n") 'flycheck-next-error)
-(define-key flycheck-mode-map (kbd "M-p") 'flycheck-previous-error)
+;; (define-key flycheck-mode-map (kbd "M-n") 'flycheck-next-error)
+;; (define-key flycheck-mode-map (kbd "M-p") 'flycheck-previous-error)
