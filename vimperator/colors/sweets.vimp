@@ -1,5 +1,6 @@
 " ==Vimperator_Color_Scheme==
 " name: Sweets
+" url: https://github.com/VoQn/vimperator-colorscheme/tree/master/colors
 " ==Sweets_Color_Scheme==
 hi Hint			font-family: monospace; font-size: 15px; font-weight: normal; color: lightyellow; background-color: black; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 5px;
 
@@ -22,7 +23,7 @@ hi Tag			color: CornflowerBlue;
 hi CompTitle		color: magenta;		background: #222;	font-weight: bold;
 hi CompItem[selected]	color: DeepPink;	background: Black;
 hi CompDesc		color: Pink;
-hi GradientRight	background-color: Black;
+" hi GradientRight	background-color: Black;
 
 hi Title		color: white;
 hi Indicator		color: DodgerBlue;
