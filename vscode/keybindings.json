@@ -1,0 +1,214 @@
+[
+    // replace completely
+    // escape -> ctrl+g
+    // tab    -> ctrl+i
+    {
+        "key": "ctrl+g",
+        "command": "closeReferenceSearchEditor",
+        "when": "inReferenceSearchEditor && !config.editor.stablePeek"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "cancelSelection",
+        "when": "editorHasSelection && editorTextFocus"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "removeSecondaryCursors",
+        "when": "editorHasMultipleSelections && editorTextFocus"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeFindWidget",
+        "when": "editorFocus && findWidgetVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeBreakpointWidget",
+        "when": "breakpointWidgetVisible && editorFocus"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "leaveSnippet",
+        "when": "editorTextFocus && inSnippetMode"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeMarkersNavigation",
+        "when": "editorFocus && markersNavigationVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeReferenceSearch",
+        "when": "referenceSearchVisible && !config.editor.stablePeek"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeParameterHints",
+        "when": "editorTextFocus && parameterHintsVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeQuickFixWidget",
+        "when": "editorFocus && quickFixWidgetVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "hideSuggestWidget",
+        "when": "editorTextFocus && suggestWidgetVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "cancelRenameInput",
+        "when": "editorFocus && renameInputVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeAccessibilityHelp",
+        "when": "accessibilityHelpWidgetVisible && editorFocus"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "workbench.action.closeMessages",
+        "when": "globalMessageVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "workbench.action.closeQuickOpen",
+        "when": "inQuickOpen"
+    },
+    {
+        "key": "shift+ctrl+i",
+        "command": "outdent",
+        "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+    },
+    {
+        "key": "ctrl+i",
+        "command": "tab",
+        "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+    },
+    {
+        "key": "ctrl+i",
+        "command": "editor.emmet.action.expandAbbreviation",
+        "when": "config.emmet.triggerExpansionOnTab && editorTextFocus && !editorHasMultipleSelections && !editorHasSelection && !editorReadonly && !editorTabMovesFocus"
+    },
+    {
+        "key": "ctrl+i",
+        "command": "insertSnippet",
+        "when": "config.editor.tabCompletion && editorTextFocus && hasSnippetCompletions && !editorTabMovesFocus"
+    },
+    {
+        "key": "ctrl+i",
+        "command": "jumpToNextSnippetPlaceholder",
+        "when": "editorTextFocus && inSnippetMode"
+    },
+    {
+        "key": "shift+ctrl+i",
+        "command": "jumpToPrevSnippetPlaceholder",
+        "when": "editorTextFocus && inSnippetMode"
+    },
+    {
+        "key": "ctrl+i",
+        "command": "acceptQuickFixSuggestion",
+        "when": "editorFocus && quickFixWidgetVisible"
+    },
+    {
+        "key": "ctrl+i",
+        "command": "acceptSelectedSuggestion",
+        "when": "editorTextFocus && suggestWidgetVisible"
+    },
+    // indent
+    // workbentch
+    {
+        "key": "shift+ctrl+h",
+        "command": "workbench.action.focusSideBar"
+    },
+    {
+        "key": "shift+ctrl+j",
+        "command": "workbench.action.focusFirstEditorGroup"
+    },
+    {
+        "key": "shift+ctrl+k",
+        "command": "workbench.action.focusSecondEditorGroup"
+    },
+    {
+        "key": "shift+ctrl+l",
+        "command": "workbench.action.focusThirdEditorGroup"
+    },
+    {
+        "key": "ctrl+;",
+        "command": "workbench.action.quickOpen"
+    },
+    {
+        "key": "ctrl+shift+:",
+        "command": "workbench.action.showAllSymbols"
+    },
+    {
+        "key": "ctrl+x b",
+        "command": "workbench.action.showAllEditors"
+    },
+    {
+        "key": "ctrl+@",
+        "command": "workbench.action.gotoSymbol"
+    },
+    {
+        "key": "ctrl+s",
+        "command": "actions.find"
+    },
+    // editor
+    {
+        "key": "ctrl+/",
+        "command": "undo",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "cancelSelection",
+        "when": "editorHasSelection && editorTextFocus"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "closeReferenceSearchEditor",
+        "when": "inReferenceSearchEditor && !config.editor.stablePeek"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "removeSecondaryCursors",
+        "when": "editorHasMultipleSelections && editorTextFocus"
+    },
+    {
+        "key": "shift+ctrl+.",
+        "command": "cursorBottom",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+ctrl+,",
+        "command": "cursorTop",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+ctrl+n",
+        "command": "cursorDownSelect",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+ctrl+p",
+        "command": "cursorUpSelect",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+ctrl+/",
+        "command": "cursorUndo",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "option+w",
+        "command": "editor.action.clipboardCopyAction",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+ctrl+b",
+        "command": "editor.action.jumpToBracket",
+        "when": "editorTextFocus"
+    }
+]
