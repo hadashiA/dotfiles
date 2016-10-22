@@ -1,7 +1,6 @@
 [
     // replace completely
     // escape -> ctrl+g
-    // tab    -> ctrl+i
     {
         "key": "ctrl+g",
         "command": "closeReferenceSearchEditor",
@@ -77,15 +76,25 @@
         "command": "workbench.action.closeQuickOpen",
         "when": "inQuickOpen"
     },
-    {
-        "key": "shift+ctrl+i",
-        "command": "outdent",
-        "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
-    },
+    // {
+    //     "key": "shift+ctrl+i",
+    //     "command": "outdent",
+    //     "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+    // },
+    // {
+    //     "key": "ctrl+i",
+    //     "command": "tab",
+    //     "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+    // },
     {
         "key": "ctrl+i",
-        "command": "tab",
-        "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+        "command": "editor.action.indentLines",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "shift+ctrl+i",
+        "command": "editor.action.outdentLines",
+        "when": "editorTextFocus && !editorReadonly"
     },
     {
         "key": "ctrl+i",
@@ -147,31 +156,7 @@
         "key": "ctrl+x b",
         "command": "workbench.action.showAllEditors"
     },
-    {
-        "key": "ctrl+s",
-        "command": "actions.find"
-    },
     // editor
-    {
-        "key": "ctrl+/",
-        "command": "undo",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+g",
-        "command": "cancelSelection",
-        "when": "editorHasSelection && editorTextFocus"
-    },
-    {
-        "key": "ctrl+g",
-        "command": "closeReferenceSearchEditor",
-        "when": "inReferenceSearchEditor && !config.editor.stablePeek"
-    },
-    {
-        "key": "ctrl+g",
-        "command": "removeSecondaryCursors",
-        "when": "editorHasMultipleSelections && editorTextFocus"
-    },
     {
         "key": "shift+ctrl+.",
         "command": "cursorBottom",
@@ -217,13 +202,20 @@
         "command": "editor.action.goToDeclaration",
         "when": "editorHasDefinitionProvider && editorTextFocus"
     },
-    // file
     {
-        "key": "ctrl+x ctrl+s",
-        "command": "workbench.action.files.save"
+        "key": "alt+n",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "shift+cmd+s",
-        "command": "workbench.action.files.saveAs"
+        "key": "alt+p",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly"
     },
+    // ext
+    {
+        "key": "ctrl+space",
+        "command": "extension.setMark",
+        "when": "editorTextFocus && !editorReadonly"
+    }
 ]
