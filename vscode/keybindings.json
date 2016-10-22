@@ -140,16 +140,12 @@
         "command": "workbench.action.quickOpen"
     },
     {
-        "key": "ctrl+shift+:",
-        "command": "workbench.action.showAllSymbols"
+        "key": "shift+ctrl+;",
+        "command": "workbench.action.gotoSymbol"
     },
     {
         "key": "ctrl+x b",
         "command": "workbench.action.showAllEditors"
-    },
-    {
-        "key": "ctrl+@",
-        "command": "workbench.action.gotoSymbol"
     },
     {
         "key": "ctrl+s",
@@ -210,5 +206,24 @@
         "key": "shift+ctrl+b",
         "command": "editor.action.jumpToBracket",
         "when": "editorTextFocus"
-    }
+    },
+    {
+        "key": "cmd+;",
+        "command": "editor.action.commentLine",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "editor.action.goToDeclaration",
+        "when": "editorHasDefinitionProvider && editorTextFocus"
+    },
+    // file
+    {
+        "key": "ctrl+x ctrl+s",
+        "command": "workbench.action.files.save"
+    },
+    {
+        "key": "shift+cmd+s",
+        "command": "workbench.action.files.saveAs"
+    },
 ]
