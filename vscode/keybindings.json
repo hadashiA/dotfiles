@@ -149,6 +149,10 @@
         "command": "workbench.action.quickOpen"
     },
     {
+        "key": "ctrl+,",
+        "command": "workbench.action.showAllSymbols"
+    },
+    {
         "key": "shift+ctrl+;",
         "command": "workbench.action.gotoSymbol"
     },
@@ -193,7 +197,7 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "cmd+;",
+        "key": "alt+;",
         "command": "editor.action.commentLine",
         "when": "editorTextFocus && !editorReadonly"
     },
@@ -201,6 +205,11 @@
         "key": "ctrl+t",
         "command": "editor.action.goToDeclaration",
         "when": "editorHasDefinitionProvider && editorTextFocus"
+    },
+    {
+        "key": "shift+ctrl+t",
+        "command": "editor.action.previewDeclaration",
+        "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor"
     },
     {
         "key": "alt+n",
@@ -217,5 +226,10 @@
         "key": "ctrl+space",
         "command": "extension.setMark",
         "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+x shift+/",
+        "command": "extension.dash.specific",
+        "when": "editorTextFocus"
     }
 ]
