@@ -236,6 +236,11 @@
         "command": "editor.action.insertCursorBelow",
         "when": "editorTextFocus"
     },
+    {
+        "key": "shift+ctrl+y",
+        "command": "editor.action.copyLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
     // ext
     {
         "key": "alt+k",
