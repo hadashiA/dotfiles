@@ -8,11 +8,6 @@
     },
     {
         "key": "ctrl+g",
-        "command": "cancelSelection",
-        "when": "editorHasSelection && editorTextFocus"
-    },
-    {
-        "key": "ctrl+g",
         "command": "removeSecondaryCursors",
         "when": "editorHasMultipleSelections && editorTextFocus"
     },
@@ -182,6 +177,7 @@
         "when": "editorTextFocus"
     },
     {
+
         "key": "shift+ctrl+/",
         "command": "cursorUndo",
         "when": "editorTextFocus"
