@@ -221,10 +221,25 @@
         "command": "editor.action.moveLinesUpAction",
         "when": "editorTextFocus && !editorReadonly"
     },
+    {
+        "key": "alt+cmd+p",
+        "command": "editor.action.insertCursorAbove",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+cmd+i",
+        "command": "editor.action.insertCursorAtEndOfEachLineSelected",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+cmd+n",
+        "command": "editor.action.insertCursorBelow",
+        "when": "editorTextFocus"
+    },
     // ext
     {
-        "key": "ctrl+space",
-        "command": "extension.setMark",
+        "key": "alt+k",
+        "command": "editor.action.deleteLines",
         "when": "editorTextFocus && !editorReadonly"
     },
     {
