@@ -14,9 +14,11 @@
   ;; (gtags-make-complete-list)
   )
 
-(dolist (hook '(cc-mode-common-hook
-                c++-mode-hook
-                objc-mode-hook
-                ruby-mode-hook
-                php-mode-hook))
+(dolist (hook '(
+                ;; cc-mode-common-hook
+                ;; c++-mode-hook
+                ;; objc-mode-hook
+                ;; ruby-mode-hook
+                ;; php-mode-hook
+                ))
   (add-hook hook 'gtags-mode-setup))
