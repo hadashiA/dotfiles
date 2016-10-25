@@ -1,6 +1,4 @@
 [
-    // replace completely
-    // escape -> ctrl+g
     {
         "key": "ctrl+g",
         "command": "closeReferenceSearchEditor",
@@ -177,7 +175,6 @@
         "when": "editorTextFocus"
     },
     {
-
         "key": "shift+ctrl+/",
         "command": "cursorUndo",
         "when": "editorTextFocus"
@@ -188,7 +185,7 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "shift+ctrl+b",
+        "key": "ctrl+9",
         "command": "editor.action.jumpToBracket",
         "when": "editorTextFocus"
     },
@@ -257,7 +254,6 @@
         "command": "editor.action.marker.prev",
         "when": "editorFocus && !editorReadonly"
     },
-    // ext
     {
         "key": "alt+k",
         "command": "editor.action.deleteLines",
@@ -267,5 +263,15 @@
         "key": "ctrl+x shift+/",
         "command": "extension.dash.specific",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "repl.action.historyNext",
+        "when": "editorTextFocus && inDebugRepl && onLastDebugReplLine"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "repl.action.historyPrevious",
+        "when": "editorTextFocus && inDebugRepl && onFirsteDebugReplLine"
     }
 ]
