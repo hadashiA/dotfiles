@@ -119,8 +119,16 @@
         "command": "acceptSelectedSuggestion",
         "when": "editorTextFocus && suggestWidgetVisible"
     },
-    // indent
-    // workbentch
+    {
+        "key": "shift+enter",
+        "command": "editor.action.insertLineBefore",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+        {
+        "key": "ctrl+u",
+        "command": "editor.action.detectIndentaion",
+        "when": "editorTextFocus && !editorReadonly"
+    },
     {
         "key": "shift+ctrl+h",
         "command": "workbench.action.focusSideBar"

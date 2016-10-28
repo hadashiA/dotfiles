@@ -1,6 +1,8 @@
 // 既定の設定を上書きするには、このファイル内に設定を挿入します
 {
-    "editor.fontSize": 12,
+    "editor.fontSize": 11,
+
+    "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
 
     // 行を折り返すかどうかを制御します。行は min(editor.wrappingColumn, viewportWidthInColumns) で折り返します。
     "editor.wordWrap": true,
@@ -10,6 +12,7 @@
 
     // カーソルのスタイルを制御します。指定できる値は 'block'、'line'、'underline' です
     "editor.cursorStyle": "block",
+    "editor.codeLens": false,
 
     // エディターで空白文字を表示する方法を制御します。'none'、'boundary' および 'all' が使用可能です。'boundary' オプションでは、単語間の単一スペースは表示されません。
     "editor.renderWhitespace": "none",
