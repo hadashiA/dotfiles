@@ -1,6 +1,6 @@
 :set toolbars=nomenu,nonavigation,addons,nobookmarks
 
-colorscheme voqn
+colorscheme zenburn
 
 set titlestring=Mozilla Firefox 3
 set visualbell

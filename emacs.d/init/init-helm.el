@@ -1,5 +1,6 @@
 ;; ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 
+(setq helm-enable-shortcuts 'alphabet)
 (setq helm-display-function
       (lambda (buf)
         (when (one-window-p)
