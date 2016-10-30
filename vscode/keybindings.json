@@ -124,11 +124,6 @@
         "command": "editor.action.insertLineBefore",
         "when": "editorTextFocus && !editorReadonly"
     },
-        {
-        "key": "ctrl+u",
-        "command": "editor.action.detectIndentaion",
-        "when": "editorTextFocus && !editorReadonly"
-    },
     {
         "key": "shift+ctrl+h",
         "command": "workbench.action.focusSideBar"
@@ -281,5 +276,12 @@
         "key": "ctrl+p",
         "command": "repl.action.historyPrevious",
         "when": "editorTextFocus && inDebugRepl && onFirsteDebugReplLine"
+    },
+
+    // extension
+    {
+        "key": "ctrl+u",
+        "command": "extension.join-lines",
+        "when": "editorTextFocus && !editorReadonly"
     }
 ]

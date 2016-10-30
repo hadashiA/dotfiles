@@ -28,7 +28,7 @@
     "files.trimTrailingWhitespace": true,
 
     // ダーティ ファイルの自動保存を制御します。有効な値: "off"、"afterDelay"、"onFocusChange" (エディターがフォーカスを失います)、"onWindowChange" (ウィンドウがフォーカスを失います)。"afterDelay" に設定すると、"files.autoSaveDelay" で遅延を構成できます。
-    "files.autoSave": "afterDelay",
+    "files.autoSave": "onWindowChange",
 
     // ダーティ ファイルの自動保存の遅延をミリ秒単位で制御します。"files.autoSave" が "afterDelay" に設定されている場合のみ適用されます
     "files.autoSaveDelay": 500
