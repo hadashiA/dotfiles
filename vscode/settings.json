@@ -19,6 +19,8 @@
     // エディターでインデントのガイドを表示する必要があるかどうかを制御します
     "editor.renderIndentGuides": false,
 
+    "editor.codeLens": false,
+
     // 開いているエディターをタブに表示するかどうかを制御します。
     "workbench.editor.showTabs": false,
     // 有効にすると、ファイルの保存時に末尾の空白をトリミングします。
