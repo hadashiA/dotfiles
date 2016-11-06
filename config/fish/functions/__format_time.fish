@@ -1,1 +1,0 @@
-/Users/hadashi/.config/fisherman/pure/__format_time.fish
