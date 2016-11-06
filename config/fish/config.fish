@@ -14,6 +14,3 @@ end
 for file in ~/.config/fish/conf.d/*.fish
     source $file
 end
-
-set ENHANCD_FILTER peco
-source ~/.config/fisherman/enhancd/fish/enhancd.fish
