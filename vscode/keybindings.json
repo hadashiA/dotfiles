@@ -1,5 +1,25 @@
 [
     {
+        "key": "up",
+        "command": "showPrevParameterHint",
+        "when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+    },
+    {
+        "key": "up",
+        "command": "selectPrevSuggestion",
+        "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+    },
+    {
+        "key": "down",
+        "command": "showNextParameterHint",
+        "when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+    },
+    {
+        "key": "down",
+        "command": "selectNextSuggestion",
+        "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+    },
+    {
         "key": "ctrl+g",
         "command": "closeReferenceSearchEditor",
         "when": "inReferenceSearchEditor && !config.editor.stablePeek"
@@ -203,7 +223,7 @@
         "when": "editorHasDefinitionProvider && editorTextFocus"
     },
     {
-        "key": "ctrl+r",
+        "key": "alt+r",
         "command": "editor.action.goToDeclaration",
         "when": "editorHasDefinitionProvider && editorTextFocus"
     },
@@ -277,7 +297,27 @@
         "command": "repl.action.historyPrevious",
         "when": "editorTextFocus && inDebugRepl && onFirsteDebugReplLine"
     },
-
+    // emacs
+    {
+        "key": "ctrl+s",
+        "command": "actions.find",
+        "when": "!findWidgetVisible"
+    },
+    {
+        "key": "ctrl+s",
+        "command": "editor.action.nextMatchFindAction",
+        "when": "findWidgetVisible"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "editor.action.previousMatchFindAction",
+        "when": "findWidgetVisible"
+    },
+    {
+        "key": "ctrl+/",
+        "command": "undo",
+        "when": "editorTextFocus && !editorReadonly"
+    },
     // extension
     {
         "key": "ctrl+u",

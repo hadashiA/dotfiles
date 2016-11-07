@@ -1,3 +1,3 @@
 function lh
-  ls -lh $argv
+  ls -lha $argv
 end
