@@ -146,10 +146,6 @@
     },
     {
         "key": "shift+ctrl+h",
-        "command": "workbench.action.focusSideBar"
-    },
-    {
-        "key": "shift+ctrl+j",
         "command": "workbench.action.focusFirstEditorGroup"
     },
     {

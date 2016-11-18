@@ -1,0 +1,1 @@
+/Users/hadashi/.config/fisherman/z/completions/z.fish
