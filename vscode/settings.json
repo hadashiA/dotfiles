@@ -33,5 +33,13 @@
     "files.autoSave": "onWindowChange",
 
     // ダーティ ファイルの自動保存の遅延をミリ秒単位で制御します。"files.autoSave" が "afterDelay" に設定されている場合のみ適用されます
-    "files.autoSaveDelay": 500
+    "files.autoSaveDelay": 500,
+
+    "git.enabled": false,
+
+    // 自動更新が有効かどうか
+    "git.autorefresh": false,
+
+    // 自動フェッチの有効/無効。
+    "git.autofetch": false
 }
