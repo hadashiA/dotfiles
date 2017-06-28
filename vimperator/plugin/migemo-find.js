@@ -1,31 +1,31 @@
-var PLUGIN_INFO =
-<VimperatorPlugin>
-<name>{NAME}</name>
-<description>Replace default search to migemo.</description>
-<description lang="ja">標準の検索を XUL/Migemo に置き換えます</description>
-<minVersion>2.0pre</minVersion>
-<maxVersion>2.0</maxVersion>
-<updateURL>http://svn.coderepos.org/share/lang/javascript/vimperator-plugins/trunk/migemo-find.js</updateURL>
-<author mail="hotchpotch@gmail.com" homepage="http://d.hatena.ne.jp/secondlife/">Yuichi Tateno</author>
-<license>MIT</license>
-<version>0.1.0</version>
-<detail lang="ja"><![CDATA[
-標準の / などの検索を XUL/Migemo 検索に置き換えます。
-同等の機能を持つプラグインとして migemize_find がありますが、
-migemo-find.js は pIXMigemoFind が提供している XUL/Migemo のインターフェイスを直接利用しています。
+// var PLUGIN_INFO =
+// <VimperatorPlugin>
+// <name>{NAME}</name>
+// <description>Replace default search to migemo.</description>
+// <description lang="ja">標準の検索を XUL/Migemo に置き換えます</description>
+// <minVersion>2.0pre</minVersion>
+// <maxVersion>2.0</maxVersion>
+// <updateURL>http://svn.coderepos.org/share/lang/javascript/vimperator-plugins/trunk/migemo-find.js</updateURL>
+// <author mail="hotchpotch@gmail.com" homepage="http://d.hatena.ne.jp/secondlife/">Yuichi Tateno</author>
+// <license>MIT</license>
+// <version>0.1.0</version>
+// <detail lang="ja"><![CDATA[
+// 標準の / などの検索を XUL/Migemo 検索に置き換えます。
+// 同等の機能を持つプラグインとして migemize_find がありますが、
+// migemo-find.js は pIXMigemoFind が提供している XUL/Migemo のインターフェイスを直接利用しています。
 
-== ToDo ==
+// == ToDo ==
 
-- migemo 正規表現でマッチしたパターンすべてにきちんとハイライト
--- 現状は最初にマッチした文字列のみハイライトされる
+// - migemo 正規表現でマッチしたパターンすべてにきちんとハイライト
+// -- 現状は最初にマッチした文字列のみハイライトされる
 
-== ChangeLog ==
+// == ChangeLog ==
 
-- 0.1.0
--- 検索開始文字の先頭が \ なら、通常の検索を行う。migemo りたくない時など用に
+// - 0.1.0
+// -- 検索開始文字の先頭が \ なら、通常の検索を行う。migemo りたくない時など用に
 
-]]></detail>
-</VimperatorPlugin>;
+// ]]></detail>
+// </VimperatorPlugin>;
 
 liberator.plugins.migemoFind = (function() {
     let p = function(m) Application.console.log(m);

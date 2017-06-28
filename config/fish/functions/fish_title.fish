@@ -1,1 +1,0 @@
-/Users/hadashi/.config/fisherman/bobthefish/fish_title.fish

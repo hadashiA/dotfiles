@@ -1,1 +1,1 @@
-/Users/hadashi/.config/fisherman/z/functions/zadd.awk
+/Users/rkubota/.config/fisherman/z/functions/zadd.awk

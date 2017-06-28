@@ -1,1 +1,1 @@
-/Users/hadashi/.config/fisherman/getopts/getopts.fish
+/Users/rkubota/.config/fisherman/getopts/getopts.fish

@@ -1,1 +1,1 @@
-/Users/hadashi/.config/fisherman/peco/functions/peco_select_history.fish
+/Users/rkubota/.config/fisherman/peco/functions/peco_select_history.fish

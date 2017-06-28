@@ -29,6 +29,11 @@ map <Right> <C-n>
 map <S-Right> :tabmove! +1<CR>
 map <S-Left> :tabmove! -1<CR>
 
+unmap z
+unmap x
+nnoremap z h
+nnoremap x l
+
 
 "コピー&ペーストなどOSのショートカットが効くように
 inoremap <C-a> <C-v><C-a>

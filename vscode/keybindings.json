@@ -149,6 +149,10 @@
         "command": "workbench.action.focusFirstEditorGroup"
     },
     {
+        "key": "shift+ctrl+j",
+        "command": "workbench.action.focusFirstEditorGroup"
+    },
+    {
         "key": "shift+ctrl+k",
         "command": "workbench.action.focusSecondEditorGroup"
     },

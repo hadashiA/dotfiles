@@ -1,1 +1,1 @@
-/Users/hadashi/.config/fisherman/ghq/completions/ghq.fish
+/Users/rkubota/.config/fisherman/ghq/completions/ghq.fish
