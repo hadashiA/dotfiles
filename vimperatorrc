@@ -53,9 +53,6 @@ map q <esc>:toggleldrc<cr>
 "ダイアログ表示してブックマーク追加
 map ,a <esc>:dialog addbookmark<cr>
 
-"タブを閉じる(browser_object.js)
-map x dd
-
 "Vimperatorからminibufferコマンド
 map <C-:> :m<Space>
 
