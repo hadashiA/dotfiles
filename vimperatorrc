@@ -1,20 +1,55 @@
 :set toolbars=nomenu,nonavigation,addons,nobookmarks
 
-colorscheme zenburn
-
-set titlestring=Mozilla Firefox 3
 set visualbell
 "set visualbellstyle=display:none;
 set verbose=7
+" :oなどでの補完候補をサーチエンジン、履歴に限定
 set complete=sl
 set defsearch=google
 set suggestengines=google
 set hlsearch
 set history=1000
 set activate=homepage,quickmark,tabopen,paste
+" ツールバーはアドオンとタブのみ表示
+" "set gui=addons,nobookmarks,nomenu,nonavigation,tas
+
 set hintchars=asdfjklgh
 " noremap , :set hintchars=jkl;uiop<CR>f
 " noremap f :set hintchars=asdfjkl;<CR>f
+
+" 入力欄に自動フォーカスしない
+" "set focuscontent
+" commandモードでIMEオフ
+style! -name=commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+
+" OS分岐
+" dをブラウザ標準の「タブを閉じる」にマッピング
+" vimperatorrcのリロード
+js<<EOM
+if(liberator.has("MacUnix")) {
+  liberator.execute("map d <M-w>");
+  liberator.execute("map ,r :source<Space>~/.vimperatorrc<CR>");
+} else {
+  liberator.execute("map d <C-w>");
+  liberator.execute("map ,r :source<Space>~/_vimperatorrc<CR>");
+}
+EOM
+
+"============================
+" colorscheme
+"============================
+colorscheme zenburn
+hi Hint font-family: Arial; font-size: 21px; font-weight: bold; text-shadow: -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black, 1px 1px 2px black; color:  #ff8700;
+hi HintElem color: gray; background-color: #F7D663;
+hi HintActive color: black; background-color: #ff8700;
+
+"============================
+" Key mapping
+"============================
+
+" google検索を手早くする
+noremap s :open<Space>google<Space>
+noremap ,s :tabopen<Space>google<Space>
 
 noremap j 5<C-e>
 noremap k 5<C-y>
@@ -29,11 +64,8 @@ map <Right> <C-n>
 map <S-Right> :tabmove! +1<CR>
 map <S-Left> :tabmove! -1<CR>
 
-unmap z
-unmap x
-nnoremap z h
-nnoremap x l
-
+noremap x <A-Left>
+noremap c <A-Right>
 
 "コピー&ペーストなどOSのショートカットが効くように
 inoremap <C-a> <C-v><C-a>
@@ -47,26 +79,13 @@ cnoremap <C-x> <C-v><C-x>
 cnoremap <C-c> <C-v><C-c>
 cnoremap <C-v> <C-v><C-v>
 
-"LDRize_Cooperationをトグル
-map q <esc>:toggleldrc<cr>
-
 "ダイアログ表示してブックマーク追加
 map ,a <esc>:dialog addbookmark<cr>
 
-"Vimperatorからminibufferコマンド
-map <C-:> :m<Space>
-
-"Ctrl+rで再起動,Ctrl+hでヘルプ
 map <C-r> :restart<CR>
-"map <C-h> :help<CR>
+map <C-h> :help<CR>
 
-"Gmail と Google Reader で使用するキーを設定
-" autocmd LocationChange .* :fmapc
-" autocmd LocationChange 'mail\.google\.com/mail' :fmap c / j k n p o u e x s r a y # [ ] z ? gi gs gt gd ga gc
-" autocmd LocationChange 'www\.google\.com/reader' :fmap! -vkey j k n p m s t v A r S N P X O gh ga gs gt gu / ?
-" autocmd LocationChange 'www\.google\.co\.jp/reader' :fmap! -vkey j k n p m s t v A r S N P
-" autocmd LocationChange .* :js modes.passAllKeys = /feedly\.com/.test(buffer.URL)
-
+" ===================================================
 " Plugins
 " ===================================================
 
@@ -96,61 +115,27 @@ nnoremap S :hbtabsearch<Space>
 nnoremap m :bmarks<Space>
 set complete+=H
 
-"" copy.js
+" copy.js
 javascript <<EOM
 (function () {
-  function findTextContent(re, e) {
-    if (!e) e = content.document.body;
-
-    var m = e.textContent.match(re);
-    if (m) return m[0];
-    
-    for (var i = 0; i < e.children.length; i++) {
-      var result = arguments.callee(re, e.children[i]);
-      if (result) return result;
-    }
-    return null;
-  }
-
   liberator.globalVariables.copy_templates = [
     { label: 'titleAndURL',    value: '%TITLE%\n%URL%' },
-    { label: 'title',          value: '%TITLE%', map: ',y' },
+    { label: 'markdown',       value: '[%TITLE%](%URL%)' },
+    { label: 'title',          value: '%TITLE%' },
     { label: 'anchor',         value: '<a href="%URL%">%TITLE%</a>' },
     { label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
-    { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
+
     { label: 'amazon',   value: 'copy clean amazon url from current page',
       custom: function() {
-        var m = content.document.location.pathname.match(/dp\/(\w+)/);
+        var m = content.document.location.pathname.match(/dp\/(\d+)/);
         return m ? ('http://amazon.jp/dp/' + m[1]) : null;
       }
     },
-    { label: 'PA', value: 'copy account_id from CMSP', map: ',pa',
-      custom: function() {
-        return findTextContent(/PA\d{8}/);
-      }},
-    { label: 'CI', value: 'copy inq ID from CMSP', map: ',ci',
-      custom: function() {
-        return findTextContent(/CI\d{8}/);
-      }},
-    { label: 'sinsei', value: 'リリース承認おねがいします。>カラーミー開発 %URL%', map: ',xp'},
-
-    { label: 'webistrano', value: 'copy deploy 宣言', map: ',we',
-      custom: function() {
-        var title = content.document.title;
-        var proj  = '',
-            stage = '',
-            m;
-        if (m = title.match(/Project\s+(.+?)\s*?-/)) {
-          proj = m[1];
-        }
-        if (m = title.match(/[^-]+?$/)) {
-          stage = m[0];
-        }
-        return proj + " " + stage + " デプロイします。";
-      }
-    }
   ];
 })();
 EOM
 
 js services.services.autoCompleteSearch.class_="@mozilla.org/autocomplete/search;1?name=unifiedcomplete"
+
+"読み込み完了メッセージ
+echo "vimperatorrc loaded."
