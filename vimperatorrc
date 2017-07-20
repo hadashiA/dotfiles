@@ -5,7 +5,7 @@ set visualbell
 set verbose=7
 " :oなどでの補完候補をサーチエンジン、履歴に限定
 set complete=sl
-set defsearch=google
+set defsearch=g
 set suggestengines=google
 set hlsearch
 set history=1000
@@ -54,7 +54,9 @@ noremap ,s :tabopen<Space>google<Space>
 noremap j 5<C-e>
 noremap k 5<C-y>
 noremap J <PageDown>
+noremap <C-d> <PageDown>
 noremap K <PageUp>
+noremap <C-u> <PageUp>
 noremap h <A-Left>
 noremap l <A-Right>
 noremap H gT
@@ -63,6 +65,7 @@ map <Left> <C-p>
 map <Right> <C-n>
 map <S-Right> :tabmove! +1<CR>
 map <S-Left> :tabmove! -1<CR>
+noremap <C-g> <ESC>
 
 noremap x <A-Left>
 noremap c <A-Right>

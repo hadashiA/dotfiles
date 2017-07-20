@@ -1,0 +1,7 @@
+AllCops:
+  TargetRubyVersion: 2.4
+AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+Style/SpaceInsideBlockBraces:
+  EnforceStyle: no_space
+  SpaceBeforeBlockParameters: true
