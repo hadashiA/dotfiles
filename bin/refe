@@ -1,4 +1,0 @@
-#!/bin/sh
-REFM_PATH=~/dotfiles/doc/ruby-refm
-BITCLUST_PATH=$REFM_PATH/bitclust
-ruby -I $BITCLUST_PATH/bitclust/lib $BITCLUST_PATH/bin/refe.rb -d $REFM_PATH/db-1_9_2 $*

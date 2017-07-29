@@ -1,4 +1,0 @@
-#!/usr/bin/env ruby
-# coding: utf-8
-
-puts STDIN.read.split(/\s+/).map{|code| code.scan(/Hey|パス/).map{|w| w == 'Hey' ? 0 : 1}.join.to_i(2)}.pack('U*')
