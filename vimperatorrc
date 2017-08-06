@@ -67,8 +67,9 @@ map <S-Right> :tabmove! +1<CR>
 map <S-Left> :tabmove! -1<CR>
 noremap <C-g> <ESC>
 
-noremap x <A-Left>
-noremap c <A-Right>
+unmap w
+noremap q <A-Left>
+noremap w <A-Right>
 
 "コピー&ペーストなどOSのショートカットが効くように
 inoremap <C-a> <C-v><C-a>
