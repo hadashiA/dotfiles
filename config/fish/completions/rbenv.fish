@@ -1,1 +1,0 @@
-/Users/rkubota/.config/fisherman/rbenv/completions/rbenv.fish
