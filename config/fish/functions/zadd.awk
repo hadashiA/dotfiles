@@ -1,1 +1,0 @@
-/Users/rkubota/.config/fisherman/z/functions/zadd.awk

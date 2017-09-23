@@ -1,1 +1,0 @@
-/Users/rkubota/.config/fisherman/clearance-fish/fish_prompt.fish

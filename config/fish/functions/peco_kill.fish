@@ -1,1 +1,0 @@
-/Users/rkubota/.config/fisherman/peco/functions/peco_kill.fish

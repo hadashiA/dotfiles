@@ -1,1 +1,0 @@
-/Users/rkubota/.config/fisherman/getopts/getopts.fish
