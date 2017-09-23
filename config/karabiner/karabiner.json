@@ -1282,7 +1282,8 @@
                 "japanese_pc_katakana": "right_command",
                 "japanese_pc_nfer": "japanese_eisuu",
                 "japanese_pc_xfer": "japanese_kana",
-                "non_us_pound": "right_control"
+                "non_us_pound": "right_control",
+                "right_control": "backslash"
             },
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
