@@ -1,1 +1,0 @@
-/Users/rkubota/.config/fisherman/z/conf.d/z.fish
