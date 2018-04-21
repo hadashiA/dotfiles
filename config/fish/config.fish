@@ -1,6 +1,7 @@
 set SHELL /usr/local/bin/fish
 set PATH $HOME/.cargo/bin $PATH
 set PATH $HOME/.rbenv/bin $PATH
+set PATH ~/src/google-cloud-sdk/bin $PATH
 set PATH ~/bin $PATH
 set EDITOR /usr/bin/vim
 set BROWSER "open -a Firefox"
@@ -16,3 +17,7 @@ end
 for file in ~/.config/fish/conf.d/*.fish
     source $file
 end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/hadashi/Downloads/google-cloud-sdk/path.fish.inc' ]; if type source > /dev/null; source '/Users/hadashi/Downloads/google-cloud-sdk/path.fish.inc'; else; . '/Users/hadashi/Downloads/google-cloud-sdk/path.fish.inc'; end; end
+
