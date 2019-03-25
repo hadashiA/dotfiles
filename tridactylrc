@@ -1,0 +1,6 @@
+bind H tabprev
+bind L tabnext
+
+# ** History
+bind h back
+bind l forward
