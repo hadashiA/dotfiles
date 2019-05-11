@@ -1,10 +1,4 @@
+# Defined in /Users/hadashi/.config/fish/config.fish @ line 34
 function fish_user_key_bindings
-    ### ghq ###
-    bind \cg '__ghq_crtl_g'
-    if bind -M insert >/dev/null ^/dev/null
-        bind -M insert \cg '__ghq_crtl_g'
-    end
-    ### ghq ###
+	bind --erase --key \cf
 end
-
-fzf_key_bindings

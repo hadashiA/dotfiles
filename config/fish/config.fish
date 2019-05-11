@@ -32,4 +32,7 @@ function fcoc -d "Fuzzy-find and checkout a commit"
 end
 
 function fish_user_key_bindings
+    bind --erase --key \cf
 end
+
+funcsave fish_user_key_bindings
