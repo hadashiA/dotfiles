@@ -1,6 +1,21 @@
 bind H tabprev
 bind L tabnext
 
-# ** History
+" ** History
 bind h back
 bind l forward
+
+" yank
+" bind ys composite js `[${document.title} ${document.URL}]` | clipboard yank
+bind cl composite js `${document.URL}` | clipboard yank
+bind cs composite js `[${document.title} ${document.URL}]` | clipboard yank
+bind cm composite js `[${document.title}](${document.URL})` | clipboard yank
+
+" 
+set searchurls.alc https://eow.alc.co.jp/search?q=
+set searchurls.ja_en https://translate.google.com/?hl=ja&tab=TT#ja/en/
+set searchurls.en_ja https://translate.google.com/?hl=ja&tab=TT#en/ja/
+set searchurls.t https://twitter.com/search?q=
+set searchurls.a https://www.amazon.co.jp/s?k= 
+
+set theme quake
