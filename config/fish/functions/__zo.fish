@@ -1,1 +1,0 @@
-/Users/hadashi/.config/fisherman/z/functions/__zo.fish
