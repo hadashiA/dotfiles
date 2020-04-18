@@ -1,1 +1,0 @@
-/Users/hadashi/.config/fisherman/rbenv/completions/rbenv.fish
