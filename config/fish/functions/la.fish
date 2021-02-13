@@ -1,3 +1,3 @@
 function la
-	ls -la
+	lsd -la
 end

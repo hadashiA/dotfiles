@@ -1,3 +1,3 @@
 function lh
-  exa -lha $argv
+  lsd -lha $argv
 end

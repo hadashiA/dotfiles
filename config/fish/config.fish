@@ -1,14 +1,19 @@
 set SHELL /usr/local/bin/fish
 set PATH $HOME/.cargo/bin $PATH
 set PATH $HOME/.rbenv/bin $PATH
+set PATH /opt/homebrew/bin $PATH
 set PATH ~/src/google-cloud-sdk/bin $PATH
 set PATH ~/src/flutter/bin $PATH
 set PATH ~/Library/Android/sdk/platform-tools $PATH
 set PATH ~/.dotnet/tools $PATH
+set PATH ~/.n/bin $PATH
 set PATH ~/bin $PATH
-set EDITOR ~/src/emacs/lib-src/emacsclient
-set BROWSER "open -a Firefox"
-set LANG ja_JP.UTF-8
+
+# set EDITOR ~/src/emacs/lib-src/emacsclient
+set -x BROWSER "open -a Firefox"
+set -x LANG ja_JP.UTF-8
+set -x GHQ_ROOT ~/src
+set -x N_PREFIX ~/.n
 
 for file in ~/.config/fish/conf.d/*.fish
     source $file
@@ -31,7 +36,7 @@ function ec -d "Alias for emacsclient"
 end
 
 function fco -d "Fuzzy-find and checkout a branch"
-  git branch --all | grep -v HEAD | string trim | fzf -e -x +c | read -l result; and git checkout "$result"
+  git branch --all | grep -v HEAD | string trim | sk --ansi -e -x | read -l result; and git checkout "$result"
 end
 
 function fcoc -d "Fuzzy-find and checkout a commit"
@@ -53,4 +58,4 @@ funcsave fish_user_key_bindings
 # Load rbenv automatically by appending
 # the following to ~/.config/fish/config.fish:
 
-status --is-interactive; and rbenv init - | source
+# status --is-interactive; and rbenv init - | source
