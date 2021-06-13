@@ -160,6 +160,7 @@
 (load "init-server")
 (load "init-color")
 (load "init-shell")
+(load "init-autosave")
 (load "init-generic-x")
 (load "init-ffap")
 (load "init-window")
