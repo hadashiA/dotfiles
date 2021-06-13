@@ -29,12 +29,6 @@
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t))
 
-(use-package consult
-  :straight t
-  :bind ("C-;" . 'consult-buffer)
-  )
-
-
 ;; Enable richer annotations using the Marginalia package
 (use-package marginalia
   :straight t

@@ -159,6 +159,7 @@
 
 (load "init-server")
 (load "init-color")
+(load "init-shell")
 (load "init-generic-x")
 (load "init-ffap")
 (load "init-window")
@@ -166,5 +167,6 @@
 (load "init-highlighting")
 (load "init-vimlike")
 (load "init-dired")
+(load "init-consult")
 (load "init-vertico")
 (load "init-multiple-cursors")
