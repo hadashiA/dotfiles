@@ -1,15 +1,4 @@
-;;
-;; Global Variables
-;;
-
 ;; スタートアップ時のメッセージを抑制
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
-
 (setq inhibit-startup-message t)
 
 (when window-system
@@ -83,7 +72,7 @@
 ;; バッファにファイルをドラッグドロップした際のファイルをinsertする動作に変更されている。
 ;; (define-key global-map [ns-drag-file] 'ns-insert-file)
 ;; Emacs22の時の動作は find-fileですので同じにするには以下を .emacs に記述します
-(define-key global-map [ns-drag-file] 'ns-find-file)
+;; (define-key global-map [ns-drag-file] 'ns-find-file)
 
 (setq dnd-open-file-other-window nil)
 
@@ -96,149 +85,86 @@
 ;; ファイルの末尾に改行を付加しない
 (setq require-final-newline nil)
 
-(add-to-list 'load-path "~/.emacs.d/elisp")
-(add-to-list 'load-path "~/.emacs.d/init")
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
 ;; 半角と全角の比を1:2に
 (setq face-font-rescale-alist
       '((".*Hiragino_Mincho_pro.*" . 1.2)))
 
+
+
+;; C-hをBackSpaceに
+(global-set-key "\C-h" 'delete-backward-char)
+(global-set-key "\C-x?" 'help-command)
+
+;; C-x C-iでリージョンをインデント
+(global-set-key "\C-x\C-i" 'indent-region)
+
+;; C-x ?でヘルプ
+(global-set-key "\C-x?" 'help)
+
+;; C-x uで全置引数
+(global-set-key "\C-xu" 'universal-argument)
+
+;; C-c C-iでインフォを引く
+(global-set-key "\C-c\C-i" 'info-lookup-symbol)
+
+;; [2008-03-13]
+;; Teaminal.app上ではダメ。
+
+;; M-< M-> の代わりに C-< C-> を使う
+(global-set-key (kbd "C-<") 'beginning-of-buffer)
+(global-set-key (kbd "C->") 'end-of-buffer)
+
+;; キーボードレイアウトをカスタマイズして、[をCtrl、 ]をMetaにしてるの
+;; M-} と M-{ を再設定
+(global-set-key "\M-9" 'forward-paragraph)
+(global-set-key "\M-8" 'backward-paragraph)
+
+;; shellっぽいところで、C-n/pでヒストリ
+;;(define-key comint-mode-map "\C-p" 'comint-previous-input)
+;;(define-key comint-mode-map  "\C-n" 'comint-next-input)
+
+(global-set-key "\M-n" 'forward-list)
+(global-set-key "\M-p" 'backward-list)
+
+(global-set-key "\C-c\C-a" 'align)
+
 ;;
-;; Standard Libraries
+;; Packages (straight.el)
+;;
+
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(setq package-enable-at-startup nil)
+
+(straight-use-package 'use-package)
+
+(add-to-list 'load-path "~/.emacs.d/elisp")
+(add-to-list 'load-path "~/.emacs.d/init")
+;; (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+;;
+;; Configurations each packages
 ;;
 
 (load "init-server")
 (load "init-color")
-(load "init-shell")
+(load "init-generic-x")
 (load "init-ffap")
-(load "init-minibuf")
-(load "init-remaps")
 (load "init-window")
 (load "init-killring")
 (load "init-highlighting")
 (load "init-vimlike")
 (load "init-dired")
-(load "init-cc")
-(load "init-genkou-mode")
-(load "init-generic-x")
-(load "init-os")
-
-;;
-;; Packages
-;;
-
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-
-(add-to-list 'el-get-recipe-path "~/.emacs.d/recipes")
-(setq el-get-user-package-directory (locate-user-emacs-file "init"))
-
-(el-get-bundle s)
-(el-get-bundle dash)
-(el-get-bundle smartrep
-  :features smartrep)
-;; (el-get-bundle mcomplete
-;;   :type github
-;;   :pkgname "emacsmirror/mcomplete"
-;;   :features mcomplete)
-(el-get-bundle session)
-(el-get-bundle smartparens)
-(el-get-bundle auto-save-buffers-enhanced
-  :type github
-  :pkgname "kentaro/auto-save-buffers-enhanced")
-(el-get-bundle point-undo
-  :type github
-  :pkgname "emacsmirror/point-undo")
-(el-get-bundle goto-last-change)
-;; (el-get-bundle undohist
-;;   :features undohist)
-(el-get-bundle expand-region)
-(el-get-bundle multiple-cursors)
-(el-get-bundle smartchr)
-(el-get-bundle rainbow-delimiters)
-(el-get-bundle open-junk-file)
-(el-get-bundle ace-jump-mode)
-(el-get-bundle ddskk)
-(el-get-bundle flycheck)
-(el-get-bundle flycheck-pos-tip)
-(el-get-bundle go-flymake
-  :features go-flycheck)
-(el-get-bundle dropdown-list
-  :features dropdown-list)
-(el-get-bundle yasnippet)
-(el-get-bundle pos-tip)
-(el-get-bundle company-mode)
-(el-get-bundle gtags)
-(el-get-bundle git-gutter)
-(el-get-bundle projectile)
-(el-get-bundle helm)
-(el-get-bundle helm-ag)
-(el-get-bundle helm-projectile)
-(el-get-bundle helm-ghq)
-(el-get-bundle helm-c-yasnippet)
-(el-get-bundle helm-gtags)
-(el-get-bundle helm-descbinds)
-(el-get-bundle helm-swoop)
-(el-get-bundle magit)
-(el-get-bundle google-translate)
-(el-get-bundle markdown-mode)
-(el-get-bundle twittering-mode)
-(el-get-bundle web-mode)
-(el-get-bundle haml-mode)
-(el-get-bundle handlebars-mode)
-(el-get-bundle rainbow-mode)
-(el-get-bundle js2-mode)
-(el-get-bundle coffee-mode)
-(el-get-bundle typescript-mode)
-(el-get-bundle json-mode)
-(el-get-bundle yaml-mode)
-(el-get-bundle rust-mode)
-(el-get-bundle cargo
-  :type github
-  :pkgname "kwrooijen/cargo.el")
-(el-get-bundle racer
-  :type github
-  :pkgname "racer-rust/emacs-racer")
-(el-get-bundle ruby-mode)
-(el-get-bundle ruby-block)
-(el-get-bundle inf-ruby)
-(el-get-bundle rcodetools)
-(el-get-bundle csharp-mode)
-(el-get-bundle omnisharp-mode)
-(el-get-bundle dash-at-point)
-(el-get-bundle swift-mode)
-
-(ido-everywhere t)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(flycheck-display-errors-function (function flycheck-pos-tip-error-messages))
- '(ido-enter-matching-directory (quote first))
- '(ido-max-directory-size (quote const))
- '(package-selected-packages (quote (typescript-mode nil rainbow-mode)))
- '(session-use-package t nil (session)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#272822" :foreground "#F8F8F2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal))))
- '(cursor ((t (:background "#F8F8F2" :foreground "#272822"))))
- '(font-lock-comment-face ((((class color) (min-colors 88) (background dark)) (:foreground "#75715E"))))
- '(font-lock-function-name-face ((((class color) (min-colors 88) (background dark)) (:foreground "#A6E22E"))))
- '(font-lock-keyword-face ((((class color) (min-colors 88) (background dark)) (:foreground "#F92672"))))
- '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face :foreground "#66d9ef"))))
- '(font-lock-string-face ((((class color) (min-colors 88) (background dark)) (:foreground "#E6DB74"))))
- '(font-lock-type-face ((((class color) (min-colors 88) (background dark)) (:foreground "#66d9ef"))))
- '(font-lock-variable-name-face ((((class color) (min-colors 88) (background dark)) (:foreground "#FD971F"))))
- '(region ((((class color) (min-colors 88) (background dark)) (:background "#49483E"))))
- '(show-paren-match ((((class color) (background dark)) (:background "#3E3D32"))))
- '(variable-pitch ((t (:family "DejaVu Sans")))))
+(load "init-vertico")
+(load "init-multiple-cursors")
