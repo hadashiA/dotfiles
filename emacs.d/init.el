@@ -90,7 +90,6 @@
       '((".*Hiragino_Mincho_pro.*" . 1.2)))
 
 
-
 ;; C-hをBackSpaceに
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\C-x?" 'help-command)
@@ -157,11 +156,11 @@
 ;; Configurations each packages
 ;;
 
+(recentf-mode)
 (load "init-server")
 (load "init-color")
 (load "init-shell")
 (load "init-autosave")
-(load "init-generic-x")
 (load "init-ffap")
 (load "init-window")
 (load "init-killring")
@@ -171,3 +170,6 @@
 (load "init-consult")
 (load "init-vertico")
 (load "init-multiple-cursors")
+(load "init-generic-x")
+(load "init-markdown")
+(load "init-yaml")
