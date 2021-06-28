@@ -6,4 +6,4 @@
   ("M-<" . 'mc/mark-previous-lines)
   ("C-c M-<" . 'mc/mark-all-like-this)
   ("C-c C-SPC" . 'set-rectangular-region-anchor))
-g
+
