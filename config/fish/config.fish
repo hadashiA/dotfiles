@@ -1,6 +1,5 @@
 set SHELL /usr/local/bin/fish
 set PATH $HOME/.cargo/bin $PATH
-set PATH $HOME/.rbenv/bin $PATH
 set PATH /opt/homebrew/bin $PATH
 set PATH ~/src/google-cloud-sdk/bin $PATH
 set PATH ~/src/flutter/bin $PATH
@@ -54,8 +53,5 @@ end
 
 funcsave fish_user_key_bindings
 
+source ~/.asdf/asdf.fish
 
-# Load rbenv automatically by appending
-# the following to ~/.config/fish/config.fish:
-
-# status --is-interactive; and rbenv init - | source
