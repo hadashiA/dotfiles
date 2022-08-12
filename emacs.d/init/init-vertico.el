@@ -1,8 +1,30 @@
 (use-package vertico
-  :straight t
+  ;; Special recipe to load extensions conveniently
+  :straight (vertico :files (:defaults "extensions/*")
+                     :includes (vertico-indexed
+                                vertico-flat
+                                vertico-grid
+                                vertico-mouse
+                                vertico-quick
+                                vertico-buffer
+                                vertico-repeat
+                                vertico-reverse
+                                vertico-directory
+                                vertico-multiform
+                                vertico-unobtrusive
+                                ))  
   :init
   (vertico-mode)
-  (setq vertico-cycle t))
+  (define-key vertico-map "?" #'minibuffer-completion-help)
+  (define-key vertico-map (kbd "<escape>") #'minibuffer-keyboard-quit)
+
+  (global-set-key "\M-:" #'vertico-repeat)
+  (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
+  
+  )
+
+;; (:keymaps '(normal insert visual motion)
+;;           "M-:" #'vertico-repeat)
 
 (use-package orderless
   :straight t
@@ -37,6 +59,9 @@
          :map minibuffer-local-map
          ("M-A" . marginalia-cycle))
 
+  :custom
+  (marginalia-max-relative-age 0)
+  (marginalia-align 'right)  
   ;; The :init configuration is always executed (Not lazy!)
   :init
 

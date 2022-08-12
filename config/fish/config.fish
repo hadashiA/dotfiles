@@ -1,15 +1,17 @@
 set SHELL /usr/local/bin/fish
 set PATH $HOME/.cargo/bin $PATH
+set PATH /usr/local/bin $PATH
 set PATH /opt/homebrew/bin $PATH
 set PATH ~/src/google-cloud-sdk/bin $PATH
 set PATH ~/src/flutter/bin $PATH
 set PATH ~/Library/Android/sdk/platform-tools $PATH
 set PATH ~/.dotnet/tools $PATH
-set PATH ~/.n/bin $PATH
+# set PATH ~/.n/bin $PATH
+set PATH ~/.deno/bin $PATH
 set PATH ~/bin $PATH
 
 # set EDITOR ~/src/emacs/lib-src/emacsclient
-set -x BROWSER "open -a Firefox"
+# set -x BROWSER "open -a Firefox"
 set -x LANG ja_JP.UTF-8
 set -x GHQ_ROOT ~/src
 set -x N_PREFIX ~/.n
@@ -126,3 +128,4 @@ funcsave fish_user_key_bindings
 # source ~/.asdf/asdf.fish
 
 starship init fish | source
+zoxide init fish | source

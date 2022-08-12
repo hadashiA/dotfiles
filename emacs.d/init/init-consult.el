@@ -94,4 +94,6 @@
   ;; (setq consult-project-root-function #'vc-root-dir)
   ;;;; 4. locate-dominating-file
   ;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
+  ;; fdコマンドを使ってconsult-findを利用する
+  (setq consult-find-command "fd --color=never --full-path ARG OPTS")
 )
