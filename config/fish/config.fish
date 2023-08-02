@@ -1,4 +1,3 @@
-set SHELL /usr/local/bin/fish
 set PATH $HOME/.cargo/bin $PATH
 set PATH /usr/local/bin $PATH
 set PATH /opt/homebrew/bin $PATH
@@ -6,7 +5,7 @@ set PATH ~/src/google-cloud-sdk/bin $PATH
 set PATH ~/src/flutter/bin $PATH
 set PATH ~/Library/Android/sdk/platform-tools $PATH
 set PATH ~/.dotnet/tools $PATH
-# set PATH ~/.n/bin $PATH
+set PATH ~/.n/bin $PATH
 set PATH ~/.deno/bin $PATH
 set PATH ~/bin $PATH
 
@@ -15,6 +14,8 @@ set PATH ~/bin $PATH
 set -x LANG ja_JP.UTF-8
 set -x GHQ_ROOT ~/src
 set -x N_PREFIX ~/.n
+
+set -x GHQ_SELECTOR sk
 
 for file in ~/.config/fish/conf.d/*.fish
     source $file
