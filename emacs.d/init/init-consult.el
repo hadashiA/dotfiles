@@ -31,12 +31,12 @@
          ("M-g I" . consult-project-imenu)
          ;; M-s bindings (search-map)
          ("M-s f" . consult-find)
-         ("C-," . consult-find)
+         ;; ("C-," . consult-find)
          ("M-s L" . consult-locate)
          ("M-s g" . consult-grep)
          ("M-s G" . consult-git-grep)
          ("M-s r" . consult-ripgrep)
-         ("C-:" . consult-ripgrep)
+         ;; ("C-:" . consult-ripgrep)
          ("M-s l" . consult-line)
          ("M-s m" . consult-multi-occur)
          ("M-s k" . consult-keep-lines)
@@ -98,4 +98,17 @@
   ;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
   ;; fdコマンドを使ってconsult-findを利用する
   (setq consult-find-command "fd --color=never --full-path ARG OPTS")
+
+  (defun my/consult-ripgrep-current-dir ()
+    "Run consult-ripgrep in current directory."
+    (interactive)
+    (consult-ripgrep default-directory))
+
+  (defun my/consult-find-current-dir ()
+    "Run consult-find in current directory."
+    (interactive)
+    (consult-find default-directory))
+  
+  (global-set-key (kbd "C-,") 'my/consult-ripgrep-current-dir)
+  (global-set-key (kbd "C-:") 'my/consult-find-current-dir)
 )
