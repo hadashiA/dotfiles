@@ -5,7 +5,6 @@ set PATH ~/src/google-cloud-sdk/bin $PATH
 set PATH ~/src/flutter/bin $PATH
 set PATH ~/Library/Android/sdk/platform-tools $PATH
 set PATH ~/.dotnet/tools $PATH
-set PATH ~/.n/bin $PATH
 set PATH ~/.deno/bin $PATH
 set PATH ~/bin $PATH
 
@@ -126,7 +125,48 @@ end
 
 funcsave fish_user_key_bindings
 
+if command -v sk > /dev/null
+  # Ctrl-T でファイル検索
+  bind \ct 'sk | read -l result; and commandline -i $result'
+  
+  # Ctrl-R でコマンド履歴検索
+  bind \cr 'history | sk | read -l result; and commandline -r $result'
+  
+  # Alt-C でディレクトリ検索・移動
+  bind \ec 'find . -type d | sk | read -l result; and cd $result'
+end
+
+function __ghq_repository_search -d 'Repository search'
+    set -l selector
+    [ -n "$GHQ_SELECTOR" ]; and set selector $GHQ_SELECTOR; or set selector fzf
+    set -l selector_options
+    [ -n "$GHQ_SELECTOR_OPTS" ]; and set selector_options $GHQ_SELECTOR_OPTS
+
+    if not type -qf $selector
+        printf "\nERROR: '$selector' not found.\n"
+        return 1
+    end
+
+    set -l query (commandline -b)
+    [ -n "$query" ]; and set flags --query="$query"; or set flags
+    switch "$selector"
+        case fzf fzf-tmux peco percol fzy sk
+            ghq list --full-path | "$selector" $selector_options $flags | read select
+        case \*
+            printf "\nERROR: plugin-ghq is not support '$selector'.\n"
+    end
+    [ -n "$select" ]; and cd "$select"
+    commandline -f repaint
+end
+
+bind \cg '__ghq_repository_search'
+if bind -M insert >/dev/null 2>/dev/null
+    bind -M insert \cg '__ghq_repository_search'
+end
+
 # source ~/.asdf/asdf.fish
 
 starship init fish | source
 zoxide init fish | source
+
+~/.local/bin/mise activate fish | source
