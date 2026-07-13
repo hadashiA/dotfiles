@@ -169,7 +169,13 @@
 (load "init-dired")
 (load "init-consult")
 (load "init-vertico")
+(load "init-gumshoe")
 (load "init-multiple-cursors")
 (load "init-generic-x")
 (load "init-markdown")
 (load "init-yaml")
+(load "init-protobuf")
+;; (load "init-ruby")                      
+(load "init-migemo")
+(load "init-ddskk")
+

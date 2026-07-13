@@ -109,6 +109,6 @@
     (interactive)
     (consult-find default-directory))
   
-  (global-set-key (kbd "C-,") 'my/consult-ripgrep-current-dir)
-  (global-set-key (kbd "C-:") 'my/consult-find-current-dir)
+  (global-set-key (kbd "C-,") 'consult-project-buffer)
+  (global-set-key (kbd "C-:") 'my/consult-ripgrep-current-dir)
 )
