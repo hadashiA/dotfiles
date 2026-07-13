@@ -41,7 +41,6 @@
 :NeoComplCacheUnLock	neocomplcache.jax	/*:NeoComplCacheUnLock*
 <Plug>(neocomplcache_snippets_expand)	neocomplcache.jax	/*<Plug>(neocomplcache_snippets_expand)*
 <Plug>(neocomplcache_snippets_jump)	neocomplcache.jax	/*<Plug>(neocomplcache_snippets_jump)*
-abc	fuf.jax	/*abc*
 fuf	fuf.jax	/*fuf*
 fuf-abbreviation	fuf.jax	/*fuf-abbreviation*
 fuf-about	fuf.jax	/*fuf-about*

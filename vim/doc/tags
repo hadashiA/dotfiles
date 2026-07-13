@@ -44,7 +44,6 @@ Align-copyright	Align.txt	/*Align-copyright*
 MatchError	matchit.txt	/*MatchError*
 [%	matchit.txt	/*[%*
 ]%	matchit.txt	/*]%*
-abc	fuf.txt	/*abc*
 align	Align.txt	/*align*
 align-align	Align.txt	/*align-align*
 align-codepoint	Align.txt	/*align-codepoint*
