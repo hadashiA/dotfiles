@@ -6,22 +6,20 @@ set PATH ~/src/flutter/bin $PATH
 set PATH ~/Library/Android/sdk/platform-tools $PATH
 set PATH ~/.dotnet/tools $PATH
 set PATH ~/.deno/bin $PATH
+set PATH ~/.vite-plus/bin $PATH
 set PATH ~/bin $PATH
 
 # set EDITOR ~/src/emacs/lib-src/emacsclient
 # set -x BROWSER "open -a Firefox"
 set -x LANG ja_JP.UTF-8
 set -x GHQ_ROOT ~/src
-set -x N_PREFIX ~/.n
+# set -x N_PREFIX ~/.n
 
 set -x GHQ_SELECTOR sk
 
 for file in ~/.config/fish/conf.d/*.fish
     source $file
 end
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/hadashi/Downloads/google-cloud-sdk/path.fish.inc' ]; if type source > /dev/null; source '/Users/hadashi/Downloads/google-cloud-sdk/path.fish.inc'; else; . '/Users/hadashi/Downloads/google-cloud-sdk/path.fish.inc'; end; end
 
 set GOENV_ROOT $HOME/.goenv
 set PATH $GOENV_ROOT/shims $PATH
@@ -62,7 +60,6 @@ function extract
   end
 end
 
-
 function ec -d "Alias for emacsclient"
   emacsclient $argv
 end
@@ -73,10 +70,6 @@ end
 
 function fhq -d "Fuzzy-find for rhq"
   cd (rhq list | sk --ansi -i)
-end
-
-function fish_user_key_bindings
-  bind --erase --key \cf
 end
 
 function g
@@ -123,8 +116,6 @@ function lh
   lsd -lha $argv
 end
 
-funcsave fish_user_key_bindings
-
 if command -v sk > /dev/null
   # Ctrl-T でファイル検索
   bind \ct 'sk | read -l result; and commandline -i $result'
@@ -133,40 +124,59 @@ if command -v sk > /dev/null
   bind \cr 'history | sk | read -l result; and commandline -r $result'
   
   # Alt-C でディレクトリ検索・移動
-  bind \ec 'find . -type d | sk | read -l result; and cd $result'
+  bind \ec 'eval $SKIM_ALT_C_COMMAND | sk | read -l result; and cd $result'
 end
 
 function __ghq_repository_search -d 'Repository search'
     set -l selector
-    [ -n "$GHQ_SELECTOR" ]; and set selector $GHQ_SELECTOR; or set selector fzf
-    set -l selector_options
-    [ -n "$GHQ_SELECTOR_OPTS" ]; and set selector_options $GHQ_SELECTOR_OPTS
+    if set -q GHQ_SELECTOR; and test -n "$GHQ_SELECTOR"
+        set selector $GHQ_SELECTOR
+    else
+        set selector fzf
+    end
 
-    if not type -qf $selector
-        printf "\nERROR: '$selector' not found.\n"
+    if not type -q $selector
+        printf "\nERROR: '%s' not found.\n" $selector
+        commandline -f repaint
         return 1
     end
 
-    set -l query (commandline -b)
-    [ -n "$query" ]; and set flags --query="$query"; or set flags
-    switch "$selector"
-        case fzf fzf-tmux peco percol fzy sk
-            ghq list --full-path | "$selector" $selector_options $flags | read select
-        case \*
-            printf "\nERROR: plugin-ghq is not support '$selector'.\n"
+    set -l result (ghq list --full-path | $selector $GHQ_SELECTOR_OPTS)
+    if test -n "$result"
+        cd $result
     end
-    [ -n "$select" ]; and cd "$select"
     commandline -f repaint
 end
 
-bind \cg '__ghq_repository_search'
+function fvm
+    # fvm flutter → flutter に変換
+    if test "$argv[1]" = "flutter"
+        flutter $argv[2..-1]
+    else if test "$argv[1]" = "dart"
+        dart $argv[2..-1]
+    else
+        # その他のfvmコマンドは無視
+        echo "fvm command ignored (using mise instead)"
+    end
+end
+
+bind ctrl-g __ghq_repository_search
 if bind -M insert >/dev/null 2>/dev/null
-    bind -M insert \cg '__ghq_repository_search'
+    bind -M insert ctrl-g __ghq_repository_search
 end
 
 # source ~/.asdf/asdf.fish
 
 starship init fish | source
 zoxide init fish | source
+atuin init fish | source
 
 ~/.local/bin/mise activate fish | source
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/hadashi/src/google-cloud-sdk/path.fish.inc' ]; . '/Users/hadashi/src/google-cloud-sdk/path.fish.inc'; end
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+

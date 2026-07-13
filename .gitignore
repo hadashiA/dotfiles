@@ -39,3 +39,6 @@ emacs.d/eln-cache
 emacs.d/transient
 emacs.d/projects
 emacs.d/.claude
+config/fish/fish_variables
+config/fish/config.fish.backup
+config/fish/completions
