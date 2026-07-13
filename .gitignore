@@ -42,3 +42,4 @@ emacs.d/.claude
 config/fish/fish_variables
 config/fish/config.fish.backup
 config/fish/completions
+config/karabiner/automatic_backups
