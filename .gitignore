@@ -35,3 +35,7 @@ emacs.d/elpa
 emacs.d/info
 emacs.d/ac-dict
 emacs.d/auto-save-list
+emacs.d/eln-cache
+emacs.d/transient
+emacs.d/projects
+emacs.d/.claude
