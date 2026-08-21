@@ -171,7 +171,7 @@ starship init fish | source
 zoxide init fish | source
 atuin init fish | source
 
-~/.local/bin/mise activate fish | source
+mise activate fish | source
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/hadashi/src/google-cloud-sdk/path.fish.inc' ]; . '/Users/hadashi/src/google-cloud-sdk/path.fish.inc'; end
