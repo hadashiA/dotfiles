@@ -169,7 +169,7 @@ end
 
 starship init fish | source
 zoxide init fish | source
-atuin init fish | source
+atuin init fish --disable-up-arrow | source
 
 mise activate fish | source
 
