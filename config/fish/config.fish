@@ -160,7 +160,16 @@ function fvm
     end
 end
 
+# Karabiner が ctrl-g を Escape に変換するので、escape でも起動する
+function __ghq_repository_search_on_escape
+    if commandline --paging-mode; or commandline --search-mode
+        return
+    end
+    __ghq_repository_search
+end
+
 bind ctrl-g __ghq_repository_search
+bind escape __ghq_repository_search_on_escape
 if bind -M insert >/dev/null 2>/dev/null
     bind -M insert ctrl-g __ghq_repository_search
 end
